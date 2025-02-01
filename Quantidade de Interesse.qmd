@@ -1,8 +1,0 @@
----
-tags:
-  - Inferência
----
-É uma quantidade relacionada com a distribuição da [[População e amostra#Variável Populacional|variável aleatória populacional]].
-$$g(\theta).$$
-Como $g(\theta) = E_\theta(X), g(\theta)= \mathrm{Var}_\theta(X), g(\theta)=P_\theta(X\geq1)$ e outras medidas de interesse, como até $g(\theta)=\theta$
-
