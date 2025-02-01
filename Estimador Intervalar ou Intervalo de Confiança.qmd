@@ -1,0 +1,240 @@
+---
+date: 2024-10-01T14:04:00
+tags:
+  - Inferência
+  - Anotações
+---
+
+Seja $(X_1,\ldots, X_n)$ [[População e amostra#Amostra Aleatória|a.a.]] de $X\sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}$.
+
+Um intervalo de confiança com coeficiente de confiança $\gamma$ é um intervalo aleatório que satisfaz:
+
+$$
+P_{\theta} (I_{1}(\pmb{X}_{n}) \leq \theta \leq I_{2} (\pmb{X}_{n})) = \gamma \forall \theta \in \Theta
+$$
+em que $\pmb{X}_{n} = (X_{1}\ldots,X_{n})$
+
+**Observação:**
+
+Se o intervalo aleatório $[I_{1} (\pmb{X}_{n}),I_{2}(\pmb{X}_{n})$ satisfaz
+
+$$
+P_{\theta} (I_{1} (\pmb{X}_{n}) \leq \theta \leq I_{2} (\pmb{X}_{n})) \geq \gamma \forall \theta \in \Theta
+$$
+Então o intervalo aleatório é um intervalo de confiança com pelo menos coeficiente de confiança $\gamma$
+
+**Observação**: $I_{1} (\pmb{X}_{n})$ e $I_{2} (\pmb{X}_{n})$ são [[Estatísticas e Estimadores#Estatísticas|estatísticas]] e são tais que $I_{1} (\pmb{X}_{n}) \leq I_{2} (\pmb{X}_{n})$
+
+**Observação:**
+Quando substituímos $(\pmb{X}_{n})$ pela amostra observada $(\pmb{x}_{n})$ temos que
+
+$$
+P_{\theta}(I_{1} (\pmb{x}_{n}) \leq \theta \leq I_{2} (\pmb{x}_{n})) = \begin{cases}
+1,  \text{ se } \theta \in [I_{1}(\pmb{x}_{n}), I_{2} (\pmb{x}_{n})] \\
+0, \text{ caso contrário }
+\end{cases}
+$$
+
+- - -
+# IC sob normalidade para $\mu$ com $\sigma^2$ conhecido
+
+Em uma distribuição normal $(\theta, \sigma^2)$, por exemplo, conseguimos de forma genérica para qualquer $\gamma \in [0,1]$ encontrar pela tabela um valor de $c_{\gamma}$ que satisfaça $P(-c_{\gamma} \leq Z \leq c_{\gamma})$. Assim,
+
+$$
+- c_{\gamma} \leq Z \leq c_{\gamma} \Leftrightarrow -c_{\gamma} \leq \frac{\sqrt{n}(\bar{X}-\theta)}{\sqrt{\sigma^{2}}} \leq c_{\gamma} \Leftrightarrow \bar{X} - c_{\gamma} \frac{\sqrt{\sigma^2}}{\sqrt{n}} \leq \theta \leq \bar{X} + c_{\gamma} \frac{\sqrt{\sigma^2}}{\sqrt{n}}
+$$
+Portanto,
+$$
+P_{\theta}\left(\bar{X} - c_{\gamma} \frac{\sqrt{\sigma^2}}{\sqrt{n}} \leq \theta \leq \bar{X} + c_{\gamma} \frac{\sqrt{\sigma^2}}{\sqrt{n}}\right) = \gamma \forall \theta \in \Theta
+$$
+
+Dessa forma,
+
+$\bar{X} - c_{\gamma} \frac{\sqrt{\sigma^2}}{\sqrt{n}} \leq \theta \leq \bar{X} + c_{\gamma} \frac{\sqrt{\sigma^2}}{\sqrt{n}}$ é um intervalo de confiança cujo coeficiente de confiança é $\gamma$. 
+
+*Exemplo*.
+
+Considere que a amostra observada foi $1, 2.2, 3, 3.5$ de uma distribuição $N(\theta, 3)$.
+
+Encontre o IC observado com coeficiente de confiança de $99\%$.
+
+Primeiro encontramos a média: $\bar{x} = 2.42$.
+
+Dessa forma, $c_{99\%} = 2.58$ e nosso intervalo de confiança é 
+$$
+\left[2.42 - 2.58 \frac{\sqrt{3}}{\sqrt{4}}, 2.42 + 2.58\frac{\sqrt{3}}{\sqrt{4}}\right] = [0.18, 4.65]
+$$
+
+Dessa forma, se repetirmos o experimento $N$ vezes, esperamos que $\gamma = 99\%$ dos ICs observados contenham a quantidade de interesse.
+
+Notação.
+
+$$
+\mathrm{IC}(\theta, \gamma) = [I_{1} (\pmb{X}_{n}), I_{2} (\pmb{X}_{n})]
+$$
+Denotará o intervalo de confiança teórico
+
+$$
+\mathrm{IC}_{\mathrm{Obs}}(\theta, \gamma) = [I_{1} (\pmb{x}_{n}), I_{2} (\pmb{x}_{n})]
+$$
+# IC sob normalidade para $\mu$ quando $\sigma^2$ é desconhecido
+
+Seja uma a.a de $X\sim N(\mu, \sigma^2)$ em que $\mu, \sigma^2$ são desconhecidos. Então, o IC para $\mu$ com coeficiente de confiança $\gamma$ é dado por
+
+$$
+\mathrm{IC}(\mu,\gamma) = \left[\bar{X} - t_{\gamma, n-1} \sqrt{\frac{s^2 (\pmb{X}_{n})}{n}}, \bar{X} +t_{\gamma, n-1} \sqrt{\frac{s^2 (\pmb{X}_{n})}{n}}\right]
+$$
+Em que $s^2 (\pmb{x}_{n}) = \frac{1}{n-1}\sum^{k}_{i=1}(X_i - \bar{x})^2$ e $t_{y,(n-1)}$ deve ser calculado da tabela $P(-t_{\gamma, n-1} \leq T_{n-1} \leq t_{\gamma, n-1}) = \gamma$, $T_{n-1} \sim \mathrm{t-Student}(n-1)$
+
+Se a variância for desconhecida, substituímos $\sigma^2$ pelo estimador
+$$
+s^2 = \frac{1}{n-1}\sum\limits^{n}_{i=1} (X_{i} - \bar{X})^2
+$$
+e o valor de $c_{\gamma}$ obtido de uma t-Student com $n-1$ graus de liberdade.
+
+Justificativa:
+
+Se uma a.a. de $X\sim N(\mu,\sigma^2)$, $\theta = (\mu, \sigma^2) \in \mathbb{R} \times\mathbb{R_{+}}$.
+
+1-) $\bar{X} \sim N (\mu, \frac{\sigma^2}{n})$
+2-) $\sqrt{n}\frac{\bar{X} - \mu}{\sqrt{\sigma^2}}\sim N(0,1)$
+3-) $\sum\limits^{n}_{i=1}\frac{(X_{i} - \bar{X})^2}{\sqrt{\sigma^2}} \sim \chi^2_{n-1}$
+4-) $\sqrt{n}\frac{\bar{X} - \mu}{\sqrt{s^2}} = \sqrt{n}\frac{\bar{X} - \mu}{\sqrt{s^2}} \cdot \frac{\sqrt{\sigma^2}}{\sqrt{\sigma^2}}  = \frac{\sqrt{n}\frac{\bar{X} - \mu}{\sqrt{\sigma^2}}}{\sqrt{\frac{\sum(X_i - \bar{X})^2}{\sigma^2} \cdot \frac{1}{n-1}}}$
+5-) Se $Z \sim N(0,1)$ e $W \sim \chi^{2}_{k}$, então $t = \frac{Z}{\sqrt{\frac{W}{k}}} \sim t_{k}$
+6-) $\sqrt{n} \frac{(\bar{X} - \mu)}{\sqrt{s^2}} \sim t_{(n-1)}$
+
+## Exercício
+
+Considere uma a.a de $X\sim N(\mu, \sigma^2)$, ambos parâmetros desconhecidos, em que $X$ é o retorno de um ativo específico. Considere que a seguinte amostra foi observada:
+$$
+(-1.3\%, 0.4\%, -1.7\%, 3.2\%, 0.7\%, -1.6\%, 1.0\%, 1.5\%, 1.2\%, -0.6\%)
+$$
+Encontre o IC para $\mu$, com coeficiente de confiança $\gamma = 99\%$
+
+Temos que $s^2(\pmb{x}_{n}) = 2.48$ e $\bar{x} = 0.28$. Da tabela, $t_{99\%, 9} = 3.25$ 
+
+Sendo assim,
+
+$$
+\mathrm{IC}_{\mathrm{Obs}}(\mu,99\%) = \left[0.28 - 3.25 \sqrt{\frac{2.48}{10}}, 0.28 + 3.25\sqrt{\frac{2.48}{10}}\right] = [-1.34, 1.9]
+$$
+# IC sob normalidade para $\sigma^2$ com $\mu$ desconhecido
+Seja uma a.a. de $X \sim N(\mu, \sigma^2)$ em que $\mu, \sigma^2$ são desconhecidos.
+
+O intervalo de confiança para $\sigma^2$ com coeficiente de confiança $\gamma$ é dado por:
+
+$$
+\begin{aligned}
+\mathrm{IC} (\sigma^2, \gamma) = \left [\frac{(n-1)s^2(\pmb{X}_{n})}{q^{(2)}_{\gamma, n-1}},\frac{(n-1)s^2(\pmb{X}_{n})}{q^{(1)}_{\gamma, n-1}}\right] \\
+\mathrm{IC}_{\mathrm{Obs}} (\sigma^2, \gamma) = \left [\frac{(n-1)s^2(\pmb{x}_{n})}{q^{(2)}_{\gamma, n-1}},\frac{(n-1)s^2(\pmb{x}_{n})}{q^{(1)}_{\gamma, n-1}}\right]
+\end{aligned}
+$$
+em que $s^2(\pmb{X}_{n}) = \frac{1}{n-1} \sum^{n}_{i=1} (X_i - \bar{X})^2$ e $s^2(\pmb{x}_{n}) = \frac{1}{n-1} \sum^{n}_{i=1} (x_i - \bar{x})^2$
+E $q^{(1)}_{\gamma, n-1}, q^{(2)}_{\gamma, n-1}$ são obtidos calculando $P(q^{(1)}_{\gamma, n-1} \leq W \leq q^{(2)}_{\gamma, n-1}) = \gamma$ no qual $W\sim \chi^{2}_{n-1}$ e $P(\chi^2_{n-1} \leq q^{(1)}_{\gamma, n-1}) = \frac{1-\gamma}{2} = P( \chi^2_{n-1} \geq q^{(2)}_{\gamma,n-1})$
+
+Demonstração:
+Vamos construir um IC para a variância.
+
+Note que $$\sum\limits^{n}_{i=1}\frac{(X_{i} - \bar{X})^2}{\sqrt{\sigma^2}} \sim \chi^2_{n-1}$$
+Note que
+$W \sim \chi^{2}_{n-1}$, ou seja, $P(q^{(1)}_{\gamma, n-1} \leq W \leq q^{(2)}_{\gamma, n-1}) = \gamma$ . Assim, $W = \frac{(n-1)s^2}{\sigma^2}$.
+
+Dessa forma,
+
+$$
+\frac{1}{q^{(2)}_{\gamma, n-1}} \leq \frac{\sigma^2}{(n-1) s^2} \leq \frac{1}{q^{(1)}_{\gamma, n-1}} \Leftrightarrow \frac{(n-1)s^2}{q^{(2)}_{\gamma, n-1}} \leq \sigma^2 \leq \frac{(n-1)s^2}{q^{(1)}_{\gamma, n-1}}
+$$
+em que $s^2 = \frac{1}{n-1} \sum^{n}_{i=1} (X_i - \bar{X})^2$
+
+Portanto, $$ P_{\theta}\left (\frac{(n-1)s^2}{q^{(2)}_{\gamma, n-1}} \leq \sigma^2 \leq \frac{(n-1)s^2}{q^{(1)}_{\gamma, n-1}}\right) = \gamma \forall \theta \in \Theta$$
+Exercício:
+
+Considere uma a.a de $X\sim N(0, \theta), \theta > 0$ em que $X$ é o retorno de um ativo específico. Considere que a seguinte amostra foi observada:
+$$
+(-1.3\%, 0.4\%, -1.7\%, 3.2\%, 0.7\%, -1.6\%, 1.0\%, 1.5\%, 1.2\%, -0.6\%)
+$$
+
+Construa um intervalo de confiança para a variância (populacional) $\theta$
+com coeficiente de confiança $\gamma = 95\%$.
+
+O IC para a variância é
+$$
+\mathrm{IC}(\theta, \gamma) = \left[\frac{(n-1)s^2 (\pmb{x}_{n})}{q^2_{\gamma,n-1}},\frac{(n-1)s^2 (\pmb{x}_{n})}{q^1_{\gamma,n-1}}\right]
+$$
+em que $s^2 (\pmb{x}_{n}) = \frac{1}{n-1}\sum^{k}_{i=1}(X_i - \bar{x})^2$
+e $q^{1}_{\gamma, n-1}, q^{2}_{\gamma, n-1}$ satisfazem as fronteiras que delimitam uma área de $\gamma$ em torno da média. Nesse caso, como $n = 10$, $q^{1}_{9} = 2.7, q^{2}_{9} = 19.023$. Dessa forma, $\bar{x} = 0.28, \sum_{i}x_{i}^2=2.308 \Rightarrow s^2(\pmb{x}_{n}) = \frac{10}{9}(2.308 - 0.28^2) = 2.48$
+
+Sendo assim
+$$
+\mathrm{IC}_{\mathrm{Obs}}(\theta, 95\%) = \left[\frac{9 \cdot 2.48}{19.023}, \frac{9 \cdot 2.48}{2.7}\right] = [1.17, 8.27]
+$$
+Podemos concluir que, com uma confiança de $95\%$, a variância está nesse intervalo.
+
+# Intervalo de Confiança para a proporção
+Seja $(\pmb{x}_{n})$uma amostra aleatória de $X\sim Ber(\theta)$ em que $\theta \in [0,1]$.
+Sabemos que, pelo [[Teorema do Limite Central]]
+$$
+\bar{X} \stackrel{a}{\approx} N\left( \theta, \frac{\theta (1-\theta)}{n} \right)
+$$
+Dessa forma,
+$$
+\frac{\sqrt{ n }(\bar{X}-\theta)}{\sqrt{ \theta(1-\theta) }} \stackrel{a}{\approx} N(0,1)
+$$
+Além disso, pelo Teorema de Slutsky
+$$
+\frac{\sqrt{ n }(\bar{X}-\theta)}{\sqrt{ \bar{X}(1-\bar{X}) }} \stackrel{a}{\approx} N(0,1)
+$$
+Observe que, se $Z \sim N(0,1)$ então $-c_{\gamma}\leq Z \leq c_{\gamma} \Leftrightarrow -c_{\gamma } \leq \frac{\sqrt{ n }(\bar{X}-\theta)}{\sqrt{ \bar{X}(1-\bar{X}) }}\leq c_{\gamma}$
+$$
+\Leftrightarrow \bar{X} - c_{\gamma} \sqrt{ \frac{\bar{X} (1-\bar{X})}{n} } \leq \theta \leq \bar{X} + c_{\gamma} \sqrt{ \frac{\bar{X} (1-\bar{X})}{n} }
+$$
+Então, seja $c_{\gamma}$ tal que
+$$
+\begin{aligned}
+&P (-c_{\gamma}\leq N(0,1)\leq c_{\gamma }) = \gamma \\
+\Rightarrow &P_{\theta}\left(\bar{X} - c_{\gamma} \sqrt{ \frac{\bar{X} (1-\bar{X})}{n} } \leq \theta \leq \bar{X} + c_{\gamma} \sqrt{ \frac{\bar{X} (1-\bar{X})}{n} }\right) \approx \gamma~ \forall \theta \in \Theta = [0,1]
+\end{aligned}
+$$
+que melhora conforme $n \rightarrow \infty$
+
+Logo, um IC aproximado com coeficiente de confiança $\gamma$ é dado por
+$$
+IC(\theta, \gamma) = \left[\bar{X} - c_{\gamma} \sqrt{ \frac{\bar{X} (1-\bar{X})}{n} }, \bar{X} + c_{\gamma} \sqrt{ \frac{\bar{X} (1-\bar{X})}{n} }\right] \cap \Theta
+$$
+
+## Exemplo
+Seja $(\pmb x_{n })$ uma amostra aleatória de $X\sim \mathrm{Ber} (\theta)$ em que $\theta \in [0,1]$.
+$$
+X(w) = \begin{cases}
+1, \text{ se w disser que vota no candidato} \\ \\
+0, c.c
+\end{cases}
+$$
+A amostra observada foi $(0,0,0,1,0,0,0,1)$.
+Encontre o IC para a proporção de intenção de votos no candidato considerando $\gamma = 99\%$
+
+$\bar{x} = \frac{1}{4 }, \bar{x}(1-\bar{x}) = \frac{3}{16}, n = 8, c_{\gamma} = 2.58$
+$$
+\begin{aligned}
+\mathrm{IC}_{\mathrm{Obs}}(\theta, 99\%) &= \left[0.25- 2.58 \frac{\sqrt{ 3 }}{4 \sqrt{  8 }}, 0.25 - 2.58 \frac{\sqrt{ 3 }}{4 \sqrt{  8 }}\right] \cap [0,1] \\
+&= [0.25 - 0.39, 0.25 + 0.39] \cap [0,1]  \\
+&= [0,0.64]
+\end{aligned}
+$$
+## Intervalos conservadores e otimistas
+
+Um intervalo de confiança de proporção é dito ser conservador quando o calculamos tomando $\theta$ ***Na variância*** ($\theta(1-\theta)$) como o valor mais alto possível. No exemplo Bernoulli, o valor máximo para $\theta$ (derivando $\theta(1-\theta)$ e igualando a 0, $1-2 \theta = 0$) é $\theta=0.5$. Dessa forma, o IC conservador é calculado usando $\theta=0.5$.
+
+Por sua vez, um IC otimista é calculado usando o valor de $\theta$ obtido através do [[Função de Verossimilhança e Distribuição Amostral#Estimação via máxima verossimilhança (EMV)|EMV]] para $\theta$, no caso Bernoulli, usaríamos essa variância como $\bar{X}(1-\bar{X})$
+
+# Como interpretar intervalos de confiança
+*Importante*:
+
+Na estatística clássica (frequentista), devemos interpretar um intervalo de confiança $[a,b]$ com $\gamma=0.95$ da seguinte forma:
+
+“Com $95\%$ de confiança, o intervalo $[a,b]$ conterá o valor da quantidade de interesse”.
+
+Isso é importante para diferenciar a interpretação frequentista (Theta do espaço paramétrico) da Bayesiana (Theta como variável aleatória). Dessa forma, estaria ***incorreto*** na estatística clássica dizer que
+
+“O intervalo $[a,b]$ conterá a quantidade de interesse com probabilidade $95\%$” ou “O intervalo $[a,b]$ conterá a quantidade de interesse $95\%$ das vezes”
+

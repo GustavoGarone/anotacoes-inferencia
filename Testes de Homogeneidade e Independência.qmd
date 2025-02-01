@@ -1,0 +1,200 @@
+---
+date: 2024-11-27T14:06:00
+tags:
+  - Inferência
+  - Anotações
+---
+# Tabela de frequências
+Sejam $X,Y$ variáveis aleatórias cujos valores observados são $B_{1},B_{2},\dots,B_{l}$ e $A_{1},A_{2}, A_{k}$, respectivamente.
+Observam-se os seguintes dados
+$$
+\begin{array}{ccc}
+\mathrm{ind.}  & X & Y \\
+1  & B_{2} & A_{1} \\
+2 & B_{7} & A_{3} \\
+\vdots & \vdots  & \vdots \\
+n  & B_{1} & A_{5}
+\end{array}
+$$
+Colocamos nossos dados numa tabela de frequências absolutas observadas
+$$
+\begin{array}{c|cccc|c}
+X\setminus Y  & A_{1} & A_{2} & \dots & A_{k} & \mathrm{Total}~X \\
+\hline
+B_{1} & O_{11} & O_{12} & \dots & O_{1k} & O_{1\cdot} \\
+B_{2} & O_{11} & O_{12} & \dots & O_{1k} & O_{2\cdot} \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+B_{l} & O_{l1} & O_{l2} & \dots & O_{lk} & O_{l\cdot} \\
+\hline
+\mathrm{Total}~Y  & O_{\cdot_{1}} & O_{\cdot_{2}}  & \dots  & O_{\cdot k}  & n
+\end{array}
+$$
+
+Temos nossa tabela de frequências esperadas [[Teste de Hipótese|sob]] $H_{0}$ (Independência)
+$$
+\begin{array}{c|cccc|c}
+X\setminus Y  & A_{1} & A_{2} & \dots & A_{k} & \mathrm{Total}~X \\
+\hline
+B_{1} & E_{11} & E_{12} & \dots & E_{1k} & O_{1\cdot} \\
+B_{2} & E_{11} & E_{12} & \dots & E_{1k} & O_{2\cdot} \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+B_{l} & E_{l1} & E_{l2} & \dots & E_{lk} & O_{l\cdot} \\
+\hline
+\mathrm{Total}~Y  & O_{\cdot_{1}} & O_{\cdot_{2}}  & \dots  & O_{\cdot k}  & n
+\end{array}
+$$
+Em que
+$$
+E_{ij} = \frac{O_{i \cdot} \cdot O_{\cdot j}}{n}
+$$
+Note que, sob independência
+$$
+\begin{aligned}
+P(B_{i}\cap A_{j}) &= P(B_{i}) \cdot P(A_{j}) \\
+E_{ij} &= n \cdot P(B_{i}\cap A_{j}) \stackrel{\mathrm{ind.}}{=} n P(B_{i}) \cdot P_{A_{j}}
+\end{aligned}
+$$
+Estimando $P(B_{i}), P(A_{j})$ temos
+$$
+\widehat{P(B_{i})} = \frac{O_{i\cdot}}{n}, \widehat{P(A_{j})}= \frac{O_{\cdot j}}{n}
+$$
+Logo, o valor esperado estimado é
+$$
+\widehat{E_{ij}}=n \cdot \widehat{P(B_{i})}\cdot\widehat{P(A_{j})} = \frac{O_{i \cdot} \cdot O_{\cdot j}}{n}
+$$
+
+Em ambos testes, usaremos a seguinte estatística para testar suas hipóteses (independência e homogeneidade)
+$$
+\chi^2 = \sum^k_{i=1}\sum^l_{j=1} \frac{(O_{ij}-E_{ij})^2}{E_{ij}}
+$$
+Sob $H_{0}$, ou seja,
+$$
+\chi^2_{obs}\sim \chi^2_{(k-1)(l-1)}
+$$
+Dessa forma, rejeitamos a hipótese $H_{0}$ a $\alpha$ graus de liberdade se
+$$
+\chi^2_{obs} > c_{p}
+$$
+em que $c_{p}$ satisfaz $P(\chi^2_{(k-1)(l-1)} > c_{p})=\alpha$.
+
+*Observação*
+Essa aproximação com a $\chi^2$ só funciona de modo razoável quando cada $E_{ij}>5$ 
+# Teste de Homogeneidade
+Usamos esse teste para verificar se as medidas de probabilidade de vários grupos diferentes são iguais (seguem uma mesma distribuição).
+
+Os totais marginais para cada grupo devem ser fixados antes de executarmos o experimento.
+$$
+\begin{cases}
+H_{0}: \text{Os grupos são independentes} \\
+H_{1} : \text{Pelo menos um dos grupos não é indepndente}
+\end{cases}
+$$
+# Teste de independência
+Usamos esse teste para verificar se os eventos são independentes.
+
+Aqui, apenas o tamanho amostral (total dos totais) é fixado.
+
+$$
+\begin{cases}
+H_{0}: \text{Os grupos se distribuem de forma equivalente} \\
+H_{1} : \text{Pelo menos um dos grupos não se distribui de forma equivalente}
+\end{cases}
+$$
+# Exemplos
+## Primeiro exemplo (homogeniedade)
+510 segurados foram amostrados, sendo 200 de São Paulo, 100 do Ceará e 210 de Pernambuco. O objetivo é verificar se o número de acidentes se distribui igualmente entre os estados.
+$$
+\begin{array}{ccc}
+\mathrm{Indivíduos}  & \mathrm{Estado}  & \mathrm{Sinistralidade}\\
+1 & \mathrm{SP} & 1 \\
+\vdots  & \vdots & \vdots \\
+200  &  \mathrm{SP}  & 0 \\
+1 & \mathrm{CE} & 1 \\
+\vdots  & \vdots & \vdots \\
+100  &  \mathrm{CE}  & 0 \\
+1 & \mathrm{PE} & 1 \\
+\vdots  & \vdots & \vdots \\
+210  &  \mathrm{PE}  & 0
+\end{array}
+$$
+Tabela Observada
+$$
+\begin{array}{c|cc|c}
+ &     \mathrm{Sinistralidade}   &  \\
+\mathrm{Estado}  & 1 & 0 &  \mathrm{Total} \\
+\hline
+\mathrm{SP} & 60 & 140 & 200 \\
+\mathrm{CE} & 10 & 90 & 100 \\
+\mathrm{PE} & 50 & 160 & 210 \\
+\hline
+\mathrm{Total} & 120 & 390 & 510
+\end{array}
+$$
+Tabela esperada
+$$
+\begin{array}{c|cc|c}
+ &     \mathrm{Sinistralidade}   &  \\
+\mathrm{Estado}  & 1 & 0 &  \mathrm{Total} \\
+\hline
+\mathrm{SP} & 47 & 153 & 200 \\
+\mathrm{CE} & 24 & 76 & 100 \\
+\mathrm{PE} & 49 & 161 & 210 \\
+\hline
+\mathrm{Total} & 120 & 390 & 510
+\end{array}
+$$
+Temos nossa estatística qui-quadrado
+$$
+\begin{aligned}
+\chi^2_{obs} &= \frac{(60-47)^2}{47} + \frac{(140-153)^2}{153} + \frac{(10-24)^2}{24} + \frac{(90-76)^2}{76} \\
+&+ \frac{(50-49)^2}{49} + \frac{(160-161)^2}{161} = 15.47
+\end{aligned}
+$$
+Concluiremos o teste tomando $\alpha = 1\%$ de significância estatística
+Sabemos que, sob $H_{0}$,
+$$
+\chi^2_{obs} \sim \chi^2_{(3-1)(2-1)}
+$$
+Logo, devemos encontrar $c_{p}$ tal que
+$$
+P(\chi^2_{2}> c_{p}) = 1\%
+$$
+Pela tabela, $c_{p}=9.21$
+Como $15.47 > 9.21$, concluímos que, a sinistralidade não se distribui de forma homogênea entre os estados de SP, CE e PE a $1\%$ de significância.
+
+## Outro Exemplo (independência)
+Temos nossa tabela de valores observados:
+$$
+\begin{array}{c|ccc|c}
+\mathrm{Opinião}  & \mathrm{1ª~Tent}  & \mathrm{2ª~Tent}  & \mathrm{3ª~Tent}  & \mathrm{Total} \\
+\hline
+\mathrm{Excelente}  &  62  & 36 & 12 & 110\\
+\mathrm{Satisfatório}  & 84 & 42 & 14 & 140\\
+\mathrm{Insatisfatório}  & 24 & 22 & 24 & 70 \\
+\hline
+\mathrm{Total}  & 170 & 100 & 50 & 320 
+\end{array}
+$$
+Nossa tabela de valores esperados (arredondados):
+$$
+\begin{array}{c|ccc|c}
+\mathrm{Opinião}  & \mathrm{1ª~Tent}  & \mathrm{2ª~Tent}  & \mathrm{3ª~Tent}  & \mathrm{Total} \\
+\hline
+\mathrm{Excelente}  &  58 & 34 & 17 & 110 \\
+\mathrm{Satisfatório}  & 74 & 44 & 22 & 140\\
+\mathrm{Insatisfatório}  & 37 & 22 & 11 & 70 \\
+\hline
+\mathrm{Total}  & 170 & 100 & 50 & 320 
+\end{array}
+$$
+$$
+\begin{aligned}
+\chi^2_{obs} &= \frac{(62-58)^2}{58} + \frac{(36-34)^2}{34} + \frac{(12-17)^2}{17} + \frac{(84-74)^2}{74} + \frac{(42-44)^2}{44} \\
+&+ \frac{(14-22)^2}{22} + \frac{(24-37)^2}{37} + \frac{(22-22)^2}{22} + \frac{(24-11)^2}{11} = 26.14
+\end{aligned}
+$$
+Considerando $\alpha= 5\%$, precisamos encontrar $c_{p}$ tal que
+$$
+P(\chi^2_{4}>c_{p})=5\% \Rightarrow c_{p} = 9.49
+$$
+Como $26.14 > 9.49$, podemos concluir que, a $5\%$ de significância estatística, existem evidências que o número da tentativa tem influência sobre a opinião do cliente.

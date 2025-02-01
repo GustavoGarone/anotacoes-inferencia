@@ -1,0 +1,35 @@
+---
+tags:
+  - Inferência
+---
+
+Seja $X_{1},\dots,X_{n}$ a.a de $X\sim f_{\theta},\theta \in \Theta : E_{\theta}(X^{2}) < \infty$, então:
+$$
+\bar{X} \stackrel{\text{Aproximadamente}}{\sim }N\left(E_\theta(X), \frac{Var_{\theta}{X}}{n}\right)
+$$
+Formalmente, temos o enunciado do *Teorema do Limite Central*:
+$$
+\frac{\sqrt{n}(\bar{X}-E_\theta(x))}{\sqrt{\mathrm{Var}_\theta(X)}} \underset{n\rightarrow \infty}{\stackrel{\text{Distribuição}}{\rightarrow}} N\sim (0,1) \forall \theta \in \Theta
+$$
+Se $X\sim N(\mu, \sigma)$, então a distribuição é exata.
+
+Ademais, seja $g$ uma função contínua e diferenciável tal que $g'(\theta)\neq0$. Então,
+$$
+g(\bar{X}) \stackrel{\text{Aproximadamente}}{\sim}N\left(g(E_\theta(X)), \frac{g'(E_\theta(X))^{2}\mathrm{Var}_\theta(X)}{n}\right)
+$$
+Exemplo:
+Seja $(X_{1},\dots,X_{n})$ a.a de $X\sim Ber(\theta), \theta \in (0,1)$. Já vimos que EMV $p/ \theta$ é $$
+\bar{\theta}(X_{1},\dots,X_{n}) = \bar{X}
+$$
+e o EMV p/ $g(\theta) = \mathrm{Var}_{\theta(x)}= \theta(1-\theta)$ é:
+$$
+\widehat{g(\theta)} = \bar{X}(1-\bar{X}).
+$$
+Agora,
+$$ \begin{aligned}
+\bar{X} &\stackrel{\text{approx.}}{\sim} N\left(\theta, \frac{\theta(1-\theta)}{n}\right)\\
+g(\bar{X}) = \bar{X}(1-\bar{X}) & \stackrel{\text{approx}}{\sim } N\left(\theta(1-\theta), \frac{[g'(\theta)]^{2} \theta(1-\theta)}{n}\right) \\
+&~~~\Rightarrow~N\left(\theta(1-\theta), \frac{(1-2\theta)^{2}\theta(1-\theta)}{n}\right)
+\end{aligned}
+$$
+
