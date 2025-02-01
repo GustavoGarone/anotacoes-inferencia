@@ -1,0 +1,27 @@
+# Função de Verossimilhança
+
+Quando analisamos a [distribuição conjunta da amostra](dist-amostral.qmd) em função de $\theta$
+nos valores da [amostra observada](populacao-e-amostra.qmd#sec-ao), temos a **Função de Verossimilhança**
+
+$$
+\mathrm{L}_{\stackrel{x}{\sim}}(\theta)=P_\theta(X_{1}=x_{1},X_{2}=x_{2},\dots,X_{n}=x_{n})
+$$
+
+em que $\stackrel{x}{\sim}=(x_{1},x_{2},\dots,x_{n})$ é a amostra observada.
+
+Obs: A função de verossimilhança, no caso discreto, é a probabilidade de observar a amostra observada.
+
+## Exemplo
+
+Considere $(X_{1},X_{2},X_{3},X_{4})$ a.a de $X\sim \text{Ber}(\theta), \theta \in \{0.1, 0.5, 0.9 \}$. 
+Note que o espaço paramétrico é $\Theta=\{0.1,0.5,0.9 \}$. Considere, ainda, que a amostra observada foi $(0,1,1,1)$.
+Encontre a função de verossimilhança.
+
+$$
+\begin{aligned}
+L_\stackrel{X}{\sim}(\theta)&=P_\theta(X_{1}=x_{1},X_{2}=x_{2},X_{3}=x_{3},X_{4}=x_{4}) \\
+&= \theta^{\sum\limits^{4}_{i=1}x_{i}}
+(1-\theta)^{4-\sum\limits^{4}_{i=1}x_{i}}\cdot \cancelto{1}{\prod^{4}_{i=1}\mathbb{1}_{\{0,1 \}}(x_{i})} = 
+\theta^{3}(1-\theta)
+\end{aligned}
+$$

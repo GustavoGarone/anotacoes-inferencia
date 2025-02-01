@@ -1,0 +1,9 @@
+# Quantidade de Interesse
+
+É uma quantidade relacionada com a distribuição da [variável aleatória populacional](populacao-e-amostra.qmd#sec-vp).
+$$
+g(\theta)
+$$
+
+Como $g(\theta) = E_\theta(X), g(\theta)= \mathrm{Var}_\theta(X), g(\theta)=P_\theta(X\geq1)$ e até $g(\theta)=\theta$
+

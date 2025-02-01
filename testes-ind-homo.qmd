@@ -1,0 +1,132 @@
+# Testes de Independência e Homogeneidade
+Com a ajuda da [tabela de frequências](tabela-frequencias.qmd), conseguimos [testar](teste-hipotese.qmd) independência entre
+eventos e homogeneidade em distribuição de eventos. Por mais que utilizem o mesmo mecanismo, os dois testes são interpretados
+de forma diferentes e, portanto, também apresentados individualmente nesta seção.
+
+## Teste de Homogeneidade
+Usamos esse teste para verificar se as medidas de probabilidade de vários grupos diferentes são iguais (seguem uma mesma distribuição).
+
+Os totais marginais para cada grupo devem ser fixados antes de executarmos o experimento.
+$$
+\begin{cases}
+H_{0}: \text{Os grupos são independentes} \\
+H_{1} : \text{Pelo menos um dos grupos não é indepndente}
+\end{cases}
+$$
+
+## Teste de independência
+Usamos esse teste para verificar se os eventos são independentes.
+
+Aqui, apenas o tamanho amostral (total dos totais) é fixado.
+
+$$
+\begin{cases}
+H_{0}: \text{Os grupos se distribuem de forma equivalente} \\
+H_{1} : \text{Pelo menos um dos grupos não se distribui de forma equivalente}
+\end{cases}
+$$
+
+## Exemplos
+
+### Primeiro exemplo (homogeniedade)
+
+510 segurados foram amostrados, sendo 200 de São Paulo, 100 do Ceará e 210 de Pernambuco. O objetivo é verificar se o
+número de acidentes se distribui igualmente entre os estados.
+$$
+\begin{array}{ccc}
+\mathrm{Indivíduos}  & \mathrm{Estado}  & \mathrm{Sinistralidade}\\
+1 & \mathrm{SP} & 1 \\
+\vdots  & \vdots & \vdots \\
+200  &  \mathrm{SP}  & 0 \\
+1 & \mathrm{CE} & 1 \\
+\vdots  & \vdots & \vdots \\
+100  &  \mathrm{CE}  & 0 \\
+1 & \mathrm{PE} & 1 \\
+\vdots  & \vdots & \vdots \\
+210  &  \mathrm{PE}  & 0
+\end{array}
+$$
+Tabela Observada
+$$
+\begin{array}{c|cc|c}
+ &     \mathrm{Sinistralidade}   &  \\
+\mathrm{Estado}  & 1 & 0 &  \mathrm{Total} \\
+\hline
+\mathrm{SP} & 60 & 140 & 200 \\
+\mathrm{CE} & 10 & 90 & 100 \\
+\mathrm{PE} & 50 & 160 & 210 \\
+\hline
+\mathrm{Total} & 120 & 390 & 510
+\end{array}
+$$
+Tabela esperada
+$$
+\begin{array}{c|cc|c}
+ &     \mathrm{Sinistralidade}   &  \\
+\mathrm{Estado}  & 1 & 0 &  \mathrm{Total} \\
+\hline
+\mathrm{SP} & 47 & 153 & 200 \\
+\mathrm{CE} & 24 & 76 & 100 \\
+\mathrm{PE} & 49 & 161 & 210 \\
+\hline
+\mathrm{Total} & 120 & 390 & 510
+\end{array}
+$$
+Temos nossa estatística qui-quadrado
+$$
+\begin{aligned}
+\chi^2_{obs} &= \frac{(60-47)^2}{47} + \frac{(140-153)^2}{153} + \frac{(10-24)^2}{24} + \frac{(90-76)^2}{76} \\
+&+ \frac{(50-49)^2}{49} + \frac{(160-161)^2}{161} = 15.47
+\end{aligned}
+$$
+Concluiremos o teste tomando $\alpha = 1\%$ de significância estatística
+Sabemos que, sob $H_{0}$,
+$$
+\chi^2_{obs} \sim \chi^2_{(3-1)(2-1)}
+$$
+Logo, devemos encontrar $c_{p}$ tal que
+$$
+P(\chi^2_{2}> c_{p}) = 1\%
+$$
+Pela tabela, $c_{p}=9.21$
+Como $15.47 > 9.21$, concluímos que, a sinistralidade não se distribui de forma homogênea entre os estados de SP, CE e 
+PE a $1\%$ de significância.
+
+### Outro Exemplo (independência)
+Temos nossa tabela de valores observados:
+$$
+\begin{array}{c|ccc|c}
+\mathrm{Opinião}  & \mathrm{1ª~Tent}  & \mathrm{2ª~Tent}  & \mathrm{3ª~Tent}  & \mathrm{Total} \\
+\hline
+\mathrm{Excelente}  &  62  & 36 & 12 & 110\\
+\mathrm{Satisfatório}  & 84 & 42 & 14 & 140\\
+\mathrm{Insatisfatório}  & 24 & 22 & 24 & 70 \\
+\hline
+\mathrm{Total}  & 170 & 100 & 50 & 320 
+\end{array}
+$$
+Nossa tabela de valores esperados (arredondados):
+$$
+\begin{array}{c|ccc|c}
+\mathrm{Opinião}  & \mathrm{1ª~Tent}  & \mathrm{2ª~Tent}  & \mathrm{3ª~Tent}  & \mathrm{Total} \\
+\hline
+\mathrm{Excelente}  &  58 & 34 & 17 & 110 \\
+\mathrm{Satisfatório}  & 74 & 44 & 22 & 140\\
+\mathrm{Insatisfatório}  & 37 & 22 & 11 & 70 \\
+\hline
+\mathrm{Total}  & 170 & 100 & 50 & 320 
+\end{array}
+$$
+$$
+\begin{aligned}
+\chi^2_{obs} &= \frac{(62-58)^2}{58} + \frac{(36-34)^2}{34} + \frac{(12-17)^2}{17} + \frac{(84-74)^2}{74} +
+\frac{(42-44)^2}{44} \\
+&+ \frac{(14-22)^2}{22} + \frac{(24-37)^2}{37} + \frac{(22-22)^2}{22} + \frac{(24-11)^2}{11} = 26.14
+\end{aligned}
+$$
+Considerando $\alpha= 5\%$, precisamos encontrar $c_{p}$ tal que
+$$
+P(\chi^2_{4}>c_{p})=5\% \Rightarrow c_{p} = 9.49
+$$
+Como $26.14 > 9.49$, podemos concluir que, a $5\%$ de significância estatística, existem evidências que o número da
+tentativa tem influência sobre a opinião do cliente.

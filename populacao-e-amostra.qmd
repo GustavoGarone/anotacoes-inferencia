@@ -1,0 +1,42 @@
+# População e Amostra
+
+Veja: [Modelo Estatístico](modelo-estatistico.qmd) para definições dos modelos estatísticos paramétricos.
+
+## Variável Populacional {#sec-vp}
+
+Pela teoria estatística, população é o conjunto sob investigação de todos os potenciais elementos.
+
+A *Variável Populacional* representa os valores numéricos de cada elemento da população:
+$$
+X\sim f_{\theta,}\theta \in \Theta
+$$
+em que $f_\theta$ é a Função Densidade de Probabilidade da Variável Aleatória populacional. $\theta$ é o vetor de
+parâmetros (desconhecido) e $\Theta$ é o espaço paramétrico
+
+## Amostra (Teórica)
+
+É uma parte ou subconjunto da população.
+
+### Amostra Aleatória {#sec-aa}
+
+Dizemos que $(X_{1},\dots,X_{n})$ é uma amostra aleatória de X (v.a. populacional) se $X_{1},\dots,X_{n}$ forem 
+independentes e identicamente distribuídas de acordo com a distribuição de $X$
+Ou seja, 
+$$
+\text{Independentes = }\begin{cases}X_{1}\sim f_{\theta,}\theta \in \Theta \\
+. \\
+. \\
+. \\
+X_{n} \sim f_{\theta}, \theta \in \Theta
+\end{cases}
+$$
+
+## Amostra (Observada) {#sec-ao}
+
+É formada por valores numéricos após utilizar um procedimento de amostragem.
+$$
+x_{1},\dots,x_{n}
+$$
+
+em que $n$ é o tamanho amostral.
+

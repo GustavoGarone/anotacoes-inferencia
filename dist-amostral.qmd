@@ -1,0 +1,111 @@
+# Distribuição Amostral
+Seja $(X_{1},\dots,X_{n})$ [amostra aleatória (a.a.)](populacao-e-amostra.qmd#sec-aa) de
+$X\sim f_{\theta,}\theta \in \Theta$
+
+a Função Densidade de Probabilidade conjunta de $(X_{1}, X_{2},\dots,X_{n})$ é $\forall \theta \in \Theta$,
+no caso discreto:
+$$
+P_\theta(X_{1}=k_{1}, X_{2}=k_{2},\dots,X_{n}= k_{n})\stackrel{\text{ind}}{=}\prod^{n}_{i=1}P_\theta(X_{i}=k_{i})
+\stackrel{\text{id}}{=}\prod^{n}_{i=1}P_\theta(X=k_{i})\stackrel{\text{def}}{=}\prod^{n}_{i=1}f_\theta(k_{i})
+$$
+
+no caso contínuo:
+$$
+f_\theta^{(x)}(k_{1},k_{2},\dots,k_{n})\stackrel{\text{i.i.d}}{=}\prod^{n}_{i=1}f_{\theta}(k_{i})
+$$
+
+## Exemplos
+
+### Exemplo um
+Seja $(X_{1},X_{2},X_{3})$ uma a.a  de $X\sim \text{Ber}(\theta), \theta \in (0,1)$
+1. Especifique o espaço paramétrico
+2. Calcule a função de probabilidade da amostra
+3. Encontre as seguintes [quantidade de interesses](quantidade-de-interesse.qmd) em função de $\theta$
+	1. $g(\theta)=E_\theta(X)$
+	2. $g(\theta)=P_\theta(X=0)$
+	3. $g(\theta)=\mathrm{CV}_\theta(X)$
+Resolução
+1. $\Theta=(0,1)$
+2. Duas resoluções possíveis
+	1. Dando valores à amostra
+    $$\begin{aligned}
+         &(X_{1}, X_{2},X_{3})  &P(X_{1}= k_{1},X_{2}= k_{2},X_{3}= k_{3})= \prod ^{3}_{i=1}P_\theta(X=k_{1})\\
+         &(0,0,0) &(1-\theta)^{3}\\
+         &(0,0,1) &(1-\theta)^{2}\theta\\
+         &(0,1,0) &(1-\theta)^{2}\theta\\
+         &(1,0,0) &(1-\theta)^{2}\theta\\
+         &(0,1,1) &(1-\theta)\theta^2\\
+         &(1,0,1) &(1-\theta)\theta^{2}\\
+         &(1,1,0) &(1-\theta)\theta^{2}\\
+         &(1,1,1) &\theta^{3}\\
+         \end{aligned}
+    $$
+  2. Enunciando a função
+     Observe que, se $k \in \{0,1 \}$, 
+     $$\begin{aligned}
+       &P_\theta(X=k)=\theta^{k}(1-\theta)^{1-k}\cdot\mathbb{1}_{\{0,1 \}}(k)\Rightarrow\\
+       &P_\theta(X_{1}=k,X_{2}=k_{2},X_{3}= k_{3})\stackrel{\text{i.i.d}}{=}\prod^{3}_{i=1}\{\theta^{k_{i}}
+       (1-\theta)^{1-k_{1}}\mathbb{1}_{\{0,1 \}}(k_{1}) \} = \\
+       &= \theta^{\sum\limits^{3}_{i=1}k_{1}}(1-\theta)^{3-\sum\limits^{3}_{i=1}k_{1}}\prod^{3}_{i=1}\mathbb{1}_{\{0,1\}}
+       (k_{i})
+       \end{aligned}
+    $$
+3. Em função de $\theta$:
+	1. $g(\theta)=E_\theta(X)=\theta$
+	2. $g(\theta)=P_\theta(X=0)=1-\theta$
+	3. $g(\theta)=\mathrm{CV}_\theta(X)=\frac{\sqrt{\theta(1-\theta)}}{\theta}$
+
+### Exemplo dois
+
+Seja $(X_{1},\dots,X_{n})$ uma a.a de $X\sim\text{Ber}(\theta), \theta \in(0,1)$, encontre a f.p conjunta da amostra.
+$$
+\begin{aligned}
+P_\theta(X_{1}=k_{1},\dots,X_{n}=k_{n})\stackrel{\text{iid}}{=}\prod ^{n}_{i=1}P_\theta(X=k_{i})=\prod^{n}_{i=1}
+\{\theta^{k_{i}}(1-\theta)^{1-k_{i}}\mathbb{1}_{\{0,1 \}}(k_{i}) \}\\
+\Rightarrow P_\theta(X_{1}=k_{1},\dots,X_{n}=k_{n})=\theta^{\sum\limits^{n}_{i=1}k_{1}}\cdot 
+\theta^{n-\sum\limits^{n}_{i=i}k_{i}}\cdot\mathbb{1}_{\{0,1\}}(k_{i})
+\end{aligned}
+$$
+
+### Exemplo três
+Seja $(X_{1},\dots,X_{n})$ uma a.a de $X\sim\text{Pois}(\theta), \theta \in(0,\infty)$, encontre a f.p. conjunta da 
+amostra.
+Como esse vetor é uma a.a. (ou seja, variáveis aleatórias independentes e identicamente distribuídas), temos que
+$$
+P_\theta(X_1=k_{1},\dots,X_{n}=k_{n})\stackrel{\text{iid}}{=}\prod^{n}_{i=1}P_\theta(X=k_{i})=\prod^{n}_{i=1}\{\mathrm{e}
+^{-\theta} \cdot \frac{\theta^{k_{i}}}{k_{i}!}\}
+$$
+Sempre que $k_{i}\in\{0,1,\dots \}, \forall i = 1,\dots,n$
+
+$$
+\Rightarrow P_\theta(\dots)=\mathrm{e}^{-n \theta} \cdot \frac{\theta^{\sum\limits^{n}_{i=1}k_{i}}}{\prod^{n}_{i=1}
+(k_{i})!}
+$$
+
+### Exemplo contínuo um
+
+Seja $(X_{1},\dots,X_{n})$ uma a.a de $X\sim\text{Exp}(\theta), \theta \in(0,\infty)$, encontre a 
+função densidade de probabilidade (f.d.p.) conjunta da amostra.
+$$
+\begin{aligned}
+F_{\theta}^{(*)}(k_{1},\dots,k_{n})&\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_\theta(k_{i})=\prod^{n}_{i=1}
+\{\theta \mathrm{e}^{-\theta k_{i}} \cdot \mathbb{1}_{(0,\infty )}(k_{i}) \}
+\\&\Rightarrow f_\theta^{(*)}(\dots)=\theta^{n}
+\cdot \mathrm{e}^{-\theta\sum\limits^{n}_{i=1}k_{i}} \cdot\prod^{n}_{i=1}\mathbb{1}_{(0,\infty)}(k)
+\end{aligned}
+$$
+
+### Exemplo contínuo dois
+
+Seja $(X_{1},\dots,X_{n})$ uma a.a. (i.i.d) de $X\sim N(\mu,\sigma^{2})$ em que 
+$\theta=(\mu, \sigma^{2}) \in \Theta=\mathbb{R}\times \mathbb{R}_{+}$. Considere $\stackrel{x}{\sim}=(x_{1},\dots,x_{n})$
+a amostra observada.
+
+$$
+\begin{aligned}
+L_{\stackrel{X}{\sim}} &\stackrel{\text{iid}}{=} \prod^{n}_{i=1}f_\theta(x_{i})=
+\prod^{n}_{i=1}\left\{\frac{1}{\sqrt{2 \pi \sigma^{2}}} \mathrm{exp}\{- \frac{1}{2\sigma^{2}}(x_{1}-\mu)^{2}\}\right\} \\
+&= \frac{1}{(2 \pi \sigma^{2})^{\frac{x}{2}}}\cdot \mathrm{exp}\{- \frac{1}{2 \sigma^{2}} \sum\limits^{n}_{i=1}(x_{i}-\mu)^{2}  \}
+\end{aligned}
+$$
+

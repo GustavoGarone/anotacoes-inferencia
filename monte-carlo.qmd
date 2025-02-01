@@ -1,0 +1,13 @@
+# Simulações de Monte Carlo
+Tem como objetivo replicar artificialmente os dados de um [modelo estatístico](modelo-estatistico.qmd) para estudar o 
+comportamento de [estatísticas](estatisticas.qmd) e [estimadores](estimadores.qmd) (ou qualquer procedimento estatístico)
+
+## Método
+1. Defina o modelo estatístico: “Seja $(X_{1},\dots,X_{n})$” [a.a.](populacao-e-amostra.qmd#sec-aa) de
+$X\sim f_{\theta,}\theta \in \Theta$.
+2. Escolha $\theta_{0} \in \Theta$ e considere-o fixado daqui em diante.
+3. Para $n$ fixado, gere ($x_{1}, x_{2},\dots,x_{n}$) a amostra observada de $X\sim f_{\theta_{0}}$
+4. Armazene a amostra observada
+5. Repita 3. e 4. $N=10000$ vezes
+
+<!-- TODO: Colocar exemplo com código em R, Python e julia -->

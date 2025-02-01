@@ -1,5 +1,7 @@
-# Preface {.unnumbered}
+# Prefácio {.unnumbered}
 
-This is a Quarto book.
+Este é um livrete feito na plataforma [Quarto](https>//quarto.org) para minhas anotações das disciplinas de inferência
+frequentista ou clássica MAE0225 e MAE0301, ambas ministradas pelo Professor Alexandre Galvão Patriota.
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+Dúvidas, sugestões, críticas ou erros por favor contactar em [gustavo.garone arroba usp.br](gustavo.garone@usp.br)
+

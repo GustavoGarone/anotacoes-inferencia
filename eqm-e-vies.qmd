@@ -1,0 +1,75 @@
+# Erro quadrático médio (EQM)
+
+O erro quadrático médio (EQM) do [estimador](estimadores.qmd) $T(X_{1},\dots,X_{n})$ com respeito a $g(\theta)$ é 
+definido por
+$$
+\mathrm{EQM}(T,g(\theta))=E_{\theta}((T(X_{1},\dots,X_{n})-g(\theta)^{2})
+$$
+Obs.:
+
+Se $T(X_{1},\dots,X_{n})$ for não viciado para $g(\theta)$, então 
+$\mathrm{EQM}(T,g(\theta))=\mathrm{Var}_{\theta}(T(X_{1},\dots,X_{n})) \forall \theta \in \Theta$
+
+## Propriedades do EQM
+Seja $T(X_{1},\dots,X_{n})$ um estimador para $g(\theta)$, seja $\mu_{t} = E_\theta(T(X_{1},\dots,X_{n}))$
+$$
+\begin{aligned}
+&\mathrm{EQM}(T,g(\theta))\\
+&=E_\theta[(T(X_{1},\dots,X_{n})-\mu_{t}+\mu_{t}-g(\theta))^{2}] \\ \\
+&= E_\theta[((T(X_{1},\dots,X_{n})- \mu_{t})+ (\mu_{t}-g(\theta)))^{2}] \\
+& = E_\theta[(T(X_{1},\dots,X_{n})-\mu_{t})^{2}+2(T(X_{1},\dots,X_{n})-\mu_{t})(\mu_{t}g(\theta))+(\mu_{t}- g(\theta))^{2}] \\
+&= \overbrace{E_\theta[(T(X_{1},\dots,X_{n})-\mu_{t})^{2}]}^{\mathrm{Var}_{\theta}(T(X_{1},\dots,X_{n}))} + 2(\mu_{t} -
+g(\theta))\cancelto{0}{E_\theta(T(X_{1},\dots,X_{n})-\mu_{t})} + (\mu_{t}-g(\theta))^{2} \\
+&=\mathrm{Var}_\theta(T(X_{1},\dots,X_{n})) + (\mu_{t}-g(\theta))^{2}
+\end{aligned}
+$$
+
+Portanto,
+$$
+\mathrm{EQM}(T,g(\theta)) = \mathrm{Var}_\theta(T(X_{1},\dots,X_{n})) + (\mu_{t}-g(\theta))^{2}
+$$
+
+## Viés
+
+Denotamos de viés de $T(X_{1},\dots,X_{n})$ com respeito a $g(\theta)$ por
+$$
+\mathrm{Viés}(T,g(\theta)) = E_\theta(T(X_{1},\dots,X_{n}))-g(\theta),\forall \theta \in \Theta
+$$
+
+Dessa forma, temos que
+$$
+\mathrm{EQM}(T,g(\theta)) = \mathrm{Var}_\theta(T(X_{1},\dots,X_{n})) + [\mathrm{Viés}(T,g(\theta))]^{2}
+$$
+
+## Exemplo
+Seja $(X_{1},\dots,X_{n})$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa), ou seja, independentes e 
+identicamente distribuídas (i.i.d.), de $X\sim \mathrm{Ber}(\theta)$ em que $\theta \in \Theta = (0,1)$.
+Calcule o viés e o EQM de $\bar{X}_{n}$ com respeito a $g(\theta)=P_\theta(X=1)$
+
+O estimador é, então, $T(X_{1},\dots,X_{n})=\bar{X}_{n}= \frac{X_{1}+\dots+X_{n}}{n}$ para $g(\theta)=P_\theta(X=1)=\theta$
+(pelo [modelo de Bernoulli](modelo-estatistico.qmd#sec-modelobernoulli)).
+$$
+\begin{aligned}
+E_\theta(\bar{X}_{n}) &= E_\theta\left(\frac{1}{n}\sum\limits^{n}_{i=1}X_{i}\right)=
+\frac{1}{n}\sum\limits^{n}_{i=1}E_\theta(X_{i}) \stackrel{id. dist.}{\Rightarrow} \\
+E_\theta(\bar{X}_{n}) &= \frac{1}{n} \sum\limits^{n}_{i=1} E_\theta(X), \forall \theta \in \Theta \\
+& = \frac{n}{n} \theta = \theta, \forall \theta \in \Theta
+\end{aligned}
+$$
+
+Portanto, $\bar{X}_\theta$ é não enviesado para $g(\theta) = \theta$.
+$$
+\Rightarrow \mathrm{Viés}(\bar{X}_{n}, g(\theta)) = 0, \forall \theta \in \Theta
+$$
+
+Para o EQM,
+$$
+\begin{aligned}
+\mathrm{EQM}(\bar{X}_{n},g(\theta)) &= \mathrm{Var}_\theta(\bar{X}_{n}) - 0^{2} = \mathrm{Var}_\theta
+\left(\frac{1}{n}\sum\limits^{n}_{i=1}X_{i}\right)= \frac{1}{n^{2}}\mathrm{Var}_\theta\left(\sum\limits^{n}_{i=1}X_{i}\right)\\
+& \stackrel{\text{ind}}{=} \frac{1}{n^{2}}\sum\limits ^{n}_{i=1}\mathrm{Var}_\theta(X_{i})
+\stackrel{\text{ind. dist.}}{=} \frac{1}{n^{2}} \sum\limits^{n}_{i=1}\mathrm{Var}_{\theta}(X), \forall \theta \in \Theta \\
+&= \frac{n \theta(1-\theta)}{n^{2}} = \frac{\theta(1-\theta)}{n^{2}}, \forall \theta \in \Theta
+\end{aligned}
+$$
+

@@ -1,23 +1,48 @@
+lang: pt
+
 project:
   type: book
 
+
+execute:
+  echo: false
+  daemon: false
+jupyter: julia-1.11
 book:
-  title: "Anota��es de Infer�ncia"
-  author: "Norah Jones"
-  date: "31/01/2025"
+  title: "Anotaçõess de Inferência Frequentista"
+  author: "Gustavo S. Garone"
+  date: last-modified
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
-    - references.qmd
+    - modelo-estatistico.qmd
+    - populacao-e-amostra.qmd
+    - quantidade-de-interesse.qmd
+    - dist-amostral.qmd
+    - funcao-verossimilhanca.qmd
+    - estatisticas.qmd
+    - estimadores.qmd
+    - eqm-e-vies.qmd
+    - monte-carlo.qmd
+    - emv.qmd
+    - qui-quadrado.qmd
+    - tlc.qmd
+    - estimador-intervalar.qmd
+    - teste-hipotese.qmd
+    - teste-hipotese-duas-pops.qmd
+    - tabela-frequencias.qmd
+    - analise-aderencia.qmd
+    - testes-ind-homo.qmd
+    # - references.qmd
 
 bibliography: references.bib
+csl: associacao-brasileira-de-normas-tecnicas.csl 
 
 format:
   html:
     theme: cosmo
-  pdf:
-    documentclass: scrreprt
+  # pdf:
+  #   documentclass: scrreprt
+  #   cite-method: biblatex
 
 
 

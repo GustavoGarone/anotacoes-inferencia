@@ -1,0 +1,28 @@
+# Estatísticas
+
+Funções da [amostra](populacao-e-amostra.qmd#sec-aa) que não dependem de $\theta \in \Theta$
+
+## Exemplo
+
+Seja $(X_{1}, \dots, X_{n})$ a.a. de $X\sim f_{\theta,}\theta \in \Theta$.
+São estatísticas:
+1. $T_{1}(X_{1},\dots,X_{n})=X_{1}+\dots+X_{n}$
+2. $T_{2}=\bar{X}= \frac{X_{1}+\dots+X_{n}}{n}$
+3. $T_{3}=\max\{X_{1},\dots,X_{n}\}=X_{(n)}$
+4. $T_{4}=\min\{X_{1},\dots,X_{n}\}=X_{(1)}$
+5. $T_{5}(X_{1},\dots,X_{n})=X_{(n})-X_{(1)}$
+6. $T_{6}(X_{1},\dots,X_{n})=X_{i}, \text{para algum }i=1,\dots,n$
+7. $T_{7}(X_{1},\dots,X_{n})=\frac{1}{n}\sum\limits^{n}_{i=1}(X_{i}-\bar{X})^{2}$
+8. $T_{8}(X_{1},\dots,X_{n})=\frac{1}{n-1}\sum\limits^{n}_{i=1}(X_{i}-\bar{X})^{2}$
+9. $T_{9}(X_{1},\dots,X_{n})=\frac{1}{n}\sum\limits^{n}_{i=1}|X_{i}-\bar{X}|$
+10. $T_{7}(X_{1},\dots,X_{n})=\sqrt{\frac{1}{n}\sum\limits^{n}_{i=1}(X_{i}-\bar{X})^{2}}$
+etc.
+
+**Observação:** As estatísticas são variáveis aleatórias.
+
+$$
+\underset{\sim}{X_n}=(X_{1},\dots,X_{n}):\Omega\rightarrow \mathbb{R}^{n}
+$$
+$$
+T(\underset{\sim}{X})=T \circ \underset{\sim}{X}:\Omega\rightarrow \mathbb{R}
+$$

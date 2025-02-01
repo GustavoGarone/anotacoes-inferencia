@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: e623c5b2-fe4b-4396-b4dc-c9a20e6c3bc7
+      url: https://inferencia-classica.netlify.app

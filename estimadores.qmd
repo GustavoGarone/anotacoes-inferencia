@@ -1,0 +1,108 @@
+
+# Estimadores
+
+São estatísticas cujo objetivo é estimar uma [quantidade de interesse](quantidade-de-interesse.qmd).
+Portanto, estimadores são também variáveis aleatórias.
+
+## Estimativas
+São os valores observados a partir da amostra observada dos estimadores. Portanto, *estimativas são valores numéricos*
+
+Exemplos:
+1. $\bar{X}$ é uma estatística, $\bar{X}$ é um estimador para $g(\theta)=E_\theta(X)$
+2. Observando $\bar{x}=\frac{1}{n} \sum\limits^{n}_{i=1}x_{i}$ é uma estimativa
+Seja $(X_{1},X_{2})$ a.a de $X\sim \text{Ber}(\theta), \theta \in (0,1)$. Considere as estatísticas e suas funções de probabilidade:
+$$
+\begin{aligned}
+T_{1}(X_{1},X_{2}) &= X_{1}\\
+T_{2}(X_{1},X_{2}) &= X_{2}\\
+T_{3}(X_{1},X_{2}) &= X_{1}+X_{2}\\
+T_{4}(X_{1},X_{2}) &= \max\{X_{1},X_{2}\}\\
+T_{5}(X_{1},X_{2}) &= \min\{X_{1},X_{2}\}\\
+T_{6}(X_{1},X_{2}) &= \frac{1}{2}[(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}]=S^{2}_{n}=\frac{1}{2}S_{n-1}^{2}
+\end{aligned}
+$$
+
+$$
+\begin{array}{cccccc}
+(X_{1},X_{2}) & P_{\theta X_{1},X_{2}} & X_{1} & X_{2} & X_{1}+X_{2} & T_4 & T_5 & \bar{X}& S^{2}_{n} & S^{2}_{n-1}\\
+\hline
+(0,0) & (1-\theta)^{2} & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+(1,0) & \theta(1-\theta) & 1 & 0 & 1 & 1 & 0 & 0.5 & 0.25 & 0.5\\
+(0,1) & \theta(1-\theta) & 0 & 1 & 1 & 1 & 0 & 0.5 & 0.25 & 0.5\\
+(1,1) & \theta^{2} & 1 & 1 & 2 & 1 & 1 & 1 & 0 & 0\\
+\hline
+\end{array}
+$$
+
+Calcule para $T \in \{T_{1},T_{2},T_{3},T_{4},T_{5},T_{6} \}$
+
+a-) $E_\theta(T)$
+
+$E_\theta(T_{1}(X_{1},X_{2}))=E_\theta(X_{1})=\theta =0 (1-\theta)^{2}+1 \cdot\theta(1-\theta)+0 \theta(1-\theta)+1
+\theta^{2}= \theta$
+
+O mesmo vale para $T_2$
+
+$E_\theta(T_{3}(X_{1},X_{2}))=E_\theta(X_{1}+X_{2})=2 \theta$
+$E_\theta(T_{4}(X_{1},X_{2}))=E_\theta(\max\{X_{1},X_{2}\})=0 \cdot (1-\theta)^{2}+ 1\cdot[2\cdot \theta(1-\theta)+
+\theta^{2}] = 2\theta-\theta^{2}$
+$E_{\theta}(T_{5}(X_{1},X_{2}))=E_\theta(\min\{X_{1},X_{2} \})=\theta^{2}$
+$E_\theta(T_{6}(X_{1},X_{2}))=2 \theta(1-\theta)$
+
+b-) $\mathrm{Var}_{\theta}(T)$
+
+Termine com os mesmos raciocínios
+
+c-) $P_\theta(T=0)$
+
+Termine com os mesmos raciocínios
+
+Alguns resultados importantes:
+
+$$
+\begin{aligned}
+E_\theta(\bar{X})&=E_\Theta(\frac{X_{1}+X_{2}}{2})=\theta, \theta \in(0,1)\\
+E_{\theta}(\bar{X}^{2}) &= 0^{2}(1-\theta)^{2} + \frac{2}{4}  \theta (1-\theta) + 1^{2}\theta^{2}=\frac{1}{2}\theta +
+\frac{1}{2} \theta^{2}, \theta \in(0,1)\\
+\Rightarrow \mathrm{Var}_\theta(\bar{X}) &= \frac{\theta+\theta^{2}}{2} - \theta^{2} =\frac{\theta (1-\theta)}{2}, 
+\theta \in(0,1)
+\end{aligned}
+$$
+
+Aplicando em nossa tabela ($S_{n-1}^{2}$):
+
+$$
+\begin{aligned}
+E_\theta([(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}])&= \theta(1-\theta)\\
+E_\theta([(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}]^{2}) &= \frac{\theta(1-\theta)}{2}\\
+\Rightarrow\mathrm{Var}_{\Theta}([(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}]) &= \frac{1}{2}\theta(1-\theta)
+[1-2 \cdot \theta(1-\theta)]
+\end{aligned}
+$$
+
+## Propriedades dos estimadores para quantidades de interesse
+
+### Estimados não viciados ou enviesados
+
+Seja $(X_{1},\dots,X_{n})$ a.a. de $X\sim f_{\theta,}\theta \in \Theta$ e considere $T(X_{1},\dots,X_{n})=\hat\theta$
+um estimador para $\theta$.
+Dizemos que $\hat \theta$ é *não-enviesado* para $\theta$ $\Leftrightarrow$
+$$
+E_\theta(\hat \theta_{n}) = \theta, \forall \theta \in \Theta
+$$
+De forma geral, $T(X_{1},\dots,X_{n})$ é um estimador não-viciado para $g(\theta) \Leftrightarrow$,
+$$
+E_\theta(T(X_{1},\dots,X_{n}))=g(\theta), \forall \theta \in \Theta
+$$
+Caso contrário, dizemos que $T(X_{1},\dots,X_{n})$ é viciado ou enviesado para $g(\theta)$
+Dizemos que $\hat\theta_{n}$ é fracamente consistente para $\theta \Leftrightarrow$
+$$
+\lim_{n\to \infty}{P_\theta(|\hat \theta_{n}- \theta| > \epsilon)=0, \forall \theta \in \Theta}
+$$
+e para cada $\epsilon>0$ fixado.
+
+#### Estimadores não viciados assintoticamente
+Dizemos que $T(X_{1},\dots,X_{n})$ é um estimador assintoticamente não viciado para $g(\theta) \Leftrightarrow$ 
+$$
+\lim_{n\to \infty}{E_\theta(T(X_{1},\dots,X_{n}))} = g(\theta), \forall \theta \in \Theta
+$$

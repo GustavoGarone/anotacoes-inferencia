@@ -1,0 +1,75 @@
+# Tabela de frequências
+Sejam $X,Y$ variáveis aleatórias cujos valores observados são $B_{1},B_{2},\dots,B_{l}$ e $A_{1},A_{2}, A_{k}$, respectivamente.
+Observam-se os seguintes dados
+$$
+\begin{array}{ccc}
+\mathrm{ind.}  & X & Y \\
+1  & B_{2} & A_{1} \\
+2 & B_{7} & A_{3} \\
+\vdots & \vdots  & \vdots \\
+n  & B_{1} & A_{5}
+\end{array}
+$$
+Colocamos nossos dados numa tabela de frequências absolutas observadas
+$$
+\begin{array}{c|cccc|c}
+X\setminus Y  & A_{1} & A_{2} & \dots & A_{k} & \mathrm{Total}~X \\
+\hline
+B_{1} & O_{11} & O_{12} & \dots & O_{1k} & O_{1\cdot} \\
+B_{2} & O_{11} & O_{12} & \dots & O_{1k} & O_{2\cdot} \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+B_{l} & O_{l1} & O_{l2} & \dots & O_{lk} & O_{l\cdot} \\
+\hline
+\mathrm{Total}~Y  & O_{\cdot_{1}} & O_{\cdot_{2}}  & \dots  & O_{\cdot k}  & n
+\end{array}
+$$
+
+Temos nossa tabela de frequências esperadas [[Teste de Hipótese|sob]] $H_{0}$ (Independência)
+$$
+\begin{array}{c|cccc|c}
+X\setminus Y  & A_{1} & A_{2} & \dots & A_{k} & \mathrm{Total}~X \\
+\hline
+B_{1} & E_{11} & E_{12} & \dots & E_{1k} & O_{1\cdot} \\
+B_{2} & E_{11} & E_{12} & \dots & E_{1k} & O_{2\cdot} \\
+\vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+B_{l} & E_{l1} & E_{l2} & \dots & E_{lk} & O_{l\cdot} \\
+\hline
+\mathrm{Total}~Y  & O_{\cdot_{1}} & O_{\cdot_{2}}  & \dots  & O_{\cdot k}  & n
+\end{array}
+$$
+Em que
+$$
+E_{ij} = \frac{O_{i \cdot} \cdot O_{\cdot j}}{n}
+$$
+Note que, sob independência
+$$
+\begin{aligned}
+P(B_{i}\cap A_{j}) &= P(B_{i}) \cdot P(A_{j}) \\
+E_{ij} &= n \cdot P(B_{i}\cap A_{j}) \stackrel{\mathrm{ind.}}{=} n P(B_{i}) \cdot P_{A_{j}}
+\end{aligned}
+$$
+Estimando $P(B_{i}), P(A_{j})$ temos
+$$
+\widehat{P(B_{i})} = \frac{O_{i\cdot}}{n}, \widehat{P(A_{j})}= \frac{O_{\cdot j}}{n}
+$$
+Logo, o valor esperado estimado é
+$$
+\widehat{E_{ij}}=n \cdot \widehat{P(B_{i})}\cdot\widehat{P(A_{j})} = \frac{O_{i \cdot} \cdot O_{\cdot j}}{n}
+$$
+
+Em ambos testes, usaremos a seguinte estatística para testar suas hipóteses (independência e homogeneidade)
+$$
+\chi^2 = \sum^k_{i=1}\sum^l_{j=1} \frac{(O_{ij}-E_{ij})^2}{E_{ij}}
+$$
+Sob $H_{0}$, ou seja,
+$$
+\chi^2_{obs}\sim \chi^2_{(k-1)(l-1)}
+$$
+Dessa forma, rejeitamos a hipótese $H_{0}$ a $\alpha$ graus de liberdade se
+$$
+\chi^2_{obs} > c_{p}
+$$
+em que $c_{p}$ satisfaz $P(\chi^2_{(k-1)(l-1)} > c_{p})=\alpha$.
+
+*Observação*
+Essa aproximação com a $\chi^2$ só funciona de modo razoável quando cada $E_{ij}>5$ 
