@@ -1,7 +1,7 @@
 # Prefácio {.unnumbered}
 
 Este é um livrete feito na plataforma [Quarto](https>//quarto.org) para minhas anotações das disciplinas de inferência
-frequentista ou clássica MAE0225 e MAE0301, ambas ministradas pelo Professor [Alexandre Galvão Patriota](https://www.ime.usp.br/patriota/) e de sua autoria.
+frequentista ou clássica MAE0225 e MAE0301, ambas ministradas pelo Professor [Alexandre Galvão Patriota](https://www.ime.usp.br/~patriota/) e de sua autoria.
 
 Dúvidas, sugestões, críticas ou erros por favor contactar em [gustavo.garone arroba usp.br](gustavo.garone@usp.br)
 
