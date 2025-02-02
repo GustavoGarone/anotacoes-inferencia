@@ -10,7 +10,7 @@ execute:
 jupyter: julia-1.11
 book:
   title: "Anotaçõess de Inferência Frequentista"
-  author: "Gustavo S. Garone"
+  author: "Aulas de Alexandre G. Patriota, digitado por Gustavo S. Garone"
   date: last-modified
   chapters:
     - index.qmd
