@@ -288,7 +288,7 @@ window.Quarto = {
 
 
 <p>O erro quadrático médio (EQM) do <a href="./estimadores.html">estimador</a> <span class="math inline">\(T(X_{1},\dots,X_{n})\)</span> com respeito a <span class="math inline">\(g(\theta)\)</span> é definido por <span class="math display">\[
-\mathrm{EQM}(T,g(\theta))=E_{\theta}((T(X_{1},\dots,X_{n})-g(\theta)^{2})
+\mathrm{EQM}(T,g(\theta))=E_{\theta}((T(X_{1},\dots,X_{n})-g(\theta))^{2})
 \]</span> Obs.:</p>
 <p>Se <span class="math inline">\(T(X_{1},\dots,X_{n})\)</span> for não viciado para <span class="math inline">\(g(\theta)\)</span>, então <span class="math inline">\(\mathrm{EQM}(T,g(\theta))=\mathrm{Var}_{\theta}(T(X_{1},\dots,X_{n})) \forall \theta \in \Theta\)</span></p>
 <section id="propriedades-do-eqm" class="level2" data-number="8.1">
@@ -314,7 +314,7 @@ g(\theta))\cancelto{0}{E_\theta(T(X_{1},\dots,X_{n})-\mu_{t})} + (\mu_{t}-g(\the
 \mathrm{Viés}(T,g(\theta)) = E_\theta(T(X_{1},\dots,X_{n}))-g(\theta),\forall \theta \in \Theta
 \]</span></p>
 <p>Dessa forma, temos que <span class="math display">\[
-\mathrm{EQM}(T,g(\theta)) = \mathrm{Var}_\theta(T(X_{1},\dots,X_{n})) + [\mathrm{Viés}(T,g(\theta))]^{2}
+\mathrm{EQM}(T,g(\theta)) = \mathrm{Var}_\theta(T(X_{1},\dots,X_{n})) + [\mathrm{Viés}(T(X_1,\dots,X_n),g(\theta))]^{2}
 \]</span></p>
 </section>
 <section id="exemplo" class="level2" data-number="8.3">
@@ -324,11 +324,11 @@ g(\theta))\cancelto{0}{E_\theta(T(X_{1},\dots,X_{n})-\mu_{t})} + (\mu_{t}-g(\the
 \begin{aligned}
 E_\theta(\bar{X}_{n}) &amp;= E_\theta\left(\frac{1}{n}\sum\limits^{n}_{i=1}X_{i}\right)=
 \frac{1}{n}\sum\limits^{n}_{i=1}E_\theta(X_{i}) \stackrel{id. dist.}{\Rightarrow} \\
-E_\theta(\bar{X}_{n}) &amp;= \frac{1}{n} \sum\limits^{n}_{i=1} E_\theta(X), \forall \theta \in \Theta \\
+E_\theta(\bar{X}_{n}) &amp;= \frac{1}{n} \sum\limits^{n}_{i=1} E_\theta(X) \\
 &amp; = \frac{n}{n} \theta = \theta, \forall \theta \in \Theta
 \end{aligned}
 \]</span></p>
-<p>Portanto, <span class="math inline">\(\bar{X}_\theta\)</span> é não enviesado para <span class="math inline">\(g(\theta) = \theta\)</span>. <span class="math display">\[
+<p>Portanto, <span class="math inline">\(\bar{X}_{\theta, n}\)</span> é não enviesado para <span class="math inline">\(g(\theta) = \theta\)</span>. <span class="math display">\[
 \Rightarrow \mathrm{Viés}(\bar{X}_{n}, g(\theta)) = 0, \forall \theta \in \Theta
 \]</span></p>
 <p>Para o EQM, <span class="math display">\[
@@ -336,8 +336,8 @@ E_\theta(\bar{X}_{n}) &amp;= \frac{1}{n} \sum\limits^{n}_{i=1} E_\theta(X), \for
 \mathrm{EQM}(\bar{X}_{n},g(\theta)) &amp;= \mathrm{Var}_\theta(\bar{X}_{n}) - 0^{2} = \mathrm{Var}_\theta
 \left(\frac{1}{n}\sum\limits^{n}_{i=1}X_{i}\right)= \frac{1}{n^{2}}\mathrm{Var}_\theta\left(\sum\limits^{n}_{i=1}X_{i}\right)\\
 &amp; \stackrel{\text{ind}}{=} \frac{1}{n^{2}}\sum\limits ^{n}_{i=1}\mathrm{Var}_\theta(X_{i})
-\stackrel{\text{ind. dist.}}{=} \frac{1}{n^{2}} \sum\limits^{n}_{i=1}\mathrm{Var}_{\theta}(X), \forall \theta \in \Theta \\
-&amp;= \frac{n \theta(1-\theta)}{n^{2}} = \frac{\theta(1-\theta)}{n^{2}}, \forall \theta \in \Theta
+\stackrel{\text{ind. dist.}}{=} \frac{1}{n^{2}} \sum\limits^{n}_{i=1}\mathrm{Var}_{\theta}(X), \\
+&amp;= \frac{n \theta(1-\theta)}{n^{2}} = \frac{\theta(1-\theta)}{n}, \forall \theta \in \Theta
 \end{aligned}
 \]</span></p>
 

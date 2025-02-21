@@ -262,10 +262,9 @@ window.Quarto = {
   <li><a href="#exemplos" id="toc-exemplos" class="nav-link active" data-scroll-target="#exemplos"><span class="header-section-number">4.1</span> Exemplos</a>
   <ul class="collapse">
   <li><a href="#exemplo-um" id="toc-exemplo-um" class="nav-link" data-scroll-target="#exemplo-um"><span class="header-section-number">4.1.1</span> Exemplo um</a></li>
-  <li><a href="#exemplo-dois" id="toc-exemplo-dois" class="nav-link" data-scroll-target="#exemplo-dois"><span class="header-section-number">4.1.2</span> Exemplo dois</a></li>
-  <li><a href="#exemplo-três" id="toc-exemplo-três" class="nav-link" data-scroll-target="#exemplo-três"><span class="header-section-number">4.1.3</span> Exemplo três</a></li>
-  <li><a href="#exemplo-contínuo-um" id="toc-exemplo-contínuo-um" class="nav-link" data-scroll-target="#exemplo-contínuo-um"><span class="header-section-number">4.1.4</span> Exemplo contínuo um</a></li>
-  <li><a href="#exemplo-contínuo-dois" id="toc-exemplo-contínuo-dois" class="nav-link" data-scroll-target="#exemplo-contínuo-dois"><span class="header-section-number">4.1.5</span> Exemplo contínuo dois</a></li>
+  <li><a href="#exemplo-dois" id="toc-exemplo-dois" class="nav-link" data-scroll-target="#exemplo-dois"><span class="header-section-number">4.1.2</span> Exemplo dois <!-- três --></a></li>
+  <li><a href="#exemplo-contínuo-um" id="toc-exemplo-contínuo-um" class="nav-link" data-scroll-target="#exemplo-contínuo-um"><span class="header-section-number">4.1.3</span> Exemplo contínuo um</a></li>
+  <li><a href="#exemplo-contínuo-dois" id="toc-exemplo-contínuo-dois" class="nav-link" data-scroll-target="#exemplo-contínuo-dois"><span class="header-section-number">4.1.4</span> Exemplo contínuo dois</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -298,7 +297,7 @@ P_\theta(X_{1}=k_{1}, X_{2}=k_{2},\dots,X_{n}= k_{n})\stackrel{\text{ind}}{=}\pr
 \stackrel{\text{id}}{=}\prod^{n}_{i=1}P_\theta(X=k_{i})\stackrel{\text{def}}{=}\prod^{n}_{i=1}f_\theta(k_{i})
 \]</span></p>
 <p>no caso contínuo: <span class="math display">\[
-f_\theta^{(x)}(k_{1},k_{2},\dots,k_{n})\stackrel{\text{i.i.d}}{=}\prod^{n}_{i=1}f_{\theta}(k_{i})
+f_\theta^{(X_1, \dots, X_n)}(k_{1},k_{2},\dots,k_{n})\stackrel{\text{i.i.d}}{=}\prod^{n}_{i=1}f_{\theta}(k_{i})
 \]</span></p>
 <section id="exemplos" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="exemplos"><span class="header-section-number">4.1</span> Exemplos</h2>
@@ -318,52 +317,52 @@ f_\theta^{(x)}(k_{1},k_{2},\dots,k_{n})\stackrel{\text{i.i.d}}{=}\prod^{n}_{i=1}
     \]</span> 2. Enunciando a função Observe que, se <span class="math inline">\(k \in \{0,1 \}\)</span>, <span class="math display">\[\begin{aligned}
        &amp;P_\theta(X=k)=\theta^{k}(1-\theta)^{1-k}\cdot\mathbb{1}_{\{0,1 \}}(k)\Rightarrow\\
        &amp;P_\theta(X_{1}=k,X_{2}=k_{2},X_{3}= k_{3})\stackrel{\text{i.i.d}}{=}\prod^{3}_{i=1}\{\theta^{k_{i}}
-       (1-\theta)^{1-k_{1}}\mathbb{1}_{\{0,1 \}}(k_{1}) \} = \\
-       &amp;= \theta^{\sum\limits^{3}_{i=1}k_{1}}(1-\theta)^{3-\sum\limits^{3}_{i=1}k_{1}}\prod^{3}_{i=1}\mathbb{1}_{\{0,1\}}
+       (1-\theta)^{1-k_{i}}\mathbb{1}_{\{0,1 \}}(k_{i}) \} = \\
+       &amp;= \theta^{\sum\limits^{3}_{i=1}k_{i}}(1-\theta)^{3-\sum\limits^{3}_{i=1}k_{i}}\prod^{3}_{i=1}\mathbb{1}_{\{0,1\}}
        (k_{i})
        \end{aligned}
     \]</span> 3. Em função de <span class="math inline">\(\theta\)</span>: 1. <span class="math inline">\(g(\theta)=E_\theta(X)=\theta\)</span> 2. <span class="math inline">\(g(\theta)=P_\theta(X=0)=1-\theta\)</span> 3. <span class="math inline">\(g(\theta)=\mathrm{CV}_\theta(X)=\frac{\sqrt{\theta(1-\theta)}}{\theta}\)</span></p>
-</section>
-<section id="exemplo-dois" class="level3" data-number="4.1.2">
-<h3 data-number="4.1.2" class="anchored" data-anchor-id="exemplo-dois"><span class="header-section-number">4.1.2</span> Exemplo dois</h3>
-<p>Seja <span class="math inline">\((X_{1},\dots,X_{n})\)</span> uma a.a de <span class="math inline">\(X\sim\text{Ber}(\theta), \theta \in(0,1)\)</span>, encontre a f.p conjunta da amostra. <span class="math display">\[
+<!-- ### Exemplo dois
+
+Seja $(X_{1},\dots,X_{n})$ uma a.a de $X\sim\text{Ber}(\theta), \theta \in(0,1)$, encontre a f.p conjunta da amostra.
+$$
 \begin{aligned}
 P_\theta(X_{1}=k_{1},\dots,X_{n}=k_{n})\stackrel{\text{iid}}{=}\prod ^{n}_{i=1}P_\theta(X=k_{i})=\prod^{n}_{i=1}
 \{\theta^{k_{i}}(1-\theta)^{1-k_{i}}\mathbb{1}_{\{0,1 \}}(k_{i}) \}\\
-\Rightarrow P_\theta(X_{1}=k_{1},\dots,X_{n}=k_{n})=\theta^{\sum\limits^{n}_{i=1}k_{1}}\cdot
+\Rightarrow P_\theta(X_{1}=k_{1},\dots,X_{n}=k_{n})=\theta^{\sum\limits^{n}_{i=1}k_{1}}\cdot 
 \theta^{n-\sum\limits^{n}_{i=i}k_{i}}\cdot\mathbb{1}_{\{0,1\}}(k_{i})
 \end{aligned}
-\]</span></p>
+$$ -->
 </section>
-<section id="exemplo-três" class="level3" data-number="4.1.3">
-<h3 data-number="4.1.3" class="anchored" data-anchor-id="exemplo-três"><span class="header-section-number">4.1.3</span> Exemplo três</h3>
+<section id="exemplo-dois" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="exemplo-dois"><span class="header-section-number">4.1.2</span> Exemplo dois <!-- três --></h3>
 <p>Seja <span class="math inline">\((X_{1},\dots,X_{n})\)</span> uma a.a de <span class="math inline">\(X\sim\text{Pois}(\theta), \theta \in(0,\infty)\)</span>, encontre a f.p. conjunta da amostra. Como esse vetor é uma a.a. (ou seja, variáveis aleatórias independentes e identicamente distribuídas), temos que <span class="math display">\[
 P_\theta(X_1=k_{1},\dots,X_{n}=k_{n})\stackrel{\text{iid}}{=}\prod^{n}_{i=1}P_\theta(X=k_{i})=\prod^{n}_{i=1}\{\mathrm{e}
 ^{-\theta} \cdot \frac{\theta^{k_{i}}}{k_{i}!}\}
 \]</span> Sempre que <span class="math inline">\(k_{i}\in\{0,1,\dots \}, \forall i = 1,\dots,n\)</span></p>
 <p><span class="math display">\[
-\Rightarrow P_\theta(\dots)=\mathrm{e}^{-n \theta} \cdot \frac{\theta^{\sum\limits^{n}_{i=1}k_{i}}}{\prod^{n}_{i=1}
+\Rightarrow P_\theta(X_1=k_{1},\dots,X_{n}=k_{n})=\mathrm{e}^{-n \theta} \cdot \frac{\theta^{\sum\limits^{n}_{i=1}k_{i}}}{\prod^{n}_{i=1}
 (k_{i})!}
 \]</span></p>
 </section>
-<section id="exemplo-contínuo-um" class="level3" data-number="4.1.4">
-<h3 data-number="4.1.4" class="anchored" data-anchor-id="exemplo-contínuo-um"><span class="header-section-number">4.1.4</span> Exemplo contínuo um</h3>
+<section id="exemplo-contínuo-um" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="exemplo-contínuo-um"><span class="header-section-number">4.1.3</span> Exemplo contínuo um</h3>
 <p>Seja <span class="math inline">\((X_{1},\dots,X_{n})\)</span> uma a.a de <span class="math inline">\(X\sim\text{Exp}(\theta), \theta \in(0,\infty)\)</span>, encontre a função densidade de probabilidade (f.d.p.) conjunta da amostra. <span class="math display">\[
 \begin{aligned}
-F_{\theta}^{(*)}(k_{1},\dots,k_{n})&amp;\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_\theta(k_{i})=\prod^{n}_{i=1}
+f_{\theta}^{(X_1,\dots,X_{n})}(k_{1},\dots,k_{n})&amp;\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_\theta(k_{i})=\prod^{n}_{i=1}
 \{\theta \mathrm{e}^{-\theta k_{i}} \cdot \mathbb{1}_{(0,\infty )}(k_{i}) \}
-\\&amp;\Rightarrow f_\theta^{(*)}(\dots)=\theta^{n}
-\cdot \mathrm{e}^{-\theta\sum\limits^{n}_{i=1}k_{i}} \cdot\prod^{n}_{i=1}\mathbb{1}_{(0,\infty)}(k)
+\\&amp;\Rightarrow f_\theta^{(X_1,\dots,X_n)}(k_1,\dots,k_n)=\theta^{n}
+\cdot \mathrm{e}^{-\theta\sum\limits^{n}_{i=1}k_{i}} \cdot\prod^{n}_{i=1}\mathbb{1}_{(0,\infty)}(k_i)
 \end{aligned}
 \]</span></p>
 </section>
-<section id="exemplo-contínuo-dois" class="level3" data-number="4.1.5">
-<h3 data-number="4.1.5" class="anchored" data-anchor-id="exemplo-contínuo-dois"><span class="header-section-number">4.1.5</span> Exemplo contínuo dois</h3>
+<section id="exemplo-contínuo-dois" class="level3" data-number="4.1.4">
+<h3 data-number="4.1.4" class="anchored" data-anchor-id="exemplo-contínuo-dois"><span class="header-section-number">4.1.4</span> Exemplo contínuo dois</h3>
 <p>Seja <span class="math inline">\((X_{1},\dots,X_{n})\)</span> uma a.a. (i.i.d) de <span class="math inline">\(X\sim N(\mu,\sigma^{2})\)</span> em que <span class="math inline">\(\theta=(\mu, \sigma^{2}) \in \Theta=\mathbb{R}\times \mathbb{R}_{+}\)</span>. Considere <span class="math inline">\(\stackrel{x}{\sim}=(x_{1},\dots,x_{n})\)</span> a amostra observada.</p>
 <p><span class="math display">\[
 \begin{aligned}
-L_{\stackrel{X}{\sim}} &amp;\stackrel{\text{iid}}{=} \prod^{n}_{i=1}f_\theta(x_{i})=
-\prod^{n}_{i=1}\left\{\frac{1}{\sqrt{2 \pi \sigma^{2}}} \mathrm{exp}\{- \frac{1}{2\sigma^{2}}(x_{1}-\mu)^{2}\}\right\} \\
+L_{\stackrel{X}{\sim}}(\theta) &amp;\stackrel{\text{iid}}{=} \prod^{n}_{i=1}f_\theta(x_{i})=
+\prod^{n}_{i=1}\left\{\frac{1}{\sqrt{2 \pi \sigma^{2}}} \mathrm{exp}\{- \frac{1}{2\sigma^{2}}(x_{i}-\mu)^{2}\}\right\} \\
 &amp;= \frac{1}{(2 \pi \sigma^{2})^{\frac{x}{2}}}\cdot \mathrm{exp}\{- \frac{1}{2 \sigma^{2}} \sum\limits^{n}_{i=1}(x_{i}-\mu)^{2}  \}
 \end{aligned}
 \]</span></p>

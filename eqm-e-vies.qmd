@@ -3,7 +3,7 @@
 O erro quadrático médio (EQM) do [estimador](estimadores.qmd) $T(X_{1},\dots,X_{n})$ com respeito a $g(\theta)$ é 
 definido por
 $$
-\mathrm{EQM}(T,g(\theta))=E_{\theta}((T(X_{1},\dots,X_{n})-g(\theta)^{2})
+\mathrm{EQM}(T,g(\theta))=E_{\theta}((T(X_{1},\dots,X_{n})-g(\theta))^{2})
 $$
 Obs.:
 
@@ -38,7 +38,7 @@ $$
 
 Dessa forma, temos que
 $$
-\mathrm{EQM}(T,g(\theta)) = \mathrm{Var}_\theta(T(X_{1},\dots,X_{n})) + [\mathrm{Viés}(T,g(\theta))]^{2}
+\mathrm{EQM}(T,g(\theta)) = \mathrm{Var}_\theta(T(X_{1},\dots,X_{n})) + [\mathrm{Viés}(T(X_1,\dots,X_n),g(\theta))]^{2}
 $$
 
 ## Exemplo
@@ -52,12 +52,12 @@ $$
 \begin{aligned}
 E_\theta(\bar{X}_{n}) &= E_\theta\left(\frac{1}{n}\sum\limits^{n}_{i=1}X_{i}\right)=
 \frac{1}{n}\sum\limits^{n}_{i=1}E_\theta(X_{i}) \stackrel{id. dist.}{\Rightarrow} \\
-E_\theta(\bar{X}_{n}) &= \frac{1}{n} \sum\limits^{n}_{i=1} E_\theta(X), \forall \theta \in \Theta \\
+E_\theta(\bar{X}_{n}) &= \frac{1}{n} \sum\limits^{n}_{i=1} E_\theta(X) \\
 & = \frac{n}{n} \theta = \theta, \forall \theta \in \Theta
 \end{aligned}
 $$
 
-Portanto, $\bar{X}_\theta$ é não enviesado para $g(\theta) = \theta$.
+Portanto, $\bar{X}_{\theta, n}$ é não enviesado para $g(\theta) = \theta$.
 $$
 \Rightarrow \mathrm{Viés}(\bar{X}_{n}, g(\theta)) = 0, \forall \theta \in \Theta
 $$
@@ -68,8 +68,8 @@ $$
 \mathrm{EQM}(\bar{X}_{n},g(\theta)) &= \mathrm{Var}_\theta(\bar{X}_{n}) - 0^{2} = \mathrm{Var}_\theta
 \left(\frac{1}{n}\sum\limits^{n}_{i=1}X_{i}\right)= \frac{1}{n^{2}}\mathrm{Var}_\theta\left(\sum\limits^{n}_{i=1}X_{i}\right)\\
 & \stackrel{\text{ind}}{=} \frac{1}{n^{2}}\sum\limits ^{n}_{i=1}\mathrm{Var}_\theta(X_{i})
-\stackrel{\text{ind. dist.}}{=} \frac{1}{n^{2}} \sum\limits^{n}_{i=1}\mathrm{Var}_{\theta}(X), \forall \theta \in \Theta \\
-&= \frac{n \theta(1-\theta)}{n^{2}} = \frac{\theta(1-\theta)}{n^{2}}, \forall \theta \in \Theta
+\stackrel{\text{ind. dist.}}{=} \frac{1}{n^{2}} \sum\limits^{n}_{i=1}\mathrm{Var}_{\theta}(X), \\
+&= \frac{n \theta(1-\theta)}{n^{2}} = \frac{\theta(1-\theta)}{n}, \forall \theta \in \Theta
 \end{aligned}
 $$
 

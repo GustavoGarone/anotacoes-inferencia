@@ -316,7 +316,7 @@ T_{6}(X_{1},X_{2}) &amp;= \frac{1}{2}[(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}]=S
 \]</span></p>
 <p>Calcule para <span class="math inline">\(T \in \{T_{1},T_{2},T_{3},T_{4},T_{5},T_{6} \}\)</span></p>
 <p>a-) <span class="math inline">\(E_\theta(T)\)</span></p>
-<p><span class="math inline">\(E_\theta(T_{1}(X_{1},X_{2}))=E_\theta(X_{1})=\theta =0 (1-\theta)^{2}+1 \cdot\theta(1-\theta)+0 \theta(1-\theta)+1
+<p><span class="math inline">\(E_\theta(T_{1}(X_{1},X_{2}))=E_\theta(X_{1})= (1-\theta)^{2}+1 \cdot\theta(1-\theta)+0 \theta(1-\theta)+1
 \theta^{2}= \theta\)</span></p>
 <p>O mesmo vale para <span class="math inline">\(T_2\)</span></p>
 <p><span class="math inline">\(E_\theta(T_{3}(X_{1},X_{2}))=E_\theta(X_{1}+X_{2})=2 \theta\)</span> <span class="math inline">\(E_\theta(T_{4}(X_{1},X_{2}))=E_\theta(\max\{X_{1},X_{2}\})=0 \cdot (1-\theta)^{2}+ 1\cdot[2\cdot \theta(1-\theta)+
@@ -328,7 +328,7 @@ T_{6}(X_{1},X_{2}) &amp;= \frac{1}{2}[(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}]=S
 <p>Alguns resultados importantes:</p>
 <p><span class="math display">\[
 \begin{aligned}
-E_\theta(\bar{X})&amp;=E_\Theta(\frac{X_{1}+X_{2}}{2})=\theta, \theta \in(0,1)\\
+E_\theta(\bar{X})&amp;=E_\theta(\frac{X_{1}+X_{2}}{2})=\theta, \theta \in(0,1)\\
 E_{\theta}(\bar{X}^{2}) &amp;= 0^{2}(1-\theta)^{2} + \frac{2}{4}  \theta (1-\theta) + 1^{2}\theta^{2}=\frac{1}{2}\theta +
 \frac{1}{2} \theta^{2}, \theta \in(0,1)\\
 \Rightarrow \mathrm{Var}_\theta(\bar{X}) &amp;= \frac{\theta+\theta^{2}}{2} - \theta^{2} =\frac{\theta (1-\theta)}{2},
@@ -340,7 +340,7 @@ E_{\theta}(\bar{X}^{2}) &amp;= 0^{2}(1-\theta)^{2} + \frac{2}{4}  \theta (1-\the
 \begin{aligned}
 E_\theta([(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}])&amp;= \theta(1-\theta)\\
 E_\theta([(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}]^{2}) &amp;= \frac{\theta(1-\theta)}{2}\\
-\Rightarrow\mathrm{Var}_{\Theta}([(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}]) &amp;= \frac{1}{2}\theta(1-\theta)
+\Rightarrow\mathrm{Var}_{\theta}([(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}]) &amp;= \frac{1}{2}\theta(1-\theta)
 [1-2 \cdot \theta(1-\theta)]
 \end{aligned}
 \]</span></p>
@@ -349,9 +349,9 @@ E_\theta([(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}]^{2}) &amp;= \frac{\theta(1-\t
 <h2 data-number="7.2" class="anchored" data-anchor-id="propriedades-dos-estimadores-para-quantidades-de-interesse"><span class="header-section-number">7.2</span> Propriedades dos estimadores para quantidades de interesse</h2>
 <section id="estimados-não-viciados-ou-enviesados" class="level3" data-number="7.2.1">
 <h3 data-number="7.2.1" class="anchored" data-anchor-id="estimados-não-viciados-ou-enviesados"><span class="header-section-number">7.2.1</span> Estimados não viciados ou enviesados</h3>
-<p>Seja <span class="math inline">\((X_{1},\dots,X_{n})\)</span> a.a. de <span class="math inline">\(X\sim f_{\theta,}\theta \in \Theta\)</span> e considere <span class="math inline">\(T(X_{1},\dots,X_{n})=\hat\theta\)</span> um estimador para <span class="math inline">\(\theta\)</span>. Dizemos que <span class="math inline">\(\hat \theta\)</span> é <em>não-enviesado</em> para <span class="math inline">\(\theta\)</span> <span class="math inline">\(\Leftrightarrow\)</span> <span class="math display">\[
+<p>Seja <span class="math inline">\((X_{1},\dots,X_{n})\)</span> a.a. de <span class="math inline">\(X\sim f_{\theta,}\theta \in \Theta\)</span> e considere <span class="math inline">\(T(X_{1},\dots,X_{n})=\hat{\theta}_n\)</span> um estimador para <span class="math inline">\(\theta\)</span>. Dizemos que <span class="math inline">\(\hat{\theta}_n\)</span> é <em>não-enviesado</em> para <span class="math inline">\(\theta \Leftrightarrow\)</span> <span class="math display">\[
 E_\theta(\hat \theta_{n}) = \theta, \forall \theta \in \Theta
-\]</span> De forma geral, <span class="math inline">\(T(X_{1},\dots,X_{n})\)</span> é um estimador não-viciado para <span class="math inline">\(g(\theta) \Leftrightarrow\)</span>, <span class="math display">\[
+\]</span> De forma geral, <span class="math inline">\(T(X_{1},\dots,X_{n})\)</span> é um estimador não-viciado para <span class="math inline">\(g(\theta) \Leftrightarrow\)</span> <span class="math display">\[
 E_\theta(T(X_{1},\dots,X_{n}))=g(\theta), \forall \theta \in \Theta
 \]</span> Caso contrário, dizemos que <span class="math inline">\(T(X_{1},\dots,X_{n})\)</span> é viciado ou enviesado para <span class="math inline">\(g(\theta)\)</span> Dizemos que <span class="math inline">\(\hat\theta_{n}\)</span> é fracamente consistente para <span class="math inline">\(\theta \Leftrightarrow\)</span> <span class="math display">\[
 \lim_{n\to \infty}{P_\theta(|\hat \theta_{n}- \theta| &gt; \epsilon)=0, \forall \theta \in \Theta}
