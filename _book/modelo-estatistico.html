@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.39">
+<meta name="generator" content="quarto-1.6.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -37,10 +37,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5be6a2cc77e263ac8fc319dd47b90cd7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-e9131c8ef025c8509cdc7084ffe4c278.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -301,24 +301,22 @@ window.Quarto = {
 
 <p>Em teoria de probabilidades, conhecemos a medida de probabilidade, logo, fazemos descrições probabilísticas. <span class="math display">\[(\Omega, \mathscr{A}, P)\stackrel{\text{X}}{\rightarrow}(\mathbb{R}, \mathscr{B}, P_{X})\]</span> Na prática, contudo, não conhecemos a medida <span class="math inline">\(P\)</span>.</p>
 <p>Definimos então uma família de medidas de probabilidades que possivelmente descrevem o comportamento aleatório dos dados.</p>
-<p>O <em>Modelo Estatístico</em> é definido pela trinca <span class="math display">\[(\Omega, \mathscr{A}, \mathscr{P})\]</span> em que <span class="math inline">\(\Omega\)</span> é o espaço amostral (evento certo), <span class="math inline">\(\mathscr{A}\)</span> é a Sigma álgebra, uma família de subconjuntos ou eventos em <span class="math inline">\(\Omega\)</span>, e <span class="math inline">\(\mathscr{P}\)</span> é uma família de medidas de probabilidade que possivelmente descrevem o comportamento aleatório dos dados ou eventos sobre investigação.</p>
+<p>O <em>Modelo Estatístico</em> é definido pela trinca <span class="math display">\[(\Omega, \mathscr{A}, \mathcal{P})\]</span> em que <span class="math inline">\(\Omega\)</span> é o espaço amostral (evento certo), <span class="math inline">\(\mathscr{A}\)</span> é a Sigma álgebra, uma família de subconjuntos ou eventos em <span class="math inline">\(\Omega\)</span>, e <span class="math inline">\(\mathcal{P}\)</span> é uma família de medidas de probabilidade que possivelmente descrevem o comportamento aleatório dos dados ou eventos sob investigação.</p>
 <section id="modelo-estatístico-paramétrico" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="modelo-estatístico-paramétrico"><span class="header-section-number">1.1</span> Modelo Estatístico Paramétrico</h2>
-<p>Se <span class="math inline">\(\mathscr{P} = \{P_{\theta} : \theta \in \Theta\}\)</span>, em que <span class="math inline">\(\Theta \subseteq \mathbb{R}^{p}\)</span> e <span class="math inline">\(p \in \mathbb{N}\)</span>, então dizemos que <span class="math inline">\((\Omega, \mathscr{A}, \mathscr{P})\)</span> é um modelo estatístico <strong>Paramétrico</strong>.</p>
+<p>Se <span class="math inline">\(\mathcal{P} = \{P_{\theta} : \theta \in \Theta\}\)</span>, em que <span class="math inline">\(\Theta \subseteq \mathbb{R}^{p}\)</span> e <span class="math inline">\(p \in \mathbb{N}\)</span>, então dizemos que <span class="math inline">\((\Omega, \mathscr{A}, \mathcal{P})\)</span> é um modelo estatístico <strong>Paramétrico</strong>.</p>
 <p>Caso não exista <span class="math inline">\(\Theta \subseteq \mathbb{R}^{p}\)</span> fixo, então dizemos que o modelo é não-paramétrico. <em>Obs</em>: <span class="math inline">\(\Theta\)</span> é o espaço paramétrico e <span class="math inline">\(\theta\)</span> é o vetor de parâmetros. <span class="math inline">\(\theta\)</span> <strong>Não</strong>* é variável aleatória, apenas indexa as medidas de probabilidade.</p>
 <section id="exemplos" class="level3" data-number="1.1.1">
 <h3 data-number="1.1.1" class="anchored" data-anchor-id="exemplos"><span class="header-section-number">1.1.1</span> Exemplos</h3>
 <section id="exemplo-de-bernoulli" class="level4" data-number="1.1.1.1">
 <h4 data-number="1.1.1.1" class="anchored" data-anchor-id="exemplo-de-bernoulli"><span class="header-section-number">1.1.1.1</span> Exemplo de Bernoulli</h4>
 <p>Considere um Ensaio de Bernoulli <span class="math display">\[\Omega = \{S,F \}, \mathscr{A} = 2^\Omega\]</span> Temos algum conhecimento prévio que sugere que as probabilidades de sucesso podem ser <span class="math inline">\(0.1, 0.5, 0.9\)</span></p>
-<p>Nesse caso, <span class="math display">\[\mathscr{P} = \{P_{1}, P_{2}, P_{3} \}\]</span> em que <span class="math display">\[\begin{cases}
+<p>Nesse caso, <span class="math display">\[\mathcal{P} = \{P_{1}, P_{2}, P_{3} \}\]</span> em que <span class="math display">\[\begin{cases}
 P_{1}(\{S\}) = 0.1;~ P_{1}(\{F\}) = 0.9;~ P_{1}(\Omega) = 1  \\
 P_{2}(\{S\}) = 0.5;~ P_{2}(\{F\}) = 0.5;~ P_{2}(\Omega) = 1  \\
 P_{3}(\{S\}) = 0.9;~ P_{3}(\{F\}) = 0.1;~ P_{3}(\Omega) = 1
-\end{cases}\]</span> Observe que <span class="math display">\[\mathscr{P}=\{P_{\theta}: \theta \in \Theta \}\]</span> em que <span class="math inline">\(\Theta=\{1,2,3 \}\subseteq \mathbb{R}\)</span> Portanto, <span class="math inline">\((\Omega, \mathscr{A}, \mathscr{P})\)</span> é um modelo paramétrico.</p>
-</section>
-<section id="exemplo-de-exponencial" class="level4" data-number="1.1.1.2">
-<h4 data-number="1.1.1.2" class="anchored" data-anchor-id="exemplo-de-exponencial"><span class="header-section-number">1.1.1.2</span> Exemplo de Exponencial</h4>
+\end{cases}\]</span> Observe que <span class="math display">\[\mathcal{P}=\{P_{\theta}: \theta \in \Theta \}\]</span> em que <span class="math inline">\(\Theta=\{1,2,3 \}\subseteq \mathbb{R}\)</span> Portanto, <span class="math inline">\((\Omega, \mathscr{A}, \mathcal{P})\)</span> é um modelo paramétrico.</p>
+<p>Usando de variáveis aleatórias,</p>
 <p>Seja <span class="math inline">\(X : \Omega \rightarrow \mathbb{R}\)</span> tal que <span class="math display">\[X(\omega)=\begin{cases}
 1, \omega = \text{S} \\
 0, c.c.
@@ -326,7 +324,11 @@ P_{3}(\{S\}) = 0.9;~ P_{3}(\{F\}) = 0.1;~ P_{3}(\Omega) = 1
 \theta = 1 \Rightarrow E_{1}(X)=0.1 \\
 \theta = 2 \Rightarrow E_{2}(X)=0.5 \\
 \theta = 3 \Rightarrow E_{3}(X)=0.9
-\end{cases}\]</span> Seja <span class="math inline">\(\Omega=(0,\infty)\)</span> e <span class="math inline">\(\mathscr{A}\)</span> uma sigma-álgebra de <span class="math inline">\(\Omega\)</span> (Sigma-Álgebra de Borel) <span class="math inline">\(\Omega\)</span> representa o tempo até a ocorrência de um evento (uma reclamação, por exemplo) Temos conhecimento prévio de que as funções densidade de probabilidade que possivelmente descrevem esse evento são:</p>
+\end{cases}\]</span></p>
+</section>
+<section id="exemplo-de-exponencial" class="level4" data-number="1.1.1.2">
+<h4 data-number="1.1.1.2" class="anchored" data-anchor-id="exemplo-de-exponencial"><span class="header-section-number">1.1.1.2</span> Exemplo de Exponencial</h4>
+<p>Seja <span class="math inline">\(\Omega=(0,\infty)\)</span> e <span class="math inline">\(\mathscr{A}\)</span> uma sigma-álgebra de <span class="math inline">\(\Omega\)</span> (Sigma-Álgebra de Borel) <span class="math inline">\(\Omega\)</span> representa o tempo até a ocorrência de um evento (uma reclamação, por exemplo) Temos conhecimento prévio de que as funções densidade de probabilidade que possivelmente descrevem esse evento são:</p>
 <p><span class="math display">\[
 \begin{aligned}
 f_{1}(\omega) &amp;=
@@ -357,7 +359,7 @@ P_{1}(A)&amp;= \int_{A} f_{1}(\omega)d \omega \\
 P_{2}(A)&amp;= \int_{A} f_{2}(\omega)d \omega \\
 P_{3}(A)&amp;= \int_{A} f_{3}(\omega)d \omega \\
 P_{4}(A)&amp;= \int_{A} f_{4}(\omega)d \omega \\
-\end{aligned}\]</span> Dessa forma, <span class="math display">\[P_{\theta}= \int_{A}f_\theta(\omega)d \omega, \omega \in \Omega\]</span> e <span class="math inline">\(\Omega = \{1,2,3,4 \}\)</span> Seja <span class="math inline">\(X: \Omega \rightarrow \mathbb{R}\)</span> tal que <span class="math display">\[X(\omega)= \omega\]</span> Note que <span class="math display">\[E_\theta(X)=\int_{-\infty}^{\infty}xf_\theta(x)dx, \theta \in \{1,2,3,4 \}\]</span> <span class="math display">\[E_\theta(X)=\begin{cases}
+\end{aligned}\]</span> Dessa forma, <span class="math display">\[P_{\theta}(A)= \int_{A}f_\theta(\omega)d \omega\]</span> e <span class="math inline">\(\Omega = \{1,2,3,4 \}\)</span> Seja <span class="math inline">\(X: \Omega \rightarrow \mathbb{R}\)</span> tal que <span class="math display">\[X(\omega)= \omega\]</span> Note que <span class="math display">\[E_\theta(X)=\int_{-\infty}^{\infty}xf_\theta(x)dx, \theta \in \{1,2,3,4 \}\]</span> <span class="math display">\[E_\theta(X)=\begin{cases}
 1,~ \theta=1 \\
 \frac{1}{2},~ \theta=2 \\
 2,~ \theta=3 \\
@@ -371,7 +373,7 @@ P_{4}(A)&amp;= \int_{A} f_{4}(\omega)d \omega \\
 <h2 data-number="1.2" class="anchored" data-anchor-id="principais-modelos-estatísticos"><span class="header-section-number">1.2</span> Principais Modelos Estatísticos</h2>
 <section id="sec-modelobernoulli" class="level3" data-number="1.2.1">
 <h3 data-number="1.2.1" class="anchored" data-anchor-id="sec-modelobernoulli"><span class="header-section-number">1.2.1</span> Modelo Estatístico de Bernoulli</h3>
-<p>Dizemos que X é uma variável aleatória com modelo de Bernoulli se, e somente se, <span class="math display">\[
+<p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória com modelo de Bernoulli se, e somente se, <span class="math display">\[
 P_\theta(X=x)=\begin{cases}
 \theta^{x} \cdot(1-\theta)^{1-x}, x \in \{0,1 \} \\
 0, x \not \in \{0,1 \}
@@ -381,7 +383,7 @@ E_\theta(X)=\theta\\
 P_\theta(X=1)=\theta, P_\theta(X=0)=1-\theta
 \end{cases}
 \]</span></p>
-<p>Notação: <span class="math inline">\(\mathrm{Ber}(\theta)\)</span> em que <span class="math inline">\(\theta \in \Theta\)</span> e <span class="math inline">\(\Theta=(0,1)\subseteq \mathbb{R}\)</span></p>
+<p>Notação: <span class="math inline">\(\mathrm{Ber}(\theta)\)</span> em que <span class="math inline">\(\theta \in \Theta=(0,1)\subseteq \mathbb{R}\)</span></p>
 </section>
 <section id="modelo-estatístico-binomial" class="level3" data-number="1.2.2">
 <h3 data-number="1.2.2" class="anchored" data-anchor-id="modelo-estatístico-binomial"><span class="header-section-number">1.2.2</span> Modelo Estatístico Binomial</h3>
@@ -398,7 +400,7 @@ P_\theta(X=0)=(1-\theta)^{n},\dots, P_\theta(X=n)=\theta^n
 </section>
 <section id="modelo-estatístico-geométrico" class="level3" data-number="1.2.3">
 <h3 data-number="1.2.3" class="anchored" data-anchor-id="modelo-estatístico-geométrico"><span class="header-section-number">1.2.3</span> Modelo Estatístico Geométrico</h3>
-<p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória com modelo estatístico geométrico se, e somente se, <span class="math display">\[P_\theta(X=x)=\begin{cases}
+<p>Dizemos que <span class="math inline">\(X\)</span>, representando o número de <em>fracassos</em> até o primeiro sucesso, é uma variável aleatória com modelo estatístico geométrico se, e somente se, <span class="math display">\[P_\theta(X=x)=\begin{cases}
 \theta (1-\theta)^{x-1}, x \in \{1,\dots\} \\
 0, x \not \in \{1,\dots\}
 \end{cases}
@@ -426,7 +428,7 @@ E_\theta(X)=\theta\\
 </section>
 <section id="modelo-multinomial" class="level3" data-number="1.2.5">
 <h3 data-number="1.2.5" class="anchored" data-anchor-id="modelo-multinomial"><span class="header-section-number">1.2.5</span> Modelo Multinomial</h3>
-<p>Dizemos que <span class="math inline">\(X\)</span> é um Vetor Aleatório com modelo estatístico Multinomial se, e somente se a função de probabilidade é <span class="math display">\[
+<p>Dizemos que <span class="math inline">\(\pmb{X} = (X_1,\dots,X_k)\)</span> é um Vetor Aleatório com modelo estatístico Multinomial se, e somente se a função de probabilidade é <span class="math display">\[
 P_{\theta}(X_{1}=x_{1},\dots,X_{k} = x_{k})=
 \begin{cases}
 \frac{n!}{x_{1}!x_{2}!\dots x_{k}!} \cdot \theta^{x_{1}}_{1} \cdot \cdots \cdot\theta^{x_n}_{k} ~~~~ x_{1}+\dots+x_{k}=n\\
@@ -446,7 +448,7 @@ E_\theta(X_{i})=n\theta_{i}\\
 </section>
 <section id="modelo-uniforme-contínuo" class="level3" data-number="1.2.6">
 <h3 data-number="1.2.6" class="anchored" data-anchor-id="modelo-uniforme-contínuo"><span class="header-section-number">1.2.6</span> Modelo Uniforme contínuo</h3>
-<p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória contínua com modelo estatístico Uniforme em <span class="math inline">\((\theta_{1}, \theta_{2}), \theta_{2}&gt;\theta_{1}\)</span>, se, e somente se, a sua Função Densidade de Probabilidade é <span class="math display">\[
+<p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória contínua com modelo estatístico Uniforme em <span class="math inline">\((\theta_{1}, \theta_{2}), \theta_{1}\leq x \leq\theta_{2}\)</span>, se, e somente se, a sua Função Densidade de Probabilidade é <span class="math display">\[
 f_\theta(x)=\begin{cases}
 \frac{1}{\theta_{2}-\theta_{1}}, x \in(\theta_{1}, \theta_{2}) \\
 0, c.c.
@@ -454,8 +456,8 @@ f_\theta(x)=\begin{cases}
 \]</span></p>
 <p><span class="math display">\[
 \begin{cases}
-E_\theta(X)=\frac{b+a}{2}\\
-\mathrm{Var}_\theta(X) = \frac{(b-a)^{2}}{12}\end{cases}
+E_\theta(X)=\frac{\theta_2+\theta_1}{2}\\
+\mathrm{Var}_\theta(X) = \frac{(\theta_2-\theta_1)^{2}}{12}\end{cases}
 \]</span></p>
 <p>Notação: <span class="math inline">\(X \sim U(\theta_{1}, \theta_{2})\)</span>, em que <span class="math inline">\(\theta=(\theta_{1}, \theta_{2})\)</span> é o vetor de parâmetros e <span class="math inline">\(\Theta = \{\theta \in \mathbb{R}^{2} : \theta_{2} &gt; \theta_{1} \}\)</span> é o espaço paramétrico.</p>
 </section>
@@ -480,7 +482,7 @@ E_\theta(X)=\frac{1}{\theta}\\
 <p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória contínua com modelo estatístico Normal com média <span class="math inline">\(\mu\)</span> e variância <span class="math inline">\(\sigma^{2}\)</span> se, e somente se, a sua Função Densidade de Probabilidade é dada por <span class="math display">\[
 f_\theta(x)=
 \frac{1}{\sqrt{2\pi \sigma^{2}}}\cdot \mathrm{e}^{-\frac{1}{2\sigma^{2}}(x-\mu)^{2}}, x \in \mathbb{R}
-\]</span> em que <span class="math inline">\(\theta= (\mu, \sigma^{2}) \in \Theta=\{(\mu, \sigma^{2}) \in \mathbb{R}\times \mathbb{R}^{+}\}\)</span></p>
+\]</span> em que <span class="math inline">\(\theta= (\mu, \sigma^{2}) \in \Theta= \mathbb{R}\times \mathbb{R}^{+}\)</span></p>
 <p><span class="math display">\[
 \begin{cases}
 E_\theta(X)=\mu\\
@@ -576,6 +578,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -686,6 +690,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

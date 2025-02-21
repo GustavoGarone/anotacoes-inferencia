@@ -6,14 +6,14 @@ Na prática, contudo, não conhecemos a medida $P$.
 Definimos então uma família de medidas de probabilidades que possivelmente descrevem o comportamento aleatório dos dados.
 
 O *Modelo Estatístico* é definido pela trinca
-$$(\Omega, \mathscr{A}, \mathscr{P})$$
+$$(\Omega, \mathscr{A}, \mathcal{P})$$
 em que $\Omega$ é o espaço amostral (evento certo), $\mathscr{A}$ é a Sigma álgebra, uma família de subconjuntos ou 
-eventos em $\Omega$, e $\mathscr{P}$ é uma família de medidas de probabilidade que possivelmente descrevem o 
-comportamento aleatório dos dados ou eventos sobre investigação.
+eventos em $\Omega$, e $\mathcal{P}$ é uma família de medidas de probabilidade que possivelmente descrevem o 
+comportamento aleatório dos dados ou eventos sob investigação.
 
 ## Modelo Estatístico Paramétrico
-Se $\mathscr{P} = \{P_{\theta} : \theta \in \Theta\}$, em que $\Theta \subseteq \mathbb{R}^{p}$ e 
-$p \in \mathbb{N}$, então dizemos que $(\Omega, \mathscr{A}, \mathscr{P})$ é um modelo estatístico **Paramétrico**.
+Se $\mathcal{P} = \{P_{\theta} : \theta \in \Theta\}$, em que $\Theta \subseteq \mathbb{R}^{p}$ e 
+$p \in \mathbb{N}$, então dizemos que $(\Omega, \mathscr{A}, \mathcal{P})$ é um modelo estatístico **Paramétrico**.
 
 Caso não exista $\Theta \subseteq \mathbb{R}^{p}$ fixo, então dizemos que o modelo é não-paramétrico.
 *Obs*: $\Theta$ é o espaço paramétrico e $\theta$ é o vetor de parâmetros. $\theta$ **Não*** é  variável aleatória,
@@ -28,19 +28,19 @@ $$\Omega = \{S,F \}, \mathscr{A} = 2^\Omega$$
 Temos algum conhecimento prévio que sugere que as probabilidades de sucesso podem ser $0.1, 0.5, 0.9$
 
 Nesse caso,
-$$\mathscr{P} = \{P_{1}, P_{2}, P_{3} \}$$
+$$\mathcal{P} = \{P_{1}, P_{2}, P_{3} \}$$
 em que 
 $$\begin{cases}
 P_{1}(\{S\}) = 0.1;~ P_{1}(\{F\}) = 0.9;~ P_{1}(\Omega) = 1  \\
 P_{2}(\{S\}) = 0.5;~ P_{2}(\{F\}) = 0.5;~ P_{2}(\Omega) = 1  \\
 P_{3}(\{S\}) = 0.9;~ P_{3}(\{F\}) = 0.1;~ P_{3}(\Omega) = 1 
 \end{cases}$$
-Observe que $$\mathscr{P}=\{P_{\theta}: \theta \in \Theta \}$$
+Observe que $$\mathcal{P}=\{P_{\theta}: \theta \in \Theta \}$$
 em que $\Theta=\{1,2,3 \}\subseteq \mathbb{R}$
-Portanto, $(\Omega, \mathscr{A}, \mathscr{P})$ é um modelo paramétrico.
+Portanto, $(\Omega, \mathscr{A}, \mathcal{P})$ é um modelo paramétrico.
 
+Usando de variáveis aleatórias,
 
-#### Exemplo de Exponencial
 Seja $X : \Omega \rightarrow \mathbb{R}$ tal que $$X(\omega)=\begin{cases}
 1, \omega = \text{S} \\
 0, c.c.
@@ -51,6 +51,8 @@ $$\begin{cases}
 \theta = 2 \Rightarrow E_{2}(X)=0.5 \\
 \theta = 3 \Rightarrow E_{3}(X)=0.9
 \end{cases}$$
+
+#### Exemplo de Exponencial
 Seja $\Omega=(0,\infty)$ e $\mathscr{A}$ uma sigma-álgebra de $\Omega$ (Sigma-Álgebra de Borel)
 $\Omega$ representa o tempo até a ocorrência de um evento (uma reclamação, por exemplo)
 Temos conhecimento prévio de que as funções densidade de probabilidade que possivelmente descrevem esse evento são:
@@ -105,7 +107,7 @@ $$
 
 ### Modelo Estatístico de Bernoulli {#sec-modelobernoulli}
 
-Dizemos que X é uma variável aleatória com modelo de Bernoulli se, e somente se,
+Dizemos que $X$ é uma variável aleatória com modelo de Bernoulli se, e somente se,
 $$
 P_\theta(X=x)=\begin{cases}
 \theta^{x} \cdot(1-\theta)^{1-x}, x \in \{0,1 \} \\
@@ -119,7 +121,7 @@ P_\theta(X=1)=\theta, P_\theta(X=0)=1-\theta
 \end{cases}
 $$
 
-Notação: $\mathrm{Ber}(\theta)$ em que $\theta \in \Theta$ e $\Theta=(0,1)\subseteq \mathbb{R}$
+Notação: $\mathrm{Ber}(\theta)$ em que $\theta \in \Theta=(0,1)\subseteq \mathbb{R}$
 
 ### Modelo Estatístico Binomial
 
@@ -140,7 +142,8 @@ probabilidade de sucesso (parâmetro do modelo) e $\Theta =(0,1)$ é o espaço p
 
 ### Modelo Estatístico Geométrico
 
-Dizemos que $X$ é uma variável aleatória com modelo estatístico geométrico se, e somente se,
+Dizemos que $X$, representando o número de *fracassos* até o primeiro sucesso,
+é uma variável aleatória com modelo estatístico geométrico se, e somente se,
 $$P_\theta(X=x)=\begin{cases}
 \theta (1-\theta)^{x-1}, x \in \{1,\dots\} \\
 0, x \not \in \{1,\dots\}
@@ -172,7 +175,7 @@ $$
 Notação: $\mathrm{Poisson}(\theta)$  em que $\theta$ é a taxa média de ocorrência do evento (parâmetro do modelo) e $\Theta = (0, \infty)$, o espaço paramétrico.
 
 ### Modelo Multinomial
-Dizemos que $X$ é um Vetor Aleatório com modelo estatístico Multinomial se, e somente se a função de probabilidade é 
+Dizemos que $\pmb{X} = (X_1,\dots,X_k)$ é um Vetor Aleatório com modelo estatístico Multinomial se, e somente se a função de probabilidade é 
 $$
 P_{\theta}(X_{1}=x_{1},\dots,X_{k} = x_{k})=
 \begin{cases}
@@ -211,8 +214,8 @@ $$
 
 $$
 \begin{cases}
-E_\theta(X)=\frac{b+a}{2}\\
-\mathrm{Var}_\theta(X) = \frac{(b-a)^{2}}{12}\end{cases}
+E_\theta(X)=\frac{\theta_2+\theta_1}{2}\\
+\mathrm{Var}_\theta(X) = \frac{(\theta_2-\theta_1)^{2}}{12}\end{cases}
 $$
 
 Notação: $X \sim U(\theta_{1}, \theta_{2})$, em que  $\theta=(\theta_{1}, \theta_{2})$ é o vetor de parâmetros e
@@ -247,7 +250,7 @@ $$
 f_\theta(x)=
 \frac{1}{\sqrt{2\pi \sigma^{2}}}\cdot \mathrm{e}^{-\frac{1}{2\sigma^{2}}(x-\mu)^{2}}, x \in \mathbb{R}
 $$
-em que $\theta= (\mu, \sigma^{2}) \in \Theta=\{(\mu, \sigma^{2}) \in \mathbb{R}\times \mathbb{R}^{+}\}$
+em que $\theta= (\mu, \sigma^{2}) \in \Theta= \mathbb{R}\times \mathbb{R}^{+}$
 
 $$
 \begin{cases}
