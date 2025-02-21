@@ -19,11 +19,11 @@ parâmetros (desconhecido) e $\Theta$ é o espaço paramétrico
 
 ### Amostra Aleatória {#sec-aa}
 
-Dizemos que $(X_{1},\dots,X_{n})$ é uma amostra aleatória de X (v.a. populacional) se $X_{1},\dots,X_{n}$ forem 
+Dizemos que $(X_{1},\dots,X_{n})$ é uma amostra aleatória de $X$ (v.a. populacional) se $X_{1},\dots,X_{n}$ forem 
 independentes e identicamente distribuídas de acordo com a distribuição de $X$
 Ou seja, 
 $$
-\text{Independentes = }\begin{cases}X_{1}\sim f_{\theta,}\theta \in \Theta \\
+\text{Independentes }\rightarrow\begin{cases}X_{1}\sim f_{\theta,}\theta \in \Theta \\
 . \\
 . \\
 . \\
