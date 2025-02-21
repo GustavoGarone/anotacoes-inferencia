@@ -38,7 +38,7 @@ Calcule para $T \in \{T_{1},T_{2},T_{3},T_{4},T_{5},T_{6} \}$
 
 a-) $E_\theta(T)$
 
-$E_\theta(T_{1}(X_{1},X_{2}))=E_\theta(X_{1})=\theta =0 (1-\theta)^{2}+1 \cdot\theta(1-\theta)+0 \theta(1-\theta)+1
+$E_\theta(T_{1}(X_{1},X_{2}))=E_\theta(X_{1})= (1-\theta)^{2}+1 \cdot\theta(1-\theta)+0 \theta(1-\theta)+1
 \theta^{2}= \theta$
 
 O mesmo vale para $T_2$
@@ -61,7 +61,7 @@ Alguns resultados importantes:
 
 $$
 \begin{aligned}
-E_\theta(\bar{X})&=E_\Theta(\frac{X_{1}+X_{2}}{2})=\theta, \theta \in(0,1)\\
+E_\theta(\bar{X})&=E_\theta(\frac{X_{1}+X_{2}}{2})=\theta, \theta \in(0,1)\\
 E_{\theta}(\bar{X}^{2}) &= 0^{2}(1-\theta)^{2} + \frac{2}{4}  \theta (1-\theta) + 1^{2}\theta^{2}=\frac{1}{2}\theta +
 \frac{1}{2} \theta^{2}, \theta \in(0,1)\\
 \Rightarrow \mathrm{Var}_\theta(\bar{X}) &= \frac{\theta+\theta^{2}}{2} - \theta^{2} =\frac{\theta (1-\theta)}{2}, 
@@ -75,7 +75,7 @@ $$
 \begin{aligned}
 E_\theta([(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}])&= \theta(1-\theta)\\
 E_\theta([(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}]^{2}) &= \frac{\theta(1-\theta)}{2}\\
-\Rightarrow\mathrm{Var}_{\Theta}([(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}]) &= \frac{1}{2}\theta(1-\theta)
+\Rightarrow\mathrm{Var}_{\theta}([(X_{1}-\bar{X})^{2}+(X_{2}-\bar{X})^{2}]) &= \frac{1}{2}\theta(1-\theta)
 [1-2 \cdot \theta(1-\theta)]
 \end{aligned}
 $$
@@ -84,13 +84,13 @@ $$
 
 ### Estimados não viciados ou enviesados
 
-Seja $(X_{1},\dots,X_{n})$ a.a. de $X\sim f_{\theta,}\theta \in \Theta$ e considere $T(X_{1},\dots,X_{n})=\hat\theta$
+Seja $(X_{1},\dots,X_{n})$ a.a. de $X\sim f_{\theta,}\theta \in \Theta$ e considere $T(X_{1},\dots,X_{n})=\hat{\theta}_n$
 um estimador para $\theta$.
-Dizemos que $\hat \theta$ é *não-enviesado* para $\theta$ $\Leftrightarrow$
+Dizemos que $\hat{\theta}_n$ é *não-enviesado* para $\theta \Leftrightarrow$
 $$
 E_\theta(\hat \theta_{n}) = \theta, \forall \theta \in \Theta
 $$
-De forma geral, $T(X_{1},\dots,X_{n})$ é um estimador não-viciado para $g(\theta) \Leftrightarrow$,
+De forma geral, $T(X_{1},\dots,X_{n})$ é um estimador não-viciado para $g(\theta) \Leftrightarrow$
 $$
 E_\theta(T(X_{1},\dots,X_{n}))=g(\theta), \forall \theta \in \Theta
 $$
