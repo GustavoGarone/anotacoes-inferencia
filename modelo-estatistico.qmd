@@ -201,7 +201,7 @@ probabilidade de escolher o primeiro elemento do vocabulário e assim por diante
 ### Modelo Uniforme contínuo
 
 Dizemos que $X$ é uma variável aleatória contínua com modelo estatístico Uniforme em 
-$(\theta_{1}, \theta_{2}), \theta_{2}>\theta_{1}$, se, e somente se, a sua Função Densidade de Probabilidade é
+$(\theta_{1}, \theta_{2}), \theta_{1}\leq x \leq\theta_{2}$, se, e somente se, a sua Função Densidade de Probabilidade é
 $$
 f_\theta(x)=\begin{cases}
 \frac{1}{\theta_{2}-\theta_{1}}, x \in(\theta_{1}, \theta_{2}) \\
