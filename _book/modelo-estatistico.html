@@ -304,8 +304,8 @@ window.Quarto = {
 <p>O <em>Modelo Estatístico</em> é definido pela trinca <span class="math display">\[(\Omega, \mathscr{A}, \mathscr{P})\]</span> em que <span class="math inline">\(\Omega\)</span> é o espaço amostral (evento certo), <span class="math inline">\(\mathscr{A}\)</span> é a Sigma álgebra, uma família de subconjuntos ou eventos em <span class="math inline">\(\Omega\)</span>, e <span class="math inline">\(\mathscr{P}\)</span> é uma família de medidas de probabilidade que possivelmente descrevem o comportamento aleatório dos dados ou eventos sobre investigação.</p>
 <section id="modelo-estatístico-paramétrico" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="modelo-estatístico-paramétrico"><span class="header-section-number">1.1</span> Modelo Estatístico Paramétrico</h2>
-<p>Se <span class="math inline">\(\mathscr{P} = \{P_{\theta} : \theta \in \Theta\}\)</span>, em que <span class="math inline">\(\Theta \subseteq \mathbb{R}^{P}\)</span> e <span class="math inline">\(p \in \mathbb{N}\)</span>, então dizemos que <span class="math inline">\((\Omega, \mathscr{A}, \mathscr{P})\)</span> é um modelo estatístico <strong>Paramétrico</strong>.</p>
-<p>Caso não exista <span class="math inline">\(\Theta \subseteq \mathbb{R}^{P}\)</span> fixo, então dizemos que o modelo é não-paramétrico. <em>Obs</em>: <span class="math inline">\(\Theta\)</span> é o espaço paramétrico e <span class="math inline">\(\theta\)</span> é o vetor de parâmetros. <span class="math inline">\(\theta\)</span> <strong>Não</strong>* é variável aleatória, apenas indexa as medidas de probabilidade.</p>
+<p>Se <span class="math inline">\(\mathscr{P} = \{P_{\theta} : \theta \in \Theta\}\)</span>, em que <span class="math inline">\(\Theta \subseteq \mathbb{R}^{p}\)</span> e <span class="math inline">\(p \in \mathbb{N}\)</span>, então dizemos que <span class="math inline">\((\Omega, \mathscr{A}, \mathscr{P})\)</span> é um modelo estatístico <strong>Paramétrico</strong>.</p>
+<p>Caso não exista <span class="math inline">\(\Theta \subseteq \mathbb{R}^{p}\)</span> fixo, então dizemos que o modelo é não-paramétrico. <em>Obs</em>: <span class="math inline">\(\Theta\)</span> é o espaço paramétrico e <span class="math inline">\(\theta\)</span> é o vetor de parâmetros. <span class="math inline">\(\theta\)</span> <strong>Não</strong>* é variável aleatória, apenas indexa as medidas de probabilidade.</p>
 <section id="exemplos" class="level3" data-number="1.1.1">
 <h3 data-number="1.1.1" class="anchored" data-anchor-id="exemplos"><span class="header-section-number">1.1.1</span> Exemplos</h3>
 <section id="exemplo-de-bernoulli" class="level4" data-number="1.1.1.1">
@@ -375,12 +375,13 @@ P_{4}(A)&amp;= \int_{A} f_{4}(\omega)d \omega \\
 P_\theta(X=x)=\begin{cases}
 \theta^{x} \cdot(1-\theta)^{1-x}, x \in \{0,1 \} \\
 0, x \not \in \{0,1 \}
-\end{cases}\]</span> em que <span class="math inline">\(\theta \in \Theta\)</span> e <span class="math inline">\(\Theta=(0,1)\subseteq \mathbb{R}\)</span> O parâmetro é a probabilidade de sucesso <span class="math display">\[\begin{cases}
+\end{cases}\]</span> O parâmetro é a probabilidade de sucesso <span class="math display">\[\begin{cases}
 E_\theta(X)=\theta\\
 \mathrm{Var}_{\theta}(X) = \theta(1-\theta) \\
 P_\theta(X=1)=\theta, P_\theta(X=0)=1-\theta
 \end{cases}
 \]</span></p>
+<p>Notação: <span class="math inline">\(\mathrm{Ber}(\theta)\)</span> em que <span class="math inline">\(\theta \in \Theta\)</span> e <span class="math inline">\(\Theta=(0,1)\subseteq \mathbb{R}\)</span></p>
 </section>
 <section id="modelo-estatístico-binomial" class="level3" data-number="1.2.2">
 <h3 data-number="1.2.2" class="anchored" data-anchor-id="modelo-estatístico-binomial"><span class="header-section-number">1.2.2</span> Modelo Estatístico Binomial</h3>
@@ -388,11 +389,12 @@ P_\theta(X=1)=\theta, P_\theta(X=0)=1-\theta
 P_\theta(X=x)=\begin{cases}
 {n \choose x} \cdot \theta^{x}\cdot(1-\theta)^{n-x}, x \in \{0,1,\dots,n \} \\
 0, x \not \in \{0,1,\dots,n \}
-\end{cases}\]</span> em que <span class="math inline">\(n\)</span> é conhecido e fixado previamente, <span class="math inline">\(\theta\)</span> é a probabilidade de sucesso (parâmetro do modelo) e <span class="math inline">\(\Theta =(0,1)\)</span> é o espaço paramétrico <span class="math display">\[\begin{cases}
+\end{cases}\]</span> <span class="math display">\[\begin{cases}
 E_\theta(X)=n\theta\\
 \mathrm{Var}_{\theta}(X) = n\theta(1-\theta) \\
 P_\theta(X=0)=(1-\theta)^{n},\dots, P_\theta(X=n)=\theta^n
 \end{cases}\]</span></p>
+<p>Notação: <span class="math inline">\(\mathrm{Bin}(n,\theta)\)</span> em que <span class="math inline">\(n\)</span> é conhecido e fixado previamente, <span class="math inline">\(\theta\)</span> é a probabilidade de sucesso (parâmetro do modelo) e <span class="math inline">\(\Theta =(0,1)\)</span> é o espaço paramétrico</p>
 </section>
 <section id="modelo-estatístico-geométrico" class="level3" data-number="1.2.3">
 <h3 data-number="1.2.3" class="anchored" data-anchor-id="modelo-estatístico-geométrico"><span class="header-section-number">1.2.3</span> Modelo Estatístico Geométrico</h3>
@@ -400,12 +402,12 @@ P_\theta(X=0)=(1-\theta)^{n},\dots, P_\theta(X=n)=\theta^n
 \theta (1-\theta)^{x-1}, x \in \{1,\dots\} \\
 0, x \not \in \{1,\dots\}
 \end{cases}
-\]</span> em que <span class="math inline">\(\theta\)</span> é o parâmetro do modelo (probabilidade de sucesso) e <span class="math inline">\(\Theta=(0,1)\)</span> é o espaço paramétrico <span class="math display">\[
+\]</span> <span class="math display">\[
 \begin{cases}
 E_\theta(X)=\frac{1}{\theta}\\
 \mathrm{Var}_\theta(X) = \frac{1-\theta}{\theta^{2}}
 \end{cases}
-\]</span></p>
+\]</span> Notação: <span class="math inline">\(\mathrm{Geom}(\theta)\)</span> em que <span class="math inline">\(\theta\)</span> é o parâmetro do modelo (probabilidade de sucesso) e <span class="math inline">\(\Theta=(0,1)\)</span> é o espaço paramétrico</p>
 </section>
 <section id="modelo-de-poisson" class="level3" data-number="1.2.4">
 <h3 data-number="1.2.4" class="anchored" data-anchor-id="modelo-de-poisson"><span class="header-section-number">1.2.4</span> Modelo de Poisson</h3>
@@ -414,30 +416,33 @@ P_\theta(X=x)=\begin{cases}
 \mathrm{e}^{-\theta}\cdot \frac{\theta^{x}}{x!}, x \in \{0,1,\dots\} \\
 0, x \not \in \{0,1,\dots\}
 \end{cases}
-\]</span> em que <span class="math inline">\(\theta\)</span> é a taxa média de ocorrência do evento (parâmetro do modelo) e <span class="math inline">\(\Theta = (0, \infty)\)</span>, o espaço paramétrico. <span class="math display">\[
+\]</span> <span class="math display">\[
 \begin{cases}
 E_\theta(X)=\theta\\
 \mathrm{Var}_\theta(X) = \theta
 \end{cases}
 \]</span></p>
+<p>Notação: <span class="math inline">\(\mathrm{Poisson}(\theta)\)</span> em que <span class="math inline">\(\theta\)</span> é a taxa média de ocorrência do evento (parâmetro do modelo) e <span class="math inline">\(\Theta = (0, \infty)\)</span>, o espaço paramétrico.</p>
 </section>
 <section id="modelo-multinomial" class="level3" data-number="1.2.5">
 <h3 data-number="1.2.5" class="anchored" data-anchor-id="modelo-multinomial"><span class="header-section-number">1.2.5</span> Modelo Multinomial</h3>
 <p>Dizemos que <span class="math inline">\(X\)</span> é um Vetor Aleatório com modelo estatístico Multinomial se, e somente se a função de probabilidade é <span class="math display">\[
-P_{\theta}(X_{1}=x_{1},\dots,X_{k} = x_{k})=\begin{cases}
-\frac{n!}{x_{1}!x_{2}!\dots x_{k}!} \cdot \theta^{x_{1}}_{1} \cdot,\cdots, \cdot\theta^{x_n}_{k} ~~~~ x_{1}+\dots+x_{k}=n\\
+P_{\theta}(X_{1}=x_{1},\dots,X_{k} = x_{k})=
+\begin{cases}
+\frac{n!}{x_{1}!x_{2}!\dots x_{k}!} \cdot \theta^{x_{1}}_{1} \cdot \cdots \cdot\theta^{x_n}_{k} ~~~~ x_{1}+\dots+x_{k}=n\\
 0, c.c
 \end{cases}
 \]</span></p>
-<p>em que <span class="math inline">\(\theta_{1}+\dots+\theta_{k}=1\)</span> e <span class="math inline">\(0\leq \theta_{i} \leq 1\)</span>, <span class="math inline">\(\forall i = 1,2,\dots,k\)</span>, <span class="math inline">\(\Theta=\{(\theta_{1},,\dots,\theta_{k}) \in \mathbb{R}^{k} : 0\leq \theta_{i} \leq 1, i=1,\dots,k,
-\theta_{1}+\dots+\theta_{k} = 1 \}\)</span></p>
 <p><span class="math display">\[
 \begin{cases}
 E_\theta(X_{i})=n\theta_{i}\\
-\mathrm{Var}_\theta(X_{i}) = n\theta_{}i (1-\theta_{i}) \\
+\mathrm{Var}_\theta(X_{i}) = n\theta_{i} (1-\theta_{i}) \\
 \mathrm{Cov}(X_{i}X_{j})=-n\theta_{i}\theta_{j}
 \end{cases}
-\]</span> Esse modelo tem aplicação em modelos de linguagem como o ChatGPT. (<span class="math inline">\(k\)</span> como tamanho do vocabulário, <span class="math inline">\(n=1\)</span>, <span class="math inline">\(\theta_{1}=\)</span> probabilidade de escolher o primeiro elemento do vocabulário e assim por diante.)</p>
+\]</span></p>
+<p>Notação: <span class="math inline">\(\mathrm{Multinomial}(n, \theta_1,\theta_2,\dots,\theta_k)\)</span> em que <span class="math inline">\(\theta_{1}+\dots+\theta_{k}=1\)</span> e <span class="math inline">\(0\leq \theta_{i} \leq 1\)</span>, <span class="math inline">\(\forall i = 1,2,\dots,k\)</span>, <span class="math inline">\(\Theta=\{(\theta_{1},,\dots,\theta_{k}) \in \mathbb{R}^{k} : 0\leq \theta_{i} \leq 1, i=1,\dots,k,
+\theta_{1}+\dots+\theta_{k} = 1 \}\)</span></p>
+<p>Esse modelo tem aplicação em modelos de linguagem como o ChatGPT. (<span class="math inline">\(k\)</span> como tamanho do vocabulário, <span class="math inline">\(n=1\)</span>, <span class="math inline">\(\theta_{1}=\)</span> probabilidade de escolher o primeiro elemento do vocabulário e assim por diante.)</p>
 </section>
 <section id="modelo-uniforme-contínuo" class="level3" data-number="1.2.6">
 <h3 data-number="1.2.6" class="anchored" data-anchor-id="modelo-uniforme-contínuo"><span class="header-section-number">1.2.6</span> Modelo Uniforme contínuo</h3>
@@ -452,9 +457,7 @@ f_\theta(x)=\begin{cases}
 E_\theta(X)=\frac{b+a}{2}\\
 \mathrm{Var}_\theta(X) = \frac{(b-a)^{2}}{12}\end{cases}
 \]</span></p>
-<p><span class="math display">\[
-X \sim U(\theta_{1}, \theta_{2}), \theta=(\theta_{1}, \theta_{2}) \text{ Vetor de Parâmetros}
-\]</span></p>
+<p>Notação: <span class="math inline">\(X \sim U(\theta_{1}, \theta_{2})\)</span>, em que <span class="math inline">\(\theta=(\theta_{1}, \theta_{2})\)</span> é o vetor de parâmetros.</p>
 </section>
 <section id="modelo-exponencial" class="level3" data-number="1.2.7">
 <h3 data-number="1.2.7" class="anchored" data-anchor-id="modelo-exponencial"><span class="header-section-number">1.2.7</span> Modelo Exponencial</h3>
@@ -477,8 +480,7 @@ X\sim \mathrm{Exp}(\theta), \theta&gt; 0
 </section>
 <section id="modelo-normal" class="level3" data-number="1.2.8">
 <h3 data-number="1.2.8" class="anchored" data-anchor-id="modelo-normal"><span class="header-section-number">1.2.8</span> Modelo Normal</h3>
-<p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória contínua com modelo estatístico Normal com média <span class="math inline">\(\mu\)</span> e variância <span class="math inline">\(\sigma^{2}\)</span> se, e somente se, a sua Função Densidade de Probabilidade é dada por</p>
-<p><span class="math display">\[
+<p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória contínua com modelo estatístico Normal com média <span class="math inline">\(\mu\)</span> e variância <span class="math inline">\(\sigma^{2}\)</span> se, e somente se, a sua Função Densidade de Probabilidade é dada por <span class="math display">\[
 f_\theta(x)=
 \frac{1}{\sqrt{2\pi \sigma^{2}}}\cdot \mathrm{e}^{-\frac{1}{2\sigma^{2}}(x-\mu)^{2}}, x \in \mathbb{R}
 \]</span> em que <span class="math inline">\(\theta= (\mu, \sigma^{2}) \in \Theta=\{(\mu, \sigma^{2}) \in \mathbb{R}\times \mathbb{R}^{+}\}\)</span></p>
@@ -488,9 +490,7 @@ E_\theta(X)=\mu\\
 \mathrm{Var}_\theta(X) = \sigma^{2}
 \end{cases}
 \]</span></p>
-<p><span class="math display">\[
-X \sim N (\mu, \sigma^{2}), \theta=(\mu, \sigma^{2}) \text{ Vetor de Parâmetros}
-\]</span></p>
+<p>Notação: <span class="math inline">\(X \sim N (\mu, \sigma^{2})\)</span>, em que <span class="math inline">\(\theta=(\mu, \sigma^{2})\)</span> é o vetor de parâmetros.</p>
 
 
 </section>

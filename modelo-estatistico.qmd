@@ -12,10 +12,10 @@ eventos em $\Omega$, e $\mathscr{P}$ é uma família de medidas de probabilidade
 comportamento aleatório dos dados ou eventos sobre investigação.
 
 ## Modelo Estatístico Paramétrico
-Se $\mathscr{P} = \{P_{\theta} : \theta \in \Theta\}$, em que $\Theta \subseteq \mathbb{R}^{P}$ e 
+Se $\mathscr{P} = \{P_{\theta} : \theta \in \Theta\}$, em que $\Theta \subseteq \mathbb{R}^{p}$ e 
 $p \in \mathbb{N}$, então dizemos que $(\Omega, \mathscr{A}, \mathscr{P})$ é um modelo estatístico **Paramétrico**.
 
-Caso não exista $\Theta \subseteq \mathbb{R}^{P}$ fixo, então dizemos que o modelo é não-paramétrico.
+Caso não exista $\Theta \subseteq \mathbb{R}^{p}$ fixo, então dizemos que o modelo é não-paramétrico.
 *Obs*: $\Theta$ é o espaço paramétrico e $\theta$ é o vetor de parâmetros. $\theta$ **Não*** é  variável aleatória,
 apenas indexa as medidas de probabilidade.
 
@@ -111,7 +111,6 @@ P_\theta(X=x)=\begin{cases}
 \theta^{x} \cdot(1-\theta)^{1-x}, x \in \{0,1 \} \\
 0, x \not \in \{0,1 \}
 \end{cases}$$
-em que $\theta \in \Theta$ e $\Theta=(0,1)\subseteq \mathbb{R}$
 O parâmetro é a probabilidade de sucesso
 $$\begin{cases}
 E_\theta(X)=\theta\\
@@ -119,6 +118,8 @@ E_\theta(X)=\theta\\
 P_\theta(X=1)=\theta, P_\theta(X=0)=1-\theta
 \end{cases}
 $$
+
+Notação: $\mathrm{Ber}(\theta)$ em que $\theta \in \Theta$ e $\Theta=(0,1)\subseteq \mathbb{R}$
 
 ### Modelo Estatístico Binomial
 
@@ -128,13 +129,14 @@ P_\theta(X=x)=\begin{cases}
 {n \choose x} \cdot \theta^{x}\cdot(1-\theta)^{n-x}, x \in \{0,1,\dots,n \} \\
 0, x \not \in \{0,1,\dots,n \}
 \end{cases}$$
-em que $n$ é conhecido e fixado previamente, $\theta$ é a probabilidade de sucesso (parâmetro do modelo) e $\Theta =(0,1)$
-é o espaço paramétrico
 $$\begin{cases}
 E_\theta(X)=n\theta\\
 \mathrm{Var}_{\theta}(X) = n\theta(1-\theta) \\
 P_\theta(X=0)=(1-\theta)^{n},\dots, P_\theta(X=n)=\theta^n
 \end{cases}$$
+
+Notação: $\mathrm{Bin}(n,\theta)$  em que $n$ é conhecido e fixado previamente, $\theta$ é a
+probabilidade de sucesso (parâmetro do modelo) e $\Theta =(0,1)$ é o espaço paramétrico
 
 ### Modelo Estatístico Geométrico
 
@@ -144,13 +146,13 @@ $$P_\theta(X=x)=\begin{cases}
 0, x \not \in \{1,\dots\}
 \end{cases}
 $$
-em que $\theta$ é o parâmetro do modelo (probabilidade de sucesso) e $\Theta=(0,1)$ é o espaço paramétrico
 $$
 \begin{cases}
 E_\theta(X)=\frac{1}{\theta}\\
 \mathrm{Var}_\theta(X) = \frac{1-\theta}{\theta^{2}}
 \end{cases}
 $$
+Notação: $\mathrm{Geom}(\theta)$ em que $\theta$ é o parâmetro do modelo (probabilidade de sucesso) e $\Theta=(0,1)$ é o espaço paramétrico
 
 ### Modelo de Poisson
 Dizemos que $X$ é uma variável aleatória com modelo estatístico Poisson, se, e somente se,
@@ -160,7 +162,6 @@ P_\theta(X=x)=\begin{cases}
 0, x \not \in \{0,1,\dots\}
 \end{cases}
 $$
-em que $\theta$ é a taxa média de ocorrência do evento (parâmetro do modelo) e $\Theta = (0, \infty)$, o espaço paramétrico.
 $$
 \begin{cases}
 E_\theta(X)=\theta\\
@@ -168,26 +169,32 @@ E_\theta(X)=\theta\\
 \end{cases}
 $$
 
+Notação: $\mathrm{Poisson}(\theta)$  em que $\theta$ é a taxa média de ocorrência do evento (parâmetro do modelo) e $\Theta = (0, \infty)$, o espaço paramétrico.
+
 ### Modelo Multinomial
 Dizemos que $X$ é um Vetor Aleatório com modelo estatístico Multinomial se, e somente se a função de probabilidade é 
 $$
-P_{\theta}(X_{1}=x_{1},\dots,X_{k} = x_{k})=\begin{cases}
-\frac{n!}{x_{1}!x_{2}!\dots x_{k}!} \cdot \theta^{x_{1}}_{1} \cdot,\cdots, \cdot\theta^{x_n}_{k} ~~~~ x_{1}+\dots+x_{k}=n\\
+P_{\theta}(X_{1}=x_{1},\dots,X_{k} = x_{k})=
+\begin{cases}
+\frac{n!}{x_{1}!x_{2}!\dots x_{k}!} \cdot \theta^{x_{1}}_{1} \cdot \cdots \cdot\theta^{x_n}_{k} ~~~~ x_{1}+\dots+x_{k}=n\\
 0, c.c
 \end{cases}
 $$
 
-em que $\theta_{1}+\dots+\theta_{k}=1$ e $0\leq \theta_{i} \leq 1$, $\forall i = 1,2,\dots,k$,
-$\Theta=\{(\theta_{1},,\dots,\theta_{k}) \in \mathbb{R}^{k} : 0\leq \theta_{i} \leq 1, i=1,\dots,k, 
-\theta_{1}+\dots+\theta_{k} = 1 \}$
 
 $$
 \begin{cases}
 E_\theta(X_{i})=n\theta_{i}\\
-\mathrm{Var}_\theta(X_{i}) = n\theta_{}i (1-\theta_{i}) \\
+\mathrm{Var}_\theta(X_{i}) = n\theta_{i} (1-\theta_{i}) \\
 \mathrm{Cov}(X_{i}X_{j})=-n\theta_{i}\theta_{j}
 \end{cases}
 $$
+
+Notação: $\mathrm{Multinomial}(n, \theta_1,\theta_2,\dots,\theta_k)$ 
+em que $\theta_{1}+\dots+\theta_{k}=1$ e $0\leq \theta_{i} \leq 1$, $\forall i = 1,2,\dots,k$,
+$\Theta=\{(\theta_{1},,\dots,\theta_{k}) \in \mathbb{R}^{k} : 0\leq \theta_{i} \leq 1, i=1,\dots,k, 
+\theta_{1}+\dots+\theta_{k} = 1 \}$
+
 Esse modelo tem aplicação em modelos de linguagem como o ChatGPT. ($k$ como tamanho do vocabulário, $n=1$, $\theta_{1}=$ 
 probabilidade de escolher o primeiro elemento do vocabulário e assim por diante.)
 
@@ -201,7 +208,6 @@ f_\theta(x)=\begin{cases}
 0, c.c.
 \end{cases}
 $$
-em que $\theta=(\theta_{1}, \theta_{2})$ vetor, $\Theta = \{\theta \in \mathbb{R}^{2} : \theta_{2} > \theta_{1} \}$
 
 $$
 \begin{cases}
@@ -209,9 +215,8 @@ E_\theta(X)=\frac{b+a}{2}\\
 \mathrm{Var}_\theta(X) = \frac{(b-a)^{2}}{12}\end{cases}
 $$
 
-$$
-X \sim U(\theta_{1}, \theta_{2}), \theta=(\theta_{1}, \theta_{2}) \text{ Vetor de Parâmetros}
-$$
+Notação: $X \sim U(\theta_{1}, \theta_{2})$, em que  $\theta=(\theta_{1}, \theta_{2})$ é o vetor de parâmetros e
+$\Theta = \{\theta \in \mathbb{R}^{2} : \theta_{2} > \theta_{1} \}$ é o espaço paramétrico.
 
 ### Modelo Exponencial
 
@@ -224,7 +229,6 @@ f_\theta(x)=\begin{cases}
 \end{cases}
 $$
 
-em que $\theta>0, \Theta=\{\theta \in \mathbb{R}: \theta>0 \}$
 
 $$
 \begin{cases}
@@ -233,15 +237,12 @@ E_\theta(X)=\frac{1}{\theta}\\
 \end{cases}
 $$
 
-$$
-X\sim \mathrm{Exp}(\theta), \theta> 0
-$$
+Notação: $X\sim \mathrm{Exp}(\theta), \theta> 0$ em que $\theta>0, \Theta=\{\theta \in \mathbb{R}: \theta>0 \}$
 
 ### Modelo Normal
 
 Dizemos que $X$ é uma variável aleatória contínua com modelo estatístico Normal com média $\mu$ e variância $\sigma^{2}$
 se, e somente se, a sua Função Densidade de Probabilidade é dada por
-
 $$
 f_\theta(x)=
 \frac{1}{\sqrt{2\pi \sigma^{2}}}\cdot \mathrm{e}^{-\frac{1}{2\sigma^{2}}(x-\mu)^{2}}, x \in \mathbb{R}
@@ -255,6 +256,4 @@ E_\theta(X)=\mu\\
 \end{cases}
 $$
 
-$$
-X \sim N (\mu, \sigma^{2}), \theta=(\mu, \sigma^{2}) \text{ Vetor de Parâmetros}
-$$
+Notação: $X \sim N (\mu, \sigma^{2})$, em que  $\theta=(\mu, \sigma^{2})$ é o vetor de parâmetros.
