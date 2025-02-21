@@ -11,7 +11,7 @@ $$
 
 no caso contínuo:
 $$
-f_\theta^{(x)}(k_{1},k_{2},\dots,k_{n})\stackrel{\text{i.i.d}}{=}\prod^{n}_{i=1}f_{\theta}(k_{i})
+f_\theta^{(X_1, \dots, X_n)}(k_{1},k_{2},\dots,k_{n})\stackrel{\text{i.i.d}}{=}\prod^{n}_{i=1}f_{\theta}(k_{i})
 $$
 
 ## Exemplos
@@ -45,8 +45,8 @@ Resolução
      $$\begin{aligned}
        &P_\theta(X=k)=\theta^{k}(1-\theta)^{1-k}\cdot\mathbb{1}_{\{0,1 \}}(k)\Rightarrow\\
        &P_\theta(X_{1}=k,X_{2}=k_{2},X_{3}= k_{3})\stackrel{\text{i.i.d}}{=}\prod^{3}_{i=1}\{\theta^{k_{i}}
-       (1-\theta)^{1-k_{1}}\mathbb{1}_{\{0,1 \}}(k_{1}) \} = \\
-       &= \theta^{\sum\limits^{3}_{i=1}k_{1}}(1-\theta)^{3-\sum\limits^{3}_{i=1}k_{1}}\prod^{3}_{i=1}\mathbb{1}_{\{0,1\}}
+       (1-\theta)^{1-k_{i}}\mathbb{1}_{\{0,1 \}}(k_{i}) \} = \\
+       &= \theta^{\sum\limits^{3}_{i=1}k_{i}}(1-\theta)^{3-\sum\limits^{3}_{i=1}k_{i}}\prod^{3}_{i=1}\mathbb{1}_{\{0,1\}}
        (k_{i})
        \end{aligned}
     $$
@@ -55,7 +55,7 @@ Resolução
 	2. $g(\theta)=P_\theta(X=0)=1-\theta$
 	3. $g(\theta)=\mathrm{CV}_\theta(X)=\frac{\sqrt{\theta(1-\theta)}}{\theta}$
 
-### Exemplo dois
+<!-- ### Exemplo dois
 
 Seja $(X_{1},\dots,X_{n})$ uma a.a de $X\sim\text{Ber}(\theta), \theta \in(0,1)$, encontre a f.p conjunta da amostra.
 $$
@@ -65,9 +65,9 @@ P_\theta(X_{1}=k_{1},\dots,X_{n}=k_{n})\stackrel{\text{iid}}{=}\prod ^{n}_{i=1}P
 \Rightarrow P_\theta(X_{1}=k_{1},\dots,X_{n}=k_{n})=\theta^{\sum\limits^{n}_{i=1}k_{1}}\cdot 
 \theta^{n-\sum\limits^{n}_{i=i}k_{i}}\cdot\mathbb{1}_{\{0,1\}}(k_{i})
 \end{aligned}
-$$
+$$ -->
 
-### Exemplo três
+### Exemplo dois <!-- três -->
 Seja $(X_{1},\dots,X_{n})$ uma a.a de $X\sim\text{Pois}(\theta), \theta \in(0,\infty)$, encontre a f.p. conjunta da 
 amostra.
 Como esse vetor é uma a.a. (ou seja, variáveis aleatórias independentes e identicamente distribuídas), temos que
@@ -78,7 +78,7 @@ $$
 Sempre que $k_{i}\in\{0,1,\dots \}, \forall i = 1,\dots,n$
 
 $$
-\Rightarrow P_\theta(\dots)=\mathrm{e}^{-n \theta} \cdot \frac{\theta^{\sum\limits^{n}_{i=1}k_{i}}}{\prod^{n}_{i=1}
+\Rightarrow P_\theta(X_1=k_{1},\dots,X_{n}=k_{n})=\mathrm{e}^{-n \theta} \cdot \frac{\theta^{\sum\limits^{n}_{i=1}k_{i}}}{\prod^{n}_{i=1}
 (k_{i})!}
 $$
 
@@ -88,10 +88,10 @@ Seja $(X_{1},\dots,X_{n})$ uma a.a de $X\sim\text{Exp}(\theta), \theta \in(0,\in
 função densidade de probabilidade (f.d.p.) conjunta da amostra.
 $$
 \begin{aligned}
-F_{\theta}^{(*)}(k_{1},\dots,k_{n})&\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_\theta(k_{i})=\prod^{n}_{i=1}
+f_{\theta}^{(X_1,\dots,X_{n})}(k_{1},\dots,k_{n})&\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_\theta(k_{i})=\prod^{n}_{i=1}
 \{\theta \mathrm{e}^{-\theta k_{i}} \cdot \mathbb{1}_{(0,\infty )}(k_{i}) \}
-\\&\Rightarrow f_\theta^{(*)}(\dots)=\theta^{n}
-\cdot \mathrm{e}^{-\theta\sum\limits^{n}_{i=1}k_{i}} \cdot\prod^{n}_{i=1}\mathbb{1}_{(0,\infty)}(k)
+\\&\Rightarrow f_\theta^{(X_1,\dots,X_n)}(k_1,\dots,k_n)=\theta^{n}
+\cdot \mathrm{e}^{-\theta\sum\limits^{n}_{i=1}k_{i}} \cdot\prod^{n}_{i=1}\mathbb{1}_{(0,\infty)}(k_i)
 \end{aligned}
 $$
 
@@ -103,8 +103,8 @@ a amostra observada.
 
 $$
 \begin{aligned}
-L_{\stackrel{X}{\sim}} &\stackrel{\text{iid}}{=} \prod^{n}_{i=1}f_\theta(x_{i})=
-\prod^{n}_{i=1}\left\{\frac{1}{\sqrt{2 \pi \sigma^{2}}} \mathrm{exp}\{- \frac{1}{2\sigma^{2}}(x_{1}-\mu)^{2}\}\right\} \\
+L_{\stackrel{X}{\sim}}(\theta) &\stackrel{\text{iid}}{=} \prod^{n}_{i=1}f_\theta(x_{i})=
+\prod^{n}_{i=1}\left\{\frac{1}{\sqrt{2 \pi \sigma^{2}}} \mathrm{exp}\{- \frac{1}{2\sigma^{2}}(x_{i}-\mu)^{2}\}\right\} \\
 &= \frac{1}{(2 \pi \sigma^{2})^{\frac{x}{2}}}\cdot \mathrm{exp}\{- \frac{1}{2 \sigma^{2}} \sum\limits^{n}_{i=1}(x_{i}-\mu)^{2}  \}
 \end{aligned}
 $$
