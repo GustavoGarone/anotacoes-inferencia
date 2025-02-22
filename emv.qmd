@@ -2,10 +2,10 @@
 O valor numérico $\hat\theta_{n}$ que maximiza a [função de verossimilhança](funcao-verossimilhanca.qmd), ou seja,
 $L_{\stackrel{x}{\sim}}(\hat\theta_{n}) \geq L_{\stackrel{x}{\sim}}(\theta)\forall \theta \in \Theta$ é dito ser uma
 [estimativa](estimadores.qmd#estimativas) de máxima verossimilhança (MV) para $\theta$. Observe que $\hat\theta_{n}$ depende da
-[amostra observada](populacao-e-amostra.qmd#sec-ao) e portanto: $\hat\theta_{n} = \hat\theta_(x_{1},x_{2},\dots,x_{n})$.
+[amostra observada](populacao-e-amostra.qmd#sec-ao) e portanto: $\hat\theta_{n} = \hat\theta(x_{1},x_{2},\dots,x_{n})$.
 
 O [estimador](estimadores.qmd) de máxima verossimilhança é obtido substituindo $(x_{1},\dots,x_{n})$ por 
-$(X_{1},\dots,X_{n})$, ou seja, $\hat\theta_{(X_{1},\dots,X_{n})}$ é o Estimador de Máxima Verossimilhança (EMV)
+$(X_{1},\dots,X_{n})$, ou seja, $\hat\theta(X_{1},\dots,X_{n})$ é o Estimador de Máxima Verossimilhança (EMV)
 
 ## Exemplo
 

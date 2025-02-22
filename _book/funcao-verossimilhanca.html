@@ -287,16 +287,16 @@ window.Quarto = {
 
 <p>Quando analisamos a <a href="./dist-amostral.html">distribuição conjunta da amostra</a> em função de <span class="math inline">\(\theta\)</span> nos valores da <a href="./populacao-e-amostra.html#sec-ao">amostra observada</a>, temos a <strong>Função de Verossimilhança</strong></p>
 <p><span class="math display">\[
-\mathrm{L}_{\stackrel{x}{\sim}}(\theta)=P_\theta(X_{1}=x_{1},X_{2}=x_{2},\dots,X_{n}=x_{n})
+\mathrm{L}_{\underset{x}{\sim}}(\theta)=P_\theta(X_{1}=x_{1},X_{2}=x_{2},\dots,X_{n}=x_{n})
 \]</span></p>
-<p>em que <span class="math inline">\(\stackrel{x}{\sim}=(x_{1},x_{2},\dots,x_{n})\)</span> é a amostra observada.</p>
+<p>em que <span class="math inline">\(\underset{x}{\sim}=(x_{1},x_{2},\dots,x_{n})\)</span> é a amostra observada.</p>
 <p>Obs: A função de verossimilhança, no caso discreto, é a probabilidade de observar a amostra observada.</p>
 <section id="exemplo" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="exemplo"><span class="header-section-number">5.1</span> Exemplo</h2>
 <p>Considere <span class="math inline">\((X_{1},X_{2},X_{3},X_{4})\)</span> a.a de <span class="math inline">\(X\sim \text{Ber}(\theta), \theta \in \{0.1, 0.5, 0.9 \}\)</span>. Note que o espaço paramétrico é <span class="math inline">\(\Theta=\{0.1,0.5,0.9 \}\)</span>. Considere, ainda, que a amostra observada foi <span class="math inline">\((0,1,1,1)\)</span>. Encontre a função de verossimilhança.</p>
 <p><span class="math display">\[
 \begin{aligned}
-L_\stackrel{X}{\sim}(\theta)&amp;=P_\theta(X_{1}=x_{1},X_{2}=x_{2},X_{3}=x_{3},X_{4}=x_{4}) \\
+L_\underset{X}{\sim}(\theta)&amp;=P_\theta(X_{1}=x_{1},X_{2}=x_{2},X_{3}=x_{3},X_{4}=x_{4}) \\
 &amp;= \theta^{\sum\limits^{4}_{i=1}x_{i}}
 (1-\theta)^{4-\sum\limits^{4}_{i=1}x_{i}}\cdot \cancelto{1}{\prod^{4}_{i=1}\mathbb{1}_{\{0,1 \}}(x_{i})} =
 \theta^{3}(1-\theta)
