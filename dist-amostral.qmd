@@ -98,7 +98,7 @@ $$
 ### Exemplo contínuo dois
 
 Seja $(X_{1},\dots,X_{n})$ uma a.a. (i.i.d) de $X\sim N(\mu,\sigma^{2})$ em que 
-$\theta=(\mu, \sigma^{2}) \in \Theta=\mathbb{R}\times \mathbb{R}_{+}$. Considere $\stackrel{x}{\sim}=(x_{1},\dots,x_{n})$
+$\theta=(\mu, \sigma^{2}) \in \Theta=\mathbb{R}\times \mathbb{R}_{+}$. Considere $\underset{sim}{x}=(x_{1},\dots,x_{n})$
 a amostra observada.
 
 $$
