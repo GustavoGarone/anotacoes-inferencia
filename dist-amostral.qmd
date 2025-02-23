@@ -103,7 +103,7 @@ a amostra observada.
 
 $$
 \begin{aligned}
-L_{\stackrel{X}{\sim}}(\theta) &\stackrel{\text{iid}}{=} \prod^{n}_{i=1}f_\theta(x_{i})=
+L_{\underset{\sim}{X}}(\theta) &\stackrel{\text{iid}}{=} \prod^{n}_{i=1}f_\theta(x_{i})=
 \prod^{n}_{i=1}\left\{\frac{1}{\sqrt{2 \pi \sigma^{2}}} \mathrm{exp}\{- \frac{1}{2\sigma^{2}}(x_{i}-\mu)^{2}\}\right\} \\
 &= \frac{1}{(2 \pi \sigma^{2})^{\frac{x}{2}}}\cdot \mathrm{exp}\{- \frac{1}{2 \sigma^{2}} \sum\limits^{n}_{i=1}(x_{i}-\mu)^{2}  \}
 \end{aligned}
