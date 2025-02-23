@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.33">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -37,10 +37,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e9131c8ef025c8509cdc7084ffe4c278.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-5be6a2cc77e263ac8fc319dd47b90cd7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -358,7 +358,7 @@ f_{\theta}^{(X_1,\dots,X_{n})}(k_{1},\dots,k_{n})&amp;\stackrel{\text{iid}}{=}\p
 </section>
 <section id="exemplo-contínuo-dois" class="level3" data-number="4.1.4">
 <h3 data-number="4.1.4" class="anchored" data-anchor-id="exemplo-contínuo-dois"><span class="header-section-number">4.1.4</span> Exemplo contínuo dois</h3>
-<p>Seja <span class="math inline">\((X_{1},\dots,X_{n})\)</span> uma a.a. (i.i.d) de <span class="math inline">\(X\sim N(\mu,\sigma^{2})\)</span> em que <span class="math inline">\(\theta=(\mu, \sigma^{2}) \in \Theta=\mathbb{R}\times \mathbb{R}_{+}\)</span>. Considere <span class="math inline">\(\stackrel{x}{\sim}=(x_{1},\dots,x_{n})\)</span> a amostra observada.</p>
+<p>Seja <span class="math inline">\((X_{1},\dots,X_{n})\)</span> uma a.a. (i.i.d) de <span class="math inline">\(X\sim N(\mu,\sigma^{2})\)</span> em que <span class="math inline">\(\theta=(\mu, \sigma^{2}) \in \Theta=\mathbb{R}\times \mathbb{R}_{+}\)</span>. Considere <span class="math inline">\(\underset{\sim}{x}=(x_{1},\dots,x_{n})\)</span> a amostra observada.</p>
 <p><span class="math display">\[
 \begin{aligned}
 L_{\stackrel{X}{\sim}}(\theta) &amp;\stackrel{\text{iid}}{=} \prod^{n}_{i=1}f_\theta(x_{i})=
@@ -454,8 +454,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -566,7 +564,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

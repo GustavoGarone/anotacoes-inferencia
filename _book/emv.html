@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.33">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -37,10 +37,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-07ba0ad10f5680c660e360ac31d2f3b6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e9131c8ef025c8509cdc7084ffe4c278.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-5be6a2cc77e263ac8fc319dd47b90cd7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -288,7 +288,7 @@ window.Quarto = {
 </header>
 
 
-<p>O valor numérico <span class="math inline">\(\hat\theta_{n}\)</span> que maximiza a <a href="./funcao-verossimilhanca.html">função de verossimilhança</a>, ou seja, <span class="math inline">\(L_{\stackrel{x}{\sim}}(\hat\theta_{n}) \geq L_{\stackrel{x}{\sim}}(\theta)\forall \theta \in \Theta\)</span> é dito ser uma <a href="./estimadores.html#estimativas">estimativa</a> de máxima verossimilhança (MV) para <span class="math inline">\(\theta\)</span>. Observe que <span class="math inline">\(\hat\theta_{n}\)</span> depende da <a href="./populacao-e-amostra.html#sec-ao">amostra observada</a> e portanto: <span class="math inline">\(\hat\theta_{n} = \hat\theta(x_{1},x_{2},\dots,x_{n})\)</span>.</p>
+<p>O valor numérico <span class="math inline">\(\hat\theta_{n}\)</span> que maximiza a <a href="./funcao-verossimilhanca.html">função de verossimilhança</a>, ou seja, <span class="math inline">\(L_{\underset{\sim}{x}}(\hat\theta_{n}) \geq L_{\underset{\sim}{x}}(\theta)\forall \theta \in \Theta\)</span> é dito ser uma <a href="./estimadores.html#estimativas">estimativa</a> de máxima verossimilhança (MV) para <span class="math inline">\(\theta\)</span>. Observe que <span class="math inline">\(\hat\theta_{n}\)</span> depende da <a href="./populacao-e-amostra.html#sec-ao">amostra observada</a> e portanto: <span class="math inline">\(\hat\theta_{n} = \hat\theta(x_{1},x_{2},\dots,x_{n})\)</span>.</p>
 <p>O <a href="./estimadores.html">estimador</a> de máxima verossimilhança é obtido substituindo <span class="math inline">\((x_{1},\dots,x_{n})\)</span> por <span class="math inline">\((X_{1},\dots,X_{n})\)</span>, ou seja, <span class="math inline">\(\hat\theta(X_{1},\dots,X_{n})\)</span> é o Estimador de Máxima Verossimilhança (EMV)</p>
 <section id="exemplo" class="level2" data-number="10.1">
 <h2 data-number="10.1" class="anchored" data-anchor-id="exemplo"><span class="header-section-number">10.1</span> Exemplo</h2>
@@ -301,31 +301,31 @@ X=x: &amp; 0 &amp; 1 &amp; 2\\
 f_{\theta}(x): &amp; \theta &amp; \theta^{2} &amp; 1-\theta-\theta^{2}\\
 \hline
 \end{array}
-\]</span> Considere que a amostra observada é <span class="math inline">\(\stackrel{x}{\sim}=(0,0,1)\)</span>.</p>
+\]</span> Considere que a amostra observada é <span class="math inline">\(\underset{\sim}{x}=(0,0,1)\)</span>.</p>
 <p>a-) Encontre a estimativa da máxima verossimilhança</p>
 <p>Sabemos que <span class="math display">\[
 f_{\theta}(x)= \theta^{\mathbb{1}_{\{0\}}(x)} \cdot (\theta^{2})^{\mathbb{1}_{\{1\}}(x)} \cdot
 (1-\theta-\theta^{2})^{\mathbb{1}_{\{2\}}(x)} \forall \theta \in \Theta
 \]</span> portanto,</p>
 <p><span class="math display">\[
-L_{\stackrel{x}{\sim}}(\theta)\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_{\theta}(x_{i})  =
+L_{\underset{\sim}{x}}(\theta)\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_{\theta}(x_{i})  =
 \theta^{\sum\limits^{n}_{i=1}\mathbb{1}_{\{0\}}(x_{i})} \cdot (\theta^{2})^{\sum\limits^{n}_{i=1}\mathbb{1}_{\{1\}}(x_{i})}
 \cdot (1-\theta-\theta^{2})^{\sum\limits^{n}_{i=1}\mathbb{1}_{\{2\}}(x_{i})} \forall \theta \in \Theta
 \]</span></p>
-<p>Para <span class="math inline">\(\stackrel{x}{\sim}=(0,0,1)\)</span>, <span class="math display">\[
-L_{\stackrel{x}{\sim}}(\theta) = \theta^{2} \cdot \theta^{2} \cdot (1-\theta -\theta^{2})^{0} = \theta^{4}
+<p>Para <span class="math inline">\(\underset{\sim}{x}=(0,0,1)\)</span>, <span class="math display">\[
+L_{\underset{\sim}{x}}(\theta) = \theta^{2} \cdot \theta^{2} \cdot (1-\theta -\theta^{2})^{0} = \theta^{4}
 \forall \theta \in \Theta
 \]</span></p>
 <p>Substituindo <span class="math inline">\(\forall \theta \in \Theta\)</span>: <span class="math display">\[
-\theta = \frac{1}{2}\Rightarrow L_{\stackrel{x}{\sim}}\left(\frac{1}{2}\right)=\frac{1}{16} ~~~~ \theta =
-\frac{1}{3}\Rightarrow L_{\stackrel{x}{\sim}}\left(\frac{1}{3}\right)=\frac{1}{81}
+\theta = \frac{1}{2}\Rightarrow L_{\underset{\sim}{x}}\left(\frac{1}{2}\right)=\frac{1}{16} ~~~~ \theta =
+\frac{1}{3}\Rightarrow L_{\underset{\sim}{x}}\left(\frac{1}{3}\right)=\frac{1}{81}
 \]</span></p>
 <p>Portanto, <span class="math inline">\(\hat\theta_{n}=\frac{1}{2}\)</span> é a estimativa de máxima verossimilhança.</p>
 <section id="invariância-dos-emvs" class="level3" data-number="10.1.1">
 <h3 data-number="10.1.1" class="anchored" data-anchor-id="invariância-dos-emvs"><span class="header-section-number">10.1.1</span> Invariância dos EMVs</h3>
 <p><strong>Teorema.</strong> Se <span class="math inline">\(\hat\theta_{(X_{1},\dots,X_{n})}\)</span> for EMV para <span class="math inline">\(\theta\)</span>, então <span class="math inline">\(g(\hat\theta_{(X_{1},\dots,X_{n})})\)</span> é o EMV para <span class="math inline">\(g(\theta)\)</span>, ou seja, <span class="math inline">\(g(\hat\theta_n)\)</span> é a estimativa de máxima verossimilhança para <span class="math inline">\(g(\theta)\)</span></p>
 <p>Mais um exemplo:</p>
-<p>Seja <span class="math inline">\((X_{1},\dots,X_{n})\)</span> a.a. de <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> em que <span class="math inline">\(\theta = (\mu, \sigma^{2}) \in \Theta=\mathbb{R}\times \mathbb{R}^{+}\)</span> Assuma que <span class="math inline">\(\stackrel{x}{\sim} = (x_{1},\dots,x_{n})\)</span> é a amostra observada. Lembrando que estaremos chamando <span class="math inline">\(\theta=(\mu, \sigma^{2})\)</span>, mas estes são parâmetros genéricos. Poderíamos, por exemplo, chamá-los de <span class="math inline">\(\theta=(\theta_{1},\theta_{2})\)</span>, o que pode facilitar a visualizar algumas derivadas.</p>
+<p>Seja <span class="math inline">\((X_{1},\dots,X_{n})\)</span> a.a. de <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span> em que <span class="math inline">\(\theta = (\mu, \sigma^{2}) \in \Theta=\mathbb{R}\times \mathbb{R}^{+}\)</span> Assuma que <span class="math inline">\(\underset{\sim}{x} = (x_{1},\dots,x_{n})\)</span> é a amostra observada. Lembrando que estaremos chamando <span class="math inline">\(\theta=(\mu, \sigma^{2})\)</span>, mas estes são parâmetros genéricos. Poderíamos, por exemplo, chamá-los de <span class="math inline">\(\theta=(\theta_{1},\theta_{2})\)</span>, o que pode facilitar a visualizar algumas derivadas.</p>
 <p>a-) Encontre as estimativas de máxima verossimilhança para <span class="math inline">\(\theta = (\mu, \sigma^{2})\)</span>:</p>
 <p>A Função de Verossimilhança é: <span class="math display">\[
 \begin{aligned}
@@ -449,8 +449,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -561,7 +559,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
