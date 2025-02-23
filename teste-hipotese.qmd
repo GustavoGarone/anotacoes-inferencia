@@ -19,8 +19,8 @@ Um dos principais objetivos da estática é testar hipóteses. Veja algumas dess
 Considere uma pessoa que está sendo acusada de ter cometido um crime.
 
 As duas hipóteses envolvidas aqui são (abordagem de Neyman-Pearson):
-1. “O suspeito não é culpado” -> $h_{0}$ Hipótese Nula ou de não-efeito;
-2. “O suspeito é culpado” -> $h_{1}$ Hipótese alternativa ou hipótese que contém o efeito.
+1. “O suspeito não é culpado” -> $H_{0}$ Hipótese Nula ou de não-efeito;
+2. “O suspeito é culpado” -> $H_{1}$ Hipótese alternativa ou hipótese que contém o efeito.
 
 - Após coletar as evidências, dizemos que, se houver evidências de que o suspeito cometeu o crime, a pessoa é culpada. 
 - Se não, concluímos que não é culpado.
@@ -44,19 +44,19 @@ $$
 
 ## Exemplo da hipótese 1.
 Estamos interessados em verificar se uma moeda é honesta. Executaremos $n$ experimentos de Bernoulli e verificaremos se
-a face voltada para cima após o lançamento é cara. Dessa forma, sendo $X$ o resultado dum lançamento, teremos a
+a face voltada para cima após o lançamento é cara. Dessa forma, sendo $X$ o resultado de um lançamento, teremos a
 [a.a](populacao-e-amostra.qmd#sec-aa)
 $(\pmb{X}_{n})$ de $X\sim \mathrm{Ber}(\theta), \theta \in \Theta = [0,1]$. Suspeitamos que a moeda é honesta ou que
 $\theta = 0.9$.
 
 Nossas hipóteses são
-1. $H_{0}$ -> $\theta = 0.5$
-2. $H_{1}$ -> $\theta = 0.9$
+1. $H_{0}: \theta = 0.5$
+2. $H_{1}: \theta = 0.9$
 
 ### Erros Tipo I e II
 
 Note que $\bar{X}$ é um [estimador](estimadores.qmd) para $\theta$ e $\bar{x}$ é uma [estimativa](estimadores.qmd#estimativa).
-- Se $\bar{x}>0.7$, rejeitaremos a hipótese nula $h_{0}$, a moeda não seria honesta e haveria um viés agindo sobre seus lançamentos.
+- Se $\bar{x}>0.7$, rejeitaremos a hipótese nula $H_{0}$, a moeda não seria honesta e haveria um viés agindo sobre seus lançamentos.
 - Se $\bar{x}\leq 0.7$, concluiremos que a moeda é honesta.
 $$
 \begin{array}{c|cc}
@@ -70,19 +70,19 @@ $$
 \end{array}
 $$
 
-- Erro Tipo I: Rejeitar que a moeda é honesta (rejeitar $h_{0}$) quando na verdade é.
-- Erro Tipo II: Rejeitar que a moeda é enviesada (rejeitar $h_{1}$) quando na verdade é.
+- Erro Tipo I: Rejeitar que a moeda é honesta (rejeitar $H_{0}$) quando na verdade é.
+- Erro Tipo II: Rejeitar que a moeda é enviesada (rejeitar $H_{1}$) quando na verdade é.
 
 Calculando a probabilidade dos erros
 $$
 \begin{aligned}
-P(\text{Erro Tipo I}) &= P(\text{Probabilidade de rejeitar $h_{0}$}|\text{$h_{0}$ é verdadeiro}) \\
+P(\text{Erro Tipo I}) &= P(\text{Probabilidade de rejeitar $H_{0}$}|\text{$H_{0}$ é verdadeiro}) \\
 \text{Incorreto na Estatística Clássica} &= P(\bar{X} > 0.7 | \theta = 0.5) \\
 \text{Correto na Estatística Clássica} & = P_{0.5}(\bar{X} > 0.7)
 \end{aligned}
 $$
 
-Na segunda notação, correta na estatística frequentista, $P$ está sob a hipótese nula $h_{0}$ verdadeira.
+Na segunda notação, correta na estatística frequentista, $P$ está sob a hipótese nula $H_{0}$ verdadeira.
 Dessa forma
 $$
 P(\text{Erro Tipo II}) = P_{0.9}(\bar{X}\leq 0.7)
@@ -94,7 +94,7 @@ Calcule as probabilidades dos erros considerando $n=10$ e a aproximação pela d
 Sabemos que $\sum ^{n}_{i=1}X_{i}\sim \mathrm{Bin}(n, \theta)$, logo
 $$
 \begin{aligned}
-\alpha &= P(\text{Erro Tipo I}) \stackrel{\text{Sob $h_{0}$}}{=} P_{0.5}\left( \frac{1}{n} \sum^n_{i=1}X_{i}> 0.7\right)
+\alpha &= P(\text{Erro Tipo I}) \stackrel{\text{Sob $H_{0}$}}{=} P_{0.5}\left( \frac{1}{n} \sum^n_{i=1}X_{i}> 0.7\right)
 = P_{0.5}\left( \sum^{10}_{i=1}X_{i} > 7 \right) \\
 &= P_{0.5}\left( \sum^{10}_{i=1} X_{i} \geq 8 \right) \\
 &= \binom{10}{8} 0.5^{8} \cdot 0.5^{2} + \binom{10}{9} 0.5^{9} \cdot 0.5^{1} + \binom{10}{10} 0.5^{10} \approx 0.05469 \\
@@ -105,7 +105,7 @@ $$
 
 $$
 \begin{aligned}
-\beta &= P(\text{Erro Tipo II}) \stackrel{\text{Sob $h_{1}$}}{=} P_{0.9}\left( \frac{1}{n} \sum^n_{i=1}X_{i}\leq 0.7\right)
+\beta &= P(\text{Erro Tipo II}) \stackrel{\text{Sob $H_{1}$}}{=} P_{0.9}\left( \frac{1}{n} \sum^n_{i=1}X_{i}\leq 0.7\right)
 = P_{0.9}\left( \sum^{10}_{i=1}X_{i} \leq 7 \right) \\
 &= 1-P_{0.9}\left( \sum^{10}_{i=1} X_{i} \geq 8 \right) \\
 &= 1-\left(\binom{10}{8} 0.9^{8} \cdot 0.9^{2} + \binom{10}{9} 0.9^{9} \cdot 0.9^{1} + \binom{10}{10} 0.9^{10}\right)
@@ -116,7 +116,7 @@ $$
 $$
 
 ## Poder do teste
-Chamamos de poder do teste a probabilidade de rejeitar $h_{0}$ quando este é falso.
+Chamamos de poder do teste a probabilidade de rejeitar $H_{0}$ quando este é falso.
 
 No exemplo anterior,
 $$
@@ -124,9 +124,9 @@ $$
 $$
 
 Considere nesse exemplo uma a.a do lançamento de quatro moedas: $(\pmb{x}_{10}) = (1, 0, 1, 0,0,1,1,0,0,0)$.
-Como $\bar{x}=0.4 \leq 0.7$, não rejeitamos a hipótese nula $h_{0}$.
+Como $\bar{x}=0.4 \leq 0.7$, não rejeitamos a hipótese nula $H_{0}$.
 
-Em uma outra amostra, $(\pmb{x}_{10}) = (0,0,1,1,1,1,1,1,1,1)$. Como $\bar{x}=0.8 > 0.7$, rejeitamos a hipótese nula $h_{0}$.
+Em uma outra amostra, $(\pmb{x}_{10}) = (0,0,1,1,1,1,1,1,1,1)$. Como $\bar{x}=0.8 > 0.7$, rejeitamos a hipótese nula $H_{0}$.
 
 ## Um exemplo mais amplo (Diferença)
 Seja $(X_{n})$ uma a.a. de $X\sim\mathrm{Ber}(\theta)$, em que $\theta \in (0,1)$. Considere as hipóteses:
@@ -323,7 +323,7 @@ $$
 $$
 
 ## Teste sob Normalidade
-Seja $(x_{n})$ amostra aleatória de $X\sim N(\mu,\sigma^2)$ em que $\sigma^2$ é conhecido.
+Seja $(\pmb{X}_{n})$ amostra aleatória de $X\sim N(\mu,\sigma^2)$ em que $\sigma^2$ é conhecido.
 Considere as hipóteses
 $$
 \begin{cases}
@@ -345,13 +345,13 @@ $$
 +P_{\theta}\left( \bar{X} > \mu_{0} + 1.96 \sqrt{  \frac{\sigma^2}{n} } \right)
 $$
 
-em que $theta = \mu \in \mathbb{R}$. Portanto,
+em que $\theta = \mu \in \mathbb{R}$. Portanto,
 $$
 \alpha_{\max} = \sup_{\theta \in \Theta_{0}} \pi(\theta)
 $$
 
-Como $H_{0}=\mu=\mu_{0} \Leftrightarrow H_{0}: \theta \in \Theta$, em que $\Theta_{0}=\{ \mu_{0} \}$, logo,
-$\sup_{\theta \in \Theta_{0}} = \mu_{0}$
+Como $H_{0}:\mu=\mu_{0} \Leftrightarrow H_{0}: \theta \in \Theta_0$, em que $\Theta_{0}=\{ \mu_{0} \}$, 
+$\sup_{\theta \in \Theta_{0}} \pi(\theta)$ ocorre quando $\theta = \mu_0$
 Portanto, temos que
 $$
 \alpha_{\max} = \pi(\mu_{0}) = P_{\mu_{0}}\left( \bar{X}<\mu_{0}-1.96\sqrt{ \frac{\sigma^2}{n} } \right) +
@@ -361,7 +361,7 @@ $$
 Sabemos que, pelo enunciado $\bar{X} \sim N\left( \mu, \frac{\sigma^2}{n} \right) \forall \mu \in \mathbb{R}$ 
 sob $H_{0}$, ou seja, quando $\mu= \mu_{0}$ temos que $\bar{X}\sim N\left( \mu_{0}, \frac{\sigma^2}{n} \right)$.
 Note que $P_{\mu_{0}}\left( \bar{X}<\mu_{0}-1.96 \sqrt{ \frac{\sigma^2}{n} } \right) =
-P_{\mu_{0}}\left(\frac{\bar{X}-\mu_{0}}{\sqrt{ \frac{\sigma^2}{n} }} \right) = 2.5\%$
+P_{\mu_{0}}\left(\frac{\bar{X}-\mu_{0}}{\sqrt{ \frac{\sigma^2}{n} }} < -1.96 \right) = 2.5\%$
 Pela simetria da distribuição normal, $P_{\mu_{0}}\left( \bar{X}>\mu_{0}+1.96 \sqrt{ \frac{\sigma^2}{n} } \right) = 2.5\%$
 Portanto a probabilidade máxima do erro tipo 1 é
 $$
@@ -430,7 +430,7 @@ display(b)
 
 ### Um outro exemplo
 
-Seja $(X_{n})$ amostra aleatória de $X\sim \mathrm{N}(\mu,\sigma^2)$ com $\sigma^2 = 5, n = 10$ Com as hipóteses
+Seja $(\pmb{X}_{n})$ amostra aleatória de $X\sim \mathrm{N}(\mu,\sigma^2)$ com $\sigma^2 = 5, n = 10$ Com as hipóteses
 $$
 \begin{cases}
 H_{0} : \mu = 10 \\
@@ -451,7 +451,7 @@ Temos então que $\bar{x} = 7.66$ que, como é abaixo de $8.6$, rejeitamos a hip
 # Procedimento Geral para Testar Hipóteses (Método de Neyman-Pearson)
 
 1. Definimos o Modelo Estatístico:
-	1. “Seja $(X_{n})$ amostra aleatória de $x \sim f_{\theta}, \theta \in \Theta$”
+	1. “Seja $(\pmb{X}_{n})$ amostra aleatória de $x \sim f_{\theta}, \theta \in \Theta$”
 2. Definir as hipóteses de interesse:
 	1. $H_{0}: \theta \in \Theta_{0} \times H_{1}: \theta \in \Theta_{1}$ em que
   $\Theta_{0} \cap \Theta_{1} = \emptyset, \Theta_{0} \neq \emptyset, \Theta_{1}\neq \emptyset, \Theta_{0}\cup \Theta_{1}=\Theta$
@@ -470,8 +470,8 @@ Temos então que $\bar{x} = 7.66$ que, como é abaixo de $8.6$, rejeitamos a hip
 
 ## Exemplos
 
-### Eexemplo um
-Seja $(X_{n})$ a.a de $X\sim \mathrm{N}(\mu,\sigma^2)$ em que $\sigma^2$ é conhecido.
+### Exemplo um
+Seja $(\pmb{X}_{n})$ a.a de $X\sim \mathrm{N}(\mu,\sigma^2)$ em que $\sigma^2$ é conhecido.
 Considere ($\mu_{0}$ fixado)
 
 $$
@@ -540,8 +540,8 @@ $$
 
 	Substituindo esses valores para os fornecidos em 2, temos que $0.95 \leq 0.99 \leq 1.045$. Portanto, continuaríamos a dizer que não há evidências para rejeitarmos $H_{0}$ a $15\%$ de significância.
 
-### 2
-Seja $(X_{n})$ a.a de $X\sim \mathrm{N}(\mu,\sigma^2)$ em que $\sigma^2$ é conhecido.
+### Exemplo 2
+Seja $(\pmb{X}_{n})$ a.a de $X\sim \mathrm{N}(\mu,\sigma^2)$ em que $\sigma^2$ é conhecido.
 
 Considere ($\mu_{0}$ fixado)
 
@@ -584,8 +584,8 @@ $$
 	O ponto de corte é $x_{c} = 0.9836$. Como $0.99 \geq 0.9836$, concluímos que não há evidências para rejeitar a
   hipótese nula a $5\%$ de significância. 
 
-### 3
-Seja $(X_{n})$ amostra aleatória de $X \sim \mathrm{N}(\mu,\sigma^2)$ em que
+### Exemplo 3
+Seja $(\pmb{X}_{n})$ amostra aleatória de $X \sim \mathrm{N}(\mu,\sigma^2)$ em que
 $\theta = (\mu, \sigma^2) = \mathrm{R} \times \mathrm{R}^+$, ou seja, ambos parâmetros são desconhecidos.
 
 $$
@@ -646,8 +646,8 @@ s^2 > q_{\frac{\alpha}{2},n-1}^{(2)} \cdot \frac{\sigma^2_{0}}{(n-1)}\\
 \end{aligned}
 $$
 
-### Exemplo
-Seja $(X_{n})$ amostra aleatória de $X\sim N(\mu,\sigma^2)$ em que $X$ é o peso do pacote de café. Colheu-se uma amostra
+### Exemplo 4
+Seja $(\pmb{X}_{n})$ amostra aleatória de $X\sim N(\mu,\sigma^2)$ em que $X$ é o peso do pacote de café. Colheu-se uma amostra
 de $n=16$ pacotes e observou-se uma variância de $s^2 =169g^2$.
 O processo de fabricação diz que a média dos pacotes é $500g$ e desvio-padrão 10 gramas ($\sigma^2_{0}=100g^2$).
 
@@ -674,7 +674,7 @@ Como $41.73<100<183.26$, concluímos que não há evidências para rejeitar a hi
 
 ## Sob normalidade, variância conhecida
 
-Seja $(X_{n})$ amostra aleatória de $X\sim \mathrm{N}(\mu,\sigma^2)$ em que $\sigma^2$ é conhecido.
+Seja $(\pmb{X}_{n})$ amostra aleatória de $X\sim \mathrm{N}(\mu,\sigma^2)$ em que $\sigma^2$ é conhecido.
 $$
 \begin{aligned}
 &1.
@@ -723,7 +723,7 @@ $$
 
 ## Sob normalidade, variância desconhecida {#sec-normalidade-vardesc}
 
-Seja $(X_{n})$ amostra aleatória de $X \sim \mathrm{N}(\mu,\sigma^2)$ em que $\theta = (\mu, \sigma^2) = \mathrm{R}
+Seja $(\pnmb{X}_{n})$ amostra aleatória de $X \sim \mathrm{N}(\mu,\sigma^2)$ em que $\theta = (\mu, \sigma^2) \in \Theta = \mathrm{R}
 \times \mathrm{R}^+$, ou seja, ambos parâmetros são desconhecidos.
 $$
 \begin{aligned}
@@ -777,8 +777,8 @@ Em que $s^2 = \frac{1}{n-1} \sum^n_{i=1}(x_{i}-\bar{x})^2$ é a variância amost
 
 ## Sob normalidade, para a variância.
 
-Seja $(X_{n})$ amostra aleatória de $X \sim \mathrm{N}(\mu,\sigma^2)$ em que
-$\theta = (\mu, \sigma^2) = \mathrm{R} \times \mathrm{R}^+$, ou seja, ambos parâmetros são desconhecidos.
+Seja $(\pmb{X}_{n})$ amostra aleatória de $X \sim \mathrm{N}(\mu,\sigma^2)$ em que
+$\theta = (\mu, \sigma^2) \in \Theta = \mathrm{R} \times \mathrm{R}^+$, ou seja, ambos parâmetros são desconhecidos.
 $$
 \begin{cases}
 H_{0} : \sigma^2 = \sigma^2_{0} \\
