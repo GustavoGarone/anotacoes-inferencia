@@ -89,7 +89,7 @@ $$
 \therefore \\
 \mathrm{Estimativas~ MV} & = 
 \begin{cases}
-\mu = \bar{x} \\
+\hat\mu = \bar{x} \\
 -\frac{n}{2\sigma^{2}} + \frac{1}{2 \sigma^{4}} \sum\limits^{n}_{i=1}(x_{i}-\mu)^{2}=0 \\
 \end{cases} \\
 &\Leftrightarrow \begin{cases}
@@ -112,8 +112,8 @@ $$
 
 Observação:
 Seja $(X_{1},\dots,X_{n})$ a.a. de $X\sim N(\mu, \sigma^{2})$. Então,
-1. $\bar{X} \underset{\text{Exata!}}{\sim}N\left(\mu, \frac{\sigma^{2}}{n}\right)\forall \mu, \sigma \in \mathbb{R} : \sigma^{2}>0 \text{ e } n\geq 1$
-2. $\sum\limits^{n}_{i=1} \frac{(x_{1}-\bar{X})^{2}}{\sigma^{2}}\underset{\text{Exata!}}{\sim}\chi^{2}_{(n-1)}$
+1. $\bar{X} \underset{\text{Exata!}}{\sim}N\left(\mu, \frac{\sigma^{2}}{n}\right)\forall \mu \in \mathbb{R}, \sigma \in \mathbb{R}^{+} : \sigma^{2}>0 \text{ e } n\geq 1$
+2. $\sum\limits^{n}_{i=1} \frac{(X_{i}-\bar{X})^{2}}{\sigma^{2}}\underset{\text{Exata!}}{\sim}\chi^{2}_{(n-1)}$
 em que $\chi^{2}_{k}$ representa a [Distribuição Qui-Quadrado](qui-quadrado.qmd) com $k$ grau de liberdade, cuja
 função densidade de probabilidade é:
 $$
