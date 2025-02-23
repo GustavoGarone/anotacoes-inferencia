@@ -16,7 +16,7 @@ E(W) = k \\
 \mathrm{Var}(W) = 2k
 \end{cases}
 $$
-Se $Z_{1},Z_{2,}\dots,Z_{N}\stackrel{\text{iid}}{\sim} N(0,1)$, então $$Z_{1}^{2}+\dots+Z_{n}^{2}\sim \chi^{2}_{n}$$
+Se $Z_{1},Z_{2,}\dots,Z_{n}\stackrel{\text{iid}}{\sim} N(0,1)$, então $$Z_{1}^{2}+\dots+Z_{n}^{2}\sim \chi^{2}_{n}$$
 Prova por função característica
 
 Se $X_{1},\dots,X_{n} \stackrel{\text{iid}}{\sim}N(\mu,\sigma^{2}),$ então
@@ -32,5 +32,5 @@ Ademais, se $Y\sim \chi^2_{\nu}$, então
 $$
 \frac{Y-\nu}{\sqrt{2\nu}} \stackrel{a}{\approx} N(0,1)
 $$
-para $\nu > 30$
+para $\nu > 30$, onde $\stackrel{a}{\approx}$ indica que a variável aleatória tem distribuição aproximada/assintótica.
 
