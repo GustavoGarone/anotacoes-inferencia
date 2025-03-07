@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; População e Amostra – Anotaçõess de Inferência Frequentista</title>
+<title>19&nbsp; Família Exponencial (FE) – Anotaçõess de Inferência Frequentista</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./quantidade-de-interesse.html" rel="next">
-<link href="./modelo-estatistico.html" rel="prev">
+<link href="./testes-ind-homo.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -40,11 +39,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<<<<<<< HEAD
-<link href="site_libs/bootstrap/bootstrap-5be6a2cc77e263ac8fc319dd47b90cd7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-=======
 <link href="site_libs/bootstrap/bootstrap-b9b3cd6e8481a19ed44e6faa3016c2c1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
->>>>>>> 2ed2df7 (aulinhas)
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -72,9 +67,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Procurar"
   }
 }</script>
-<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
-<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
-<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -117,7 +109,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./populacao-e-amostra.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">População e Amostra</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./familia-exponencial.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Família Exponencial (FE)</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
@@ -156,7 +148,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./populacao-e-amostra.html" class="sidebar-item-text sidebar-link active">
+  <a href="./populacao-e-amostra.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">População e Amostra</span></span></a>
   </div>
 </li>
@@ -258,7 +250,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./familia-exponencial.html" class="sidebar-item-text sidebar-link">
+  <a href="./familia-exponencial.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Família Exponencial (FE)</span></span></a>
   </div>
 </li>
@@ -272,12 +264,16 @@ window.Quarto = {
     <h2 id="toc-title">Índice</h2>
    
   <ul>
-  <li><a href="#sec-vp" id="toc-sec-vp" class="nav-link active" data-scroll-target="#sec-vp"><span class="header-section-number">2.1</span> Variável Populacional</a></li>
-  <li><a href="#amostra-teórica" id="toc-amostra-teórica" class="nav-link" data-scroll-target="#amostra-teórica"><span class="header-section-number">2.2</span> Amostra (Teórica)</a>
+  <li><a href="#família-exponencial-unidimensional" id="toc-família-exponencial-unidimensional" class="nav-link active" data-scroll-target="#família-exponencial-unidimensional"><span class="header-section-number">19.1</span> Família Exponencial unidimensional</a>
   <ul class="collapse">
-  <li><a href="#sec-aa" id="toc-sec-aa" class="nav-link" data-scroll-target="#sec-aa"><span class="header-section-number">2.2.1</span> Amostra Aleatória</a></li>
+  <li><a href="#exemplos" id="toc-exemplos" class="nav-link" data-scroll-target="#exemplos"><span class="header-section-number">19.1.1</span> Exemplos</a></li>
+  <li><a href="#propriedades-na-integração" id="toc-propriedades-na-integração" class="nav-link" data-scroll-target="#propriedades-na-integração"><span class="header-section-number">19.1.2</span> Propriedades na integração</a></li>
   </ul></li>
-  <li><a href="#sec-ao" id="toc-sec-ao" class="nav-link" data-scroll-target="#sec-ao"><span class="header-section-number">2.3</span> Amostra (Observada)</a></li>
+  <li><a href="#família-exponencial-k-dimensional" id="toc-família-exponencial-k-dimensional" class="nav-link" data-scroll-target="#família-exponencial-k-dimensional"><span class="header-section-number">19.2</span> Família Exponencial k-dimensional</a>
+  <ul class="collapse">
+  <li><a href="#exemplos-1" id="toc-exemplos-1" class="nav-link" data-scroll-target="#exemplos-1"><span class="header-section-number">19.2.1</span> Exemplos</a></li>
+  <li><a href="#exercício" id="toc-exercício" class="nav-link" data-scroll-target="#exercício"><span class="header-section-number">19.2.2</span> Exercício</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -286,7 +282,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">População e Amostra</span></h1>
+<h1 class="title"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Família Exponencial (FE)</span></h1>
 </div>
 
 
@@ -303,60 +299,217 @@ window.Quarto = {
 </header>
 
 
-<p>Veja: <a href="./modelo-estatistico.html">Modelo Estatístico</a> para definições dos modelos estatísticos paramétricos.</p>
-<section id="sec-vp" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="sec-vp"><span class="header-section-number">2.1</span> Variável Populacional</h2>
-<p>Pela teoria estatística, população é o conjunto sob investigação de todos os potenciais elementos.</p>
-<p>A <em>Variável Populacional</em> representa os valores numéricos de cada elemento da população: <span class="math display">\[
-X\sim f_{\theta,}\theta \in \Theta
-\]</span> em que <span class="math inline">\(f_\theta\)</span> é a Função Densidade de Probabilidade da Variável Aleatória populacional. <span class="math inline">\(\theta\)</span> é o vetor de parâmetros (desconhecido) e <span class="math inline">\(\Theta\)</span> é o espaço paramétrico</p>
-</section>
-<section id="amostra-teórica" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="amostra-teórica"><span class="header-section-number">2.2</span> Amostra (Teórica)</h2>
-<p>Na estatística descritiva, a amostra é definida como um subconjunto da população.</p>
-<p>Alguns livros utilizam o termo “amostra representativa” para representar a amostra confiável de outra amostra que carrega determinados viéses de seleção. O termo representativo é controverso na estatística teórica,</p>
-<section id="sec-aa" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="sec-aa"><span class="header-section-number">2.2.1</span> Amostra Aleatória</h3>
-<p>Na estatística teórica, dizemos que <span class="math inline">\((X_{1},\dots,X_{n})\)</span> é uma amostra aleatória de <span class="math inline">\(X\)</span> (v.a. populacional) se <span class="math inline">\(X_{1},\dots,X_{n}\)</span> forem independentes e identicamente distribuídas de acordo com a distribuição da variável aleatória populacional <span class="math inline">\(X\)</span> Ou seja, <span class="math display">\[
-\text{Independentes }\rightarrow\begin{cases}X_{1}\sim f_{\theta,}\theta \in \Theta \\
-. \\
-. \\
-. \\
-X_{n} \sim f_{\theta}, \theta \in \Theta
-\end{cases}
+<p>Podemos representar a função <span class="math inline">\(f_\theta\)</span> genericamente, incluindo funções de probabilidade e funções densidade de probabilidade, por meio da família exponencial.</p>
+<section id="família-exponencial-unidimensional" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="família-exponencial-unidimensional"><span class="header-section-number">19.1</span> Família Exponencial unidimensional</h2>
+<p>Dizemos que <span class="math inline">\(f_\theta\)</span> pertence à família exponencial unidimensional se, e somente se,</p>
+<p><span class="math display">\[
+f_\theta(x) = \left \{\begin{array}{lr}
+\mathrm{e}^{C(\theta)\cdot T(x) + d(\theta) + S(x)}, &amp; x \in \mathfrak{X} \\
+0, &amp; x \not \in \mathfrak{X}
+\end{array} \right.
 \]</span></p>
-<p>Sendo assim, <span class="math inline">\((X_1, \dots, X_n)\)</span> é amostra aleatória de <span class="math inline">\(X\sim f_\theta, \theta in \Theta\)</span> sempre que <span class="math inline">\((X_1, \dots, X_n)\)</span> forem independentes para cada <span class="math inline">\(P_\theta, \theta \in \Theta\)</span> e <span class="math inline">\(X_i \sim f_\theta, \theta \in \Theta, i = 1, 2, \dots, n\)</span></p>
-<section id="diagrama" class="level4" data-number="2.2.1.1">
-<h4 data-number="2.2.1.1" class="anchored" data-anchor-id="diagrama"><span class="header-section-number">2.2.1.1</span> Diagrama</h4>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<pre class="mermaid mermaid-js">flowchart UD
-  A[$X\sim f_\theta, \theta \in \Theta, \g(\theta)$] --&gt; B($\X_1, \sim \f_\theta, \theta \in \Theta$)
-  A --&gt; C($\X_2, \sim \f_\theta, \theta \in \Theta$)
-  A --&gt; D($\X_n, \sim \f_\theta, \theta \in \Theta$)
-  B --&gt; E(x_1)
-  C --&gt; F(x_2)
-  D --&gt; G(x_n)
-</pre>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-</section>
-</section>
-<section id="sec-ao" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="sec-ao"><span class="header-section-number">2.3</span> Amostra (Observada)</h2>
-<p>É formada por valores numéricos após utilizar um procedimento de amostragem. <span class="math display">\[
-x_{1},\dots,x_{n}
+<p>em que <span class="math inline">\(C(\dot)\)</span> e <span class="math inline">\(d(\dot)\)</span> são funções de “<span class="math inline">\(\theta\)</span>” cujas formas são conhecidas e <span class="math inline">\(T(\dot)\)</span> e <span class="math inline">\(S(\dot)\)</span> são funções de <span class="math inline">\(x\)</span> com formas conhecidas, em que <span class="math inline">\(\mathfrak{X} = \{x: f_\theta(x) &gt; 0\}\)</span> não depende de “<span class="math inline">\(\theta\)</span>”. <span class="math inline">\(\mathfrak{X}\)</span> é dito ser o suporte de <span class="math inline">\(f_\theta\)</span></p>
+<section id="exemplos" class="level3" data-number="19.1.1">
+<h3 data-number="19.1.1" class="anchored" data-anchor-id="exemplos"><span class="header-section-number">19.1.1</span> Exemplos</h3>
+<section id="exemplo-1---exponencial" class="level4" data-number="19.1.1.1">
+<h4 data-number="19.1.1.1" class="anchored" data-anchor-id="exemplo-1---exponencial"><span class="header-section-number">19.1.1.1</span> Exemplo 1 - Exponencial</h4>
+<p>Considere <span class="math inline">\(X \sim f_\theta, \theta \in (0,\infty)\)</span> e <span class="math display">\[
+f_\theta(x) = \left\{\begin{array}{lr}
+\theta \cdot \mathrm{e}^{-\theta x}, &amp; x &gt; 0 \\
+0, &amp; \mathrm{c.c}
+\end{array}\right.
 \]</span></p>
-<p>em que <span class="math inline">\(n\)</span> é o tamanho amostral.</p>
+<p>Ou seja, <span class="math inline">\(X\sim \mathrm{Exp}(\theta), \theta &gt; 0\)</span>. Mostre que <span class="math inline">\(f_\theta\)</span> pertence à família exponencial.</p>
+<section id="resposta" class="level5" data-number="19.1.1.1.1">
+<h5 data-number="19.1.1.1.1" class="anchored" data-anchor-id="resposta"><span class="header-section-number">19.1.1.1.1</span> Resposta</h5>
+<p>Note que <span class="math inline">\(\mathfrak{X}=\{x:f_\theta(x)&gt;0\} = (0, \infty)\)</span> não depende de “<span class="math inline">\(\theta\)</span>”. Além disso, como <span class="math inline">\(\theta &gt; 0\)</span>, temos que <span class="math inline">\(\theta = \mathrm{e}^{\ln(\theta)}\)</span>. Portanto, para <span class="math inline">\(x&gt;0\)</span>, temos que <span class="math display">\[
+f_\theta(x) = \mathrm{e}^{-\theta x + \ln \theta}
+\]</span> Assim, <span class="math display">\[
+\begin{array}{cc}
+C(\theta) = -\theta, &amp; d(\theta) = \ln \theta \\
+T(x) = x, &amp; S(x) = 0
+\end{array}
+\]</span></p>
+</section>
+</section>
+<section id="exemplo-2---bernoulli" class="level4" data-number="19.1.1.2">
+<h4 data-number="19.1.1.2" class="anchored" data-anchor-id="exemplo-2---bernoulli"><span class="header-section-number">19.1.1.2</span> Exemplo 2 - Bernoulli</h4>
+<p>Considere <span class="math inline">\(X\sim \mathrm{Ber}(\theta), \theta \in \Theta = (0,1)\)</span>. Mostre que a sua função de probabilidade pertence à família exponencial.</p>
+<section id="resposta-1" class="level5" data-number="19.1.1.2.1">
+<h5 data-number="19.1.1.2.1" class="anchored" data-anchor-id="resposta-1"><span class="header-section-number">19.1.1.2.1</span> Resposta</h5>
+<p>Observe que <span class="math display">\[
+f_\theta(x) = \left\{\begin{array}{lr}
+\theta^x \cdot (1-\theta)^{1-x}, &amp; x \in \{0,1\}
+0, &amp; x \not \in \{0,1\}
+\end{array}\right.
+\]</span> O suporte é <span class="math inline">\(\mathfrak{x} = \{ x : f_\theta(x)&gt;0\} = \{0,1\}\)</span> não depende de “<span class="math inline">\(\theta\)</span>”.</p>
+<p>Além disso, como <span class="math inline">\(\theta^x (1-\theta)^{1-x} &gt; 0\)</span>, temos que <span class="math display">\[
+\begin{aligned}
+\theta^x (1-\theta)^{1-x} &amp;= \mathrm{e}^{\ln(\theta^x(1-\theta)^{1-x})}\\
+&amp;= \mathrm{e}^{x\ln\theta + (1-x) \ln (1-\theta)}\\
+&amp;=\mathrm{e}^{x\ln\theta + \ln (1-\theta) - x \ln(1-\theta)} \\
+&amp;= \mathrm{e}^{x\left(\ln \theta - \ln(1-\theta)\right) + \ln(\1-\theta)}\\
+&amp;=\mathrm{e}^{\ln\left(\frac{\theta}{1-\theta}\right)x+\ln(1-\theta)}
+\end{aligned}
+\]</span></p>
+<p>logo, <span class="math inline">\(f_\theta(x) = \mathrm{e}^{C(\theta)T(x)+d(\theta)+S(x)}, x \in \{0,1\}\)</span>, em que <span class="math display">\[
+\begin{array}{cc}
+C(\theta) = \ln(\frac{\theta}{1-\theta}), &amp; T(x) = x \\
+d(\theta) = \ln(1-\theta), &amp; S(x) = 0
+\end{array}
+\]</span></p>
+</section>
+</section>
+<section id="exemplo-3---normal-média" class="level4" data-number="19.1.1.3">
+<h4 data-number="19.1.1.3" class="anchored" data-anchor-id="exemplo-3---normal-média"><span class="header-section-number">19.1.1.3</span> Exemplo 3 - Normal (Média)</h4>
+<p>Considere que <span class="math inline">\(X\sim N(\theta,1), \theta \in \mathbb{R}\)</span>. Mostre que a sua função densidade de probabilidade pertence a FE unidimensional.</p>
+</section>
+<section id="resposta-2" class="level4" data-number="19.1.1.4">
+<h4 data-number="19.1.1.4" class="anchored" data-anchor-id="resposta-2"><span class="header-section-number">19.1.1.4</span> Resposta</h4>
+<p>Note que <span class="math display">\[
+f_\theta(x) = \frac{1}{\sqrt{2\pi}} \mathrm{e} ^{-\frac{1}{2} (x-\theta)^2}, x \in \mathbb{R}
+\]</span></p>
+<p>O suporte é <span class="math inline">\(\mathfrak{X} = \{x: f_\theta(x) &gt; 0\} = (-\infty, \infty)\)</span> e não depende de “<span class="math inline">\(\theta\)</span>”. Além disso, temos que <span class="math display">\[
+\begin{aligned}
+f_\theta(x) &amp; = \mathrm{e}^{-\frac{1}{2}(x-\theta)^2-\ln\sqrt{2\pi}} \\
+&amp;= \mathrm{e}^{-\frac{1}{2}(x^2 - 2x\theta + \theta^2) - \ln\sqrt{2\pi}} \\
+&amp;= \mathrm{e}^{\theta x - \frac{1}{2}\theta^2 - \frac{1}{2}x^2 - \ln\sqrt{2\pi}}
+\end{aligned}
+\]</span></p>
+<p>Portanto, <span class="math inline">\(f_\theta\)</span> pertence à FE: <span class="math display">\[
+\begin{array}{cc}
+C(\theta) = \theta, &amp; T(x) = x \\
+d(\theta) = -\frac{1}{2}\theta^2, &amp; S(x) = -\frac{1}{2}x^2-\ln\sqrt{2\pi}
+\end{array}
+\]</span></p>
+</section>
+<section id="exempo-4---normal-variância" class="level4" data-number="19.1.1.5">
+<h4 data-number="19.1.1.5" class="anchored" data-anchor-id="exempo-4---normal-variância"><span class="header-section-number">19.1.1.5</span> Exempo 4 - Normal (Variância)</h4>
+<p>Considere que <span class="math inline">\(X\sim N(0,\theta), \theta \in (0,\infty)\)</span>. Mostre que a sua função densidade de probabilidade pertence a FE unidimensional.</p>
+<section id="resposta-3" class="level5" data-number="19.1.1.5.1">
+<h5 data-number="19.1.1.5.1" class="anchored" data-anchor-id="resposta-3"><span class="header-section-number">19.1.1.5.1</span> Resposta</h5>
+<p>Observe que <span class="math display">\[
+f_\theta(x) = \frac{1}{\sqrt{2\pi\theta}} \mathrm{e}^{-\frac{1}{2\theta}x^2}, x \in \mathbb{R}
+\]</span></p>
+<p>O suporte <span class="math inline">\(\mathfrak{X} = \mathbb{R}\)</span> não depende de “<span class="math inline">\(\theta\)</span>”. Além disso, <span class="math display">\[
+\begin{aligned}
+f_\theta(x) &amp;= \mathrm{e}^{-\frac{1}{2\theta}x^2 - \frac{1}{2} \ln(2\pi\theta)} \\
+&amp;= \mathrm{e}^{C(\theta)T(x)+d(\theta)+S(x)}
+\end{aligned}
+\]</span></p>
+<p>em que <span class="math display">\[
+\begin{array}{cc}
+C(\theta) = -\frac{1}{2\theta}, &amp; T(x) = x^2 \\
+d(\theta) = -\frac{1}{2}\ln(2\pi\theta), &amp; S(x) = 0
+\end{array}
+\]</span></p>
+<p>Portanto, <span class="math inline">\(f_\theta\)</span> pertence à FE.</p>
+</section>
+</section>
+<section id="exemplo-5---normal-média-variância" class="level4" data-number="19.1.1.6">
+<h4 data-number="19.1.1.6" class="anchored" data-anchor-id="exemplo-5---normal-média-variância"><span class="header-section-number">19.1.1.6</span> Exemplo 5 - Normal (Média = Variância)</h4>
+<p>Seja <span class="math inline">\(X\sim N(\theta, \theta)\)</span>, em que <span class="math inline">\(\theta \in (0, \infty)\)</span>. Mostre que a sua função densidade de probabilidade pertence à FE de dimensão 1.</p>
+<section id="resposta-4" class="level5" data-number="19.1.1.6.1">
+<h5 data-number="19.1.1.6.1" class="anchored" data-anchor-id="resposta-4"><span class="header-section-number">19.1.1.6.1</span> Resposta</h5>
+<p>A função densidade de probabilidade de <span class="math inline">\(X\)</span> é <span class="math display">\[
+\begin{aligned}
+f_\theta(x) &amp;= \frac{1}{\sqrt{2\pi\theta}} \mathrm{e}^{-\frac{1}{2\theta}(x-\theta)^2} \\
+&amp;= \mathrm{e}^{-\frac{1}{2\theta}(x^2-2\theta x+ \theta^2) -\frac{1}{2}\ln(2\pi\theta)} \\
+&amp;= \mathrm{e}^{-\frac{x^2}{2\theta}+x-\frac{1}{2}\theta-\frac{1}{2}\ln(2\pi\theta)} \\
+&amp;= \mathrm{e}^{C(\theta)T(x)+d(\theta)+S(x)}
+\end{aligned}
+\]</span> em que <span class="math display">\[
+\begin{array}{cc}
+C(\theta) = -\frac{1}{2\theta}, &amp; T(x) = x^2 \\
+d(\theta) = -\frac{1}{2}\theta-\frac{1}{2}\ln(2\pi\theta), &amp; S(x) = x
+\end{array}
+\]</span></p>
+</section>
+</section>
+<section id="exemplo-6---contraexemplo-uniforme" class="level4" data-number="19.1.1.7">
+<h4 data-number="19.1.1.7" class="anchored" data-anchor-id="exemplo-6---contraexemplo-uniforme"><span class="header-section-number">19.1.1.7</span> Exemplo 6 - Contraexemplo uniforme</h4>
+<p>Se <span class="math inline">\(X\sim U(0,\theta), \theta \in (0,\infty)\)</span>, então a sua função densidade de probabilidade não pertence à FE, pois o seu suporte depende de “<span class="math inline">\(\theta\)</span>”. <span class="math display">\[
+f_\theta(x) = \left\{\begin{array}{lr}
+\frac{1}{\theta}, &amp; x \in (0, \theta)
+0, &amp; x \not \in (0, \theta)
+\end{array}\right.
+\]</span></p>
+<p>Dessa forma, <span class="math inline">\(\mathfrak{X} = \{ x : f_\theta(x)&gt; 0\} = (0,\theta)\)</span></p>
+</section>
+<section id="exemplo-7---contraexemplo-normal-média-e-variância" class="level4" data-number="19.1.1.8">
+<h4 data-number="19.1.1.8" class="anchored" data-anchor-id="exemplo-7---contraexemplo-normal-média-e-variância"><span class="header-section-number">19.1.1.8</span> Exemplo 7 - Contraexemplo Normal (Média e Variância)</h4>
+<p>Considere que <span class="math inline">\(X \sim N(\mu,\sigma^2)\)</span>, em que <span class="math inline">\(\theta = (\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}^+\)</span>. Então, pode-se mostrar que a sua função densidade de probabilidade não pertence à FE <strong>unidimensional</strong>.</p>
+<p>Observe que <span class="math display">\[
+\begin{aligned}
+f_\theta(x) &amp;= \frac{1}{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{1}{2\sigma^2}(x-\mu)^2} \\
+&amp;= \mathrm{e}^{-\frac{1}{2\sigma^2}(x^2-2x\mu+\mu^2) - \frac{1}{2} \ln (2\pi\sigma^2)} \\
+&amp;= \mathrm{e}^{-\frac{1}{2\sigma^2}x^2+\frac{x\mu}{\sigma^2}-\frac{1}{2\sigma^2}\mu^2-\frac{1}{2}\ln(2\pi\sigma^2)}
+\end{aligned}
+\]</span></p>
+<p>portanto, não é possível definir <span class="math inline">\(C(\theta),T(x),d(\theta)\)</span> e <span class="math inline">\(S(x)\)</span> tais que <span class="math inline">\(C(\dot), T(\dot)\)</span> representem <span class="math inline">\(-\frac{1}{2\sigma^2}x^2 + \frac{x\mu}{\sigma^2}\)</span></p>
+</section>
+</section>
+<section id="propriedades-na-integração" class="level3" data-number="19.1.2">
+<h3 data-number="19.1.2" class="anchored" data-anchor-id="propriedades-na-integração"><span class="header-section-number">19.1.2</span> Propriedades na integração</h3>
+<p>Como <span class="math inline">\(f_\theta\)</span> é uma função (densidade) de probabilidade, temos que <span class="math display">\[
+\int_{-\infty}^{\infty} f_\theta(x) dx = 1 \mathrm{(Caso \ Contínuo)}, \forall \theta \in \Theta
+\]</span></p>
+<p>Se <span class="math inline">\(f_\theta\)</span> pertence à FE unidimensional, então</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\int_{\mathfrak{X}} \mathrm{e}^{C(\theta)T(x) +d(\theta) + S(x)} dx = 1 \forall \theta \in \Theta \\
+\Rightarrow&amp; \int_{\mathfrak{X}} \mathrm{e}^{C(\theta)T(x) + S(x)} dx = \mathrm{e}^{-d(\theta)} \forall \theta \in \Theta \\
+\end{aligned}
+\]</span></p>
+</section>
+</section>
+<section id="família-exponencial-k-dimensional" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="família-exponencial-k-dimensional"><span class="header-section-number">19.2</span> Família Exponencial k-dimensional</h2>
+<p>Dizemos que a função (densidade) de probabilidade <span class="math inline">\(f_\theta\)</span> pertence à FE k-dimensional se, e somente se, <span class="math display">\[
+f_\theta(x) = \left\{\begin{array}{lr}
+\mathrm{e}^{\sum^k_{j=1} C_j(\theta)T_j(x)+d(\theta)+S(x)}, &amp;x \in \mathfrak{X} \\
+0, &amp; x \not \in \mathfrak{X}
+\end{array}\right.
+\]</span> em que 1. <span class="math inline">\(\mathfrak{X} = \{ x: f_\theta (x) &gt; 0 \}\)</span> não depende de “<span class="math inline">\(\theta\)</span>” 2. As funções <span class="math inline">\(C_1(\dot),\dots,C_k(\dot)\)</span> e <span class="math inline">\(d(\dot)\)</span> dependem apenas de “<span class="math inline">\(\theta\)</span>” (formas conhecidas) e 3. As funções <span class="math inline">\(T_1(\dot),\dots,T_l(\dot)\)</span> e <span class="math inline">\(S(\dot)\)</span> dependem apenas de <span class="math inline">\(x\)</span> (formas conhecidas)</p>
+<p>Como <span class="math inline">\(f_\theta\)</span> é uma função (densidade) de probabilidade, temos que (para o caso contínuo) <span class="math display">\[
+\int_{-\infty}^{\infty} f_\theta(x)dx=1 \forall \theta \in \Theta
+\]</span></p>
+<p>Se <span class="math inline">\(f_\theta\)</span> pertence à FE k-dimensional, então <span class="math display">\[
+\begin{aligned}
+&amp;\int_{\mathfrak{X}} \mathrm{e}^{C(\theta)T(x) +d(\theta) + S(x)} dx = 1 \forall \theta \in \Theta \\
+\Rightarrow &amp;\int_{\mathfrak{X}} \mathrm{e}^{C(\theta)T(x) + S(x)} dx = \mathrm{e}^{-d(\theta)} \forall \theta \in \Theta \\
+\end{aligned}
+\]</span></p>
+<section id="exemplos-1" class="level3" data-number="19.2.1">
+<h3 data-number="19.2.1" class="anchored" data-anchor-id="exemplos-1"><span class="header-section-number">19.2.1</span> Exemplos</h3>
+<section id="exemplo-1---normal-média-e-variância" class="level4" data-number="19.2.1.1">
+<h4 data-number="19.2.1.1" class="anchored" data-anchor-id="exemplo-1---normal-média-e-variância"><span class="header-section-number">19.2.1.1</span> Exemplo 1 - Normal (Média e Variância)</h4>
+<p>Seja <span class="math inline">\(X\sim N(\mu, \sigma^2)\)</span>, em que <span class="math inline">\(\theta = (\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}^+\)</span>. Mostre que a sua função densidade de probabilidade pertence à FE de dimensão 2.</p>
+<section id="resposta-5" class="level5" data-number="19.2.1.1.1">
+<h5 data-number="19.2.1.1.1" class="anchored" data-anchor-id="resposta-5"><span class="header-section-number">19.2.1.1.1</span> Resposta</h5>
+<p>Note que <span class="math display">\[
+\begin{aligned}
+f_\theta(x) &amp;= \mathrm{e}^{-\frac{1}{2\sigma^2}x^2+\frac{x\mu}{\sigma^2}-\frac{1}{2\sigma^2}\mu^2-\frac{1}{2}\ln(2\pi\sigma^2)}
+&amp;= \mathrm{e}^{C_1(\theta)T_1(x) + C_2(\theta)T_2(x) + d(\theta) + S(x)}
+\end{aligned]
+\]</span></p>
+<p>em que <span class="math display">\[
+\begin{array}{cc}
+C_1(\theta) = -\frac{1}{2\theta}, &amp; T_1(x) = x^2 \\
+C_2(\theta) = \frac{\mu}{\sigma^2}, &amp; T_2(x) = x \\
+d(\theta) = -\frac{1}{2}\frac{\mu^2}{\sigma^2}-\frac{1}{2}\ln(2\pi\sigma^2), &amp; S(x) = 0
+\end{array}
+\]</span></p>
+</section>
+</section>
+</section>
+<section id="exercício" class="level3" data-number="19.2.2">
+<h3 data-number="19.2.2" class="anchored" data-anchor-id="exercício"><span class="header-section-number">19.2.2</span> Exercício</h3>
+<p>Refaça o exemplo 5 do caso univarido com <span class="math inline">\(N(\theta, \theta^2)\)</span> e mostre que pertence à FE de dimensão 2.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -779,14 +932,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./modelo-estatistico.html" class="pagination-link" aria-label="Modelos Estatísticos na abordagem clássica">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Modelos Estatísticos na abordagem clássica</span></span>
+      <a href="./testes-ind-homo.html" class="pagination-link" aria-label="Testes de Independência e Homogeneidade">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Testes de Independência e Homogeneidade</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./quantidade-de-interesse.html" class="pagination-link" aria-label="Quantidade de Interesse">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Quantidade de Interesse</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

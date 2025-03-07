@@ -13,25 +13,30 @@ book:
   author: "Aulas de Alexandre G. Patriota, digitado por Gustavo S. Garone"
   date: last-modified
   chapters:
-    - index.qmd
-    - modelo-estatistico.qmd
-    - populacao-e-amostra.qmd
-    - quantidade-de-interesse.qmd
-    - dist-amostral.qmd
-    - funcao-verossimilhanca.qmd
-    - estatisticas.qmd
-    - estimadores.qmd
-    - eqm-e-vies.qmd
-    - monte-carlo.qmd
-    - emv.qmd
-    - qui-quadrado.qmd
-    - tlc.qmd
-    - estimador-intervalar.qmd
-    - teste-hipotese.qmd
-    - teste-hipotese-duas-pops.qmd
-    - tabela-frequencias.qmd
-    - analise-aderencia.qmd
-    - testes-ind-homo.qmd
+    - part: "Introdução à Inferência Frequentista"
+      chapters:
+      - index.qmd
+      - modelo-estatistico.qmd
+      - populacao-e-amostra.qmd
+      - quantidade-de-interesse.qmd
+      - dist-amostral.qmd
+      - funcao-verossimilhanca.qmd
+      - estatisticas.qmd
+      - estimadores.qmd
+      - eqm-e-vies.qmd
+      - monte-carlo.qmd
+      - emv.qmd
+      - qui-quadrado.qmd
+      - tlc.qmd
+      - estimador-intervalar.qmd
+      - teste-hipotese.qmd
+      - teste-hipotese-duas-pops.qmd
+      - tabela-frequencias.qmd
+      - analise-aderencia.qmd
+      - testes-ind-homo.qmd
+    - part: "Inferência Frequentista"
+      chapters:
+      - familia-exponencial.qmd
     # - references.qmd
 
 bibliography: references.bib
