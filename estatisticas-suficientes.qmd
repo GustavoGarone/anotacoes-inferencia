@@ -675,4 +675,3 @@ $$
 T(\pmb{X}_n) = \left(\sum^n_{i=1} T_1(X_i),\dots,\sum^n_{i=1}T_k(X_i)\right)
 $$
 é suficiente para o modelo.
-

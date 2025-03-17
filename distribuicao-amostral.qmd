@@ -16,13 +16,13 @@ $$
 \begin{aligned}
 &f_\theta^{(n)}(y_1,\dots,y_n) =
 \left\{ \begin{array}{lr}
-\prod^n_{i=1} \mathrm{e}^{C(\theta)T(y_i) +d(\theta)+S(y_i)}, & \mathrm{se}\ y_1,\dots,y_n \in \mathfrak{X} \\
+\prod^n_{i=1} \mathrm{e}^{c(\theta)T(y_i) +d(\theta)+S(y_i)}, & \mathrm{se}\ y_1,\dots,y_n \in \mathfrak{X} \\
 0, & \mathrm{c.c}
 \end{array}\right. \\
 \Rightarrow
 &f_\theta^{(n)}(\underbracket{y_1,\dots,y_n}_{\pmb{y}_n}) =
 \left\{ \begin{array}{lr}
-\mathrm{e}^{C(\theta)\sum^n_{i=1}T(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, & \mathrm{se}\ \pmb{y}_n\in \mathfrak{X}^n \\
+\mathrm{e}^{c(\theta)\sum^n_{i=1}T(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, & \mathrm{se}\ \pmb{y}_n\in \mathfrak{X}^n \\
 0, & \mathrm{c.c}
 \end{array}\right.
 \end{aligned}
@@ -39,13 +39,13 @@ $$
 \begin{aligned}
 &f_\theta^{(n)}(\pmb{y}_n) =
 \left\{ \begin{array}{lr}
-\prod^n_{i=1} \mathrm{e}^{\sum^k_{j=1}C_j(\theta)T_j(y_i) +d(\theta)+S(y_i)}, & \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
+\prod^n_{i=1} \mathrm{e}^{\sum^k_{j=1}c_j(\theta)T_j(y_i) +d(\theta)+S(y_i)}, & \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
 0, & \mathrm{c.c}
 \end{array}\right. \\
 \Rightarrow
 &f_\theta^{(n)}(\pmb{y}_n) = 
 \left\{ \begin{array}{lr}
-\mathrm{e}^{\sum^k_{j=1}C_j(\theta)\sum^n_{i=1}T_j(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, & \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
+\mathrm{e}^{\sum^k_{j=1}c_j(\theta)\sum^n_{i=1}T_j(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, & \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
 0, & \mathrm{c.c}
 \end{array}\right.
 \end{aligned}
@@ -55,7 +55,7 @@ Tome $T_j^*(\pmb{y}_n) = \sum^n_{i=1}T_j(y_i)$, $d^*(\theta)=nd(\theta)$, $S^*(\
 $$
 \Rightarrow f_\theta^{(n)}(\pmb{y}_n) =
 \left\{ \begin{array}{lr}
-\mathrm{e}^{\sum^k_{j=1}C_j(\theta)T^*_j(\pmb{y}_n) +d^*(\theta)+S^*(\pmb{y}_n)}, & \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
+\mathrm{e}^{\sum^k_{j=1}c_j(\theta)T^*_j(\pmb{y}_n) +d^*(\theta)+S^*(\pmb{y}_n)}, & \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
 0, & \mathrm{c.c}
 \end{array}\right.
 $$
@@ -200,7 +200,7 @@ $$
 $$
 \Rightarrow
 f_\theta^{(n)}(\pmb{y}_n) = \left\{ \begin{array}{ll}
-\mathrm{e}^{\sum^k_j=1} C_j^*(\theta)T_j^*(\pmb{y}_n)+d^*(\theta) = S^*(\pmb{y}_n), & \pmb{y}_n \in \mathfrak{X}^n \\
+\mathrm{e}^{\sum^k_j=1} c_j^*(\theta)T_j^*(\pmb{y}_n)+d^*(\theta) = S^*(\pmb{y}_n), & \pmb{y}_n \in \mathfrak{X}^n \\
 0,  & \mathrm{c.c.}
 \end{array}\right.
 $$
