@@ -54,7 +54,7 @@
     "href": "populacao-e-amostra.html#amostra-teórica",
     "title": "2  População e Amostra",
     "section": "2.2 Amostra (Teórica)",
-    "text": "2.2 Amostra (Teórica)\nÉ uma parte ou subconjunto da população.\n\n2.2.1 Amostra Aleatória\nDizemos que \\((X_{1},\\dots,X_{n})\\) é uma amostra aleatória de \\(X\\) (v.a. populacional) se \\(X_{1},\\dots,X_{n}\\) forem independentes e identicamente distribuídas de acordo com a distribuição de \\(X\\) Ou seja, \\[\n\\text{Independentes }\\rightarrow\\begin{cases}X_{1}\\sim f_{\\theta,}\\theta \\in \\Theta \\\\\n. \\\\\n. \\\\\n. \\\\\nX_{n} \\sim f_{\\theta}, \\theta \\in \\Theta\n\\end{cases}\n\\]",
+    "text": "2.2 Amostra (Teórica)\nNa estatística descritiva, a amostra é definida como um subconjunto da população.\nAlguns livros utilizam o termo “amostra representativa” para representar a amostra confiável de outra amostra que carrega determinados viéses de seleção. O termo representativo é controverso na estatística teórica,\n\n2.2.1 Amostra Aleatória\nNa estatística teórica, dizemos que \\((X_{1},\\dots,X_{n})\\) é uma amostra aleatória de \\(X\\) (v.a. populacional) se \\(X_{1},\\dots,X_{n}\\) forem independentes e identicamente distribuídas de acordo com a distribuição da variável aleatória populacional \\(X\\) Ou seja, \\[\n\\text{Independentes }\\rightarrow\\begin{cases}X_{1}\\sim f_{\\theta,}\\theta \\in \\Theta \\\\\n. \\\\\n. \\\\\n. \\\\\nX_{n} \\sim f_{\\theta}, \\theta \\in \\Theta\n\\end{cases}\n\\]\nSendo assim, \\((X_1, \\dots, X_n)\\) é amostra aleatória de \\(X\\sim f_\\theta, \\theta in \\Theta\\) sempre que \\((X_1, \\dots, X_n)\\) forem independentes para cada \\(P_\\theta, \\theta \\in \\Theta\\) e \\(X_i \\sim f_\\theta, \\theta \\in \\Theta, i = 1, 2, \\dots, n\\)\n\n2.2.1.1 Diagrama\n\n\n\n\n\nflowchart UD\n  A[$X\\sim f_\\theta, \\theta \\in \\Theta, \\g(\\theta)$] --&gt; B($\\X_1, \\sim \\f_\\theta, \\theta \\in \\Theta$)\n  A --&gt; C($\\X_2, \\sim \\f_\\theta, \\theta \\in \\Theta$)\n  A --&gt; D($\\X_n, \\sim \\f_\\theta, \\theta \\in \\Theta$)\n  B --&gt; E(x_1)\n  C --&gt; F(x_2)\n  D --&gt; G(x_n)",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>População e Amostra</span>"
     ]
@@ -74,7 +74,7 @@
     "href": "quantidade-de-interesse.html",
     "title": "3  Quantidade de Interesse",
     "section": "",
-    "text": "É uma quantidade relacionada com a distribuição da variável aleatória populacional. \\[\ng(\\theta)\n\\]\nComo \\(g(\\theta) = E_\\theta(X), g(\\theta)= \\mathrm{Var}_\\theta(X), g(\\theta)=P_\\theta(X\\geq1)\\) e até \\(g(\\theta)=\\theta\\)",
+    "text": "É uma quantidade relacionada com a distribuição da variável aleatória populacional, ou seja, qualquer valor em função de \\(\\theta\\). \\[\ng(\\theta)\n\\]\nComo \\(g(\\theta) = E_\\theta(X), g(\\theta)= \\mathrm{Var}_\\theta(X), g(\\theta)=P_\\theta(X\\geq1), g(\\theta)=\\theta\\) em que \\(X\\) é a variável aleatória populacional. Empregando outra variável populacional, como \\(Y\\), conseguimos outras quantidades de interesse, como \\(g(\\theta)=\\mathrm{Cov}_{\\theta}(X,y)\\) ou \\(P_\\theta(X \\in A \\lvert Y \\in B)\\)",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quantidade de Interesse</span>"
     ]

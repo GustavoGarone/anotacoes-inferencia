@@ -40,7 +40,11 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<<<<<<< HEAD
 <link href="site_libs/bootstrap/bootstrap-5be6a2cc77e263ac8fc319dd47b90cd7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+=======
+<link href="site_libs/bootstrap/bootstrap-b9b3cd6e8481a19ed44e6faa3016c2c1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+>>>>>>> 2ed2df7 (aulinhas)
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -68,6 +72,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Procurar"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -300,10 +307,11 @@ X\sim f_{\theta,}\theta \in \Theta
 </section>
 <section id="amostra-teórica" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="amostra-teórica"><span class="header-section-number">2.2</span> Amostra (Teórica)</h2>
-<p>É uma parte ou subconjunto da população.</p>
+<p>Na estatística descritiva, a amostra é definida como um subconjunto da população.</p>
+<p>Alguns livros utilizam o termo “amostra representativa” para representar a amostra confiável de outra amostra que carrega determinados viéses de seleção. O termo representativo é controverso na estatística teórica,</p>
 <section id="sec-aa" class="level3" data-number="2.2.1">
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="sec-aa"><span class="header-section-number">2.2.1</span> Amostra Aleatória</h3>
-<p>Dizemos que <span class="math inline">\((X_{1},\dots,X_{n})\)</span> é uma amostra aleatória de <span class="math inline">\(X\)</span> (v.a. populacional) se <span class="math inline">\(X_{1},\dots,X_{n}\)</span> forem independentes e identicamente distribuídas de acordo com a distribuição de <span class="math inline">\(X\)</span> Ou seja, <span class="math display">\[
+<p>Na estatística teórica, dizemos que <span class="math inline">\((X_{1},\dots,X_{n})\)</span> é uma amostra aleatória de <span class="math inline">\(X\)</span> (v.a. populacional) se <span class="math inline">\(X_{1},\dots,X_{n}\)</span> forem independentes e identicamente distribuídas de acordo com a distribuição da variável aleatória populacional <span class="math inline">\(X\)</span> Ou seja, <span class="math display">\[
 \text{Independentes }\rightarrow\begin{cases}X_{1}\sim f_{\theta,}\theta \in \Theta \\
 . \\
 . \\
@@ -311,6 +319,28 @@ X\sim f_{\theta,}\theta \in \Theta
 X_{n} \sim f_{\theta}, \theta \in \Theta
 \end{cases}
 \]</span></p>
+<p>Sendo assim, <span class="math inline">\((X_1, \dots, X_n)\)</span> é amostra aleatória de <span class="math inline">\(X\sim f_\theta, \theta in \Theta\)</span> sempre que <span class="math inline">\((X_1, \dots, X_n)\)</span> forem independentes para cada <span class="math inline">\(P_\theta, \theta \in \Theta\)</span> e <span class="math inline">\(X_i \sim f_\theta, \theta \in \Theta, i = 1, 2, \dots, n\)</span></p>
+<section id="diagrama" class="level4" data-number="2.2.1.1">
+<h4 data-number="2.2.1.1" class="anchored" data-anchor-id="diagrama"><span class="header-section-number">2.2.1.1</span> Diagrama</h4>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart UD
+  A[$X\sim f_\theta, \theta \in \Theta, \g(\theta)$] --&gt; B($\X_1, \sim \f_\theta, \theta \in \Theta$)
+  A --&gt; C($\X_2, \sim \f_\theta, \theta \in \Theta$)
+  A --&gt; D($\X_n, \sim \f_\theta, \theta \in \Theta$)
+  B --&gt; E(x_1)
+  C --&gt; F(x_2)
+  D --&gt; G(x_n)
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
 </section>
 </section>
 <section id="sec-ao" class="level2" data-number="2.3">

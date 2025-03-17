@@ -15,12 +15,17 @@ parâmetros (desconhecido) e $\Theta$ é o espaço paramétrico
 
 ## Amostra (Teórica)
 
-É uma parte ou subconjunto da população.
+Na estatística descritiva, a amostra é definida como um subconjunto da população.
+
+Alguns livros utilizam o termo "amostra representativa" para representar a amostra
+confiável de outra amostra que carrega determinados viéses de seleção. O termo
+representativo é controverso na estatística teórica,
 
 ### Amostra Aleatória {#sec-aa}
 
-Dizemos que $(X_{1},\dots,X_{n})$ é uma amostra aleatória de $X$ (v.a. populacional) se $X_{1},\dots,X_{n}$ forem 
-independentes e identicamente distribuídas de acordo com a distribuição de $X$
+Na estatística teórica, dizemos que $(X_{1},\dots,X_{n})$ é uma amostra aleatória
+de $X$ (v.a. populacional) se $X_{1},\dots,X_{n}$ forem 
+independentes e identicamente distribuídas de acordo com a distribuição da variável aleatória populacional $X$
 Ou seja, 
 $$
 \text{Independentes }\rightarrow\begin{cases}X_{1}\sim f_{\theta,}\theta \in \Theta \\
@@ -30,6 +35,22 @@ $$
 X_{n} \sim f_{\theta}, \theta \in \Theta
 \end{cases}
 $$
+
+Sendo assim, $(X_1, \dots, X_n)$ é amostra aleatória de $X\sim f_\theta, \theta in \Theta$
+sempre que $(X_1, \dots, X_n)$ forem independentes para cada $P_\theta, \theta \in \Theta$ e
+$X_i \sim f_\theta, \theta \in \Theta, i = 1, 2, \dots, n$
+
+#### Diagrama
+
+```{mermaid}
+flowchart UD
+  A[$X\sim f_\theta, \theta \in \Theta, \g(\theta)$] --> B($\X_1, \sim \f_\theta, \theta \in \Theta$)
+  A --> C($\X_2, \sim \f_\theta, \theta \in \Theta$)
+  A --> D($\X_n, \sim \f_\theta, \theta \in \Theta$)
+  B --> E(x_1)
+  C --> F(x_2)
+  D --> G(x_n)
+```
 
 ## Amostra (Observada) {#sec-ao}
 
