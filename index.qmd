@@ -5,3 +5,8 @@ frequentista ou clássica MAE0225 e MAE0301, ambas ministradas pelo Professor [A
 
 Dúvidas, sugestões, críticas ou erros por favor contactar em [gustavo.garone arroba usp.br](gustavo.garone@usp.br)
 
+## Atribuição e Licença {.unnumbered}
+Este livrete segue a licença pública [GPLv3](https://www.gnu.org/licenses/gpl-3.0.pt-br.html). Reprodução do material
+deve ser feita respeitando essa licença e com devida atribuição do trabalho original:
+
+Patriota, A.G., Garone, G.S. (2024, 2025). Notas do curso de inferência clássica (MAE0225, MAE0301) ministradas pelo Prof. A.G. Patriota digitadas por G.S. Garone.

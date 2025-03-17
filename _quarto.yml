@@ -9,13 +9,13 @@ execute:
   daemon: false
 jupyter: julia-1.11
 book:
-  title: "Anotaçõess de Inferência Frequentista"
+  title: "Anotações de Inferência Frequentista"
   author: "Aulas de Alexandre G. Patriota, digitado por Gustavo S. Garone"
   date: last-modified
   chapters:
+    - index.qmd
     - part: "Introdução à Inferência Frequentista"
       chapters:
-      - index.qmd
       - modelo-estatistico.qmd
       - populacao-e-amostra.qmd
       - quantidade-de-interesse.qmd
@@ -37,6 +37,8 @@ book:
     - part: "Inferência Frequentista"
       chapters:
       - familia-exponencial.qmd
+      - distribuicao-amostral.qmd
+      - estatisticas-suficientes.qmd
     # - references.qmd
 
 bibliography: references.bib

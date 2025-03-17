@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Modelos Estatísticos na abordagem clássica – Anotações de Inferência Frequentista</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./populacao-e-amostra.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-b9b3cd6e8481a19ed44e6faa3016c2c1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelo-estatistico.html">Introdução à Inferência Frequentista</a></li><li class="breadcrumb-item"><a href="./modelo-estatistico.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Modelos Estatísticos na abordagem clássica</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Procurar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Anotações de Inferência Frequentista</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Procurar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefácio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introdução à Inferência Frequentista</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./modelo-estatistico.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Modelos Estatísticos na abordagem clássica</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./populacao-e-amostra.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">População e Amostra</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./quantidade-de-interesse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Quantidade de Interesse</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dist-amostral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Distribuição Amostral</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./funcao-verossimilhanca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Função de Verossimilhança</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estatisticas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Estatísticas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimadores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Estimadores</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./eqm-e-vies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Erro quadrático médio (EQM)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./monte-carlo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Simulações de Monte Carlo</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./emv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Estimação via máxima verossimilhança (EMV)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./qui-quadrado.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Distribuição Qui-Quadrado</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tlc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Teorema do Limite Central</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estimador-intervalar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Intervalo de Confiança ou Estimador Intervalar</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./teste-hipotese.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Teste de Hipótese simples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./teste-hipotese-duas-pops.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Teste de Hipótese para duas populações</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tabela-frequencias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Tabela de frequências</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./analise-aderencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Teste Qui-Quadrado e análise de aderência</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./testes-ind-homo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Testes de Independência e Homogeneidade</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Inferência Frequentista</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar seção">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./familia-exponencial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Família Exponencial (FE)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./distribuicao-amostral.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Distribuição Amostral - Aprofundamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./estatisticas-suficientes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Estatísticas Suficientes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Índice</h2>
+   
+  <ul>
+  <li><a href="#modelo-estatístico-paramétrico" id="toc-modelo-estatístico-paramétrico" class="nav-link active" data-scroll-target="#modelo-estatístico-paramétrico"><span class="header-section-number">1.1</span> Modelo Estatístico Paramétrico</a>
+  <ul class="collapse">
+  <li><a href="#exemplos" id="toc-exemplos" class="nav-link" data-scroll-target="#exemplos"><span class="header-section-number">1.1.1</span> Exemplos</a></li>
+  </ul></li>
+  <li><a href="#principais-modelos-estatísticos" id="toc-principais-modelos-estatísticos" class="nav-link" data-scroll-target="#principais-modelos-estatísticos"><span class="header-section-number">1.2</span> Principais Modelos Estatísticos</a>
+  <ul class="collapse">
+  <li><a href="#sec-modelobernoulli" id="toc-sec-modelobernoulli" class="nav-link" data-scroll-target="#sec-modelobernoulli"><span class="header-section-number">1.2.1</span> Modelo Estatístico de Bernoulli</a></li>
+  <li><a href="#modelo-estatístico-binomial" id="toc-modelo-estatístico-binomial" class="nav-link" data-scroll-target="#modelo-estatístico-binomial"><span class="header-section-number">1.2.2</span> Modelo Estatístico Binomial</a></li>
+  <li><a href="#modelo-estatístico-geométrico" id="toc-modelo-estatístico-geométrico" class="nav-link" data-scroll-target="#modelo-estatístico-geométrico"><span class="header-section-number">1.2.3</span> Modelo Estatístico Geométrico</a></li>
+  <li><a href="#modelo-de-poisson" id="toc-modelo-de-poisson" class="nav-link" data-scroll-target="#modelo-de-poisson"><span class="header-section-number">1.2.4</span> Modelo de Poisson</a></li>
+  <li><a href="#modelo-multinomial" id="toc-modelo-multinomial" class="nav-link" data-scroll-target="#modelo-multinomial"><span class="header-section-number">1.2.5</span> Modelo Multinomial</a></li>
+  <li><a href="#modelo-uniforme-contínuo" id="toc-modelo-uniforme-contínuo" class="nav-link" data-scroll-target="#modelo-uniforme-contínuo"><span class="header-section-number">1.2.6</span> Modelo Uniforme contínuo</a></li>
+  <li><a href="#modelo-exponencial" id="toc-modelo-exponencial" class="nav-link" data-scroll-target="#modelo-exponencial"><span class="header-section-number">1.2.7</span> Modelo Exponencial</a></li>
+  <li><a href="#modelo-normal" id="toc-modelo-normal" class="nav-link" data-scroll-target="#modelo-normal"><span class="header-section-number">1.2.8</span> Modelo Normal</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./modelo-estatistico.html">Introdução à Inferência Frequentista</a></li><li class="breadcrumb-item"><a href="./modelo-estatistico.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Modelos Estatísticos na abordagem clássica</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Modelos Estatísticos na abordagem clássica</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Em teoria de probabilidades, conhecemos a medida de probabilidade, logo, fazemos descrições probabilísticas. <span class="math display">\[(\Omega, \mathscr{A}, P)\stackrel{\text{X}}{\rightarrow}(\mathbb{R}, \mathscr{B}, P_{X})\]</span> Na prática, contudo, não conhecemos a medida <span class="math inline">\(P\)</span>.</p>
+<p>Definimos então uma família de medidas de probabilidades que possivelmente descrevem o comportamento aleatório dos dados.</p>
+<p>O <em>Modelo Estatístico</em> é definido pela trinca <span class="math display">\[(\Omega, \mathscr{A}, \mathcal{P})\]</span> em que <span class="math inline">\(\Omega\)</span> é o espaço amostral (evento certo), <span class="math inline">\(\mathscr{A}\)</span> é a Sigma álgebra, uma família de subconjuntos ou eventos em <span class="math inline">\(\Omega\)</span>, e <span class="math inline">\(\mathcal{P}\)</span> é uma família de medidas de probabilidade que possivelmente descrevem o comportamento aleatório dos dados ou eventos sob investigação.</p>
+<section id="modelo-estatístico-paramétrico" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="modelo-estatístico-paramétrico"><span class="header-section-number">1.1</span> Modelo Estatístico Paramétrico</h2>
+<p>Se <span class="math inline">\(\mathcal{P} = \{P_{\theta} : \theta \in \Theta\}\)</span>, em que <span class="math inline">\(\Theta \subseteq \mathbb{R}^{p}\)</span> e <span class="math inline">\(p \in \mathbb{N}\)</span>, então dizemos que <span class="math inline">\((\Omega, \mathscr{A}, \mathcal{P})\)</span> é um modelo estatístico <strong>Paramétrico</strong>.</p>
+<p>Caso não exista <span class="math inline">\(\Theta \subseteq \mathbb{R}^{p}\)</span> fixo, então dizemos que o modelo é não-paramétrico. <em>Obs</em>: <span class="math inline">\(\Theta\)</span> é o espaço paramétrico e <span class="math inline">\(\theta\)</span> é o vetor de parâmetros. <span class="math inline">\(\theta\)</span> <strong>Não</strong>* é variável aleatória, apenas indexa as medidas de probabilidade.</p>
+<section id="exemplos" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="exemplos"><span class="header-section-number">1.1.1</span> Exemplos</h3>
+<section id="exemplo-de-bernoulli" class="level4" data-number="1.1.1.1">
+<h4 data-number="1.1.1.1" class="anchored" data-anchor-id="exemplo-de-bernoulli"><span class="header-section-number">1.1.1.1</span> Exemplo de Bernoulli</h4>
+<p>Considere um Ensaio de Bernoulli <span class="math display">\[\Omega = \{S,F \}, \mathscr{A} = 2^\Omega\]</span> Temos algum conhecimento prévio que sugere que as probabilidades de sucesso podem ser <span class="math inline">\(0.1, 0.5, 0.9\)</span></p>
+<p>Nesse caso, <span class="math display">\[\mathcal{P} = \{P_{1}, P_{2}, P_{3} \}\]</span> em que <span class="math display">\[\begin{cases}
+P_{1}(\{S\}) = 0.1;~ P_{1}(\{F\}) = 0.9;~ P_{1}(\Omega) = 1  \\
+P_{2}(\{S\}) = 0.5;~ P_{2}(\{F\}) = 0.5;~ P_{2}(\Omega) = 1  \\
+P_{3}(\{S\}) = 0.9;~ P_{3}(\{F\}) = 0.1;~ P_{3}(\Omega) = 1
+\end{cases}\]</span> Observe que <span class="math display">\[\mathcal{P}=\{P_{\theta}: \theta \in \Theta \}\]</span> em que <span class="math inline">\(\Theta=\{1,2,3 \}\subseteq \mathbb{R}\)</span> Portanto, <span class="math inline">\((\Omega, \mathscr{A}, \mathcal{P})\)</span> é um modelo paramétrico.</p>
+<p>Usando de variáveis aleatórias,</p>
+<p>Seja <span class="math inline">\(X : \Omega \rightarrow \mathbb{R}\)</span> tal que <span class="math display">\[X(\omega)=\begin{cases}
+1, \omega = \text{S} \\
+0, c.c.
+\end{cases}\]</span> <span class="math display">\[E_\theta(X)=\sum\limits^{1}_{x=0}xP_\theta(X=x)\]</span> <span class="math display">\[\begin{cases}
+\theta = 1 \Rightarrow E_{1}(X)=0.1 \\
+\theta = 2 \Rightarrow E_{2}(X)=0.5 \\
+\theta = 3 \Rightarrow E_{3}(X)=0.9
+\end{cases}\]</span></p>
+</section>
+<section id="exemplo-de-exponencial" class="level4" data-number="1.1.1.2">
+<h4 data-number="1.1.1.2" class="anchored" data-anchor-id="exemplo-de-exponencial"><span class="header-section-number">1.1.1.2</span> Exemplo de Exponencial</h4>
+<p>Seja <span class="math inline">\(\Omega=(0,\infty)\)</span> e <span class="math inline">\(\mathscr{A}\)</span> uma sigma-álgebra de <span class="math inline">\(\Omega\)</span> (Sigma-Álgebra de Borel) <span class="math inline">\(\Omega\)</span> representa o tempo até a ocorrência de um evento (uma reclamação, por exemplo) Temos conhecimento prévio de que as funções densidade de probabilidade que possivelmente descrevem esse evento são:</p>
+<p><span class="math display">\[
+\begin{aligned}
+f_{1}(\omega) &amp;=
+\begin{cases}
+\mathrm{e}^{-1\omega}, \omega&gt;0 \\
+0, c.c.
+\end{cases}\\
+f_{2} (\omega) &amp;=
+\begin{cases}
+2\mathrm{e}^{-2\omega}, \omega&gt;0 \\
+0, c.c.
+\end{cases}\\
+f_{3} (\omega) &amp;=
+\begin{cases}
+\frac{1}{2}\mathrm{e}^{-\frac{1}{2}\omega}, \omega&gt;0 \\
+0, c.c.
+\end{cases}\\
+f_{4} (\omega) &amp;=
+\begin{cases}
+\frac{1}{10}\mathrm{e}^{- \frac{1}{10}\omega}, \omega&gt;0 \\
+0, c.c.
+\end{cases}
+\end{aligned}
+\]</span></p>
+<p>e <span class="math inline">\(P\)</span>s, <span class="math display">\[
+\begin{aligned}
+P_{1}(A)&amp;= \int_{A} f_{1}(\omega)d \omega \\
+P_{2}(A)&amp;= \int_{A} f_{2}(\omega)d \omega \\
+P_{3}(A)&amp;= \int_{A} f_{3}(\omega)d \omega \\
+P_{4}(A)&amp;= \int_{A} f_{4}(\omega)d \omega \\
+\end{aligned}\]</span> Dessa forma, <span class="math display">\[P_{\theta}(A)= \int_{A}f_\theta(\omega)d \omega\]</span> e <span class="math inline">\(\Omega = \{1,2,3,4 \}\)</span> Seja <span class="math inline">\(X: \Omega \rightarrow \mathbb{R}\)</span> tal que <span class="math display">\[X(\omega)= \omega\]</span> Note que <span class="math display">\[E_\theta(X)=\int_{-\infty}^{\infty}xf_\theta(x)dx, \theta \in \{1,2,3,4 \}\]</span> <span class="math display">\[E_\theta(X)=\begin{cases}
+1,~ \theta=1 \\
+\frac{1}{2},~ \theta=2 \\
+2,~ \theta=3 \\
+10,~ \theta=4
+\end{cases}
+\]</span></p>
+</section>
+</section>
+</section>
+<section id="principais-modelos-estatísticos" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="principais-modelos-estatísticos"><span class="header-section-number">1.2</span> Principais Modelos Estatísticos</h2>
+<section id="sec-modelobernoulli" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="sec-modelobernoulli"><span class="header-section-number">1.2.1</span> Modelo Estatístico de Bernoulli</h3>
+<p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória com modelo de Bernoulli se, e somente se, <span class="math display">\[
+P_\theta(X=x)=\begin{cases}
+\theta^{x} \cdot(1-\theta)^{1-x}, x \in \{0,1 \} \\
+0, x \not \in \{0,1 \}
+\end{cases}\]</span> O parâmetro é a probabilidade de sucesso <span class="math display">\[\begin{cases}
+E_\theta(X)=\theta\\
+\mathrm{Var}_{\theta}(X) = \theta(1-\theta) \\
+P_\theta(X=1)=\theta, P_\theta(X=0)=1-\theta
+\end{cases}
+\]</span></p>
+<p>Notação: <span class="math inline">\(\mathrm{Ber}(\theta)\)</span> em que <span class="math inline">\(\theta \in \Theta=(0,1)\subseteq \mathbb{R}\)</span></p>
+</section>
+<section id="modelo-estatístico-binomial" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="modelo-estatístico-binomial"><span class="header-section-number">1.2.2</span> Modelo Estatístico Binomial</h3>
+<p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória com modelo binomial se, e somente se, <span class="math display">\[
+P_\theta(X=x)=\begin{cases}
+{n \choose x} \cdot \theta^{x}\cdot(1-\theta)^{n-x}, x \in \{0,1,\dots,n \} \\
+0, x \not \in \{0,1,\dots,n \}
+\end{cases}\]</span> <span class="math display">\[\begin{cases}
+E_\theta(X)=n\theta\\
+\mathrm{Var}_{\theta}(X) = n\theta(1-\theta) \\
+P_\theta(X=0)=(1-\theta)^{n},\dots, P_\theta(X=n)=\theta^n
+\end{cases}\]</span></p>
+<p>Notação: <span class="math inline">\(\mathrm{Bin}(n,\theta)\)</span> em que <span class="math inline">\(n\)</span> é conhecido e fixado previamente, <span class="math inline">\(\theta\)</span> é a probabilidade de sucesso (parâmetro do modelo) e <span class="math inline">\(\Theta =(0,1)\)</span> é o espaço paramétrico</p>
+</section>
+<section id="modelo-estatístico-geométrico" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="modelo-estatístico-geométrico"><span class="header-section-number">1.2.3</span> Modelo Estatístico Geométrico</h3>
+<p>Dizemos que <span class="math inline">\(X\)</span>, representando o número de <em>fracassos</em> até o primeiro sucesso, é uma variável aleatória com modelo estatístico geométrico se, e somente se, <span class="math display">\[P_\theta(X=x)=\begin{cases}
+\theta (1-\theta)^{x-1}, x \in \{1,\dots\} \\
+0, x \not \in \{1,\dots\}
+\end{cases}
+\]</span> <span class="math display">\[
+\begin{cases}
+E_\theta(X)=\frac{1}{\theta}\\
+\mathrm{Var}_\theta(X) = \frac{1-\theta}{\theta^{2}}
+\end{cases}
+\]</span> Notação: <span class="math inline">\(\mathrm{Geom}(\theta)\)</span> em que <span class="math inline">\(\theta\)</span> é o parâmetro do modelo (probabilidade de sucesso) e <span class="math inline">\(\Theta=(0,1)\)</span> é o espaço paramétrico</p>
+</section>
+<section id="modelo-de-poisson" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="modelo-de-poisson"><span class="header-section-number">1.2.4</span> Modelo de Poisson</h3>
+<p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória com modelo estatístico Poisson, se, e somente se, <span class="math display">\[
+P_\theta(X=x)=\begin{cases}
+\mathrm{e}^{-\theta}\cdot \frac{\theta^{x}}{x!}, x \in \{0,1,\dots\} \\
+0, x \not \in \{0,1,\dots\}
+\end{cases}
+\]</span> <span class="math display">\[
+\begin{cases}
+E_\theta(X)=\theta\\
+\mathrm{Var}_\theta(X) = \theta
+\end{cases}
+\]</span></p>
+<p>Notação: <span class="math inline">\(\mathrm{Poisson}(\theta)\)</span> em que <span class="math inline">\(\theta\)</span> é a taxa média de ocorrência do evento (parâmetro do modelo) e <span class="math inline">\(\Theta = (0, \infty)\)</span>, o espaço paramétrico.</p>
+</section>
+<section id="modelo-multinomial" class="level3" data-number="1.2.5">
+<h3 data-number="1.2.5" class="anchored" data-anchor-id="modelo-multinomial"><span class="header-section-number">1.2.5</span> Modelo Multinomial</h3>
+<p>Dizemos que <span class="math inline">\(\pmb{X} = (X_1,\dots,X_k)\)</span> é um Vetor Aleatório com modelo estatístico Multinomial se, e somente se a função de probabilidade é <span class="math display">\[
+P_{\theta}(X_{1}=x_{1},\dots,X_{k} = x_{k})=
+\begin{cases}
+\frac{n!}{x_{1}!x_{2}!\dots x_{k}!} \cdot \theta^{x_{1}}_{1} \cdot \cdots \cdot\theta^{x_n}_{k} ~~~~ x_{1}+\dots+x_{k}=n\\
+0, c.c
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\begin{cases}
+E_\theta(X_{i})=n\theta_{i}\\
+\mathrm{Var}_\theta(X_{i}) = n\theta_{i} (1-\theta_{i}) \\
+\mathrm{Cov}(X_{i}X_{j})=-n\theta_{i}\theta_{j}
+\end{cases}
+\]</span></p>
+<p>Notação: <span class="math inline">\(\mathrm{Multinomial}(n, \theta_1,\theta_2,\dots,\theta_k)\)</span> em que <span class="math inline">\(\theta_{1}+\dots+\theta_{k}=1\)</span> e <span class="math inline">\(0\leq \theta_{i} \leq 1\)</span>, <span class="math inline">\(\forall i = 1,2,\dots,k\)</span>, <span class="math inline">\(\Theta=\{(\theta_{1},,\dots,\theta_{k}) \in \mathbb{R}^{k} : 0\leq \theta_{i} \leq 1, i=1,\dots,k,
+\theta_{1}+\dots+\theta_{k} = 1 \}\)</span></p>
+<p>Esse modelo tem aplicação em modelos de linguagem como o ChatGPT. (<span class="math inline">\(k\)</span> como tamanho do vocabulário, <span class="math inline">\(n=1\)</span>, <span class="math inline">\(\theta_{1}=\)</span> probabilidade de escolher o primeiro elemento do vocabulário e assim por diante.)</p>
+</section>
+<section id="modelo-uniforme-contínuo" class="level3" data-number="1.2.6">
+<h3 data-number="1.2.6" class="anchored" data-anchor-id="modelo-uniforme-contínuo"><span class="header-section-number">1.2.6</span> Modelo Uniforme contínuo</h3>
+<p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória contínua com modelo estatístico Uniforme em <span class="math inline">\((\theta_{1}, \theta_{2}), \theta_{1}\leq x \leq\theta_{2}\)</span>, se, e somente se, a sua Função Densidade de Probabilidade é <span class="math display">\[
+f_\theta(x)=\begin{cases}
+\frac{1}{\theta_{2}-\theta_{1}}, x \in(\theta_{1}, \theta_{2}) \\
+0, c.c.
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\begin{cases}
+E_\theta(X)=\frac{\theta_2+\theta_1}{2}\\
+\mathrm{Var}_\theta(X) = \frac{(\theta_2-\theta_1)^{2}}{12}\end{cases}
+\]</span></p>
+<p>Notação: <span class="math inline">\(X \sim U(\theta_{1}, \theta_{2})\)</span>, em que <span class="math inline">\(\theta=(\theta_{1}, \theta_{2})\)</span> é o vetor de parâmetros e <span class="math inline">\(\Theta = \{\theta \in \mathbb{R}^{2} : \theta_{2} &gt; \theta_{1} \}\)</span> é o espaço paramétrico.</p>
+</section>
+<section id="modelo-exponencial" class="level3" data-number="1.2.7">
+<h3 data-number="1.2.7" class="anchored" data-anchor-id="modelo-exponencial"><span class="header-section-number">1.2.7</span> Modelo Exponencial</h3>
+<p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória contínua com modelo estatístico Exponencial se, e somente se, a sua Função Densidade de Probabilidade é dada por <span class="math display">\[
+f_\theta(x)=\begin{cases}
+\theta \mathrm{e}^{-\theta x}, x&gt;0\\
+0, c.c.
+\end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\begin{cases}
+E_\theta(X)=\frac{1}{\theta}\\
+\mathrm{Var}_\theta(X) = \frac{1}{\theta^{2}}
+\end{cases}
+\]</span></p>
+<p>Notação: <span class="math inline">\(X\sim \mathrm{Exp}(\theta), \theta&gt; 0\)</span> em que <span class="math inline">\(\theta&gt;0, \Theta=\{\theta \in \mathbb{R}: \theta&gt;0 \}\)</span></p>
+</section>
+<section id="modelo-normal" class="level3" data-number="1.2.8">
+<h3 data-number="1.2.8" class="anchored" data-anchor-id="modelo-normal"><span class="header-section-number">1.2.8</span> Modelo Normal</h3>
+<p>Dizemos que <span class="math inline">\(X\)</span> é uma variável aleatória contínua com modelo estatístico Normal com média <span class="math inline">\(\mu\)</span> e variância <span class="math inline">\(\sigma^{2}\)</span> se, e somente se, a sua Função Densidade de Probabilidade é dada por <span class="math display">\[
+f_\theta(x)=
+\frac{1}{\sqrt{2\pi \sigma^{2}}}\cdot \mathrm{e}^{-\frac{1}{2\sigma^{2}}(x-\mu)^{2}}, x \in \mathbb{R}
+\]</span> em que <span class="math inline">\(\theta= (\mu, \sigma^{2}) \in \Theta= \mathbb{R}\times \mathbb{R}^{+}\)</span></p>
+<p><span class="math display">\[
+\begin{cases}
+E_\theta(X)=\mu\\
+\mathrm{Var}_\theta(X) = \sigma^{2}
+\end{cases}
+\]</span></p>
+<p>Notação: <span class="math inline">\(X \sim N (\mu, \sigma^{2})\)</span>, em que <span class="math inline">\(\theta=(\mu, \sigma^{2})\)</span> é o vetor de parâmetros.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiada");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiada");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Prefácio">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Prefácio</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./populacao-e-amostra.html" class="pagination-link" aria-label="População e Amostra">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">População e Amostra</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

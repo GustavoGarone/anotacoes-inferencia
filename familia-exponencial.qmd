@@ -7,12 +7,12 @@ Dizemos que $f_\theta$ pertence à família exponencial unidimensional se, e som
 
 $$
 f_\theta(x) = \left \{\begin{array}{lr}
-\mathrm{e}^{C(\theta)\cdot T(x) + d(\theta) + S(x)}, & x \in \mathfrak{X} \\
+\mathrm{e}^{c(\theta)\cdot T(x) + d(\theta) + S(x)}, & x \in \mathfrak{X} \\
 0, & x \not \in \mathfrak{X}
 \end{array} \right.
 $$
 
-em que $C(\dot)$ e $d(\dot)$ são funções de "$\theta$" cujas formas são conhecidas e $T(\dot)$ e $S(\dot)$ são funções
+em que $c(\cdot)$ e $d(\cdot)$ são funções de "$\theta$" cujas formas são conhecidas e $T(\cdot)$ e $S(\cdot)$ são funções
 de $x$ com formas conhecidas, em que $\mathfrak{X} = \{x: f_\theta(x) > 0\}$ não depende de "$\theta$". $\mathfrak{X}$
 é dito ser o suporte de $f_\theta$
 
@@ -20,7 +20,7 @@ de $x$ com formas conhecidas, em que $\mathfrak{X} = \{x: f_\theta(x) > 0\}$ nã
 
 #### Exemplo 1 - Exponencial
 
-Considere $X \sim f_\theta, \theta \in (0,\infty)$ e
+considere $X \sim f_\theta, \theta \in (0,\infty)$ e
 $$
 f_\theta(x) = \left\{\begin{array}{lr}
 \theta \cdot \mathrm{e}^{-\theta x}, & x > 0 \\
@@ -40,13 +40,13 @@ $$
 Assim,
 $$
 \begin{array}{cc}
-C(\theta) = -\theta, & d(\theta) = \ln \theta \\
+c(\theta) = -\theta, & d(\theta) = \ln \theta \\
 T(x) = x, & S(x) = 0
 \end{array}
 $$
 
 #### Exemplo 2 - Bernoulli
-Considere $X\sim \mathrm{Ber}(\theta), \theta \in \Theta = (0,1)$. Mostre que a sua função de probabilidade pertence
+considere $X\sim \mathrm{Ber}(\theta), \theta \in \Theta = (0,1)$. Mostre que a sua função de probabilidade pertence
 à família exponencial.
 
 ##### Resposta
@@ -71,16 +71,16 @@ $$
 \end{aligned}
 $$
 
-logo, $f_\theta(x) = \mathrm{e}^{C(\theta)T(x)+d(\theta)+S(x)}, x \in \{0,1\}$, em que
+logo, $f_\theta(x) = \mathrm{e}^{c(\theta)T(x)+d(\theta)+S(x)}, x \in \{0,1\}$, em que
 $$
 \begin{array}{cc}
-C(\theta) = \ln(\frac{\theta}{1-\theta}), & T(x) = x \\
+c(\theta) = \ln(\frac{\theta}{1-\theta}), & T(x) = x \\
 d(\theta) = \ln(1-\theta), & S(x) = 0
 \end{array}
 $$
 
 #### Exemplo 3 - Normal (Média)
-Considere que $X\sim N(\theta,1), \theta \in \mathbb{R}$. Mostre que a sua função densidade de probabilidade pertence
+considere que $X\sim N(\theta,1), \theta \in \mathbb{R}$. Mostre que a sua função densidade de probabilidade pertence
 a FE unidimensional.
 
 #### Resposta
@@ -102,13 +102,13 @@ $$
 Portanto, $f_\theta$ pertence à FE:
 $$
 \begin{array}{cc}
-C(\theta) = \theta, & T(x) = x \\
+c(\theta) = \theta, & T(x) = x \\
 d(\theta) = -\frac{1}{2}\theta^2, & S(x) = -\frac{1}{2}x^2-\ln\sqrt{2\pi}
 \end{array}
 $$
 
 #### Exempo 4 - Normal (Variância)
-Considere que $X\sim N(0,\theta), \theta \in (0,\infty)$. Mostre que a sua função densidade de probabilidade pertence
+considere que $X\sim N(0,\theta), \theta \in (0,\infty)$. Mostre que a sua função densidade de probabilidade pertence
 a FE unidimensional.
 
 ##### Resposta
@@ -122,14 +122,14 @@ Além disso,
 $$
 \begin{aligned}
 f_\theta(x) &= \mathrm{e}^{-\frac{1}{2\theta}x^2 - \frac{1}{2} \ln(2\pi\theta)} \\
-&= \mathrm{e}^{C(\theta)T(x)+d(\theta)+S(x)}
+&= \mathrm{e}^{c(\theta)T(x)+d(\theta)+S(x)}
 \end{aligned}
 $$
 
 em que
 $$
 \begin{array}{cc}
-C(\theta) = -\frac{1}{2\theta}, & T(x) = x^2 \\
+c(\theta) = -\frac{1}{2\theta}, & T(x) = x^2 \\
 d(\theta) = -\frac{1}{2}\ln(2\pi\theta), & S(x) = 0
 \end{array}
 $$
@@ -147,18 +147,18 @@ $$
 f_\theta(x) &= \frac{1}{\sqrt{2\pi\theta}} \mathrm{e}^{-\frac{1}{2\theta}(x-\theta)^2} \\
 &= \mathrm{e}^{-\frac{1}{2\theta}(x^2-2\theta x+ \theta^2) -\frac{1}{2}\ln(2\pi\theta)} \\
 &= \mathrm{e}^{-\frac{x^2}{2\theta}+x-\frac{1}{2}\theta-\frac{1}{2}\ln(2\pi\theta)} \\
-&= \mathrm{e}^{C(\theta)T(x)+d(\theta)+S(x)}
+&= \mathrm{e}^{c(\theta)T(x)+d(\theta)+S(x)}
 \end{aligned}
 $$
 em que
 $$
 \begin{array}{cc}
-C(\theta) = -\frac{1}{2\theta}, & T(x) = x^2 \\
+c(\theta) = -\frac{1}{2\theta}, & T(x) = x^2 \\
 d(\theta) = -\frac{1}{2}\theta-\frac{1}{2}\ln(2\pi\theta), & S(x) = x
 \end{array}
 $$
 
-#### Exemplo 6 - Contraexemplo uniforme
+#### Exemplo 6 - contraexemplo uniforme
 Se $X\sim U(0,\theta), \theta \in (0,\infty)$, então a sua função densidade de probabilidade não pertence à FE, pois
 o seu suporte depende de "$\theta$".
 $$
@@ -170,8 +170,8 @@ $$
 
 Dessa forma, $\mathfrak{X} = \{ x : f_\theta(x)> 0\} = (0,\theta)$
 
-#### Exemplo 7 - Contraexemplo Normal (Média e Variância)
-Considere que $X \sim N(\mu,\sigma^2)$, em que $\theta = (\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}^+$. Então,
+#### Exemplo 7 - contraexemplo Normal (Média e Variância)
+considere que $X \sim N(\mu,\sigma^2)$, em que $\theta = (\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}^+$. Então,
 pode-se mostrar que a sua função densidade de probabilidade não pertence à FE **unidimensional**.
 
 Observe que
@@ -183,39 +183,39 @@ f_\theta(x) &= \frac{1}{\sqrt{2\pi\sigma^2}} \mathrm{e}^{-\frac{1}{2\sigma^2}(x-
 \end{aligned}
 $$
 
-portanto, não é possível definir $C(\theta),T(x),d(\theta)$ e $S(x)$ tais que $C(\dot), T(\dot)$ representem
+portanto, não é possível definir $c(\theta),T(x),d(\theta)$ e $S(x)$ tais que $c(\cdot), T(\cdot)$ representem
 $-\frac{1}{2\sigma^2}x^2 + \frac{x\mu}{\sigma^2}$
 
 ### Propriedades na integração
-Como $f_\theta$ é uma função (densidade) de probabilidade, temos que
+como $f_\theta$ é uma função (densidade) de probabilidade, temos que
 $$
-\int_{-\infty}^{\infty} f_\theta(x) dx = 1 \mathrm{(Caso \ Contínuo)}, \forall \theta \in \Theta
+\int_{-\infty}^{\infty} f_\theta(x) dx = 1 \mathrm{(caso \ contínuo)}, \forall \theta \in \Theta
 $$
 
 Se $f_\theta$ pertence à FE unidimensional, então
 
 $$
 \begin{aligned}
-&\int_{\mathfrak{X}} \mathrm{e}^{C(\theta)T(x) +d(\theta) + S(x)} dx = 1 \forall \theta \in \Theta \\
-\Rightarrow& \int_{\mathfrak{X}} \mathrm{e}^{C(\theta)T(x) + S(x)} dx = \mathrm{e}^{-d(\theta)} \forall \theta \in \Theta \\
+&\int_{\mathfrak{X}} \mathrm{e}^{c(\theta)T(x) +d(\theta) + S(x)} dx = 1 \forall \theta \in \Theta \\
+\Rightarrow& \int_{\mathfrak{X}} \mathrm{e}^{c(\theta)T(x) + S(x)} dx = \mathrm{e}^{-d(\theta)} \forall \theta \in \Theta \\
 \end{aligned}
 $$
 
-## Família Exponencial k-dimensional
+## Família Exponencial k-dimensional {#sec-fek}
 
 Dizemos que a função (densidade) de probabilidade $f_\theta$ pertence à FE k-dimensional se, e somente se,
 $$
 f_\theta(x) = \left\{\begin{array}{lr}
-\mathrm{e}^{\sum^k_{j=1} C_j(\theta)T_j(x)+d(\theta)+S(x)}, &x \in \mathfrak{X} \\
+\mathrm{e}^{\sum^k_{j=1} c_j(\theta)T_j(x)+d(\theta)+S(x)}, &x \in \mathfrak{X} \\
 0, & x \not \in \mathfrak{X}
 \end{array}\right.
 $$
 em que
 1. $\mathfrak{X} = \{ x: f_\theta (x) > 0 \}$ não depende de "$\theta$"
-2. As funções $C_1(\dot),\dots,C_k(\dot)$ e $d(\dot)$ dependem apenas de "$\theta$" (formas conhecidas) e
-3. As funções $T_1(\dot),\dots,T_l(\dot)$ e $S(\dot)$ dependem apenas de $x$ (formas conhecidas)
+2. As funções $c_1(\cdot),\dots,c_k(\cdot)$ e $d(\cdot)$ dependem apenas de "$\theta$" (formas conhecidas) e
+3. As funções $T_1(\cdot),\dots,T_l(\cdot)$ e $S(\cdot)$ dependem apenas de $x$ (formas conhecidas)
 
-Como $f_\theta$ é uma função (densidade) de probabilidade, temos que (para o caso contínuo)
+como $f_\theta$ é uma função (densidade) de probabilidade, temos que (para o caso contínuo)
 $$
 \int_{-\infty}^{\infty} f_\theta(x)dx=1 \forall \theta \in \Theta
 $$
@@ -223,8 +223,8 @@ $$
 Se $f_\theta$ pertence à FE k-dimensional, então
 $$
 \begin{aligned}
-&\int_{\mathfrak{X}} \mathrm{e}^{C(\theta)T(x) +d(\theta) + S(x)} dx = 1 \forall \theta \in \Theta \\
-\Rightarrow &\int_{\mathfrak{X}} \mathrm{e}^{C(\theta)T(x) + S(x)} dx = \mathrm{e}^{-d(\theta)} \forall \theta \in \Theta \\
+&\int_{\mathfrak{X}} \mathrm{e}^{c(\theta)T(x) +d(\theta) + S(x)} dx = 1 \forall \theta \in \Theta \\
+\Rightarrow &\int_{\mathfrak{X}} \mathrm{e}^{c(\theta)T(x) + S(x)} dx = \mathrm{e}^{-d(\theta)} \forall \theta \in \Theta \\
 \end{aligned}
 $$
 
@@ -239,15 +239,15 @@ Note que
 $$
 \begin{aligned}
 f_\theta(x) &= \mathrm{e}^{-\frac{1}{2\sigma^2}x^2+\frac{x\mu}{\sigma^2}-\frac{1}{2\sigma^2}\mu^2-\frac{1}{2}\ln(2\pi\sigma^2)}
-&= \mathrm{e}^{C_1(\theta)T_1(x) + C_2(\theta)T_2(x) + d(\theta) + S(x)}
-\end{aligned]
+&= \mathrm{e}^{c_1(\theta)T_1(x) + c_2(\theta)T_2(x) + d(\theta) + S(x)}
+\end{aligned}
 $$
 
 em que
 $$
 \begin{array}{cc}
-C_1(\theta) = -\frac{1}{2\theta}, & T_1(x) = x^2 \\
-C_2(\theta) = \frac{\mu}{\sigma^2}, & T_2(x) = x \\
+c_1(\theta) = -\frac{1}{2\sigma^2}, & T_1(x) = x^2 \\
+c_2(\theta) = \frac{\mu}{\sigma^2}, & T_2(x) = x \\
 d(\theta) = -\frac{1}{2}\frac{\mu^2}{\sigma^2}-\frac{1}{2}\ln(2\pi\sigma^2), & S(x) = 0
 \end{array}
 $$

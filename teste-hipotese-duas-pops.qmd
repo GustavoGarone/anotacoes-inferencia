@@ -61,8 +61,8 @@ $$
 Para os próximos exemplos, assumiremos normalidade para $X,Y$
 
 ### Caso pareado (variáveis dependentes)
-No caso em que $X,Y$ são dependentes, as amostras são $(\pmb{X}_{n})$ [amostras aleatórias](populacao-e-amostra.qmd#sec-aa)
-de $X$ e $(\pmb{Y}_{n})$ a.a de $Y$ tais que $X_{i},Y_{i}$ são dependentes.
+No caso em que $X,Y$ são dependentes, as amostras são $(X_{n})$ [amostras aleatórias](populacao-e-amostra.qmd#sec-aa)
+de $X$ e $(Y_{n})$ a.a de $Y$ tais que $X_{i},Y_{i}$ são dependentes.
 
 Para este caso, fazemos $D_{i}=X_{i}-Y_{i},i=1,2,\dots, n$. Temos que $(D_{n})$ é uma amostra aleatória de
 $D=X-Y \sim N(\mu_{D},\sigma^2_{D})=N(\mu_{X}-\mu_{Y},\sigma^2_{X}+\sigma^2_{Y}-2 \rho\sigma_{X}\sigma _{Y})$
@@ -115,7 +115,7 @@ s^2 & 0.87  & 0.55  &  0.9
 \end{array}
 $$
 
-Temos que $s^2(\underset{\sim}{d})=0.9$. (Podemos calcular diretamente ou usando a coluna $D^2$ e substituindo no
+Temos que $s^2(\underset{\sim}{D})=0.9$. (Podemos calcular diretamente ou usando a coluna $D^2$ e substituindo no
 somatório $s^2_{D}=\left( \frac{\sum^n_{i=1}d_{i}^2}{n}-\bar{d}^2 \right) \frac{n}{n-1}$ )
 Rejeitamos $H_{0}$ se $\frac{\bar{d}_{\mathrm{Par}}}{\sqrt{ \frac{s^2_{D}}{n}}}<-t_{\alpha,n-1}$ onde $t_{\alpha,n-1}$
 é tal que $P(t_{n-1}<-t_{\alpha,n-1})=\alpha$, onde $t_{n-1}$ é a distribuição T de Student com $n-1$ graus de liberdade.
@@ -130,9 +130,9 @@ significância estatística.
 Sejam $X, Y$ variáveis aleatórias *independentes* tais que
 $$ \begin{cases}
 X\sim N(\mu_{X},\sigma^2_{X}) \\
-Y\sim N(\mu_{Y},\sigma^2_{Y})
+Y\sim (\mu_{Y},\sigma^2_{Y})
 \end{cases} $$
-Considere $(\pmb{X}_{n})$ amostra aleatória de $X$ e $(\pmb{Y}_{m})$ amostra aleatória de $Y$. Estamos interessados em testar as hipóteses:
+Considere $(X_{n})$ amostra aleatória de $X$ e $(Y_{m})$. Estamos interessados em testar as hipóteses:
 $$
 1.
 \begin{cases}

@@ -1,6 +1,6 @@
 # Estimação via máxima verossimilhança (EMV)
 O valor numérico $\hat\theta_{n}$ que maximiza a [função de verossimilhança](funcao-verossimilhanca.qmd), ou seja,
-$L_{\underset{\sim}{x}}(\hat\theta_{n}) \geq L_{\underset{\sim}{x}}(\theta)\forall \theta \in \Theta$ é dito ser uma
+$L_{\stackrel{x}{\sim}}(\hat\theta_{n}) \geq L_{\stackrel{x}{\sim}}(\theta)\forall \theta \in \Theta$ é dito ser uma
 [estimativa](estimadores.qmd#estimativas) de máxima verossimilhança (MV) para $\theta$. Observe que $\hat\theta_{n}$ depende da
 [amostra observada](populacao-e-amostra.qmd#sec-ao) e portanto: $\hat\theta_{n} = \hat\theta(x_{1},x_{2},\dots,x_{n})$.
 
@@ -21,7 +21,7 @@ f_{\theta}(x): & \theta & \theta^{2} & 1-\theta-\theta^{2}\\
 \hline
 \end{array}
 $$
-Considere que a amostra observada é $\underset{\sim}{x}=(0,0,1)$.
+Considere que a amostra observada é $\stackrel{x}{\sim}=(0,0,1)$.
 
 a-) Encontre a estimativa da máxima verossimilhança 
 
@@ -33,21 +33,21 @@ $$
 portanto,
 
 $$
-L_{\underset{\sim}{x}}(\theta)\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_{\theta}(x_{i})  = 
+L_{\stackrel{x}{\sim}}(\theta)\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_{\theta}(x_{i})  = 
 \theta^{\sum\limits^{n}_{i=1}\mathbb{1}_{\{0\}}(x_{i})} \cdot (\theta^{2})^{\sum\limits^{n}_{i=1}\mathbb{1}_{\{1\}}(x_{i})} 
 \cdot (1-\theta-\theta^{2})^{\sum\limits^{n}_{i=1}\mathbb{1}_{\{2\}}(x_{i})} \forall \theta \in \Theta
 $$
 
-Para $\underset{\sim}{x}=(0,0,1)$,
+Para $\stackrel{x}{\sim}=(0,0,1)$,
 $$
-L_{\underset{\sim}{x}}(\theta) = \theta^{2} \cdot \theta^{2} \cdot (1-\theta -\theta^{2})^{0} = \theta^{4}
+L_{\stackrel{x}{\sim}}(\theta) = \theta^{2} \cdot \theta^{2} \cdot (1-\theta -\theta^{2})^{0} = \theta^{4}
 \forall \theta \in \Theta
 $$
 
 Substituindo $\forall \theta \in \Theta$:
 $$
-\theta = \frac{1}{2}\Rightarrow L_{\underset{\sim}{x}}\left(\frac{1}{2}\right)=\frac{1}{16} ~~~~ \theta =
-\frac{1}{3}\Rightarrow L_{\underset{\sim}{x}}\left(\frac{1}{3}\right)=\frac{1}{81}
+\theta = \frac{1}{2}\Rightarrow L_{\stackrel{x}{\sim}}\left(\frac{1}{2}\right)=\frac{1}{16} ~~~~ \theta =
+\frac{1}{3}\Rightarrow L_{\stackrel{x}{\sim}}\left(\frac{1}{3}\right)=\frac{1}{81}
 $$
 
 Portanto, $\hat\theta_{n}=\frac{1}{2}$ é a estimativa de máxima verossimilhança.
@@ -62,7 +62,7 @@ Mais um exemplo:
 
 Seja $(X_{1},\dots,X_{n})$ a.a. de $X\sim N(\mu, \sigma^2)$ em que
 $\theta = (\mu, \sigma^{2}) \in \Theta=\mathbb{R}\times \mathbb{R}^{+}$
-Assuma que $\underset{\sim}{x} = (x_{1},\dots,x_{n})$ é a amostra observada.
+Assuma que $\stackrel{x}{\sim} = (x_{1},\dots,x_{n})$ é a amostra observada.
 Lembrando que estaremos chamando $\theta=(\mu, \sigma^{2})$, mas estes são parâmetros genéricos.
 Poderíamos, por exemplo, chamá-los de $\theta=(\theta_{1},\theta_{2})$, o que pode facilitar a visualizar algumas derivadas.
 
@@ -89,7 +89,7 @@ $$
 \therefore \\
 \mathrm{Estimativas~ MV} & = 
 \begin{cases}
-\hat\mu = \bar{x} \\
+\mu = \bar{x} \\
 -\frac{n}{2\sigma^{2}} + \frac{1}{2 \sigma^{4}} \sum\limits^{n}_{i=1}(x_{i}-\mu)^{2}=0 \\
 \end{cases} \\
 &\Leftrightarrow \begin{cases}
@@ -112,8 +112,8 @@ $$
 
 Observação:
 Seja $(X_{1},\dots,X_{n})$ a.a. de $X\sim N(\mu, \sigma^{2})$. Então,
-1. $\bar{X} \underset{\text{Exata!}}{\sim}N\left(\mu, \frac{\sigma^{2}}{n}\right)\forall \mu \in \mathbb{R}, \sigma \in \mathbb{R}^{+} : \sigma^{2}>0 \text{ e } n\geq 1$
-2. $\sum\limits^{n}_{i=1} \frac{(X_{i}-\bar{X})^{2}}{\sigma^{2}}\underset{\text{Exata!}}{\sim}\chi^{2}_{(n-1)}$
+1. $\bar{X} \underset{\text{Exata!}}{\sim}N\left(\mu, \frac{\sigma^{2}}{n}\right)\forall \mu, \sigma \in \mathbb{R} : \sigma^{2}>0 \text{ e } n\geq 1$
+2. $\sum\limits^{n}_{i=1} \frac{(x_{1}-\bar{X})^{2}}{\sigma^{2}}\underset{\text{Exata!}}{\sim}\chi^{2}_{(n-1)}$
 em que $\chi^{2}_{k}$ representa a [Distribuição Qui-Quadrado](qui-quadrado.qmd) com $k$ grau de liberdade, cuja
 função densidade de probabilidade é:
 $$

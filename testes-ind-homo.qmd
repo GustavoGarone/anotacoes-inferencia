@@ -1,7 +1,7 @@
 # Testes de Independência e Homogeneidade
 Com a ajuda da [tabela de frequências](tabela-frequencias.qmd), conseguimos [testar](teste-hipotese.qmd) independência entre
 eventos e homogeneidade em distribuição de eventos. Por mais que utilizem o mesmo mecanismo, os dois testes são interpretados
-de formas diferentes, portanto serão apresentados individualmente nesta seção.
+de forma diferentes e, portanto, também apresentados individualmente nesta seção.
 
 ## Teste de Homogeneidade
 Usamos esse teste para verificar se as medidas de probabilidade de vários grupos diferentes são iguais (seguem uma mesma distribuição).
@@ -10,7 +10,7 @@ Os totais marginais para cada grupo devem ser fixados antes de executarmos o exp
 $$
 \begin{cases}
 H_{0}: \text{Os grupos são independentes} \\
-H_{1} : \text{Pelo menos um dos grupos não é independente}
+H_{1} : \text{Pelo menos um dos grupos não é indepndente}
 \end{cases}
 $$
 
@@ -28,9 +28,9 @@ $$
 
 ## Exemplos
 
-### Primeiro exemplo (homogeneidade)
+### Primeiro exemplo (homogeniedade)
 
-Ao total, 510 segurados foram amostrados, sendo 200 de São Paulo, 100 do Ceará e 210 de Pernambuco. O objetivo é verificar se o
+510 segurados foram amostrados, sendo 200 de São Paulo, 100 do Ceará e 210 de Pernambuco. O objetivo é verificar se o
 número de acidentes se distribui igualmente entre os estados.
 $$
 \begin{array}{ccc}

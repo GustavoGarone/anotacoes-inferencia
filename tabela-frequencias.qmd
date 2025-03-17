@@ -24,7 +24,7 @@ B_{l} & O_{l1} & O_{l2} & \dots & O_{lk} & O_{l\cdot} \\
 \end{array}
 $$
 
-Temos nossa tabela de frequências esperadas [sob](teste-hipotese.qmd) $H_{0}$ (Independência)
+Temos nossa tabela de frequências esperadas [[Teste de Hipótese|sob]] $H_{0}$ (Independência)
 $$
 \begin{array}{c|cccc|c}
 X\setminus Y  & A_{1} & A_{2} & \dots & A_{k} & \mathrm{Total}~X \\
@@ -59,15 +59,15 @@ $$
 
 Em ambos testes, usaremos a seguinte estatística para testar suas hipóteses (independência e homogeneidade)
 $$
-\chi^2_{\mathrm{obs}} = \sum^k_{i=1}\sum^l_{j=1} \frac{(O_{ij}-E_{ij})^2}{E_{ij}}
+\chi^2 = \sum^k_{i=1}\sum^l_{j=1} \frac{(O_{ij}-E_{ij})^2}{E_{ij}}
 $$
 Sob $H_{0}$, ou seja,
 $$
-\chi^2_{\mathrm{obs}}\sim \chi^2_{(k-1)(l-1)}
+\chi^2_{obs}\sim \chi^2_{(k-1)(l-1)}
 $$
 Dessa forma, rejeitamos a hipótese $H_{0}$ a $\alpha$ graus de liberdade se
 $$
-\chi^2_{\mathrm{obs}} > c_{p}
+\chi^2_{obs} > c_{p}
 $$
 em que $c_{p}$ satisfaz $P(\chi^2_{(k-1)(l-1)} > c_{p})=\alpha$.
 

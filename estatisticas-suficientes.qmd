@@ -1,25 +1,31 @@
 # Estatísticas Suficientes
 
-Seja $\mathbb{X}_n(x_1,\dots,x_n)$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta,
-\theta \in \Theta$. Dizemos que uma [estatística](estatisticas.qmd) $T(\mathbb{X}_n$ é suficinete para o 
-[modelo estatístico](modelo-estatistico.qmd) se, e somente se, a distribuição da amosta dado que $T(\mathbb{X}_n = t$
+Seja $\pmb{X}_n(x_1,\dots,x_n)$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta,
+\theta \in \Theta$. Dizemos que uma [estatística](estatisticas.qmd) $T(\pmb{X}_n$ é suficinete para o 
+[modelo estatístico](modelo-estatistico.qmd) se, e somente se, a distribuição da amosta dado que $T(\pmb{X}_n = t$
 não depende de "$\theta$". Ou seja,
 $$
 \begin{aligned}
-P_\theta(X_1\leq y_1,\dots,X_n\leq y_n \lvert T(\mathbb{X}_n)=t)\
+P_\theta(X_1\leq y_1,\dots,X_n\leq y_n \lvert T(\pmb{X}_n)=t)\
 \text{Não depende de}\ \theta, \forall y_1,\dots,y_n \in \mathbb{R} \\
-\text{E para todo valor de}\ t \ \text{para o quais a distribuição de}\ T(\mathbb{X}_n)\ \text{exista}
+\text{E para todo valor de}\ t \ \text{para o quais a distribuição de}\ T(\pmb{X}_n)\ \text{exista}
 \end{aligned}
 $$
 
 Em outras palavras, a informação probabilística sobre "$\theta$" da amostra aleatória está inteiramente contida no modelo
 induzido pela estatística.
 
-No caso discreto, basta mostrar que $P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n)=t)$ não depende de "$\theta$"
-para todo $y_1,\dots,y_n \in \mathbb{R}$ e valores de $t$ para os quais a distribuição de $T(\mathbb{X}_n)$ exista.
+No caso discreto, basta mostrar que $P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n)=t)$ não depende de "$\theta$"
+para todo $y_1,\dots,y_n \in \mathbb{R}$ e valores de $t$ para os quais a distribuição de $T(\pmb{X}_n)$ exista.
 
 No caso contínuo, basta mostrar que $f_\theta^{(n)}(y_1,\dots,y_n\lvert t)$ não depende de $\theta$ para todo
-$y_1,\dots,y_n \in \mathbb{R}$ e valores de t para os quais a função densidade de probabilidade de $T(\mathbb{X}_n)$ exista.
+$y_1,\dots,y_n \in \mathbb{R}$ e valores de t para os quais a função densidade de probabilidade de $T(\pmb{X}_n)$ exista.
+
+Como discutiremos [adiante](estatisticas-suficientes.qmd#sec-problema), podemos substituir a restrição $\in \mathbb{R}$
+pelo termo "quase certamente" ($\mathrm{q.c.}$, isto é, para todos exceto um conjunto enumerável (de medida de probabilidade nula).
+
+Também, $f_\theta^{(n)}$ será reescrita por $f_\theta^{\pmb{X}_n}$ para diferenciar a função (densidade) da amostra, da estatística e das condicionais.
+
 
 ## Caso discreto
 
@@ -27,33 +33,33 @@ $y_1,\dots,y_n \in \mathbb{R}$ e valores de t para os quais a função densidade
 
 #### Exemplo 1
 
-Seja $\mathbb{X}_n = (X_1, \dots, X_n)$ uma a.a. de $X\sim\mathrm{Ber}(\theta), \theta \in \Theta = (0,1)$.
-Verifique se $T(\mathbb{X}_n=\sum^n_{i=1}X_i$ é suficiente para o modelo estatístico.
+Seja $\pmb{X}_n = (X_1, \dots, X_n)$ uma a.a. de $X\sim\mathrm{Ber}(\theta), \theta \in \Theta = (0,1)$.
+Verifique se $T(\pmb{X}_n=\sum^n_{i=1}X_i$ é suficiente para o modelo estatístico.
 
 ##### Resposta
 
 Por definição,
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n) = t) = \frac{P_\theta(X_1=y_1,\dots,X_n=y_n,T(\mathbb{X}_n)=t)}
-{P_\theta(T(\mathbb{X}_n)=t}
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n) = t) = \frac{P_\theta(X_1=y_1,\dots,X_n=y_n,T(\pmb{X}_n)=t)}
+{P_\theta(T(\pmb{X}_n)=t}
 $$
 
-Sabemos que $T(\mathbb{X}_n)=\sum^n_{i=1}X_i \sim \mathrm{Bin}(n,\theta)$ (por função geradora de momentos). Portanto,
+Sabemos que $T(\pmb{X}_n)=\sum^n_{i=1}X_i \sim \mathrm{Bin}(n,\theta)$ (por função geradora de momentos). Portanto,
 $$
-P_\theta(T(\mathbb{X}_n=t) = \left\{ \begin{array}{ll}
+P_\theta(T(\pmb{X}_n=t) = \left\{ \begin{array}{ll}
 \binom{n}{t} \cdot \theta^t\cdot(1-\theta)^{n-t},&\text{Se}\ t \in \{0,1,\dots,n\} \\
 0, & \mathrm{c.c.}
 \end{array} \right.
 $$
 
-Logo, $P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n) = t)$ só está bem definida se $t \in \{0,1,\dots,n\}$
+Logo, $P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n) = t)$ só está bem definida se $t \in \{0,1,\dots,n\}$
 
 (Numerador)
 $$
 \begin{aligned}
-&P_\theta(X_1=y_1,\dots,X_n=y_n,T(\mathbb{X}_n)=t) \\
+&P_\theta(X_1=y_1,\dots,X_n=y_n,T(\pmb{X}_n)=t) \\
 &\stackrel{\mathrm{TPT}}{=}
-\overbracket{P_\theta(X_1=y_1,\dots,X_n=y_n)}^{A} \cdot \overbracket{P_\theta(T(\mathbb{X}_n)=t\lvert X_1=y_1,\dots,X_n=y_n)}^B
+\overbracket{P_\theta(X_1=y_1,\dots,X_n=y_n)}^{A} \cdot \overbracket{P_\theta(T(\pmb{X}_n)=t\lvert X_1=y_1,\dots,X_n=y_n)}^B
 \end{aligned}
 $$
 
@@ -68,7 +74,7 @@ $$
 Para $t \in \{0,1,\dots,n\}$
 
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n) = t) =
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n) = t) =
 \left \{ \begin{array}{ll}
 \frac{\prod^n_{i=1}\theta^{y_i}(1-\theta)^{1-y_i}}{\binom{n}{t}\cdot\theta^t\cdot(1-\theta)^{n-t}}, & \text{Se}\ t = \sum^n_{i=1}y_i\\
 0, & \mathrm{c.c}
@@ -77,7 +83,7 @@ $$
 
 Portanto,
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n) = t) =
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n) = t) =
 \left \{ \begin{array}{ll}
 \frac{\theta^{\sum^n_{i=1}y_i}(1-\theta)^{\sum^n_{i=1}1-y_i}}{\binom{n}{t}\cdot\theta^t\cdot(1-\theta)^{n-t}}, & \text{Se}\ t = \sum^n_{i=1}y_i \\
 0, & \mathrm{c.c}
@@ -87,7 +93,7 @@ $$
 Concluímos que
 $$
 \begin{aligned}
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n) = t) =
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n) = t) =
 \left \{ \begin{array}{ll}
 \frac{\prod_{i=1}^n \mathbb{1}_{\{0,1\}}(y_i)}{\binom{n}{t}}, & \text{Se}\ t = \sum^n_{i=1}y_i \\
 0, & \mathrm{c.c}
@@ -96,27 +102,27 @@ P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n) = t) =
 \end{aligned}
 $$
 
-A estatística $T(\mathbb{X}_n)$ é suficiente para o modelo estatístico Bernoulli
+A estatística $T(\pmb{X}_n)$ é suficiente para o modelo estatístico Bernoulli
 
 #### Exemplo 2
 
-Seja $\mathbb{X}_n=(X_1,\dots,X_n)$ uma amostra aleatória de $X\sim\mathrm{Pois}(\theta), \theta \in \Theta = (0,\infty)$.
-Verifique se $T(\mathbb{X}_n)= \frac{1}{n}\sum^n_{i=1}X_i$ é uma estatística suficiente para o modelo estatístico.
+Seja $\pmb{X}_n=(X_1,\dots,X_n)$ uma amostra aleatória de $X\sim\mathrm{Pois}(\theta), \theta \in \Theta = (0,\infty)$.
+Verifique se $T(\pmb{X}_n)= \frac{1}{n}\sum^n_{i=1}X_i$ é uma estatística suficiente para o modelo estatístico.
 
 ##### Resposta
 
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n) = t) =
-\frac{P_\theta(X_1=y_1,\dots,X_n=y_n,T(\mathbb{X}_n) = t)}
-{P_\theta(T(\mathbb{X}_n)=t}
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n) = t) =
+\frac{P_\theta(X_1=y_1,\dots,X_n=y_n,T(\pmb{X}_n) = t)}
+{P_\theta(T(\pmb{X}_n)=t}
 $$
 
 (Numerador)
 $$
 \begin{aligned}
-&P_\theta(X_1=y_1,\dots,X_n=y_n,T(\mathbb{X}_n)=t) \\
+&P_\theta(X_1=y_1,\dots,X_n=y_n,T(\pmb{X}_n)=t) \\
 &\stackrel{\mathrm{TPT}}{=}
-\overbracket{P_\theta(X_1=y_1,\dots,X_n=y_n)}^{A} \cdot \overbracket{P_\theta(T(\mathbb{X}_n)=t\lvert X_1=y_1,\dots,X_n=y_n)}^B
+\overbracket{P_\theta(X_1=y_1,\dots,X_n=y_n)}^{A} \cdot \overbracket{P_\theta(T(\pmb{X}_n)=t\lvert X_1=y_1,\dots,X_n=y_n)}^B
 \end{aligned}
 $$
 
@@ -140,7 +146,7 @@ $$
 Tome $t = \frac{k}{n}$, então $k=nt$
 $$
 P_\theta\left(\sum^n_{i=1}X_i=k\right) = \left\{ \begin{array}{ll}
-\mathrm{e}^{-n\theta}\cdot \frac{(n\theta)^{nt}}{(nt)!}, & k \in \{0,\frac{1}{n},\frac{2}{n},\dots\} \\
+\mathrm{e}^{-n\theta}\cdot \frac{(n\theta)^{nt}}{(nt)!}, & t \in \{0,\frac{1}{n},\frac{2}{n},\dots\} \\
 0, & \mathrm{c.c.}
 \end{array}\right.
 $$
@@ -148,7 +154,7 @@ $$
 Portanto, para $t \in \{0, \frac{1}{n}, \frac{2}{n},\dots\}$, temos que
 $$
 \begin{aligned}
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n)=t) &= \left\{ \begin{array}{ll}
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n)=t) &= \left\{ \begin{array}{ll}
 \frac{\prod^n_{i=1}\left\{\mathrm{e}^{-\theta}\cdot\frac{\theta^{y_i}}{y_i!}\cdot \mathbb{1}_{\{0,1,\dots\}}(y_i)\right\}} 
 {\mathrm{e}^{-n\theta}\cdot \frac{(n\theta)^{nt}}{(nt)!}}, & t=\frac{1}{n} \sum^n_{i=1} y_i \\
 0, & \mathrm{c.c.}
@@ -172,38 +178,38 @@ Não depende de "$\theta$" para todo $y_1,\dots,y_n \in \mathbb{R}$ e $t \in \{0
 ## Caso Contínuo
 
 ### Exemplo (Normal)
-Seja $\mathbb{X}_n = (X_1,\dots,X_n)$ a.a. de $X\sim N(\theta,1), \theta \in \mathbb{R}$. Verifique se
-$T(\mathbb{X}_n) = \sum^n_{i=1}X_i$ é suficiente para o modelo estatístico.
+Seja $\pmb{X}_n = (X_1,\dots,X_n)$ a.a. de $X\sim N(\theta,1), \theta \in \mathbb{R}$. Verifique se
+$T(\pmb{X}_n) = \sum^n_{i=1}X_i$ é suficiente para o modelo estatístico.
 
 #### Resposta
 Por definição
 $$
-f_\theta^{\mathbb{X}_n\lvert T(\mathbb{X}_n) = t}(y_1,\dots,y_n) = \frac{f_\theta^{\mathbb{X}_n, T(\mathbb{X}_n}(y_1,\dots,y_n,t}
-{f_\theta^{T(\mathbb{X}_n}(t)}
+f_\theta^{\pmb{X}_n\lvert T(\pmb{X}_n) = t}(y_1,\dots,y_n) = \frac{f_\theta^{\pmb{X}_n, T(\pmb{X}_n}(y_1,\dots,y_n,t}
+{f_\theta^{T(\pmb{X}_n}(t)}
 $$
 
 (Denominador)
-Já sabemos que $T(\mathbb{X}_n) = \sum^n_{i=1} X_i \sim N(n\theta, n)$
+Já sabemos que $T(\pmb{X}_n) = \sum^n_{i=1} X_i \sim N(n\theta, n)$
 $$
-\Rightarrow f_\theta^{T(\mathbb{X}_n)}(t) = \frac{1}{\sqrt{2\pi n}} \cdot \mathrm{e}^{-\frac{1}{2n}\cdot (t-n\theta)^2}, t \in \mathbb{R}
+\Rightarrow f_\theta^{T(\pmb{X}_n)}(t) = \frac{1}{\sqrt{2\pi n}} \cdot \mathrm{e}^{-\frac{1}{2n}\cdot (t-n\theta)^2}, t \in \mathbb{R}
 $$
 (Numerador)
 $$
-f_\theta^{\mathbb{X}_n,T(\mathbb{X}_n)}(y_1,\dots,y_n,t) = 
-f_\theta^{\mathbb{X}_n}(y_1,\dots,y_n) \cdot f_\theta^{T(\mathbb{X}_n\lvert \mathbb{X}_n=(y_1,\dots,y_n}(t)
+f_\theta^{\pmb{X}_n,T(\pmb{X}_n)}(y_1,\dots,y_n,t) = 
+f_\theta^{\pmb{X}_n}(y_1,\dots,y_n) \cdot f_\theta^{T(\pmb{X}_n\lvert \pmb{X}_n=(y_1,\dots,y_n}(t)
 $$
 
 Note que
 $$
 \begin{aligned}
-&f_\theta^{T(\mathbb{X}_n\lvert \mathbb{X}_n = (y_1,\dots,y_n} = \left\{ \begin{array}{ll}
+&f_\theta^{T(\pmb{X}_n\lvert \pmb{X}_n = (y_1,\dots,y_n} = \left\{ \begin{array}{ll}
 1, & t = \sum^n_{i=1} y_1 \\
 0, & \mathrm{c.c.}
 \end{array}\right. \\
 \Rightarrow&
-f_\theta^{\mathbb{X}_n\lvert T(\mathbb{X}_n) = t}(y_1,\dots,y_n) = \left\{ \begin{array}{ll}
-\frac{f_\theta^{\mathbb{X}_n}(y_1,\dots,y_n}
-{f_\theta^{T(\mathbb{X}_n)}(t)},& t = \sum^n_{i=1}y_i \\
+f_\theta^{\pmb{X}_n\lvert T(\pmb{X}_n) = t}(y_1,\dots,y_n) = \left\{ \begin{array}{ll}
+\frac{f_\theta^{\pmb{X}_n}(y_1,\dots,y_n}
+{f_\theta^{T(\pmb{X}_n)}(t)},& t = \sum^n_{i=1}y_i \\
 0, & \mathrm{c.c.}
 \end{array} \right.
 \end{aligned}
@@ -211,7 +217,7 @@ $$
 
 Logo
 $$
-f_\theta^{T(\mathbb{X}_n\lvert \mathbb{X}_n = (y_1,\dots,y_n} = \left\{ \begin{array}{ll}
+f_\theta^{T(\pmb{X}_n\lvert \pmb{X}_n = (y_1,\dots,y_n} = \left\{ \begin{array}{ll}
 \frac{\frac{1}{\sqrt{2\pi\cdot1}^n} \cdot \mathrm{exp}\left\{-\frac{1}{2} \sum^n_i=1 (y_i - \theta)^2\right\}}
 {\frac{1}{\sqrt{2\pi\cdot n}}\cdot \mathrm{exp}\left\{-\frac{1}{2n}(t-n\theta)^2\right\}}, & t = \sum y_i \\
 0, & \mathrm{c.c.}
@@ -219,10 +225,10 @@ f_\theta^{T(\mathbb{X}_n\lvert \mathbb{X}_n = (y_1,\dots,y_n} = \left\{ \begin{a
 $$
 
 Note que $-\frac{1}{2}\sum(y_i-\theta)^2=-\frac{1}{2}\left(\frac{t^2}{n}-2t\theta+n\theta^2\right)$
-Logo $f_\theta^{\mathbb{X}_n\lvert T(\mathbb{X}_n)=t}$ não depende de $\theta$ e $\sum X_i$ é suficiente para o modelo
+Logo $f_\theta^{\pmb{X}_n\lvert T(\pmb{X}_n)=t}$ não depende de $\theta$ e $\sum X_i$ é suficiente para o modelo
 estatístico.
 
-### Problema das funções densidade de probabilidade
+### Problema das funções densidade de probabilidade {#sec-problema}
 
 *A função densidade de probabilidade não é única.* Entretanto, é única para quase todo ponto (quase certamente).
 
@@ -268,128 +274,128 @@ $$
 f_\theta(x) = f_\theta^A(x)\ \mathrm{q.c.}\ \forall \theta \in \Theta
 $$
 
-No caso contínuo, portanto, a estatística $T(\mathbb{X}_n)$ será suficiente mesmo se
-$f_\theta^{\mathbb{X}_n\lvert T(\mathbb{X}_n)=t}(y_1,\dots,y_n)$
+No caso contínuo, portanto, a estatística $T(\pmb{X}_n)$ será suficiente mesmo se
+$f_\theta^{\pmb{X}_n\lvert T(\pmb{X}_n)=t}(y_1,\dots,y_n)$
 depende de "$\theta$" para $(y_1,\dots,y_n) \in A$, **DESDE QUE** $P_\theta(X \in A) = 0, \forall \theta \in \Theta$. Ou seja,
 pode depender de "$\theta$" em um conjunto com probabilidade zero.
 
-## Critério da Fatoração de Neyman-Fisher (Caso Simples)
+## Critério da Fatoração de Neyman-Fisher (Caso Simples) {#sec-crit-fat}
 
-Seja $\mathbb{X}_n=(x_1,\dots,x_n)$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^p$
+Seja $\pmb{X}_n=(x_1,\dots,x_n)$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^p$
 (sendo as $f_\theta, \theta \in \Theta$ do mesmo "tipo", formalmente, dominadas pela mesma medida), em que $p \in \{1,2,\dots\}$.
-Uma estatística $T(\mathbb{X}_n)$ é suficiente para o modelo estatístico se, e somente se, existirem funções
+Uma estatística $T(\pmb{X}_n)$ é suficiente para o modelo estatístico se, e somente se, existirem funções
 $h(\cdot): \mathbb{R}^n\rightarrow \mathbb{R}, m(\cdot,\cdot): \mathrm{Im}(T)\times\theta\rightarrow\mathbb{R}$
 (mensuráveis) tais que:
 $$
-f_\theta^{\mathbb{X}_n}(y_1,\dots,y_n) = h(y_1,\dots,y_n)\cdot m\left(T(y_1,\dots,y_n),\theta\right), \forall \theta \in \Theta\; \mathrm{q.c.}
+f_\theta^{\pmb{X}_n}(y_1,\dots,y_n) = h(y_1,\dots,y_n)\cdot m\left(T(y_1,\dots,y_n),\theta\right), \forall \theta \in \Theta\; \mathrm{q.c.}
 $$
 
 Obs:
 
 1. $h$ não depende de "$\theta$";
 
-2. $m$ depende de valores amostrais por meio da estatística $T(\mathbb{X}_n)$;
+2. $m$ depende de valores amostrais por meio da estatística $T(\pmb{X}_n)$;
 
-3. $f_\theta^{\mathbb{X}_n} = f_\theta^{(n)}$ é a função (densidade) de probabilidade da amostra aleatória.
+3. $f_\theta^{\pmb{X}_n} = f_\theta^{(n)}$ é a função (densidade) de probabilidade da amostra aleatória.
 
-4. Note que a [função de verossimilhança](funcao-verossimilhanca.qmd) é obtida calculando $f_\theta^{\mathbb{X}_n}$ na
+4. Note que a [função de verossimilhança](funcao-verossimilhanca.qmd) é obtida calculando $f_\theta^{\pmb{X}_n}$ na
 amostra observada, ou seja,
 $$
-L_{\mathbb{X}_n}(\theta) = f_\theta^{\mathbb{X}_n}\underbracket{(x_1,\dots,x_n)}^{\mathbb{X}_n}
+L_{\pmb{X}_n}(\theta) = f_\theta^{\pmb{X}_n}\underbracket{(x_1,\dots,x_n)}^{\pmb{X}_n}
 $$
 
 5. Alguns livros usam a função de verossimilhança no critério da fatoração
 $$
-L_{\mathbb{X}_n}(\theta) =  h(\mathbb{X}_n) \cdot m(T(\mathbb{X}_n),\theta)\; \mathrm{q.c.} \forall \theta \in \Theta
+L_{\pmb{X}_n}(\theta) =  h(\pmb{X}_n) \cdot m(T(\pmb{X}_n),\theta)\; \mathrm{q.c.} \forall \theta \in \Theta
 $$
-em que $\mathbb{X}_n = (x_1,\dots,x_n)$ da [amostra observada](populacao-e-amostra.qmd#sec-ao)
+em que $\pmb{X}_n = (x_1,\dots,x_n)$ da [amostra observada](populacao-e-amostra.qmd#sec-ao)
 
 ### Prova (caso discreto)
 
 #### $\Rightarrow$
 
-Assuma que $T(\mathbb{X}_n)$ seja suficiente. Por definição, $P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n) = t)$
+Assuma que $T(\pmb{X}_n)$ seja suficiente. Por definição, $P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n) = t)$
 não depende de "$\theta$". Logo, podemos escrever:
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n)=t) = h^*(y_1,\dots,y_n,t) \forall \theta \in \Theta
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n)=t) = h^*(y_1,\dots,y_n,t) \forall \theta \in \Theta
 $$ {#eq-podemos}
 Note também que,
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n)=t) =
-\frac{P_\theta(X_1=y_1,\dots,X_n=y_n, T(\mathbb{X}_n)=t)}
-{P_\theta(T(\mathbb{X}_n)=t)}
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n)=t) =
+\frac{P_\theta(X_1=y_1,\dots,X_n=y_n, T(\pmb{X}_n)=t)}
+{P_\theta(T(\pmb{X}_n)=t)}
 $$
 para valores de $t$ em que a probabilidade condicional exista.
 
 $$
 \begin{aligned}
-&P_\theta(X_1=y_1,\dots,X_n=y_n, T(\mathbb{X}_n)=t) \\
+&P_\theta(X_1=y_1,\dots,X_n=y_n, T(\pmb{X}_n)=t) \\
 &=
-P_\theta(X_1=y_1,\dots,X_n=y_n)\cdot P_\theta(T(\mathbb{X}_n)=t\lvert X_1=y_1,\dots,X_n=y_n)
+P_\theta(X_1=y_1,\dots,X_n=y_n)\cdot P_\theta(T(\pmb{X}_n)=t\lvert X_1=y_1,\dots,X_n=y_n)
 \end{aligned}
 $$
 
-Como, com $\mathbb{y}_n = y_1,\dots,y_n$,
+Como, com $\pmb{y}_n = y_1,\dots,y_n$,
 $$
-P_\theta(T(\mathbb{X}_n)=t\lvert X_1=y_1,\dots,X_n=y_n) = \left\{\begin{array}{ll}
-1, & T(\mathbb{y}_n) = t \\
+P_\theta(T(\pmb{X}_n)=t\lvert X_1=y_1,\dots,X_n=y_n) = \left\{\begin{array}{ll}
+1, & T(\pmb{y}_n) = t \\
 0, & \mathrm{cc}
 \end{array}\right.
 $$
 então
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n)=t) =
-\frac{P_\theta(X_1=y_1,\dots,X_n=y_n)\cdot \mathbb{1}(T(\mathbb{y}_n)=t)}
-{P_\theta(T(\mathbb{X}_n) =t)}
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n)=t) =
+\frac{P_\theta(X_1=y_1,\dots,X_n=y_n)\cdot \mathbb{1}(T(\pmb{y}_n)=t)}
+{P_\theta(T(\pmb{X}_n) =t)}
 $${#eq-aberto}
 
 Por ([-@eq-podemos]) e ([-@eq-aberto]), temos que
 $$
-h^*(y_1,\dots,y_n, t) \cdot P_\theta(T(\mathbb{X}_n)=t) = P_\theta(X_1=y_1,\dots,X_n=y_n\lvert \mathbb{1}(T(\mathbb{X}_n)=t))
+h^*(y_1,\dots,y_n, t) \cdot P_\theta(T(\pmb{X}_n)=t) = P_\theta(X_1=y_1,\dots,X_n=y_n\lvert \mathbb{1}(T(\pmb{X}_n)=t))
 $$
 
-Para $T(\mathbb{X}_n)=t$, temos que
+Para $T(\pmb{X}_n)=t$, temos que
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n) = h^*(y_1,\dots,y_n, T(\mathbb{y}_n)) \cdot P_\theta(T(\mathbb{X}_n)=T(\mathbb{y}_n))
+P_\theta(X_1=y_1,\dots,X_n=y_n) = h^*(y_1,\dots,y_n, T(\pmb{y}_n)) \cdot P_\theta(T(\pmb{X}_n)=T(\pmb{y}_n))
 $$
 
 #### $\Leftarrow$
 Assuma que existam $h, m$ tais que
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n) = h(\mathrm{y}_n) \cdot m(T(\mathbb{y}_n,\theta)
+P_\theta(X_1=y_1,\dots,X_n=y_n) = h(\mathrm{y}_n) \cdot m(T(\pmb{y}_n,\theta)
 $$
 Note que
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n = t) = \left\{ \begin{array}{ll}
-\frac{P_\theta(X_1=y_1,\dots,X_n=y_n)}{P_\theta(T(\mathbb{X}_n)=t)}, & T(\mathbb{y}_n)=t \\
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n = t) = \left\{ \begin{array}{ll}
+\frac{P_\theta(X_1=y_1,\dots,X_n=y_n)}{P_\theta(T(\pmb{X}_n)=t)}, & T(\pmb{y}_n)=t \\
 0, & \mathrm{c.c.}
 \end{array}\right.
 $$
 
 Observe que
 $$
-P_\theta(T(\mathbb{X}_n) = t) = \sum_{(y_1,\dots,y_n) : T(\mathbb{y})_n=t} P_\theta(X_1=y_1,\dots,X_n=y_n)
+P_\theta(T(\pmb{X}_n) = t) = \sum_{(y_1,\dots,y_n) : T(\pmb{y})_n=t} P_\theta(X_1=y_1,\dots,X_n=y_n)
 $$
 Por suposição
 $$
 \begin{aligned}
-P_\theta(T(\mathbb{X}_n) =t) &= \sum_{\mathbb{y}_n : T(\mathbb{y}_n)=t} h(\mathbb{y}_n) \cdot m (T(\mathbb{y}_n), \theta) \\
-&= \sum_{\mathbb{y}_n : T(\mathbb{y}_n)=t} h(\mathbb{y}_n) \cdot m(t,\theta) \\
-&= m(t,\theta) \cdot \sum_{\mathbb{y}_n : T(\mathbb{y}_n)=t} h(\mathbb{y}_n)
+P_\theta(T(\pmb{X}_n) =t) &= \sum_{\pmb{y}_n : T(\pmb{y}_n)=t} h(\pmb{y}_n) \cdot m (T(\pmb{y}_n), \theta) \\
+&= \sum_{\pmb{y}_n : T(\pmb{y}_n)=t} h(\pmb{y}_n) \cdot m(t,\theta) \\
+&= m(t,\theta) \cdot \sum_{\pmb{y}_n : T(\pmb{y}_n)=t} h(\pmb{y}_n)
 \end{aligned}
 $$
 Portanto
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n)=t) = \left\{\begin{array}{ll}
-\frac{h(\mathbb{y}_n)\cdot m(T(\mathbb{y}_n),\theta)}{m(t,\theta) \cdot \sum_{\mathbb{y}_n: T(\mathbb{y}_n) = t} h(\mathbb{y}_n)}, & T(\mathbb{y}_n) = t \\
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n)=t) = \left\{\begin{array}{ll}
+\frac{h(\pmb{y}_n)\cdot m(T(\pmb{y}_n),\theta)}{m(t,\theta) \cdot \sum_{\pmb{y}_n: T(\pmb{y}_n) = t} h(\pmb{y}_n)}, & T(\pmb{y}_n) = t \\
 0, & \mathrm{c.c.}
 \end{array}\right.
 $$
 
 Logo,
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\mathbb{X}_n)=t) = \left\{\begin{array}{ll}
-\frac{h(\mathbb{y}_n)}{\sum_{\mathbb{y}_n: T(\mathbb{y}_n) = t} h(\mathbb{y}_n)}, & T(\mathbb{y}_n) = t \\
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n)=t) = \left\{\begin{array}{ll}
+\frac{h(\pmb{y}_n)}{\sum_{\pmb{y}_n: T(\pmb{y}_n) = t} h(\pmb{y}_n)}, & T(\pmb{y}_n) = t \\
 0, & \mathrm{c.c.}
 \end{array}\right.
 $$
@@ -397,26 +403,276 @@ $$
 
 ### Exemplo (1 do caso discreto)
 
-Seja $\mathbb{X}_n=(X_1,\dots,X_n)$ amostra aleatória de $X\sim\mathrm{Ber}(\theta), \theta \in \Theta = (0,1)$. Verifique
-se $T(\mathbb{X}_n)=\sum^n_{i=1}X_i$ é suficiente para o modelo estatístico.
+Seja $\pmb{X}_n=(X_1,\dots,X_n)$ amostra aleatória de $X\sim\mathrm{Ber}(\theta), \theta \in \Theta = (0,1)$. Verifique
+se $T(\pmb{X}_n)=\sum^n_{i=1}X_i$ é suficiente para o modelo estatístico.
 
 #### Resposta
 Observe que
 $$
 \begin{aligned}
-f_\theta^{\mathbb{X}_n}(y_1,\dots,y_n) &= \left\{ \begin{array}{ll}
+f_\theta^{\pmb{X}_n}(y_1,\dots,y_n) &= \left\{ \begin{array}{ll}
 \prod^n_{i=1}\left\{\theta^{y_i}\cdot(1-\theta)^{1-y_i}\right\}, & y_i \in \{0,1\}, \forall i = 1,\dots,n \\
 0, & \mathrm{c.c.}
 \end{array}\right. \\
 \Rightarrow
-f_\theta^{\mathbb{X}_n}(y_1,\dots,y_n) &= \theta^{\sum y_i} \cdot (1-\theta)^{n-\sum y_i} \cdot \prod^n_{i=1}\mathbb{1}_{\{0,1\}} (y_1)
+f_\theta^{\pmb{X}_n}(y_1,\dots,y_n) &= \theta^{\sum y_i} \cdot (1-\theta)^{n-\sum y_i} \cdot \prod^n_{i=1}\mathbb{1}_{\{0,1\}} (y_1)
 \end{aligned}
 $$
 
 Tome $h(y_1,\dots,y_n) = \prod^n_{i=1}\mathbb{1}_{\{0,1\}}(y_1)$ e $m(T(y_1,\dots,y_n),\theta) = \theta^{\sum y_i} \cdot (1-\theta)^{n-\sum y_i}$
 em que $T(y_1,\dots,y_n) = \sum^n_{i=1}y_i$. Temos que
 $$
-f_\theta^{\mathbb{X}_n}(y_1,\dots,y_n) = h(y_1,\dots,y_n) \cdot m(T(y_1,\dots,y_n),\theta),\forall \theta \in \Theta
+f_\theta^{\pmb{X}_n}(y_1,\dots,y_n) = h(y_1,\dots,y_n) \cdot m(T(y_1,\dots,y_n),\theta),\forall \theta \in \Theta
 $$
 
-Pelo critério da fatoração, $T(\mathbb{X}_n) = \sum^n_{i=1}X_i$ é suficiente para o modelo de Bernoulli.
+Pelo critério da fatoração, $T(\pmb{X}_n) = \sum^n_{i=1}X_i$ é suficiente para o modelo de Bernoulli.
+
+## Mais Exemplos
+
+### Exemplo a
+
+Seja $\pmb{X}_n$ amostra aleatória de $X\sim\mathrm{Beta}(a,b), \theta = (a,b) \in \Theta = \mathbb{R}^2_+$. Encontre
+uma estatística suficiente para o modelo.
+
+#### Resposta
+A função densidade de probabilidade da amostra aleatória é
+
+$$
+f^{\pmb{X}_n}_\theta(y_1,\dots,y_n) \stackrel{a.a}{=}
+\prod^n_{i=1} f_\theta(y_i) \stackrel{\mathrm{Beta}}{=}
+\prod^n_{i=1}
+\left\{
+\frac{1}{\beta(a,b)}y_{i}^{a-1}\cdot(1-y_i)^{b-1}
+\right\}
+$$
+
+Em que
+$$
+\begin{aligned}
+\beta(a,b) &= \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)} \\
+\Gamma(a) &= \int^\infty_0 x^{a-1}\cdot\mathrm{e}^{-x}dx
+\end{aligned}
+$$
+
+$$
+\Rightarrow f_\theta^{\pmb{X}_n}(\pmb{y}_n) = \left\{\begin{array}{ll}
+\frac{1}{\beta(a,b)^n}
+\left(\prod^n_{i=1}y_1\right)^{a-1} \cdot \left( \prod^n_{i=1} (1-y_1)\right)^{b-1}, & \pmb{y}_n \in (0,1)^n \\
+0, & \mathrm{c.c.}
+\end{array}\right.
+$$
+
+Tome $h(\pmb{y}_n) = \prod^n_{i=1}\mathbb{1}(y_i)_{(0,1)}$ e
+$$
+m(t,\theta) = \frac{1}{\beta(a,b)^n} \cdot t_1^{a-1} \cdot t_2^{b-1}
+$$
+em que
+$t=(t_1,t_2)$ e $t_1 = \prod^n_{i=1}y_i, t_2 = \prod^n_{i=1}(1-y_i)$. Ou seja,
+$$
+T(\pmb{X}_n) = \left(\prod^n_{i=1}X_i, \prod^n_{i=1}(1-X_i)\right)
+$$
+é uma estatística suficiente para o modelo pois
+$$
+f_\theta^{\pmb{X}_n}(\pmb{y}_n) \cdot m(T(\pmb{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
+$$
+
+### Exemplo b
+Seja $\pmb{X}_n$ amostra aleatória de $X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}_+$. Encontre
+uma estatística suficiente para o modelo.
+
+#### Resposta
+
+A função densidade de probabilidade da amostra aleatória é
+$$
+\begin{aligned}
+f_\theta^{\pmb{X}_n} (y_1,\dots,y_n) &\stackrel{\mathrm{a.a.}}{=} \prod_{i=1}^n f_\theta(y_i), \forall \pmb{y}_n \in \mathbb{R}^n \\
+&\stackrel{N}{=} \prod_{i=1}^N \left\{
+\frac{1}{\sqrt{2\pi\sigma^2}} \cdot \mathrm{exp}\left\{-\frac{1}{2\sigma^2}(y_i-\mu)^2\right\}
+\right\} \\
+&= \frac{1}{(2\pi\sigma^2)^{\frac{n}{2}}} \cdot \mathrm{exp} \left\{-\frac{1}{2\sigma^2}\sum^n_{i=1}(y_1-\mu)^2\right\}
+\end{aligned}
+$$
+
+Note que $(y_1-\mu)^2 =y_i^2 -2y_i\mu + \mu^2$, logo,
+
+$$
+f_\theta^{\pmb{X}_n} = \frac{1}{(2\pi\sigma^2)^{\frac{n}{2}}} \cdot \mathrm{e} \left\{
+-\frac{1}{\sigma^2}\left(
+\sum^n_{i=1} y_i^2-2\mu\sum^n_{i=1}y_i + n\mu^2
+\right)
+\right\}
+$$
+
+Tome $h(\pmb{y}_n) = \frac{1}{(2\pi\sigma^2)}$ e
+$$
+m(t,\theta) = \frac{1}{(\sigma^2)^{\frac{n}{2}}}\cdot \mathrm{exp}\left\{
+-\frac{1}{2\sigma^2} \left(t_2-2\mu t_1-\mu^2\right)
+\right\}
+$$
+
+Em que $t=(t_1,t_2)$ e $t_1 = \sum^n_{y_1}, t_2 = \sum^n_{i=1}y^2_i$
+
+Ou seja, $T(\pmb{X}_n) = \left(\sum^n_{i=1}X_i,\sum^n_{i=1}X^2\right)$ é uma estatística suficiente para o modelo pois
+$$
+f_\theta^{\pmb{X}_n}(\pmb{y}_n) \cdot m(T(\pmb{X}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
+$$
+
+### Exemplo c
+Seja $\pmb{X}_n$ amostra aleatória de $X\sim\mathrm{Unif}(0,\theta), \theta = (a,b) \in \Theta = \mathbb{R}_+$. Encontre
+uma estatística suficiente para o modelo.
+
+#### Respostas
+A função densidade de probabilidade da amostra aleatória
+
+$$
+f_\theta^{\pmb{X}_n}(y_1,\dots,y_n) \stackrel{a.a.}{=}
+\prod^n_{i=1} f_\theta(y_1) \forall \pmb{y}_n \in \mathbb{R}^n
+$$
+
+Note que
+$$
+f_\theta (x)= \left\{\begin{array}{ll}
+\frac{1}{\theta}, & x \in (0,\theta] \\
+0, & \mathrm{c.c.}
+\end{array}\right. = \frac{1}{\theta}\mathbb{1}(x)_{(0,\theta])}
+$$
+
+Logo,
+$$
+f_\theta^{\pmb{X}_n}(\pmb{y}_n) \stackrel{\mathrm{Unif}}{=}
+\frac{1}{\theta} \mathbb{1}_{(0,\theta]}(y_i) \\
+= \frac{1}{\theta^n} \cdot \prod^n_{i=1} \mathbb{1}_{(0,\theta]}(y_1)
+$$
+
+Note que
+$$
+\prod^n_{i=1} \mathbb{1}_{(0,\theta]}(y_i) \Leftrightarrow
+\left\{\begin{array}{ll}
+0 < y_1 \leq \theta \\
+\vdots \\
+0 < y_n \leq \theta
+\end{array}\right. \Leftrightarrow
+\left\{\begin{array}{ll}
+\min(\pmb{y}_n) > 0 \\
+\max(\pmb{y}_n) \leq \theta
+\end{array}\right.
+$$
+
+Logo
+$$
+\prod^n_{i=1}\mathbb{1}(y_i)_{(0,\theta]} = 1 \Leftrightarrow
+\mathbb{1}_{(0,\infty)}(\min(\pmb{y}_n)) \cdot
+\mathbb{1}_{(0,\theta]}(\max(\pmb{y}_n))
+$$
+
+e
+
+$$
+f_\theta^{\pmb{X}_n}(\pmb{y}_n) = \frac{1}{\theta^n} 
+\mathbb{1}_{(0,\infty)}(\min(\pmb{y}_n)) \cdot
+\mathbb{1}_{(0,\theta]}(\max(\pmb{y}_n))
+$$
+
+Tome $h(\pmb{y}_n) = \mathbb{1}(\min(\pmb{y}_n))$ e $m(t,\theta) = \frac{1}{\theta^n} \mathbb{1}_{(0,\theta]}(t)$,
+em que $t=\max(\pmb{y}_n)$
+
+Portanto, pelo critério da fatoração, $T(\pmb{X}_n) = \max(x_1,\dots,x_n)$ é uma estatística suficiente para o modelo
+em questão.
+
+## Teorema ("Invariância" da estatística suficiente)
+Seja $T(\pmb{X}_n)$ uma estatística suficiente para o modelo estatístico. Então
+$$
+G(\pmb{X}_n) = s(T(\pmb{X}_n))
+$$
+é uma estatistica suficiente se $s(\cdot)$ for bijetora (só precisa ser injetora)
+
+### Prova
+
+Como $T(\pmb{X}_n)$ é suficiente para o modelo temos, pelo critério da fatoração, que
+$$
+f_\theta^{\pmb{X}_n}(\pmb{y}_n) = h(\pmb{y}_n) \cdot m(T(\pmb{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
+$$
+
+Como $s(\cdot)$ é bijetora, temos que sua inversa existe:
+$$
+T(\pmb{X}_n) = s^{-1}(G(\pmb{X}_n)) \Rightarrow 
+T(\pmb{y}_n) = s^{-1}(G(\pmb{y}_n))
+$$
+
+Portanto,
+$$
+f_\theta^{\pmb{X}_n} (\pmb{y}_n)= h(\pmb{y}_n) \cdot m(s^{-1}(G(\pmb{X}_n)), \theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
+$$
+
+Tome $m^*(\cdot,\theta) = m(s^{-1}(\cdot),\theta)$. Substituindo, temos que
+
+$$
+f_\theta^{\pmb{X}_n} (\pmb{y}_n)= h(\pmb{y}_n) \cdot m^*((G(\pmb{X}_n)), \theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
+$$
+
+Logo, pelo [critério da fatoração](estatisticas-sufucientes.qmd#sec-crit-fat), $G(\pmb{X}_n)$ é suficiente para o
+modelo estatístico.
+
+### Exemplos
+
+a) Se $T(\pmb{X}_n) = \sum^n_{i=1}X_i$ é suficiente para o modelo, então:
+
+1. $G(\pmb{X}_n)=\frac{1}{n}\sum^n_{i=1}X_i$ é suficiente para o modelo;
+
+2. $G(\pmb{X}_n)=\mathrm{e}^{\sum^n_{i=1}X_i}$ é suficiente para o modelo;
+
+3. Para $\sum X_i \neq 0\ \mathrm{q.c.}$, $G(\pmb{X}_n)=\frac{1}{\sum^n_{i=1}X_i}$ é suficiente para o modelo;
+
+4. $G(\pmb{X}_n)=\left(\sum^n_{i=1}X_i\right)^2$ não é necessariamente suficiente para o modelo uma vez que $f(x) = x^2$
+não é injetora.
+
+b) Se $T(\pmb{X}_n)$ for suficiente para o modelo estatístico, então
+
+1. $G(\pmb{X}_n) = (T(\pmb{X}_n), T(\pmb{X}_n))$ é suficiente para o modelo;
+
+2. $G(\pmb{X}_n) = (T(\pmb{X}_n), X_1)$ é suficiente para o modelo;
+
+3. $G(\pmb{X}_n) = (T(\pmb{X}_n)^2, \pmb{X}_n)$ é suficiente para o modelo pois $\pmb{X}_n$ é suficiente
+para o modelo;
+
+4. $G(\pmb{X}_n) = (X_1\dots,X_n)$ "quase" nunca será suficiente para o modelo;
+
+5. $G(\pmb{X}_n) = (\pmb{X}_n,X_1)$ é suficiente para o modelo.
+
+6. A amostra ordenada $X_{(1)} \leq \dots \leq X_{(n)}$, denotada por $T^*(\pmb{X}_n)=(X_{(1)},\dots,X_{(n)})$ é uma
+estatística suficiente para o modelo pelo critério da fatoração, no caso de variáveis aleatórias independentes e identicamente
+distribuídas. $T^*(\pmb{X}_n)$ é dita ser a *estatística de ordem*;
+
+7. Se $f_\theta$ pertencer à [família exponencial k-dimensional](familia-exponencial.qmd#sec-fek), então
+$T(\pmb{X}_n) = \left(\sum^n_{i=1}T_1(X_i),\dots,\sum^n_{i=1}T_k(X_i)\right)$ é uma estatística suficiente para o modelo.
+Prova:
+$$
+\begin{aligned}
+f_\theta^{\pmb{X}_n}(\pmb{y}_n) &\stackrel{\mathrm{iid}}{=}
+\prod^n_{i=1} f_\theta(y_i) = \prod^n_{i=1}\left\{
+\mathrm{exp}\left\{
+\sum_{j=1}^n c_j(\theta)T_j(y_i)+d(\theta)+S(y_i)\cdot\mathbb{1}_{\mathfrak{X}}(y_i)
+\right\}
+\right\} \\
+&= \mathrm{exp}\left\{
+\sum^n_{j=1} c_j(\theta) \cdot \sum^n_{i}T_j(y_i) + nd(\theta) + \sum^n_{i=1}S(y_i) \cdot \prod^n_{i=1}\mathbb{1}_{\mathfrak{X}}(y_i)
+\right\}
+\end{aligned}
+$$
+
+Tome $h(\pmb{y}_n) = \prod \mathbb{1}_{\mathfrak{X}}(y_i)\cdot \mathrm{e}^{\sum S(y_i)}$,
+$m(t,\theta) = \mathrm{exp}\left\{c_1(\theta)t_1+\dots+c_k(\theta)t_k +nd(\theta)\right\}$, em que $t=(t_1,\dots,t_k)$ e
+$$
+\begin{aligned}
+t_1 &= \sum T_1(y_i) \\
+\vdots \\
+t_k & = \sum T_k(y_i)
+\end{aligned}
+$$
+
+Pelo critério da fatoração,
+$$
+T(\pmb{X}_n) = \left(\sum^n_{i=1} T_1(X_i),\dots,\sum^n_{i=1}T_k(X_i)\right)
+$$
+é suficiente para o modelo.
+

@@ -1,0 +1,213 @@
+# Distribuição Amostral - Aprofundamento
+
+Seja $(Y_1,\dots,Y_n)$ uma [amostra aleatória](populacao-e-amostra.qmd#aa) de $Y\sim f_\theta, \theta \in \Theta$.
+A função (densidade) de probabilidade da amostra aleatória é dada por
+$$
+f_\theta^{(n)}(y_1,\dots,y_n) \stackrel{=}{\mathrm{iid}} = \prod_{i=1}^n f_\theta (y_i), \forall \theta \in \Theta
+$$
+e $X_i \in \mathbb{R}, i = 1,\dots,n$
+
+## Relação com a [FE](familia-exponencial.qmd)
+
+### Unidimensional
+
+Se $f_\theta$ pertence à Família Exponencial Unidimensional, então
+$$
+\begin{aligned}
+&f_\theta^{(n)}(y_1,\dots,y_n) =
+\left\{ \begin{array}{lr}
+\prod^n_{i=1} \mathrm{e}^{C(\theta)T(y_i) +d(\theta)+S(y_i)}, & \mathrm{se}\ y_1,\dots,y_n \in \mathfrak{X} \\
+0, & \mathrm{c.c}
+\end{array}\right. \\
+\Rightarrow
+&f_\theta^{(n)}(\underbracket{y_1,\dots,y_n}_{\pmb{y}_n}) =
+\left\{ \begin{array}{lr}
+\mathrm{e}^{C(\theta)\sum^n_{i=1}T(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, & \mathrm{se}\ \pmb{y}_n\in \mathfrak{X}^n \\
+0, & \mathrm{c.c}
+\end{array}\right.
+\end{aligned}
+$$
+
+Em que $\mathfrak{X}^n = \mathfrak{X} \times \dots \times \mathfrak{X}$
+
+Portanto, $f_\theta^{(n)}$ pertence à FE unidimensional.
+
+### k-dimensional
+
+Se $f_\theta$ pertence à FE k-dimensional, então
+$$
+\begin{aligned}
+&f_\theta^{(n)}(\pmb{y}_n) =
+\left\{ \begin{array}{lr}
+\prod^n_{i=1} \mathrm{e}^{\sum^k_{j=1}C_j(\theta)T_j(y_i) +d(\theta)+S(y_i)}, & \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
+0, & \mathrm{c.c}
+\end{array}\right. \\
+\Rightarrow
+&f_\theta^{(n)}(\pmb{y}_n) = 
+\left\{ \begin{array}{lr}
+\mathrm{e}^{\sum^k_{j=1}C_j(\theta)\sum^n_{i=1}T_j(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, & \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
+0, & \mathrm{c.c}
+\end{array}\right.
+\end{aligned}
+$$
+
+Tome $T_j^*(\pmb{y}_n) = \sum^n_{i=1}T_j(y_i)$, $d^*(\theta)=nd(\theta)$, $S^*(\pmb{y}_n) \sum^n_{i=1}S(y_i)$
+$$
+\Rightarrow f_\theta^{(n)}(\pmb{y}_n) =
+\left\{ \begin{array}{lr}
+\mathrm{e}^{\sum^k_{j=1}C_j(\theta)T^*_j(\pmb{y}_n) +d^*(\theta)+S^*(\pmb{y}_n)}, & \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
+0, & \mathrm{c.c}
+\end{array}\right.
+$$
+
+Portanto, $f_\theta^{(n)}$ pertence à FE k-dimensional.
+
+### Exemplos
+
+#### Bernoulli
+
+Se $X\sim\mathrm{Ber}(\theta), \theta \in (0,1)$, então
+$$
+\begin{aligned}
+&f_\theta(y) = \left\{\begin{array}{ll}
+\theta^y \cdot (1-\theta)^{1-y}, & y \in \{0,1\} \\
+0, & \mathrm{c.c.}
+\end{array} \right. \\
+\Rightarrow
+&f_\theta(y) = \left\{\begin{array}{ll}
+\mathrm{e}^{\ln\left(\frac{\theta}{(1-\theta)}\right)y+\ln(1-\theta)}, & y \in \{0,1\} \\
+0, & \mathrm{c.c.}
+\end{array} \right.
+\end{aligned}
+$$
+
+A função probabilidade da amostra é
+$$
+f_\theta(\pmb{y}_n) = \left\{\begin{array}{ll}
+\mathrm{e}^{\ln\left(\frac{\theta}{(1-\theta)}\right)\sum_{i=1}^n y_i+n\ln(1-\theta)}, & \pmb{y}_n \in \{0,1\}^n \\
+0, & \mathrm{c.c.}
+\end{array}\right.
+$$
+
+#### Binomial
+Se $X\sim\mathrm{Bin}(m, \theta), \theta \in (0,1)$ e $m$ fixado, então
+$$
+f_\theta(y) = \left\{\begin{array}{ll}
+\binom{m}{y}\theta^y \cdot (1-\theta)^{m-y}, & y \in \{0,1,\dots,m\} \\
+0, & \mathrm{c.c.}
+\end{array} \right.
+$$
+
+Note que
+$$
+\begin{aligned}
+\binom{m}{y} \theta^y(1-\theta)^{m-y} &= \mathrm{e}^{\ln\binom{m}{y} + y \ln\theta + (m-y)\ln(1-\theta)} \\
+&= \mathrm{e}^{\ln\binom{m}{y} + y\ln(\theta) + m\ln(1-\theta) - y\ln(1-\theta)}
+\end{aligned}
+$$
+
+Portanto,
+$$
+f_\theta(y) = \left\{\begin{array}{ll}
+\mathrm{e}^{\ln\left(\frac{\theta}{1-\theta}\right) y + m \ln(1-\theta) + \ln\binom{m}{y}}, & y \in \{0,1\dots,m\} \\
+0, & \mathrm{c.c.}
+\end{array} \right.
+$$
+
+A função probabilidade da amostra é
+$$
+f_\theta(\pmb{y}_n) = \left\{\begin{array}{ll}
+\mathrm{e}^{\ln\left(\frac{\theta}{1-\theta}\right)\sum^n_{i=1}y_i + nm \ln(1-\theta) + \sum_{i=1}^n\ln\binom{m}{y_i}}, & \pmb{y}_n \in \mathfrak{X}^n \\
+0, & \mathrm{c.c.}
+\end{array} \right.
+$$
+
+em que $\mathfrak{X} = \{0,1,\dots,m\}$
+
+#### Dirichlet
+ <!-- kkkkkkkkkkkkkkkkkkk -->
+
+Se $X\sim\mathrm{Dirichlet}(\alpha_1,\dots,\alpha_k)$, então $X=(Y_1,\dots,Y_k)^T$ é um vetor (coluna) aleatório k-dimensional
+cuja função densidade de probabilidade é dada por
+$$
+f_\theta(y) = \left\{\begin{array}{ll}
+\frac{\Gamma(\sum^k_{j=1} \alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j)} \cdot \prod^k_{j=1} y_j^{\alpha_j-1}, & y_j \in \mathfrak{X} \\
+0, & \mathrm{c.c.}
+\end{array} \right.
+$$
+
+em que $\mathfrak{X} = \{(y_1,\dots,y_k) \in (0,1)^k : \sum^k_{j=1} y_j = 1\}$ e o vetor de parâmetros é
+$\theta=(\alpha_1,\dots,\alpha_k) \in \mathbb{R}^k_+$.
+
+A amostra aleatória é
+$$
+X_1 = \left(
+\begin{array}{c}
+Y_{11}\\
+\vdots \\
+Y_{k1}
+\end{array}
+\right),
+X_2 = \left(
+\begin{array}{c}
+Y_{12} \\
+\vdots \\
+Y_{k2}
+\end{array}
+\right), \dots,
+X_n = \left(
+\begin{array}{c}
+Y_{1n} \\
+\vdots \\
+Y_{kn}
+\end{array}
+\right)
+$$
+
+e sua função densidade de probabilidade é dada por
+$$
+f_\theta(\pmb{y}_n) \stackrel{\mathrm{iid}}{=}\left\{\begin{array}{ll}
+\left[\frac{\Gamma(\sum^k_{j=1} \alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j)}\right]^n \cdot \prod_{i=1}^n\left(\prod^k_{j=1} y_{ij}^{\alpha_j-1}\right), & y_i \in \mathfrak{X}, \forall i=1,\dots,n \\
+0, & \mathrm{c.c.}
+\end{array} \right.
+$$
+
+Tome
+$$
+g(\theta) = \left[
+\frac{\Gamma(\sum^k_{j=1}\alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j}
+\right]^n
+$$
+
+$$
+\Rightarrow
+f_\theta^{(n)}(\pmb{y}_n) = \left\{ \begin{array}{ll}
+g(\theta) \cdot \prod^n_{i=1}\prod^k_{j=1} y_{ij}^{\alpha_j-1}, & y_1,\dots,y_n \in \mathfrak{X} \\
+0,  & \mathrm{c.c.}
+\end{array}\right.
+$$
+
+Note que
+$$
+\begin{aligned}
+g(\theta) \cdot \prod^n_{i=1} \prod^k_{j=1} y_{ij}^{\alpha_j-1} &= \mathrm{e}^
+{\ln g(\theta) + \sum^n_{i=1} \sum^k_{j=1}(\alpha_j-1)\ln y_{ij}} \\
+&= \mathrm{e}^{\ln g(\theta) + \sum^k_{j=1}(\alpha_j -1) \sum^n_{i=1} \ln y_{ij}}
+\end{aligned}
+$$
+
+<!-- TODO: adicionar defs das abreviações abaixo -->
+$$
+\Rightarrow
+f_\theta^{(n)}(\pmb{y}_n) = \left\{ \begin{array}{ll}
+\mathrm{e}^{\sum^k_j=1} C_j^*(\theta)T_j^*(\pmb{y}_n)+d^*(\theta) = S^*(\pmb{y}_n), & \pmb{y}_n \in \mathfrak{X}^n \\
+0,  & \mathrm{c.c.}
+\end{array}\right.
+$$
+
+Portanto, pertence à FE k-dimensional
+
+### Observação
+
+A partir de $f_\theta^{(n)}$ conseguimos fazer inferência sobre a [quantidade de interesse](quantidade-de-interesse.qmd)
+Podemos encontrar a distribuição de [estatísticas](estatisticas.qmd) e [estimadores](estimadores.qmd).

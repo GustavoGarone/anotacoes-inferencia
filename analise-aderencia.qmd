@@ -8,7 +8,7 @@ H_{1}: P \neq P_{0}
 $$
 Em que $P_{0}$ é a medida de probabilidade especificada que governaria (sob $H_0$) os eventos observados.
 
-Neste teste comparamos a frequência observada com a frequência esperada em $k$ eventos disjuntos e distintos observáveis.
+Neste teste co,paramos a frequência observada com a frequência esperada em $k$ eventos disjuntos e distintos observáveis.
 $$
 \begin{array}{c|cc}
 \text{Eventos}  & 1  & 2 & \dots & k \\
