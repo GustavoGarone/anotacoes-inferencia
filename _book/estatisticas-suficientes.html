@@ -310,18 +310,18 @@ window.Quarto = {
   <li><a href="#sec-crit-fat" id="toc-sec-crit-fat" class="nav-link" data-scroll-target="#sec-crit-fat"><span class="header-section-number">21.3</span> Critério da Fatoração de Neyman-Fisher (Caso Simples)</a>
   <ul class="collapse">
   <li><a href="#prova-caso-discreto" id="toc-prova-caso-discreto" class="nav-link" data-scroll-target="#prova-caso-discreto"><span class="header-section-number">21.3.1</span> Prova (caso discreto)</a></li>
-  <li><a href="#exemplo-1-do-caso-discreto" id="toc-exemplo-1-do-caso-discreto" class="nav-link" data-scroll-target="#exemplo-1-do-caso-discreto"><span class="header-section-number">21.3.2</span> Exemplo (1 do caso discreto)</a></li>
+  <li><a href="#sec-ex-crit-fat" id="toc-sec-ex-crit-fat" class="nav-link" data-scroll-target="#sec-ex-crit-fat"><span class="header-section-number">21.3.2</span> Exemplo (1 do caso discreto)</a></li>
+  <li><a href="#mais-exemplos" id="toc-mais-exemplos" class="nav-link" data-scroll-target="#mais-exemplos"><span class="header-section-number">21.3.3</span> Mais Exemplos</a></li>
   </ul></li>
-  <li><a href="#mais-exemplos" id="toc-mais-exemplos" class="nav-link" data-scroll-target="#mais-exemplos"><span class="header-section-number">21.4</span> Mais Exemplos</a>
+  <li><a href="#teorema-invariância-da-estatística-suficiente" id="toc-teorema-invariância-da-estatística-suficiente" class="nav-link" data-scroll-target="#teorema-invariância-da-estatística-suficiente"><span class="header-section-number">21.4</span> Teorema (“Invariância” da estatística suficiente)</a>
   <ul class="collapse">
-  <li><a href="#exemplo-a" id="toc-exemplo-a" class="nav-link" data-scroll-target="#exemplo-a"><span class="header-section-number">21.4.1</span> Exemplo a</a></li>
-  <li><a href="#exemplo-b" id="toc-exemplo-b" class="nav-link" data-scroll-target="#exemplo-b"><span class="header-section-number">21.4.2</span> Exemplo b</a></li>
-  <li><a href="#exemplo-c" id="toc-exemplo-c" class="nav-link" data-scroll-target="#exemplo-c"><span class="header-section-number">21.4.3</span> Exemplo c</a></li>
+  <li><a href="#prova" id="toc-prova" class="nav-link" data-scroll-target="#prova"><span class="header-section-number">21.4.1</span> Prova</a></li>
+  <li><a href="#exemplos-1" id="toc-exemplos-1" class="nav-link" data-scroll-target="#exemplos-1"><span class="header-section-number">21.4.2</span> Exemplos</a></li>
   </ul></li>
-  <li><a href="#teorema-invariância-da-estatística-suficiente" id="toc-teorema-invariância-da-estatística-suficiente" class="nav-link" data-scroll-target="#teorema-invariância-da-estatística-suficiente"><span class="header-section-number">21.5</span> Teorema (“Invariância” da estatística suficiente)</a>
+  <li><a href="#estatísticas-suficientes-minimais-sm" id="toc-estatísticas-suficientes-minimais-sm" class="nav-link" data-scroll-target="#estatísticas-suficientes-minimais-sm"><span class="header-section-number">21.5</span> Estatísticas Suficientes Minimais (SM)</a>
   <ul class="collapse">
-  <li><a href="#prova" id="toc-prova" class="nav-link" data-scroll-target="#prova"><span class="header-section-number">21.5.1</span> Prova</a></li>
-  <li><a href="#exemplos-1" id="toc-exemplos-1" class="nav-link" data-scroll-target="#exemplos-1"><span class="header-section-number">21.5.2</span> Exemplos</a></li>
+  <li><a href="#teorema-1-das-estatísticas-sm" id="toc-teorema-1-das-estatísticas-sm" class="nav-link" data-scroll-target="#teorema-1-das-estatísticas-sm"><span class="header-section-number">21.5.1</span> Teorema (1 das estatísticas SM)</a></li>
+  <li><a href="#teorema-2-das-estatísticas-sm" id="toc-teorema-2-das-estatísticas-sm" class="nav-link" data-scroll-target="#teorema-2-das-estatísticas-sm"><span class="header-section-number">21.5.2</span> Teorema (2 das estatísticas SM)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -644,8 +644,8 @@ P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n)=t) = \left\{\begin{array}{ll}
 \]</span></p>
 </section>
 </section>
-<section id="exemplo-1-do-caso-discreto" class="level3" data-number="21.3.2">
-<h3 data-number="21.3.2" class="anchored" data-anchor-id="exemplo-1-do-caso-discreto"><span class="header-section-number">21.3.2</span> Exemplo (1 do caso discreto)</h3>
+<section id="sec-ex-crit-fat" class="level3" data-number="21.3.2">
+<h3 data-number="21.3.2" class="anchored" data-anchor-id="sec-ex-crit-fat"><span class="header-section-number">21.3.2</span> Exemplo (1 do caso discreto)</h3>
 <p>Seja <span class="math inline">\(\pmb{X}_n=(X_1,\dots,X_n)\)</span> amostra aleatória de <span class="math inline">\(X\sim\mathrm{Ber}(\theta), \theta \in \Theta = (0,1)\)</span>. Verifique se <span class="math inline">\(T(\pmb{X}_n)=\sum^n_{i=1}X_i\)</span> é suficiente para o modelo estatístico.</p>
 <section id="resposta-3" class="level4" data-number="21.3.2.1">
 <h4 data-number="21.3.2.1" class="anchored" data-anchor-id="resposta-3"><span class="header-section-number">21.3.2.1</span> Resposta</h4>
@@ -665,14 +665,13 @@ f_\theta^{\pmb{X}_n}(y_1,\dots,y_n) = h(y_1,\dots,y_n) \cdot m(T(y_1,\dots,y_n),
 <p>Pelo critério da fatoração, <span class="math inline">\(T(\pmb{X}_n) = \sum^n_{i=1}X_i\)</span> é suficiente para o modelo de Bernoulli.</p>
 </section>
 </section>
-</section>
-<section id="mais-exemplos" class="level2" data-number="21.4">
-<h2 data-number="21.4" class="anchored" data-anchor-id="mais-exemplos"><span class="header-section-number">21.4</span> Mais Exemplos</h2>
-<section id="exemplo-a" class="level3" data-number="21.4.1">
-<h3 data-number="21.4.1" class="anchored" data-anchor-id="exemplo-a"><span class="header-section-number">21.4.1</span> Exemplo a</h3>
+<section id="mais-exemplos" class="level3" data-number="21.3.3">
+<h3 data-number="21.3.3" class="anchored" data-anchor-id="mais-exemplos"><span class="header-section-number">21.3.3</span> Mais Exemplos</h3>
+<section id="exemplo-a" class="level4" data-number="21.3.3.1">
+<h4 data-number="21.3.3.1" class="anchored" data-anchor-id="exemplo-a"><span class="header-section-number">21.3.3.1</span> Exemplo a</h4>
 <p>Seja <span class="math inline">\(\pmb{X}_n\)</span> amostra aleatória de <span class="math inline">\(X\sim\mathrm{Beta}(a,b), \theta = (a,b) \in \Theta = \mathbb{R}^2_+\)</span>. Encontre uma estatística suficiente para o modelo.</p>
-<section id="resposta-4" class="level4" data-number="21.4.1.1">
-<h4 data-number="21.4.1.1" class="anchored" data-anchor-id="resposta-4"><span class="header-section-number">21.4.1.1</span> Resposta</h4>
+<section id="resposta-4" class="level5" data-number="21.3.3.1.1">
+<h5 data-number="21.3.3.1.1" class="anchored" data-anchor-id="resposta-4"><span class="header-section-number">21.3.3.1.1</span> Resposta</h5>
 <p>A função densidade de probabilidade da amostra aleatória é</p>
 <p><span class="math display">\[
 f^{\pmb{X}_n}_\theta(y_1,\dots,y_n) \stackrel{a.a}{=}
@@ -704,11 +703,11 @@ f_\theta^{\pmb{X}_n}(\pmb{y}_n) \cdot m(T(\pmb{y}_n),\theta)\ \mathrm{q.c.}\ \fo
 \]</span></p>
 </section>
 </section>
-<section id="exemplo-b" class="level3" data-number="21.4.2">
-<h3 data-number="21.4.2" class="anchored" data-anchor-id="exemplo-b"><span class="header-section-number">21.4.2</span> Exemplo b</h3>
+<section id="exemplo-b" class="level4" data-number="21.3.3.2">
+<h4 data-number="21.3.3.2" class="anchored" data-anchor-id="exemplo-b"><span class="header-section-number">21.3.3.2</span> Exemplo b</h4>
 <p>Seja <span class="math inline">\(\pmb{X}_n\)</span> amostra aleatória de <span class="math inline">\(X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}_+\)</span>. Encontre uma estatística suficiente para o modelo.</p>
-<section id="resposta-5" class="level4" data-number="21.4.2.1">
-<h4 data-number="21.4.2.1" class="anchored" data-anchor-id="resposta-5"><span class="header-section-number">21.4.2.1</span> Resposta</h4>
+<section id="resposta-5" class="level5" data-number="21.3.3.2.1">
+<h5 data-number="21.3.3.2.1" class="anchored" data-anchor-id="resposta-5"><span class="header-section-number">21.3.3.2.1</span> Resposta</h5>
 <p>A função densidade de probabilidade da amostra aleatória é <span class="math display">\[
 \begin{aligned}
 f_\theta^{\pmb{X}_n} (y_1,\dots,y_n) &amp;\stackrel{\mathrm{a.a.}}{=} \prod_{i=1}^n f_\theta(y_i), \forall \pmb{y}_n \in \mathbb{R}^n \\
@@ -737,11 +736,11 @@ f_\theta^{\pmb{X}_n}(\pmb{y}_n) \cdot m(T(\pmb{X}_n),\theta)\ \mathrm{q.c.}\ \fo
 \]</span></p>
 </section>
 </section>
-<section id="exemplo-c" class="level3" data-number="21.4.3">
-<h3 data-number="21.4.3" class="anchored" data-anchor-id="exemplo-c"><span class="header-section-number">21.4.3</span> Exemplo c</h3>
+<section id="exemplo-c" class="level4" data-number="21.3.3.3">
+<h4 data-number="21.3.3.3" class="anchored" data-anchor-id="exemplo-c"><span class="header-section-number">21.3.3.3</span> Exemplo c</h4>
 <p>Seja <span class="math inline">\(\pmb{X}_n\)</span> amostra aleatória de <span class="math inline">\(X\sim\mathrm{Unif}(0,\theta), \theta = (a,b) \in \Theta = \mathbb{R}_+\)</span>. Encontre uma estatística suficiente para o modelo.</p>
-<section id="respostas" class="level4" data-number="21.4.3.1">
-<h4 data-number="21.4.3.1" class="anchored" data-anchor-id="respostas"><span class="header-section-number">21.4.3.1</span> Respostas</h4>
+<section id="respostas" class="level5" data-number="21.3.3.3.1">
+<h5 data-number="21.3.3.3.1" class="anchored" data-anchor-id="respostas"><span class="header-section-number">21.3.3.3.1</span> Respostas</h5>
 <p>A função densidade de probabilidade da amostra aleatória</p>
 <p><span class="math display">\[
 f_\theta^{\pmb{X}_n}(y_1,\dots,y_n) \stackrel{a.a.}{=}
@@ -786,13 +785,14 @@ f_\theta^{\pmb{X}_n}(\pmb{y}_n) = \frac{1}{\theta^n}
 </section>
 </section>
 </section>
-<section id="teorema-invariância-da-estatística-suficiente" class="level2" data-number="21.5">
-<h2 data-number="21.5" class="anchored" data-anchor-id="teorema-invariância-da-estatística-suficiente"><span class="header-section-number">21.5</span> Teorema (“Invariância” da estatística suficiente)</h2>
+</section>
+<section id="teorema-invariância-da-estatística-suficiente" class="level2" data-number="21.4">
+<h2 data-number="21.4" class="anchored" data-anchor-id="teorema-invariância-da-estatística-suficiente"><span class="header-section-number">21.4</span> Teorema (“Invariância” da estatística suficiente)</h2>
 <p>Seja <span class="math inline">\(T(\pmb{X}_n)\)</span> uma estatística suficiente para o modelo estatístico. Então <span class="math display">\[
 G(\pmb{X}_n) = s(T(\pmb{X}_n))
 \]</span> é uma estatistica suficiente se <span class="math inline">\(s(\cdot)\)</span> for bijetora (só precisa ser injetora)</p>
-<section id="prova" class="level3" data-number="21.5.1">
-<h3 data-number="21.5.1" class="anchored" data-anchor-id="prova"><span class="header-section-number">21.5.1</span> Prova</h3>
+<section id="prova" class="level3" data-number="21.4.1">
+<h3 data-number="21.4.1" class="anchored" data-anchor-id="prova"><span class="header-section-number">21.4.1</span> Prova</h3>
 <p>Como <span class="math inline">\(T(\pmb{X}_n)\)</span> é suficiente para o modelo temos, pelo critério da fatoração, que <span class="math display">\[
 f_\theta^{\pmb{X}_n}(\pmb{y}_n) = h(\pmb{y}_n) \cdot m(T(\pmb{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
 \]</span></p>
@@ -809,8 +809,8 @@ f_\theta^{\pmb{X}_n} (\pmb{y}_n)= h(\pmb{y}_n) \cdot m^*((G(\pmb{X}_n)), \theta)
 \]</span></p>
 <p>Logo, pelo <a href="estatisticas-sufucientes.qmd#sec-crit-fat">critério da fatoração</a>, <span class="math inline">\(G(\pmb{X}_n)\)</span> é suficiente para o modelo estatístico.</p>
 </section>
-<section id="exemplos-1" class="level3" data-number="21.5.2">
-<h3 data-number="21.5.2" class="anchored" data-anchor-id="exemplos-1"><span class="header-section-number">21.5.2</span> Exemplos</h3>
+<section id="exemplos-1" class="level3" data-number="21.4.2">
+<h3 data-number="21.4.2" class="anchored" data-anchor-id="exemplos-1"><span class="header-section-number">21.4.2</span> Exemplos</h3>
 <ol type="a">
 <li>Se <span class="math inline">\(T(\pmb{X}_n) = \sum^n_{i=1}X_i\)</span> é suficiente para o modelo, então:</li>
 </ol>
@@ -853,9 +853,159 @@ t_k &amp; = \sum T_k(y_i)
 \]</span></p>
 <p>Pelo critério da fatoração, <span class="math display">\[
 T(\pmb{X}_n) = \left(\sum^n_{i=1} T_1(X_i),\dots,\sum^n_{i=1}T_k(X_i)\right)
-\]</span> é suficiente para o modelo.</p>
+\]</span></p>
+</section>
+</section>
+<section id="estatísticas-suficientes-minimais-sm" class="level2" data-number="21.5">
+<h2 data-number="21.5" class="anchored" data-anchor-id="estatísticas-suficientes-minimais-sm"><span class="header-section-number">21.5</span> Estatísticas Suficientes Minimais (SM)</h2>
+<p>Dizemos que <span class="math inline">\(T(\pmb{X}_n)\)</span> é uma estatística suficiente minimal para o modelo se, e somente se:</p>
+<ol type="1">
+<li><p><span class="math inline">\(T(\pmb{X}_n)\)</span> é suficiente para o modelo</p></li>
+<li><p>Para qualquer outra estatística suficiente <span class="math inline">\(U(\pmb{X}_n)\)</span>, existe uma função <span class="math inline">\(H\)</span> tal que <span class="math display">\[
+T(\pmb{X}_n) = H(U(\pmb{X}_n))
+\]</span></p></li>
+</ol>
+<p>Obs: A <span class="math inline">\(\sigma\)</span>-álgebra associada à estatística suficiente minimal é a menor <span class="math inline">\(\sigma\)</span>-álgebra dentre aquelas associadas às estatísticas suficientes.</p>
+<section id="teorema-1-das-estatísticas-sm" class="level3" data-number="21.5.1">
+<h3 data-number="21.5.1" class="anchored" data-anchor-id="teorema-1-das-estatísticas-sm"><span class="header-section-number">21.5.1</span> Teorema (1 das estatísticas SM)</h3>
+<p>Seja <span class="math inline">\(\pmb{X}_n = (X_1,\dots,X_n)\)</span> de <span class="math inline">\(X\sim f_\theta, \theta \in \Theta_0=\{\theta_0,\theta_1,\dots,\theta_p\}\)</span> em que <span class="math inline">\(\mathfrak{X} = \{x:f_\theta(x)&gt;0\}\)</span> não depende de “<span class="math inline">\(\theta\)</span>”. Então, <span class="math display">\[
+T(\pmb{x}) = \left(
+\frac{f_{\theta_1}^{\pmb{X}}(\pmb{x})}{f_{\theta_0}^{\pmb{X}_n}(\pmb{x})}, \dots,
+\frac{f_{\theta_p}^{\pmb{X}}(\pmb{x})}{f_{\theta_0}^{\pmb{X}_n}(\pmb{x})}
+\right)
+\]</span> em que <span class="math inline">\(T:\mathfrak{X} \rightarrow \mathbb{R}^p\)</span> é uma estatística suficiente minimal (<span class="math inline">\(T(\pmb{X}_n)\)</span>) para o modelo estatístico</p>
+<section id="prova-1" class="level4" data-number="21.5.1.1">
+<h4 data-number="21.5.1.1" class="anchored" data-anchor-id="prova-1"><span class="header-section-number">21.5.1.1</span> Prova</h4>
+<p>Note que, <span class="math inline">\(\forall \pmb{y}_n \in \mathfrak{X}\)</span>, temos que <span class="math display">\[
+f_{\theta_j}^{\pmb{X}_n}(\pmb{y}_n) =
+f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n) \cdot
+\frac{f_{\theta_j}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)}
+\]</span> Tome <span class="math inline">\(h(\pmb{y}_n) = f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)\)</span>, não depende dos diferentes valores de “<span class="math inline">\(\theta\)</span>” e</p>
+<p><span class="math display">\[
+m(T(\pmb{X}_n), \theta) =
+\left\{\begin{array}{ll}
+T_1(\pmb{y}_n), &amp; \theta = \theta_1 \\
+T_2(\pmb{y}_n), &amp; \theta = \theta_2 \\
+\vdots \\
+T_p(\pmb{y}_n), &amp; \theta = \theta_p \\
+\end{array}\right.
+\]</span></p>
+<p>Em que <span class="math inline">\(T(\pmb{x}) = (T_1(\pmb{x}), \dots, T_p(\pmb{x})\)</span> e <span class="math inline">\(T_j = \frac{f_{\theta_j}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)}\)</span>.</p>
+<p>Logo, <span class="math inline">\(T(\pmb{X}_n)\)</span> é suficiente para o modelo pelo <a href="./estatisticas-suficientes.html#sec-crit-fat">critério da fatoração</a>.</p>
+<p>Seja <span class="math inline">\(U(\pmb{X}_n)\)</span> uma estatística suficiente para o modelo. Entãom pelo critério da fatoração,</p>
+<p><span class="math display">\[
+f_\theta^{\pmb{X}_n}(pmb{y}_n) = h'(\pmb{y}_n) \cdot m'(U(\pmb{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta_0
+\]</span></p>
+<p>Observe que <span class="math inline">\(\forall \pmb{y}_n \in \mathbb{X}\)</span>, <span class="math display">\[
+\frac{f_{\theta_j}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)} =
+\frac{h'(\pmb{y}_n)\cdot m'(U(\pmb{y}_n),\theta_j)}{h'(\pmb{y}_n)\cdot m'(U(\pmb{y}_n),\theta_0)}\ \mathrm{q.c.}\ \forall \theta \in \Theta_0
+\]</span></p>
+<p>Logo,</p>
+<p><span class="math display">\[
+T_j(\pmb{y}_n) =
+\frac{f_{\theta_j}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)} =
+\frac{m'(U(\pmb{y}_n),\theta_j)}{m'(U(\pmb{y}_n),\theta_0)},\ j=1,\dots,p
+\]</span></p>
+<p>Portanto, existe <span class="math inline">\(H\)</span> tal que <span class="math display">\[
+T_j(\pmb{X}_n) = H(U(\pmb{X}_n))
+\]</span> basta tomar <span class="math display">\[
+H(u) = \left(
+\frac{m'(u,\theta_1)}{m'(u,\theta_0)}, \dots,
+\frac{m'(u\theta_p)}{m'(u,\theta_0)}
+\right)
+\]</span></p>
+</section>
+<section id="sec-ex-teo-um" class="level4" data-number="21.5.1.2">
+<h4 data-number="21.5.1.2" class="anchored" data-anchor-id="sec-ex-teo-um"><span class="header-section-number">21.5.1.2</span> Exemplo (Bernoulli)</h4>
+<p>Seja <span class="math inline">\(\pmb{X}_n = (X_1,\dots,X_n)\)</span> <a href="./populacao-e-amostra.html#sec-aa">amostra aleatória</a> de <span class="math inline">\(X\sim\mathrm{Ber}(\theta), \theta \in \Theta = \{0.1,0,5\}\)</span>. Encontre uma estatística suficiente minimal.</p>
+<section id="resposta-6" class="level5" data-number="21.5.1.2.1">
+<h5 data-number="21.5.1.2.1" class="anchored" data-anchor-id="resposta-6"><span class="header-section-number">21.5.1.2.1</span> Resposta</h5>
+<p>Pelo teorema anterior, <span class="math display">\[
+T(\pmb{y}_n) = \frac{f_{\theta_1}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)}
+\]</span> é suficiente minimal, em que <span class="math inline">\(\theta_0=0.1,\theta_1=0.5\)</span> e</p>
+<p><span class="math display">\[
+\begin{aligned}
+f_{0.1}^{\pmb{X}_n} (\pmb{y}_n) &amp;= 0.1^{\sum y_i} \cdot 0.9^{n-\sum y_i} \\
+f_{0.5}^{\pmb{X}_n} (\pmb{y}_n) &amp;= 0.5^{\sum y_i} \cdot 0.5^{n-\sum y_i} \\
+&amp;\forall \pmb{y}_n \in \mathfrak{X} = \{0,1\}^n
+\end{aligned}
+\]</span> Logo <span class="math display">\[
+\begin{aligned}
+T(\pmb{y}_n) &amp;= \frac{0.5^n}{0.1^{\sum y_i} \cdot 0.9^{n-\sum y_i}} \\
+&amp;= \frac{0.5^n}{\left(\frac{0.1}{0.9}\right)^{\sum y_i} \cdot 0.9^{\sum y_i}} \\
+&amp;= 9^{\sum y_i} \cdot \left(\frac{5}{9}\right)^n
+\end{aligned}
+\]</span></p>
+<p>Note que <span class="math inline">\(T(\pmb{y}_n)\)</span> é função 1:1 de <span class="math inline">\(T'(\pmb{y}_n) = \sum^n_{i=1} y_i\)</span>. Logo, <span class="math display">\[
+T'(\pmb{X}_n) = \sum^n_{i=1} X_i
+\]</span> é também uma estatística suficiente minimal para o modelo.</p>
+</section>
+</section>
+<section id="exemplo-normal-1" class="level4" data-number="21.5.1.3">
+<h4 data-number="21.5.1.3" class="anchored" data-anchor-id="exemplo-normal-1"><span class="header-section-number">21.5.1.3</span> Exemplo (Normal)</h4>
+<p>Seja <span class="math inline">\(\pmb{X}_n = (X_1,\dots,X_n)\)</span> <a href="./populacao-e-amostra.html#sec-aa">amostra aleatória</a> de <span class="math inline">\(X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \{(0,1),(1,1),(0,2)\}\)</span>. Encontre uma estatística suficiente minimal.</p>
+<section id="resposta-7" class="level5" data-number="21.5.1.3.1">
+<h5 data-number="21.5.1.3.1" class="anchored" data-anchor-id="resposta-7"><span class="header-section-number">21.5.1.3.1</span> Resposta</h5>
+<p>Pelo teorema, <span class="math display">\[
+T(\pmb{y}_n) = \left(
+\frac{f_{\theta_1}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)},
+\frac{f_{\theta_2}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)}
+\right)
+\]</span></p>
+<p>Tomando <span class="math inline">\(\theta_0 = (0,1), (1,1), (0,2)\)</span>, temos</p>
+<p><span class="math display">\[
+\begin{aligned}
+f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n) &amp;=
+\frac{\mathrm{exp}\left\{-\frac{1}{2}\sum y^2_i\right\}}{(\sqrt{2\pi})^n} \\
+f_{\theta_1}^{\pmb{X}_n}(\pmb{y}_n) &amp;=
+\frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum y^2_i - 2\sum y_i + n)\right\}}{(\sqrt{2\pi})^n} \\
+f_{\theta_2}^{\pmb{X}_n}(\pmb{y}_n) &amp;=
+\frac{\mathrm{exp}\left\{-\frac{1}{4}\sum y^2_i \right\}}{(\sqrt{4\pi})^n} \\
+\end{aligned}
+\]</span></p>
+<p>Portanto, <span class="math display">\[
+\begin{aligned}
+T(\pmb{y}_n) &amp;= \left(
+\mathrm{exp}\left\{-\frac{1}{2}(n-2\sum y_i)\right\},
+\frac{\mathrm{exp}\left\{-\frac{1}{4}\sum y_i^2 + \frac{1}{2}\sum y_i^2)\right\}}{2^{\frac{n}{2}}},
+\right)
+\\
+&amp;= \left(
+\mathrm{exp}\left\{-\frac{1}{2}(n-2\sum y_i)\right\},
+\frac{\mathrm{exp}\left\{\frac{1}{4}\sum y_i^2)\right\}}{2^{\frac{n}{2}}},
+\right)
+\end{aligned}
+\]</span> dessa forma, <span class="math inline">\(T(\pmb{X}_n)\)</span> é SM para o modelo.</p>
+<p>Note que <span class="math inline">\(T(\pmb{y}_n)\)</span> é função 1:1 de <span class="math inline">\((\sum y_i, \sum y_i^2)\)</span>. Portanto, <span class="math display">\[
+T'(\pmb{X}_n) = \left(
+\sum^n_{i=1} X_i, \sum^n_{i=1} X_i^2
+\right)
+\]</span> é também SM para o modelo.</p>
+</section>
+</section>
+</section>
+<section id="teorema-2-das-estatísticas-sm" class="level3" data-number="21.5.2">
+<h3 data-number="21.5.2" class="anchored" data-anchor-id="teorema-2-das-estatísticas-sm"><span class="header-section-number">21.5.2</span> Teorema (2 das estatísticas SM)</h3>
+<p>Seja <span class="math inline">\(\pmb{X}_n=(X_1,\dots,X_n)\)</span> <a href="./populacao-e-amostra.html#sec-aa">amostra aleatória</a> de <span class="math inline">\(X\sim f_\theta, \theta \in \Theta\)</span>. Considere <span class="math inline">\(\Theta_0 \subseteq \Theta\)</span> não vazio. Então, se <span class="math inline">\(T(\pmb{X}_n)\)</span> for SM para o modelo reduzido a <span class="math inline">\(\Theta_0\)</span> e suficiente para <span class="math inline">\(\Theta\)</span>, então será suficiente minimal para <span class="math inline">\(\Theta\)</span></p>
+<!-- TODO: prova -->
+<section id="exemplo-bernoulli" class="level4" data-number="21.5.2.1">
+<h4 data-number="21.5.2.1" class="anchored" data-anchor-id="exemplo-bernoulli"><span class="header-section-number">21.5.2.1</span> Exemplo (Bernoulli)</h4>
+<p>Seja <span class="math inline">\(\pmb{X}_n = (X_1,\dots,X_n)\)</span> <a href="./populacao-e-amostra.html#sec-aa">amostra aleatória</a> de <span class="math inline">\(X\sim\mathrm{Ber}(\theta), \theta \in \Theta = (0,1)\)</span>. Mostre que <span class="math inline">\(T(\pmb{X}_n) = \sum X_i\)</span> é uma estatística suficiente minimal para o modelo.</p>
+<section id="resposta-8" class="level5" data-number="21.5.2.1.1">
+<h5 data-number="21.5.2.1.1" class="anchored" data-anchor-id="resposta-8"><span class="header-section-number">21.5.2.1.1</span> Resposta</h5>
+<p>Tome <span class="math inline">\(\Theta_0 = \{0.1,0.5\} \subseteq \Theta\)</span>. <a href="./estatisticas-suficientes.html#sec-ex-teo-um">Já mostramos</a> que <span class="math inline">\(T'(\pmb{X}_n) = \sum^n_{i=1} X_i\)</span> é suficiente minimal para o modelo reduzido a <span class="math inline">\(\Theta_0\)</span>. Além disso, <span class="math inline">\(T'(\pmb{X}_n) = \sum X_i\)</span> <a href="./estatisticas-suficientes.html#sec-ex-crit-fat">é suficiente</a> para o modelo completo. Logo, pelo Teorema 2 para estatísticas suficientes minimais, concluímos que <span class="math inline">\(T'(\pmb{X}_n) = \sum X_i\)</span> é também SM para o modelo completo.</p>
+</section>
+</section>
+<section id="exemplo-normal-2" class="level4" data-number="21.5.2.2">
+<h4 data-number="21.5.2.2" class="anchored" data-anchor-id="exemplo-normal-2"><span class="header-section-number">21.5.2.2</span> Exemplo (Normal)</h4>
+<p>Seja <span class="math inline">\(\pmb{X}_n = (X_1,\dots,X_n)\)</span> amostra aleatória de <span class="math inline">\(X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}^+\)</span>. Mostre que <span class="math inline">\(T(\pmb{X}_n) = (\sum X_i, \sum X_i^2)\)</span> é suficiente minimal para o modelo.</p>
+<section id="resposta-9" class="level5" data-number="21.5.2.2.1">
+<h5 data-number="21.5.2.2.1" class="anchored" data-anchor-id="resposta-9"><span class="header-section-number">21.5.2.2.1</span> Resposta</h5>
+<p>Tome <span class="math inline">\(\Theta_0 = \{(0,1),(1,1),(0,2)\}\)</span>. <a href="./estatisticas-suficientes.html#sec-ex-norm-teo-um">Já mostramos</a> que essa estatística é suficiente minimal para o modelo reduzido a <span class="math inline">\(\Theta_0\)</span>. Além disso, já mostramos (lista) que é suficiente para o modelo completo. Logo, pelo teorema 2, é SM para o modelo completo.</p>
 
 
+</section>
+</section>
 </section>
 </section>
 

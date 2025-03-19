@@ -401,7 +401,7 @@ P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n)=t) = \left\{\begin{array}{ll}
 $$
 
 
-### Exemplo (1 do caso discreto)
+### Exemplo (1 do caso discreto) {#sec-ex-crit-fat}
 
 Seja $\pmb{X}_n=(X_1,\dots,X_n)$ amostra aleatória de $X\sim\mathrm{Ber}(\theta), \theta \in \Theta = (0,1)$. Verifique
 se $T(\pmb{X}_n)=\sum^n_{i=1}X_i$ é suficiente para o modelo estatístico.
@@ -427,14 +427,14 @@ $$
 
 Pelo critério da fatoração, $T(\pmb{X}_n) = \sum^n_{i=1}X_i$ é suficiente para o modelo de Bernoulli.
 
-## Mais Exemplos
+### Mais Exemplos
 
-### Exemplo a
+#### Exemplo a
 
 Seja $\pmb{X}_n$ amostra aleatória de $X\sim\mathrm{Beta}(a,b), \theta = (a,b) \in \Theta = \mathbb{R}^2_+$. Encontre
 uma estatística suficiente para o modelo.
 
-#### Resposta
+##### Resposta
 A função densidade de probabilidade da amostra aleatória é
 
 $$
@@ -476,11 +476,11 @@ $$
 f_\theta^{\pmb{X}_n}(\pmb{y}_n) \cdot m(T(\pmb{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
 $$
 
-### Exemplo b
+#### Exemplo b
 Seja $\pmb{X}_n$ amostra aleatória de $X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}_+$. Encontre
 uma estatística suficiente para o modelo.
 
-#### Resposta
+##### Resposta
 
 A função densidade de probabilidade da amostra aleatória é
 $$
@@ -517,11 +517,11 @@ $$
 f_\theta^{\pmb{X}_n}(\pmb{y}_n) \cdot m(T(\pmb{X}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
 $$
 
-### Exemplo c
+#### Exemplo c
 Seja $\pmb{X}_n$ amostra aleatória de $X\sim\mathrm{Unif}(0,\theta), \theta = (a,b) \in \Theta = \mathbb{R}_+$. Encontre
 uma estatística suficiente para o modelo.
 
-#### Respostas
+##### Respostas
 A função densidade de probabilidade da amostra aleatória
 
 $$
@@ -674,4 +674,208 @@ Pelo critério da fatoração,
 $$
 T(\pmb{X}_n) = \left(\sum^n_{i=1} T_1(X_i),\dots,\sum^n_{i=1}T_k(X_i)\right)
 $$
-é suficiente para o modelo.
+
+## Estatísticas Suficientes Minimais (SM)
+
+Dizemos que $T(\pmb{X}_n)$ é uma estatística suficiente minimal para o modelo se, e somente se:
+
+1. $T(\pmb{X}_n)$ é suficiente para o modelo
+
+2. Para qualquer outra estatística suficiente $U(\pmb{X}_n)$, existe uma função $H$ tal que
+$$
+T(\pmb{X}_n) = H(U(\pmb{X}_n))
+$$
+
+Obs: A $\sigma$-álgebra associada à estatística suficiente minimal é a menor $\sigma$-álgebra dentre aquelas associadas
+às estatísticas suficientes.
+
+### Teorema (1 das estatísticas SM)
+
+Seja $\pmb{X}_n = (X_1,\dots,X_n)$ de $X\sim f_\theta, \theta \in \Theta_0=\{\theta_0,\theta_1,\dots,\theta_p\}$ em que
+$\mathfrak{X} = \{x:f_\theta(x)>0\}$ não depende de "$\theta$". Então, 
+$$
+T(\pmb{x}) = \left(
+\frac{f_{\theta_1}^{\pmb{X}}(\pmb{x})}{f_{\theta_0}^{\pmb{X}_n}(\pmb{x})}, \dots,
+\frac{f_{\theta_p}^{\pmb{X}}(\pmb{x})}{f_{\theta_0}^{\pmb{X}_n}(\pmb{x})}
+\right)
+$$
+em que $T:\mathfrak{X} \rightarrow \mathbb{R}^p$ é uma estatística suficiente minimal ($T(\pmb{X}_n)$) para o modelo estatístico
+
+#### Prova
+
+Note que, $\forall \pmb{y}_n \in \mathfrak{X}$, temos que
+$$
+f_{\theta_j}^{\pmb{X}_n}(\pmb{y}_n) = 
+f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n) \cdot 
+\frac{f_{\theta_j}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)}
+$$
+Tome $h(\pmb{y}_n) = f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)$, não depende dos diferentes valores de "$\theta$" e
+
+$$
+m(T(\pmb{X}_n), \theta) = 
+\left\{\begin{array}{ll}
+T_1(\pmb{y}_n), & \theta = \theta_1 \\
+T_2(\pmb{y}_n), & \theta = \theta_2 \\
+\vdots \\
+T_p(\pmb{y}_n), & \theta = \theta_p \\
+\end{array}\right.
+$$
+
+Em que $T(\pmb{x}) = (T_1(\pmb{x}), \dots, T_p(\pmb{x})$ e 
+$T_j = \frac{f_{\theta_j}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)}$.
+
+Logo, $T(\pmb{X}_n)$ é suficiente para o modelo pelo [critério da fatoração](estatisticas-suficientes.qmd#sec-crit-fat).
+
+Seja $U(\pmb{X}_n)$ uma estatística suficiente para o modelo. Entãom pelo critério da fatoração,
+
+$$
+f_\theta^{\pmb{X}_n}(pmb{y}_n) = h'(\pmb{y}_n) \cdot m'(U(\pmb{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta_0
+$$
+
+Observe que $\forall \pmb{y}_n \in \mathbb{X}$,
+$$
+\frac{f_{\theta_j}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)} = 
+\frac{h'(\pmb{y}_n)\cdot m'(U(\pmb{y}_n),\theta_j)}{h'(\pmb{y}_n)\cdot m'(U(\pmb{y}_n),\theta_0)}\ \mathrm{q.c.}\ \forall \theta \in \Theta_0
+$$
+
+Logo, 
+
+$$
+T_j(\pmb{y}_n) = 
+\frac{f_{\theta_j}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)} = 
+\frac{m'(U(\pmb{y}_n),\theta_j)}{m'(U(\pmb{y}_n),\theta_0)},\ j=1,\dots,p
+$$
+
+Portanto, existe $H$ tal que
+$$
+T_j(\pmb{X}_n) = H(U(\pmb{X}_n))
+$$
+basta tomar
+$$
+H(u) = \left(
+\frac{m'(u,\theta_1)}{m'(u,\theta_0)}, \dots,
+\frac{m'(u\theta_p)}{m'(u,\theta_0)}
+\right)
+$$
+
+#### Exemplo (Bernoulli) {#sec-ex-teo-um}
+
+Seja $\pmb{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de
+$X\sim\mathrm{Ber}(\theta), \theta \in \Theta = \{0.1,0,5\}$. Encontre uma estatística suficiente minimal.
+
+##### Resposta
+
+Pelo teorema anterior,
+$$
+T(\pmb{y}_n) = \frac{f_{\theta_1}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)} 
+$$
+é suficiente minimal, em que $\theta_0=0.1,\theta_1=0.5$ e
+
+$$
+\begin{aligned}
+f_{0.1}^{\pmb{X}_n} (\pmb{y}_n) &= 0.1^{\sum y_i} \cdot 0.9^{n-\sum y_i} \\
+f_{0.5}^{\pmb{X}_n} (\pmb{y}_n) &= 0.5^{\sum y_i} \cdot 0.5^{n-\sum y_i} \\
+&\forall \pmb{y}_n \in \mathfrak{X} = \{0,1\}^n
+\end{aligned}
+$$
+Logo 
+$$
+\begin{aligned}
+T(\pmb{y}_n) &= \frac{0.5^n}{0.1^{\sum y_i} \cdot 0.9^{n-\sum y_i}} \\
+&= \frac{0.5^n}{\left(\frac{0.1}{0.9}\right)^{\sum y_i} \cdot 0.9^{\sum y_i}} \\
+&= 9^{\sum y_i} \cdot \left(\frac{5}{9}\right)^n
+\end{aligned}
+$$
+
+Note que $T(\pmb{y}_n)$ é função 1:1 de $T'(\pmb{y}_n) = \sum^n_{i=1} y_i$. Logo,
+$$
+T'(\pmb{X}_n) = \sum^n_{i=1} X_i
+$$
+é também uma estatística suficiente minimal para o modelo.
+
+#### Exemplo (Normal) {#sec-ex-norm-teo-um}
+
+Seja $\pmb{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de
+$X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \{(0,1),(1,1),(0,2)\}$. 
+Encontre uma estatística suficiente minimal.
+
+##### Resposta
+
+Pelo teorema,
+$$
+T(\pmb{y}_n) = \left(
+\frac{f_{\theta_1}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)},
+\frac{f_{\theta_2}^{\pmb{X}_n}(\pmb{y}_n)}{f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n)} 
+\right)
+$$
+
+Tomando $\theta_0 = (0,1), (1,1), (0,2)$, temos
+
+$$
+\begin{aligned}
+f_{\theta_0}^{\pmb{X}_n}(\pmb{y}_n) &=
+\frac{\mathrm{exp}\left\{-\frac{1}{2}\sum y^2_i\right\}}{(\sqrt{2\pi})^n} \\
+f_{\theta_1}^{\pmb{X}_n}(\pmb{y}_n) &=
+\frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum y^2_i - 2\sum y_i + n)\right\}}{(\sqrt{2\pi})^n} \\
+f_{\theta_2}^{\pmb{X}_n}(\pmb{y}_n) &=
+\frac{\mathrm{exp}\left\{-\frac{1}{4}\sum y^2_i \right\}}{(\sqrt{4\pi})^n} \\
+\end{aligned}
+$$
+
+Portanto,
+$$
+\begin{aligned}
+T(\pmb{y}_n) &= \left(
+\mathrm{exp}\left\{-\frac{1}{2}(n-2\sum y_i)\right\}, 
+\frac{\mathrm{exp}\left\{-\frac{1}{4}\sum y_i^2 + \frac{1}{2}\sum y_i^2)\right\}}{2^{\frac{n}{2}}}, 
+\right)
+\\
+&= \left(
+\mathrm{exp}\left\{-\frac{1}{2}(n-2\sum y_i)\right\}, 
+\frac{\mathrm{exp}\left\{\frac{1}{4}\sum y_i^2)\right\}}{2^{\frac{n}{2}}}, 
+\right)
+\end{aligned}
+$$
+dessa forma, $T(\pmb{X}_n)$ é SM para o modelo.
+
+Note que $T(\pmb{y}_n)$ é função 1:1 de $(\sum y_i, \sum y_i^2)$. Portanto,
+$$
+T'(\pmb{X}_n) = \left(
+\sum^n_{i=1} X_i, \sum^n_{i=1} X_i^2
+\right)
+$$
+é também SM para o modelo.
+
+### Teorema (2 das estatísticas SM)
+
+Seja $\pmb{X}_n=(X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta, \theta \in \Theta$.
+Considere $\Theta_0 \subseteq \Theta$ não vazio. Então, se $T(\pmb{X}_n)$ for SM para o modelo reduzido a $\Theta_0$ e
+suficiente para $\Theta$, então será suficiente minimal para $\Theta$
+
+<!-- TODO: prova -->
+
+#### Exemplo (Bernoulli)
+
+Seja $\pmb{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de
+$X\sim\mathrm{Ber}(\theta), \theta \in \Theta = (0,1)$. Mostre que $T(\pmb{X}_n) = \sum X_i$
+é uma estatística suficiente minimal para o modelo.
+
+##### Resposta
+
+Tome $\Theta_0 = \{0.1,0.5\} \subseteq \Theta$. [Já mostramos](estatisticas-suficientes.qmd#sec-ex-teo-um) que
+$T'(\pmb{X}_n) = \sum^n_{i=1} X_i$ é suficiente minimal para o modelo reduzido a $\Theta_0$. Além disso,
+$T'(\pmb{X}_n) = \sum X_i$ [é suficiente](estatisticas-suficientes.qmd#sec-ex-crit-fat) para o modelo completo. Logo,
+pelo Teorema 2 para estatísticas suficientes minimais, concluímos que $T'(\pmb{X}_n) = \sum X_i$ é também SM para o modelo
+completo.
+
+#### Exemplo (Normal)
+
+Seja $\pmb{X}_n = (X_1,\dots,X_n)$ amostra aleatória de
+$X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}^+$. Mostre que 
+$T(\pmb{X}_n) = (\sum X_i, \sum X_i^2)$ é suficiente minimal para o modelo.
+
+##### Resposta
+
+Tome $\Theta_0 = \{(0,1),(1,1),(0,2)\}$. [Já mostramos](estatisticas-suficientes.qmd#sec-ex-norm-teo-um) que essa
+estatística é suficiente minimal para o modelo reduzido a $\Theta_0$. Além disso, já mostramos (lista) que é suficiente
+para o modelo completo. Logo, pelo teorema 2, é SM para o modelo completo.

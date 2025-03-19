@@ -342,13 +342,13 @@ f_\theta^{(n)}(y_1,\dots,y_n) \stackrel{=}{\mathrm{iid}} = \prod_{i=1}^n f_\thet
 \begin{aligned}
 &amp;f_\theta^{(n)}(y_1,\dots,y_n) =
 \left\{ \begin{array}{lr}
-\prod^n_{i=1} \mathrm{e}^{C(\theta)T(y_i) +d(\theta)+S(y_i)}, &amp; \mathrm{se}\ y_1,\dots,y_n \in \mathfrak{X} \\
+\prod^n_{i=1} \mathrm{e}^{c(\theta)T(y_i) +d(\theta)+S(y_i)}, &amp; \mathrm{se}\ y_1,\dots,y_n \in \mathfrak{X} \\
 0, &amp; \mathrm{c.c}
 \end{array}\right. \\
 \Rightarrow
 &amp;f_\theta^{(n)}(\underbracket{y_1,\dots,y_n}_{\pmb{y}_n}) =
 \left\{ \begin{array}{lr}
-\mathrm{e}^{C(\theta)\sum^n_{i=1}T(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, &amp; \mathrm{se}\ \pmb{y}_n\in \mathfrak{X}^n \\
+\mathrm{e}^{c(\theta)\sum^n_{i=1}T(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, &amp; \mathrm{se}\ \pmb{y}_n\in \mathfrak{X}^n \\
 0, &amp; \mathrm{c.c}
 \end{array}\right.
 \end{aligned}
@@ -362,13 +362,13 @@ f_\theta^{(n)}(y_1,\dots,y_n) \stackrel{=}{\mathrm{iid}} = \prod_{i=1}^n f_\thet
 \begin{aligned}
 &amp;f_\theta^{(n)}(\pmb{y}_n) =
 \left\{ \begin{array}{lr}
-\prod^n_{i=1} \mathrm{e}^{\sum^k_{j=1}C_j(\theta)T_j(y_i) +d(\theta)+S(y_i)}, &amp; \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
+\prod^n_{i=1} \mathrm{e}^{\sum^k_{j=1}c_j(\theta)T_j(y_i) +d(\theta)+S(y_i)}, &amp; \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
 0, &amp; \mathrm{c.c}
 \end{array}\right. \\
 \Rightarrow
 &amp;f_\theta^{(n)}(\pmb{y}_n) =
 \left\{ \begin{array}{lr}
-\mathrm{e}^{\sum^k_{j=1}C_j(\theta)\sum^n_{i=1}T_j(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, &amp; \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
+\mathrm{e}^{\sum^k_{j=1}c_j(\theta)\sum^n_{i=1}T_j(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, &amp; \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
 0, &amp; \mathrm{c.c}
 \end{array}\right.
 \end{aligned}
@@ -376,7 +376,7 @@ f_\theta^{(n)}(y_1,\dots,y_n) \stackrel{=}{\mathrm{iid}} = \prod_{i=1}^n f_\thet
 <p>Tome <span class="math inline">\(T_j^*(\pmb{y}_n) = \sum^n_{i=1}T_j(y_i)\)</span>, <span class="math inline">\(d^*(\theta)=nd(\theta)\)</span>, <span class="math inline">\(S^*(\pmb{y}_n) \sum^n_{i=1}S(y_i)\)</span> <span class="math display">\[
 \Rightarrow f_\theta^{(n)}(\pmb{y}_n) =
 \left\{ \begin{array}{lr}
-\mathrm{e}^{\sum^k_{j=1}C_j(\theta)T^*_j(\pmb{y}_n) +d^*(\theta)+S^*(\pmb{y}_n)}, &amp; \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
+\mathrm{e}^{\sum^k_{j=1}c_j(\theta)T^*_j(\pmb{y}_n) +d^*(\theta)+S^*(\pmb{y}_n)}, &amp; \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
 0, &amp; \mathrm{c.c}
 \end{array}\right.
 \]</span></p>
@@ -496,7 +496,7 @@ g(\theta) \cdot \prod^n_{i=1} \prod^k_{j=1} y_{ij}^{\alpha_j-1} &amp;= \mathrm{e
 <p><span class="math display">\[
 \Rightarrow
 f_\theta^{(n)}(\pmb{y}_n) = \left\{ \begin{array}{ll}
-\mathrm{e}^{\sum^k_j=1} C_j^*(\theta)T_j^*(\pmb{y}_n)+d^*(\theta) = S^*(\pmb{y}_n), &amp; \pmb{y}_n \in \mathfrak{X}^n \\
+\mathrm{e}^{\sum^k_j=1} c_j^*(\theta)T_j^*(\pmb{y}_n)+d^*(\theta) = S^*(\pmb{y}_n), &amp; \pmb{y}_n \in \mathfrak{X}^n \\
 0,  &amp; \mathrm{c.c.}
 \end{array}\right.
 \]</span></p>
