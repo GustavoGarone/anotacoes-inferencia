@@ -154,7 +154,7 @@ $$
 Portanto, para $t \in \{0, \frac{1}{n}, \frac{2}{n},\dots\}$, temos que
 $$
 \begin{aligned}
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n)=t) &= \left\{ \begin{array}{ll}
+&P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n)=t) = \left\{ \begin{array}{ll}
 \frac{\prod^n_{i=1}\left\{\mathrm{e}^{-\theta}\cdot\frac{\theta^{y_i}}{y_i!}\cdot \mathbb{1}_{\{0,1,\dots\}}(y_i)\right\}} 
 {\mathrm{e}^{-n\theta}\cdot \frac{(n\theta)^{nt}}{(nt)!}}, & t=\frac{1}{n} \sum^n_{i=1} y_i \\
 0, & \mathrm{c.c.}
