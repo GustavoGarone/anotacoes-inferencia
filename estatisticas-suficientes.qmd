@@ -93,7 +93,7 @@ $$
 Concluímos que
 $$
 \begin{aligned}
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n) = t) =
+&P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n) = t) =
 \left \{ \begin{array}{ll}
 \frac{\prod_{i=1}^n \mathbb{1}_{\{0,1\}}(y_i)}{\binom{n}{t}}, & \text{Se}\ t = \sum^n_{i=1}y_i \\
 0, & \mathrm{c.c}
@@ -114,7 +114,7 @@ Verifique se $T(\pmb{X}_n)= \frac{1}{n}\sum^n_{i=1}X_i$ é uma estatística sufi
 $$
 P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\pmb{X}_n) = t) =
 \frac{P_\theta(X_1=y_1,\dots,X_n=y_n,T(\pmb{X}_n) = t)}
-{P_\theta(T(\pmb{X}_n)=t}
+{P_\theta(T(\pmb{X}_n)=t)}
 $$
 
 (Numerador)
@@ -184,8 +184,8 @@ $T(\pmb{X}_n) = \sum^n_{i=1}X_i$ é suficiente para o modelo estatístico.
 #### Resposta
 Por definição
 $$
-f_\theta^{\pmb{X}_n\lvert T(\pmb{X}_n) = t}(y_1,\dots,y_n) = \frac{f_\theta^{\pmb{X}_n, T(\pmb{X}_n}(y_1,\dots,y_n,t}
-{f_\theta^{T(\pmb{X}_n}(t)}
+f_\theta^{\pmb{X}_n\lvert T(\pmb{X}_n) = t}(y_1,\dots,y_n) = \frac{f_\theta^{\pmb{X}_n, T(\pmb{X}_n)}(y_1,\dots,y_n,t)}
+{f_\theta^{T(\pmb{X}_n)}(t)}
 $$
 
 (Denominador)
@@ -196,19 +196,19 @@ $$
 (Numerador)
 $$
 f_\theta^{\pmb{X}_n,T(\pmb{X}_n)}(y_1,\dots,y_n,t) = 
-f_\theta^{\pmb{X}_n}(y_1,\dots,y_n) \cdot f_\theta^{T(\pmb{X}_n\lvert \pmb{X}_n=(y_1,\dots,y_n}(t)
+f_\theta^{\pmb{X}_n}(y_1,\dots,y_n) \cdot f_\theta^{T(\pmb{X}_n)\lvert \pmb{X}_n=(y_1,\dots,y_n)}(t)
 $$
 
 Note que
 $$
 \begin{aligned}
-&f_\theta^{T(\pmb{X}_n\lvert \pmb{X}_n = (y_1,\dots,y_n} = \left\{ \begin{array}{ll}
+&f_\theta^{T(\pmb{X}_n)\lvert \pmb{X}_n = (y_1,\dots,y_n} = \left\{ \begin{array}{ll}
 1, & t = \sum^n_{i=1} y_1 \\
 0, & \mathrm{c.c.}
 \end{array}\right. \\
 \Rightarrow&
 f_\theta^{\pmb{X}_n\lvert T(\pmb{X}_n) = t}(y_1,\dots,y_n) = \left\{ \begin{array}{ll}
-\frac{f_\theta^{\pmb{X}_n}(y_1,\dots,y_n}
+\frac{f_\theta^{\pmb{X}_n}(y_1,\dots,y_n)}
 {f_\theta^{T(\pmb{X}_n)}(t)},& t = \sum^n_{i=1}y_i \\
 0, & \mathrm{c.c.}
 \end{array} \right.
@@ -217,7 +217,7 @@ $$
 
 Logo
 $$
-f_\theta^{T(\pmb{X}_n\lvert \pmb{X}_n = (y_1,\dots,y_n} = \left\{ \begin{array}{ll}
+f_\theta^{T(\pmb{X}_n)\lvert \pmb{X}_n = (y_1,\dots,y_n)} = \left\{ \begin{array}{ll}
 \frac{\frac{1}{\sqrt{2\pi\cdot1}^n} \cdot \mathrm{exp}\left\{-\frac{1}{2} \sum^n_i=1 (y_i - \theta)^2\right\}}
 {\frac{1}{\sqrt{2\pi\cdot n}}\cdot \mathrm{exp}\left\{-\frac{1}{2n}(t-n\theta)^2\right\}}, & t = \sum y_i \\
 0, & \mathrm{c.c.}
