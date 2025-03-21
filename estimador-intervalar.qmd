@@ -77,6 +77,7 @@ Denotará o intervalo de confiança teórico
 $$
 \mathrm{IC}_{\mathrm{Obs}}(\theta, \gamma) = [I_{1} (\pmb{x}_{n}), I_{2} (\pmb{x}_{n})]
 $$
+
 ## IC sob normalidade para $\mu$ quando $\sigma^2$ é desconhecido
 
 Seja uma a.a de $X\sim N(\mu, \sigma^2)$ em que $\mu, \sigma^2$ são desconhecidos. Então, o IC para $\mu$ com
