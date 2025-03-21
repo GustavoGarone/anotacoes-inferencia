@@ -1,5 +1,4 @@
 ./*.html
 ./*.tex
-./_book/
-
-/.quarto/
+./_book/*
+./quarto/*
