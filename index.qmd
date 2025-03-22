@@ -10,3 +10,7 @@ Este livrete segue a licença pública [GPLv3](https://www.gnu.org/licenses/gpl-
 deve ser feita respeitando essa licença e com devida atribuição do trabalho original:
 
 Patriota, A.G., Garone, G.S. (2024, 2025). Notas do curso de inferência clássica (MAE0225, MAE0301) ministradas pelo Prof. A.G. Patriota digitadas por G.S. Garone.
+
+## Agradecimentos
+
+Ao Andrey Sarmento por suas contribuições em revisar e melhorar o projeto.
