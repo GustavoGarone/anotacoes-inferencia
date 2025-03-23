@@ -3,9 +3,9 @@
 Seja $(Y_1,\dots,Y_n)$ uma [amostra aleatória](populacao-e-amostra.qmd#aa) de $Y\sim f_\theta, \theta \in \Theta$.
 A função (densidade) de probabilidade da amostra aleatória é dada por
 $$
-f_\theta^{(n)}(y_1,\dots,y_n) \stackrel{=}{\mathrm{iid}} = \prod_{i=1}^n f_\theta (y_i), \forall \theta \in \Theta
+f_\theta^{(n)}(y_1,\dots,y_n) \stackrel{\mathrm{iid}}{=} \prod_{i=1}^n f_\theta (y_i), \forall \theta \in \Theta
 $$
-e $X_i \in \mathbb{R}, i = 1,\dots,n$
+e $y_i \in \mathbb{R}, i = 1,\dots,n$.
 
 ## Relação com a [FE](familia-exponencial.qmd)
 
@@ -17,45 +17,44 @@ $$
 &f_\theta^{(n)}(y_1,\dots,y_n) =
 \left\{ \begin{array}{lr}
 \prod^n_{i=1} \mathrm{e}^{c(\theta)T(y_i) +d(\theta)+S(y_i)}, & \mathrm{se}\ y_1,\dots,y_n \in \mathfrak{X} \\
-0, & \mathrm{c.c}
+0, & \mathrm{c.c.}
 \end{array}\right. \\
 \Rightarrow
-&f_\theta^{(n)}(\underbracket{y_1,\dots,y_n}_{\pmb{y}_n}) =
+&f_\theta^{(n)}(\underbracket{y_1,\dots,y_n}_{\boldsymbol{y}_n}) =
 \left\{ \begin{array}{lr}
-\mathrm{e}^{c(\theta)\sum^n_{i=1}T(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, & \mathrm{se}\ \pmb{y}_n\in \mathfrak{X}^n \\
-0, & \mathrm{c.c}
+\mathrm{e}^{c(\theta)\sum^n_{i=1}T(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, & \mathrm{se}\ \boldsymbol{y}_n\in \mathfrak{X}^n \\
+0, & \mathrm{c.c.}
 \end{array}\right.
 \end{aligned}
 $$
 
-Em que $\mathfrak{X}^n = \mathfrak{X} \times \dots \times \mathfrak{X}$
-
-Portanto, $f_\theta^{(n)}$ pertence à FE unidimensional.
+Em que $\mathfrak{X}^n = \mathfrak{X} \times \dots \times \mathfrak{X}$. Portanto, $f_\theta^{(n)}$ pertence à
+FE unidimensional.
 
 ### k-dimensional
 
 Se $f_\theta$ pertence à FE k-dimensional, então
 $$
 \begin{aligned}
-&f_\theta^{(n)}(\pmb{y}_n) =
+&f_\theta^{(n)}(\boldsymbol{y}_n) =
 \left\{ \begin{array}{lr}
-\prod^n_{i=1} \mathrm{e}^{\sum^k_{j=1}c_j(\theta)T_j(y_i) +d(\theta)+S(y_i)}, & \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
-0, & \mathrm{c.c}
+\prod^n_{i=1} \mathrm{e}^{\sum^k_{j=1}c_j(\theta)T_j(y_i) +d(\theta)+S(y_i)}, & \mathrm{se}\ \boldsymbol{y}_n \in \mathfrak{X}^n \\
+0, & \mathrm{c.c.}
 \end{array}\right. \\
 \Rightarrow
-&f_\theta^{(n)}(\pmb{y}_n) = 
+&f_\theta^{(n)}(\boldsymbol{y}_n) = 
 \left\{ \begin{array}{lr}
-\mathrm{e}^{\sum^k_{j=1}c_j(\theta)\sum^n_{i=1}T_j(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, & \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
-0, & \mathrm{c.c}
+\mathrm{e}^{\sum^k_{j=1}c_j(\theta)\sum^n_{i=1}T_j(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, & \mathrm{se}\ \boldsymbol{y}_n \in \mathfrak{X}^n \\
+0, & \mathrm{c.c.}
 \end{array}\right.
 \end{aligned}
 $$
 
-Tome $T_j^*(\pmb{y}_n) = \sum^n_{i=1}T_j(y_i)$, $d^*(\theta)=nd(\theta)$, $S^*(\pmb{y}_n) \sum^n_{i=1}S(y_i)$
+Tome $T_j^*(\boldsymbol{y}_n) = \sum^n_{i=1}T_j(y_i)$, $d^*(\theta)=nd(\theta)$, $S^*(\boldsymbol{y}_n)= \sum^n_{i=1}S(y_i)$
 $$
-\Rightarrow f_\theta^{(n)}(\pmb{y}_n) =
+\Rightarrow f_\theta^{(n)}(\boldsymbol{y}_n) =
 \left\{ \begin{array}{lr}
-\mathrm{e}^{\sum^k_{j=1}c_j(\theta)T^*_j(\pmb{y}_n) +d^*(\theta)+S^*(\pmb{y}_n)}, & \mathrm{se}\ \pmb{y}_n \in \mathfrak{X}^n \\
+\mathrm{e}^{\sum^k_{j=1}c_j(\theta)T^*_j(\boldsymbol{y}_n) +d^*(\theta)+S^*(\boldsymbol{y}_n)}, & \mathrm{se}\ \boldsymbol{y}_n \in \mathfrak{X}^n \\
 0, & \mathrm{c.c}
 \end{array}\right.
 $$
@@ -75,7 +74,7 @@ $$
 \end{array} \right. \\
 \Rightarrow
 &f_\theta(y) = \left\{\begin{array}{ll}
-\mathrm{e}^{\ln\left(\frac{\theta}{(1-\theta)}\right)y+\ln(1-\theta)}, & y \in \{0,1\} \\
+\mathrm{e}^{\ln\left(\frac{\theta}{1-\theta}\right)y+\ln(1-\theta)}, & y \in \{0,1\} \\
 0, & \mathrm{c.c.}
 \end{array} \right.
 \end{aligned}
@@ -83,8 +82,8 @@ $$
 
 A função probabilidade da amostra é
 $$
-f_\theta(\pmb{y}_n) = \left\{\begin{array}{ll}
-\mathrm{e}^{\ln\left(\frac{\theta}{(1-\theta)}\right)\sum_{i=1}^n y_i+n\ln(1-\theta)}, & \pmb{y}_n \in \{0,1\}^n \\
+f_\theta(\boldsymbol{y}_n) = \left\{\begin{array}{ll}
+\mathrm{e}^{\ln\left(\frac{\theta}{(1-\theta)}\right)\sum_{i=1}^n y_i+n\ln(1-\theta)}, & \boldsymbol{y}_n \in \{0,1\}^n \\
 0, & \mathrm{c.c.}
 \end{array}\right.
 $$
@@ -102,7 +101,7 @@ Note que
 $$
 \begin{aligned}
 \binom{m}{y} \theta^y(1-\theta)^{m-y} &= \mathrm{e}^{\ln\binom{m}{y} + y \ln\theta + (m-y)\ln(1-\theta)} \\
-&= \mathrm{e}^{\ln\binom{m}{y} + y\ln(\theta) + m\ln(1-\theta) - y\ln(1-\theta)}
+&= \mathrm{e}^{\ln\binom{m}{y} + y\ln(\theta) + m\ln(1-\theta) - y\ln(1-\theta)}.
 \end{aligned}
 $$
 
@@ -116,22 +115,20 @@ $$
 
 A função probabilidade da amostra é
 $$
-f_\theta(\pmb{y}_n) = \left\{\begin{array}{ll}
-\mathrm{e}^{\ln\left(\frac{\theta}{1-\theta}\right)\sum^n_{i=1}y_i + nm \ln(1-\theta) + \sum_{i=1}^n\ln\binom{m}{y_i}}, & \pmb{y}_n \in \mathfrak{X}^n \\
+f_\theta(\boldsymbol{y}_n) = \left\{\begin{array}{ll}
+\mathrm{e}^{\ln\left(\frac{\theta}{1-\theta}\right)\sum^n_{i=1}y_i + nm \ln(1-\theta) + \sum_{i=1}^n\ln\binom{m}{y_i}}, & \boldsymbol{y}_n \in \mathfrak{X}^n \\
 0, & \mathrm{c.c.}
 \end{array} \right.
 $$
-
-em que $\mathfrak{X} = \{0,1,\dots,m\}$
+em que $\mathfrak{X} = \{0,1,\dots,m\}$.
 
 #### Dirichlet
- <!-- kkkkkkkkkkkkkkkkkkk -->
 
 Se $X\sim\mathrm{Dirichlet}(\alpha_1,\dots,\alpha_k)$, então $X=(Y_1,\dots,Y_k)^T$ é um vetor (coluna) aleatório k-dimensional
 cuja função densidade de probabilidade é dada por
 $$
 f_\theta(y) = \left\{\begin{array}{ll}
-\frac{\Gamma(\sum^k_{j=1} \alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j)} \cdot \prod^k_{j=1} y_j^{\alpha_j-1}, & y_j \in \mathfrak{X} \\
+\frac{\Gamma(\sum^k_{j=1} \alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j)} \prod^k_{j=1} y_j^{\alpha_j-1}, & y_j \in \mathfrak{X} \\
 0, & \mathrm{c.c.}
 \end{array} \right.
 $$
@@ -166,46 +163,44 @@ $$
 
 e sua função densidade de probabilidade é dada por
 $$
-f_\theta(\pmb{y}_n) \stackrel{\mathrm{iid}}{=}\left\{\begin{array}{ll}
-\left[\frac{\Gamma(\sum^k_{j=1} \alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j)}\right]^n \cdot \prod_{i=1}^n\left(\prod^k_{j=1} y_{ij}^{\alpha_j-1}\right), & y_i \in \mathfrak{X}, \forall i=1,\dots,n \\
+f_\theta(\boldsymbol{y}_n) \stackrel{\mathrm{iid}}{=}\left\{\begin{array}{ll}
+\left[\frac{\Gamma(\sum^k_{j=1} \alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j)}\right]^n \prod_{i=1}^n\left(\prod^k_{j=1} y_{ij}^{\alpha_j-1}\right), & y_i \in \mathfrak{X}, \forall i=1,\dots,n \\
 0, & \mathrm{c.c.}
 \end{array} \right.
 $$
 
 Tome
 $$
-g(\theta) = \left[
+\begin{aligned}
+g(\theta) &= \left[
 \frac{\Gamma(\sum^k_{j=1}\alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j}
-\right]^n
-$$
-
-$$
+\right]^n \\
 \Rightarrow
-f_\theta^{(n)}(\pmb{y}_n) = \left\{ \begin{array}{ll}
-g(\theta) \cdot \prod^n_{i=1}\prod^k_{j=1} y_{ij}^{\alpha_j-1}, & y_1,\dots,y_n \in \mathfrak{X} \\
+f_\theta^{(n)}(\boldsymbol{y}_n) &= \left\{ \begin{array}{ll}
+g(\theta)\prod^n_{i=1}\prod^k_{j=1} y_{ij}^{\alpha_j-1}, & y_1,\dots,y_n \in \mathfrak{X} \\
 0,  & \mathrm{c.c.}
 \end{array}\right.
+\end{aligned}
 $$
 
 Note que
 $$
 \begin{aligned}
-g(\theta) \cdot \prod^n_{i=1} \prod^k_{j=1} y_{ij}^{\alpha_j-1} &= \mathrm{e}^
+g(\theta)\prod^n_{i=1} \prod^k_{j=1} y_{ij}^{\alpha_j-1} &= \mathrm{e}^
 {\ln g(\theta) + \sum^n_{i=1} \sum^k_{j=1}(\alpha_j-1)\ln y_{ij}} \\
 &= \mathrm{e}^{\ln g(\theta) + \sum^k_{j=1}(\alpha_j -1) \sum^n_{i=1} \ln y_{ij}}
 \end{aligned}
 $$
 
-<!-- TODO: adicionar defs das abreviações abaixo -->
 $$
 \Rightarrow
-f_\theta^{(n)}(\pmb{y}_n) = \left\{ \begin{array}{ll}
-\mathrm{e}^{\sum^k_j=1} c_j^*(\theta)T_j^*(\pmb{y}_n)+d^*(\theta) = S^*(\pmb{y}_n), & \pmb{y}_n \in \mathfrak{X}^n \\
+f_\theta^{(n)}(\boldsymbol{y}_n) = \left\{ \begin{array}{ll}
+\mathrm{e}^{\sum^k_{j=1} c_j^*(\theta)T_j^*(\boldsymbol{y}_n)+d^*(\theta) + S^*(\boldsymbol{y}_n)}, & \boldsymbol{y}_n \in \mathfrak{X}^n \\
 0,  & \mathrm{c.c.}
 \end{array}\right.
 $$
 
-Portanto, pertence à FE k-dimensional
+Portanto, pertence à FE k-dimensional.
 
 ### Observação
 
