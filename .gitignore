@@ -2,3 +2,5 @@
 ./*.tex
 ./_book/*
 ./quarto/*
+
+/.quarto/
