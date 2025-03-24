@@ -1,0 +1,62 @@
+# Estatísticas Ancilares
+
+Dizemos que $U(\boldsymbol{X}_n)$ é uma [estatística](estatisticas.qmd) ancilar [ao modelo](modelo-estatistico.qmd)) se,
+e somente se, sua distribuição não depende de "$\theta$".
+
+## Exemplo 1 (Normal $\rightarrow \chi^2$)
+Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa)
+de $X\sim\mathrm{N}(\theta,2),\theta \in \Theta=\mathbb{R}$.
+$$
+U(\boldsymbol{X}_n) = \sum^{n}{i=1} \frac{(X_i-\bar{X})^2}{2}\sim \chi^2_{(n-1)}
+$$
+é, portanto, ancilar ao modelo.
+
+## Exemplo 2 (Normal $\rightarrow$ t-student)
+Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ amostra aleatória de
+$X\sim\mathrm{N}(\mu,\sigma^2),\theta = (\mu,\sigma^2) \in \Theta=\mathbb{R}\times\mathbb{R}^+$.
+
+Note que:
+
+$$
+S(\boldsymbol{X}_n) = \sum \frac{(X_i-\bar{X})^2}{\sigma^2} \sim \chi^2_{(n-1)}
+$$
+
+não é uma estatística pois depende de "$\theta$".
+
+Note também que:
+
+$$
+U(\boldsymbol{X}_n) = \frac{\sum(X_i-\bar{X})}{s^2_{n-1}} \sim t_{n-1}
+$$
+em que $s^2_{n-1} = \frac{1}{n-1} \sum (X_i-\bar{X})^2$.
+
+Dessa forma, $U(\boldsymbol{X}_n)$ é uma estatística ancilar.
+
+## Ancilar de Primeira Ordem
+
+Dizemos que $U(\boldsymbol{X}_n)$ é uma estatística ancilar de primeira ordem se, e somente se,
+$E_{\theta}\left(U(\boldsymbol{X}_n)\right)$ (o primeiro momento) não depende de "$\theta$".
+
+Toda estatística ancilar é também ancilar de primeira ordem, mas a recíproca não é verdadeira. Segue disso que uma
+estatística que não é ancilar de primeira ordem não é ancilar.
+
+### Exemplo 1 (Normal)
+Seja $\boldsymbol{X}_n$ amostra aleatória de $X\sim\mathrm{N}(\mu,\sigma^2)$ e $U(\boldsymbol{X}_n) = X_1 - \bar{X}$
+
+$$
+E_\theta(U(\boldsymbol{X}_n)) = E_\theta(X_1) - E_\theta(\bar{X}) = \mu - \mu = 0, \forall \theta \in \Theta
+$$
+
+$$
+\begin{aligned}
+\mathrm{Var}_\theta (U(\boldsymbol{X}_n)) &= \mathrm{Var}_\theta (X_i - \bar{X}) \\
+X_1 - \bar{X} &= X_1 - \frac{1}{n}X_1 - \dots - \frac{1}{n}X_n \\
+&= (1-\frac{1}{n})X_1 - \frac{1}{n}X_2 - \dots - \frac{1}{n}X_n \\
+\Rightarrow 
+\mathrm{Var}_\theta (U(\boldsymbol{X}_n)) &= \left(1-\frac{1}{n}\right)^2 \sigma^2 + \underbracket{\frac{1}{n^2}\sigma^2 + \dots + \frac{1}{n^2}\sigma^2}_{n-1} \\
+\Rightarrow 
+\mathrm{Var}_\theta (U(\boldsymbol{X}_n)) &= \left(1-\frac{1}{n}\right)^2 \sigma^2 + \frac{n-1}{n^2}\sigma^2 \forall \theta \in \Theta
+\end{aligned}
+$$
+
+depende de "$\theta$".

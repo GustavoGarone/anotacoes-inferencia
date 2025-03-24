@@ -1,0 +1,78 @@
+# Estatísticas Completas
+
+Dizemos que $T(\boldsymbol{X}_n)$ é uma [estatística](estatisticas.qmd) completa se, e somente se, existe a função real
+$h(\cdot)$ tal que
+$$
+E_\theta(h(T(\boldsymbol{X}_n)) = 0, \forall \theta \in \Theta
+$$
+é a função nula quase certamente, isto é,
+$$
+P_\theta(h(T(\boldsymbol{X}_n))=0) = 1, \forall \theta \in \Theta\; \text{ou simplesmente}\ \mathrm{q.c.}
+$$
+
+## Exemplo 1 (Bernoulli)
+
+Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim\mathrm{Ber}(\theta)$.
+Mostre que $T(\boldsymbol{X}_n) = \sum X_i$ é uma estatistica completa para o modelo.
+
+### Resposta
+
+Note que $T(\boldsymbol{X}_n) \sim \mathrm{Binom}(n,\theta), \theta \in (0,1)$
+
+$$
+P_\theta(T(\boldsymbol{X}_n)= k) \left\{\begin{array}{ll}
+\binom{n}{k}\theta^k (1-\theta)^{n-k}, & k \in {0,1,\dots,n} \\
+0, & \mathrm{c.c.}
+\end{array}\right.
+$$
+
+Seja $h(\cdot)$ uma função real (contradomínio em $\mathbb{R}$) tal que
+$$
+\begin{aligned}
+&E_\theta(h(T(\boldsymbol{X}_n))) = 0 \\
+\stackrel{\mathrm{aa}\ X\sim\mathrm{Ber}}{\iff}&\sum h(k) P_\theta(T(\mathbb{X}_n) = k) = 0 \\
+\iff&\sum h(k) \binom{n}{k}\theta^k (1-\theta)^{n-k}= 0\\
+\iff&\sum h(k) \binom{n}{k} \left(\frac{\theta}{(1-\theta)}\right)^k (1-\theta)^n = 0\\
+\iff&\sum h(k) \binom{n}{k} \left(\frac{\theta}{(1-\theta)}\right)^k (1-\theta)^n = 0\\
+\iff&\sum h(k) \binom{n}{k} \left(\frac{\theta}{(1-\theta)}\right)^k  = 0\\
+\stackrel{\rho = \frac{\theta}{1-\theta} \in (0,\infty)}{\iff}&\sum h(k) \binom{n}{k} \rho^k = 0, \forall \theta \in \Theta = (0,1).
+\end{aligned}
+$$
+
+Observe que, tomando $a_k = h(k) \binom{n}{k}, k = 0,1,\dots,n$, temos que
+$$
+a_0 \rho^0 + a_1 \rho^1 + \dots + a_n \rho^n = 0 \forall \rho \in (0,\infty).
+$$
+Por igualdade de polinômios,
+$$
+\left\{
+\begin{array}{l}
+a_0 = 0 \\
+\vdots \\
+a_n = 0
+\end{array}\right. \Rightarrow
+\left\{
+\begin{array}{l}
+h(0)\binom{n}{0} = 0
+\vdots \\
+h(n)\binom{n}{n} = 0
+\end{array}\right. \Rightarrow
+$$
+
+Como $\binom{n}{k}>0\forall k \in \{0,1,\dots,n\}$, temos que $h(k) = 0, \forall k \in \{0,1,\dots,n\}$
+
+$$
+\Rightarrow P_\theta(h(T(\boldsymbol{X}_n)) = 0) = 1, \forall \theta \in \Theta
+$$
+
+Portanto, $T(\mathbb{X}_n)$ é completa para o modelo.
+
+## Teorema 1 (da relação de ida com estatísticas suficientes minimais)
+
+Toda [estatística suficiente](estatisticas-suficientes.qmd) e completa é também
+[suficiente minimal](estatisticas-suficientes.qmd#sec-sm) para o [modelo estatístico](modelo-estatistico.qmd).
+
+## Teorema 2 (da relação de volta com estatísticas suficientes minimais)
+
+Se existir uma [estatística suficiente](estatisticas-suficientes.qmd) e completa, então toda estatística
+[suficiente minimal](estatisticas-suficientes.qmd#sec-sm) será também completa.

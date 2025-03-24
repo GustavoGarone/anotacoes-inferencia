@@ -39,6 +39,8 @@ book:
       - familia-exponencial.qmd
       - distribuicao-amostral.qmd
       - estatisticas-suficientes.qmd
+      - estatisticas-ancilares.qmd
+      - estatisticas-completas.qmd
     # - references.qmd
 
 bibliography: references.bib

@@ -616,7 +616,7 @@ $$
 f_\theta^{\boldsymbol{X}_n} (\boldsymbol{y}_n)= h(\boldsymbol{y}_n) \cdot m^*((G(\boldsymbol{X}_n)), \theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
 $$
 
-Logo, pelo [critério da fatoração](estatisticas-sufucientes.qmd#sec-crit-fat), $G(\boldsymbol{X}_n)$ é suficiente para o
+Logo, pelo [critério da fatoração](estatisticas-suficientes.qmd#sec-crit-fat), $G(\boldsymbol{X}_n)$ é suficiente para o
 modelo estatístico.
 
 ### Exemplos
@@ -681,7 +681,7 @@ $$
 T(\boldsymbol{X}_n) = \left(\sum^n_{i=1} T_1(X_i),\dots,\sum^n_{i=1}T_k(X_i)\right)
 $$
 
-## Estatísticas Suficientes Minimais (SM)
+## Estatísticas Suficientes Minimais (SM) {#sec-sm}
 
 Dizemos que $T(\boldsymbol{X}_n)$ é uma estatística suficiente minimal para o modelo se, e somente se:
 
@@ -854,7 +854,7 @@ T'(\boldsymbol{X}_n) = \left(
 $$
 é também SM para o modelo.
 
-### Teorema (2 das estatísticas SM)
+### Teorema (2 das estatísticas SM) {#sec-teo-dois}
 
 Seja $\boldsymbol{X}_n=(X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta, \theta \in \Theta$.
 Considere $\Theta_0 \subseteq \Theta$ não vazio. Então, se $T(\boldsymbol{X}_n)$ for SM para o modelo reduzido a $\Theta_0$ e
@@ -1033,4 +1033,119 @@ Encontre uma estatística SM para o modelo.
 
 ##### Resposta
 
-Como $(\sum X_i, \sum X_i^2)$ é suficiente para o modelo completo, é suficiente para o modelo restrito a $\Theta = \mathbb{R}^+$
+Sabemos que $(\sum X_i, \sum X_i^2)$ é suficiente para o modelo completo
+
+Tome $\Theta_0 = \{1,2,3\}$. Pelo [Teorema 1](estatisticas-suficientes.qmd#sec-teo-um), temos que:
+$$
+T'(\boldsymbol{X}_n) = \left(\frac{f_{\theta_1}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}, 
+\frac{f_{\theta_2}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}\right)
+$$
+em que $\theta_0=1,\theta_1=2,\theta_2=3$. Dessa forma,
+$$
+\begin{aligned}
+f_{\theta_0}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2}\sum(X_i-1)^2\right\}}{(\sqrt{2\pi})^n}
+= \frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum X_i^2 - 2 \sum X_i +n)\right\}}{(\sqrt{2\pi})^n} \\
+f_{\theta_1}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 4}(\sum X_i^2 - 2\cdot 2 \cdot \sum X_i +4n)\right\}}{(\sqrt{2\pi\cdot4})^n} \\
+f_{\theta_2}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 9}(\sum X_i^2 - 2\cdot 3 \cdot \sum X_i +4n)\right\}}{(\sqrt{2\pi\cdot9})^n}.
+\end{aligned}
+$$
+Portanto,
+<!-- TODO: achar um jeito de pular linha -->
+$$
+\begin{aligned}
+T'(\boldsymbol{X}_n) &= \left(
+\frac{\frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum X_i^2 - 2 \sum X_i +n)\right\}}{(\sqrt{2\pi})^n}}
+{\frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 4}(\sum X_i^2 - 2\cdot 2 \cdot \sum X_i +4n)\right\}}{(\sqrt{2\pi\cdot4})^n}},
+\frac{\frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum X_i^2 - 2 \sum X_i +n)\right\}}{(\sqrt{2\pi})^n}}
+{\frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 9}(\sum X_i^2 - 2\cdot 3 \cdot \sum X_i +4n)\right\}}{(\sqrt{2\pi\cdot9})^n}}
+\right) \\
+&=\left(
+\frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
+\frac{1}{4} \sum X_i^2 - \sum X_i^2 - 2(\frac{2}{4} \sum X_i - \sum X_i)
+\right)
+\right\}}{4^{\frac{n}{2}}}, \\ % o \\ deveria estar funcionando
+\frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
+\frac{1}{9} \sum X_i^2 - \sum X_i^2 - 2(\frac{3}{9} \sum X_i - \sum X_i)
+\right)
+\right\}}{9^{\frac{n}{2}}},
+\right) \\
+&=\left(
+\frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
+-\frac{3}{4} \sum X_i^2 - 2(-\frac{1}{2} \sum X_i)
+\right)
+\right\}}{4^{\frac{n}{2}}},
+\frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
+-\frac{8}{9} \sum X_i^2 - 2(\frac{6}{9} \sum X_i)
+\right)
+\right\}}{9^{\frac{n}{2}}},
+\right) \\
+&=\left(
+\frac{\mathrm{exp}\left\{
+-\frac{3}{8} \sum X_i^2 -\frac{1}{2} \sum X_i)
+\right\}}{4^{\frac{n}{2}}},
+\frac{\mathrm{exp}\left\{
+-\frac{4}{9} \sum X_i^2 - \frac{6}{9} \sum X_i
+\right\}}{9^{\frac{n}{2}}},
+\right).
+\end{aligned}
+$$
+
+Observe que $T'(\boldsymbol{X}_n)$ é função 1:1 de $T(\boldsymbol{X}_n)$. Pois,
+$$
+\left\{\begin{array}{l}
+T(\boldsymbol{X}_n) = (t_1,t_2) \\
+\Rightarrow T'(\boldsymbol{X}_n) = \left(
+\frac{\mathrm{exp}\left\{
+-\frac{3}{8} t_2 -\frac{1}{2} t_1)
+\right\}}{4^{\frac{n}{2}}}, 
+\frac{\mathrm{exp}\left\{
+-\frac{4}{9} t_2 - \frac{6}{9} t_1
+\right\}}{9^{\frac{n}{2}}},
+\right)
+\end{array}\right.
+$$
+$$
+\begin{aligned}
+&\left\{
+\begin{array}{l}
+T'(\boldsymbol{X}_n)= (t'_1,t'_2)
+t'_1 = \frac{\mathrm{exp}\left\{
+-\frac{3}{8} t_2 -\frac{1}{2} t_1)
+\right\}}{4^{\frac{n}{2}}} \\
+t'_2 = \frac{\mathrm{exp}\left\{
+-\frac{4}{9} t_2 - \frac{6}{9} t_1
+\right\}}{9^{\frac{n}{2}}}
+\end{array}\right. \\
+\Rightarrow&
+\left\{
+\begin{array}{l}
+\ln(4^{\frac{n}{2}}t'_1) = \frac{3}{8}t_2 - \frac{1}{2}t_1 \\
+\ln(9^{\frac{n}{2}}t'_2) = \frac{4}{9}t_2 - \frac{6}{9} t_1
+\end{array}\right.\\
+\Rightarrow&
+\left\{\begin{array}{l}
+\ln(4^{\frac{n}{2}}t'_1) = \frac{3}{8}t_2 - \frac{1}{2}t_1 \\
+\ln(9^{\frac{n}{2}}t'_2) = \frac{4}{9}t_2 - \frac{6}{9} t_1
+\end{array}\right.\\
+\Rightarrow&
+\left\{\begin{array}{l}
+t_1 = -2\ln(4^{\frac{n}{2}}t'_1) + \frac{3}{4} t_2 \\
+\ln(9^{\frac{n}{2}}t'_2) = \frac{4}{9} t_2 - \frac{6}{9}\left(\frac{3}{4}t_2 - 2\ln(4^{\frac{n}{2}}t'_1)\right)
+\end{array}\right.\\
+\Rightarrow&
+\left\{\begin{array}{l}
+t_1 = \frac{3}{4}t_2 - 2\ln(4^{\frac{n}{2}}t'_1) \\
+\ln(9^{\frac{n}{2}}t'_2) - \frac{12}{9} \ln(4^{\frac{n}{2}}t'_1) = \left(\frac{4}{9} - \frac{18}{36}\right) t_2
+\end{array}\right.\\
+\Rightarrow&
+t_2 = \frac{\ln(9^{\frac{n}{2}}t'_2) - \frac{12}{9}(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9} - \frac{18}{36}\right)} \\
+\Rightarrow&
+\left\{\begin{array}{l}
+t_1 = \frac{\frac{3}{4}\left(\ln(9^{\frac{n}{2}}t_2'\right) - \frac{12}{9}\ln(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9}-\frac{18}{36}\right)} - 2\ln(4^{\frac{n}{2}}t'_1)\\
+t_2 = \frac{ln(9^{\frac{n}{2}}t'_2) - \frac{12}{9}(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9} - \frac{18}{36}\right)}
+\end{array}\right.
+\end{aligned}
+$$
+
+Logo $T(\boldsymbol{X}_n)=(\sum X_i,\sum X_i^2)$  é SM apara o modelo reduzido. Como é suficiente para o modelo completo,
+temos pelo [Teorema 2](estatisticas-suficientes.qmd#sec-teo-dois) que também é SM para o modelo completo.
