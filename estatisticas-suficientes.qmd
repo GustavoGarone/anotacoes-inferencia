@@ -1050,7 +1050,6 @@ f_{\theta_2}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 9}(
 \end{aligned}
 $$
 Portanto,
-<!-- TODO: achar um jeito de pular linha -->
 $$
 \begin{aligned}
 T'(\boldsymbol{X}_n) &= \left(
@@ -1063,11 +1062,11 @@ T'(\boldsymbol{X}_n) &= \left(
 \frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
 \frac{1}{4} \sum X_i^2 - \sum X_i^2 - 2(\frac{2}{4} \sum X_i - \sum X_i)
 \right)
-\right\}}{4^{\frac{n}{2}}}, \\ % o \\ deveria estar funcionando
-\frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
+\right\}}{4^{\frac{n}{2}}},\right. \\ % o \\ só funciona com o left e right.
+&\left.\frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
 \frac{1}{9} \sum X_i^2 - \sum X_i^2 - 2(\frac{3}{9} \sum X_i - \sum X_i)
 \right)
-\right\}}{9^{\frac{n}{2}}},
+\right\}}{9^{\frac{n}{2}}}
 \right) \\
 &=\left(
 \frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
@@ -1077,7 +1076,7 @@ T'(\boldsymbol{X}_n) &= \left(
 \frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
 -\frac{8}{9} \sum X_i^2 - 2(\frac{6}{9} \sum X_i)
 \right)
-\right\}}{9^{\frac{n}{2}}},
+\right\}}{9^{\frac{n}{2}}}
 \right) \\
 &=\left(
 \frac{\mathrm{exp}\left\{
@@ -1085,7 +1084,7 @@ T'(\boldsymbol{X}_n) &= \left(
 \right\}}{4^{\frac{n}{2}}},
 \frac{\mathrm{exp}\left\{
 -\frac{4}{9} \sum X_i^2 - \frac{6}{9} \sum X_i
-\right\}}{9^{\frac{n}{2}}},
+\right\}}{9^{\frac{n}{2}}}
 \right).
 \end{aligned}
 $$
