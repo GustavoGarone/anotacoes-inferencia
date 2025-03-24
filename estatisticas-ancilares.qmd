@@ -21,7 +21,7 @@ $$
 S(\boldsymbol{X}_n) = \sum \frac{(X_i-\bar{X})^2}{\sigma^2} \sim \chi^2_{(n-1)}
 $$
 
-não é uma estatística pois depende de "$\theta$".
+não é uma estatística uma vez que depende de $\theta$.
 
 Note também que:
 

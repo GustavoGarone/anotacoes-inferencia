@@ -7,7 +7,7 @@ E_\theta(h(T(\boldsymbol{X}_n)) = 0, \forall \theta \in \Theta
 $$
 é a função nula quase certamente, isto é,
 $$
-P_\theta(h(T(\boldsymbol{X}_n))=0) = 1, \forall \theta \in \Theta\; \text{ou simplesmente}\ \mathrm{q.c.}
+P_\theta(h(T(\boldsymbol{X}_n))=0) = 1, \forall \theta \in \Theta\; \text{ou simplesmente}\ h(T(\boldsymbol{X}_n)) = 0 \mathrm{q.c.}
 $$
 
 ## Exemplo 1 (Bernoulli)
@@ -29,13 +29,13 @@ $$
 Seja $h(\cdot)$ uma função real (contradomínio em $\mathbb{R}$) tal que
 $$
 \begin{aligned}
-&E_\theta(h(T(\boldsymbol{X}_n))) = 0 \\
+&E_\theta(h(T(\boldsymbol{X}_n))) = 0 \forall \theta \in \Theta = (0,1) \\
 \stackrel{\mathrm{aa}\ X\sim\mathrm{Ber}}{\iff}&\sum h(k) P_\theta(T(\mathbb{X}_n) = k) = 0 \\
 \iff&\sum h(k) \binom{n}{k}\theta^k (1-\theta)^{n-k}= 0\\
 \iff&\sum h(k) \binom{n}{k} \left(\frac{\theta}{(1-\theta)}\right)^k (1-\theta)^n = 0\\
 \iff&\sum h(k) \binom{n}{k} \left(\frac{\theta}{(1-\theta)}\right)^k (1-\theta)^n = 0\\
 \iff&\sum h(k) \binom{n}{k} \left(\frac{\theta}{(1-\theta)}\right)^k  = 0\\
-\stackrel{\rho = \frac{\theta}{1-\theta} \in (0,\infty)}{\iff}&\sum h(k) \binom{n}{k} \rho^k = 0, \forall \theta \in \Theta = (0,1).
+\stackrel{\rho = \frac{\theta}{1-\theta} \in (0,\infty)}{\iff}&\sum h(k) \binom{n}{k} \rho^k = 0, \forall \theta \in \Theta = (0,1), \rho \in (0,1).
 \end{aligned}
 $$
 
@@ -53,7 +53,7 @@ a_n = 0
 \end{array}\right. \Rightarrow
 \left\{
 \begin{array}{l}
-h(0)\binom{n}{0} = 0
+h(0)\binom{n}{0} = 0 \\
 \vdots \\
 h(n)\binom{n}{n} = 0
 \end{array}\right. \Rightarrow
@@ -65,7 +65,7 @@ $$
 \Rightarrow P_\theta(h(T(\boldsymbol{X}_n)) = 0) = 1, \forall \theta \in \Theta
 $$
 
-Portanto, $T(\mathbb{X}_n)$ é completa para o modelo.
+Portanto, $T(\boldsymbol{X}_n)$ é completa para o modelo.
 
 ## Teorema 1 (da relação de ida com estatísticas suficientes minimais)
 
