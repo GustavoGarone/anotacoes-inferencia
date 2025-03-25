@@ -21,7 +21,7 @@ Note que $T(\boldsymbol{X}_n) \sim \mathrm{Binom}(n,\theta), \theta \in (0,1)$
 
 $$
 P_\theta(T(\boldsymbol{X}_n)= k) \left\{\begin{array}{ll}
-\binom{n}{k}\theta^k (1-\theta)^{n-k}, & k \in {0,1,\dots,n} \\
+\binom{n}{k}\theta^k (1-\theta)^{n-k}, & k \in \{0,1,\dots,n\} \\
 0, & \mathrm{c.c.}
 \end{array}\right.
 $$
@@ -30,12 +30,12 @@ Seja $h(\cdot)$ uma função real (contradomínio em $\mathbb{R}$) tal que
 $$
 \begin{aligned}
 &E_\theta(h(T(\boldsymbol{X}_n))) = 0 \forall \theta \in \Theta = (0,1) \\
-\stackrel{\mathrm{aa}\ X\sim\mathrm{Ber}}{\iff}&\sum h(k) P_\theta(T(\mathbb{X}_n) = k) = 0 \\
+\stackrel{\mathrm{a.a.}\ X\sim\mathrm{Ber}}{\iff}&\sum_{k=0}^n h(k) P_\theta(T(\boldsymbol{X}_n) = k) = 0 \\
 \iff&\sum h(k) \binom{n}{k}\theta^k (1-\theta)^{n-k}= 0\\
 \iff&\sum h(k) \binom{n}{k} \left(\frac{\theta}{(1-\theta)}\right)^k (1-\theta)^n = 0\\
 \iff&\sum h(k) \binom{n}{k} \left(\frac{\theta}{(1-\theta)}\right)^k (1-\theta)^n = 0\\
 \iff&\sum h(k) \binom{n}{k} \left(\frac{\theta}{(1-\theta)}\right)^k  = 0\\
-\stackrel{\rho = \frac{\theta}{1-\theta} \in (0,\infty)}{\iff}&\sum h(k) \binom{n}{k} \rho^k = 0, \forall \theta \in \Theta = (0,1), \rho \in (0,1).
+\stackrel{\rho = \frac{\theta}{1-\theta} \in (0,\infty)}{\iff}&\sum h(k) \binom{n}{k} \rho^k = 0, \forall \theta \in \Theta = (0,1), \rho \in (0,\infty).
 \end{aligned}
 $$
 

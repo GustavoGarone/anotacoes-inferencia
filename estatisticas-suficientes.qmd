@@ -1046,7 +1046,7 @@ $$
 f_{\theta_0}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2}\sum(X_i-1)^2\right\}}{(\sqrt{2\pi})^n}
 = \frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum X_i^2 - 2 \sum X_i +n)\right\}}{(\sqrt{2\pi})^n} \\
 f_{\theta_1}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 4}(\sum X_i^2 - 2\cdot 2 \cdot \sum X_i +4n)\right\}}{(\sqrt{2\pi\cdot4})^n} \\
-f_{\theta_2}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 9}(\sum X_i^2 - 2\cdot 3 \cdot \sum X_i +4n)\right\}}{(\sqrt{2\pi\cdot9})^n}.
+f_{\theta_2}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 9}(\sum X_i^2 - 2\cdot 3 \cdot \sum X_i +9n)\right\}}{(\sqrt{2\pi\cdot9})^n}.
 \end{aligned}
 $$
 Portanto,
@@ -1056,7 +1056,7 @@ T'(\boldsymbol{X}_n) &= \left(
 \frac{\frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum X_i^2 - 2 \sum X_i +n)\right\}}{(\sqrt{2\pi})^n}}
 {\frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 4}(\sum X_i^2 - 2\cdot 2 \cdot \sum X_i +4n)\right\}}{(\sqrt{2\pi\cdot4})^n}},
 \frac{\frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum X_i^2 - 2 \sum X_i +n)\right\}}{(\sqrt{2\pi})^n}}
-{\frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 9}(\sum X_i^2 - 2\cdot 3 \cdot \sum X_i +4n)\right\}}{(\sqrt{2\pi\cdot9})^n}}
+{\frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 9}(\sum X_i^2 - 2\cdot 3 \cdot \sum X_i +9n)\right\}}{(\sqrt{2\pi\cdot9})^n}}
 \right) \\
 &=\left(
 \frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
@@ -1072,8 +1072,8 @@ T'(\boldsymbol{X}_n) &= \left(
 \frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
 -\frac{3}{4} \sum X_i^2 - 2(-\frac{1}{2} \sum X_i)
 \right)
-\right\}}{4^{\frac{n}{2}}},
-\frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
+\right\}}{4^{\frac{n}{2}}},\right. \\
+&\left.\frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
 -\frac{8}{9} \sum X_i^2 - 2(\frac{6}{9} \sum X_i)
 \right)
 \right\}}{9^{\frac{n}{2}}}
@@ -1107,7 +1107,7 @@ $$
 \begin{aligned}
 &\left\{
 \begin{array}{l}
-T'(\boldsymbol{X}_n)= (t'_1,t'_2)
+T'(\boldsymbol{X}_n)= (t'_1,t'_2) \\
 t'_1 = \frac{\mathrm{exp}\left\{
 -\frac{3}{8} t_2 -\frac{1}{2} t_1)
 \right\}}{4^{\frac{n}{2}}} \\
