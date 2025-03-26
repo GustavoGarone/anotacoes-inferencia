@@ -307,7 +307,7 @@ Obs:
 4. Note que a [função de verossimilhança](funcao-verossimilhanca.qmd) é obtida calculando $f_\theta^{\boldsymbol{X}_n}$ na
 amostra observada, ou seja,
 $$
-L_{\boldsymbol{X}_n}(\theta) = f_\theta^{\boldsymbol{X}_n}\underbracket{(x_1,\dots,x_n)}^{\boldsymbol{X}_n}
+L_{\boldsymbol{X}_n}(\theta) = f_\theta^{\boldsymbol{X}_n}\underbracket{(x_1,\dots,x_n)}_{\boldsymbol{X}_n}
 $$
 
 5. Alguns livros usam a função de verossimilhança no critério da fatoração
@@ -479,7 +479,7 @@ T(\boldsymbol{X}_n) = \left(\prod^n_{i=1}X_i, \prod^n_{i=1}(1-X_i)\right)
 $$
 é uma estatística suficiente para o modelo pois
 $$
-f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) m(T(\boldsymbol{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta.
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) =  m(T(\boldsymbol{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta.
 $$
 
 #### Exemplo b
