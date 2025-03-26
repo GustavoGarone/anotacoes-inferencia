@@ -955,7 +955,7 @@ para o modelo.
 ##### Resposta
 
 Já sabemos que é uma estatística suficiente para o modelo. Com o suporte $\mathfrak{X}_\theta = (0,\theta]$ depende de
-"$\theta$", não podemos usar o teorema anterior. Precisamos mostras que, para qualquer estatística suficiente para
+"$\theta$", não podemos usar o teorema anterior. Precisamos mostrar que, para qualquer estatística suficiente para
 o modelo $U(\boldsymbol{X}_n)$ existe $H(\cdot)$ tal que
 
 $$
