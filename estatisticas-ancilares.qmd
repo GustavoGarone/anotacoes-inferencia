@@ -21,16 +21,74 @@ $$
 S(\boldsymbol{X}_n) = \sum \frac{(X_i-\bar{X})^2}{\sigma^2} \sim \chi^2_{(n-1)}
 $$
 
-não é uma estatística uma vez que depende de $\theta$.
+não é uma estatística apesar de sua *distribuição* não depender de "$\theta$", uma vez que a estatística depende
+de "$\theta$".
 
-Note também que:
+Construiremos duas novas estatísticas
+
+Sejam, com $k<n$,
+$$
+\begin{aligned}
+S_1 (\boldsymbol{X}_n) &= \sum^k_{i=1}\frac{(X_i - \bar{X}_1)^2}{k-1} \\
+S_2 (\boldsymbol{X}_n) &= \sum^n_{i=k+1}\frac{(X_i - \bar{X}_2)^2}{n-k-1}
+\end{aligned}
+$$
+
+em que
+$$
+\left\{\begin{array}
+\bar{X}_1 &= \frac{1}{k} \sum^k_{i=1} X_i \\
+\bar{X}_2 &= \frac{1}{n-k} \sum^n_{i=k+1} X_i \\
+\end{array}\right.
+$$
+
+Logo, $S_2(\boldsymbol{X}_n)$ é independente de $S_2(\boldsymbol{X}_n)$. Defina
+$$
+S(\boldsymbol{X}_n) = \frac{S_1(\boldsymbol{X}_n)}{S_2(\boldsymbol{X}_n)} =
+\frac{\sum^k_{i=1}\frac{(X_i - \bar{X}_1)^2}{k-1}}{\sum^n_{i=k+1}\frac{(X_i - \bar{X}_2)^2}{n-k-1}}
+\sim \mathrm{F}_{k-1,n-k-1}
+$$
+
+Portanto, essa estatística $S(\boldsymbol{X}_n)$ é ancilar ao modelo.
+
+<!-- TODO: criar seção própria com as provas disso -->
+Observações: (serão transferidas para uma seção própria posteriormente)
+
+Se $(X_1,\dots,X_n)$ é amostra aleatória de $X\sim \mathrm{N}(\mu,\sigma^2)$, então
+
+1. $\bar{X} \sim \mathrm{N}(\mu, \frac{\simga^2}{n})$ (por função geradora de momentos);
+
+2. $\sum \frac{(X_i - \mu)^2}{\sigma^2} \sim \chi^2_{n})$ (por função geradora de momentos e transformação de VAs);
+
+3. $\sum \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{n-1})$ (por função geradora de momentos, álgebra linear e transformação de VAs);
+
+Se $(X_1,\dots,X_n)$ é amostra aleatória de $X\sim \mathrm{N}(\mu,\sigma^2)$ e $(Y_1,\dots,Y_n)$ a.a. de $Y\sim\mathrm{N}(\mu,\sigma^2)$
+são independentes, então
 
 $$
-U(\boldsymbol{X}_n) = \frac{\sum(X_i-\bar{X})}{s^2_{n-1}} \sim t_{n-1}
+\begin{aligned}
+1.&\left\{\begin{array}
+\sum^{n_1}_{i=1} \frac{(X_i - \mu_X)^2}{\sigma_X^2} \sim \chi^2_{n_1}) \\
+\sum^{n_2}_{i=1} \frac{(Y_i - \mu_X)^2}{\sigma_Y^2} \sim \chi^2_{n_2}) \\
+\end{array}\right. \\
+2.&\left\{\begin{array}
+\sum^{n_1}_{i=1} \frac{(X_i - \bar{X})^2}{\sigma_X^2} \sim \chi^2_{n_1-1}) \\
+\sum^{n_2}_{i=1} \frac{(Y_i - \bar{Y})^2}{\sigma_Y^2} \sim \chi^2_{n_2-1}) \\
+\end{array}\right. \\
+\end{aligned}
 $$
-em que $s^2_{n-1} = \frac{1}{n-1} \sum (X_i-\bar{X})^2$.
 
-Dessa forma, $U(\boldsymbol{X}_n)$ é uma estatística ancilar.
+Se $W\sim\chi^2_k$ e $M\sim\chi^2_m$ são independentes, então
+
+$$
+\frac{\frac{W}{k}}{\frac{Q}{m}} \sim F_{(k,m)}
+$$
+
+Se $Z\sim\mathrm{N}(0,1)$ e $W\sim\chi^2_{k}$, então
+
+$$
+\frac{Z}{\sqrt{\frac{W}{k}}} \sim t_{k}
+$$
 
 ## Ancilar de Primeira Ordem
 

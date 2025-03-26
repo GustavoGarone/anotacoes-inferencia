@@ -10,7 +10,7 @@ $$
 P_\theta(h(T(\boldsymbol{X}_n))=0) = 1, \forall \theta \in \Theta\; \text{ou simplesmente}\ h(T(\boldsymbol{X}_n)) = 0 \mathrm{q.c.}
 $$
 
-## Exemplo 1 (Bernoulli)
+## Exemplo 1 (Bernoulli, Soma)
 
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim\mathrm{Ber}(\theta)$.
 Mostre que $T(\boldsymbol{X}_n) = \sum X_i$ é uma estatistica completa para o modelo.
@@ -62,17 +62,232 @@ $$
 Como $\binom{n}{k}>0\forall k \in \{0,1,\dots,n\}$, temos que $h(k) = 0, \forall k \in \{0,1,\dots,n\}$
 
 $$
-\Rightarrow P_\theta(h(T(\boldsymbol{X}_n)) = 0) = 1, \forall \theta \in \Theta
+\Rightarrow P_\theta(h(T(\boldsymbol{X}_n)) = 0) = 1, \forall \theta \in \Theta.
 $$
 
 Portanto, $T(\boldsymbol{X}_n)$ é completa para o modelo.
+
+## Exemplo 2 (Uniforme)
+
+Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ a.a. de $X\sim\mathrm{Unif}(0,\theta),\theta \in \Theta = (0,\infty)$. Mostre
+que $T(\boldsymbol{X}_n) = \max\{X_1,\dots,X_n\}$ é uma estatística completa para o modelo.
+
+### Resposta
+
+Seja $h(\cdot)$ uma função tal que
+$$
+E_\theta(h(\boldsymbol{X}_n)) = 0, \forall \theta \in \Theta = (0,\infty)
+$$
+
+Precisamos encontrar a função densidade de probabilidade de $X_(n)$ (máximo). Sabemos que a f.d.p é a derivada da
+função de distribuição acumulada. Isto é,
+
+$$
+\begin{aligned}
+P_\theta(X_{(n)} \leq t) &= P_\theta(X_1\leq t, \dots, X_n\leq t)\\
+&\stackrel{\mathrm{ind.}}{=} \prod^n_{i=1} P_\theta(X_1\leq t) \stackrel{\mathrm{id}}{=} \prod P_\theta(X\leqt) \\
+\Rightarrow P_\theta(X_{(n)} \leq t) &\stackrel{\mathrm{iid}}{=} [P_\theta(X\leq t)]^n
+\end{aligned}
+$$
+
+em que
+$$
+P_\theta(X\leq t) = \left\{\begin{array}
+0, & t \leq 0 \\
+\frac{t}{\theta}, & t \in (0,\theta] \\
+1,& t > \theta
+\end{array}\right.
+$$
+
+Portanto,
+
+$$
+\begin{aligned}
+\frac{d}{dt} P_\theta(X_{(n)} \leq t) &= n [P_\theta(X\leq t)]^{n-1} \frac{d}{dt} P_\theta (X \leq t) \\
+\Rightarrow f_\theta^{\boldsymbol{X}_n}(x) &= \left.\frac{dP_\theta(X_{(n)} \leq t}{dt} \right\rvert_{t=x} \\
+&= n [P_\theta(X\leq x)]^{n-1} f_\theta(x) \\
+&= \left\{\begin{array}
+n \left(\frac{x}{\theta}\right)^{n-1} \frac{1}{\theta},& x \in (0,\theta] \\
+0, & \mathrm{c.c.}
+\end{array}\right.
+\end{aligned}
+$$
+
+Portanto,
+$$
+\begin{aligned}
+E_\theta(h(X_{(n)})) &= \int^\infty_{-\infty} h(x) f^{\boldsymbol{X}_n}_\theta (x) dx,\\
+&= \int_0^\theta h(x) \cdot n \left(\frac{x}{\theta}\right)^{n-1} \frac{1}{\theta} dx  \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+Se
+$$
+E_\theta(h(X_{(n)})) = 0, \forall \theta \in \Theta
+$$
+então
+$$
+\begin{aligned}
+&\int_0^\theta h(x) \cdot n \left(\frac{x}{\theta}\right)^{n-1} \frac{1}{\theta} dx = 0,\forall \theta > 0 \\
+\iff & \frac{n}{\theta^n} \int_0^\theta h(x) x^{n-1} dx = 0,\forall \theta > 0 \\
+\iff & \int_0^\theta h(x) x^{n-1} dx = 0,\forall \theta > 0.
+\end{aligned}
+$$
+
+Pelo Teorema Fundamental do Cálculo: $\frac{d}{dt} \int^t_a f(x)dx = f(t) - f(a)$, temos que
+
+$$
+\begin{aligned}
+& \frac{d}{d\theta} \int_0^\theta h(x) x^{n-1} dx = 0 \\
+\stackrel{\mathrm{TFC}}{\Rightarrow}& h(\theta)\theta^{n-1} = 0 \\
+\iff& h(\theta) = 0, \forall \theta > 0.
+\end{aligned}
+$$
+
+Ou seja, $h(x)= 0,\forall x > 0$. Portanto, $h$ é a função nula *quase certamente*. Logo, $X_{(n)}$ é completa para o
+modelo.
+
+## Contraexemplo (Bernoulli, amostra)
+
+Seja $\boldsymbol{X}_n$ amostra aleatória de $X\sim\mathrm{Ber}(\theta),\theta \in \Theta=(0,1)$. Mostre que
+$T(\boldsymbol{X}_n) = \boldsymbol{X}_n$ é suficiente porém não é completa para o modelo.
+
+### Resposta
+
+Pelo [critério da fatoração](estatisticas-suficientes.qmd#sec-crit-frat), já sabemos que $\boldsymbol{X}_n$ é
+suficiente para o modelo. Tome
+$$
+E_\theta(h(T(\boldsymbol{X}_n)) = E_\theta(X_i) = \theta - \theta = 0, \forall \theta \in \Theta.
+$$
+
+Portanto, $T(\boldsymbol{X}_n)$ não é completa para o modelo.
 
 ## Teorema 1 (da relação de ida com estatísticas suficientes minimais)
 
 Toda [estatística suficiente](estatisticas-suficientes.qmd) e completa é também
 [suficiente minimal](estatisticas-suficientes.qmd#sec-sm) para o [modelo estatístico](modelo-estatistico.qmd).
 
-## Teorema 2 (da relação de volta com estatísticas suficientes minimais)
+## Teorema 2 (da relação de volta com estatísticas suficientes minimais) {#sec-teo-dois-completa}
 
 Se existir uma [estatística suficiente](estatisticas-suficientes.qmd) e completa, então toda estatística
 [suficiente minimal](estatisticas-suficientes.qmd#sec-sm) será também completa.
+
+### Contraexemplo (Normal curvada)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{N}(\theta,\theta^2), \theta \in \Theta = (0,\infty)$. Mostre que
+$T(\boldsymbol{X}_n) = (\sum X_i, \sum X_i^2)$ não é completa para o modelo.
+
+#### Resposta
+
+Note que
+$$
+\begin{aligned}
+E_\theta(\sum X_i) &= n\theta, \forall \theta \in \Theta \\
+E_\theta(\sum X_i^2) &\stackrel{\mathrm{iid}}{=} n E_\theta(X^2) = n(\theta^2+ \theta^2) = 2n\theta^2 \\
+\Rightarrow E_\theta(T(\boldsymbol{X})n) = (n\theta, 2n\theta^2)
+\end{aligned}
+$$
+
+Tentativas para encontrar $h(\cdot)$.
+
+$$
+\begin{aligned}
+E_\theta\left(\left(\sum X_i\right)^2\right) &= E_\theta\left(\sum_{i=1}^n \sum_{j=1}^n X_i X_j\right) \\
+&= \sum_{i=1}^n \sum_{j=1}^n E_\theta(X_i\cdot X_j) \\
+&= \sum_{i=1}^n E(X_i^2) + \underset{i\neq j}{\sum \sum} E_\theta(X_i X_j) \\
+&\stackrel{\mathrm{ind}}{=} 2n\theta^2 + \underset{i\neq j}{\sum \sum} E_\theta(X_i)E_\theta(X_j) \\
+&\stackrel{\mathrm{id}}{=} 2n\theta^2 + \underset{i\neq j}{\sum \sum} [E_\theta(X)]^2 \\
+&= 2n\theta^2 + (n^2-n)\theta^2 \\
+&= (2n + n^2 -n)\theta^2 \\
+&= (n^2 +n)\theta^2.
+\end{aligned}
+$$
+
+Ou seja,
+
+$$
+E_\theta\left(\frac{(\sum X_i)^2}{n^2 + n}\right) = \theta^2, \forall \theta \in \Theta.
+$$
+
+Note ainda que
+$$
+E_\theta\left(\frac{\sum X_i^2}{2n}\right) = \theta^2, \forall \theta \in \Theta.
+$$
+
+Logo, tome
+$$
+h(T(\boldsymbol{X}_n)) = \frac{T_1(\boldsymbol{X}_n)^2}{n^2+n} - \frac{T_2(\boldsymbol{X}_n)}{2n}
+$$
+em que
+$$
+\begin{aligned}
+T_1(\boldsymbol{X}_n) = \sum X_i \\
+T_2(\boldsymbol{X}_n) = \sum X_i^2.
+\end{aligned}
+$$
+
+Como $E_\theta(h(T(\boldsymbol{X}_n)) = 0, \forall \theta > 0$, concluímos que $T(\boldsymbol{X}_n)$ não é conpleta.
+
+Obs: [já demonstramos](estatisticas-suficientes.qmd#sec-norm-curv) que $T(\boldsymbol{X}_n)$ é SM. Portanto, nem toda
+estatística SM é também completa. Dessa forma, pelo [Teorema 2](estatisticas-completas.qmd#sec-teo-dois-completa),
+concluímos que não existe uma estatística completa para o modelo.
+
+## Teorema 3 (da relação com a família exponencial)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta$, em que $f_\theta$ pertence à
+[família exponencial k-dimensional](familia-exponencial.qmd#sec-fek). Se "couber" um "retângulo" k-dimensional no conjunto
+$$
+\mathcal{C} = \{(c_1(\theta),\dots,c_k(\theta) : \theta \in \Theta \},
+$$
+em que $c_i$ representa a $i$-ésima componente $c$ obtido do pertencimento à família exponencial. Então a estatística
+$$
+T(\boldsymbol{X}_n) = \left(\sum T_1(\boldsymbol{X}_n),\dots,\sum T_k(\boldsymbol{X}_n)\right)
+$$
+é [suficiente](estatisticas-suficientes.qmd) *e completa* para o modelo.
+
+Se $k=1$, então $\mathcal{C}$ deve conter um intervalo (aberto). Se $k=2$, $\mathcal{C}$ deve conter o interior de um
+retângulo. Se $k=3$, então deve conter o interior de um cubo, e assim por diante.
+
+### Exemplo (Normal livre)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{N}(\mu,\sigma^2), \theta=(\mu,\sigma^2)\in\Theta = \mathbb{R}\times\mathbb{R}^+$.
+Mostre que $T(\boldsymbol{X}_n) = (\sum X_i, \sum X_i^2)$ é suficiente e completa para o modelo.
+
+#### Resposta
+
+Note que
+$$
+f_\theta(x) = \mathrm{e}^{c_1(\theta)T_1(x)+c_2(\theta)T_2(x) + d(\theta) + S(x)}
+$$
+em que
+$$
+\begin{array}{cc}
+c_1(\theta) = -\frac{1}{2\sigma^2} & T_1(x) = X^2 \\
+c_2(\theta) = \frac{\mu}{\sigma^2} & T_2(x) = x \\
+d(\theta) = -\frac{\mu^2}{2\sigma^2} - \frac{1}{2}\ln(2\pi\sigma^2) & S(x) = 0.
+\end{array}
+$$
+
+Observe também que
+$$
+\mathcal{C} =\left \{(c_1(\theta),c_2(\theta)) : \theta \in \Theta\} = \{\left(-\frac{1}{2\sigma^2}, \frac{\mu}{\sigma^2}\right)\right\}
+$$
+
+Ou seja
+$$
+\mathcal{C} = \mathbb{R}^-\times\mathbb{R}
+$$
+
+<!-- TODO: gráfico para visualizar R- e R e relação com C_1, C\_2 (foto yukio) -->
+
+Tome, por exemplo,
+$$
+(-2,-1)\times(1,2) \subseteq \mathcal{C}
+$$
+
+Logo, concluímos que
+$$
+T'(\boldsymbol{X}_n) = (\sum X_i^2, \sum X_i)
+$$
+é suficiente e completa para o modelo. Como $T(\boldsymbol{X}_n)=(\sum X_i, \sum X_i^2)$ é função injetora (1:1) de
+$T'(\boldsymbol{X}_n)$, concluímos que $T(\boldsymbol{X}_n)$ também é suficiente e completa.

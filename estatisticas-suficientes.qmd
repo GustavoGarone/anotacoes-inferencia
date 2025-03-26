@@ -1026,7 +1026,7 @@ g(u) &= \inf\left\{\theta \in (0,\infty) : f_\theta(u) > 0\right\}\\
 \end{aligned}
 $$
 
-#### Exemplo (Normal Curvada)
+#### Exemplo (Normal Curvada) {#sec-norm-curv}
 
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ amostra aleatória de $X\sim\mathrm{N}(\theta,\theta^2), \theta \in \Theta = \mathbb{R}^+$.
 Encontre uma estatística SM para o modelo.
