@@ -85,7 +85,7 @@ função de distribuição acumulada. Isto é,
 $$
 \begin{aligned}
 P_\theta(X_{(n)} \leq t) &= P_\theta(X_1\leq t, \dots, X_n\leq t)\\
-&\stackrel{\mathrm{ind.}}{=} \prod^n_{i=1} P_\theta(X_1\leq t) \stackrel{\mathrm{id}}{=} \prod P_\theta(X\leqt) \\
+&\stackrel{\mathrm{ind.}}{=} \prod^n_{i=1} P_\theta(X_1\leq t) \stackrel{\mathrm{id}}{=} \prod P_\theta(X\leq t) \\
 \Rightarrow P_\theta(X_{(n)} \leq t) &\stackrel{\mathrm{iid}}{=} [P_\theta(X\leq t)]^n
 \end{aligned}
 $$
@@ -134,7 +134,7 @@ $$
 \end{aligned}
 $$
 
-Pelo Teorema Fundamental do Cálculo: $\frac{d}{dt} \int^t_a f(x)dx = f(t) - f(a)$, temos que
+Pelo Teorema Fundamental do Cálculo: $\frac{d}{dt} \int^t_a f(x)dx = f(t)$, temos que
 
 $$
 \begin{aligned}
