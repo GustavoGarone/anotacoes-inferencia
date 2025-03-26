@@ -85,14 +85,14 @@ função de distribuição acumulada. Isto é,
 $$
 \begin{aligned}
 P_\theta(X_{(n)} \leq t) &= P_\theta(X_1\leq t, \dots, X_n\leq t)\\
-&\stackrel{\mathrm{ind.}}{=} \prod^n_{i=1} P_\theta(X_1\leq t) \stackrel{\mathrm{id}}{=} \prod P_\theta(X\leq t) \\
+&\stackrel{\mathrm{ind.}}{=} \prod^n_{i=1} P_\theta(X_i\leq t) \stackrel{\mathrm{id}}{=} \prod P_\theta(X\leq t) \\
 \Rightarrow P_\theta(X_{(n)} \leq t) &\stackrel{\mathrm{iid}}{=} [P_\theta(X\leq t)]^n
 \end{aligned}
 $$
 
 em que
 $$
-P_\theta(X\leq t) = \left\{\begin{array}
+P_\theta(X\leq t) = \left\{\begin{array}{ll}
 0, & t \leq 0 \\
 \frac{t}{\theta}, & t \in (0,\theta] \\
 1,& t > \theta
@@ -106,7 +106,7 @@ $$
 \frac{d}{dt} P_\theta(X_{(n)} \leq t) &= n [P_\theta(X\leq t)]^{n-1} \frac{d}{dt} P_\theta (X \leq t) \\
 \Rightarrow f_\theta^{\boldsymbol{X}_n}(x) &= \left.\frac{dP_\theta(X_{(n)} \leq t}{dt} \right\rvert_{t=x} \\
 &= n [P_\theta(X\leq x)]^{n-1} f_\theta(x) \\
-&= \left\{\begin{array}
+&= \left\{\begin{array}{ll}
 n \left(\frac{x}{\theta}\right)^{n-1} \frac{1}{\theta},& x \in (0,\theta] \\
 0, & \mathrm{c.c.}
 \end{array}\right.
@@ -157,7 +157,7 @@ $T(\boldsymbol{X}_n) = \boldsymbol{X}_n$ é suficiente porém não é completa p
 Pelo [critério da fatoração](estatisticas-suficientes.qmd#sec-crit-frat), já sabemos que $\boldsymbol{X}_n$ é
 suficiente para o modelo. Tome
 $$
-E_\theta(h(T(\boldsymbol{X}_n)) = E_\theta(X_i) = \theta - \theta = 0, \forall \theta \in \Theta.
+E_\theta(h(T(\boldsymbol{X}_n)) = E_\theta(X_1 - X_2) = \theta - \theta = 0, \forall \theta \in \Theta.
 $$
 
 Portanto, $T(\boldsymbol{X}_n)$ não é completa para o modelo.
