@@ -10,7 +10,7 @@ $$
 P_\theta(h(T(\boldsymbol{X}_n))=0) = 1, \forall \theta \in \Theta\; \text{ou simplesmente}\ h(T(\boldsymbol{X}_n)) = 0 \mathrm{q.c.}
 $$
 
-## Exemplo 1 (Bernoulli, Soma)
+## Exemplo 1 (Bernoulli, Soma) {#sec-ex-comp-ber}
 
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim\mathrm{Ber}(\theta)$.
 Mostre que $T(\boldsymbol{X}_n) = \sum X_i$ é uma estatistica completa para o modelo.
@@ -172,7 +172,7 @@ Toda [estatística suficiente](estatisticas-suficientes.qmd) e completa é tamb�
 Se existir uma [estatística suficiente](estatisticas-suficientes.qmd) e completa, então toda estatística
 [suficiente minimal](estatisticas-suficientes.qmd#sec-sm) será também completa.
 
-### Contraexemplo (Normal curvada)
+### Contraexemplo (Normal curvada) {#sec-ex-norm-curv}
 
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{N}(\theta,\theta^2), \theta \in \Theta = (0,\infty)$. Mostre que
 $T(\boldsymbol{X}_n) = (\sum X_i, \sum X_i^2)$ não é completa para o modelo.
@@ -232,7 +232,7 @@ Obs: [já demonstramos](estatisticas-suficientes.qmd#sec-norm-curv) que $T(\bold
 estatística SM é também completa. Dessa forma, pelo [Teorema 2](estatisticas-completas.qmd#sec-teo-dois-completa),
 concluímos que não existe uma estatística completa para o modelo.
 
-## Teorema 3 (da relação com a família exponencial)
+## Teorema 3 (da relação com a família exponencial) {#sec-teo-tres-completa}
 
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta$, em que $f_\theta$ pertence à
 [família exponencial k-dimensional](familia-exponencial.qmd#sec-fek). Se "couber" um "retângulo" k-dimensional no conjunto
@@ -291,3 +291,60 @@ T'(\boldsymbol{X}_n) = (\sum X_i^2, \sum X_i)
 $$
 é suficiente e completa para o modelo. Como $T(\boldsymbol{X}_n)=(\sum X_i, \sum X_i^2)$ é função injetora (1:1) de
 $T'(\boldsymbol{X}_n)$, concluímos que $T(\boldsymbol{X}_n)$ também é suficiente e completa.
+
+### Exemplo (Exponencial)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{Exp}(\theta), \theta\in\Theta = (0,\infty)$. Encontre uma estatística
+suficiente e completa.
+
+#### Resposta
+Note que
+$$
+f_\theta(x) = \begin{array}{ll}
+\theta \mathrm{e}^{-\theta x}, & x > 0\\
+0, & \mathrm{c.c.}
+\end{array}
+$$
+
+[Já mostramos](familia-exponencial.qmd#sec-fe-exp) que pertence à [FE](familia-exponencial.qmd) com $c_1(\theta) = -\theta$,
+e $T_1(x) = x$. Note que
+$$
+\mathcal{C} = \{c_1(\theta) : \theta \in \Theta\} = (-\infty,0)
+$$
+
+Como $(-1,-0.5) \subseteq \mathcal{C}$, concluímos que $\sum T_1(X_i)$ é, pelo
+[Teorema 3](estatisticas-completas.qmd#sec-teo-tres-completa), suficiente e completa.
+
+### Contraexemplo (Normal curvada)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{N}(\theta,\theta^2), \theta\in\Theta = \mathbb{R}^+$. Verifique se o
+conjunto $\mathcal{C} = \{(c_1(\theta),c_2(\theta)) : \theta \in \mathbb{R}^+$.
+
+#### Resposta
+
+Note que
+$$
+f_\theta(x) = \frac{1}{\sqrt{2\pi\theta^2}} \mathrm{exp}\left\{-\frac{1}{2\theta^2} (x^2 - 2x\theta + \theta^2)\right\}
+$$
+
+Tomando
+$$
+\begin{array}{cc}
+c_1(\theta) = -\frac{1}{2\theta^2} & T_1(x) = x^2 \\
+c_2(\theta) = \frac{1}{\theta} & T_2(x) = x \\
+d(\theta) = -\ln(\sqrt{2\pi\theta^2}) & S(x) = -\frac{1}{2}
+\end{array}
+$$
+
+Logo
+$$
+\mathcal{C} = \{(c_1(\theta),c_2(\theta)):\theta>0\} = \left\{\left(-\frac{1}{2\theta^2},\frac{1}{\theta}\right)\right\}
+$$
+
+Como $c_1(\theta)$ e $c_2(\theta)$ estão relacionados funcionalmente (podemos escrever $c_1(\theta)$ como função de $c_2(\theta)$,
+temos uma curva ao invés de uma área e, portanto, não é possível encontrar um retângulo cujo interior esteja contido em $\mathcal{C}$.
+
+<!-- TODO: gráfico como da aula (foto) -->
+
+Note que esse teorema não diz se não há uma estatística completa. Para isso, [é necessário testar as estatísticas pela
+definição](estatisticas-completas.qmd#sec-ex-norm-curv)

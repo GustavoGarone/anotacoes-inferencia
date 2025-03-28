@@ -41,6 +41,7 @@ book:
       - estatisticas-suficientes.qmd
       - estatisticas-ancilares.qmd
       - estatisticas-completas.qmd
+      - envum.qmd
     # - references.qmd
 
 bibliography: references.bib

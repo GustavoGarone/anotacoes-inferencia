@@ -82,7 +82,7 @@ $$
 
 ## Propriedades dos estimadores para quantidades de interesse
 
-### Estimados não viciados ou enviesados
+### Estimados não-viciados ou não-enviesados {#sec-est-naovies}
 
 Seja $(X_{1},\dots,X_{n})$ a.a. de $X\sim f_{\theta,}\theta \in \Theta$ e considere $T(X_{1},\dots,X_{n})=\hat{\theta}_n$
 um estimador para $\theta$.
