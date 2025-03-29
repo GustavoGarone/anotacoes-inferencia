@@ -18,7 +18,7 @@ $$
 \mathrm{Var}_\theta(T(\boldsymbol{X}_n)) \leq \mathrm{Var}_\theta(U(\boldsymbol{X}_n)), \forall \theta \in \Theta;
 $$
 
-## Teorema de Lehmamn-Scheffé {$sec-teo-ls}
+## Teorema de Lehmamn-Scheffé {#sec-teo-ls}
 
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_j)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta, \theta \in \Theta$,
 $f_\theta$ a [distribuição amostral](distribuicao-amostral.qmd).
