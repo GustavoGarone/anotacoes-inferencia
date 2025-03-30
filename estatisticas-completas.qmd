@@ -270,7 +270,7 @@ $$
 
 Observe também que
 $$
-\mathcal{C} =\left \{(c_1(\theta),c_2(\theta)) : \theta \in \Theta\} = \{\left(-\frac{1}{2\sigma^2}, \frac{\mu}{\sigma^2}\right)\right\}
+\mathcal{C} =\left \{(c_1(\theta),c_2(\theta)) : \theta \in \Theta\right\} = \left\{\left(-\frac{1}{2\sigma^2}, \frac{\mu}{\sigma^2}\right)\right\}
 $$
 
 Ou seja

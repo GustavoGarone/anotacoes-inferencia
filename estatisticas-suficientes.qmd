@@ -545,9 +545,9 @@ $$
 
 Logo,
 $$
-f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) \stackrel{\mathrm{Unif}}{=}
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) \stackrel{\mathrm{Unif}}{=} \prod^n_{i=1}
 \frac{1}{\theta} \mathbb{1}_{(0,\theta]}(y_i) \\
-= \frac{1}{\theta^n} \cdot \prod^n_{i=1} \mathbb{1}_{(0,\theta]}(y_1)
+= \frac{1}{\theta^n} \cdot \prod^n_{i=1} \mathbb{1}_{(0,\theta]}(y_i)
 $$
 
 Note que
@@ -566,7 +566,7 @@ $$
 
 Logo
 $$
-\prod^n_{i=1}\mathbb{1}(y_i)_{(0,\theta]} = 1 \Leftrightarrow
+\prod^n_{i=1}\mathbb{1}_{(0,\theta]}(y_i) = 1 \Leftrightarrow
 \mathbb{1}_{(0,\infty)}(\min(\boldsymbol{y}_n)) \cdot
 \mathbb{1}_{(0,\theta]}(\max(\boldsymbol{y}_n)) = 1
 $$
