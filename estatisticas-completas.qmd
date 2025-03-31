@@ -29,7 +29,7 @@ $$
 Seja $h(\cdot)$ uma função real (contradomínio em $\mathbb{R}$) tal que
 $$
 \begin{aligned}
-&E_\theta(h(T(\boldsymbol{X}_n))) = 0 \forall \theta \in \Theta = (0,1) \\
+&E_\theta(h(T(\boldsymbol{X}_n))) = 0,\ \forall \theta \in \Theta = (0,1) \\
 \stackrel{\mathrm{a.a.}\ X\sim\mathrm{Ber}}{\iff}&\sum_{k=0}^n h(k) P_\theta(T(\boldsymbol{X}_n) = k) = 0 \\
 \iff&\sum h(k) \binom{n}{k}\theta^k (1-\theta)^{n-k}= 0\\
 \iff&\sum h(k) \binom{n}{k} \left(\frac{\theta}{(1-\theta)}\right)^k (1-\theta)^n = 0\\
@@ -41,7 +41,7 @@ $$
 
 Observe que, tomando $a_k = h(k) \binom{n}{k}, k = 0,1,\dots,n$, temos que
 $$
-a_0 \rho^0 + a_1 \rho^1 + \dots + a_n \rho^n = 0 \forall \rho \in (0,\infty).
+a_0 \rho^0 + a_1 \rho^1 + \dots + a_n \rho^n = 0,\ \forall \rho \in (0,\infty).
 $$
 Por igualdade de polinômios,
 $$
@@ -59,10 +59,10 @@ h(n)\binom{n}{n} = 0
 \end{array}\right. \Rightarrow
 $$
 
-Como $\binom{n}{k}>0\forall k \in \{0,1,\dots,n\}$, temos que $h(k) = 0, \forall k \in \{0,1,\dots,n\}$
+Como $\binom{n}{k}>0\ \forall k \in \{0,1,\dots,n\}$, temos que $h(k) = 0,\ \forall k \in \{0,1,\dots,n\}$
 
 $$
-\Rightarrow P_\theta(h(T(\boldsymbol{X}_n)) = 0) = 1, \forall \theta \in \Theta.
+\Rightarrow P_\theta(h(T(\boldsymbol{X}_n)) = 0) = 1,\ \forall \theta \in \Theta.
 $$
 
 Portanto, $T(\boldsymbol{X}_n)$ é completa para o modelo.
@@ -76,7 +76,7 @@ que $T(\boldsymbol{X}_n) = \max\{X_1,\dots,X_n\}$ é uma estatística completa p
 
 Seja $h(\cdot)$ uma função tal que
 $$
-E_\theta(h(\boldsymbol{X}_n)) = 0, \forall \theta \in \Theta = (0,\infty)
+E_\theta(h(\boldsymbol{X}_n)) = 0,\ \forall \theta \in \Theta = (0,\infty)
 $$
 
 Precisamos encontrar a função densidade de probabilidade de $X_(n)$ (máximo). Sabemos que a f.d.p é a derivada da
@@ -103,9 +103,9 @@ Portanto,
 
 $$
 \begin{aligned}
-\frac{d}{dt} P_\theta(X_{(n)} \leq t) &= n [P_\theta(X\leq t)]^{n-1} \frac{d}{dt} P_\theta (X \leq t) \\
-\Rightarrow f_\theta^{\boldsymbol{X}_n}(x) &= \left.\frac{dP_\theta(X_{(n)} \leq t}{dt} \right\rvert_{t=x} \\
-&= n [P_\theta(X\leq x)]^{n-1} f_\theta(x) \\
+\frac{d}{dt} P_\theta(X_{(n)} \leq t) &= n [P_\theta(X_{(n)}\leq t)]^{n-1} \frac{d}{dt} P_\theta (X_{(n)} \leq t) \\
+\Rightarrow f_\theta^{\boldsymbol{X}_{(n)}}(x) &= \left.\frac{dP_\theta(X_{(n)} \leq t)}{dt} \right\rvert_{t=x} \\
+&= n [P_\theta(X_{(n)}\leq x)]^{n-1} f_\theta(x) \\
 &= \left\{\begin{array}{ll}
 n \left(\frac{x}{\theta}\right)^{n-1} \frac{1}{\theta},& x \in (0,\theta] \\
 0, & \mathrm{c.c.}
@@ -113,24 +113,24 @@ n \left(\frac{x}{\theta}\right)^{n-1} \frac{1}{\theta},& x \in (0,\theta] \\
 \end{aligned}
 $$
 
-Portanto,
+Dessa forma,
 $$
 \begin{aligned}
-E_\theta(h(X_{(n)})) &= \int^\infty_{-\infty} h(x) f^{\boldsymbol{X}_n}_\theta (x) dx,\\
-&= \int_0^\theta h(x) \cdot n \left(\frac{x}{\theta}\right)^{n-1} \frac{1}{\theta} dx  \forall \theta \in \Theta.
+E_\theta(h(X_{(n)})) &= \int^\infty_{-\infty} h(x) f^{\boldsymbol{X}_{(n)}}_\theta (x) dx,\\
+&= \int_0^\theta h(x) \cdot n \left(\frac{x}{\theta}\right)^{n-1} \frac{1}{\theta} dx,\  \forall \theta \in \Theta.
 \end{aligned}
 $$
 
 Se
 $$
-E_\theta(h(X_{(n)})) = 0, \forall \theta \in \Theta
+E_\theta(h(X_{(n)})) = 0,\ \forall \theta \in \Theta
 $$
 então
 $$
 \begin{aligned}
 &\int_0^\theta h(x) \cdot n \left(\frac{x}{\theta}\right)^{n-1} \frac{1}{\theta} dx = 0,\forall \theta > 0 \\
-\iff & \frac{n}{\theta^n} \int_0^\theta h(x) x^{n-1} dx = 0,\forall \theta > 0 \\
-\iff & \int_0^\theta h(x) x^{n-1} dx = 0,\forall \theta > 0.
+\iff & \frac{n}{\theta^n} \int_0^\theta h(x) x^{n-1} dx = 0,\ \forall \theta > 0 \\
+\iff & \int_0^\theta h(x) x^{n-1} dx = 0,\ \forall \theta > 0.
 \end{aligned}
 $$
 
@@ -147,7 +147,7 @@ $$
 Ou seja, $h(x)= 0,\forall x > 0$. Portanto, $h$ é a função nula *quase certamente*. Logo, $X_{(n)}$ é completa para o
 modelo.
 
-## Contraexemplo (Bernoulli, amostra)
+## Exemplo negativo (Bernoulli, amostra)
 
 Seja $\boldsymbol{X}_n$ amostra aleatória de $X\sim\mathrm{Ber}(\theta),\theta \in \Theta=(0,1)$. Mostre que
 $T(\boldsymbol{X}_n) = \boldsymbol{X}_n$ é suficiente porém não é completa para o modelo.
@@ -172,7 +172,7 @@ Toda [estatística suficiente](estatisticas-suficientes.qmd) e completa é tamb�
 Se existir uma [estatística suficiente](estatisticas-suficientes.qmd) e completa, então toda estatística
 [suficiente minimal](estatisticas-suficientes.qmd#sec-sm) será também completa.
 
-### Contraexemplo (Normal curvada) {#sec-ex-norm-curv}
+### Exemplo negativo (Normal curvada) {#sec-ex-norm-curv}
 
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{N}(\theta,\theta^2), \theta \in \Theta = (0,\infty)$. Mostre que
 $T(\boldsymbol{X}_n) = (\sum X_i, \sum X_i^2)$ não é completa para o modelo.
@@ -315,7 +315,7 @@ $$
 Como $(-1,-0.5) \subseteq \mathcal{C}$, concluímos que $\sum T_1(X_i)$ é, pelo
 [Teorema 3](estatisticas-completas.qmd#sec-teo-tres-completa), suficiente e completa.
 
-### Contraexemplo (Normal curvada)
+### Exemplo negativo (Normal curvada)
 
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{N}(\theta,\theta^2), \theta\in\Theta = \mathbb{R}^+$. Verifique se o
 conjunto $\mathcal{C} = \{(c_1(\theta),c_2(\theta)) : \theta \in \mathbb{R}^+$.

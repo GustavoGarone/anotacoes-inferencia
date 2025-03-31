@@ -181,7 +181,7 @@ $$
 e
 $$
 \begin{aligned}
-E_\theta\left(\sum{1}{\sigma^2} \sum (X_i-\bar{X})^2\right) &\stackrel{\chi^2_{n-1}}{=} n-1 \\
+E_\theta\left(\frac{1}{\sigma^2} \sum (X_i-\bar{X})^2\right) &\stackrel{\chi^2_{n-1}}{=} n-1 \\
 \Rightarrow E_\theta\left(\frac{1}{n} \sum (X_i - \bar{X})^2 \right) &= \frac{n-1}{n} \sigma^2, \forall \theta \in \Theta.
 \end{aligned}
 $$
@@ -190,7 +190,7 @@ Portanto,
 $$
 T''(\boldsymbol{X}_n) = \left(bar{X}, S_{n-1}^2\right),
 $$
-em que $\bar{X} = \frac{1}{n} \sum X_i$ e $S^2_{n-1} = \frac{1}{n-1} \sum (X_i - bar{X})^2$, é suficiente completa para
+em que $\bar{X} = \frac{1}{n} \sum X_i$ e $S^2_{n-1}(\boldsymbol{X}_n) = \frac{1}{n-1} \sum (X_i - bar{X})^2$, é suficiente completa para
 o modelo não viciado para $g(\theta)$ pois
 $$
 E_\theta(T''(\boldsymbol{X}_n)) = (\mu,\sigma^2), \forall \theta \in \Theta.
@@ -205,14 +205,14 @@ Já temos, do item a, uma estatística suficiente completa para o modelo, como $
 
 Tentativa 1.
 
-Intuitivamente, podemos esperar que $E_\theta(\sqrt{S^2_{n-1}})= c \sigma + b$. Se or, então bastaria tomar
+Intuitivamente, podemos esperar que $E_\theta(\sqrt{S^2_{n-1}(\boldsymbol{X}_n)})= c \sigma + b$. Se or, então bastaria tomar
 $$
-S'(\boldsymbol{X}_n) = \frac{\sqrt{S^2_{n-1}}-b}{c}
+S'(\boldsymbol{X}_n) = \frac{\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}-b}{c}
 $$
-para obtermos um estimador não viciado. Sob normalidade, $\bar{X}$ e $S^2_{n-1}$ são independentes. Logo, $\bar{X}$ e
+para obtermos um estimador não viciado. Sob normalidade, $\bar{X}$ e $S^2_{n-1}(\boldsymbol{X}_n)$ são independentes. Logo, $\bar{X}$ e
 $S'_{n-1}$ também são independentes. Portanto,
 $$
-E_\theta(S'(\boldsymbol{X}_n)\lvert T''(\boldsymbol{X}_n)) \stackrel{\mathrm{Ind.}}{=} E_\theta(S'(\boldsymbol{X}_n) \lvert S^2_{n-1}) 
+E_\theta(S'(\boldsymbol{X}_n)\lvert T''(\boldsymbol{X}_n)) \stackrel{\mathrm{Ind.}}{=} E_\theta(S'(\boldsymbol{X}_n) \lvert S^2_{n-1}(\boldsymbol{X}_n)) 
 \stackrel{\mathrm{Cond.}}{=}S'(\boldsymbol{X}_n).
 $$
 
@@ -220,13 +220,13 @@ Verificando:
 
 Observe que
 $$
-W(\sigma^2) = \frac{(n-1)S^2_{n-1}}{n} \sim \chi^2_{n-1}.
+W(\sigma^2) = \frac{(n-1)S^2_{n-1}(\boldsymbol{X}_n)}{\sigma^2} \sim \chi^2_{n-1}.
 $$
 Logo, para $n>1$
 $$
 \begin{aligned}
-E_\theta(\sqrt{S^2_{n-1}}) &= E_\theta\left(\frac{\sqrt{n-1}}{\sqrt{n-1}}\frac{\sqrt{\sigma^2}}{\sqrt{\sigma^2}} \sqrt{S^2_{n-1}}\right) \\
-&= E_\theta\left(\frac{\sqrt{\sigma^2}}{\sqrt{n-1}}\sqrt{\frac{(n-1)S^2_{n-1}}{\sigma^2}}\right) \\
+E_\theta(\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}) &= E_\theta\left(\frac{\sqrt{n-1}}{\sqrt{n-1}}\frac{\sqrt{\sigma^2}}{\sqrt{\sigma^2}} \sqrt{S^2_{n-1}(\boldsymbol{X}_n)}\right) \\
+&= E_\theta\left(\frac{\sqrt{\sigma^2}}{\sqrt{n-1}}\sqrt{\frac{(n-1)S^2_{n-1}(\boldsymbol{X}_n)}{\sigma^2}}\right) \\
 &= \frac{\sigma}{\sqrt{n-1}}E_\theta\left(\sqrt{W(\sigma^2)}\right).
 \end{aligned}
 $$
@@ -253,13 +253,13 @@ E_\theta\left(\sqrt{W(\sigma^2)}\right) &= \int^\infty_0 \frac{x^{\frac{1}{2}}x^
 $$
 Dessa forma,
 $$
-E_\theta\left(\sqrt{S^2_{n-1}}\right) = \frac{\sigma}{\sqrt{n-1}} \frac{\sqrt{2}}{\Gamma\left(\frac{n-1}{2}\right)} \Gamma\left(\frac{n}{2}\right),
+E_\theta\left(\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}\right) = \frac{\sigma}{\sqrt{n-1}} \frac{\sqrt{2}}{\Gamma\left(\frac{n-1}{2}\right)} \Gamma\left(\frac{n}{2}\right),
 $$
 tomando
 $$
-S'(\boldsymbol{X}_n) = \frac{\sqrt{(n-1) S^2_{n-1}}}{\sqrt{2}} \frac{\Gamma\left(\frac{n-1}{2}\right)}{\Gamma\left(\frac{n}{2}\right)},
+S'(\boldsymbol{X}_n) = \frac{\sqrt{(n-1) S^2_{n-1}(\boldsymbol{X}_n)}}{\sqrt{2}} \frac{\Gamma\left(\frac{n-1}{2}\right)}{\Gamma\left(\frac{n}{2}\right)},
 $$
-é, como $S'(\boldsymbol{X}_n) = c\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}$ é função 1:1 de $S^2_{n-1}$, o ENVVUM para $g(\theta) = \sigma$.
+é, como $S'(\boldsymbol{X}_n) = c\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}$ é função 1:1 de $S^2_{n-1}(\boldsymbol{X}_n)$, o ENVVUM para $g(\theta) = \sigma$.
 
 ## Exemplo (Poisson)
 
@@ -278,7 +278,7 @@ $$
 g(\theta) = P_\theta(X=0) = \mathrm{e^-\theta}
 $$
 
-Um estimador não viesado para essa quantidade de interesse é $\mathbb{1}_{\{0\}}(X_1)$, uma vez que
+Um estimador não-viesado para essa quantidade de interesse é $\mathbb{1}_{\{0\}}(X_1)$, uma vez que
 $$
 P_\theta(\mathbb{1}_{\{0\}}(X_1) = P_\theta(X_1 = 0) \stackrel{\mathrm{a.a.}}{=} P_\theta(X = 0) = \mathrm{e}^{-\theta}
 $$
@@ -336,7 +336,7 @@ $$
 E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n) = t) = \frac{(n-1)^t}{n^t} = \left(1 - \frac{1}{n}\right)^t
 $$
 
-Portanto, subistituindo $t$ por $T(\boldsymbol{X}_n)$, temos que
+Portanto, substituindo $t$ por $T(\boldsymbol{X}_n)$, temos que
 $$ 
 E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)) = \left(1 - \frac{1}{n}\right)^{T(\boldsymbol{X}_n)}
 $$
