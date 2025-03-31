@@ -155,3 +155,188 @@ $$
 $$
 
 Logo, pelo Teorema de Lehmamn-Scheffé, é o ENVVUM para $g(\theta) = 1-\theta$.
+
+## Exemplo (Normal)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu, \sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}_+$.
+
+### Item a (parâmetros)
+Encontre o (quase certamente) ENVVUM para $g(\theta) = (\mu, \sigma^2)$.
+
+[Já sabemos que](estatisticas-completas.qmd#sec-ex-norm-livre), pelo
+[Teorema das FEs](estatisticas-completas.qmd#sec-teo-tres-completa), 
+$$
+T(\boldsymbol{X}_n) = \left(\sum X_i,\sum X_i^2\right)
+$$
+é suficiente e completa para o modelo. Observe ainda que
+$$
+T'(\boldsymbol{X}_n) = \left(\frac{1}{n} \sum X_i, \frac{1}{n} \sum X_i^2 - \left(\frac{1}{n} \sum X_i\right)^2\right)
+$$
+é função 1:1 de $T(\boldsymbol{X}_n)$. Portanto, $T'(\boldsymbol{X}_n)$ é uma estatística suficiente e completa para o modelo.
+
+Note que
+$$
+E_\theta\left(\frac{1}{n}\sum X_i\right) = \mu, \forall \theta \in \Theta
+$$
+e
+$$
+\begin{aligned}
+E_\theta\left(\sum{1}{\sigma^2} \sum (X_i-\bar{X})^2\right) &\stackrel{\chi^2_{n-1}}{=} n-1 \\
+\Rightarrow E_\theta\left(\frac{1}{n} \sum (X_i - \bar{X})^2 \right) &= \frac{n-1}{n} \sigma^2, \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+Portanto,
+$$
+T''(\boldsymbol{X}_n) = \left(bar{X}, S_{n-1}^2\right),
+$$
+em que $\bar{X} = \frac{1}{n} \sum X_i$ e $S^2_{n-1} = \frac{1}{n-1} \sum (X_i - bar{X})^2$, é suficiente completa para
+o modelo não viciado para $g(\theta)$ pois
+$$
+E_\theta(T''(\boldsymbol{X}_n)) = (\mu,\sigma^2), \forall \theta \in \Theta.
+$$
+
+Logo, $T''(\boldsymbol{X}_n)$ é o ENVVUM quase certamente para $g(\theta) = \theta$.
+
+### Item b (DP)
+Encontre o ENVVUM para $g(\theta) = \sigma$  
+
+Já temos, do item a, uma estatística suficiente completa para o modelo, como $T''(\boldsymbol{X}_n)$.
+
+Tentativa 1.
+
+Intuitivamente, podemos esperar que $E_\theta(\sqrt{S^2_{n-1}})= c \sigma + b$. Se or, então bastaria tomar
+$$
+S'(\boldsymbol{X}_n) = \frac{\sqrt{S^2_{n-1}}-b}{c}
+$$
+para obtermos um estimador não viciado. Sob normalidade, $\bar{X}$ e $S^2_{n-1}$ são independentes. Logo, $\bar{X}$ e
+$S'_{n-1}$ também são independentes. Portanto,
+$$
+E_\theta(S'(\boldsymbol{X}_n)\lvert T''(\boldsymbol{X}_n)) \stackrel{\mathrm{Ind.}}{=} E_\theta(S'(\boldsymbol{X}_n) \lvert S^2_{n-1}) 
+\stackrel{\mathrm{Cond.}}{=}S'(\boldsymbol{X}_n).
+$$
+
+Verificando:
+
+Observe que
+$$
+W(\sigma^2) = \frac{(n-1)S^2_{n-1}}{n} \sim \chi^2_{n-1}.
+$$
+Logo, para $n>1$
+$$
+\begin{aligned}
+E_\theta(\sqrt{S^2_{n-1}}) &= E_\theta\left(\frac{\sqrt{n-1}}{\sqrt{n-1}}\frac{\sqrt{\sigma^2}}{\sqrt{\sigma^2}} \sqrt{S^2_{n-1}}\right) \\
+&= E_\theta\left(\frac{\sqrt{\sigma^2}}{\sqrt{n-1}}\sqrt{\frac{(n-1)S^2_{n-1}}{\sigma^2}}\right) \\
+&= \frac{\sigma}{\sqrt{n-1}}E_\theta\left(\sqrt{W(\sigma^2)}\right).
+\end{aligned}
+$$
+
+Vamos calcular
+$$
+E_\theta\left(\sqrt{W(\sigma^2})\right) = \int_0^\infty \sqrt{x} f_\theta^{W(\sigma^2)}(x) dx
+$$
+em que
+$$
+f_\theta^{W(\sigma^2)}(x) = \frac{1}{2^{\frac{n-1}{2}}\Gamma(\frac{n-1}{2})} x^{\frac{n-1}{2}-1}\mathrm{e}^{-\frac{1}{2} x}
+$$
+
+Portanto,
+$$
+\begin{aligned}
+E_\theta\left(\sqrt{W(\sigma^2)}\right) &= \int^\infty_0 \frac{x^{\frac{1}{2}}x^{\frac{n-1}{2}}\mathrm{e}^{-\frac{1}{2}x}}
+{2^{\frac{n-1}{2}}\Gamma\left(\frac{n-1}{2}\right)} dx \\
+&= \frac{1}{2^{\frac{n-1}{2}}\Gamma\left(\frac{n-1}{2}\right)} \int^\infty_0 x^{\frac{n}{2}-1} \mathrm{e}^{-\frac{x}{2}} dx \\
+&\stackrel{x=2u}{=} \frac{1}{2^{\frac{n-1}{2}}\Gamma\left(\frac{n-1}{2}\right)}  \int^\infty_0 (2u)^{\frac{n}{2}-1}\mathrm{e}^{-u} 2du \\
+& = \frac{2^{\frac{n}{2}}}{2^{\frac{n}{2} - \frac{1}{2}}\Gamma\left(\frac{n-1}{2}\right)} \int^\infty_0 u^{\frac{n}{2}-1} \mathrm{e}^{-u} du \\
+&= \frac{\sqrt{2}}{\Gamma\left(\frac{n-1}{2}\right)}
+\end{aligned}
+$$
+Dessa forma,
+$$
+E_\theta\left(\sqrt{S^2_{n-1}}\right) = \frac{\sigma}{\sqrt{n-1}} \frac{\sqrt{2}}{\Gamma\left(\frac{n-1}{2}\right)} \Gamma\left(\frac{n}{2}\right),
+$$
+tomando
+$$
+S'(\boldsymbol{X}_n) = \frac{\sqrt{(n-1) S^2_{n-1}}}{\sqrt{2}} \frac{\Gamma\left(\frac{n-1}{2}\right)}{\Gamma\left(\frac{n}{2}\right)},
+$$
+é, como $S'(\boldsymbol{X}_n) = c\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}$ é função 1:1 de $S^2_{n-1}$, o ENVVUM para $g(\theta) = \sigma$.
+
+## Exemplo (Poisson)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{Poiss}(\theta), \theta \in (0,\infty)$.
+
+Encontre o ENVVUM para $g(\theta) = P_\theta(X = 0)$.
+
+Pelo Teorema da FE k-dimensional, temos que
+$$
+T(\boldsymbol{X}_n) \sum X_i
+$$
+é suficiente e completa para o modelo.
+
+Note que
+$$
+g(\theta) = P_\theta(X=0) = \mathrm{e^-\theta}
+$$
+
+Um estimador não viesado para essa quantidade de interesse é $\mathbb{1}_{\{0\}}(X_1)$, uma vez que
+$$
+P_\theta(\mathbb{1}_{\{0\}}(X_1) = P_\theta(X_1 = 0) \stackrel{\mathrm{a.a.}}{=} P_\theta(X = 0) = \mathrm{e}^{-\theta}
+$$
+
+Portanto, pelo Teorema de Lehmamn-Scheffé,
+$$
+\stackrel{\sim}{T} = E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n))
+$$
+é o ENVVUM para $g(\theta) = \mathrm{e}^{-\theta}$
+
+<!-- TODO: estratégia de gente como na lista -->
+uma estratégia é calcular $m(t) = E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)=t)$ e depois substituir $t$
+por $T(\boldsymbol{X}_n)$ em $m(t)$. Note que, por definição,
+
+$$
+\begin{aligned}
+E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)=t) &= \sum_{s \in \{0,1\}} s \cdot P_\theta(S(\boldsymbol{X}_n) = s \lvert T(\boldsymbol{X}_n) = t) \\
+&= P_\theta(S(\boldsymbol{X}_n) = 1 \lvert T(\boldsymbol{X}_n) = t) \\
+&= \frac{P_\theta(S(\boldsymbol{X}_n) = 1, T(\boldsymbol{X}_n) = t)}{P_\theta(T(\boldsymbol{X}_n) = t)}
+\end{aligned}
+$$
+
+Note que, por FGM,
+$$
+T(\boldsymbol{X}_n) = \sum X_i \sim \mathrm{Poiss}(n\theta), \theta \in (0,\infty)
+$$
+
+e para $t \in \{0,1,\dots\}$
+$$
+\text{"}S(\boldsymbol{X}_n) = 1\text{"} \iff \text{"}X_1 = 0\text{"} \Rightarrow
+E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n) = t) = \frac{P_\theta(X_1=0\lvert \sum X_i =t)}{e^{-n\theta}\frac{(n\theta)^t}{t!}}
+$$
+
+Note que
+$$
+\begin{aligned}
+P_\theta(X_1=0\lvert \sum X_i =t) &= P_\theta(\sum X_i =t \lvert X_1 = 0) \cdot P_\theta(X_1 = 0) \\
+&=P_\theta(X_1 + X_2 + \dots + X_n = t \lvert X_1 = 0)\cdot \mathrm{e}^{-\theta} \\
+&=P_\theta(0 + X_2 + \dots + X_n = t \lvert X_1 = 0)\cdot \mathrm{e}^{-\theta} \\
+&\stackrel{\mathrm{iid}}{=}P_\theta\left(\sum^n_{i=2} X_i = t - 0\right)\cdot \mathrm{e}^{-\theta} \\
+\end{aligned}
+$$
+
+Como, por FGM,
+$$
+\sum^n_{i=2} X_i \sim \mathrm{Poiss}((n-1)\theta), \theta \in (0,\infty)
+$$
+temos que
+$$
+P_\theta(X_1 = 0, \sum^n_{i=1} X_i = t) = \frac{\mathrm{e}^{-(n-1)\theta}((n-1)\theta)^t}{t!} \mathrm{e}^{-\theta}
+$$
+
+Logo,
+$$
+E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n) = t) = \frac{(n-1)^t}{n^t} = \left(1 - \frac{1}{n}\right)^t
+$$
+
+Portanto, subistituindo $t$ por $T(\boldsymbol{X}_n)$, temos que
+$$ 
+E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)) = \left(1 - \frac{1}{n}\right)^{T(\boldsymbol{X}_n)}
+$$

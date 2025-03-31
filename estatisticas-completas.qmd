@@ -248,7 +248,7 @@ $$
 Se $k=1$, então $\mathcal{C}$ deve conter um intervalo (aberto). Se $k=2$, $\mathcal{C}$ deve conter o interior de um
 retângulo. Se $k=3$, então deve conter o interior de um cubo, e assim por diante.
 
-### Exemplo (Normal livre)
+### Exemplo (Normal livre) {#sec-ex-norm-livre}
 
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{N}(\mu,\sigma^2), \theta=(\mu,\sigma^2)\in\Theta = \mathbb{R}\times\mathbb{R}^+$.
 Mostre que $T(\boldsymbol{X}_n) = (\sum X_i, \sum X_i^2)$ é suficiente e completa para o modelo.
