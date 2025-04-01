@@ -1,6 +1,6 @@
 # Estatísticas Ancilares
 
-Dizemos que $U(\boldsymbol{X}_n)$ é uma [estatística](estatisticas.qmd) ancilar [ao modelo](modelo-estatistico.qmd)) se,
+Dizemos que $U(\boldsymbol{X}_n)$ é uma [estatística](estatisticas.qmd) ancilar [ao modelo](modelo-estatistico.qmd) se,
 e somente se, sua distribuição não depende de "$\theta$".
 
 ## Exemplo 1 (Normal $\rightarrow \chi^2$)
