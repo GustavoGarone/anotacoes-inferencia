@@ -239,11 +239,12 @@ Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta$, em que $f_\
 $$
 \mathcal{C} = \{(c_1(\theta),\dots,c_k(\theta) : \theta \in \Theta \},
 $$
-em que $c_i$ representa a $i$-ésima componente $c$ obtido do pertencimento à família exponencial. Então a estatística
+em que $c_i$ representa a $i$-ésima componente $c$ obtida do pertencimento à família exponencial. Então a estatística
 $$
-T(\boldsymbol{X}_n) = \left(\sum T_1(\boldsymbol{X}_n),\dots,\sum T_k(\boldsymbol{X}_n)\right)
+T(\boldsymbol{X}_n) = \left(\sum T_1(\boldsymbol{X}_n),\dots,\sum T_k(\boldsymbol{X}_n)\right),
 $$
-é [suficiente](estatisticas-suficientes.qmd) *e completa* para o modelo.
+em que $T_i$ representa a $i$-ésima componente $T$ obtida do pertencimento à FE, é [suficiente](estatisticas-suficientes.qmd)
+*e completa* para o modelo.
 
 Se $k=1$, então $\mathcal{C}$ deve conter um intervalo (aberto). Se $k=2$, $\mathcal{C}$ deve conter o interior de um
 retângulo. Se $k=3$, então deve conter o interior de um cubo, e assim por diante.
