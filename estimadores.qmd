@@ -94,7 +94,8 @@ De forma geral, $T(X_{1},\dots,X_{n})$ é um estimador não-viciado para $g(\the
 $$
 E_\theta(T(X_{1},\dots,X_{n}))=g(\theta), \forall \theta \in \Theta
 $$
-Caso contrário, dizemos que $T(X_{1},\dots,X_{n})$ é viciado ou enviesado para $g(\theta)$
+Caso contrário, dizemos que $T(X_{1},\dots,X_{n})$ é viciado ou enviesado para $g(\theta)$.
+
 Dizemos que $\hat\theta_{n}$ é fracamente consistente para $\theta \Leftrightarrow$
 $$
 \lim_{n\to \infty}{P_\theta(|\hat \theta_{n}- \theta| > \epsilon)=0, \forall \theta \in \Theta}
