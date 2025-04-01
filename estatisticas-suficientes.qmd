@@ -136,6 +136,8 @@ B = \left \{ \begin{array}{ll}
 \end{array}\right.
 $$
 
+(Denominador)
+
 Já sabemos que $\sum^n_{i=1}X_i\sim \mathrm{Pois}(n\theta)$ (por função geradora de momentos)
 
 $$
@@ -350,9 +352,12 @@ P_\theta(T(\boldsymbol{X}_n)=t\lvert X_1=y_1,\dots,X_n=y_n) = \left\{\begin{arra
 $$
 então
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n)=t) =
+\begin{aligned}
+&P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n)=t)
+&=
 \frac{P_\theta(X_1=y_1,\dots,X_n=y_n)\cdot \mathbb{1}(T(\boldsymbol{y}_n)=t)}
 {P_\theta(T(\boldsymbol{X}_n) =t)}
+\end{aligned}
 $${#eq-aberto}
 
 Por ([-@eq-podemos]) e ([-@eq-aberto]), temos que
@@ -649,9 +654,11 @@ para o modelo;
 estatística suficiente para o modelo pelo critério da fatoração, no caso de variáveis aleatórias independentes e identicamente
 distribuídas. $T^*(\boldsymbol{X}_n)$ é dita ser a *estatística de ordem*;
 
-7. Se $f_\theta$ pertencer à [família exponencial k-dimensional](familia-exponencial.qmd#sec-fek), então
+### Corolário útil (Relação das suficientes com a FE)
+Se $f_\theta$ pertencer à [família exponencial k-dimensional](familia-exponencial.qmd#sec-fek), então
 $T(\boldsymbol{X}_n) = \left(\sum^n_{i=1}T_1(X_i),\dots,\sum^n_{i=1}T_k(X_i)\right)$ é uma estatística suficiente para o modelo.
-Prova:
+
+#### Prova:
 $$
 \begin{aligned}
 f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) &\stackrel{\mathrm{iid}}{=}
@@ -680,6 +687,9 @@ Pelo critério da fatoração,
 $$
 T(\boldsymbol{X}_n) = \left(\sum^n_{i=1} T_1(X_i),\dots,\sum^n_{i=1}T_k(X_i)\right)
 $$
+
+Isso é útil para encontrar [estatísticas completas](estatisticas-completas.qmd) e suficientes pelo
+[Teorema das FEs](estatisticas-completas.qmd#sec-teo-tres-completa).
 
 ## Estatísticas Suficientes Minimais (SM) {#sec-sm}
 
