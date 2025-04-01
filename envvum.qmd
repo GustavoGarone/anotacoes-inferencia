@@ -188,9 +188,9 @@ $$
 
 Portanto,
 $$
-T''(\boldsymbol{X}_n) = \left(bar{X}, S_{n-1}^2\right),
+T''(\boldsymbol{X}_n) = \left(\bar{X}, S_{n-1}^2\right),
 $$
-em que $\bar{X} = \frac{1}{n} \sum X_i$ e $S^2_{n-1}(\boldsymbol{X}_n) = \frac{1}{n-1} \sum (X_i - bar{X})^2$, é suficiente completa para
+em que $\bar{X} = \frac{1}{n} \sum X_i$ e $S^2_{n-1}(\boldsymbol{X}_n) = \frac{1}{n-1} \sum (X_i - \bar{X})^2$, é suficiente completa para
 o modelo não viciado para $g(\theta)$ pois
 $$
 E_\theta(T''(\boldsymbol{X}_n)) = (\mu,\sigma^2), \forall \theta \in \Theta.
