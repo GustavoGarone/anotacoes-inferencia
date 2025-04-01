@@ -205,7 +205,7 @@ Já temos, do item a, uma estatística suficiente completa para o modelo, como $
 
 Tentativa 1.
 
-Intuitivamente, podemos esperar que $E_\theta(\sqrt{S^2_{n-1}(\boldsymbol{X}_n)})= c \sigma + b$. Se or, então bastaria tomar
+Intuitivamente, podemos esperar que $E_\theta(\sqrt{S^2_{n-1}(\boldsymbol{X}_n)})= c \sigma + b$. Se for, então bastaria tomar
 $$
 S'(\boldsymbol{X}_n) = \frac{\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}-b}{c}
 $$
