@@ -269,7 +269,7 @@ Encontre o ENVVUM para $g(\theta) = P_\theta(X = 0)$.
 
 Pelo Teorema da FE k-dimensional, temos que
 $$
-T(\boldsymbol{X}_n) \sum X_i
+T(\boldsymbol{X}_n) = \sum X_i
 $$
 é suficiente e completa para o modelo.
 
