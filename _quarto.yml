@@ -42,6 +42,7 @@ book:
       - estatisticas-ancilares.qmd
       - estatisticas-completas.qmd
       - envvum.qmd
+      - escore.qmd
     # - references.qmd
 
 bibliography: references.bib

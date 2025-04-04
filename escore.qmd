@@ -1,0 +1,104 @@
+# Função Escore
+
+Seja $\boldsymbol{X}_n$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta, \theta \in \Theta$.
+Considere $\boldsymbol{x}=(x_1,\dots,x_n)$ uma [amostra observada](populacao-e-amostra.qmd#sec-ao). A
+[função de verossimilhança](funcao-verossimilhanca.qmd) $L_{\boldsymbol{x}_n} : \Theta \rightarrow \mathbb{R}$ é
+definida por
+$$
+L_{\boldsymbol{x}_n}(\theta) = f_\theta^{\boldsymbol{X}_n}(\boldsymbol{x}_n)
+$$
+em que $f_\theta^{\boldsymbol{X}_n}$ é a [função (densidade) de probabilidade da amostra](dist-amostral.qmd). Assuma que
+$f_\theta$ é diferenciável com respeito a "$\theta$", $\forall \theta \in \Theta$. A *função escore* é definida por
+$$
+U : \mathfrak{X} \times \Theta \rightarrow \mathbb{R}^P, \Theta \subseteq \mathbb{R}^P
+$$
+e $\mathfrak{X} = \{x : f_\theta(x) > 0\}$ é o suporte de $X$, tal que
+$$
+U(x,\theta) = \frac{\partial \ln f_\theta(x)}{\partial \theta} = \left(
+\begin{array}{c}
+\frac{\partial \ln f_\theta(x)}{\partial \theta_1} \\
+\vdots \\
+\frac{\partial \ln f_\theta(x)}{\partial \theta_P} \\
+\end{array}
+\right)
+$$
+e a função escore da amostra é definida por
+$$
+U_n(\boldsymbol{x}_n,\theta) = \frac{\partial \ln L_{\boldsymbol{x}_n}(\theta)}{\partial \theta} = \left(
+\begin{array}{c}
+\frac{\partial \ln L_{\boldsymbol{x}_n}(\theta)}{\partial \theta_1} \\
+\vdots \\
+\frac{\partial \ln L_{\boldsymbol{x}_n}(\theta)}{\partial \theta_P} \\
+\end{array}
+\right)
+$$
+
+Note que, para amostras aleatórias,
+$$
+U_n(\boldsymbol{x}_n,\theta) = \sum^n_{i=1} U(x_i, \theta)
+$$
+pois, por definição,
+$$
+\begin{aligned}
+U_n(\boldsymbol{x}_n, \theta) = \frac{\partial \ln L_{\boldsymbol{x}_n}(\theta)}{\partial \theta}
+&= \frac{\partial \ln }{\partial \theta} \prod f_\theta(x_i) \\
+&= \frac{\partial }{\partial \theta} \sum \ln f_\theta(x_i) \\
+&= \sum \frac{\partial \ln f_\theta(x_i)}{\partial \theta} \\
+&= \sum U(x_i, \theta).
+\end{aligned}
+$$
+
+## Condições de regularidade
+
+$C_1: \mathfrak{X} = \{x : f_\theta (x) > 0 \}$ não depende de "$\theta$".
+
+$C_2: f_\theta$ é duas vezes diferenciável com respeito a "$\theta$" e suas derivadas são contínuas.
+
+$C_3:$ é possível trocar as derivadas pela integrais da seguinte forma:
+$$
+\left\{\begin{aligned}
+&a)\ \frac{\partial}{\partial\theta} \int f_\theta(x) dx &= \int \frac{\partial}{\partial \theta} f_\theta(x) dx \\
+&b)\ \frac{\partial^2}{\partial \theta \partial \theta^T} \int f_\theta(x) dx &= \int \frac{\partial^2}{\partial \theta \partial \theta^T} f_\theta(x) dx
+\end{aligned}\right.
+$$
+
+$C_4:$
+$$
+\left\{\begin{aligned}
+&\mathrm{a})\ E_\theta\left(\lVert\frac{\partial}{\partial\theta} \ln f_\theta(x)\rVert\right) < \infty,\ \forall \theta \in \Theta \\
+&\mathrm{b})\ E_\theta\left(\lVert\frac{\partial^2}{\partial\theta\partial\theta^T} \ln f_\theta(x)\rVert^2\right) < \infty,\ \forall \theta \in \Theta.
+\end{aligned}\right.
+$$
+
+Para as duas últimas condições, substituímos no caso discreto as integrais por somatórios.
+
+### Teorema (das condições do escore)
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^P$. Se as condições $C_1 : C_4$
+estiverem satisfeitas, então
+$$
+E_\theta(U_n(\boldsymbol{X}_n,\theta)) = 0,\ \forall \theta \in \Theta.
+$$
+
+#### Prova
+
+Note que $U_n(\boldsymbol{X}_n,\theta) = \sum U(X_i,\theta)$. Por $C_4(a)$, podemos calcular a esperança:
+$$
+\begin{aligned}
+E_\theta(U_n(\boldsymbol{X}_n,\theta)) &= \sum E_\theta(U(X_i,\theta)) \\
+&\stackrel{\mathrm{id.}}{=} nE_\theta(U(X,\theta)) \\
+\Rightarrow E_\theta(U(X,\theta)) &= \int_{\mathfrak{X}} U(x,\theta)f_\theta(x)dx \\
+&= \int_{\mathfrak{X}} \frac{\partial}{\partial}\ln f_\theta(x) \cdot f_\theta(x) dx \\
+&= \int_{\mathfrak{X}} \frac{\partial}{\partial} f_\theta(x) dx, \forall \theta \in \Theta
+\end{aligned}
+$$
+
+Note que
+$$
+\int_{\mathfrak{X}} f_\theta(x)dx = 1, \forall \theta \in \Theta
+$$
+
+Logo, por $C_3$
+$$
+\frac{\partial}{\partial \theta} \int_{\mathfrak{X}}  f_\theta(x) dx = 0
+= \int_{\mathfrak{X}} \frac{\partial}{\partial \theta} f_\theta(x) dx
+$$
