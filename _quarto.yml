@@ -43,6 +43,7 @@ book:
       - estatisticas-completas.qmd
       - envvum.qmd
       - escore.qmd
+      - infofisher.qmd
     # - references.qmd
 
 bibliography: references.bib
