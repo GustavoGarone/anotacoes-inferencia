@@ -5,7 +5,7 @@ $$
 I_1(\theta) = \mathrm{Var}_\theta(U(X,\theta))
 $$
 
-A informação de Fisher total é a variância da função escore da amostra:
+A informação de Fisher **total** é a variância da função escore da amostra:
 $$
 I_n(\theta) = \mathrm{Var}_\theta(U_n(\boldsymbol{X}_n,\theta))
 $$
@@ -33,8 +33,8 @@ Sob as [condições](escore.qmd#sec-condioces) $C_1:C_4$, temos que
 
 $$
 \left\{\begin{array}{ll}
-I_1(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta^T} U(X,\theta)\right) \\
-I_n(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta} U_n(\boldsymbol{X}_n,\theta)^T\right)
+I_1(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta^T} U(X,\theta)^T\right) \\
+I_n(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta^T} U_n(\boldsymbol{X}_n,\theta)^T\right)
 \end{array}\right.\ \forall \theta \in \Theta
 $$
 
@@ -143,7 +143,7 @@ Encntre a função [escore](escore.qmd) da amostra e a informação de Fisher to
 
 Note que
 $$
-L_{\boldsymbol{X}_n} = \prod^n \left\{ \theta x_i^{\theta-1}\right\} = \theta^n (\prod x_i)^{\theta-1},\ \forall \theta \in \Theta.
+L_{\boldsymbol{X}_n}(\theta) = \prod^n \left\{ \theta x_i^{\theta-1}\right\} = \theta^n (\prod x_i)^{\theta-1},\ \forall \theta \in \Theta.
 $$
 
 A função escore da amostra é
@@ -180,8 +180,8 @@ de Fisher total.
 Note que
 $$
 \begin{aligned}
-L_{\boldsymbol{X}_n} &= \prod f_\theta(x) = \prod \left\{\binom{3}{x_i} \theta^{x_i} (1-\theta)^{3-x}\right\} \\
-\Rightarrow \ln L_\boldsymbol{X_n} &= \sum \ln \binom{3}{x_i} + \sum x_i \ln \theta + \sum (3-x_i)\ln(1-\theta) \\
+L_{\boldsymbol{X}_n}(\theta) &= \prod f_\theta(x) = \prod \left\{\binom{3}{x_i} \theta^{x_i} (1-\theta)^{3-x}\right\} \\
+\Rightarrow \ln L_\boldsymbol{X_n}(\theta) &= \sum \ln \binom{3}{x_i} + \sum x_i \ln \theta + \sum (3-x_i)\ln(1-\theta) \\
 \Rightarrow U_n(\boldsymbol{x}_n,\theta) &= \sum \frac{x_i}{\theta} + \sum \frac{(3-x_i)}{1-\theta} (-1) \\
 & = \frac{x_i}{\theta} - \sum \frac{(3-x_i)}{1-\theta},\ \forall \theta \in \Theta.
 \end{aligned}
