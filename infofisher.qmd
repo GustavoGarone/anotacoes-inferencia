@@ -33,8 +33,8 @@ Sob as [condições](escore.qmd#sec-condioces) $C_1:C_4$, temos que
 
 $$
 \left\{\begin{array}{ll}
-I_1(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta^T} U(X,\theta)^T\right) \\
-I_n(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta^T} U_n(\boldsymbol{X}_n,\theta)^T\right)
+I_1(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta^T} U(X,\theta)\right) \\
+I_n(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta^T} U_n(\boldsymbol{X}_n,\theta)\right)
 \end{array}\right.\ \forall \theta \in \Theta
 $$
 
