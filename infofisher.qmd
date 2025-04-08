@@ -33,14 +33,15 @@ Sob as [condições](escore.qmd#sec-condioces) $C_1:C_4$, temos que
 
 $$
 \left\{\begin{array}{ll}
-I_1(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta^T} U(X,\theta\right) \\
-I_n(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta} U_n(\boldsymbol{X}_n,\theta^T\right)
+I_1(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta^T} U(X,\theta)\right) \\
+I_n(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta} U_n(\boldsymbol{X}_n,\theta)^T\right)
 \end{array}\right.\ \forall \theta \in \Theta
 $$
 
 ### Prova
 
-Sem perda de generalidade, considere apenas o caso contínuo e $\Theta \subseteq \mathbb{R}$.
+Sem perda de generalidade, considere apenas o caso contínuo e $\Theta \subseteq \mathbb{R}$. Para $\Theta \subseteq \mathbb{R}^P$, basta utilizar
+da transposição de $\theta$ nas derivadas e $U(X,\theta)$.
 
 Sabemos que $U(X,\theta) = \frac{\partial}{\partial\theta}f_\theta(x)$. Além disso,
 $$
@@ -79,7 +80,7 @@ $$
 \int_{\mathfrak{X}} \frac{\partial\ln f_\theta(x)}{\partial\theta}\frac{\partial\ln f_\theta(x)}{\partial\theta}f_\theta(x)dx = 0\\
 \Rightarrow &-E_\theta\left(
 \frac{\partial^2 \ln }{\partial \theta^2} f_\theta(X)\right) =
-E_\theta\left(\left[\frac{\partial\ln}{\partial\theta^2}f_\theta(X)\right]^2\right) \\
+E_\theta\left(\left[\frac{\partial\ln}{\partial\theta}f_\theta(X)\right]^2\right) \\
 \Rightarrow &E_\theta(U(X,\theta)^2)= -E_\theta\left(\frac{\partial U(X,\theta)}{\partial \theta}\right) \\
 \Rightarrow &I_1(\theta) = -E_\theta\left(\frac{\partial U(X,\theta)}{\partial \theta}\right),\ \forall \theta \in \Theta.
 \end{aligned}
@@ -181,7 +182,7 @@ $$
 \begin{aligned}
 L_{\boldsymbol{X}_n} &= \prod f_\theta(x) = \prod \left\{\binom{3}{x_i} \theta^{x_i} (1-\theta)^{3-x}\right\} \\
 \Rightarrow \ln L_\boldsymbol{X_n} &= \sum \ln \binom{3}{x_i} + \sum x_i \ln \theta + \sum (3-x_i)\ln(1-\theta) \\
-\Rightarrow U_n(\boldsymbol{x}_n,\theta) = \sum \frac{x_i}{\theta} + \sum \frac{(3-x_i)}{1-\theta} (-1) \\
+\Rightarrow U_n(\boldsymbol{x}_n,\theta) &= \sum \frac{x_i}{\theta} + \sum \frac{(3-x_i)}{1-\theta} (-1) \\
 & = \frac{x_i}{\theta} - \sum \frac{(3-x_i)}{1-\theta},\ \forall \theta \in \Theta.
 \end{aligned}
 $$
@@ -219,8 +220,8 @@ I_n(\theta) &= \mathrm{Var}_\theta(U_n(\boldsymbol{X}_n,\theta)) \\
 &= E_\theta(U_n(\boldsymbol{X},\theta)^2) \\
 &= E_\theta\left(\left[\sum \left(\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}\right)\right]^2\right) \\
 &= E_\theta\left(\sum_i \sum_j \left(\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}\right)\left(\frac{X_j}{\theta} - \frac{(3-X_j)}{1-\theta}\right)\right) \\
-&= \sum_i E_\theta\left(\left(\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}\right)^2\right)
-\underset{i \neq j}{\sum\sum}E_\theta\left(\cancelto{0}{\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}}\right)
+&= \sum_i E_\theta\left(\left(\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}\right)^2\right) \\
+&\cdot\underset{i \neq j}{\sum\sum}E_\theta\left(\cancelto{0}{\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}}\right)
 E_\theta\left(\cancelto{0}{\frac{X_j}{\theta} - \frac{(3-X_j)}{1-\theta}}\right)\\
 &= n E_\theta\left[\left( \frac{X}{\theta} - \frac{3-X}{1-\theta}\right)^2\right] \\
 &= n E_\theta\left[\left( \frac{X(1-\theta)-(3-x)\theta}{\theta(1-\theta)}\right)^2\right] \\
