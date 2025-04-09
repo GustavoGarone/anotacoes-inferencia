@@ -44,6 +44,7 @@ book:
       - envvum.qmd
       - escore.qmd
       - infofisher.qmd
+      - estimadores-eficientes.qmd
     # - references.qmd
 
 bibliography: references.bib

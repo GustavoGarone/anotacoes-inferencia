@@ -261,7 +261,7 @@ S'(\boldsymbol{X}_n) = \frac{\sqrt{(n-1) S^2_{n-1}(\boldsymbol{X}_n)}}{\sqrt{2}}
 $$
 é, como $S'(\boldsymbol{X}_n) = c\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}$ é função 1:1 de $S^2_{n-1}(\boldsymbol{X}_n)$, o ENVVUM para $g(\theta) = \sigma$.
 
-## Exemplo (Poisson)
+## Exemplo (Poisson) {#sec-ex-pois}
 
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{Poiss}(\theta), \theta \in (0,\infty)$.
 

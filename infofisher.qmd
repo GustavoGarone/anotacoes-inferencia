@@ -170,7 +170,7 @@ $$
 I_n(\theta) = -\frac{n}{\theta^2}, \forall \theta \in \Theta.
 $$
 
-## Exemplo (Binomial)
+## Exemplo (Binomial) {#sec-ex-bin}
 
 Seja $\boldsymbol{X}_n$ a.a. de $X \sim \mathrm{Bin}(3,\theta), \theta \in (0,1)$. Encontre a função escore e a informação
 de Fisher total.
@@ -231,3 +231,88 @@ E_\theta\left(\cancelto{0}{\frac{X_j}{\theta} - \frac{(3-X_j)}{1-\theta}}\right)
 &= \frac{3n}{\theta(1-\theta)},\ \forall \theta \in \Theta.
 \end{aligned}
 $$
+
+## Teorema (Desigualdade da informação, LICR) {#sec-licr}
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}$, em que $f_\theta$ satisfaz
+as [condições $C_1:C_4$](escore.qmd#sec-condioces). Considere $T(\boldsymbol{X}_n)$ um [estimador não-viciado](estimadores.qmd#sec-est-naovies)
+para $g(\theta) = \theta$. Então,
+$$
+\mathrm{Var}_\theta(T(\boldsymbol{X}_n) \geq \frac{1}{n I_1(\theta)} = \frac{1}{I_n(\theta)}, \forall \theta \in \Theta,
+$$
+sempre que $E_\theta(T(\boldsymbol{X}_n)^2)<\infty, \forall \theta \in \Theta$, em que $I_1(\theta)$ é a [informação de Fisher](infofisher.qmd)
+e $I_n(\theta)$ é a informação de Fisher total.
+
+Observação: A quantidade $\frac{1}{I_n(\theta)}$ é chamada de *Limite Inferior de Crammer Rao (LICR)*
+
+### Prova
+
+Como $T(\boldsymbol{X}_n)$ é não-viciado para $g(\theta) = \theta$, temos que
+$$
+E_\theta(T(\boldsymbol{X}_n)) = \theta, \forall \theta \in \Theta.
+$$
+
+Por definição de esperança (para o caso contínuo),
+$$
+E_\theta(T(\boldsymbol{X}_n)) = \int_{-\infty}^{\infty} \dots \int_{-\infty}^{\infty} T(x_1,\dots,x_n) f_\theta^{\boldsymbol{X}_n}(x_1,\dots,x_n) dx_1,\dots,dx_n
+$${#eq-defesp}
+
+::: {.callout-note}
+# Observação
+$$
+E((X_1+X_2)^2) = \int^\infty_{-\infty} \int^\infty_{-\infty} (x_1 + x_2)^2 f^{X_1, X_2}_\theta(x_1,x_2) dx_1dx_2
+$$
+:::
+
+Diferenciando ([-@eq-defesp]) com relação a "$\theta$"
+$$
+\begin{aligned}
+&\frac{\partial}{\partial \theta} 
+\int_{-\infty}^{\infty} \dots \int_{-\infty}^{\infty} T(\boldsymbol{x}_n) f_\theta^{\boldsymbol{X}_n} d\boldsymbol{x}_n = 1 \\
+&\stackrel{C_3}{\Rightarrow}  \int_{-\infty}^{\infty} \dots \int_{-\infty}^{\infty}
+T(\boldsymbol{x}_n) \frac{\partial}{\partial \theta} f^{\boldsymbol{X}_n}_\theta(\boldsymbol{x}_n) = 1 \\
+&\Rightarrow  \int_{-\infty}^{\infty} \dots \int_{-\infty}^{\infty}
+T(\boldsymbol{x}_n) \frac{\partial\ln}{\partial \theta} f_\theta^{\boldsymbol{X}_n}(\boldsymbol{x}_n)
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{x}_n) d\boldsymbol{x}_n= 1,\forall \theta \in \Theta. \\
+&\Rightarrow E_\theta(T(\boldsymbol{X}_n) \cdot U_n(\boldsymbol{X}_n,\theta)) = 1, \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+Note que
+$$
+\begin{aligned}
+\mathrm{Cor}_\theta(T(\boldsymbol{X}_n), U_n(\boldsymbol{X}_n,\theta))^2 \leq 1, \forall \theta \in \Theta \\
+\iff \frac{\mathrm{Cov}_\theta(T(\boldsymbol{X}_n), U_n(\boldsymbol{X}_n,\theta))^2}{\mathrm{Var}_\theta (T(\boldsymbol{X}_n))\mathrm{Var}_\theta(U_n(\boldsymbol{X}_n,\theta))} \leq 1, \forall \theta \in \Theta.
+\end{aligned}
+$${#eq-corcov}
+
+Ademais,
+$$
+\mathrm{Cov}_\theta(T(\boldsymbol{X}_n), U_n(\boldsymbol{X}_n,\theta)) = E_\theta(T(\boldsymbol{X}_n \cdot U_n(\boldsymbol{X}_n,\theta)) -
+\cancelto{\theta}{E_\theta(T(\boldsymbol{X}_n)} \cdot \cancelto{0}{E_\theta(U_n(\boldsymbol{X}_n,\theta))} = 1, \forall \theta \in \Theta
+$$
+
+Substituindo em ([-@eq-corcov]), temos que
+
+$$
+\frac{1^2}{\mathrm{Var}_\theta (T(\boldsymbol{X}_n))\mathrm{Var}_\theta(U_n(\boldsymbol{X}_n,\theta))} \leq 1, \forall \theta \in \Theta.
+$$
+
+Por definição de informação de Fisher total,
+$$
+\frac{1}{I_n(\theta)} \leq \mathrm{Var}_\theta(T(\boldsymbol{X}_n)), \forall \theta \in \Theta.
+$$
+
+## Teorema (generalização)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta$, em que $f_\theta$ satisfaz as [condições $C_1,C_4$](escore.qmd#sec-condioces).
+Considere $T(\boldsymbol{X}_n)$ um estimador não-viciado para $g(\theta) \in \mathbb{R}$ cuja derivada com respeito a "$\theta$"
+existe $\forall \theta \in \Theta$. Então,
+$$
+\mathrm{Var}_\theta(T(\boldsymbol{X}_n)) \geq \frac{g'(\theta)^2}{I_n(\theta)}, \forall \theta \in \Theta.
+$$
+sempre que $E_\theta(T(\boldsymbol{X}_n)^2) < \infty, \forall \theta \in \Theta$.
+
+### Prova
+
+Exercício!!!

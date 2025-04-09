@@ -102,7 +102,7 @@ $$
 $$
 e para cada $\epsilon>0$ fixado.
 
-#### Estimadores não viciados assintoticamente
+#### Estimadores não viciados assintoticamente {#sec-est-naovies-assin}
 Dizemos que $T(X_{1},\dots,X_{n})$ é um estimador assintoticamente não viciado para $g(\theta) \Leftrightarrow$ 
 $$
 \lim_{n\to \infty}{E_\theta(T(X_{1},\dots,X_{n}))} = g(\theta), \forall \theta \in \Theta

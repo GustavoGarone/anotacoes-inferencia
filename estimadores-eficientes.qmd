@@ -1,0 +1,162 @@
+# Estimadores Eficientes
+
+Dizemos que $T(\boldsymbol{X}_n)$ é um [estimador](estimadores.qmd) eificiente para $g(\theta)$ se, e somente se,
+
+1. $T(\boldsymbol{X}_n)$ é [não-viesado](estimadores.qmd#sec-est-naovies) para $g(\theta)$.
+
+2. $\mathrm{Var}_\theta(T(\boldsymbol{X}_n)) = \frac{g'(\theta)^2}{I_n(\theta)}, \forall \theta \in \Theta$. Em que $I_n(\theta)$ é
+a [informação de Fisher total](infofisher.qmd).
+
+## Exemplo (Binomial)
+
+Seja $\boldsymbol{X}_n$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim \mathrm{Bin}(3,\theta), \theta \in \Theta = (0,1)$.
+
+a-) Verifique se $\frac{\bar{X}}{3} = \frac{1}{n} \sum X_i \frac{1}{3}$ é suficiente para $g(\theta) = \theta$.
+
+b-) Verifique se $\bar{X} = \frac{1}{n} \sum X_i $ é suficiente para $g(\theta) = 3\theta$.
+
+### Resposta a-)
+
+Já sabemos que
+$$
+\begin{aligned}
+E_\theta\left(\frac{\bar{X}}{3}\right) &= \theta, \forall \theta \in \Theta. \\ \\
+\mathrm{Var}_\theta\left(\frac{\bar{X}}{3}\right) &= \frac{1}{9n^2} \mathrm{Var}\left(\sum X_i\right) \\
+&\stackrel{\mathrm{iid}}{=} \frac{1}{9n^2} \cdot n \mathrm{Var}_\theta(X) \\
+&= \frac{1}{9n} 3\theta(1-\theta),\ \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+[Já calculamos](infofisher.qmd#sec-ex-bin) a informação de Fisher total.
+$$
+I_n(\theta) = \frac{3n}{\theta(1-\theta)}
+$$
+
+Como
+$$
+\mathrm{Var}_\theta\left(\frac{\bar{X}}{3}\right) = \frac{1}{I_n(\theta)}, \forall \theta \in \Theta,
+$$
+$\frac{\bar{X}}{3}$ é um estimador eficiente para $g(\theta) = \theta$
+
+### Resposta b-)
+
+Sabemos que
+$$
+\begin{aligned}
+E_\theta(\bar{X}) &= 3\theta,\ \forall \theta \in \Theta \\ \\
+\mathrm{Var}_\theta(\bar{X}) &= \frac{3}{n} \theta(1-\theta),\ \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+Note que
+$$
+\frac{g'(\theta)^2}{I_n(\theta)} = \frac{\theta(1-\theta)}{3n} [3]^2 = \frac{3\theta(1-\theta)}{n}
+$$
+
+Logo, $\bar{X}$ é eficiente para $g(\theta) = 3\theta$.
+
+## Exemplo (Poisson)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim \mathrm{Poiss}(\theta), \theta \in \Theta = \mathbb{R}_+$
+
+a-) Verifique se $\bar{X}$ é eficiente para $g(\theta) = \theta$.
+
+b-) Verifique se $T(\boldsymbol{X}_n) = \left(1 - \frac{1}{n}\right)^{\sum X_i}$ é eficiente para $g(\theta) = P_\theta(X=0)$.
+
+
+### Resposta a-)
+Já sabemos que
+
+$$
+\begin{aligned}
+E_\theta(\bar{X}) &= \theta,\ \forall \theta \in \Theta \\
+\mathrm{Var}_\theta(\bar{X}) &= \frac{\theta}{n},\ \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+Como $T(\boldsymbol{X}_n) = \bar{X}$ é não-viciado, precisamos apenas verificar se
+$$
+\mathrm{Var}_\theta(\bar{X}) = \frac{1}{I_n(\theta)}
+$$
+
+Note que
+$$
+\begin{aligned}
+L_{\boldsymbol{x}_n}(\theta) &= f_\theta^{\boldsymbol{X}_n}(\theta) = \prod \left\{e^{-\theta} \frac{\theta^{x_i}}{x_i!}\right\} \\
+&\Rightarrow \ln L_{\boldsymbol{x}_n}(\theta) &= -n\theta + \left(\sum x_i\right) \ln \theta - \sum \ln (x_i) \\
+&\Rightarrow \frac{\partial}{\partial\theta}\ln L_{\boldsymbol{x}_n}(\theta) &= -n + \frac{\sum x_i}{\theta} \\
+&\Rightarrow \frac{\partial^2}{\partial\theta^2}\ln L_{\boldsymbol{x}_n}(\theta) &=  -\frac{\sum x_i}{\theta^2} \\
+\end{aligned}
+$$
+
+Pelo [Teorema](infofisher.qmd#sec-teo-infofisher), como valem as [condições $C_1:C_4$](escore.qmd#sec-condicoes),
+$$
+\begin{aligned}
+I_n(\theta) &= - E_\theta\left(\frac{\partial^2 \ln L_{\boldsymbol{X}}(\theta)}{\partial\theta^2}\right) \\
+&= - E_\theta\left(- \sum \frac{X_i}{\theta^2}\right) \\
+&\stackrel{\mathrm{iid}}{=} \frac{1}{\theta^2} n E_\theta(X) = \frac{n}{\theta}, \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+Como $\mathrm{Var}_\theta(\bar{X}) = \frac{1}{I_n(\theta)}$, temos que $\bar{X}$ é eficiente para $g(\theta) = \theta$.
+
+### Resposta b-)
+
+Note que $\sum X_i \sim \mathrm{Poiss}(n\theta), \forall \theta \in \Theta$ (por F.G.M.).
+
+::: {.callout-note}
+$$
+M_{\sum X_i}(t) = E_\theta\left(\mathrm{e}^{t\sum X_i}\right) = \mathrm{e}^{n\theta (e^t - 1)}
+$$
+:::
+
+Observe que
+$$
+E_\theta\left(\left(1-\frac{1}{n}\right)^{\sum X_i}\right) = E_\theta\left( \mathrm{e}^{\left(\sum X_i\right) \ln \left(1-\frac{1}{n}\right)}\right)
+$$
+pois $n > 1$.
+
+Tome $t = \ln\left(1-\frac{1}{n}\right)$.
+$$
+\begin{aligned}
+E_\theta\left(\left(1-\frac{1}{n}\right)^{\sum X_i}\right) = M_{\sum X_i}\left(\ln\left(1-\frac{1}{n}\right)\right)
+&= \mathrm{e}^{n\theta\left(\mathrm{e}^{\ln\left(1-\frac{1}{n}\right)}-1\right)} \\
+&= \mathrm{e}^{n\theta\left(1-\frac{1}{n}-1\right)} \\
+&= \mathrm{e}^{-\theta}, \forall \theta \in \Theta. \\
+\end{aligned}
+$$
+Portanto, $E_\theta(T(\boldsymbol{X}_n)) = \mathrm{e}^{-\theta} = P_\theta(X = 0) = g(\theta)$, ou seja, é não-viciada.
+
+Note que
+$$
+\begin{aligned}
+\mathrm{Var}_\theta(T(\boldsymbol{X}_n)) &= E_\theta(T(\boldsymbol{X}_n)^2) -  E_\theta(T(\boldsymbol{X}_n))^2 \\
+&= E_\theta(T(\boldsymbol{X}_n)^2) -  \mathrm{e}^{-2\theta} \\ \\
+E_\theta(T(\boldsymbol{X}_n)^2) &= E_\theta\left(\left(1-\frac{1}{n}\right)^{2 \sum X_i}\right) \\
+&= E_\theta\left(\mathrm{e}^{2\left(\sum X_i\right)\ln\left(1-\frac{1}{n}\right)}\right) \\
+&= M_{\sum X_i} \left(2\ln\left(1- \frac{1}{n}\right)\right) \\
+&= \mathrm{e}^{n\theta \left(\mathrm{e}^{2\ln\left(1- \frac{1}{n}\right)}-1\right)} \\
+&= \mathrm{e}^{n\theta \left(\mathrm{e}^{\ln\left(1- \frac{1}{n}\right)^2}-1\right)} \\
+&= \mathrm{e}^{n\theta \left(\left(1- \frac{1}{n}\right)^2-1\right)} \\
+&= \mathrm{e}^{n\theta\left(1 - \frac{2}{n} + \frac{1}{n^2} - 1\right)} \\ 
+&= \mathrm{e}^{\theta\left(\frac{1}{n} - 2\right)} = \mathrm{e}^{-2\theta} \cdot \mathrm{e}^{\frac{\theta}{n}}. \\ \\
+\Rightarrow \mathrm{Var}_\theta(T(\boldsymbol{X}_n)) &= \mathrm{e}^{-2\theta} \cdot \mathrm{e}^{\frac{\theta}{n}} - \mathrm{e}^{-2\theta} \\
+&= \mathrm{e}^{-2\theta}\left(\mathrm{e}^{\frac{\theta}{n}} - 1\right)
+\end{aligned}
+$$
+
+Temos nosso [LICR](infofisher.qmd#sec-licr)
+$$
+\frac{g'(\theta)^2}{I_n(\theta)} = \frac{\theta \mathrm{e}^{-2\theta}}{n} = \mathrm{LICR}
+$$
+
+Como $\mathrm{Var}_\theta \neq \frac{g'(\theta)}{I_n(\theta)}$ para algum $\theta \in \Theta$, como $\theta = 1$, temos
+que, apesar de [ser ENVVUM](envvum.qmd#sec-ex-poiss), $T(\boldsymbol{X}_n)$ não é eficiente para $g(\theta) = \mathrm{e}^{-\theta}$.
+
+## Eficiência assintótica para $g(\theta)$
+
+Dizemos que $T(\boldsymbol{X}_n)$ é um [estimador assintoticamente](estimadores.qmd#sec-est-naovies-assin) eficiente se, e somente se,
+
+1. $\lim\limits_{n\rightarrow\infty} E_\theta(T(\boldsymbol{X}_n)) = g(\theta), \forall \theta \in \Theta$.
+
+2. $\lim\limits_{n\rightarrow \infty} n \mathrm{Var}_\theta(T(\boldsymbol{X}_n)) = \frac{g'(\theta)^2}{I_1(\theta)}, \forall \theta \in \Theta$.
