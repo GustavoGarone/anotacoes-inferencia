@@ -12,6 +12,9 @@ book:
   title: "Anotações de Inferência Frequentista"
   author: "Aulas de Alexandre G. Patriota, digitado por Gustavo S. Garone"
   date: last-modified
+  navbar:
+    search: true
+  favicon: theta.png
   chapters:
     - index.qmd
     - part: "Introdução à Inferência Frequentista"
