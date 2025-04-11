@@ -1,0 +1,89 @@
+# Consistência
+
+Dizemos que $T(\boldsymbol{X}_n)$ é um [estimador](estimadores.qmd) (fracamente) consistente para $g(\theta)$ se, e
+somente se, para cada $\epsilon > 0$ fixo,
+
+$$
+\lim_{n\rightarrow \infty} P_\theta\left(\lvert T(\boldsymbol{X}_n) - g(\theta) \rvert > \epsilon\right) = 0, \forall \theta \in \Theta.
+$$
+ou
+$$
+T(\boldsymbol{X}_n) \stackrel{P_\theta}{\rightarrow} g(\theta),\ \forall \theta \in \Theta.
+$$
+
+::: {.callout-caution}
+Alguns livros escrevem
+$$
+T(\boldsymbol{X}_n) \stackrel{p}{\rightarrow} g(\theta_0)
+$$
+em que $\theta_0$ é o verdadeiro valor de $\theta$ se, e somente se, para cada $\epsilon > 0$ fixado:
+$$
+\lim_{n\rightarrow \infty} P\left(\lvert T(\boldsymbol{X}_n) - g(\theta_0) \rvert > \epsilon\right) = 0.
+$$
+Isso não condiz com a interpretação do modelo estatístico clássico e é comum para exposição desses conceitos para
+pessoas não treinadas em estatística.
+:::
+
+Dizemos $T(\boldsymbol{X}_n)$ é *fortemente* consistente se, e somente se,
+$$
+P_\theta\left(\lim_{n\rightarrow \infty} T(\boldsymbol{X}_n) = g(\theta)\right) = 1,\ \forall \theta \in \Theta.
+$$
+ou
+$$
+T(\boldsymbol{X}_n) \stackrel{\mathrm{q.c.}[P_\theta]}{\rightarrow} g(\theta),\ \forall \theta \in \Theta.
+$$
+
+::: {.callout-caution}
+Alguns livros escrevem
+$$
+T(\boldsymbol{X}_n) \stackrel{\mathrm{q.c.}}{\rightarrow} g(\theta_0)
+$$
+em que $\theta_0$ é o verdadeiro valor de $\theta$ se, e somente se, 
+$$
+ P\left(\lim_{n\rightarrow \infty}T(\boldsymbol{X}_n) = g(\theta_0)\right) = 1.
+$$
+Isso não condiz com a interpretação do modelo estatístico clássico e é comum para exposição desses conceitos para
+pessoas não treinadas em estatística.
+:::
+
+
+::: {.callout-note}
+Quando se diz que $T(\boldsymbol{X}_n)$ é consistente para $g(\theta)$, sem especificar a convergência,
+quer-se dizer que a convergência é fraca.
+:::
+
+::: {.callout-note}
+$$
+P_\theta(\underbracket{\lim_{n\rightarrow \infty} T(\boldsymbol{X}_n) = g(\theta)}_{\{\omega \in \Omega : \lim\limits_{n\rightarrow \infty}T(\boldsymbol{X}_n(\omega))=g(\theta)\}})
+$$
+:::
+
+## Teorema (da relação com o EQM)
+
+Seja $T(\boldsymbol{X}_n)$ um estimador para $g(\theta) \in \mathbb{R}$ tal que o [Erro Quadrático Médio](eqm-e-vies.qmd)
+$$
+\mathrm{EQM}_\theta(T(\boldsymbol{X}_n), g(\theta)) = [(T(\boldsymbol{X}_n) - g(\theta))^2]
+$$
+converge para $0$ para cada $\theta \in \Theta$. Então, $T(\boldsymbol{X}_n)$ é fracamente consistente para $g(\theta)$
+
+### Prova
+
+Seja $\epsilon > 0$ fixado. Então,
+$$
+\begin{aligned}
+P_\theta(\lvert T(\boldsymbol{X}_n) - g(\theta) \rvert > \epsilon) &= P_\theta((T(\boldsymbol{X}_n) - g(\theta))^2 > \epsilon^2) \\
+&\stackrel{\mathrm{Chebyshev}}{\leq} \frac{E_\theta((T(\boldsymbol{X}_n - g(\theta))^2)}{\epsilon^2}
+=  \frac{\mathrm{EQM}_\theta(T(\boldsymbol{X}_n),g(\theta))}{\epsilon^2} \\
+\Rightarrow \lim_{n\rightarrow \infty} P_\theta(\lvert T(\boldsymbol{X}_n) - g(\theta) \rvert > \epsilon) &\leq  0,\ \forall \theta \in \Theta.
+\end{aligned}
+$$
+Logo, $T(\boldsymbol{X}_n)\stackrel{P_\theta}{\rightarrow}g(\theta),\ \forall\theta \in\Theta.$
+
+::: {.callout-note}
+Se $\mathrm{EQM}_\theta(T(\boldsymbol{X}_n),g(\theta)) \stackrel{n\uparrow \infty}{\rightarrow} 0, \forall \theta \in \Theta$, então
+$$
+T(\boldsymbol{X}_n) \stackrel{P_\theta}{\rightarrow}g(\theta),\ \forall \theta \in \Theta.
+$$
+
+Usando desse recurso nos exercícios, basta mostrar que o EQM vai para zero quando $n$ cresce.
+:::

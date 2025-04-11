@@ -64,6 +64,7 @@ a-) Verifique se $\bar{X}$ é eficiente para $g(\theta) = \theta$.
 b-) Verifique se $T(\boldsymbol{X}_n) = \left(1 - \frac{1}{n}\right)^{\sum X_i}$ é eficiente para $g(\theta) = P_\theta(X=0)$.
 
 
+
 ### Resposta a-)
 Já sabemos que
 
@@ -100,7 +101,7 @@ $$
 
 Como $\mathrm{Var}_\theta(\bar{X}) = \frac{1}{I_n(\theta)}$, temos que $\bar{X}$ é eficiente para $g(\theta) = \theta$.
 
-### Resposta b-)
+### Resposta b-) {#sec-ex-poissnao}
 
 Note que $\sum X_i \sim \mathrm{Poiss}(n\theta), \forall \theta \in \Theta$ (por F.G.M.).
 
@@ -160,3 +161,189 @@ Dizemos que $T(\boldsymbol{X}_n)$ é um [estimador assintoticamente](estimadores
 1. $\lim\limits_{n\rightarrow\infty} E_\theta(T(\boldsymbol{X}_n)) = g(\theta), \forall \theta \in \Theta$.
 
 2. $\lim\limits_{n\rightarrow \infty} n \mathrm{Var}_\theta(T(\boldsymbol{X}_n)) = \frac{g'(\theta)^2}{I_1(\theta)}, \forall \theta \in \Theta$.
+
+### Exemplo (Poisson)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{Poiss}(\theta),\theta \in \mathbb{R}_+$.
+
+a-) Verifique se $T(\boldsymbol{X}_n) = \left(1- \frac{1}{n}\right)^{\sum X_i}$
+
+b-) Verifique se $T^*(\boldsymbol{X}_n) = \frac{1}{n} \mathbb{1}(X_i=0)$
+
+c-) Verifique se $T_{MV}(\boldsymbol{X}_n) = \mathrm{e}^{-\bar{X}}$ é eficiente para $g(\theta) = P_\theta(X=0)$.
+
+#### Resposta a-)
+
+[Já sabemos](estimadores-eficientes.qmd#sec-ex-poissnao) que
+
+$$
+\begin{aligned}
+\mathrm{Var}_\theta(T(\boldsymbol{X}_n)) &= \mathrm{e}^{-2\theta}(\mathrm{e}^{\frac{\theta}{n}} - 1),\ \forall \theta \in \Theta \\ \\
+E_\theta(T(\boldsymbol{X}_n)) = \mathrm{e}^{-\theta} = g(\theta),\ \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+Ou seja, é não-viciado, mas não eficiente, pois
+$$
+\mathrm{Var}_\theta(T(\boldsymbol{X}_n)) \neq \frac{\theta \mathrm{e}^{-2\theta}}{n}
+$$
+
+Precisamos calcular
+
+$$
+\lim_{n\rightarrow\infty} n \mathrm{Var}_\theta(T(\boldsymbol{X}_n))
+= \lim_{n\rightarrow\infty} n \mathrm{e}^{-2\theta}(\mathrm{e}^{\frac{\theta}{n}} - 1)
+$$
+
+Note que
+$$
+\mathrm{e}^x = \sum \frac{x^i}{i!} = 1 + x + \frac{x^2}{2!} + \cdots
+$$
+
+Portanto,
+$$
+\begin{aligned}
+\mathrm{e}^{\frac{\theta}{n}} &= 1 + \frac{\theta}{n} + (\frac{\theta}{n})^2\frac{1}{x!} + \dots \\
+\iff \mathrm{e}^{\frac{\theta}{n}} - 1 &= \frac{\theta}{n} + \frac{\theta^2}{n^2 2!} + \dots \\
+\iff n (\mathrm{e}^{\frac{\theta}{n}} - 1) &= \theta + \frac{\theta^2}{n 2!} + \dots \\
+\Rightarrow \lim_{n\rightarrow \infty} n (\mathrm{e}^{\frac{\theta}{n}} - 1) &= \theta,\ \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+Dessa forma,
+$$
+\lim_{n\rightarrow \infty} n \mathrm{Var}_\theta(T(\boldsymbol{X}_n)) = \mathrm{e}^{-2\theta}\theta = \frac{g'(\theta)^2}{I_1(\theta)},\ \forall \theta \in \Theta.
+$$
+
+Logo, $T(\boldsymbol{X}_n)$ é assintóticamente eficiente para $g(\theta)$
+
+#### Resposta b-)
+
+Note que
+$$
+\begin{aligned}
+E_\theta(T^*(\boldsymbol{X}_n)) &= \frac{1}{n} \sum E_\theta(\mathbb{1}(X_i=0)) \\
+&\stackrel{\mathrm{iid}}{=} \frac{1}{n} \cdot n \cdot P_\theta(X=0) =\mathrm{e}^{-\theta},\ \forall \theta \in \Theta. \\ \\
+\mathrm{Var}_\theta(T^*(\boldsymbol{X}_n)) &\stackrel{\mathrm{iid}}{=} \frac{1}{n^2} \cdot n \cdot \mathrm{Var}_\theta(\mathbb{1}(X=0)),\\
+&= \frac{1}{n} = \mathrm{e}^{-\theta}(1-\mathrm{e}^{-\theta}),\ \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+Observe que o [LICR](infofisher.qmd#sec-licr) é
+$$
+\frac{g'(\theta)^2}{nI_1(\theta)} = \frac{\theta\mathrm{e}^{-2\theta}}{n}.
+$$
+
+Como
+$$
+\mathrm{Var}_\theta(T^*(\boldsymbol{X}_n)) \neq \frac{g'(\theta)^2}{nI_1(\theta)},
+$$
+concluímos que não é eficiente. Além disso,
+$$
+\lim_{n\rightarrow \infty} n \mathrm{Var}_\theta(T^*(\boldsymbol{X}_n)) = \mathrm{e}^{-\theta}(1-\mathrm{e}^{-\theta}) \neq \theta \mathrm{e}^{-2\theta}, \forall \theta \in \Theta.
+$$
+Logo, não é assintóticamente eficiente.
+
+#### Resposta c-)
+
+Note que
+$$
+E_\theta(T_{MV}(\boldsymbol{X}_n)) = E_\theta(\mathrm{e}^{-\bar{X}}) = E_\theta(\mathrm{e}^{-\frac{1}{n} \sum X_i})
+$$
+em que $\sum X_i \sim \mathrm{Poiss}(n\theta), \theta \in \Theta.$
+
+Observe que
+$$
+M_{\sum X_i}(t) = E_\theta\left(\mathrm{e}^{t\sum X_i}\right) = \mathrm{e}^{n\theta(\mathrm{e}^t - 1)}
+$$
+
+Tomando $t = -\frac{1}{n}$, temos que
+$$
+E_\theta(T_{MV}(\boldsymbol{X}_n)) = M_{\sum X_i}(-\frac{1}{n}) = \mathrm{e}^{n\theta (\mathrm{e}^{-\frac{1}{n}} - 1)}
+$$
+
+<!-- TODO: arrumar 2h como j = 2h etc -->
+
+Ademais,
+$$
+\begin{aligned}
+\mathrm{e}^{-\frac{1}{n}} &= 1 - \frac{1}{n} + \left(-\frac{1}{n}\right)^2 \cdot \frac{1}{2} + \dots \\
+\iff \mathrm{e}^{-\frac{1}{n}} - 1 &= - \frac{1}{n} + \frac{1}{n^2 2!}+ \dots \\
+\iff n\theta(\mathrm{e}^{-\frac{1}{n}} - 1) &= -\theta + \underbracket{\left(\frac{1}{n} + \frac{\theta}{2n}+ \dots\right)}_{h(\theta,n)} \\
+\Rightarrow E_\theta(T_{MV}(\boldsymbol{X}_n)) &= \mathrm{e}^{-\theta + h(\theta,n)}
+\end{aligned}
+$$
+
+Como $h(\theta,n) \neq 0$,
+$$
+E_\theta(T_{MV}(\boldsymbol{X}_n)) \neq \mathrm{e}^{-\theta},
+$$
+e
+$$
+\lim_{n\rightarrow\infty} E_\theta(T_{MV}(\boldsymbol{X}_n)) = \mathrm{e}^{-\theta},\ \forall \theta \in \Theta.
+$$
+
+Apesar de $T_{MV}(\boldsymbol{X}_n)$ ser viciado para $g(\theta) = \mathrm{e}^{\theta}$, ela é não-viciada assintóticamente.
+
+Note ainda que
+$$
+\begin{aligned}
+E_\theta(T_{MV}(\boldsymbol{X}_n)^2) &= E_\theta\left(\mathrm{e}^{-\frac{2}{n} \sum X_i}\right) \\
+&= M_{\sum X_i} (-\frac{2}{n}) \\
+&= \mathrm{e}^{n\theta \left(\mathrm{e}^{-\frac{2}{n}} -1\right)}
+\end{aligned}
+$$
+
+Portanto,
+$$
+\mathrm{Var}_\theta(T_{MV}(\boldsymbol{X}_n)) = \mathrm{e}^{n\theta \left(\mathrm{e}^{-\frac{2}{n}} -1\right)} - \mathrm{e}^{-2\theta + 2h(\theta,n)}
+$$
+
+Seguindo,
+$$
+\begin{aligned}
+\mathrm{e}^{-\frac{2}{n}} &= 1 + \left(-\frac{2}{n}\right) + \left(-\frac{2}{n}\right)^2 \cdot \frac{1}{2!} + \dots \\
+\iff n\theta(\mathrm{e}^{-\frac{2}{n}} - 1) &= -2\theta + \underbracket{n\theta\left(\frac{2}{n}\right)^2 + n\theta(\dots)}_{w(\theta,n)} \\
+\Rightarrow \mathrm{Var}_\theta(T_{MV}(\boldsymbol{X}_n)) &=  \mathrm{e}^{-2\theta + w(\theta,n)} - \mathrm{e}^{-2\theta + 2h(\theta,n)} \\
+&= \mathrm{e}^{-2\theta} \left(\mathrm{e}^{w(\theta,n)} -\mathrm{e}^{2h(\theta,n)}\right)  \\
+\Rightarrow \lim_{n\rightarrow \infty} n \mathrm{Var}_\theta(T_{MV}(\boldsymbol{X}_n)
+&= \lim_{n\rightarrow \infty} n \mathrm{e}^{-2\theta} \left(\mathrm{e}^{w(\theta,n)} -\mathrm{e}^{2h(\theta,n)}\right)\\
+&= \mathrm{e}^{-2\theta} \lim_{n\rightarrow \infty} n \left(\mathrm{e}^{w(\theta,n)} -\mathrm{e}^{2h(\theta,n)}\right) \\
+\end{aligned}
+$$
+
+Note que
+$$
+\begin{aligned}
+\mathrm{e}^{w(\theta,n)} &= 1 + w(\theta,n) + \frac{w(\theta,n)^2}{2!} + \dots \\
+\mathrm{e}^{2h(\theta,n)} &= 1 + 2h(\theta,n) + \frac{2h(\theta,n)^2}{2!} + \dots \\ \\
+\Rightarrow \mathrm{e}^{w(\theta,n)} -\mathrm{e}^{2h(\theta,n)} &=
+[w(\theta,n) - 2h(\theta,n)] + \left[\frac{w(\theta,n)^2}{2!} - \frac{2h(\theta,n)^2}{2!}\right] + \dots \\
+\Rightarrow n\left(\mathrm{e}^{w(\theta,n)} -\mathrm{e}^{2h(\theta,n)}\right) &=
+n[w(\theta,n) - 2h(\theta,n)] +
+\underbracket{n\left[\frac{w(\theta,n)^2}{2!} - \frac{2h(\theta,n)^2}{2!}\right] + \dots}_{\stackrel{n\uparrow\infty}{\rightarrow 0}} \\
+\end{aligned}
+$$
+
+Em que
+$$
+\begin{aligned}
+2h(\theta,n) &= \frac{2\theta}{2n} - \frac{2\theta}{3!n^2} + \frac{2\theta}{4!n^3} + \dots \\
+w(\theta,n) &= \frac{4\theta}{2n} - \frac{8\theta}{3!n^2} + \frac{\theta}{4!n^3} + \dots
+\end{aligned}
+$$
+
+Agora,
+$$
+\begin{aligned}
+&n\left[\left(\frac{4\theta}{2!n} - \frac{8\theta}{3!n^2} + \dots\right) - \left(\frac{\theta}{n}-\frac{2\theta}{3!n^2} + \dots\right)\right] \\
+&=\left[\left(2\theta - \frac{8\theta}{3!n} + \dots\right) - \left(\theta - \frac{2\theta}{3!n^2} + \dots\right)\right] \\
+\stackrel{n\uparrow\infty}{\rightarrow} 2\theta - \theta &= \theta
+\end{aligned}
+$$
+
+Portanto,
+$$
+\lim_{n\rightarrow \infty} n \mathrm{Var}_\theta(T(\boldsymbol{X}_n)) = \mathrm{e}^{-2\theta} \cdot \theta,\ \forall \theta \in \Theta.
+$$
+e concluímos que $T_{MV}(\boldsymbol{X}_n) = \mathrm{e}^{-\bar{X}}$ é assintóticamente eficiente.

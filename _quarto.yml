@@ -52,6 +52,7 @@ book:
       - escore.qmd
       - infofisher.qmd
       - estimadores-eficientes.qmd
+      - estimadores-consistentes.qmd
     # - references.qmd
 
 bibliography: references.bib
