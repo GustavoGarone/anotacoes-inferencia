@@ -83,9 +83,9 @@ Note que
 $$
 \begin{aligned}
 L_{\boldsymbol{x}_n}(\theta) &= f_\theta^{\boldsymbol{X}_n}(\theta) = \prod \left\{e^{-\theta} \frac{\theta^{x_i}}{x_i!}\right\} \\
-&\Rightarrow \ln L_{\boldsymbol{x}_n}(\theta) &= -n\theta + \left(\sum x_i\right) \ln \theta - \sum \ln (x_i) \\
-&\Rightarrow \frac{\partial}{\partial\theta}\ln L_{\boldsymbol{x}_n}(\theta) &= -n + \frac{\sum x_i}{\theta} \\
-&\Rightarrow \frac{\partial^2}{\partial\theta^2}\ln L_{\boldsymbol{x}_n}(\theta) &=  -\frac{\sum x_i}{\theta^2} \\
+&\Rightarrow \ln L_{\boldsymbol{x}_n}(\theta) = -n\theta + \left(\sum x_i\right) \ln \theta - \sum \ln (x_i) \\
+&\Rightarrow \frac{\partial}{\partial\theta}\ln L_{\boldsymbol{x}_n}(\theta) = -n + \frac{\sum x_i}{\theta} \\
+&\Rightarrow \frac{\partial^2}{\partial\theta^2}\ln L_{\boldsymbol{x}_n}(\theta) =  -\frac{\sum x_i}{\theta^2}
 \end{aligned}
 $$
 
