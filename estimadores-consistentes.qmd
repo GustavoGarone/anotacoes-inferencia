@@ -20,8 +20,8 @@ em que $\theta_0$ é o verdadeiro valor de $\theta$ se, e somente se, para cada 
 $$
 \lim_{n\rightarrow \infty} P\left(\lvert T(\boldsymbol{X}_n) - g(\theta_0) \rvert > \epsilon\right) = 0.
 $$
-Isso não condiz com a interpretação do modelo estatístico clássico e é comum para exposição desses conceitos para
-pessoas não treinadas em estatística.
+Apesar de ser uma forma comum de exposição para pessoas não treinadas em estatística, essa notação não está bem
+formalizada na estrutura do modelo estatístico clássico.
 :::
 
 Dizemos $T(\boldsymbol{X}_n)$ é *fortemente* consistente se, e somente se,
@@ -42,8 +42,8 @@ em que $\theta_0$ é o verdadeiro valor de $\theta$ se, e somente se,
 $$
  P\left(\lim_{n\rightarrow \infty}T(\boldsymbol{X}_n) = g(\theta_0)\right) = 1.
 $$
-Isso não condiz com a interpretação do modelo estatístico clássico e é comum para exposição desses conceitos para
-pessoas não treinadas em estatística.
+Apesar de ser uma forma comum de exposição para pessoas não treinadas em estatística, essa notação não está bem
+formalizada na estrutura do modelo estatístico clássico.
 :::
 
 
