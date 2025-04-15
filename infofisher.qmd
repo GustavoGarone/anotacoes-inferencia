@@ -10,7 +10,7 @@ $$
 I_n(\theta) = \mathrm{Var}_\theta(U_n(\boldsymbol{X}_n,\theta))
 $$
 
-Note que, sob as [condições](escore.qmd#sec-condioces) $C_1:C_4$, [temos que](escore.qmd#sec-teo-condicoes)
+Note que, sob as [condições](escore.qmd#sec-condicoes) $C_1:C_4$, [temos que](escore.qmd#sec-teo-condicoes)
 $$
 \begin{aligned}
 &E_\theta(U(X,\theta)) = 0,\ \forall \theta \in \Theta \\
