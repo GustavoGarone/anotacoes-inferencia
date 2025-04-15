@@ -238,7 +238,7 @@ Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta \subseteq \ma
 as [condições $C_1:C_4$](escore.qmd#sec-condioces). Considere $T(\boldsymbol{X}_n)$ um [estimador não-viciado](estimadores.qmd#sec-est-naovies)
 para $g(\theta) = \theta$. Então,
 $$
-\mathrm{Var}_\theta(T(\boldsymbol{X}_n) \geq \frac{1}{n I_1(\theta)} = \frac{1}{I_n(\theta)}, \forall \theta \in \Theta,
+\mathrm{Var}_\theta(T(\boldsymbol{X}_n)) \geq \frac{1}{n I_1(\theta)} = \frac{1}{I_n(\theta)}, \forall \theta \in \Theta,
 $$
 sempre que $E_\theta(T(\boldsymbol{X}_n)^2)<\infty, \forall \theta \in \Theta$, em que $I_1(\theta)$ é a [informação de Fisher](infofisher.qmd)
 e $I_n(\theta)$ é a informação de Fisher total.
