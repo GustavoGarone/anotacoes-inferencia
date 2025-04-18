@@ -62,7 +62,7 @@ $$
 
 Seja $T(\boldsymbol{X}_n)$ um estimador para $g(\theta) \in \mathbb{R}$ tal que o [Erro Quadrático Médio](eqm-e-vies.qmd)
 $$
-\mathrm{EQM}_\theta(T(\boldsymbol{X}_n), g(\theta)) = [(T(\boldsymbol{X}_n) - g(\theta))^2]
+\mathrm{EQM}_\theta(T(\boldsymbol{X}_n), g(\theta)) = E_\theta[(T(\boldsymbol{X}_n) - g(\theta))^2]
 $$
 converge para $0$ para cada $\theta \in \Theta$. Então, $T(\boldsymbol{X}_n)$ é fracamente consistente para $g(\theta)$
 
