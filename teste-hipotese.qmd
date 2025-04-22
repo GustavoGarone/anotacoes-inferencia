@@ -464,9 +464,15 @@ Temos então que $\bar{x} = 7.66$ que, como é abaixo de $8.6$, rejeitamos a hip
     significância estatística”.
 	2. Se $H_{0}$ não for rejeitado, dizemos que “Não há evidências para rejeitar $H_{0}$ a $\alpha \cdot [\mathrm{Valor}]\%$
     de significância estatística”
-	3. Observação: Não rejeitar $H_{0}$ *não* indica evidência a favor de $H_{0}$, isto é, não sugere que $H_{0}$ seja
-    verdadeiro, apenas que aquela amostra não apresentou evidências contrárias.
-	4. Observação: Quanto menor o valor de $\alpha$, mais forte será a significância estatística.
+
+::: {.callout-note title="Observação"}
+Não rejeitar $H_{0}$ *não* indica evidência a favor de $H_{0}$, isto é, não sugere que $H_{0}$ seja
+verdadeiro, apenas que aquela amostra não apresentou evidências contrárias.
+:::
+
+::: {.callout-note title="Observação"}
+Quanto menor o valor de $\alpha$, mais forte será a significância estatística.
+:::
 
 ## Exemplos
 

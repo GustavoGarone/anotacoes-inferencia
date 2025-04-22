@@ -9,19 +9,21 @@ $$
 
 em que $\pmb{X}_{n} = (X_{1}\ldots,X_{n})$
 
-**Observação:**
-
+::: {.callout-note title="Observação"}
 Se o intervalo aleatório $[I_{1} (\pmb{X}_{n}),I_{2}(\pmb{X}_{n})$ satisfaz
 $$
 P_{\theta} (I_{1} (\pmb{X}_{n}) \leq \theta \leq I_{2} (\pmb{X}_{n})) \geq \gamma \forall \theta \in \Theta
 $$
 
 Então o intervalo aleatório é um intervalo de confiança com pelo menos coeficiente de confiança $\gamma$
+:::
 
-**Observação**: $I_{1} (\pmb{X}_{n})$ e $I_{2} (\pmb{X}_{n})$ são [estatísticas](estatisticas.qmd) e são tais que
-$I_{1} (\pmb{X}_{n}) \leq I_{2} (\pmb{X}_{n})$
+::: {.callout-note title="Observação"}
+$I_{1} (\pmb{X}_{n})$ e $I_{2} (\pmb{X}_{n})$ são [estatísticas](estatisticas.qmd) e são tais que
+$$I_{1} (\pmb{X}_{n}) \leq I_{2} (\pmb{X}_{n})$$
+:::
 
-**Observação:**
+::: {.callout-note title="Observação"}
 Quando substituímos $(\pmb{X}_{n})$ pela [amostra observada](populacao-e-amostra.qmd#sec-ao) $(\pmb{x}_{n})$ temos que
 
 $$
@@ -30,6 +32,7 @@ P_{\theta}(I_{1} (\pmb{x}_{n}) \leq \theta \leq I_{2} (\pmb{x}_{n})) = \begin{ca
 0, \text{ caso contrário }
 \end{cases}
 $$
+:::
 
 ## IC sob normalidade para $\mu$ com $\sigma^2$ conhecido
 

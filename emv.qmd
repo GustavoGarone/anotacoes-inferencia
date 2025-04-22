@@ -110,14 +110,19 @@ $$
 \widehat{g(\theta)} = \frac{\sqrt{\frac{1}{n}\sum\limits^{n}_{i=1}(X_{i}-\bar{X})}}{\bar{X}}
 $$
 
-Observação:
+::: {.callout-note title="Observação"}
 Seja $(X_{1},\dots,X_{n})$ a.a. de $X\sim N(\mu, \sigma^{2})$. Então,
+
 1. $\bar{X} \underset{\text{Exata!}}{\sim}N\left(\mu, \frac{\sigma^{2}}{n}\right)\forall \mu, \sigma \in \mathbb{R} : \sigma^{2}>0 \text{ e } n\geq 1$
+
 2. $\sum\limits^{n}_{i=1} \frac{(x_{1}-\bar{X})^{2}}{\sigma^{2}}\underset{\text{Exata!}}{\sim}\chi^{2}_{(n-1)}$
+
 em que $\chi^{2}_{k}$ representa a [Distribuição Qui-Quadrado](qui-quadrado.qmd) com $k$ grau de liberdade, cuja
 função densidade de probabilidade é:
 $$
-f(x) = \frac{1}{\Gamma(\frac{k}{2})2^{\frac{k}{2}}} \cdot x^{\frac{k}{2}-1} \cdot \exp\left\{\frac{-x}{2}\right\} \cdot \mathbb{1}_{(0, \infty)}(x)
+f(x) = \frac{1}{\Gamma(\frac{k}{2})2^{\frac{k}{2}}} \cdot x^{\frac{k}{2}-1} \cdot \exp\left\{\frac{-x}{2}\right\} \cdot \mathbb{1}_{(0, \infty)}(x).
 $$
 
-Para qualquer outra distribuição, existe um resultado aproximado pelo [Teorema do Limite Central](tlc.qmd)
+Para qualquer outra distribuição, existe um resultado aproximado pelo [Teorema do Limite Central](tlc.qmd).
+:::
+

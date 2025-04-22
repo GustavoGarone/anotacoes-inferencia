@@ -18,11 +18,13 @@ São estatísticas:
 10. $T_{10}(X_{1},\dots,X_{n})=\sqrt{\frac{1}{n}\sum\limits^{n}_{i=1}(X_{i}-\bar{X})^{2}}$
 etc.
 
-**Observação:** As estatísticas são variáveis aleatórias.
+::: {.callout-note title="Observação"}
+As estatísticas são variáveis aleatórias:
+$$
+\begin{aligned}
+\pmb{X}_n&=(X_{1},\dots,X_{n}):\Omega\rightarrow \mathbb{R}^{n} \\
+T(\pmb{X}_n)&=T \circ \pmb{X}_n:\Omega\rightarrow \mathbb{R}
+\end{aligned}
+$$
+:::
 
-$$
-\underset{\sim}{X_n}=(X_{1},\dots,X_{n}):\Omega\rightarrow \mathbb{R}^{n}
-$$
-$$
-T(\underset{\sim}{X})=T \circ \underset{\sim}{X}:\Omega\rightarrow \mathbb{R}
-$$
