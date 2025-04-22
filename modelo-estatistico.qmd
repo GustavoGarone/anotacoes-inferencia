@@ -16,8 +16,11 @@ Se $\mathcal{P} = \{P_{\theta} : \theta \in \Theta\}$, em que $\Theta \subseteq 
 $p \in \mathbb{N}$, então dizemos que $(\Omega, \mathscr{A}, \mathcal{P})$ é um modelo estatístico **Paramétrico**.
 
 Caso não exista $\Theta \subseteq \mathbb{R}^{p}$ fixo, então dizemos que o modelo é não-paramétrico.
-*Obs*: $\Theta$ é o espaço paramétrico e $\theta$ é o vetor de parâmetros. $\theta$ **Não*** é  variável aleatória,
+
+::: {.callout-note title="Observação"}
+$\Theta$ é o espaço paramétrico e $\theta$ é o vetor de parâmetros. $\theta$ **Não** é  variável aleatória,
 apenas indexa as medidas de probabilidade.
+:::
 
 ### Exemplos
 

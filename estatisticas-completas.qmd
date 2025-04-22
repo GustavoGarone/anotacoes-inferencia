@@ -228,9 +228,12 @@ $$
 
 Como $E_\theta(h(T(\boldsymbol{X}_n)) = 0, \forall \theta > 0$, concluímos que $T(\boldsymbol{X}_n)$ não é conpleta.
 
-Obs: [já demonstramos](estatisticas-suficientes.qmd#sec-norm-curv) que $T(\boldsymbol{X}_n)$ é SM. Portanto, nem toda
+
+::: {.callout-caution title="Nem toda SM é completa!"}
+[Já demonstramos](estatisticas-suficientes.qmd#sec-norm-curv) que $T(\boldsymbol{X}_n)$ é SM. Portanto, nem toda
 estatística SM é também completa. Dessa forma, pelo [Teorema 2](estatisticas-completas.qmd#sec-teo-dois-completa),
 concluímos que não existe uma estatística completa para o modelo.
+:::
 
 ## Teorema 3 (da relação com a família exponencial) {#sec-teo-tres-completa}
 

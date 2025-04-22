@@ -5,10 +5,11 @@ definido por
 $$
 \mathrm{EQM}(T,g(\theta))=E_{\theta}((T(X_{1},\dots,X_{n})-g(\theta))^{2})
 $$
-Obs.:
 
+::: {.callout-note title="Observação"}
 Se $T(X_{1},\dots,X_{n})$ for não viciado para $g(\theta)$, então 
-$\mathrm{EQM}(T,g(\theta))=\mathrm{Var}_{\theta}(T(X_{1},\dots,X_{n})) \forall \theta \in \Theta$
+$$\mathrm{EQM}(T,g(\theta))=\mathrm{Var}_{\theta}(T(X_{1},\dots,X_{n})) \forall \theta \in \Theta$$
+:::
 
 ## Propriedades do EQM
 Seja $T(X_{1},\dots,X_{n})$ um estimador para $g(\theta)$, seja $\mu_{t} = E_\theta(T(X_{1},\dots,X_{n}))$

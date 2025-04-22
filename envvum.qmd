@@ -31,11 +31,11 @@ $$
 
 é o ENVVUM para $g(\theta)$, quase certamente, baseado em $T(\boldsymbol{X}_n)$.
 
-Obs:
-
+::: {.callout-note title="Observação"}
 1. $\stackrel{\sim}{T}(\boldsymbol{X}_n)$ não depende de "$\theta$" pois $T(\boldsymbol{X}_n)$ é suficiente para o modelo.
 
 2. $E_\theta(\stackrel{\sim}{T}(\boldsymbol{X}_n)) = E_\theta(E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)) = E_\theta(S(\boldsymbol{X}_n))$
+:::
 
 ### Prova
 

@@ -56,7 +56,7 @@ Observações: (serão transferidas para uma seção própria posteriormente)
 
 Se $(X_1,\dots,X_n)$ é amostra aleatória de $X\sim \mathrm{N}(\mu,\sigma^2)$, então
 
-1. $\bar{X} \sim \mathrm{N}(\mu, \frac{\simga^2}{n})$ (por função geradora de momentos);
+1. $\bar{X} \sim \mathrm{N}(\mu, \frac{\sigma^2}{n})$ (por função geradora de momentos);
 
 2. $\sum \frac{(X_i - \mu)^2}{\sigma^2} \sim \chi^2_{n})$ (por função geradora de momentos e transformação de VAs);
 

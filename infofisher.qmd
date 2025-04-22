@@ -243,8 +243,7 @@ $$
 sempre que $E_\theta(T(\boldsymbol{X}_n)^2)<\infty, \forall \theta \in \Theta$, em que $I_1(\theta)$ é a [informação de Fisher](infofisher.qmd)
 e $I_n(\theta)$ é a informação de Fisher total.
 
-::: {.callout-note}
-# Observação
+::: {.callout-note title="Observação"}
 A quantidade $\frac{1}{I_n(\theta)}$ é chamada de *Limite Inferior de Crammer Rao (LICR)*
 :::
 
@@ -260,8 +259,7 @@ $$
 E_\theta(T(\boldsymbol{X}_n)) = \int_{-\infty}^{\infty} \dots \int_{-\infty}^{\infty} T(x_1,\dots,x_n) f_\theta^{\boldsymbol{X}_n}(x_1,\dots,x_n) dx_1,\dots,dx_n
 $${#eq-defesp}
 
-::: {.callout-note}
-# Observação
+::: {.callout-note title="Observação"}
 $$
 E((X_1+X_2)^2) = \int^\infty_{-\infty} \int^\infty_{-\infty} (x_1 + x_2)^2 f^{X_1, X_2}_\theta(x_1,x_2) dx_1dx_2
 $$

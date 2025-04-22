@@ -71,5 +71,6 @@ $$
 $$
 em que $c_{p}$ satisfaz $P(\chi^2_{(k-1)(l-1)} > c_{p})=\alpha$.
 
-*Observação*
+::: {.callout-note title="Observação"}
 Essa aproximação com a $\chi^2$ só funciona de modo razoável quando cada $E_{ij}>5$ 
+:::

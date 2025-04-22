@@ -1021,8 +1021,7 @@ H(u) = \inf\left\{
 \right\}
 $$
 
-#### Observação
-
+::: {.callout-note title="Observação"}
 $$
 f_\theta(x) = \mathrm{e}^{-\theta} \cdot \mathbb{1}_{(0,\theta)}(x)
 $$
@@ -1035,6 +1034,7 @@ g(u) &= \inf\left\{\theta \in (0,\infty) : f_\theta(u) > 0\right\}\\
 \Rightarrow g(u) &= u
 \end{aligned}
 $$
+:::
 
 #### Exemplo (Normal Curvada) {#sec-norm-curv}
 

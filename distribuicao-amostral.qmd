@@ -202,7 +202,7 @@ $$
 
 Portanto, pertence à FE k-dimensional.
 
-### Observação
-
+::: {.callout-note title="Observação"}
 A partir de $f_\theta^{(n)}$ conseguimos fazer inferência sobre a [quantidade de interesse](quantidade-de-interesse.qmd):
 podemos encontrar a distribuição de [estatísticas](estatisticas.qmd) e [estimadores](estimadores.qmd).
+:::
