@@ -2,5 +2,5 @@
 *.tex
 _book/
 quarto/
-
+site_libs/
 /.quarto/
