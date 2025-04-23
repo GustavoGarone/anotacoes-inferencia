@@ -1,0 +1,44 @@
+# Estimador de Máxima Verossimilhança (EMV) - Aprofundamento
+
+Seja $\mathcal{L}_{\boldsymbol{x}_n}(\theta)$ a [função de verossimilhança](funcao-verossimilhanca.qmd) de um [modelo estatístico](modelo-estatistico.qmd).
+Dizemos que $\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)$ é um [estimador](estimadores.qmd) de máxima verossimilhança se, e somente se,
+$$
+\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{x}_n)) \geq \mathcal{L}_{\boldsymbol{x}_n}(\theta),\ \mathrm{q.c.}\ \forall \theta \in \Theta.
+$$
+em que $\boldsymbol{x}_n$ representa uma possível [amostra observada](populacao-e-amostra.qmd#sec-ao).
+
+::: {.callout-note title="Observação"}
+$\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)$ é um [estimador](estimadores.qmd) (quase certamente, ele é único).
+
+$\hat{\theta}_{\mathrm{MV}}(\boldsymbol{x}_n)$ é uma [estimativa](estimadores.qmd#sec-estimativa).
+:::
+
+## Exemplos
+
+### Exemplo Uniforme
+
+Seja $\boldsymbol{X}_n$ [a.a.](populacao-e-amostra.qmd#sec-aa) de $X\sim \mathrm{U}(0,\theta), \theta > 0$. Encontre o EMV.
+
+#### Resposta
+
+A função de verossimilhança é dada por
+$$
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) \stackrel{\mathrm{iid}}{=} \prod^n_{i=1} f_\theta(x_i) = \prod\left\{\frac{1}{\theta} \mathbb{1}_{(0,\theta]}(x_i)\right\}
+= \frac{1}{\theta^n} \prod \mathbb{1}_{(0,\theta]}(x_i)
+$$
+
+Note que
+$$
+\prod \mathbb{1}_{(0,\theta]}(x_i) = 1 \iff \mathbb{1}_{[0,\infty)}(\min\boldsymbol{x}_n) \mathbb{1}_{(-\infty,\theta]}(\max\boldsymbol{x}_n) = 1
+$$
+Como $0 < \max \boldsymbol{x}_n \leq \theta < \infty$,
+$$
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) \frac{1}{\theta^n} \mathbb{1}_{[0,\infty)}(\min \boldsymbol{x}_n) \mathbb{1}_{[\max \boldsymbol{x}_n, \infty)}
+$$
+
+Note que a função é *estritamente decrescente* para qualquer valor de $\theta \geq \max \boldsymbol{x}_n$ e vale $0$ para $\theta \leq \max \boldsymbol{x}_n$,
+temos que $\theta = \max\boldsymbol{x}_n$  é o ponto que maximiza a função de verossilhança, logo,
+$$
+\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \max \boldsymbol{X}_n
+$$
+é o estimador de máxima verossimilhança.

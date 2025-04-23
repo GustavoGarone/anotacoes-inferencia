@@ -87,3 +87,103 @@ $$
 
 Usando desse recurso nos exercícios, basta mostrar que o EQM vai para zero quando $n$ cresce.
 :::
+
+::: {.callout-tip}
+Disso, temos que, se $T(\pmb{X}_n)$ for [assintóticamente eficiente](estimadores-eficientes.qmd#sec-efassin), então será *fracamente* consistente.
+:::
+
+## Exemplos
+
+### Exemplo Bernoulli
+
+Seja $\pmb{X}_n$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim \mathrm{Ber}(\theta), \theta \in \Theta = (0,1)$.
+Mostre que $T(\pmb{X}_n)$ é consistente para $g(\theta) = \theta$.
+
+#### Resposta
+
+Como $E_\theta(\bar{X}) = \theta$ e $\mathrm{Var}_\theta(\bar{X}) \frac{\theta(1-\theta)}{n}, \forall \theta \in \Theta.$,
+temos que 
+$$
+\begin{aligned}
+\mathrm{Viés}_\theta(\bar{X},\theta) &= 0, \forall \theta \in \Theta, \\
+\lim_{n\rightarrow \infty} \mathrm{Var}_\theta(\bar{X}) = 0, \forall \theta \in \Theta, \\
+\Rightarrow \mathrm{EQM}_\theta(\bar{X},\theta) &\rightarrow 0, \forall \theta \in \Theta
+\Rightarrow \bar{X} \stackrel{P_\theta}{\rightarrow} \theta, \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+::: {.callout-tip}
+Poderíamos também, como $\pmb{X}_n$ é uma amostra aleatória, utilizar a lei forte dos grandes números.
+:::
+
+### Exemplo Normal (média)
+
+Seja $\pmb{X}_n$ a.a. de $X\sim \mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}_+$.
+Mostre que $\bar{X}$ é consistente para $g(\theta) = \mu.$
+
+#### Resposta
+
+Como $E_\theta(\bar{X}) = \mu, \mathrm{Var}_\theta(\bar{X}) = \frac{\sigma^2}{n}, \forall \theta \in \Theta$, temos que
+$$
+\begin{aligned}
+\mathrm{Viés}_\theta(\bar{X},\mu) &= 0, \forall \theta \in \Theta, \\
+\lim_{n\rightarrow \infty} \mathrm{Var}_\theta(\bar{X}) &= 0, \forall \theta \in \Theta, \\
+\Rightarrow \lim_{n\rightarrow \infty} \mathrm{EQM}_\theta(\bar{X},\theta) &= 0, \forall \theta \in \Theta \\
+\Rightarrow T(\pmb{X}_n) &= \bar{X} \text{ é fracamente consistente para } g(\theta) = \mu.
+\end{aligned}
+$$
+
+### Exemplo Normal (variância)
+
+Seja $\pmb{X}_n$ a.a. de $X\sim \mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}_+$.
+Mostre que
+$$
+T_k(\pmb{X}_n) = \frac{1}{n-k} \sum_{i=1}^n (X_i - \bar{X})^2
+$$
+é consistente para $g(\theta) = \sigma^2.$
+
+
+#### Resposta
+
+Sabemos que
+$$
+\sum_{i=1}^n \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{(n-1)}, \forall \theta \in \Theta.
+$$
+
+Logo,
+$$
+\begin{aligned}
+E_\theta(T_k(\pmb{X}_n)) &= E_\theta\left(\frac{1}{n-k} \sum (X_i - \bar{X})^2\right) \\
+&= \frac{\sigma^2}{n-k}E_\theta\left(\sum \frac{(X_i - \bar{X})^2}{\sigma^2}\right) \\
+&= \frac{\sigma^2}{n-k}(n-1), \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+Ademais,
+$$
+\begin{aligned}
+\mathrm{Var}_\theta(T_k(\pmb{X}_n)) &= \mathrm{Var}_\theta\left(\frac{1}{n-k} \sum (X_i - \bar{X})^2\right) \\
+&= \frac{\sigma^4}{(n-k)^2}\mathrm{Var}_\theta\left(\sum \frac{(X_i - \bar{X})^2}{\sigma^2}\right) \\
+&= \frac{\sigma^4}{(n-k)^2}2(n-1), \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+Portanto,
+$$
+\mathrm{EQM}_\theta = \frac{2\sigma^2}{(n-k)^2}(n-1) + \left(\frac{\sigma^2}{n-k}(n-1) - \sigma^2\right)^2
+$$
+
+Como
+$$
+\lim_{n\rightarrow \infty} \frac{n-1}{n-k} = 1, \forall k \neq n, k \ \text{fixado}
+$$
+e
+$$
+\lim_{n\rightarrow \infty} \frac{n-1}{(n-k)^2} = 0, \forall k \neq n, k\ \text{fixado}
+$$
+temos que
+$$
+\lim_{n\rightarrow \infty} \mathrm{EQM}_\theta(T_k(\pmb{X}_n),\sigma^2) = 0, \forall \theta \in \Theta.
+$$
+
+Logo, $T(\pmb{X}_n)$ é consistente para $\sigma^2, \forall k \neq n, \ k \text{fixado}$

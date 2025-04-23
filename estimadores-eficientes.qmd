@@ -154,7 +154,7 @@ $$
 Como $\mathrm{Var}_\theta \neq \frac{g'(\theta)}{I_n(\theta)}$ para algum $\theta \in \Theta$, como $\theta = 1$, temos
 que, apesar de [ser ENVVUM](envvum.qmd#sec-ex-poiss), $T(\boldsymbol{X}_n)$ não é eficiente para $g(\theta) = \mathrm{e}^{-\theta}$.
 
-## Eficiência assintótica para $g(\theta)$
+## Eficiência assintótica para $g(\theta)$ {#sec-efassin}
 
 Dizemos que $T(\boldsymbol{X}_n)$ é um [estimador assintoticamente](estimadores.qmd#sec-est-naovies-assin) eficiente se, e somente se,
 

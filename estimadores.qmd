@@ -4,7 +4,7 @@
 São estatísticas cujo objetivo é estimar uma [quantidade de interesse](quantidade-de-interesse.qmd).
 Portanto, estimadores são também variáveis aleatórias.
 
-## Estimativas
+## Estimativas {#sec-estimativa}
 São os valores observados a partir da amostra observada dos estimadores. Portanto, *estimativas são valores numéricos*
 
 Exemplos:

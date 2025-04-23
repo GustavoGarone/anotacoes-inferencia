@@ -1,0 +1,20 @@
+# Escolha de Estimadores
+
+O [Erro Quadrático Médio (EQM)](eqm-e-vies.qmd) é o critério para escolher o estimador a ser utilizado.
+
+Sejam $T_1(\pmb{X}_n), T_2(\pmb{X}_n)$ estimadores para a [quantidade de interesse](quantidade-de-interesse.qmd).
+Se $\mathrm{EQM}_\theta(T_1(\pmb{X}_n),g(\theta)) \leq \mathrm{EQM}_\theta(T_2(\pmb{X}_n),g(\theta))$ para cada $\theta \in \Theta$,
+dizemos que $T_1(\pmb{X}_n)$ é melhor $T_2(\pmb{X}_n)$.
+
+::: {.callout-note title="Estimadores inadmissíveis"}
+Se existir $\theta^* \in \Theta$ tal que
+$$
+\mathrm{EQM}_{\theta^*}(T_1(\pmb{X}_n),g(\theta)) < \mathrm{EQM}_{\theta^*}(T_2(\pmb{X}_n),g(\theta))
+$$
+dizemos que $T_2(\pmb{X}_n)$ é inadmissível para $g(\theta)$.
+:::
+
+::: {.callout-note title="Observação"}
+Note que o [ENVVUM](envvum.qmd) é aquele que tem menor EQM dentre os [estimadores não-viciados](estimadores.qmd#sec-est-naovies).
+:::
+

@@ -53,6 +53,8 @@ book:
       - infofisher.qmd
       - estimadores-eficientes.qmd
       - estimadores-consistentes.qmd
+      - escolha-estimador.qmd
+      - emv2.qmd
     # - references.qmd
 
 bibliography: references.bib
