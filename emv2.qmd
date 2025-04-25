@@ -231,7 +231,7 @@ $$
 -\frac{1}{(\hat{\sigma}^2)^2} \sum (x_i - \bar{x}) & \frac{n}{2(\hat{\sigma}^2)^2} - \sum \frac{(x_i - \bar{x})^2}{(\hat{\sigma}^2)^3}
 \end{array}\right] \\ \\
 \text{Note que}\ \sum(x_i - \bar{x}) &= \sum x_i - n \bar{x} = \sum x_i - \sum x_i = 0 \\
-\text{e que}\ \frac{n}{2(\hat{\sigma}^2)Ç 2} - \frac{n\hat{\sigma}^2}{(\hat{\sigma}^2)^3} &= - \frac{n}{2(\hat{\sigma}^2)^2}\\ \\
+\text{e que}\ \frac{n}{2(\hat{\sigma}^2)^2} - \frac{n\hat{\sigma}^2}{(\hat{\sigma}^2)^3} &= - \frac{n}{2(\hat{\sigma}^2)^2}\\ \\
 \Rightarrow 
 \left.\frac{\partial^2 \ln}{\partial \theta \partial \theta^T} \mathcal{L}_{\boldsymbol{x}_n}(\theta)\right\rvert_{\theta = \hat{\theta}} &=
 \left[
