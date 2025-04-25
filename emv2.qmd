@@ -42,3 +42,235 @@ $$
 \hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \max \boldsymbol{X}_n
 $$
 é o estimador de máxima verossimilhança.
+
+### Exemplo Beta
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta = (0,\infty)$ tal que
+$$
+f_\theta(x) = \left\{\begin{array}{ll}
+\theta x^{\theta-1}, x \in (0,1) \\
+0, \mathrm{c.c}
+\end{array}\right.
+$$
+
+Encontre o EMV para "$\theta$".
+
+#### Resposta
+
+A função de verossimilhança é
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &\stackrel{\mathrm{i.i.d.}}{=} \prod^n_{i=1} f_\theta(x_i) \\
+&= \prod \left\{\theta x_i^{\theta-1}\right\} \\
+&= \theta^n\left(\prod x_i\right)^{\theta-1}
+\end{aligned}
+$$
+
+Como $\mathcal{L}_{\boldsymbol{x}_n}$ é positiva $\forall \theta \in \Theta$, temos que,
+$$
+\ln\mathcal{L}_{\boldsymbol{x}_n}(\theta) = n \ln \theta + (\theta-1) \sum \ln x_i
+$$
+
+Ademais, $\ln(\cdot)$ é uma função estritamente crescente. Portanto, o valor que maximiza $\mathcal{L}_{\boldsymbol{x}_n}(\cdot)$ é
+o mesmo que maximiza $\ln \mathcal{L}_{\boldsymbol{x}_n}(\cdot)$.
+
+Encontramos os pontos críticos de $\ln \mathcal{L}_{\boldsymbol{X}_n}(\theta)$
+$$
+\begin{aligned}
+&\frac{d\ln \mathcal{L}_{\boldsymbol{x}_n}(\theta)}{d\theta} = 0 \\
+&\Rightarrow \frac{n}{\theta} + \sum \ln x_i = 0 \\
+&\iff \hat{\theta} = - \frac{n}{\sum \ln x_i}\ \text{é um ponto crítico.}
+\end{aligned}
+$$
+
+Para a segunda derivada,
+$$
+\frac{d^2\ln \mathcal{L}_{\boldsymbol{x}_n}(\theta)}{d\theta^2} = -\frac{n}{\theta^2} < 0, \forall \theta \in \Theta.
+$$
+
+Logo,
+$$
+\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = - \frac{n}{\sum \ln x_i}
+$$
+é o EMV.
+
+## Caso Geral
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^P.$ Considere $\boldsymbol{x}_n$ uma possível amostra
+observada e considere as [Condições $C_1:C_4$](escore.qmd#sec-condicoes) válidas. Então, o EMV pode ser obtido igualando
+a [função escore](escore.qmd) a zero. Ou seja,
+
+$$
+U_n(\boldsymbol{X}_n,\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n))
+$$
+em que
+$$
+U_n(\boldsymbol{x}_n,\theta) = \frac{\partial \ln \mathcal{L}_{\boldsymbol{x}_n}(\theta)}{\partial \theta}
+$$
+desde que 
+$$
+\left.\frac{\partial U_n(\boldsymbol{x}_n,\theta)}{\partial \theta^T}\right\rvert_{\theta = \hat{\theta}_{\mathrm{MV}}(\boldsymbol{x}_n)}
+$$
+é negativa definida para quase todo $\boldsymbol{x}_n$. Ou seja,
+$$
+\left.\frac{\partial U_n(\boldsymbol{x}_n,\theta)}{\partial \theta^T}\right\rvert_{\theta = \hat{\theta}_{\mathrm{MV}}(\boldsymbol{x}_n)}
+=  \left.\frac{\partial^2 \ln \mathcal{L}_{\boldsymbol{x}_n}}{\partial \theta \partial \theta^T}\right\rvert_{\theta = \hat{\theta}_{\mathrm{MV}}(\boldsymbol{x}_n)}
+$$
+é negativa definida.
+
+::: {.callout-note title="Matrizes positivas definidas"}
+Dizemos que $A$ é positiva definida se, e somente se,
+$$
+x^TAx > 0, \forall x \in \mathbb{R}^P\setminus \{\boldsymbol{0}\}
+$$
+
+Teorema
+
+$A$ simétrica ($A$ = $A^T$) é positiva definida se, e somente se, todos seus autovalores são positivos.
+:::
+
+::: {.callout-note title="Matrizes negativas definidas"}
+Dizemos que $A$ é positiva definida se, e somente se,
+$$
+x^TAx < 0, \forall x \in \mathbb{R}^P \setminus \{\boldsymbol{0}\}
+$$
+
+Teorema
+
+$A$ simétrica ($A$ = $A^T$) é negativa definida se, e somente se, todos seus autovalores são negativos.
+:::
+
+::: {.callout-tip}
+Uma matriz $A$ de dimensões $2\times 2$ é dita positiva(negativa) definida se, e somente se, os elementos da diagonal são
+positivos(negativos) e o determinante de $A$ é positivo.
+:::
+
+### Exemplos
+
+#### Exemplo Normal {#sec-exnorm}
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim \mathrm{N}(\mu,\sigma^2), \theta = (\mu, \sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}_+$
+
+##### Resposta
+
+A função de verossimilhança é
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \frac{1}{(\sqrt{2 \pi \sigma^2})^n} \mathrm{e}^{-\frac{1}{2\sigma^2} \sum (x_i - \mu)^2} \\
+\Rightarrow \ln \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= -\frac{n}{2} \ln(2\pi) - \frac{n}{2} \ln(\sigma^2) - \frac{1}{2\sigma^2} \sum (x_i - \mu)^2.
+\end{aligned}
+$$
+
+Logo,
+$$
+U_n(\boldsymbol{x}_n,\theta) = \frac{\partial \ln }{\partial \theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta) = \left(\begin{array}{cc}
+\frac{\partial \ln }{\partial \mu} \mathcal{L}_{\boldsymbol{x}_n}(\theta) \\
+\frac{\partial \ln }{\partial \sigma^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta)
+\end{array}\right)
+$$
+em que
+$$
+\frac{\partial \ln }{\partial \mu} \mathcal{L}_{\boldsymbol{x}_n}(\theta) = -\frac{1}{2\sigma^2} \sum 2(x_i-\mu)(-1) = \frac{1}{\sigma^2} \sum (x_i - \mu)
+$$
+e
+$$
+\frac{\partial \ln }{\partial \sigma^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4} \sum (x_i-\mu)^2
+$$
+
+Logo,
+$$
+\begin{aligned}
+U_n(\boldsymbol{x}_n,\theta) &= 0 \\
+\iff &\left\{\begin{array}{l}
+\frac{\partial \ln }{\partial \mu} \mathcal{L}_{\boldsymbol{x}_n}(\theta) = \frac{1}{\sigma^2} \sum (x_i - \mu) &= 0 \\
+\frac{\partial \ln }{\partial \sigma^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4} \sum (x_i-\mu)^2 &= 0
+\end{array}\right. \\
+\iff &\left\{\begin{array}{l}
+\sum x_i -n \mu= 0 \\
+-n + \frac{1}{\sigma^2} \sum (x_i - \mu)^2 = 0
+\end{array}\right. \\
+\iff &\left\{\begin{array}{l}
+\mu = \sum \frac{x_i}{n} = 0 \\
+\sigma^2 = \sum \frac{(x_i-\mu)^2}{n}
+\end{array}\right. \\
+\Rightarrow &\left\{\begin{array}{l}
+\hat{\mu} = \bar{x} \\
+\hat{\sigma^2} = \frac{1}{n} \sum (x_i - \bar{x})^2
+\end{array}\right.
+\end{aligned}
+$$
+
+Ou seja, $\hat{\theta} = (\hat{\mu}, \hat{\sigma^2})$ é o ponto crítico de $\ln \mathcal{L}_{\boldsymbol{x}_n}(\theta)$.
+
+Continuando,
+$$
+\begin{aligned}
+\frac{\partial^2 \ln}{\partial \theta \partial \theta^T} \mathcal{L}_{\boldsymbol{x}_n}(\theta) &=
+\frac{\partial U_n(\boldsymbol{x}_n,\theta)}{\partial \theta^T} \\
+&= \frac{\partial}{\partial \theta^T}
+\left[
+\begin{array}{c}
+\frac{\partial \ln}{\partial \mu} \mathcal{L}_{\boldsymbol{x}_n}(\theta) \\
+\frac{\partial \ln}{\partial \sigma^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta)
+\end{array}\right] \\
+&= \left[
+\begin{array}{cc}
+\frac{\partial^2 \ln}{\partial \mu^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) &
+\frac{\partial^2 \ln}{\partial \mu \partial \sigma^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) \\
+\frac{\partial^2 \ln}{\partial \mu \partial \sigma^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) &
+\frac{\partial^2 \ln}{\partial (\sigma^2)^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) \\
+\end{array}\right] \\
+\Rightarrow  \frac{\partial^2 \ln}{\partial \mu^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= -\frac{n}{\sigma^2} \\
+\frac{\partial^2 \ln}{\partial \mu \partial \sigma^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= -\frac{1}{\sigma^4} \sum (x_i - \mu) \\
+\frac{\partial^2 \ln}{\partial (\sigma^2)^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \frac{n}{2\sigma^4} + \frac{1}{2} \sum (x_i - \mu)^2 \cdot \frac{\partial (\sigma^2)^2}{\partial \sigma^2} \\
+&= \frac{n}{2\sigma^4} - \sum \frac{(x_i - \mu)^2}{\sigma^6} \\
+\Rightarrow 
+\left.\frac{\partial^2 \ln}{\partial \theta \partial \theta^T} \mathcal{L}_{\boldsymbol{x}_n}(\theta)\right\rvert_{\theta = \hat{\theta}} &=
+\left[
+\begin{array}{cc}
+-\frac{n}{\hat{\sigma}^2} & -\frac{1}{(\hat{\sigma}^2)^2} \sum (x_i - \bar{x}) \\
+-\frac{1}{(\hat{\sigma}^2)^2} \sum (x_i - \bar{x}) & \frac{n}{2(\hat{\sigma}^2)^2} - \sum \frac{(x_i - \bar{x})^2}{(\hat{\sigma}^2)^3}
+\end{array}\right] \\ \\
+\text{Note que}\ \sum(x_i - \bar{x}) &= \sum x_i - n \bar{x} = \sum x_i - \sum x_i = 0 \\
+\text{e que}\ \frac{n}{2(\hat{\sigma}^2)Ç 2} - \frac{n\hat{\sigma}^2}{(\hat{\sigma}^2)^3} &= - \frac{n}{2(\hat{\sigma}^2)^2}\\ \\
+\Rightarrow 
+\left.\frac{\partial^2 \ln}{\partial \theta \partial \theta^T} \mathcal{L}_{\boldsymbol{x}_n}(\theta)\right\rvert_{\theta = \hat{\theta}} &=
+\left[
+\begin{array}{cc}
+-\frac{n}{\hat{\sigma}^2} & 0 \\
+0 & \frac{-n}{(\hat{\sigma}^2)^2}
+\end{array}\right]
+\end{aligned}
+$$
+desde que $\sum (x_i - \bar{x})^2 > 0$.
+
+Como $\left.\frac{\partial^2 \ln}{\partial \theta \partial \theta^T} \mathcal{L}_{\boldsymbol{x}_n}(\theta)\right\rvert_{\theta = \hat{\theta}}$
+é negativa definida, concluímos que $\hat{\theta}$ é pelo menos máximo local.
+Dizemos que $\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = (\bar{X}, S^2_n)$ é o EMV para $\theta = (\mu, \sigma^2)$, em que
+$$
+S^2_n = \frac{1}{n} \sum (X_i - \bar{X})^2
+$$
+
+## Relação com a [Informação de Fisher](infofisher.qmd)
+
+Note que a informação de Fisher total sob o [modelo normal anterior](emv2.qmd#sec-exnorm) é
+$$
+\begin{aligned}
+I_n(\theta) &= - E_\theta\left(\frac{\partial^2 \ln}{\partial \theta \partial \theta^T} \mathcal{L}_{\boldsymbol{x}_n}(\theta)\right) \\
+&= -E_\theta\left(
+\begin{array}{cc}
+-\frac{n}{\sigma^2} & -\frac{1}{\sigma^4} \sum (X_i - \mu) \\
+-\frac{1}{\sigma^4} \sum (X_i - \mu) & \frac{n}{2\sigma^4} - \sum \frac{(X_i - \mu)^2}{(\sigma^2)^3}
+\end{array}\right) \\
+&= E_\theta\left(
+\begin{array}{cc}
+\frac{n}{\sigma^2} & \frac{1}{\sigma^4} \sum (X_i - \mu) \\
+\frac{1}{\sigma^4} \sum (X_i - \mu) & -\frac{n}{2\sigma^4} + \sum \frac{(X_i - \mu)^2}{(\sigma^2)^3}
+\end{array}\right) \\ \\
+\text{Note que}\ E_\theta[(X_i-\mu)^2] &= \mathrm{Var}_\theta(X) = \sigma^2 \\ \\
+\Rightarrow I_n (\theta) &= E_\theta\left(
+\begin{array}{cc}
+\frac{n}{\sigma^2} & 0 \\
+0 & \frac{n}{2\sigma^4}
+\end{array}\right).
+\end{aligned}
+$$
