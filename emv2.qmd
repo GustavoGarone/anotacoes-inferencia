@@ -274,3 +274,82 @@ I_n(\theta) &= - E_\theta\left(\frac{\partial^2 \ln}{\partial \theta \partial \t
 \end{array}\right).
 \end{aligned}
 $$
+
+## Alguns exemplos
+
+Seja $\pmb{X}_n$ a.a. de $X \sim f_\theta$,
+
+1. $X \sim \mathrm{Ber}(\theta), \theta \in (0,1)$, o EMV para "$\theta$" é
+$\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \bar{X}$.
+
+2. $X \sim \mathrm{Bin}(4, \theta), \theta \in (0,1)$, o EMV para "$\theta$" é
+$\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \frac{\bar{X}}{4}$.
+
+3. $X \sim \mathrm{Poiss}(\theta), \theta > 0$, o EMV para "$\theta$" é
+$\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \bar{X}$.
+
+4. $X \sim \mathrm{Exp}(\theta), \theta > 0$, o EMV para "$\theta$" é
+$\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \frac{1}{\bar{X}}$.
+
+5. $X \sim f_\theta, \theta > 0,$ tal que
+$$
+f_\theta(x) = \left\{\begin{array}{ll}
+\frac{1}{\Gamma(\theta)} x^{\theta-1} \mathrm{e}^{-x}, & x > 0 \\
+0, & \mathrm{c.c.}
+\end{array}\right.
+$$
+com $\Gamma(\theta) = \int x^{\theta-1} \mathrm{e}^{-x} dx$, temos
+$$
+\begin{aligned}
+\mathcal{L}_{\pmb{x}_n}(\theta) &\stackrel{\mathrm{i.i.d.}}{=} \prod f_\theta(x_i)\\
+&= \prod \left\{
+\frac{1}{\Gamma(\theta)} x_i^{\theta-1} \mathrm{e}^{-x_i}\right\} \\
+&= \frac{1}{\Gamma(\theta)^n} \left(\prod x_i\right)^{\theta-1} \mathrm{e}^{-\sum x_i} \\
+\Rightarrow \ln \mathcal{L}_{\pmb{x}_n}(\theta) &= -n \ln \Gamma(\theta) + (\theta-1) \sum \ln x_i - \sum x_i \\
+\\
+\Rightarrow \frac{d\ln}{d\theta}\mathcal{L}_{\pmb{x}_n}(\theta) = 0 &\Rightarrow -\frac{n}{\Gamma(\theta)}\Gamma'(\theta) +
+\sum \ln x_i  = 0.
+\end{aligned}
+$$
+
+Como resolver:
+$$
+\sum \ln x_i = n \frac{\Gamma'(\theta)}{\Gamma(\theta)}.
+$$
+
+<!-- TODO: Método de Newton-Hapson, linkar -->
+Posteriormente, encontraremos um método para encontrar essa solução.
+
+6. $X \sim f_\theta, \theta \in \Theta$, em que $f_\theta$
+pertence à [Família Exponencial $k$ dimensional](familia-exponencial.qmd#sec-fek), isto é,
+$$
+f_\theta(x) = \left\{\begin{array}{lr}
+\mathrm{e}^{\sum^k_{j=1} c_j(\theta)T_j(x)+d(\theta)+S(x)}, &x \in \mathfrak{X} \\
+0, & x \not \in \mathfrak{X}
+\end{array}\right.
+$$
+
+A função verossimilhança para os valores observados $x_i \in \mathfrak{X}$ é dada por
+$$
+\begin{aligned}
+\mathcal{L}_{\pmb{x}_n}(\theta) &\stackrel{\mathrm{i.i.d.}}{=} \prod \left\{
+\mathrm{e}^{\sum^k_{j=1} c_j(\theta)T_j(x_i)+d(\theta)+S(x_i)}
+\right\} \\
+&= \mathrm{Exp}\left\{\sum_{j=1}^k c_j(\theta) \sum^n_{i=1} T_j(x_i) + nd(\theta) + \sum^n_{i=1} S(x_i)\right\} \\
+\Rightarrow \ln \mathcal{L}_{\pmb{x}_n}(\theta) &= \sum_{j=1}^k c_j(\theta) \sum^n_{i=1} T_j(x_i) + nd(\theta) + \sum^n_{i=1} S(x_i)
+\end{aligned}
+$$
+
+Se $c_1,\dots,c_k$ forem diferenciáveis com respeito a "$\theta$", temos que
+$$
+\frac{\partial \ln }{\partial \theta} \mathcal{L}_{\pmb{x}_n}(\theta) =  \sum^k_{j=1} \frac{\partial c_j(\theta}{\partial \theta}
+\sum^n_{i=1} T_j(x_i) + n \frac{\partial d(\theta)}{\partial \theta}
+$$
+igualando a zero, temos que
+$$
+\sum^k_{j=1} \frac{\partial c_j(\theta)}{\partial \theta} \sum^n_{i=1} T(x_i) = - n \frac{\partial d(\theta)}{\partial \theta}
+$${#eq-formageral}
+
+:::{.callout-hint title="Uso de métodos numéricos"}
+Em alguns casos, ([-@eq-formageral]) não tem solução fechada e utilizaremos um método numério para encontrar as soluções.
+:::
