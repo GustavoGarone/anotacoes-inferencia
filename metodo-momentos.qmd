@@ -17,7 +17,7 @@ Note que a estimação pelo método de momentos *não* utiliza toda a informaç�
 
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim U(0,\theta), \theta > 0$. Encontre o estimador pelo método de momentos.
 
-Calcule o [EQM](eqm.qmd) do [EMV](emv2.qmd) e do estimador obtido pelo método de momentos.
+Calcule o [EQM](eqm-e-vies.qmd) do [EMV](emv2.qmd) e do estimador obtido pelo método de momentos.
 
 ### Resposta
 
