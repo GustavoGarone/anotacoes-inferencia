@@ -13,13 +13,15 @@ $$
 Note que a estimação pelo método de momentos *não* utiliza toda a informação contida na
 [função de verossimilhança](funcao-verossimilhanca.qmd). Precisamos conhecer a forma dos primeiros $p$ momentos.
 
-## Exemplo
+## Exemplos
+
+### Exemplo 1
 
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim U(0,\theta), \theta > 0$. Encontre o estimador pelo método de momentos.
 
 Calcule o [EQM](eqm-e-vies.qmd) do [EMV](emv2.qmd) e do estimador obtido pelo método de momentos.
 
-### Resposta
+#### Resposta
 
 Note que $\Theta = (0,\infty) \subseteq \mathbb{R}$. Portanto, $p=1$. Precisamos encontrar o valor de "$\theta$" que
 satisfaz
@@ -94,9 +96,13 @@ E_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n)) &= \int^{\infty}_{-\infty} w f_\
 \end{aligned}
 $$
 
+#### Simulação
+
 ```{julia}
 #| echo: true
 using Random, Distributions, StatsBase, Plots, LaTeXStrings
+
+Random.seed!(76)
 
 M = 10_000
 n = 10
@@ -121,5 +127,170 @@ println("Variância simulada do EMM = $(var(thetaMM)),
         calculada = $(theta0^2 /(3*n))")
 println("Variância simuladado EMV = $(var(thetaMV)),
         calculada = $(n * theta0^2 / (n+2) - (n/(n+1))^2 * theta0^2)")
+
+densidade(x) = 0 < x < theta0 ? n * x^(n-1) / theta0^n : 0
+
+pmm = histogram(thetaMM, label = "",
+                title = "Histograma do EMM", normalize=:pdf)
+pmv = histogram(thetaMV, label = "",
+                title = "Histograma do EMV", normalize=:pdf)
+plot!(minimum(thetaMV):0.001:maximum(thetaMV)-0.01, densidade,
+      label="Densidade Teórica")
+display(plot(pmm, pmv))
 ```
+
+### Exemplos adicionais
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta$. Encontre o estimador pelo método de momentos para
+os casos abaixo:
+
+1. $X\sim \mathrm{Ber}(\theta), \theta \in (0,1)$
+
+2. $X\sim \mathrm{Bin}(m, \theta), \theta \in (0,1)$
+
+3. $X\sim \mathrm{Poiss}(\theta), \theta \in (0,\infty)$
+
+4. $X\sim \mathrm{N}(\mu, \sigma^2), \theta = (\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+$
+
+5. $X\sim \mathrm{Exp}(\theta), \theta > 0$
+
+6. $X\sim \mathrm{Gamma}(\alpha, \beta), \theta = (\alpha, \beta) \in \mathbb{R}_+\times\mathbb{R}_+$
+
+#### Respostas
+
+1. $E_\theta(X) = \theta$. Portanto, $\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \bar{X}$.
+
+2. $E_\theta(X) = m \theta$. Portanto, $\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{\bar{X}}{m}$.
+
+3. $E_\theta(X) = \theta$. Portanto, $\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \bar{X}$.
+
+4. $E_\theta(X) = \theta, E_\theta(X^2) = \sigma^2 + \mu^2$. Note que
+$$
+\begin{aligned}
+&\left\{\begin{array}{ll}
+\mu &= \bar{X} \\
+\sigma^2 + \mu^2 &= \frac{1}{n} \sum X_i^2
+\end{array}\right. \\
+\Rightarrow&\left\{\begin{array}{ll}
+\hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n) &= \bar{X} \\
+\hat{\sigma^2}_{\mathrm{MM}}(\boldsymbol{X}_n) + \hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n)^2 &= \frac{1}{n} \sum X_i^2
+\end{array}\right. \\
+\Rightarrow&\left\{\begin{array}{ll}
+\hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n) &= \bar{X} \\
+\hat{\sigma^2}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{1}{n} \sum X_i^2 - \bar{X}^2
+\end{array}\right. \\
+\Rightarrow& \hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \left(\bar{X}, \frac{1}{n} \sum X_i^2 - \bar{X}^2\right)
+\end{aligned}
+$$
+
+5. $E_\theta(X) = \frac{1}{\theta}$. Portanto, $\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{1}{\bar{X}}$
+
+6. 
+::: {.callout-note title="Distribuição Gama"}
+Se $X \sim \mathrm{Gama}(\alpha,\beta)$, então
+$$
+\left\{\begin{array}{ll}
+f_\theta^{X}(x) = \frac{\beta^\alpha x^{\alpha-1}\mathrm{e}^{-\beta x}}{\Gamma(\alpha)}, & x > 0\\
+0, & \mathrm{c.c.}
+\end{array}\right.
+$$
+Logo,
+$$
+\begin{aligned}
+E_\theta(X^k) &= \int^\infty_0 x^k\frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha-1} \mathrm{e}^{-\beta x} dx \\
+&= \int^\infty_0 \frac{\beta^\alpha}{\Gamma(\alpha)} x^{\alpha + k - 1} \mathrm{e}^{-\beta x} dx \\ \\
+y = \beta x, dy &= \beta dx, x = \frac{y}{\beta} \\ \\
+\Rightarrow E_\theta(X^k) &= \frac{\beta^\alpha}{\Gamma(\alpha)} \int^\infty_0 \left(\frac{y}{\beta}\right)^{\alpha + k - 1}
+\mathrm{e}^{-y} \frac{dy}{\beta} \\
+&= \frac{\beta^\alpha}{\Gamma(\alpha)} \frac{1}{\beta^{\alpha+k}} \int^\infty_0 y^{\alpha + k - 1} \mathrm{e}^{-y} dy \\
+&= \frac{1}{\Gamma(\alpha) \beta^k} \Gamma(\alpha+k) \\
+\Rightarrow E_\theta(X) &= \frac{1}{\Gamma(\alpha) \beta} \Gamma(\alpha +1 ) = \frac{\alpha \Gamma(\alpha)}{\Gamma(\alpha) \beta}
+= \frac{\alpha}{\beta} \\
+\Rightarrow E_\theta(X^2) &= \frac{1}{\Gamma(\alpha) \beta^2} \Gamma(\alpha +2) = \frac{(\alpha+1) \Gamma(\alpha+1)}{\Gamma(\alpha) \beta}
+= \frac{(\alpha+1)\alpha\Gamma(\alpha)}{\Gamma(\alpha)\beta^2} = \frac{\alpha(\alpha+1)}{\beta^2}
+\end{aligned}
+$$
+:::
+
+Seguindo para as equações de momentos,
+$$
+\begin{aligned}
+&\left\{\begin{array}{ll}
+\frac{\alpha}{\beta} = \bar{X} \\
+\frac{\alpha (\alpha+1)}{\beta^2} = \frac{1}{n} \sum X_i^2
+\end{array}\right. \\
+\Rightarrow &\left\{\begin{array}{ll}
+\alpha = \bar{X}\beta \\
+\frac{\bar{X}\beta(\bar{X}\beta+1)}{\beta^2} = \frac{1}{n} \sum X_i^2
+\end{array}\right. \\
+\Rightarrow &\left\{\begin{array}{ll}
+\alpha = \bar{X}\beta \\
+(\bar{X}\beta)^2 + \bar{X}\beta = \beta^2 \frac{1}{n} \sum X_i^2
+\end{array}\right. \\
+\Rightarrow &\left\{\begin{array}{ll}
+\alpha = \bar{X}\beta \\
+\beta^2\left(\frac{1}{n}\sum X_i^2\right) - (\beta\bar{X})^2 - \beta \bar{X} = 0
+\end{array}\right. \\
+\Rightarrow &\left\{\begin{array}{ll}
+\alpha = \bar{X}\beta \\
+\underbracket{\beta^2\left(\frac{1}{n}\sum X_i^2 - \bar{X}^2\right) - \beta\bar{X}}_{S^2} = 0
+\end{array}\right. \\ \\
+\frac{\bar{X} \pm \sqrt{\bar{X}^2 - 4\cdot S^2 \cdot 0}}{2S^2} &= \frac{\bar{X} \pm \sqrt{\bar{X}^2}}{2S^2}\\
+&=
+\left\{\begin{array}{l}
+0 \\
+\frac{\bar{X}}{S^2}
+\end{array}\right. \\ \\
+\Rightarrow &\left\{\begin{array}{ll}
+\alpha = \bar{X}\beta \\
+\beta^2 S^2 - \beta \bar{X}
+\end{array}\right. \\
+\Rightarrow &\left\{\begin{array}{ll}
+\hat{\alpha}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{\bar{X}^2}{S^2} \\
+\hat{\beta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{\bar{X}}{S^2}
+\end{array}\right. \\
+\Rightarrow& \hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \left(\frac{\bar{X}^2}{S^2}, \frac{\bar{X}}{S^2}\right).
+\end{aligned}
+$$
+
+```{julia}
+#| echo: true
+using Random, Distributions, StatsBase, Plots, LaTeXStrings
+
+Random.seed!(31)
+
+M = 10_000
+n = 10 # Tamanho da amostra
+alpha0 = 4
+beta0 = 6
+
+d = Gamma(alpha0, 1/beta0)
+
+alphaMM = zeros(M)
+betaMM = zeros(M)
+for i in 1:M
+  x = rand(d, n)
+  s = var(x, corrected = false)
+  alphaMM[i] = mean(x)^2/s
+  betaMM[i] = mean(x)/s
+end
+
+# Comparar
+println("Média simulada do EMM para alpha = $(mean(alphaMM)),
+        real = $alpha0")
+println("Média simulada do EMM para beta = $(mean(betaMM)),
+        real = $beta0")
+
+# Plotar
+pmmalpha = histogram(alphaMM, label = "",
+                title = "Histograma do EMM para " * L"\alpha", normalize=:pdf,
+                     bins = 40)
+vline!([alpha0], label="Valor real")
+pmmbeta = histogram(betaMM, label = "",
+                title = "Histograma do EMM para " * L"\beta", normalize=:pdf,
+                    bins = 40)
+vline!([beta0], label="Valor real")
+display(plot(pmmalpha, pmmbeta))
+```
+
 

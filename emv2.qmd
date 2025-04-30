@@ -275,7 +275,7 @@ I_n(\theta) &= - E_\theta\left(\frac{\partial^2 \ln}{\partial \theta \partial \t
 \end{aligned}
 $$
 
-## Alguns exemplos
+## Alguns exemplos {#sec-expnr}
 
 Seja $\pmb{X}_n$ a.a. de $X \sim f_\theta$,
 
@@ -317,8 +317,7 @@ $$
 \sum \ln x_i = n \frac{\Gamma'(\theta)}{\Gamma(\theta)}.
 $$
 
-<!-- TODO: Método de Newton-Hapson, linkar -->
-Posteriormente, encontraremos um método para encontrar essa solução.
+Posteriormente, [encontraremos um método](metodo-nr.qmd) para encontrar essa solução.
 
 6. $X \sim f_\theta, \theta \in \Theta$, em que $f_\theta$
 pertence à [Família Exponencial $k$ dimensional](familia-exponencial.qmd#sec-fek), isto é,

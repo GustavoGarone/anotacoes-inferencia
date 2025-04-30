@@ -1,0 +1,67 @@
+# Método de Newton-Raphson
+
+Nem sempre existem soluções fechadas para [estimadores de máxima verossimilhança](emv2.qmd) ou obtidos pelo [método de
+momentos](metodo-momentos.qmd). Por exemplo, $U_n(\theta,\boldsymbol{X}_n) = 0$ não tem solução fechada para o EMV e
+$E_\theta(X^k) \frac{1}{n} \sum X_i^k$ para o EMM.
+
+Nos dois casos, estamos interessados em encontrar os valores de "$\theta$" que "zeram" uma função $G(\theta)$,
+
+1. $G(\theta) = U_n(\theta, \boldsymbol{X}_n)$
+
+$$
+\begin{aligned}
+2.& \ \ \ \ \ \ \ \ \ \ \ \  G(\theta) = \left(
+\begin{array}{c}
+E_\theta(X) - \frac{1}{n} \sum X_i \\
+\vdots \\
+E_\theta(X^p) - \frac{1}{n} \sum X_i^p
+\end{array}\right)
+\end{aligned}
+$$
+
+Consideraremos a seguir apenas o caso $p=1$
+
+Seja $G : \Theta \rightarrow \mathbb{R}$ uma função contínua e diferenciável, com derivadas contínuas, tal que
+$G'(\theta) \neq 0,\forall \theta \in \Theta$. Temos como objetivo encontrar $\hat{\theta} \in \Theta$
+tal que $G(\hat{\theta}) = 0$.
+
+Inicia-se o processo com um valor qualquer $\theta_0 \in \Theta$ e calculamos o valor seguinte por meio de:
+$$
+\theta^{(j)} = \theta^{(j-1)} - \frac{G(\theta^{(j-1)})}{G'(\theta^{(j-1)})}, j = 1, 2, \dots
+$$
+
+Continua-se até que $\lvert \theta^{(j)} - \theta^{(j-1)}\rvert \leq \epsilon$ em que $\epsilon$ é um valor de erro pequeno
+fixado.
+
+## Exemplo
+
+
+[Quando tentamos encontrar](emv2.qmd#sec-expnr) o EMV para $\theta$ de $X \sim f_\theta, \theta \in \Theta$ com
+$$
+f_\theta(x) = \left\{\begin{array}{ll}
+\frac{1}{\Gamma(\theta)} x^{\theta-1} \mathrm{e}^{-x}, & x > 0 \\
+0, & \mathrm{c.c.}
+\end{array}\right.
+$$
+não conseguimos finalizar a expressão. Vamos relembrar o [escore](escore.qmd) da amostra igualado a zero:
+
+$$
+U_n(\boldsymbol{x}_n,\theta) = \sum \ln x_i -\frac{n}{\Gamma(\theta)}\Gamma'(\theta) + \sum \ln x_i  = 0
+$$
+
+Considere os $n=7$ valores observados, $\boldsymbol{x}_7 = (3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5)$
+$$
+\Rightarrow U_n(\boldsymbol{x}_n,\theta) = \underbracket{\frac{7}{\Gamma(\theta)}}_{\frac{\partial \ln}{\partial \theta} \Gamma(\theta)}
++\sum \ln x_i = 0
+$$
+
+Utilizando $\theta^{(0)} = 1$,
+$$
+\begin{aligned}
+\theta^{(j)} &= \theta^{(j-1)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j-1)}}{U'_n(\boldsymbol{x}_n, \theta^{(j-1)}} \\
+&= \theta^{(j-1)} - \frac{-7 \psi_1(\theta^{(j-1)})+ 7 \sum \ln x_i}{-7\psi_2(\theta^{(j-1)})} \\
+&= \theta^{(j-1)} - \frac{-\psi_1(\theta^{(j-1)})+ \sum \ln x_i}{-\psi_2(\theta^{(j-1)})}
+\end{aligned}
+$$
+
+em que $\psi_j(\theta) = \frac{\partial^j \ln \Gamma(\theta)}{\partial \theta^j}$
