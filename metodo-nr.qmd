@@ -65,3 +65,172 @@ $$
 $$
 
 em que $\psi_j(\theta) = \frac{\partial^j \ln \Gamma(\theta)}{\partial \theta^j}$
+
+## Algoritmo
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim \Gamma(\theta, 1)$ (exemplo anterior). Ainda considerando os mesmos valores
+amostrados, $\boldsymbol{x}_7 = (3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5)$, utilize os métodos numéricos para encontrar a
+estimativa de máxima verossimilhança.
+
+### Algoritmo por Newton-Raphson
+Considere um erro $\epsilon = 10^{-5}$ e $\hat{\theta}^{(0)} = 1.$
+$$
+\theta^{(j+1)} = \theta^{(j)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j)}}{U'_n(\boldsymbol{x}_n, \theta^{(j)}}
+$$
+em que $U_n(\boldsymbol{x}_n,\theta) = -n\psi_1(\theta^{(j-1)})+ \sum \ln x_i$ e $U_n'(\boldsymbol{x}_n,\theta) = -n\psi_2(\theta^{(j-1)})$
+com $\psi_j(\theta) = \frac{\partial^j \ln \Gamma(\theta)}{\partial \theta^j}$ e $n=7$.
+
+Logo,
+$$
+\theta^{(j+1)} = \theta^{(j)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j)}}{U'_n(\boldsymbol{x}_n, \theta^{(j)}}
+$$
+
+<!-- TODO: melhorar iteracao max e erro com append, declarar vetor theta como de floats -->
+```{julia}
+#| echo: true
+using SpecialFunctions # Funções di e trigamma (derivadas do log da gama)
+
+
+function main()
+
+  x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
+  n = length(x)
+
+  theta::Vector{Float64} = []
+  theta0 = 1
+  append!(theta, theta0)
+
+
+  erromax = 10^(-5)
+  erro = Inf
+  i = 1
+  # iteracoesMax = 6 # Podemos também definir apenas um erro máximo
+  while erro > erromax # && i < iteracoesMax
+    append!(theta, theta[i] - (sum(log.(x)) - n * digamma(theta[i]))/
+                                             (-n*trigamma(theta[i])))
+    erro = abs(theta[i+1] - theta[i])
+    println("Erro na iteração $i: $erro")
+    i += 1
+  end
+  println("Vetor theta: $theta")
+
+end
+
+main()
+
+```
+
+Note que, se $U'_n(\pmb{x}_n, \hat{\theta}^{(j+1)}) < 0$, a estimativa $\hat{\theta}^{(j+1)}$ será a de MV.
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim \mathrm{Exp}(\theta), \theta \in \Theta = (0,\infty)$. Encontre a estimativa de
+MV para $\theta$ pelo método de Newton-Raphson considerando $\boldsymbol{x}_n = (2, 2.5, 3, 3.5, 2, 1.5)$ e $\hat{\theta}^{(0)} = 0.5$
+Com erro máximo $\epsilon = 10^{-5}$.
+
+Note que
+$$
+\begin{aligned}
+f_\theta(x) &= \theta \mathrm{e}^{-\theta x} \\
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \theta^n \mathrm{e}^{-\theta\sum x_i} \\
+\ln \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= n \ln\theta -\theta\sum x_i \\
+U_n(\boldsymbol{x}_n,\theta) &= \frac{n}{\theta} - \sum x_i \\
+U_n'(\boldsymbol{x}_n,\theta) &= -\frac{n}{\theta^2}
+\end{aligned}
+$$
+
+Logo
+$$
+\begin{aligned}
+\hat{\theta}^{(j+1)} &= \hat{\theta}^{(j)} - \frac{\frac{n}{\hat{\theta}^{(j)}}- \sum x_i}{-\frac{n}{(\hat{\theta}^{(j)})^2}} \\
+&= \hat{\theta}^{(j)} - \frac{[n - \hat{\theta}^{(j)}\sum x_i]\hat{\theta}^{(j)}}{-n}
+\end{aligned}
+$$
+
+```{julia}
+#| echo: true
+
+function main()
+
+  x = [2, 2.5, 3, 3.5, 2, 1.5]
+  n = length(x)
+
+  theta::Vector{Float64} = []
+  theta0 = 0.5
+  append!(theta, theta0)
+
+
+  erromax = 10^(-5)
+  erro = Inf
+  i = 1
+  # iteracoesMax = 5
+  while erro > erromax # && i < iteracoesMax
+    append!(theta, theta[i] - ((n - sum(x) *theta[i])*theta[i])/(-n))
+    erro = abs(theta[i+1] - theta[i])
+    println("Erro na iteração $i: $erro")
+    i += 1
+  end
+  println("Vetor theta: $theta")
+
+end
+
+main()
+
+```
+
+Note que se $\Theta \subseteq \mathbb{R}^P$, o método é dado por
+$$
+\theta^{(j+1)} = \theta^{(j)} - \left[U_n'(\boldsymbol{x}_n,\theta^{(j)}\right]^{-1} \cdot U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)}), j = 0, 1, \dots
+$$
+
+
+### Método de Scoring de Fisher
+Para $\Theta \subseteq \mathbb{R}$
+$$
+\theta^{(j+1)} = \theta^{(j)} + \frac{U_n(\boldsymbol{x}_n,\theta^{(j)}}{I_n(\theta^{(j)}}
+$$
+Para $\Theta \subseteq \mathbb{R}^P$
+$$
+\theta^{(j+1)} = \theta^{(j)} + \left[I_n(\boldsymbol{x}_n,\theta^{(j)}\right]^{-1} \cdot U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)}), j = 0, 1, \dots
+$$
+
+### Método de descida do gradiente
+$$
+\theta^{(j+1)} = \theta^{(j)} - \delta \cdot0 U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)}), j = 0, 1, \dots
+$$
+em que $\delta \in (0,1)$ é a *taxa de "aprendizado"*.
+
+Para o exemplo da Gama,
+```{julia}
+#| echo: true
+using SpecialFunctions # Funções di e trigamma (derivadas do log da gama)
+
+
+function main()
+
+  x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
+  n = length(x)
+
+  theta::Vector{Float64} = []
+  theta0 = 1
+  append!(theta, theta0)
+  delta = 0.01
+
+
+  erromax = 10^(-5)
+  erro = Inf
+  i = 1
+  # iteracoesMax = 6 # Podemos também definir apenas um erro máximo
+  while erro > erromax # && i < iteracoesMax
+    append!(theta, theta[i] + delta *(sum(log.(x)) - n * digamma(theta[i])))
+    erro = abs(theta[i+1] - theta[i])
+    if i % 100 == 0
+      println("Erro na iteração $i: $erro")
+    end
+    i += 1
+  end
+  println("Theta final: $(theta[length(theta)])")
+
+end
+
+main()
+
+```
