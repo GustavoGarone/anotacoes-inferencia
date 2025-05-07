@@ -23,10 +23,10 @@ $$
 Para as duas últimas condições, substituímos no caso discreto as integrais por somatórios.
 
 
-$C_5$: $\Theta$ é aberto e convexo, ou seja, se $\tehta_1, \theta_2 \in \Theta$, então
+$C_5$: $\Theta$ é aberto e convexo, ou seja, se $\theta_1, \theta_2 \in \Theta$, então
 $$
-\lambda\theta_1 + (1-\theta)\theta_2 \in \Theta, \foral \lambda \in (0,1)
-$$;
+\lambda\theta_1 + (1-\theta)\theta_2 \in \Theta, \forall \lambda \in (0,1)
+$$
 
 A condição (fraca) de identificabilidade $C_6$:
 $$

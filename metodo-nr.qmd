@@ -85,7 +85,9 @@ $$
 \theta^{(j+1)} = \theta^{(j)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j)}}{U'_n(\boldsymbol{x}_n, \theta^{(j)}}
 $$
 
-<!-- TODO: melhorar iteracao max e erro com append, declarar vetor theta como de floats -->
+::: panel-tabset
+
+#### Julia
 ```{julia}
 #| echo: true
 using SpecialFunctions # Funções di e trigamma (derivadas do log da gama)
@@ -120,6 +122,19 @@ end
 main()
 
 ```
+#### Python
+
+```{Python}
+# Código em Python
+```
+
+#### R
+
+```{R}
+# Código em R
+```
+
+:::
 
 Note que, se $U'_n(\pmb{x}_n, \hat{\theta}^{(j+1)}) < 0$, a estimativa $\hat{\theta}^{(j+1)}$ será a de MV.
 
