@@ -1,0 +1,22 @@
+# Resultados utilizando o Teorema de Slutsky
+
+Seja
+$$
+\frac{\sqrt{n} (T(\boldsymbol{X}_n) - \theta)}{\sqrt{\mathrm{V}_\theta}} \stackrel{\mathcal{D}}{\rightarrow} N(0,1)
+$$
+
+Pelo teorema de Slutsky,
+$$
+\frac{\sqrt{n} (T(\boldsymbol{X}_n) - \theta)}{\sqrt{\mathrm{V}_{T(\boldsymbol{X}_n)}}} \stackrel{\mathcal{D}}{\rightarrow} N(0,1)
+$$
+
+Ademais, seja
+$$
+\frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(\theta)^2\mathrm{V}_\theta}} \stackrel{\mathcal{D}}{\rightarrow} N(0,1)
+$$
+
+Pelo teorema de Slutsky,
+$$
+\frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(T(\boldsymbol{X}_n))^2\mathrm{V}_{T(\boldsymbol{X}_n)}}} \stackrel{\mathcal{D}}{\rightarrow} N(0,1)
+$$
+

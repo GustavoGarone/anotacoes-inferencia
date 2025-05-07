@@ -57,6 +57,9 @@ book:
       - emv2.qmd
       - metodo-momentos.qmd
       - metodo-nr.qmd
+      - prop-est.qmd
+      - slutsky.qmd
+      - cond-regular.qmd
     # - references.qmd
 
 bibliography: references.bib

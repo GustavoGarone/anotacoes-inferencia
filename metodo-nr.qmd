@@ -66,7 +66,7 @@ $$
 
 em que $\psi_j(\theta) = \frac{\partial^j \ln \Gamma(\theta)}{\partial \theta^j}$
 
-## Algoritmo
+## Algoritmos e outros métodos
 
 Seja $\boldsymbol{X}_n$ a.a. de $X \sim \Gamma(\theta, 1)$ (exemplo anterior). Ainda considerando os mesmos valores
 amostrados, $\boldsymbol{x}_7 = (3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5)$, utilize os métodos numéricos para encontrar a
@@ -113,6 +113,7 @@ function main()
     i += 1
   end
   println("Vetor theta: $theta")
+  println("Total de iterações: $i")
 
 end
 
@@ -169,6 +170,7 @@ function main()
     i += 1
   end
   println("Vetor theta: $theta")
+  println("Total de iterações: $i")
 
 end
 
@@ -194,7 +196,7 @@ $$
 
 ### Método de descida do gradiente
 $$
-\theta^{(j+1)} = \theta^{(j)} - \delta \cdot0 U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)}), j = 0, 1, \dots
+\theta^{(j+1)} = \theta^{(j)} + \delta \cdot U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)}), j = 0, 1, \dots
 $$
 em que $\delta \in (0,1)$ é a *taxa de "aprendizado"*.
 
@@ -228,9 +230,69 @@ function main()
     i += 1
   end
   println("Theta final: $(theta[length(theta)])")
+  println("Total de iterações: $i")
 
 end
 
 main()
 
 ```
+
+### Descida estocástica do gradiente
+$$
+\theta^{(j+1, i)} = \theta^{(j, i)} + \delta \cdot U(x_i, \hat{\theta}^{(j, i)}), j = 0, 1, \dots, i \in \{1,\dots,n\}
+$$
+
+Em que $U(x, \hat{\theta}^{(j)})$ é a [função escore](escore.qmd) para uma observação. Geraremos dados aleatórios de uma
+gama.
+
+<!-- TODO: arrumar código abaixo (usar do professor) -->
+
+```{julia}
+#| echo: true
+using SpecialFunctions, Distributions, Random
+Random.seed!(36)
+
+
+function main()
+
+
+  theta::Vector{Float64} = []
+  theta0 = 15
+  n = 100
+  x = rand(Gamma(theta0, 1), n)
+  println(length(x))
+  append!(theta, 1)
+  delta = 0.0001
+
+
+  erromax = 10^(-2)
+  erro = Inf
+  i = 1
+  epoca = 0
+  totalit = 0
+  # iteracoesMax = 6 # Podemos também definir apenas um erro máximo
+  while erro > erromax # && i < iteracoesMax
+    itsepoca = 0
+    for i in 1:length(x)
+      append!(theta, theta[i] + delta *(log(x[i]) - n * digamma(theta[i])))
+      erro = abs(theta[i+1] - theta[i])
+      itsepoca = i
+    end
+    totalit += itsepoca
+    if epoca % 10 == 0
+      println("Erro na epoca $epoca e iteração $totalit: $erro")
+      println("theta estimado na epoca $epoca: $(theta[totalit])")
+    end
+    epoca += 1
+  end
+  println("Theta final: $(theta[length(theta)])")
+  println("Total de iterações: $i")
+
+end
+
+main()
+
+```
+
+

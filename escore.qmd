@@ -48,7 +48,7 @@ U_n(\boldsymbol{x}_n, \theta) = \frac{\partial \ln L_{\boldsymbol{x}_n}(\theta)}
 \end{aligned}
 $$
 
-## Condições de regularidade {#sec-condicoes}
+## Condições de regularidade (simples) {#sec-condicoes}
 
 $C_1: \mathfrak{X} = \{x : f_\theta (x) > 0 \}$ não depende de "$\theta$".
 

@@ -1,0 +1,65 @@
+# Condições de Regularidade
+
+$C_1: \mathfrak{X} = \{x : f_\theta (x) > 0 \}$ não depende de "$\theta$".
+
+$C_2: f_\theta$ é duas vezes diferenciável com respeito a "$\theta$" e suas derivadas são contínuas.
+
+$C_3:$ é possível trocar as derivadas pela integrais da seguinte forma:
+$$
+\left\{\begin{aligned}
+&a)\ \frac{\partial}{\partial\theta} \int f_\theta(x) dx &= \int \frac{\partial}{\partial \theta} f_\theta(x) dx \\
+&b)\ \frac{\partial^2}{\partial \theta \partial \theta^T} \int f_\theta(x) dx &= \int \frac{\partial^2}{\partial \theta \partial \theta^T} f_\theta(x) dx
+\end{aligned}\right.
+$$
+
+$C_4:$
+$$
+\left\{\begin{aligned}
+&\mathrm{a})\ E_\theta\left(\lVert\frac{\partial}{\partial\theta} \ln f_\theta(x)\rVert\right) < \infty,\ \forall \theta \in \Theta \\
+&\mathrm{b})\ E_\theta\left(\lVert\frac{\partial^2}{\partial\theta\partial\theta^T} \ln f_\theta(x)\rVert^2\right) < \infty,\ \forall \theta \in \Theta.
+\end{aligned}\right.
+$$
+
+Para as duas últimas condições, substituímos no caso discreto as integrais por somatórios.
+
+
+$C_5$: $\Theta$ é aberto e convexo, ou seja, se $\tehta_1, \theta_2 \in \Theta$, então
+$$
+\lambda\theta_1 + (1-\theta)\theta_2 \in \Theta, \foral \lambda \in (0,1)
+$$;
+
+A condição (fraca) de identificabilidade $C_6$:
+$$
+E_{\theta_1}(U_n(\boldsymbol{X}_n,\theta_2)) = 0 \iff \theta_1 = \theta_2,
+$$
+
+$C_7$: A [informação de Fisher](infofisher.qmd) existe, é positiva e finita.
+
+$C_8$:
+$$
+\begin{aligned}
+& \sup_{\theta_2 \in \Theta} \left\lvert M(\theta,\theta_2) - \frac{1}{n}\lvert U_n(\boldsymbol{X}_n,\theta_2) \rvert \right\rvert
+\stackrel{P_\theta}{\rightarrow} 0\\ 
+&\forall \theta \in \Theta, M(\theta, \theta_2) = \frac{1}{n}\left\lvert E_\theta(U_n(\boldsymbol{X}_n,\theta_2))\right\rvert
+\end{aligned}
+$$
+
+::: {.callout-note title="Consistência e $C_8$"}
+$C_8$ não é necessária se $\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)$ for [consistente](estimadores-consistentes.qmd), ou seja,
+$$
+\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) \stackrel{P_\theta}{\rightarrow} \theta, \forall \theta \in \Theta.
+$$
+:::
+
+$C_9$:
+$$
+\frac{1}{n} U_n'(\boldsymbol{X}_n,\theta^*_n) - \frac{1}{n} U_n'(\boldsymbol{X}_n,\theta) \stackrel{P_\theta}{\rightarrow} 0, \forall \theta \in \Theta.
+$$
+em que $\theta^*_n$ é um estimador consistente qualquer para "$\theta$".
+
+:::{.callout-note title="Suficientes mas não necessárias"}
+Nem toda condição de regularidade é necessária para provar algum teorema. Em muitos casos, por exemplo, podemos utilizar
+apenas as condições $C_1:C_4$, enquanto resultados mais fortes podem precisar de mais condições.
+:::
+
+

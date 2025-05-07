@@ -1,0 +1,93 @@
+# Propriedades dos estimadores de máxima verossimilhança e de momentos
+
+## Teorema (da invariância do EMV)
+Seja $\boldsymbol{X}_n$ [a.a.](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta, \theta \in \Theta.$ Considere
+$g:\Theta \rightarrow \mathbb{R}^k$ uma função. Se existe o [EMV](emv2.qmd) para "$\theta$", então
+$g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n))$ é o EMV para $g(\theta)$.
+
+### Exemplo Bernoulli
+$X \sim \mathrm{Ber}(\theta),\theta \in (0,1)$. $\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \bar{X}$.
+
+Se $g(\theta) = \theta^2$, então $g(\bar{X}) = \bar{X}^2$ é o EMV para $\theta^2$.
+
+Se $g(\theta) = 1-\theta$, então $g(\bar{X}) = 1 - \bar{X}$ é o EMV para $1-\theta$.
+
+### Exemplo Poisson
+$X \sim \mathrm{Pois}(\theta), \theta > 0$. $\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \bar{X}$.
+
+Se $g(\theta) = P_\theta(X\geq 3)$, então
+$$
+\begin{aligned}
+g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) &= P_{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)}(X\geq 3) \\
+&= 1 -\left(+\mathrm{e}^{-\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)} + \mathrm{e}^{- \hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)}
+\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) + \mathrm{e}^{-\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)}
+\frac{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)^2}{2!}\right)
+\end{aligned}
+$$
+
+Se $g(\theta) = E_\theta(X^2)$, então
+$g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) = E_{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)}(X^2) = \hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) + (\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n))^2$
+
+Se $g(\theta) = \frac{\sqrt{\mathrm{Var}_\theta(X)}}{E_\theta(X)} = \frac{\sqrt{\theta}}{\theta} = \frac{1}{\sqrt{\theta}}$,
+então $g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) = \frac{1}{\sqrt{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)}}$ é o EMV
+para $g(\theta)$.
+
+## Teorema (dos estimadores assintoticamente normais) {#sec-assinorm}
+
+Dizemos que $T(\boldsymbol{X}_n)$ é um estimador para "$\theta$" assintoticamente normal se, e somente se, existir
+$\mathrm{V}_\theta$ não negativo tal que
+$$
+\sqrt{n} (T(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N(0,\mathrm{V}_\theta), \forall \theta \in \Theta.
+$$
+ou seja, converge em distribuição para uma distribuição Normal de média $0$ e variância $\mathrm{V}_\theta$ para todo $\theta$
+no espaço paramétrico.
+
+### Método Delta {#sec-metododelta}
+
+Seja $T(\boldsymbol{X}_n)$ um [estimador](estimadores.qmd) para "$\theta$", $\theta \in \Theta \subseteq \mathbb{R}$,
+[assintoticamente normal](prop-est.qmd#sec-assinorm), ou seja,
+$$
+\sqrt{n} (T(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N(0, \mathrm{V}_\theta), \forall \theta \in \Theta.
+$$
+
+Considere $g : \Theta \rightarrow \mathbb{R}$ uma função diferenciável com derivada contínua tal que
+$g'(\theta) \neq 0, \forall \theta \in \Theta$.
+Então,
+$$
+\sqrt{n} (g(T(\boldsymbol{X}_n))- g(\theta)) \stackrel{\mathcal{D}}{\rightarrow} N(0, g'(\theta)^2V_\theta), \forall \theta \in \Theta.
+$$
+
+## Teorema (do limite central para o EMV)
+
+Seja $\boldsymbol{X}_n$ [a.a.](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta$ tal que as
+[condições de regularidade $C_1:C_9$](cond-regular.qmd) estejam satisfeitas.
+
+Portanto, para $g$ diferenciável com derivada contínua tal que $g'(\theta) \neq 0$
+$$
+\sqrt{n}(g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) - g(\theta)) \stackrel{\mathcal{D}}{\rightarrow}
+N(0, g'(\theta)^2 I_1(\theta)^{-1}), \forall \theta \in \Theta
+$$
+
+Logo, pelo [teorema de Slutsky](slutsky.qmd)
+$$
+\sqrt{n}I_1(\hat{\theta}_{\mathrm{MV}})\frac{(g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(\hat{\theta}_{\mathrm{MV}})^2}}
+\stackrel{\mathcal{D}}{\rightarrow} N(0, 1), \forall \theta \in \Theta
+$$
+
+:::{.callout-note title="EMVs são assintoticamente eficientes"}
+Note que
+$$
+\begin{aligned}
+E_\theta(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) &\stackrel{n\uparrow \infty}{\rightarrow} \theta \\
+n \mathrm{Var}_\theta(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) &\stackrel{n\uparrow \infty}{\rightarrow} I_1(\theta)^{-1}
+\end{aligned}
+$$
+Ou seja, estimadores de máxima verossimilhança são [assintoticamente eficientes](estimadores-eficientes.qmd#sec-efassin)
+sob as [condições de regularidade]().
+
+A variância assintótica do estimador de máxima verossimilhança é denotada por
+$$
+\mathrm{Var}_{\theta}^{(a)} (\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) = \frac{I_1(\theta)^{-1}}{n}
+$$
+:::
+
