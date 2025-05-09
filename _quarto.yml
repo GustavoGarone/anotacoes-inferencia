@@ -4,11 +4,10 @@ project:
   type: book
 
 
+# engines: ['julia']
 execute:
   echo: false
-  daemon: false
-# jupyter: julia-1.11
-engine: julia
+  cache: false
 book:
   title: "Anotações de Inferência Frequentista"
   author: "Aulas de Alexandre G. Patriota, digitado por Gustavo S. Garone"
@@ -58,9 +57,9 @@ book:
       - emv2.qmd
       - metodo-momentos.qmd
       - metodo-nr.qmd
-      - prop-est.qmd
-      - slutsky.qmd
       - cond-regular.qmd
+      - slutsky.qmd
+      - prop-est.qmd
     # - references.qmd
 
 bibliography: references.bib

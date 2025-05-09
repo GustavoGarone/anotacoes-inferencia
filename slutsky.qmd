@@ -1,5 +1,21 @@
 # Resultados utilizando o Teorema de Slutsky
 
+
+::: {.callout-note title="Método Delta"}
+Seja $T(\boldsymbol{X}_n)$ um [estimador](estimadores.qmd) para "$\theta$", $\theta \in \Theta \subseteq \mathbb{R}$,
+[assintoticamente normal](prop-est.qmd#sec-assinorm), ou seja,
+$$
+\sqrt{n} (T(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N(0, \mathrm{V}_\theta), \forall \theta \in \Theta.
+$$
+
+Considere $g : \Theta \rightarrow \mathbb{R}$ uma função diferenciável com derivada contínua tal que
+$g'(\theta) \neq 0, \forall \theta \in \Theta$.
+Então,
+$$
+\sqrt{n} (g(T(\boldsymbol{X}_n))- g(\theta)) \stackrel{\mathcal{D}}{\rightarrow} N(0, g'(\theta)^2V_\theta), \forall \theta \in \Theta.
+$$
+:::{#sec-metododelta}
+
 Seja
 $$
 \frac{\sqrt{n} (T(\boldsymbol{X}_n) - \theta)}{\sqrt{\mathrm{V}_\theta}} \stackrel{\mathcal{D}}{\rightarrow} N(0,1)

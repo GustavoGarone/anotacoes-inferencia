@@ -1,12 +1,12 @@
 # Método de Newton-Raphson
 
 Nem sempre existem soluções fechadas para [estimadores de máxima verossimilhança](emv2.qmd) ou obtidos pelo [método de
-momentos](metodo-momentos.qmd). Por exemplo, $U_n(\theta,\boldsymbol{X}_n) = 0$ não tem solução fechada para o EMV e
+momentos](metodo-momentos.qmd). Por exemplo, $U_n(\boldsymbol{X}_n, \theta) = 0$ não tem solução fechada para o EMV e
 $E_\theta(X^k) \frac{1}{n} \sum X_i^k$ para o EMM.
 
 Nos dois casos, estamos interessados em encontrar os valores de "$\theta$" que "zeram" uma função $G(\theta)$,
 
-1. $G(\theta) = U_n(\theta, \boldsymbol{X}_n)$
+1. $G(\theta) = U_n(\boldsymbol{X}_n,\theta)$
 
 $$
 \begin{aligned}
@@ -51,14 +51,14 @@ $$
 
 Considere os $n=7$ valores observados, $\boldsymbol{x}_7 = (3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5)$
 $$
-\Rightarrow U_n(\boldsymbol{x}_n,\theta) = \underbracket{\frac{7}{\Gamma(\theta)}}_{\frac{\partial \ln}{\partial \theta} \Gamma(\theta)}
+\Rightarrow U_n(\boldsymbol{x}_n,\theta) = \underbracket{\frac{7}{\Gamma(\theta)}\Gamma'(\theta)}_{\frac{\partial \ln}{\partial \theta} \Gamma(\theta)}
 +\sum \ln x_i = 0
 $$
 
 Utilizando $\theta^{(0)} = 1$,
 $$
 \begin{aligned}
-\theta^{(j)} &= \theta^{(j-1)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j-1)}}{U'_n(\boldsymbol{x}_n, \theta^{(j-1)}} \\
+\theta^{(j)} &= \theta^{(j-1)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j-1)})}{U'_n(\boldsymbol{x}_n, \theta^{(j-1)})} \\
 &= \theta^{(j-1)} - \frac{-7 \psi_1(\theta^{(j-1)})+ 7 \sum \ln x_i}{-7\psi_2(\theta^{(j-1)})} \\
 &= \theta^{(j-1)} - \frac{-\psi_1(\theta^{(j-1)})+ \sum \ln x_i}{-\psi_2(\theta^{(j-1)})}
 \end{aligned}
@@ -75,18 +75,17 @@ estimativa de máxima verossimilhança.
 ### Algoritmo por Newton-Raphson
 Considere um erro $\epsilon = 10^{-5}$ e $\hat{\theta}^{(0)} = 1.$
 $$
-\theta^{(j+1)} = \theta^{(j)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j)}}{U'_n(\boldsymbol{x}_n, \theta^{(j)}}
+\theta^{(j+1)} = \theta^{(j)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j)})}{U'_n(\boldsymbol{x}_n, \theta^{(j)})}
 $$
 em que $U_n(\boldsymbol{x}_n,\theta) = -n\psi_1(\theta^{(j-1)})+ \sum \ln x_i$ e $U_n'(\boldsymbol{x}_n,\theta) = -n\psi_2(\theta^{(j-1)})$
 com $\psi_j(\theta) = \frac{\partial^j \ln \Gamma(\theta)}{\partial \theta^j}$ e $n=7$.
 
 Logo,
 $$
-\theta^{(j+1)} = \theta^{(j)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j)}}{U'_n(\boldsymbol{x}_n, \theta^{(j)}}
+\theta^{(j+1)} = \theta^{(j)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j)})}{U'_n(\boldsymbol{x}_n, \theta^{(j)})}
 $$
 
 ::: panel-tabset
-
 #### Julia
 ```{julia}
 #| echo: true
@@ -114,7 +113,7 @@ function main()
     println("Erro na iteração $i: $erro")
     i += 1
   end
-  println("Vetor theta: $theta")
+  println("Theta final: $(theta[length(theta)])")
   println("Total de iterações: $i")
 
 end
@@ -125,13 +124,13 @@ main()
 #### Python
 
 ```{Python}
-# Código em Python
+# Código em Python (TODO/TESTE)
 ```
 
 #### R
 
 ```{R}
-# Código em R
+# Código em R (TODO/TESTE)
 ```
 
 :::
@@ -177,14 +176,13 @@ function main()
   erromax = 10^(-5)
   erro = Inf
   i = 1
-  # iteracoesMax = 5
-  while erro > erromax # && i < iteracoesMax
+  while erro > erromax
     append!(theta, theta[i] - ((n - sum(x) *theta[i])*theta[i])/(-n))
     erro = abs(theta[i+1] - theta[i])
     println("Erro na iteração $i: $erro")
     i += 1
   end
-  println("Vetor theta: $theta")
+  println("Theta final: $(theta[length(theta)])")
   println("Total de iterações: $i")
 
 end
@@ -202,11 +200,11 @@ $$
 ### Método de Scoring de Fisher
 Para $\Theta \subseteq \mathbb{R}$
 $$
-\theta^{(j+1)} = \theta^{(j)} + \frac{U_n(\boldsymbol{x}_n,\theta^{(j)}}{I_n(\theta^{(j)}}
+\theta^{(j+1)} = \theta^{(j)} + \frac{U_n(\boldsymbol{x}_n,\theta^{(j)}}{I_n(\theta^{(j)})})
 $$
 Para $\Theta \subseteq \mathbb{R}^P$
 $$
-\theta^{(j+1)} = \theta^{(j)} + \left[I_n(\boldsymbol{x}_n,\theta^{(j)}\right]^{-1} \cdot U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)}), j = 0, 1, \dots
+\theta^{(j+1)} = \theta^{(j)} + \left[I_n(\boldsymbol{x}_n,\theta^{(j)})\right]^{-1} \cdot U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)}), j = 0, 1, \dots
 $$
 
 ### Método de descida do gradiente
@@ -235,8 +233,7 @@ function main()
   erromax = 10^(-5)
   erro = Inf
   i = 1
-  # iteracoesMax = 6 # Podemos também definir apenas um erro máximo
-  while erro > erromax # && i < iteracoesMax
+  while erro > erromax
     append!(theta, theta[i] + delta *(sum(log.(x)) - n * digamma(theta[i])))
     erro = abs(theta[i+1] - theta[i])
     if i % 100 == 0
@@ -265,39 +262,35 @@ gama.
 
 ```{julia}
 #| echo: true
-using SpecialFunctions, Distributions, Random
-Random.seed!(36)
-
+using SpecialFunctions, Distributions
 
 function main()
 
+  x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
+  n = length(x)
 
   theta::Vector{Float64} = []
-  theta0 = 15
-  n = 100
-  x = rand(Gamma(theta0, 1), n)
-  println(length(x))
-  append!(theta, 1)
+  theta0 = 1
+  append!(theta, theta0)
   delta = 0.0001
 
 
-  erromax = 10^(-2)
+  erromax = 10^(-5)
   erro = Inf
   i = 1
-  epoca = 0
+  epoca = 1
   totalit = 0
-  # iteracoesMax = 6 # Podemos também definir apenas um erro máximo
-  while erro > erromax # && i < iteracoesMax
+  while erro > erromax
     itsepoca = 0
     for i in 1:length(x)
-      append!(theta, theta[i] + delta *(log(x[i]) - n * digamma(theta[i])))
-      erro = abs(theta[i+1] - theta[i])
+      append!(theta, theta[epoca] + delta *(log(x[i]) -  digamma(theta[i])))
+      erro = abs(theta[epoca+1] - theta[epoca])
       itsepoca = i
     end
     totalit += itsepoca
     if epoca % 10 == 0
-      println("Erro na epoca $epoca e iteração $totalit: $erro")
-      println("theta estimado na epoca $epoca: $(theta[totalit])")
+      println("Erro na epoca $(epoca-1) e iteração $totalit: $erro")
+      println("theta estimado na epoca $(epoca-1): $(theta[totalit])")
     end
     epoca += 1
   end

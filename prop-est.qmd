@@ -42,27 +42,12 @@ $$
 ou seja, converge em distribuição para uma distribuição Normal de média $0$ e variância $\mathrm{V}_\theta$ para todo $\theta$
 no espaço paramétrico.
 
-### Método Delta {#sec-metododelta}
-
-Seja $T(\boldsymbol{X}_n)$ um [estimador](estimadores.qmd) para "$\theta$", $\theta \in \Theta \subseteq \mathbb{R}$,
-[assintoticamente normal](prop-est.qmd#sec-assinorm), ou seja,
-$$
-\sqrt{n} (T(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N(0, \mathrm{V}_\theta), \forall \theta \in \Theta.
-$$
-
-Considere $g : \Theta \rightarrow \mathbb{R}$ uma função diferenciável com derivada contínua tal que
-$g'(\theta) \neq 0, \forall \theta \in \Theta$.
-Então,
-$$
-\sqrt{n} (g(T(\boldsymbol{X}_n))- g(\theta)) \stackrel{\mathcal{D}}{\rightarrow} N(0, g'(\theta)^2V_\theta), \forall \theta \in \Theta.
-$$
-
-## Teorema (do limite central para o EMV)
+## Teorema (do limite central para o EMV) {#sec-tlcemv}
 
 Seja $\boldsymbol{X}_n$ [a.a.](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta$ tal que as
 [condições de regularidade $C_1:C_9$](cond-regular.qmd) estejam satisfeitas.
 
-Portanto, para $g$ diferenciável com derivada contínua tal que $g'(\theta) \neq 0$
+Portanto, com $g$ diferenciável com derivada contínua tal que $g'(\theta) \neq 0$,
 $$
 \sqrt{n}(g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) - g(\theta)) \stackrel{\mathcal{D}}{\rightarrow}
 N(0, g'(\theta)^2 I_1(\theta)^{-1}), \forall \theta \in \Theta
@@ -91,3 +76,133 @@ $$
 $$
 :::
 
+:::{.callout-note title="Notação"}
+$$
+\begin{cases}
+\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) &\stackrel{a}{\approx} N(\theta, I_n(\theta)) \\
+g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) &\stackrel{a}{\approx} N(g(\theta), g'(\theta)^2I_n(\theta)^{-1}) \\
+\end{cases}
+$$
+:::
+
+Podemos calcular probabilidades aproximadas mesmo sem saber a distribuição exata, para $\hat{\theta}_{\mathrm{MV}}$
+
+### Exemplo
+
+Se $\theta = 3$, então calcule:
+
+$$
+\begin{aligned}
+P_{\theta}(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)\leq t) &= P_{\theta}(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) - \theta \leq t - \theta) \\
+&= P_{\theta}\left(\frac{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) - \theta}{\sqrt{I_n(\theta)^{-1}}} \leq \frac{t - \theta}{\sqrt{I_n(\theta)^{-1}}}\right) \\
+&\stackrel{n\ \text{grande}}{\approx} P_{\theta}(N(0,1) \leq I_n(\theta)^{\frac{1}{2}}(t-\theta)) \\
+&= P_{\theta}(N(0,1) \leq I_n(\theta)^{\frac{1}{2}}(t-3))
+\end{aligned}
+$$
+
+## Teorema (do limite central para o estimador do método de momentos) {#sec-tlcemm}
+
+Seja $\boldsymbol{X}_n$ [a.a.](populacao-e-amostra.qmd#sec-aa) de $X$ tal que $\Theta \subseteq \mathbb{R}$ e $E_\theta(|X|^k) < \infty$
+para algum $k \in \mathbb{N} \setminus \{0\}$. Então, o estimador $\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n)$ tal que
+
+$$
+E_{\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n)}(X^k) = \frac{1}{n} \sum X_i^k
+$$
+
+é [assintoticamente normal](prop-est.qmd#sec-assinorm) se as seguintes condições estiverem satisfeitas:
+
+1. $E_\theta[(X^k - E_\theta(X^k)^2] < \infty$
+
+2. $h(\theta) = \frac{\partial E_\theta(X^k)}{\partial \theta} \neq 0, \forall \theta \in \Theta.$
+
+Com isso,
+$$
+\sqrt{n}(\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) - \theta) \rightarrow{\mathcal{D}}{\rightarrow} N(0, V_\theta)
+$$
+em que
+$$
+V_\theta = \left(\frac{E_\theta[(X^k - E_\theta(X^k)^2]}{\frac{\partial E_\theta(X^k)}{\partial \theta}}\right)^2 = \frac{\mathrm{Var}_\theta (X^k)}{h(\theta)^2}
+$$
+
+Além disso, se $g : \Theta \rightarrow \mathbb{R}$ for diferenciável com derivada contínua tal que $g'(\theta) \neq 0$, então
+$$
+\sqrt{n}(g(\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) - \theta) - g(\theta)
+\rightarrow{\mathcal{D}}{\rightarrow} N\left(0,g'(\theta)^2 \frac{\mathrm{Var}_\theta (X^k)}{h(\theta)^2}\right)
+$$
+
+:::{.callout-note title="Notação"}
+$$
+\begin{cases}
+\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) &\stackrel{a}{\approx} N\left(\theta,\frac{\mathrm{Var}_\theta (X^k)}{h(\theta)^2}\right) \\
+g(\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n)) &\stackrel{a}{\approx} N\left(g(\theta), g'(\theta)^2 \frac{\mathrm{Var}_\theta (X^k)}{h(\theta)^2}\right) \\
+\end{cases}
+$$
+:::
+
+## Algorítmos
+
+Seja $X\sim \mathrm{Beta}(\theta, 1)$.
+
+<!-- TODO: bonitificar histogramas: Bordas brancas, grossura vline, cor da normal (talvez grossura) -->
+<!-- TODO: resultados estranhos -->
+
+```{julia}
+#| echo: true
+using Distributions, Random, Plots, StatsPlots, StatsBase
+
+Random.seed!(10)
+M = 10_000
+
+theta0 = 3
+n = 50
+d = Beta(theta0, 1)
+MV(obs) = -n/sum(log.(obs))
+MM(obs) = mean(obs)/(1-mean(obs))
+
+
+x = rand(d, n)
+x0 = x
+
+theta00 = MV(x)# rand(Uniform(0,100))
+dsim = Beta(theta00, 1)
+
+MVs = zeros(M)
+MMs = zeros(M)
+Random.seed!()
+for i in 1:M
+  xsim = rand(dsim, n)
+  MVs[i] = MV(xsim)
+  MMs[i] = MM(xsim)
+end
+
+
+VMV(theta) = theta^2/n
+VMM(theta) = theta*(theta+1)^2/((theta+2)*n)
+
+normMV = Normal(theta00, sqrt(VMV(theta00)))
+normMM = Normal(theta00, sqrt(VMM(theta00)))
+
+histmv = histogram(MVs, normalize=:pdf, label="", color=:blue,
+                   title="Histograma EMV")
+plot!(normMV, label="Aprox. Norm.")
+vline!([MV(x)], label="EMV da amostra", color=:orange)
+histmm = histogram(MMs, normalize=:pdf, label="", color=:red,
+                   title="Histograma EMM")
+plot!(normMM, label="Aprox. Norm.")
+vline!([MM(x)], label="EMM da amostra", color=:yellow)
+p = plot(histmv, histmm)
+
+display(p)
+println("Chute para Theta (Theta00): $theta00")
+println("Theta real (normalmente desconhecido): $theta0")
+println("Viés MM: $(mean(MMs .- theta00))")
+println("EQM MM: $(mean((MMs .- theta00).^2))")
+println("Viés MV: $(mean(MVs .- theta00))")
+println("EQM MV: $(mean((MVs .- theta00).^2))")
+println("EMV da amostra: $(MV(x))")
+println("EMM da amostra: $(MM(x))")
+println("P(MM > 2.5) = $(cdf(normMM, 2.5))")
+println("P(MV > 2.5) = $(cdf(normMV, 2.5))")
+println("Real MM > 2.5 = $(mean(MMs .> 2.5))")
+println("Real MV > 2.5 = $(mean(MVs .> 2.5))")
+```
