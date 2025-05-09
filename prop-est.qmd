@@ -139,7 +139,7 @@ g(\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n)) &\stackrel{a}{\approx} N\left(g(
 $$
 :::
 
-## Algorítmos
+## Algoritmos
 
 Seja $X\sim \mathrm{Beta}(\theta, 1)$.
 
@@ -148,27 +148,19 @@ Seja $X\sim \mathrm{Beta}(\theta, 1)$.
 
 ```{julia}
 #| echo: true
-using Distributions, Random, Plots, StatsPlots, StatsBase
+using Distributions, Random, Plots, StatsPlots, StatsBase, LaTeXStrings
+
 
 Random.seed!(10)
-M = 10_000
-
-theta0 = 3
 n = 50
-d = Beta(theta0, 1)
-MV(obs) = -n/sum(log.(obs))
-MM(obs) = mean(obs)/(1-mean(obs))
-
-
-x = rand(d, n)
-x0 = x
-
-theta00 = MV(x)# rand(Uniform(0,100))
-dsim = Beta(theta00, 1)
+M = 10_000
 
 MVs = zeros(M)
 MMs = zeros(M)
-Random.seed!()
+MV(obs) = -n/sum(log.(obs))
+MM(obs) = mean(obs)/(1-mean(obs))
+theta0 = rand(Uniform(0,100))
+dsim = Beta(theta0, 1)
 for i in 1:M
   xsim = rand(dsim, n)
   MVs[i] = MV(xsim)
@@ -177,32 +169,30 @@ end
 
 
 VMV(theta) = theta^2/n
+normMV = Normal(theta0, sqrt(VMV(theta0)))
 VMM(theta) = theta*(theta+1)^2/((theta+2)*n)
-
-normMV = Normal(theta00, sqrt(VMV(theta00)))
-normMM = Normal(theta00, sqrt(VMM(theta00)))
+normMM = Normal(theta0, sqrt(VMM(theta0)))
 
 histmv = histogram(MVs, normalize=:pdf, label="", color=:blue,
-                   title="Histograma EMV")
-plot!(normMV, label="Aprox. Norm.")
-vline!([MV(x)], label="EMV da amostra", color=:orange)
-histmm = histogram(MMs, normalize=:pdf, label="", color=:red,
-                   title="Histograma EMM")
-plot!(normMM, label="Aprox. Norm.")
-vline!([MM(x)], label="EMM da amostra", color=:yellow)
+                   title="Histograma EMVs")
+plot!(normMV, label="Aprox. Norm.", color=:green)
+vline!([theta0], label=L"\theta", color=:orange)
+histmm = histogram(MMs, normalize=:pdf, label="", color=:tomato,
+                   title="Histograma EMMs")
+plot!(normMM, label="Aprox. Norm.", color=:blue)
+vline!([theta0], label=L"\theta", color=:lightgrey)
 p = plot(histmv, histmm)
 
 display(p)
-println("Chute para Theta (Theta00): $theta00")
-println("Theta real (normalmente desconhecido): $theta0")
-println("Viés MM: $(mean(MMs .- theta00))")
-println("EQM MM: $(mean((MMs .- theta00).^2))")
-println("Viés MV: $(mean(MVs .- theta00))")
-println("EQM MV: $(mean((MVs .- theta00).^2))")
-println("EMV da amostra: $(MV(x))")
-println("EMM da amostra: $(MM(x))")
-println("P(MM > 2.5) = $(cdf(normMM, 2.5))")
-println("P(MV > 2.5) = $(cdf(normMV, 2.5))")
-println("Real MM > 2.5 = $(mean(MMs .> 2.5))")
-println("Real MV > 2.5 = $(mean(MVs .> 2.5))")
+qMM = quantile(normMM, 0.25)
+qMV = quantile(normMV, 0.25)
+println("theta0: $theta0")
+println("Viés simulado MM: $(mean(MMs)-theta0)")
+println("EQM simulado MM: $(n *mean((MMs .- theta0).^2))")
+println("Viés simulado MV: $(mean(MVs) - theta0)")
+println("EQM simulado MV: $(n * mean((MVs .- theta0).^2))")
+println("P(NormalMM > $(qMM)) = $(round(ccdf(normMM, qMM), digits=2))")
+println("P(NormalMV > $(qMV)) = $(round(ccdf(normMM, qMV),digits=2))")
+println("Real MM > 2.5 = $(mean(MMs .> qMM))")
+println("Real MV > 2.5 = $(mean(MVs .> qMV))")
 ```

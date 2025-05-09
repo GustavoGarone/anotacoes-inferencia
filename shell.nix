@@ -4,6 +4,7 @@ let
   my-r = (rWrapper.override {
     packages = with pkgs.rPackages; [
       sf
+      cli
     ];
   });
   pkgs = import <nixpkgs> {inherit config;};

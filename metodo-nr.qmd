@@ -241,7 +241,7 @@ function main()
     end
     i += 1
   end
-  println("Theta final: $(theta[length(theta)])")
+  println("Theta final: $(theta[end])")
   println("Total de iterações: $i")
 
 end
@@ -255,14 +255,11 @@ $$
 \theta^{(j+1, i)} = \theta^{(j, i)} + \delta \cdot U(x_i, \hat{\theta}^{(j, i)}), j = 0, 1, \dots, i \in \{1,\dots,n\}
 $$
 
-Em que $U(x, \hat{\theta}^{(j)})$ é a [função escore](escore.qmd) para uma observação. Geraremos dados aleatórios de uma
-gama.
-
-<!-- TODO: arrumar código abaixo (usar do professor) -->
+Em que $U(x, \hat{\theta}^{(j)})$ é a [função escore](escore.qmd) para uma observação. Usaremos o mesmo modelo gama.
 
 ```{julia}
 #| echo: true
-using SpecialFunctions, Distributions
+using SpecialFunctions, Distributions, Plots
 
 function main()
 
@@ -270,33 +267,37 @@ function main()
   n = length(x)
 
   theta::Vector{Float64} = []
-  theta0 = 1
-  append!(theta, theta0)
+  append!(theta, 1)
   delta = 0.0001
 
 
   erromax = 10^(-5)
   erro = Inf
-  i = 1
+  j = 1
   epoca = 1
-  totalit = 0
   while erro > erromax
-    itsepoca = 0
-    for i in 1:length(x)
-      append!(theta, theta[epoca] + delta *(log(x[i]) -  digamma(theta[i])))
-      erro = abs(theta[epoca+1] - theta[epoca])
-      itsepoca = i
-    end
-    totalit += itsepoca
-    if epoca % 10 == 0
-      println("Erro na epoca $(epoca-1) e iteração $totalit: $erro")
-      println("theta estimado na epoca $(epoca-1): $(theta[totalit])")
+    for i in 1:n
+      append!(theta, theta[j] + delta * (log(x[i]) - digamma(theta[j])))
+      erro = abs(theta[j+1] - theta[j])
+      j += 1
     end
     epoca += 1
+    if epoca % 500 == 0
+      println("Erro na época $epoca: $erro")
+    end
   end
-  println("Theta final: $(theta[length(theta)])")
-  println("Total de iterações: $i")
+  epoca -= 1
+  println("Theta final: $(theta[end])")
+  println("Total de epocas: $epoca \n \n")
 
+  println("Verificando se é máximo local")
+  println("-n * trigamma(theta calculado) = $(-n * trigamma(theta[end]))")
+  
+  U(y) = sum(log.(x)) - n*digamma(y)
+  p = plot(U, xlims=(0.1, 100), label="U")
+  vline!(theta[1:4000:end],label="(Alguns dos) thetas calculados")
+  hline!([0],label="", color=:black)
+  display(p)
 end
 
 main()
