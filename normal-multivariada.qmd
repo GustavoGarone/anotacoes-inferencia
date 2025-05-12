@@ -1,0 +1,234 @@
+# Normal Multivariada
+
+Dizemos que $\boldsymbol{X} = \left(\begin{array}{c}X_1 \\ \vdots \\ X_n\end{array}\right)$ tem distribuição multivariada
+$N_d(\boldsymbol{\mu}, \Sigma)$ se, e somente se, a sua função densidade de probabilidade é dada por:
+
+$$
+f^{\boldsymbol{X}}(\boldsymbol{x}) = \frac{1}{(2\pi)^{\frac{d}{2}} \lvert \Sigma \rvert^{\frac{1}{2}}}
+\mathrm{Exp}\left\{-\frac{1}{2} (\boldsymbol{x} - \boldsymbol{\mu})^T \Sigma^{-1}(\boldsymbol{x}-\boldsymbol{\mu})\right\}
+$$
+
+<!-- TODO: terminar as matrizes (dx1 e dxd)-->
+em que $mu$ $\sigma$
+
+é uma matriz simétrica positiva definida, ou seja, $\boldsymbol{y}^T \Sigma \boldsymbol{y} > 0, \forall y \in \mathbb{R}^d \setminus \{\boldsymbol{0}\}$
+
+:::{.callouttt-note title="Notação"}
+$$
+\boldsymbol{X} \sim N_d(\boldsymbol{\mu}, \Sigma)
+$$
+:::
+
+:::{.callouttt-note title="Observações"}
+1. Se $d=1$, então $\boldsymbol{X} = X_1$ e $X_1 \sim N_1(\mu_1,\sigma_{11})$
+
+2. Se 
+$$
+\Sigma = \mathrm{diag}(\sigma_{11}\dots\sigma_{dd}) = \left[\begin{array}{cccc}
+\sigma_{11} & 0 & \dots & 0 \\
+0 & \sigma_{12} & \dots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & \dots & 0 & \sigma_{dd}
+\end{array}\right]
+$$
+então
+$$
+\lvert \Sigma \rvert  = \prod^d_{i=1} \sigma_{ii}, \Sigma^{-1} =
+\left[\begin{array}{cccc}
+\sigma_{11}^{-1} & 0 & \dots & 0 \\
+0 & \sigma_{12}^{-1} & \dots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & \dots & 0 & \sigma_{dd}^{-1}
+\end{array}\right]
+$$
+e
+$$
+\begin{aligned}
+(\boldsymbol{x} - \boldsymbol{\mu})^{T}\Sigma^{-1}(\boldsymbol{x} - \boldsymbol{\mu}) &=
+\left(\begin{array}{c}
+x_1 - \mu_1 \\
+\vdots \\
+x_d - \mu_d \\
+\end{array}\right)^T
+\left[\begin{array}{cccc}
+\sigma_{11}^{-1} & 0 & \dots & 0 \\
+0 & \sigma_{12}^{-1} & \dots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & \dots & 0 & \sigma_{dd}^{-1}
+\end{array}\right]
+\left(\begin{array}{c}
+x_1 - \mu_1 \\
+\vdots \\
+x_d - \mu_d \\
+\end{array}\right) \\
+&=
+\left(
+\frac{(x_1 - \mu_1}{\sigma_{11}} \dots \frac{x_d - \mu_d}{\sigma_{dd}}
+\right)
+\left(\begin{array}{c}
+x_1 - \mu_1 \\
+\vdots \\
+x_d - \mu_d \\
+\end{array}\right) \\
+&= \frac{(x_1 - \mu_1)^2}{\sigma_{11}} +\dots +\frac{(x_d - \mu_d)^2}{\sigma_{dd}}
+\end{aligned}
+$$
+Portanto, a f.d.p de $X$ quando $\Sigma = \mathrm{diag}(\sigma_{11} \dots \sigma_{dd})$ é
+$$
+\begin{aligned}
+f^{\boldsymbol{X}}(\boldsymbol{x}) &= \frac{1}{(2\pi)^{\frac{d}{2}} \left(\prod \sigma_{ii}\right)^{\frac{1}{2}}}
+\mathrm{Exp}\left\{-\frac{1}{2}\sum^d \frac{(x_i - \mu_i)^2}{(\sigma_{ii})}\right\} \\
+&= \prod \left\{
+\frac{1}{(2\pi)^{\frac{d}{2}} \sigma_{ii}^{\frac{1}{2}}}
+\mathrm{Exp}\left\{-\frac{1}{2} \frac{(x_i - \mu_i)^2 }{(\sigma_{ii})}\right\}
+\right\} \\
+&= \prod^d_{i=1} f^{(i)}(x_i)
+\end{aligned}
+$$
+em que $f^{(i)}(x_i)$ é  a f.d.p de $N(\mu_i, \sigma_{ii})$
+
+3. A função geradora de momentos de $\boldsymbol{X} \sim N_d(\boldsymbol{\mu} \Sigma)$ é dada por
+$$
+M_{\boldsymbol{X}}(\boldsymbol{t}) = \mathrm{Exp}\left\{
+\boldsymbol{\mu}^T\boldsymbol{y} + \frac{1}{2} \boldsymbol{t}^T \Sigma \boldsymbol{t}, \forall \boldsymbol{t} \in \mathbb{R}^d
+\right\}
+$$
+
+4. Pode-se mostrar que:
+$$
+E(\boldsymbol{X}) = \left(
+\begin{array}{c}
+E(X_1) \\
+\vdots \\
+E(X_d)
+\end{array}
+\right) = \boldsymbol{\mu}
+$$
+e
+$$
+\mathrm{Var}(\boldsymbol{X}) = E((\boldsymbol{X} - \boldsymbol{\mu})(\boldsymbol{X} - \boldsymbol{\mu})^T) = \Sigma
+$$
+ou seja,
+$$
+\mathrm{Cov}(X_i, X_j) = \sigma_{i,j}), i, j = 1, \dots, d
+$$
+
+5. Se $\boldsymbol{Y} = \boldsymbol{a} + B\boldsymbol{X}$, em que $\boldsymbol{a} \in \mathbb{R}^m$ e $B$ é uma matriz $m\times d$, em que
+$m \leq d$, então
+$$
+\boldsymbol{Y} \sim N_m(\boldsymbol{a} + B \boldsymbol{\mu}, B \Sigma B^T).
+$$
+Prova por F.G.M:
+$$
+\begin{aligned}
+M_{\boldsymbol{Y}}(\boldsymbol{t} &= E(\mathrm{e}^{\boldsymbol{Y}^T\boldsymbol{t}}) \\
+&= E(\mathrm{e}^{\boldsymbol{a}^T \boldsymbol{t} + \boldsymbol{X}^T B^T \boldsymbol{t}}) \\
+&= \mathrm{e}^{\boldsymbol{a}^T\boldsymbol{t}}E(\mathrm{e}^{\boldsymbol{X}^T B^T \boldsymbol{t}}) \\
+&= \mathrm{e}^{\boldsymbol{a}^T\boldsymbol{t}} M_{\boldsymbol{X}}(B^T \boldsymbol{t}) \\
+&= \mathrm{e}^{\boldsymbol{a}^T\boldsymbol{t}} \mathrm{e}^{\boldsymbol{\mu}(B^T\boldsymbol{t}) + \frac{1}{2} \boldsymbol{t}^T B \Sigma B^T \boldsymbol{t}}\\
+&= \mathrm{e}^{(\boldsymbol{a} + B\boldsymbol{\mu})^T\boldsymbol{t} + \frac{1}{2} \boldsymbol{t}^T B \Sigma B^T \boldsymbol{t}}
+\end{aligned}
+$$
+
+6. Se $\boldsymbol{X} \sim N_d(\boldsymbol{\mu}, \Sigma)$, então $X_i \sim N(\mu_i, \sigma_{ii}), i = 1,\dots d$
+
+Demonstração:
+
+Tomando $\boldsymbol{a} = 0$ e $B_i = (0 \dots 1 \dots 0)$ ($1$ na $i$-ésima posição), temos que
+$$
+a + B_i \boldsymbol{X} = X_i \sim N_1(\mu_i, \sigma_{ii})
+$$
+pelo resultado 5. Note que
+$$
+B_i \Sigma B^T_i = \sigma_{ii}.
+$$
+
+7. Se $\Sigma = \mathrm{diag}(\sigma_{11} \dots \sigma_{dd})$, então $X_1, \dots, X_d$ são independentes.
+
+Ou seja, se $X_1, \dots, X_d$ forem não correlacionadas (covariância zero), então serão independentes. Em outras
+distribuições multivariadas, isso não é certo.
+:::
+
+## Normal bivariada $d=2$
+
+$$
+\boldsymbol{X} = \left(\begin{array}{c} X_1 \\ X_2 \end{array}\right) \sim N_2 (\boldsymbol{\mu}, \Sigma)
+$$
+em que $\boldsymbol{\mu} =\left(\begin{array}{c} \mu_1 \\ \mu_2 \end{array}\right)$ e
+$\Sigma = \left(\begin{array}{cc} \sigma_{11} & \sigma_{12} \\ \sigma_{12} & \sigma_{22} \end{array}\right)$ é simétrica
+positiva definida.
+
+$$
+\begin{aligned}
+\lvert \Sigma \rvert &= \sigma_{11} \sigma_{22} - \sigma_{12}^2 \\
+\Sigma^{-1} =& \frac{1}{\sigma_{11} \sigma_{22} - \sigma_{12}^2}
+\left(\begin{array}{cc} \sigma_{11} & -\sigma_{12} \\ -\sigma_{12} & \sigma_{22} \end{array}\right) \\
+\Rightarrow f^{\boldsymbol{X}}(x_1, x_2)\\ = \frac{1}{2\pi \sqrt{\sigma_{11}\sigma_{22} - \sigma_{12}^2}}
+&\mathrm{Exp}\underbracket{\left\{
+-\frac{1}{2} \left(\begin{array}{c} X_1 - \mu_1 \\ X_2 - \mu_2 \end{array}\right)^T
+\left(\begin{array}{cc} \sigma_{11} & -\sigma_{12} \\ -\sigma_{12} & \sigma_{22} \end{array}\right)
+\left(\begin{array}{c} X_1 - \mu_1 \\ X_2 - \mu_2 \end{array}\right) \frac{1}{\sigma_{11}\sigma_{22} - \sigma_{12}^2}
+\right\}}_{*} \\ \\
+*&= [(x_1 - \mu_1)\sigma_{22} - (x_2 - \mu_2)\sigma_{12} - (x_1-\mu_1)\sigma_{12}+(x_2 - \mu_2)\sigma_{11}]
+\left(\begin{array}{c} X_1 - \mu_1 \\ X_2 - \mu_2 \end{array}\right)^T \\
+&= (x_1 - \mu_1)^2 \sigma_{22} - 2(x_1 - \mu_1)(x_2 - \mu_2)\sigma_{12} + (x_2 - \mu_2)^2 \sigma_{11} \\
+\Rightarrow \frac{*}{\sigma_{11}\sigma_{22} - \sigma_{12}^2} &=
+\frac{(x_1 - \mu_1)^2}{\frac{\sigma_{11}\sigma_{22} - \sigma_{12}^2}{\sigma_{22}}} -
+\frac{2(x_1 - \mu_1)(x_2 - \mu_2)}{\frac{\sigma_{11}\sigma_{22} - \sigma{12}^2}{\sigma_{22}}} +
+\frac{(x_2 - \mu_2)^2}{\frac{\sigma_{11}\sigma_{22} - \sigma_{12}^2}{\sigma_{22}}} \\
+\mathrm{Tome}\ \rho = \frac{\sigma_{12}}{\sqrt{\sigma_{11} \sigma_{22}}} \\ \\
+A.\ \frac{\sigma_{11}\sigma_{22} - \sigma_{12}^2}{\sigma_{22}} &= \sigma_{11} - \frac{\sigma_{12}^2}{\sigma_{22}} \\
+&= \sigma_{11} - \sigma_{11}\frac{\sigma_{12}^2}{\sigma_{11}\sigma_{22}} \\
+&= \sigma_{11} - \sigma_{11} \rho^2  \\
+&= \sigma_{11}(1-\rho^2)\\ \\
+B.\ \frac{\sigma_{11} \sigma_{22} - \sigma_{12}^2}{\sigma_{11}} &= \sigma_{22}(1-\rho^2) \\ \\
+C.\ \frac{\sigma_{11}\sigma_{22}}{\sigma_{12}} - \sigma_{12} &= \sigma_{12} \frac{\sigma_{11}\sigma_{22}}{\sigma_{12}^2} - \sigma_{12} \\
+&= \sigma_{12}(\rho^{-2} - 1) = \sigma_{12} \left(\frac{1 - \rho^2}{\rho^2}\right) \\
+\Rightarrow \frac{*}{\sigma_{11}\sigma_{22}-\sigma_{12}^2} &= \frac{(x_1-\mu_1)^2}{\sigma_{11}(1-\rho^2)}
+-2\rho^2\frac{(x_1 - \mu_1)(x_2 - \mu_2)}{\sigma_{12}(1-\rho^2)} + \frac{(x_2 - \mu_2)^2}{\sigma_{22}(1-\rho^2)}
+\end{aligned}
+$$
+
+Além disso,
+$$
+\sqrt{\sigma_{11}\sigma_{22} - \sigma_{12}^2} = \sqrt{\sigma_{11}\sigma_{22}-\rho^2\sigma_{11}\sigma_{22}} = \sqrt{\sigma_{11} \sigma_{22}} \sqrt{1-\rho^2}
+$$
+
+Assim temos que
+$$
+\begin{aligned}
+&f^{\boldsymbol{X}}(x_1, x_2) \\&= \frac{1}{2\pi \sqrt{\sigma_{11}, \sigma_{22}} \sqrt{1-\rho^2}}
+\mathrm{Exp} \left\{
+-\frac{1}{2(1-\rho^2)} \left(\frac{(x_1-\mu_1)^2}{\sigma_{11}(1-\rho^2)}
+-2\rho^2\frac{(x_1 - \mu_1)(x_2 - \mu_2)}{\sigma_{12}(1-\rho^2)} + \frac{(x_2 - \mu_2)^2}{\sigma_{22}(1-\rho^2)} \right)
+\right\}
+\end{aligned}
+$$
+
+## [Modelo estatístico](./modelo-estatistico.qmd)
+
+Dizemos que $\boldsymbol{X} = \left(\begin{array}{c} X_1 \\ \vdots \\ X_d \end{array}\right)$ é um vetor aleatório
+populacional normal multivariado se $\boldsymbol{X}_n \sim N_d(\boldsymbol{\mu}, \Sigma)$. em que o vetor de parâmetros
+é
+$$
+\theta = \left[\begin{array}{c}
+\mu_1 \\
+\vdots \\
+\mu_d \\
+\sigma_{11} \\
+\vdots \\
+\sigma_{d1} \\
+\vdots \\
+\sigma_{dd}
+\end{array}\right] =
+\left[\begin{array}{c}
+\boldsymbol{\mu} \\
+\mathrm{vech}\Sigma
+\end{array}\right] = (\mu^T, (\mathrm{vech}\Sigma)^T)^T
+$$
+
+em que $\mathrm{vech}\Sigma$ é o vetor coluna com os elementos da triangular superior da matriz removidos:
+$$
+\mathrm{vech} \left(\begin{array}{cc}\sigma_{11} & \sigma_{12} \\ \sigma_{12} & \sigma_{22} \end{array}\right) =
+\left(\begin{array}{c} \sigma_{11} \\ \sigma_{12} \\ \sigma_{22} \end{array}\right)
+$$

@@ -4,7 +4,6 @@ project:
   type: book
 
 
-# engines: ['julia']
 execute:
   echo: false
   cache: false
@@ -60,6 +59,7 @@ book:
       - cond-regular.qmd
       - slutsky.qmd
       - prop-est.qmd
+      - normal-multivariada.qmd
     # - references.qmd
 
 bibliography: references.bib
