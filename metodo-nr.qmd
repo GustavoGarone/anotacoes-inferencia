@@ -261,7 +261,7 @@ Em que $U(x, \hat{\theta}^{(j)})$ é a [função escore](escore.qmd) para uma ob
 #| echo: true
 using SpecialFunctions, Distributions, Plots
 
-function main()
+function descida_estocastica()
 
   x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
   n = length(x)
@@ -271,8 +271,8 @@ function main()
   delta = 0.0001
 
 
-  erromax = 10^(-5)
   erro = Inf
+  erromax = 10^(-5)
   j = 1
   epoca = 1
   while erro > erromax
@@ -300,8 +300,59 @@ function main()
   display(p)
 end
 
-main()
+descida_estocastica()
 
 ```
+
+Note que esse método é falível. Caímos em um valor que não é máximo global e diferente dos obtidos pelos outros métodos. Aumentaremos o valor de $\delta$ e adicionaremos um máximo de 5000 épocas. Também escolheremos um valor
+mais alto para $\theta_0$, como $4$.
+
+```{julia}
+#| echo: true
+using SpecialFunctions, Distributions, Plots
+
+function descida_estocastica_limitada()
+
+  x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
+  n = length(x)
+
+  theta::Vector{Float64} = []
+  append!(theta, 4)
+  delta = 0.01
+
+
+  erro = Inf
+  erromax = 10^(-5)
+  j = 1
+  epoca = 1
+  while erro > erromax && epoca <= 5000
+    for i in 1:n
+      append!(theta, theta[j] + delta * (log(x[i]) - digamma(theta[j])))
+      erro = abs(theta[j+1] - theta[j])
+      j += 1
+    end
+    epoca += 1
+    if epoca % 1000 == 0
+      println("Erro na época $epoca: $erro")
+    end
+  end
+  epoca -= 1
+  println("Theta final: $(theta[end])")
+  println("Total de epocas: $epoca \n \n")
+
+  println("Verificando se é máximo local")
+  println("-n * trigamma(theta calculado) = $(-n * trigamma(theta[end]))")
+  
+  U(y) = sum(log.(x)) - n*digamma(y)
+  p = plot(U, xlims=(0.1, 100), label="U")
+  vline!(theta[1:500:end],label="(Alguns dos) thetas calculados")
+  hline!([0],label="", color=:black)
+  display(p)
+end
+
+descida_estocastica_limitada()
+
+```
+
 
 
