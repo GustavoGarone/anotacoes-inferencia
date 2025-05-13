@@ -8,35 +8,74 @@ f^{\boldsymbol{X}}(\boldsymbol{x}) = \frac{1}{(2\pi)^{\frac{d}{2}} \lvert \Sigma
 \mathrm{Exp}\left\{-\frac{1}{2} (\boldsymbol{x} - \boldsymbol{\mu})^T \Sigma^{-1}(\boldsymbol{x}-\boldsymbol{\mu})\right\}
 $$
 
-<!-- TODO: terminar as matrizes (dx1 e dxd)-->
-em que $mu$ $\sigma$
-
+em que $\mu=\left(\begin{array}{c} \mu_1, \vdots, \mu_n\end{array}\right)$ e $\Sigma = \left[\begin{array}{cccc}
+\sigma_{11} & \sigma_{12} & \dots & \sigma_{1d} \\
+\sigma_{21} & \sigma_{22} & \dots & \sigma_{2d} \\
+\vdots & \vdots & \ddots & \vdots \\
+\sigma_{d1} & \dots & \sigma_{dd-1} & \sigma_{dd}
+\end{array}\right]
+$
 é uma matriz simétrica positiva definida, ou seja, $\boldsymbol{y}^T \Sigma \boldsymbol{y} > 0, \forall y \in \mathbb{R}^d \setminus \{\boldsymbol{0}\}$
 
-:::{.callouttt-note title="Notação"}
+:::{.callout-note title="Notação"}
 $$
 \boldsymbol{X} \sim N_d(\boldsymbol{\mu}, \Sigma)
 $$
 :::
 
-:::{.callouttt-note title="Observações"}
-1. Se $d=1$, então $\boldsymbol{X} = X_1$ e $X_1 \sim N_1(\mu_1,\sigma_{11})$
+:::{.callout-note title="Obs 1: Caso particular: Normal univariada"}
+Se $d=1$, então 
+$\boldsymbol{X} = X_1$ e $X_1 \sim N_1(\mu_1,\sigma_{11})$
+:::
 
-2. Se 
+
+:::{.callout-note title="Obs 2: Esperança e (co)variância"}
+Pode-se mostrar que:
+$$
+E(\boldsymbol{X}) = \left(
+\begin{array}{c}
+E(X_1) \\
+\vdots \\
+E(X_d)
+\end{array}
+\right) = \boldsymbol{\mu}
+$$
+e
+$$
+\mathrm{Var}(\boldsymbol{X}) = E((\boldsymbol{X} - \boldsymbol{\mu})(\boldsymbol{X} - \boldsymbol{\mu})^T) = \Sigma
+$$
+ou seja,
+$$
+\mathrm{Cov}(X_i, X_j) = \sigma_{i,j}, i, j = 1, \dots, d
+$$
+:::
+
+
+:::{.callout-note title="Obs 3: Covariância implica independência para normais"}
+Se
 $$
 \Sigma = \mathrm{diag}(\sigma_{11}\dots\sigma_{dd}) = \left[\begin{array}{cccc}
 \sigma_{11} & 0 & \dots & 0 \\
-0 & \sigma_{12} & \dots & 0 \\
+0 & \sigma_{22} & \dots & 0 \\
 \vdots & \vdots & \ddots & \vdots \\
 0 & \dots & 0 & \sigma_{dd}
 \end{array}\right]
 $$
-então
+então $X_1, \dots, X_d$ são independentes.
+
+Ou seja, se $X_1, \dots, X_d$ forem não correlacionadas (covariância zero), então serão independentes. Em outras
+distribuições multivariadas, isso não é certo.
+:::
+
+
+
+:::{.callout-note title="Obs 4: Caso de independência"}
+Se $\Sigma = \mathrm{diag}(\sigma_{11} \dots \sigma_{dd})$, então
 $$
 \lvert \Sigma \rvert  = \prod^d_{i=1} \sigma_{ii}, \Sigma^{-1} =
 \left[\begin{array}{cccc}
 \sigma_{11}^{-1} & 0 & \dots & 0 \\
-0 & \sigma_{12}^{-1} & \dots & 0 \\
+0 & \sigma_{22}^{-1} & \dots & 0 \\
 \vdots & \vdots & \ddots & \vdots \\
 0 & \dots & 0 & \sigma_{dd}^{-1}
 \end{array}\right]
@@ -52,7 +91,7 @@ x_d - \mu_d \\
 \end{array}\right)^T
 \left[\begin{array}{cccc}
 \sigma_{11}^{-1} & 0 & \dots & 0 \\
-0 & \sigma_{12}^{-1} & \dots & 0 \\
+0 & \sigma_{22}^{-1} & \dots & 0 \\
 \vdots & \vdots & \ddots & \vdots \\
 0 & \dots & 0 & \sigma_{dd}^{-1}
 \end{array}\right]
@@ -86,34 +125,19 @@ f^{\boldsymbol{X}}(\boldsymbol{x}) &= \frac{1}{(2\pi)^{\frac{d}{2}} \left(\prod 
 \end{aligned}
 $$
 em que $f^{(i)}(x_i)$ é  a f.d.p de $N(\mu_i, \sigma_{ii})$
+:::
 
-3. A função geradora de momentos de $\boldsymbol{X} \sim N_d(\boldsymbol{\mu} \Sigma)$ é dada por
+:::{.callout-note title="Obs 5: Função geradora de momentos"}
+A função geradora de momentos de $\boldsymbol{X} \sim N_d(\boldsymbol{\mu} \Sigma)$ é dada por
 $$
 M_{\boldsymbol{X}}(\boldsymbol{t}) = \mathrm{Exp}\left\{
-\boldsymbol{\mu}^T\boldsymbol{y} + \frac{1}{2} \boldsymbol{t}^T \Sigma \boldsymbol{t}, \forall \boldsymbol{t} \in \mathbb{R}^d
+\boldsymbol{\mu}^T\boldsymbol{x} + \frac{1}{2} \boldsymbol{t}^T \Sigma \boldsymbol{t}, \forall \boldsymbol{t} \in \mathbb{R}^d
 \right\}
 $$
+:::
 
-4. Pode-se mostrar que:
-$$
-E(\boldsymbol{X}) = \left(
-\begin{array}{c}
-E(X_1) \\
-\vdots \\
-E(X_d)
-\end{array}
-\right) = \boldsymbol{\mu}
-$$
-e
-$$
-\mathrm{Var}(\boldsymbol{X}) = E((\boldsymbol{X} - \boldsymbol{\mu})(\boldsymbol{X} - \boldsymbol{\mu})^T) = \Sigma
-$$
-ou seja,
-$$
-\mathrm{Cov}(X_i, X_j) = \sigma_{i,j}), i, j = 1, \dots, d
-$$
-
-5. Se $\boldsymbol{Y} = \boldsymbol{a} + B\boldsymbol{X}$, em que $\boldsymbol{a} \in \mathbb{R}^m$ e $B$ é uma matriz $m\times d$, em que
+:::{.callout-note title="Obs 6: Transformações"}
+Se $\boldsymbol{Y} = \boldsymbol{a} + B\boldsymbol{X}$, em que $\boldsymbol{a} \in \mathbb{R}^m$ e $B$ é uma matriz $m\times d$, em que
 $m \leq d$, então
 $$
 \boldsymbol{Y} \sim N_m(\boldsymbol{a} + B \boldsymbol{\mu}, B \Sigma B^T).
@@ -129,8 +153,10 @@ M_{\boldsymbol{Y}}(\boldsymbol{t} &= E(\mathrm{e}^{\boldsymbol{Y}^T\boldsymbol{t
 &= \mathrm{e}^{(\boldsymbol{a} + B\boldsymbol{\mu})^T\boldsymbol{t} + \frac{1}{2} \boldsymbol{t}^T B \Sigma B^T \boldsymbol{t}}
 \end{aligned}
 $$
+:::
 
-6. Se $\boldsymbol{X} \sim N_d(\boldsymbol{\mu}, \Sigma)$, então $X_i \sim N(\mu_i, \sigma_{ii}), i = 1,\dots d$
+:::{.callout-note title="Obs 7: Normais marginais"}
+Se $\boldsymbol{X} \sim N_d(\boldsymbol{\mu}, \Sigma)$, então $X_i \sim N(\mu_i, \sigma_{ii}), i = 1,\dots d$
 
 Demonstração:
 
@@ -138,16 +164,12 @@ Tomando $\boldsymbol{a} = 0$ e $B_i = (0 \dots 1 \dots 0)$ ($1$ na $i$-ésima po
 $$
 a + B_i \boldsymbol{X} = X_i \sim N_1(\mu_i, \sigma_{ii})
 $$
-pelo resultado 5. Note que
+pelo resultado 6. Note que
 $$
 B_i \Sigma B^T_i = \sigma_{ii}.
 $$
-
-7. Se $\Sigma = \mathrm{diag}(\sigma_{11} \dots \sigma_{dd})$, então $X_1, \dots, X_d$ são independentes.
-
-Ou seja, se $X_1, \dots, X_d$ forem não correlacionadas (covariância zero), então serão independentes. Em outras
-distribuições multivariadas, isso não é certo.
 :::
+
 
 ## Normal bivariada $d=2$
 
@@ -199,8 +221,8 @@ $$
 \begin{aligned}
 &f^{\boldsymbol{X}}(x_1, x_2) \\&= \frac{1}{2\pi \sqrt{\sigma_{11}, \sigma_{22}} \sqrt{1-\rho^2}}
 \mathrm{Exp} \left\{
--\frac{1}{2(1-\rho^2)} \left(\frac{(x_1-\mu_1)^2}{\sigma_{11}(1-\rho^2)}
--2\rho^2\frac{(x_1 - \mu_1)(x_2 - \mu_2)}{\sigma_{12}(1-\rho^2)} + \frac{(x_2 - \mu_2)^2}{\sigma_{22}(1-\rho^2)} \right)
+-\frac{1}{2(1-\rho^2)} \left(\frac{(x_1-\mu_1)^2}{\sigma_{11}}
+-2\rho\frac{(x_1 - \mu_1)(x_2 - \mu_2)}{\sqrt{\sigma_{11}\sigma_{22}}} + \frac{(x_2 - \mu_2)^2}{\sigma_{22}} \right)
 \right\}
 \end{aligned}
 $$

@@ -31,7 +31,7 @@ $$
 
 Sabemos que
 $$
-E_\theta \int^\theta_0 x \frac{1}{\theta} dx = \frac{\theta}{2} = \bar{X}
+E_\theta(X) =  \int^\theta_0 x \frac{1}{\theta} dx = \frac{\theta}{2} = \bar{X}
 $$
 
 Logo, $\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = 2\bar{X}$ é o estimador obtido pelo método de momentos.
@@ -206,7 +206,8 @@ y = \beta x, dy &= \beta dx, x = \frac{y}{\beta} \\ \\
 &= \frac{1}{\Gamma(\alpha) \beta^k} \Gamma(\alpha+k) \\
 \Rightarrow E_\theta(X) &= \frac{1}{\Gamma(\alpha) \beta} \Gamma(\alpha +1 ) = \frac{\alpha \Gamma(\alpha)}{\Gamma(\alpha) \beta}
 = \frac{\alpha}{\beta} \\
-\Rightarrow E_\theta(X^2) &= \frac{1}{\Gamma(\alpha) \beta^2} \Gamma(\alpha +2) = \frac{(\alpha+1) \Gamma(\alpha+1)}{\Gamma(\alpha) \beta}
+\Rightarrow E_\theta(X^2) &= \frac{1}{\Gamma(\alpha) \beta^2} \Gamma(\alpha +2)\\
+&= \frac{(\alpha+1) \Gamma(\alpha+1)}{\Gamma(\alpha) \beta}
 = \frac{(\alpha+1)\alpha\Gamma(\alpha)}{\Gamma(\alpha)\beta^2} = \frac{\alpha(\alpha+1)}{\beta^2}
 \end{aligned}
 $$
@@ -233,7 +234,7 @@ $$
 \end{array}\right. \\
 \Rightarrow &\left\{\begin{array}{ll}
 \alpha = \bar{X}\beta \\
-\underbracket{\beta^2\left(\frac{1}{n}\sum X_i^2 - \bar{X}^2\right) - \beta\bar{X}}_{S^2} = 0
+\beta^2\underbracket{\left(\frac{1}{n}\sum X_i^2 - \bar{X}^2\right)}_{S^2} -\beta\bar{X} = 0
 \end{array}\right. \\ \\
 \frac{\bar{X} \pm \sqrt{\bar{X}^2 - 4\cdot S^2 \cdot 0}}{2S^2} &= \frac{\bar{X} \pm \sqrt{\bar{X}^2}}{2S^2}\\
 &=
@@ -243,7 +244,7 @@ $$
 \end{array}\right. \\ \\
 \Rightarrow &\left\{\begin{array}{ll}
 \alpha = \bar{X}\beta \\
-\beta^2 S^2 - \beta \bar{X}
+\beta^2 S^2 = \beta \bar{X}
 \end{array}\right. \\
 \Rightarrow &\left\{\begin{array}{ll}
 \hat{\alpha}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{\bar{X}^2}{S^2} \\
