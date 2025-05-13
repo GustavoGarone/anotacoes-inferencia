@@ -117,7 +117,7 @@ $$
 
 Com isso,
 $$
-\sqrt{n}(\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) - \theta) \rightarrow{\mathcal{D}}{\rightarrow} N(0, V_\theta)
+\sqrt{n}(\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N(0, V_\theta)
 $$
 em que
 $$
@@ -127,7 +127,7 @@ $$
 Além disso, se $g : \Theta \rightarrow \mathbb{R}$ for diferenciável com derivada contínua tal que $g'(\theta) \neq 0$, então
 $$
 \sqrt{n}(g(\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) - \theta) - g(\theta)
-\rightarrow{\mathcal{D}}{\rightarrow} N\left(0,g'(\theta)^2 \frac{\mathrm{Var}_\theta (X^k)}{h(\theta)^2}\right)
+\stackrel{\mathcal{D}}{\rightarrow} N\left(0,g'(\theta)^2 \frac{\mathrm{Var}_\theta (X^k)}{h(\theta)^2}\right)
 $$
 
 :::{.callout-note title="Notação"}

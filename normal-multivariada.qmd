@@ -131,7 +131,7 @@ em que $f^{(i)}(x_i)$ é  a f.d.p de $N(\mu_i, \sigma_{ii})$
 A função geradora de momentos de $\boldsymbol{X} \sim N_d(\boldsymbol{\mu} \Sigma)$ é dada por
 $$
 M_{\boldsymbol{X}}(\boldsymbol{t}) = \mathrm{Exp}\left\{
-\boldsymbol{\mu}^T\boldsymbol{x} + \frac{1}{2} \boldsymbol{t}^T \Sigma \boldsymbol{t}, \forall \boldsymbol{t} \in \mathbb{R}^d
+\boldsymbol{\mu}^T\boldsymbol{t} + \frac{1}{2} \boldsymbol{t}^T \Sigma \boldsymbol{t}, \forall \boldsymbol{t} \in \mathbb{R}^d
 \right\}
 $$
 :::
@@ -246,7 +246,7 @@ $$
 \left[\begin{array}{c}
 \boldsymbol{\mu} \\
 \mathrm{vech}\Sigma
-\end{array}\right] = (\mu^T, (\mathrm{vech}\Sigma)^T)^T
+\end{array}\right] = (\boldsymbol{\mu}^T, (\mathrm{vech}\Sigma)^T)^T
 $$
 
 em que $\mathrm{vech}\Sigma$ é o vetor coluna com os elementos da triangular superior da matriz removidos:
