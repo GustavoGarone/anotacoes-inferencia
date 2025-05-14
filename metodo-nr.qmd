@@ -193,14 +193,14 @@ main()
 
 Note que se $\Theta \subseteq \mathbb{R}^P$, o método é dado por
 $$
-\theta^{(j+1)} = \theta^{(j)} - \left[U_n'(\boldsymbol{x}_n,\theta^{(j)}\right]^{-1} \cdot U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)}), j = 0, 1, \dots
+\theta^{(j+1)} = \theta^{(j)} - \left[U_n'(\boldsymbol{x}_n,\theta^{(j)})\right]^{-1} \cdot U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)}), j = 0, 1, \dots
 $$
 
 
 ### Método de Scoring de Fisher
 Para $\Theta \subseteq \mathbb{R}$
 $$
-\theta^{(j+1)} = \theta^{(j)} + \frac{U_n(\boldsymbol{x}_n,\theta^{(j)}}{I_n(\theta^{(j)})})
+\theta^{(j+1)} = \theta^{(j)} + \frac{U_n(\boldsymbol{x}_n,\theta^{(j)})}{I_n(\theta^{(j)})}
 $$
 Para $\Theta \subseteq \mathbb{R}^P$
 $$

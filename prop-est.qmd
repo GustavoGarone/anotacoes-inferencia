@@ -111,7 +111,7 @@ $$
 
 é [assintoticamente normal](prop-est.qmd#sec-assinorm) se as seguintes condições estiverem satisfeitas:
 
-1. $E_\theta[(X^k - E_\theta(X^k)^2] < \infty$
+1. $E_\theta[(X^k - E_\theta(X^k))^2] < \infty$
 
 2. $h(\theta) = \frac{\partial E_\theta(X^k)}{\partial \theta} \neq 0, \forall \theta \in \Theta.$
 
@@ -121,7 +121,7 @@ $$
 $$
 em que
 $$
-V_\theta = \left(\frac{E_\theta[(X^k - E_\theta(X^k)^2]}{\frac{\partial E_\theta(X^k)}{\partial \theta}}\right)^2 = \frac{\mathrm{Var}_\theta (X^k)}{h(\theta)^2}
+V_\theta = \frac{E_\theta[(X^k - E_\theta(X^k))^2]}{\left(\frac{\partial E_\theta(X^k)}{\partial \theta}\right)^2} = \frac{\mathrm{Var}_\theta (X^k)}{h(\theta)^2}
 $$
 
 Além disso, se $g : \Theta \rightarrow \mathbb{R}$ for diferenciável com derivada contínua tal que $g'(\theta) \neq 0$, então
@@ -133,8 +133,8 @@ $$
 :::{.callout-note title="Notação"}
 $$
 \begin{cases}
-\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) &\stackrel{a}{\approx} N\left(\theta,\frac{\mathrm{Var}_\theta (X^k)}{h(\theta)^2}\right) \\
-g(\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n)) &\stackrel{a}{\approx} N\left(g(\theta), g'(\theta)^2 \frac{\mathrm{Var}_\theta (X^k)}{h(\theta)^2}\right) \\
+\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) &\stackrel{a}{\approx} N\left(\theta,\frac{\mathrm{Var}_\theta (X^k)}{n h(\theta)^2}\right) \\
+g(\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n)) &\stackrel{a}{\approx} N\left(g(\theta), g'(\theta)^2 \frac{\mathrm{Var}_\theta (X^k)}{n h(\theta)^2}\right) \\
 \end{cases}
 $$
 :::

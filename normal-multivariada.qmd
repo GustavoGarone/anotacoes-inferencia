@@ -136,9 +136,9 @@ M_{\boldsymbol{X}}(\boldsymbol{t}) = \mathrm{Exp}\left\{
 $$
 :::
 
-:::{.callout-note title="Obs 6: Transformações"}
+:::{.callout-note title="Obs 6: Transformações para normais generalizadas"}
 Se $\boldsymbol{Y} = \boldsymbol{a} + B\boldsymbol{X}$, em que $\boldsymbol{a} \in \mathbb{R}^m$ e $B$ é uma matriz $m\times d$, em que
-$m \leq d$, então
+$m \leq d$ cujas linhas são linearmente independentes, então,
 $$
 \boldsymbol{Y} \sim N_m(\boldsymbol{a} + B \boldsymbol{\mu}, B \Sigma B^T).
 $$
@@ -153,6 +153,62 @@ M_{\boldsymbol{Y}}(\boldsymbol{t} &= E(\mathrm{e}^{\boldsymbol{Y}^T\boldsymbol{t
 &= \mathrm{e}^{(\boldsymbol{a} + B\boldsymbol{\mu})^T\boldsymbol{t} + \frac{1}{2} \boldsymbol{t}^T B \Sigma B^T \boldsymbol{t}}
 \end{aligned}
 $$
+
+Observações adicionais:
+
+Se tomarmos $B = \Sigma^{-\frac{1}{2}}$, então $B\cdot B = \Sigma^{-1}$ e $B \Sigma B^{T} = I$. Ademais, tomando
+$\boldsymbol{a} = - \Sigma^{-\frac{1}{2}}\boldsymbol{\mu}$, temos que
+$$
+\boldsymbol{Y} = \Sigma^{-\frac{1}{2}} \boldsymbol{X} - \Sigma^{-\frac{1}{2}}\boldsymbol{\mu} = \Sigma^{-\frac{1}{2}}(\boldsymbol{X} - \boldsymbol{\mu}) \sim N_d(0,I)
+$$
+
+Como $\Sigma$ é uma matriz quadrada simétrica e positiva definida, todos seus autovalores são estritamente positivas. Logo,
+$$
+\Sigma = \Gamma \Lambda \Gamma^T
+$$
+em que $\Gamma$ é a matriz diagonal de autovetores de $\Sigma$ e $\Lambda$ é a matriz diagonal de autovalores de $\Sigma$.
+
+Pode-se mostrar que $\Sigma^{-1} = \Gamma \Lambda^{-1}\Gamma^T$ e $\Sigma^{-\frac{1}{2}} = \Gamma \Lambda^{-\frac{1}{2}}\Gamma^T$
+em que
+$$
+\Lambda^k = \begin{bmatrix}
+\lambda_1^k & 0 & \dots & 0 \\
+0 & \lambda_2^k & \dots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & \dots & 0 & \lambda_d^k\\
+\end{bmatrix}
+$$
+
+Note ainda que
+$$
+\lvert \Sigma \rvert = \lvert \Gamma \Lambda \Gamma^T \rvert = \lvert \Lambda \Gamma^T \Gamma \rvert
+$$
+como $\Gamma^T \Gamma = I$,
+$$
+\lvert \Sigma \rvert = \lvert \Lambda \rvert = \prod^d_{i=1} \lambda_i
+$$
+
+Além disso,
+$$
+\mathrm{tr}\{\Sigma\} = \mathrm{tr}\{\Gamma \Lambda \Gamma^T\} = \mathrm{tr}\{\Lambda\Gamma^T\Gamma\} = \mathrm{tr}\{\Lambda\} = \sum^d_{i=1} \lambda_1
+$$
+
+```{julia}
+#|eval: false
+using LinearAlgebra, Distributions, Random
+Random.seed!(10)
+d = Normal(3,1)
+a = rand(d, 3, 3)
+b = a * transpose(a)
+L = eigvals(b)
+G = eigvecs(b)
+println("Gama: $G")
+println("Lambda: $L")
+println("Matriz raiz quadrada (direto): $(b^(-1/2))")
+println("Matriz raiz quadrada (decomposição): $(G * sqrt.(L) * transpose(T))")
+println("Traço (direto): $(tr(b))")
+println("Traço (por Lambda): $(tr(L))")
+```
 :::
 
 :::{.callout-note title="Obs 7: Normais marginais"}
@@ -253,4 +309,140 @@ em que $\mathrm{vech}\Sigma$ é o vetor coluna com os elementos da triangular su
 $$
 \mathrm{vech} \left(\begin{array}{cc}\sigma_{11} & \sigma_{12} \\ \sigma_{12} & \sigma_{22} \end{array}\right) =
 \left(\begin{array}{c} \sigma_{11} \\ \sigma_{12} \\ \sigma_{22} \end{array}\right)
+$$
+
+## [Amostra aleatória](populacao-e-amostra.qmd#sec-aa) de uma normal multivariada
+
+Dizemos que $\boldsymbol{X}_1,\dots, \boldsymbol{X}_n$ é uma amostra aleatória de $\boldsymbol{X} \sim N_d(\boldsymbol{\mu}, \Sigma)$ se,
+e somente se, $\boldsymbol{X}_1,\dots,\boldsymbol{X}_n$ são independentes e $\boldsymbol{X}_i \sim N_d(\boldsymbol{\mu}, \Sigma), i = 1, \dots, n$.
+
+:::{.callout-note title="Notação"}
+$$
+\boldsymbol{X}_n^* = (\boldsymbol{X}_1, \dots, \boldsymbol{X}_n)\ \mathrm{a.a.}\ \text{de}\ \boldsymbol{X} \sim N_d(\boldsymbol{\mu}, \Sigma) 
+$$
+:::
+
+## [Função de verossimilhança](funcao-verossimilhanca.qmd)
+
+Seja $\boldsymbol{X}^*$ a.a. de $\boldsymbol{X} \sim N_d(\boldsymbol{\mu}, \Sigma)$, em que
+$$
+\begin{aligned}
+\theta &= (\boldsymbol{\mu}^T, \mathrm{vech}(\Sigma)^T)^T \\
+\in \Theta &= \left\{(\boldsymbol{\mu}^T,\mathrm{vech}(\Sigma)^T) \in \mathbb{R}^d\times \mathbb{R}^{\frac{d(d+1)}{2}}
+: \Sigma\ \text{é positiva definida (p.d.)}\right\}\subseteq \mathbb{R}^{d + \frac{d(d+1)}{2}}
+\end{aligned}
+$$
+
+A função de verossimilhança é:
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}^*}(\theta) &=  \prod^n_{i=1} f_\theta^{\boldsymbol{X}}(\boldsymbol{x}_i) =
+\prod \left\{
+\frac{1}{(2\pi)^{\frac{d}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
+-\frac{1}{2}(\boldsymbol{x}_i - \boldsymbol{\mu})^T \Sigma^{-1}(\boldsymbol{x}_i - \boldsymbol{\mu})
+\right\}
+\right\} \\
+&=  \frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
+-\frac{1}{2}\underbracket{\sum^n(\boldsymbol{x}_i - \boldsymbol{\mu})^T \Sigma^{-1}(\boldsymbol{x}_i - \boldsymbol{\mu})}_{\dagger}
+\right\}
+\end{aligned}
+$$
+
+Defina $\bar{\boldsymbol{x}} = \frac{1}{n} \sum^n \boldsymbol{x}_i$, então
+$$
+\begin{aligned}
+\dagger &= \sum^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}} + \bar{\boldsymbol{x}} - \boldsymbol{\mu})^T
+\Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}} + \bar{\boldsymbol{x}} - \boldsymbol{\mu}) \\
+&= \sum^n ((\boldsymbol{x}_i - \bar{\boldsymbol{x}}) - (\boldsymbol{\mu} - \bar{\boldsymbol{x}}))^T
+\Sigma^{-1} ((\boldsymbol{x}_i - \bar{\boldsymbol{x}}) - (\boldsymbol{\mu} - \bar{\boldsymbol{x}})) \\
+&= \sum^n \left\{
+(\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})
+-\underbracket{(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})}_{A} \right .\\
+&\left.-\underbracket{(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}})}_{B}
++(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}})
+\right\}
+\end{aligned}
+$$
+
+Como $n\bar{\boldsymbol{x}} = \sum^n \boldsymbol{x}_i$, temos que
+
+$$
+\begin{cases} 
+A = \sum^n (\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}}) =
+(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\sum^n \boldsymbol{x}_i - \bar{\boldsymbol{x}}) = 0 \\
+B = \sum^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) =
+(\sum^n \boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) = 0
+\end{cases}
+$$
+
+Portanto,
+$$
+\begin{aligned}
+\dagger &= 
+\sum^n (\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})
++n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) \\
+&=  \sum^n \mathrm{tr}\{(\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})\}
++n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) \\
+&\stackrel{\text{Prop. tr}}{=}  \sum^n \mathrm{tr}\{\Sigma^{-1}(\boldsymbol{x} - \bar{\boldsymbol{x}})(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T\}
++n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) \\
+\end{aligned}
+$$
+
+Note que $\sum^n \mathrm{tr}\{A \boldsymbol{y}_i\} = \mathrm{tr}\{A \sum \boldsymbol{y}_i\}$, usando essa propriedade,
+$$
+\begin{aligned}
+\dagger &= n \mathrm{tr} \{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\}
++n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) \\
+\end{aligned}
+$$
+em que $S^2(\boldsymbol{x}_n^*) = \frac{1}{n} \sum^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}})(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T$.
+
+Dessa forma, podemos escrever a função de verossimilhança da seguinte forma:
+
+$$
+\mathcal{L}_{\boldsymbol{x}^*}(\theta) =
+\frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
+-\frac{n}{2}\left( \mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\}
++(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}(\boldsymbol{\mu} - \bar{\boldsymbol{x}})\right)
+\right\}
+$$
+
+Pelo [critério da fatoração de Neyman-Fisher](estatisticas-suficientes.qmd#sec-crit-fat), temos que $(\bar{\boldsymbol{X}}, S^2(\boldsymbol{X}_n^*))$
+é uma [estatística suficiente](estatisticas-suficientes.qmd) para o modelo normal multivariado. Como $S^2(\boldsymbol{X}^*_n)$
+é uma matriz simétrica, podemos considerar apenas $\mathrm{vech}(S^2(\boldsymbol{X}_n^*))$
+
+Para maximizar a função de verossimilhança em relação a $\boldsymbol{\mu}$, note que basta minimizar
+$$
+(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}(\boldsymbol{\mu} - \bar{\boldsymbol{x}})
+$$
+note que, como $\Sigma$ é positiva definida (p.d.), $\Sigma^{-1}$ também é p.d. Portanto, pela definição,
+$\boldsymbol{y}^T \Sigma^{-1} \boldsymbol{y} > 0, \forall \boldsymbol{y} \in \mathbb{R}^d \setminus \{0\}$ e
+$(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}(\boldsymbol{\mu} - \bar{\boldsymbol{x}})$ é mínimo quando $\boldsymbol{\mu} = \bar{\boldsymbol{x}}$.
+
+Para encontrar $\Sigma$ que maximiza a função de verossimilhança, substituimos $\boldsymbol{\mu}$ por $\bar{\boldsymbol{x}}$
+e tentamos encontrar seu valor. Portanto, devemos maximizar
+$$
+\frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
+-\frac{n}{2} \mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\}
+\right\}
+$$
+em relação a $\Sigma$. Aplicando $\ln$, temos
+$$
+-\frac{nd}{2} \ln(2\pi) - \frac{n}{2} \ln\lvert\Sigma\rvert - \frac{n}{2} \mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\} =
+c - \frac{n}{2}\left( \ln\lvert\Sigma\rvert +  \mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\}\right)
+$$
+
+Note que, para qualquer $\lambda > 0$, temos
+$$
+\lambda - \ln\lambda \geq 1.
+$$
+
+Sejam $\lambda_1, \dots, \lambda_d$ autovalores de uma matriz positiva definida $M$.
+$$
+\begin{aligned}
+\lambda_i &- \ln \lambda_i \geq 1 \forall i = 1, \dots, d \\
+\Rightarrow &\sum^d \lambda_i - \sum^d \ln_i \geq d \\
+\iff& \sum^d \lambda_i - \ln(\prod^d \lambda_i) \geq d \\
+\Rightarrow &\mathrm{tr}\{M\} - \ln\lvert M\rvert \geq d
+\end{aligned}
 $$
