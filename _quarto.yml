@@ -4,6 +4,7 @@ project:
   type: book
 
 
+  # engine: julia TODO: adicionar import de todos pacotes nos arquivos q usam julia. Arrume erro de permissão com chmod
 execute:
   echo: false
   cache: false
