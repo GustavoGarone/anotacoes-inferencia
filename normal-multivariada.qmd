@@ -1,3 +1,7 @@
+```{julia}
+#|output: false
+using Pkg; Pkg.add(["Distributions", "StatsBase", "Plots", "LaTeXStrings", "LinearAlgebra", "Random", "DataFrames"])
+```
 # Normal Multivariada
 
 Dizemos que $\boldsymbol{X} = \left(\begin{array}{c}X_1 \\ \vdots \\ X_n\end{array}\right)$ tem distribuição multivariada
@@ -446,3 +450,129 @@ $$
 \Rightarrow &\mathrm{tr}\{M\} - \ln\lvert M\rvert \geq d
 \end{aligned}
 $$
+Tome $M = \Sigma^{-1} S^(\boldsymbol{x}_n^*)$. Então, assumindo $S^2(\boldsymbol{x}_n^*)$ positiva definida, $M$ é positiva
+definida e
+$$
+\begin{aligned}
+&\mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\} - \ln\lvert\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\rvert \geq d \\
+\iff&\mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\} - \ln(\lvert\Sigma^{-1}\rvert \lvert S^2(\boldsymbol{x}_n^*)\rvert) \geq d \\
+\iff&\mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\} + \ln\lvert\Sigma\rvert - \ln \lvert S^2(\boldsymbol{x}_n^*)\rvert \geq d \\
+\iff&\mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\} + \ln\lvert\Sigma\rvert \geq d + \ln \lvert S^2(\boldsymbol{x}_n^*)\rvert
+\end{aligned}
+$$
+
+Note que a igualdade (o menor valor possível) é atingida quando $\Sigma = S^2(\boldsymbol{x}_n^*)$ pois
+$$
+\mathrm{tr}\{S^2(\boldsymbol{x}_n^*)^{-1}S^2(\boldsymbol{x}_n^*)\} = \mathrm{tr}\{I_d\} = d
+$$
+Logo,
+$$
+\begin{aligned}
+\hat{\mu}_{\mathrm{MV}}(\boldsymbol{X}^*_n) &= \bar{\boldsymbol{X}} = \frac{1}{n} \sum^n_{i=1} \boldsymbol{X}_i \\
+\hat{\Sigma}_{\mathrm{MV}}(\boldsymbol{X}^*_n) &= S^2(\boldsymbol{X}_n^*) = \frac{1}{n} \sum^n_{i=1} (\boldsymbol{X}_i - \bar{\boldsymbol{X}})(\boldsymbol{X}_i - \bar{\boldsymbol{X}})^T
+\end{aligned}
+$$
+são os [estimadores de máxima verossimilhança](emv2.qmd) para $\mu$ e $\Sigma$, respectivamente. Dessa forma, podemos estimar
+usando a [propriedade de invariância](prop-est.qmd#sec-invaremv) qualquer [quantidade de interesse](quantidade-de-interesse.qmd)
+$g(\theta)$
+
+### Exemplo
+
+Seja $\boldsymbol{X}_n^*$ a.a. de $\boldsymbol{X} \sim N_2(\boldsymbol{\mu}, \Sigma)$. Encontre o EMV para $g(\theta)$, em que
+
+1. $g(\theta) = E_\theta(\boldsymbol{X})$
+
+2. $g(\theta) = \mathrm{Var}_\theta(\boldsymbol{X})$
+
+3. $g(\theta) = E_\theta(\boldsymbol{X})^T \mathrm{Var}_\theta(\boldsymbol{X})^{-1}E_\theta(\boldsymbol{X})$
+
+4. $g(\theta) = P_\theta(X_1 \geq 4 X_2), \boldsymbol{X} = (X_1, X_2)^T$
+
+5. Considerando os dados observados abaixo, apresente as estimativas para $g(\theta)$ dos itens anteriores:
+
+#### Resposta
+
+Já sabemos que os estimadores são dados por
+$$
+\begin{aligned}
+\hat{\mu}_{\mathrm{MV}}(\boldsymbol{X}^*_n) &= \bar{\boldsymbol{X}} = \frac{1}{n} \sum^n_{i=1} \boldsymbol{X}_i \\
+\hat{\Sigma}_{\mathrm{MV}}(\boldsymbol{X}^*_n) &= S^2(\boldsymbol{X}_n^*) = \frac{1}{n} \sum^n_{i=1}
+(\boldsymbol{X}_i - \bar{\boldsymbol{X}})(\boldsymbol{X}_i - \bar{\boldsymbol{X}})^T \\
+&= \frac{1}{n} \sum \boldsymbol{X}_i\boldsymbol{X}^T - \bar{\boldsymbol{X}}\bar{\boldsymbol{X}}^T
+\end{aligned}
+$$
+e as estimativas por
+$$
+\begin{aligned}
+\hat{\mu}_{\mathrm{MV}}(\boldsymbol{x}^*_n) &= \bar{\boldsymbol{x}} = \frac{1}{n} \sum^n_{i=1} \boldsymbol{x}_i
+= \frac{1}{n}\begin{pmatrix}
+\sum x_{1i} \\
+\sum x_{2i}
+\end{pmatrix}\\
+\hat{\Sigma}_{\mathrm{MV}}(\boldsymbol{x}^*_n) &= S^2(\boldsymbol{x}_n^*) = \frac{1}{n} \sum \boldsymbol{x}_i\boldsymbol{x}^T - \bar{\boldsymbol{x}}\bar{\boldsymbol{x}}^T\\
+&=\frac{1}{n} \sum^n_{i=1}\begin{bmatrix}
+(x_{1i} - \bar{x}_1)^2 & (x_{1i} - \bar{x}_1)(x_{2i} - \bar{x}_2) \\
+(x_{2i} - \bar{x}_2)(x_{1i} - \bar{x}_1) & (x_{2i} - \bar{x}_2)^2
+\end{bmatrix}
+\end{aligned}
+$$
+
+<!-- TODO: tudo isso e bonitificar tabela -->
+<!--
+```{julia}
+#|eval: false
+using Random, Distributions, DataFrames, LinearAlgebra
+Random.seed!(1)
+
+n = 10
+mu1 = 4
+sigma11 = 3
+a = 100
+b = -3
+X1 = mu1 .+ rand(Normal(0, sqrt(sigma11)), n)
+X2 = a .+ b .* X1 .+ rand(Normal(0, sqrt(sigma11)), n)
+X1 = round.(X1, digits=2)
+X2 = round.(X2, digits=2)
+df = DataFrame(Salário= X1, Insatisfação=X2)
+BD = [X1 X2]
+# muMV = mean.(BD)
+# soma1 = transpose(BD) .* BD
+# variancia = var(BD)
+# print(variancia)
+# display(mean.(eachcol(df)))
+# display(var.(eachcol(df)))
+# display(df)
+```
+-->
+
+<!-- TODO: 1:3 só faz substituindo valores e pronto -->
+
+4. $P_\theta(X2 > 4X_1) = P_\theta(X_2 - 4X_1 > 0)$. Note que
+$$
+X_2 - 4X_1 = B \boldsymbol{X}
+$$
+em que $B = (-4, 1)$. Então,
+$$
+X_2 - 4X_1 \sim N(B\boldsymbol{\mu}, B\Sigma B^T)
+$$
+Desenvolvendo,
+$$
+\begin{aligned}
+B\boldsymbol{\mu} &= -4\mu_1 + \mu_2 = \mu_2 - 4\mu_1 \\
+B\Sigma B^T &= (-4,1) \begin{bmatrix}\sigma_{11} & \sigma_{12} \\ \sigma_{21} & \sigma_{22} \end{bmatrix} \begin{pmatrix}-4 \\ 1 \end{pmatrix} \\
+&\stackrel{\sigma_{12} = \sigma_{21}}{=} 16\sigma_{11} + \sigma_{22} - 8 \sigma_{12}
+\end{aligned}
+$$
+
+Assim,
+$$
+\begin{aligned}
+g(\theta) &= P_\theta(X_2 - 4 X_1 > 0) \\
+&= P_\theta\left(\frac{(X_2 - 4X_1) - (\mu_2 -4\mu_1)}{\sqrt{16\sigma_{11} + \sigma_{22} - 8 \sigma_{12}}} >
+-\frac{\mu_2 -4\mu_1}{\sqrt{16\sigma_{11} + \sigma_{22} - 8 \sigma_{12}}}\right) \\
+&= P\left( Z > -\frac{\mu_2 -4\mu_1}{\sqrt{16\sigma_{11} + \sigma_{22} - 8 \sigma_{12}}}\right) \\
+&= 1 - \Phi\left(-\frac{\mu_2 -4\mu_1}{\sqrt{16\sigma_{11} + \sigma_{22} - 8 \sigma_{12}}}\right)
+\end{aligned} \\
+$$
+
+<!-- TODO: concluir com valores -->
