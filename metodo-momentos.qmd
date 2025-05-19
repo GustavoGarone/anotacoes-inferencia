@@ -1,4 +1,4 @@
-# Estimação pelo método de momentos
+# Estimação pelo método de momentos (EMM)
 
 Seja $\boldsymbol{X}_n$ uma [a.a.](populacao-e-amostra.qmd#sec-aa) de $X$ tal que
 $$

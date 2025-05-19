@@ -209,7 +209,7 @@ G = eigvecs(b)
 println("Gama: $G")
 println("Lambda: $L")
 println("Matriz raiz quadrada (direto): $(b^(-1/2))")
-println("Matriz raiz quadrada (decomposição): $(G * sqrt.(L) * transpose(T))")
+println("Matriz raiz quadrada (decomposição): $(G * sqrt.(L) * transpose(G))")
 println("Traço (direto): $(tr(b))")
 println("Traço (por Lambda): $(tr(L))")
 ```
@@ -290,7 +290,7 @@ $$
 ## [Modelo estatístico](./modelo-estatistico.qmd)
 
 Dizemos que $\boldsymbol{X} = \left(\begin{array}{c} X_1 \\ \vdots \\ X_d \end{array}\right)$ é um vetor aleatório
-populacional normal multivariado se $\boldsymbol{X}_n \sim N_d(\boldsymbol{\mu}, \Sigma)$. em que o vetor de parâmetros
+populacional normal multivariado se $\boldsymbol{X}_n \sim N_d(\boldsymbol{\mu}, \Sigma)$, em que o vetor de parâmetros
 é
 $$
 \theta = \left[\begin{array}{c}
@@ -423,7 +423,7 @@ note que, como $\Sigma$ é positiva definida (p.d.), $\Sigma^{-1}$ também é p.
 $\boldsymbol{y}^T \Sigma^{-1} \boldsymbol{y} > 0, \forall \boldsymbol{y} \in \mathbb{R}^d \setminus \{0\}$ e
 $(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}(\boldsymbol{\mu} - \bar{\boldsymbol{x}})$ é mínimo quando $\boldsymbol{\mu} = \bar{\boldsymbol{x}}$.
 
-Para encontrar $\Sigma$ que maximiza a função de verossimilhança, substituimos $\boldsymbol{\mu}$ por $\bar{\boldsymbol{x}}$
+Para encontrar $\Sigma$ que maximiza a função de verossimilhança, substituímos $\boldsymbol{\mu}$ por $\bar{\boldsymbol{x}}$
 e tentamos encontrar seu valor. Portanto, devemos maximizar
 $$
 \frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
@@ -576,3 +576,218 @@ g(\theta) &= P_\theta(X_2 - 4 X_1 > 0) \\
 $$
 
 <!-- TODO: concluir com valores -->
+
+## Aplicações da normal multivariada
+
+### [Teorema do limite central para o EMV](prop-est.qmd#sec-tlcemv) com variáveis reais
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^P, p \in \mathbb{N}$. Se as [condições de regularidade](cond-regular.qmd)
+estiverem satisfeitas, então,
+$$
+\sqrt{n} (\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, I_1(\theta)^{-1}),
+$$
+ou, de outra forma,
+$$
+I_n(\theta)^{\frac{1}{2}}(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, \boldsymbol{I}).
+$$
+Além disso, pelo [Teorema de Slutsky](slutsky.qmd),
+$$
+I_n(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n))^{\frac{1}{2}}(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) - \theta)
+\stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, \boldsymbol{I})
+$$
+em que $\boldsymbol{I}$ é a matriz identidade.
+
+:::{.callout-note title="Notação"}
+$$
+\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) \stackrel{a}{\approx} N_p(\theta, I_n(\theta)^{-1})
+$$
+:::
+
+Note que, se $\theta = (\theta_1, \theta_2)^T$, então
+$$
+\hat{\theta}_{\mathrm{MV}} = \begin{pmatrix}\hat{\theta}_{\mathrm{MV}}^{(1)} \\ \hat{\theta}_{\mathrm{MV}}^{(2)} \end{pmatrix}
+\stackrel{a}{\approx} N_2\left[\begin{pmatrix}\theta_1 \\ \theta_2 \end{pmatrix}; I_n(\theta)^{-1}\right],
+$$
+logo,
+$$
+\begin{aligned}
+\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)^{(i)} \stackrel{a}{\approx} N_p(\theta_i, V_i(\theta)), i = 1,2
+\end{aligned}
+$$
+em que $V_i(\theta)$ é o elemento $(i,i)$ da matriz $I_n(\theta)^{-1}, i = 1, 2$.
+
+:::{.callout-note title="Observação"}
+Observe que $V_i(\theta)$ pode depender do vetor "$\theta$" inteiro. Veja o caso normal:
+$$
+\bar{X} \sim N_1\left(\mu,\frac{\sigma^2}{n}\right)
+$$
+:::
+
+### [Teorema do limite central para o EMM](prop-est.qmd#sec-tlcemm) com variáveis reais
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^P, p \in \mathbb{N}$ tal que
+$$
+E_\theta(|X|^k) < \infty, k = 1, \dots, 2p.
+$$
+Seja $h(\theta) = \begin{bmatrix}\frac{\partial E_\theta(X)}{\partial \theta^T} \\ \vdots \\ \frac{\partial E_\theta(X^p)}{\partial \theta^T} \end{bmatrix}$
+e considere que $\det h(\theta) \neq 0$ e cada componente de $h(\theta)$ é uma função contínua. Então,
+$$
+\sqrt{n} (\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, V_\theta)
+$$
+em que
+$$
+\begin{aligned}
+V_\theta &= h(\theta)^{-1} \mathrm{Var}_\theta(\boldsymbol{Y})[h(\theta)^{-1}]^T \\
+\boldsymbol{Y} &= \begin{bmatrix} X \\ X^2 \\ \vdots \\ X^p \end{bmatrix}
+\end{aligned}
+$$
+
+:::{.callout-note title="Notação"}
+$$
+\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) \stackrel{a}{\approx} N_p\left(\theta, \frac{h(\theta)^{-1} \mathrm{Var}_\theta(\boldsymbol{Y})[h(\theta)^{-1}]^T}{n}\right)
+$$
+:::
+
+:::{.callout-note title="Generalização do Método de Momentos"}
+O [método de momentos](metodo-momentos.qmd) pode ser generalizado da seguinte forma:
+
+Se $E_\theta(|X|^k) < \infty$ para $k \in \{k_1, k_2, \dots, k_p\} \subseteq N$ ou, se $X$ for não negativa, $k \in \{k_1, \dots, k_p\} \subseteq \mathrm{Q}$.
+O EMM é obtido igualando
+$$
+E_\theta(X^k) = \frac{1}{n} \sum X_i^k, k \in \{k_1, \dots, k_n\}
+$$
+Seja
+$$
+h(\theta) = \begin{bmatrix}\frac{\partial E_\theta(X^{k_1})}{\partial \theta^T} \\ \vdots \\ \frac{\partial E_\theta(X^{k_p})}{\partial \theta^T} \end{bmatrix}
+$$
+
+Considere que
+
+1. $E_\theta(|X|^{2k}) < \infty, \forall k \in \{k_1, \dots, k_n\}$
+
+2. $\det h(\theta) \neq 0$
+
+3. Cada componente de $h(\theta)$ é uma função contínua.
+
+Então,
+$$\sqrt{n} (\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, V_\theta)$$
+em que
+$$
+\begin{aligned}
+V_\theta &= h(\theta)^{-1} \mathrm{Var}_\theta(\boldsymbol{Y})[h(\theta)^{-1}]^T \\
+\boldsymbol{Y} &= \begin{bmatrix} X^{k_1} \\ X^{k_2} \\ \vdots \\ X^{k_p} \end{bmatrix}
+\end{aligned}
+$$
+:::
+
+### Exemplos
+
+#### Exemplo Beta
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta = (\alpha, \beta) \in \Theta = \mathbb{R}^2_+$ tal que
+$$
+f_\theta(x) = \begin{cases}
+\frac{1}{B(\alpha, \beta)} x^{\alpha-1}(1-x)^{\beta -1}, x \in (0,1) \\
+0, \mathrm{c.c.}
+\end{cases}
+$$
+
+Encontre o EMV, EMM e suas distribuições assinstóticas para $\theta$.
+
+##### Resposta
+Note que $B(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}$
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \frac{1}{B(\alpha, \beta)^n} (\prod x_i)^{\alpha-1} (\prod(1-x_i))^{\beta - 1} \\
+\mathcal{l}_{\boldsymbol{x}_n}(\theta) &=
+-n \ln \Gamma(\alpha) - n\ln\Gamma(\beta) + n \ln \Gamma(\alpha+\beta) \\ 
+&+ (\alpha-1)\sum \ln x_i + (\beta -1)\sum \ln (1 - x_i), \\
+\Rightarrow \frac{\partial \mathcal{l}_{\boldsymbol{x}_n}}{\partial \alpha}(\theta)& = -n \psi_1(\alpha) + n \psi_1(\alpha + \beta)
++\sum \ln x_i; \\
+\Rightarrow \frac{\partial \mathcal{l}_{\boldsymbol{x}_n}}{\partial \beta}(\theta)& = -n \psi_1(\beta) + n \psi_1(\alpha + \beta)
++\sum \ln (1-x_i)
+\end{aligned}
+$$
+em que
+$$
+\psi_k(a) = \frac{\partial^k \ln \Gamma(a)}{\partial a^k}
+$$
+continuando,
+$$
+\begin{aligned}
+\Rightarrow \frac{\partial^2 \mathcal{l}_{\boldsymbol{x}_n}}{\partial \alpha^2}(\theta) = -n \psi_2(\alpha) + n \psi_2(\alpha + \beta); \\
+\Rightarrow \frac{\partial^2 \mathcal{l}_{\boldsymbol{x}_n}}{\partial \beta^2}(\theta) = -n \psi_2(\beta) + n \psi_2(\alpha + \beta); \\
+\Rightarrow \frac{\partial^2 \mathcal{l}_{\boldsymbol{x}_n}}{\partial \beta \partial \alpha}(\theta) = n \psi_2(\alpha + \beta). \\ \\
+\Rightarrow \frac{\partial^2 \mathcal{l}_{\boldsymbol{x}_n}}{\partial \theta \partial \theta^T}(\theta) = -n
+\begin{bmatrix}
+\psi_2(\alpha) - \psi_2(\alpha + \beta) & -\psi_2(\alpha+\beta) \\
+-\psi_2(\alpha+beta) & \psi_2(\beta) - \psi_2(\alpha+\beta)
+\end{bmatrix} \\
+\Rightarrow I_n(\theta) = n
+\begin{bmatrix}
+\psi_2(\alpha) - \psi_2(\alpha + \beta) & -\psi_2(\alpha+\beta) \\
+-\psi_2(\alpha+beta) & \psi_2(\beta) - \psi_2(\alpha+\beta)
+\end{bmatrix}.
+\end{aligned}
+$$
+
+A estimativa de MV pode ser obtida numericamente via [algoritmo de Newton-Raphson](metodo-nr.qmd). Neste caso, o método
+é equivalente ao de escore de Fisher:
+$$
+\hat{\theta}^{(j+1)} = \hat{\theta}^{(j)} + I_n(\hat{\theta}^{(j)})^{-1} U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)})
+$$
+em que
+$$
+\begin{aligned}
+U_n(\boldsymbol{x}_n, \theta) = \begin{bmatrix}
+-n \psi_1(\alpha) + n \psi_1(\alpha + \beta) +\sum \ln x_i \\
+-n \psi_1(\beta) + n \psi_1(\alpha + \beta) +\sum \ln(1-x_i)
+\end{bmatrix}
+\end{aligned}
+$$
+
+Além disso,
+$$
+\sqrt{n}(\hat{\theta}_{\mathrm{MV}} - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_2(\boldsymbol{0}, I_1(\theta)^{-1})
+$$
+em que
+$$
+\begin{aligned}
+I_1(\theta)^{-1} &= \frac{1}{(\psi_2(\alpha) - \psi_2(\alpha+\beta))(\psi_2(\beta)-\psi_2(\alpha+\beta))-\psi_2(\alpha+\beta)^2} \\
+&\cdot
+\begin{bmatrix}
+\psi_2(\alpha) - \psi_2(\alpha + \beta) & \psi_2(\alpha+\beta) \\
+\psi_2(\alpha+beta) & \psi_2(\beta) - \psi_2(\alpha+\beta)
+\end{bmatrix}.
+\end{aligned}
+$$
+
+```{julia}
+#| eval: false
+using Distributions, Random, Plots, SpecialFunctions, LinearAlgebra
+Random.seed!(1)
+n = 10
+alpha0 =  1.2
+beta0 =  7
+x = rand(Beta(alpha0, beta0), n)
+function U(θ)
+  U1 = -n*digamma(θ[1])+n*digamma(θ[1] + θ[2]) + sum(log.(x))
+  U2 = -n*digamma(θ[2])+n*digamma(θ[1] + θ[2]) + sum(log.(1 .- x))
+  return [U1, U2]
+end
+function I1(θ)
+  I11 = trigamma(θ[1]) - trigamma(θ[1] + θ[2])
+  I22 = trigamma(θ[2]) - trigamma(θ[1] + θ[2])
+  I12 = -trigamma(θ[1] + θ[2])
+  return [I11 I12; I12 I22]
+end
+thetahat = [.1,.1]
+erro = Inf
+while(erro > 0.0005)
+  thetahat0 = thetahat
+  thetahat = thetahat .+ inv(I1(thetahat)) * U(thetahat)
+  erro = maximum(abs.(thetahat .- thetahat0))
+  println(erro)
+  println(thetahat)
+end
+```

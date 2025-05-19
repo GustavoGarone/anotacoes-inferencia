@@ -33,7 +33,7 @@ $$
 E_{\theta_1}(U_n(\boldsymbol{X}_n,\theta_2)) = 0 \iff \theta_1 = \theta_2,
 $$
 
-$C_7$: A [informação de Fisher](infofisher.qmd) existe, é positiva e finita.
+$C_7$: A [informação de Fisher](infofisher.qmd) existe, é positiva (definida) e finita.
 
 $C_8$:
 $$
