@@ -4,10 +4,10 @@ project:
   type: book
 
 
-  # engine: julia TODO: adicionar import de todos pacotes nos arquivos q usam julia. Arrume erro de permissão com chmod
+engines: ['julia'] # TODO: adicionar import de todos pacotes nos arquivos q usam julia. Arrume erro de permissão com chmod
 execute:
   echo: false
-  cache: false
+  cache: true
 book:
   title: "Anotações de Inferência Frequentista"
   author: "Aulas de Alexandre G. Patriota, digitado por Gustavo S. Garone"
@@ -38,6 +38,7 @@ book:
       - estimador-intervalar.qmd
       - teste-hipotese.qmd
       - teste-hipotese-duas-pops.qmd
+      - teste-nao-para-media.qmd
       - tabela-frequencias.qmd
       - analise-aderencia.qmd
       - testes-ind-homo.qmd

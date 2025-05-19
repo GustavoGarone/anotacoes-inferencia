@@ -1,0 +1,6 @@
+# Testes não Paramétricos para a média populacional
+
+Alguns Testes não-paramétricos para a média populacional podem ser estudados nas seções 13.3.2 e 13.4.2 do livro
+"Estatística Básica" (7ª edição), Morettin e Bussab.
+
+Essa seção será completada em um futuro.

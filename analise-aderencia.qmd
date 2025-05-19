@@ -1,3 +1,7 @@
+```{julia}
+#| output: false
+using Pkg; Pkg.add(["Distributions", "StatsBase", "Random", "Plots", "LaTeXStrings"])
+```
 # Teste Qui-Quadrado e análise de aderência
 A análise de aderência [testa](teste-hipotese.qmd) a distribuição dos dados:
 $$
