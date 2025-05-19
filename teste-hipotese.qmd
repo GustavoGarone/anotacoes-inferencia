@@ -1,25 +1,42 @@
+```{julia}
+#| output: false
+using Pkg; Pkg.add(["Distributions", "Plots", "StatsPlots", "LaTeXStrings"])
+```
 # Teste de Hipótese simples
 
 Um dos principais objetivos da estática é testar hipóteses. Veja algumas dessas hipóteses potenciais:
+
 1. A moeda é honesta?
+
 2. O medicamento proposto é melhor que o vendido no mercado?
+
 3. O número médio de acidentes aumentou em relação ao ano passado?
+
 4. A altura interfere na performance num determinado esporte?
+
 5. Um suspeito é culpado?
+
 6. O mercado financeiro está em equilíbrio?
+
 7. Dona Maria terá dinheiro para comprar o pão do próximo mês?
 
 ## Etapas de um teste de hipótese
 1. Formular as hipóteses de interesse;
+
 	1. Na estatística clássica, pela abordagem Fisheriana (uma hipótese) ou Neyman-Pearson (mais de uma hipótese).
+
 2. Observar dados experimentais do estudo relacionado ao problema;
+
 3. Elaborar uma conclusão utilizando um procedimento estatístico.
+
 
 ## Exemplo da hipótese 5.
 Considere uma pessoa que está sendo acusada de ter cometido um crime.
 
 As duas hipóteses envolvidas aqui são (abordagem de Neyman-Pearson):
+
 1. “O suspeito não é culpado” -> $h_{0}$ Hipótese Nula ou de não-efeito;
+
 2. “O suspeito é culpado” -> $h_{1}$ Hipótese alternativa ou hipótese que contém o efeito.
 
 - Após coletar as evidências, dizemos que, se houver evidências de que o suspeito cometeu o crime, a pessoa é culpada. 
@@ -50,7 +67,9 @@ $(\pmb{X}_{n})$ de $X\sim \mathrm{Ber}(\theta), \theta \in \Theta = [0,1]$. Susp
 $\theta = 0.9$.
 
 Nossas hipóteses são
+
 1. $H_{0}$ -> $\theta = 0.5$
+
 2. $H_{1}$ -> $\theta = 0.9$
 
 ### Erros Tipo I e II
@@ -71,6 +90,7 @@ $$
 $$
 
 - Erro Tipo I: Rejeitar que a moeda é honesta (rejeitar $h_{0}$) quando na verdade é.
+
 - Erro Tipo II: Rejeitar que a moeda é enviesada (rejeitar $h_{1}$) quando na verdade é.
 
 Calculando a probabilidade dos erros
@@ -140,6 +160,7 @@ $$
 Decisões elaboradas:
 
 1. Se $\bar{x}<0.3$ ou $\bar{x} > 0.7$, rejeitamos $H_{0}$
+
 2. Caso contrário, não rejeitamos $H_0$
 
 Relembrando: $\alpha$ = Probabilidade do Erro Tipo I (Rejeitar um $H_0$ verdadeiro).

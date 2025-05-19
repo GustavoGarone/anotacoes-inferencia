@@ -1,3 +1,7 @@
+```{julia}
+#| output: false
+using Pkg; Pkg.add(["Distributions", "Plots", "LaTeXStrings", "StatsBase"])
+```
 # Estimação pelo método de momentos (EMM)
 
 Seja $\boldsymbol{X}_n$ uma [a.a.](populacao-e-amostra.qmd#sec-aa) de $X$ tal que

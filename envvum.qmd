@@ -1,3 +1,7 @@
+```{julia}
+#| output: false
+using Pkg; Pkg.add(["Distributions", "Plots", "LaTeXStrings"])
+```
 # Estimadores não-viciados com variância uniformemente mínima (ENVVUM)
 
 [Estimadores](estimadores.qmd) são [estatísticas](estatisticas.qmd) cujo objetivo é estimar uma
