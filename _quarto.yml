@@ -4,7 +4,7 @@ project:
   type: book
 
 
-engines: ['julia'] # TODO: adicionar import de todos pacotes nos arquivos q usam julia. Arrume erro de permissão com chmod
+engines: ['julia'] 
 execute:
   echo: false
   cache: true
@@ -69,7 +69,10 @@ csl: associacao-brasileira-de-normas-tecnicas.csl
 
 format:
   html:
-    theme: cosmo
+    theme:
+      light: minty
+      dark: darkly
+    respect-user-color-scheme: true
   # pdf:
   #   documentclass: scrreprt
   #   cite-method: biblatex
