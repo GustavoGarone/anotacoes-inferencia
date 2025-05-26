@@ -300,5 +300,5 @@ end
 
 sucessos = [I1 .<= theta0 .<= I2]
 display(L"\mathrm{IC}_{\mathrm{Obs (1)}}(\theta,0.95)=[%$(I1[1]), %$(I2[1])]")
-display(L"\text{ICs que contém}\ \theta: %$((sum(sucessos[1]))/MC)\%")
+display(L"\text{ICs que contém}\ \theta: %$((sum(sucessos[1]))/MC * 100)\%")
 ```
