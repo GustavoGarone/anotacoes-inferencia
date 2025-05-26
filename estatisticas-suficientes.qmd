@@ -956,7 +956,7 @@ não é suficiente para o modelo completo.
 
 Observe que o espaço paramétrico do modelo completo é $\mathbb{R}\times\mathbb{R}^+$
 
-#### Exemplo (Uniforme)
+#### Exemplo (Uniforme) {#sec-exunif}
 
 Seja $\boldsymbol{X}_n=(X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de 
 $X\sim U(0,\theta), \theta \in \Theta = (0,\infty)$. Verifique se $\boldsymbol{X}_{(n)} = \max\{X_1,\dots,X_n\}$ é SM

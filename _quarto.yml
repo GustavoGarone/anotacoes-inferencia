@@ -62,6 +62,7 @@ book:
       - slutsky.qmd
       - prop-est.qmd
       - normal-multivariada.qmd
+      - intervalos-confianca.qmd
     # - references.qmd
 
 bibliography: references.bib
@@ -70,8 +71,8 @@ csl: associacao-brasileira-de-normas-tecnicas.csl
 format:
   html:
     theme:
-      light: minty
-      dark: darkly
+      light: [cosmo]
+      dark: [cosmo, theme-dark.scss]
     respect-user-color-scheme: true
   # pdf:
   #   documentclass: scrreprt

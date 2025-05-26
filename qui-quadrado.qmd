@@ -1,3 +1,7 @@
+```{julia}
+#| output: false
+using Pkg; Pkg.add(["Plots", "StatsPlots", "Distributions", "LaTeXStrings"])
+```
 # Distribuição Qui-Quadrado
 
 Se $Z\sim N(0,1)$, então $Z^{2}\sim \chi^2$, como provado por transformação de variáveis aleatórias 
@@ -34,3 +38,19 @@ $$
 $$
 para $\nu > 30$
 
+
+<!-- TODO: terminar animação -->
+```{julia}
+#| eval: false
+# using Plots, StatsPlots, Distributions, LaTeXStrings
+
+# qui(n) = Chisq(n)
+
+# plotqui(n) = plot(qui(n), title="Qui-Quadrado visualizada", label=L"%$n", ylims=[0, 0.5])
+
+# a = @gif for i in 1:100
+  # plotqui(i)
+# end
+
+# display(a)
+```

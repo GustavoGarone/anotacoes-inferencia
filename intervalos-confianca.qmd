@@ -1,0 +1,304 @@
+```{julia}
+#| output: false
+using Pkg; Pkg.add(["Distributions", "Plots", "Random", "StatsBase", "LaTeXStrings"])
+```
+# Intervalos de Confiança - Aprofundamento
+
+Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) e $X \sim f_\theta, \theta \in \Theta$.
+
+Dizemos que $[I_1(\boldsymbol{X}_n), I_2(\boldsymbol{X}_n)]$ é um [intervalo de confiança](estimador-intervalar.qmd) *exato*
+para $g(\theta)$ com coeficiente de confiança $\gamma \in (0,1)$ se, e somente se:
+$$
+P_\theta\left(I_1(\boldsymbol{X}_n) \leq g(\theta) \leq I_2(\boldsymbol{X}_n)\right) = \gamma, \forall \theta \in \Theta.
+$$
+em que $I_1(\boldsymbol{X}_n), I_2(\boldsymbol{X}_n)$ são [estatísticas](estatisticas.qmd).
+
+:::{.callout-note title="Observação"}
+Se $P_\theta\left(I_1(\boldsymbol{X}_n) \leq g(\theta) \leq I_2(\boldsymbol{X}_n)\right) \geq \gamma, \forall \theta \in \Theta$,
+então $[I_1(\boldsymbol{X}_n), I_2(\boldsymbol{X}_n)]$ é um Intervalo de Confiança (IC) de *pelo menos* $\gamma$
+:::
+
+:::{.callout-note title="Notação"}
+$$
+\mathrm{IC}(g(\theta), \gamma) = [I_1(\boldsymbol{X}_n), I_2(\boldsymbol{X}_n)]
+$$
+:::
+
+Observe que $\mathrm{IC}(g(\theta),\gamma)$ é um *intervalo aleatório* que não depende de "$\theta$".
+
+Na prática, observamos a amostra $\boldsymbol{x}_n = (x_1, \dots, x_n)$ e calculamos o IC *observado*
+
+:::{.callout-note title="Notação"}
+$$
+\mathrm{IC}_{\mathrm{Obs}}(g(\theta), \gamma) = [I_1(\boldsymbol{x}_n), I_2(\boldsymbol{x}_n)]
+$$
+
+Observe que este é um intervalo *numérico*
+:::
+
+Portanto,
+$$
+P_\theta\left(I_1(\boldsymbol{X}_n) \leq g(\theta) \leq I_2(\boldsymbol{X}_n)\right) =
+\begin{cases}
+1, g(\theta) \in \mathrm{IC}_{\mathrm{Obs}}(g(\theta), \gamma) \\
+0, \mathrm{c.c.}
+\end{cases}
+$$
+
+## Interpretação em termos de repetições:
+
+Se repetirmos o experimento, mantendo as mesmas condições, então esperamos que em $\gamma \cdot 100\%$ dos experimentos
+os ICs contenham $g(\theta)$. Em outras palavras,
+$$
+\begin{aligned}
+\#\frac{(g(\theta) \in \mathrm{IC}_{\mathrm{Obs}})}{N} \approx \gamma \\
+\left[
+\frac{1}{N} \sum \mathbb{1}_{\{\mathrm{IC}_{\mathrm{Obs}}^{(i)}\}}(g(\theta)) \stackrel{N \uparrow \infty}{\rightarrow} \gamma
+\right]
+\end{aligned}
+$$
+
+Dizemos que
+$$
+\frac{1}{N} \sum \mathbb{1}_{\{\mathrm{IC}_{\mathrm{Obs}}^{(i)}\}}(g(\theta))
+$$
+é a cobertura de $\mathrm{IC}(g(\theta),\gamma)$
+
+:::{.callout-tip title="O que dizer sobre $\mathrm{IC}_{\mathrm{Obs}}$ em relação a $g(\theta)$?"}
+Temos uma **confiança** de $\gamma\cdot 100\%$ de que $g(\theta) \in \mathrm{IC}_{\mathrm{Obs}}$.
+:::
+
+## Exemplos
+
+### Exemplo Normal
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\mu,\sigma^2), \theta = (\mu, \sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}^+$.
+Encontre um IC com coeficiente de confiança $\gamma = 95\%$...
+
+...para $g(\theta = \mu)$
+
+Sabemos que
+$$
+\bar{X} = \frac{1}{n} \sum X_i \sim N(\mu, \sigma^2/n).
+$$
+Além disso,
+$$
+\sum \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{n-1}
+$$
+
+Por definição de t-student, com as V.As das distribuições independentes,
+$$
+\begin{aligned}
+\frac{N(0,1)}{\sqrt{\frac{\chi^2_k}{k}}} &\sim t_k  \\
+\Rightarrow\frac{\sqrt{n} \frac{(\bar{X} - \mu)}{\sigma}}{\sqrt{\frac{\sum \frac{(X_i - \bar{X})^2}{\sigma^2}}{n-1}}} &\sim t_{(n-1)} \\
+\Rightarrow \frac{\sqrt{n} (\bar{X} - \mu)}{\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}} &\sim t_{(n-1)}
+\end{aligned}
+$$
+logo, podemos sempre encontrar $c_{1, \gamma}, c_{2, \gamma}$ tais que
+$$
+P_\theta\left(c_{2, \gamma} \leq \frac{\sqrt{n} (\bar{X} - \mu)}{\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}} \leq c_{1, \gamma}\right) = \gamma
+$$
+
+Note que
+$$
+c_{2, \gamma} \leq \frac{\sqrt{n} (\bar{X} - \mu)}{\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}} \leq c_{1, \gamma} \iff
+\bar{X} - c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}} \leq \mu \leq \bar{X} - c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}
+$$
+
+Portanto,
+$$
+P_\theta\left(\bar{X} - c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}} \leq g(\theta) \leq \bar{X} - c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}\right) = \gamma
+$$
+
+Pela definição de Intervalo de Confiança,
+$$
+\mathrm{IC}(\mu,\gamma) = \left[
+\bar{X} - c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}, \bar{X} - c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}
+\right]
+$$
+em que
+$$
+S^2_{n-1}(\boldsymbol{X}_n) = \frac{1}{n-1} \sum  (X_i - \bar{X})^2
+$$
+e $c_{1,\gamma}, c_{2,\gamma}$ são os quantis obtidos da distribuição t-student com $n-1$ graus de liberdade que satisfaçam
+$$
+P_\theta\left(\bar{X} - c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}} \leq g(\theta) \leq \bar{X} -
+c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}\right) = \gamma
+$$
+no caso simétrico (minimiza o IC para distribuições como a Normal), $c_{2,\gamma} = - c_{1,\gamma}$. Note que não é
+possível construir ICs simétricos dessa forma para distribuições estritamente positivas, como a qui-quadrado.
+
+## Quantidades Pivotais {#sec-quantpivot}
+
+Dizemos que $Q(g(\theta), \boldsymbol{X}_n)$ é uma quantidade pivotal para $g(\theta)$ se, e somente se,
+
+1. $Q(g(\theta), \boldsymbol{X}_n)$ depende de $g(\theta)$
+
+2. A distribuição de $Q(g(\theta), \boldsymbol{X}_n)$ não depende de "$\theta$"
+
+3. Existem $a_1, a_2$ tais que $c_1 \leq Q(g(\theta),\boldsymbol{X}_n) \leq c_2 \iff a_1 \leq g(\theta) \leq a_2$
+
+### Exemplos
+$X \sim N(\mu, \sigma^2)$
+
+1. Se $\sigma^2$ é conhecido e $\theta = \mu. g(\theta) = \mu$, então uma quantidade pivotal é dada por
+$$
+Q(\mu, \boldsymbol{X}_n) = \sqrt{n}\frac{\bar{X} - \mu}{\sqrt{\sigma^2}} \sim N(0,1)
+$$
+
+$$
+\mathrm{IC}(\mu,\gamma) = \bar{X} \mp c_{\gamma} \sqrt{\frac{\sigma^2}{n}}
+$$
+
+2. Se $\sigma^2$ é desconhecido e $\theta = (\mu, \sigma^2), g(\theta) = \mu$, então uma quantidade pivotal é dada por
+$$
+Q(\mu, \boldsymbol{X}_n) = \sqrt{n}\frac{\bar{X}-\mu}{\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}} \sim t_{(n-1)}
+$$
+
+$$
+\mathrm{IC}(\mu,\gamma) = \bar{X} \mp c_{\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n}{n}}
+$$
+essa é também uma quantidade pivotal para 1., mas o contrário não vale.
+
+3. Se $\mu$ é conhecido e $\theta = \sigma^2, g(\theta) = \sigma^2$, então
+
+$$
+Q(\sigma^2, \boldsymbol{X}_n) = \sum \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{n}
+$$
+
+$$
+\mathrm{IC}(\sigma^2,\gamma) = \left[\frac{\sum (X_i - \mu)^2}{c_{2,\gamma}}, \frac{\sum (X_i - \mu)^2}{c_{1,\gamma}}\right]
+$$
+
+4. Se $\mu$ é desconhecido e $\theta = (\mu, \sigma^2), g(\theta) = \sigma^2$, então
+$$
+Q(\sigma^2, \boldsymbol{X}_n) = \sum \frac{(X_i - \bar{X})}{\sigma^2} \sim \chi^2_{(n-1)}
+$$
+
+$$
+\mathrm{IC}(\sigma^2,\gamma) = \left[\frac{\sum (X_i - \bar{X})^2}{c_{2,\gamma}}, \frac{\sum (X_i - \bar{X})^2}{c_{1,\gamma}}\right]
+$$
+
+#### Exponencial
+
+Seja $X \sim \mathrm{Exp}(\theta), \theta > 0$. Encontre uma quantidade pivotal para $\theta$.
+
+Note que $\sum X_i \sim \mathrm{Gama}(n,\theta)$ com F.G.M. dada por
+$$
+M_{\sum X_i}(t) = \left(\frac{\theta}{\theta-t}\right)^n
+$$
+note ainda que
+$$
+\begin{aligned}
+M_{\sum X_i}(t) &= E(\mathrm{e}^{t \sum X_i}) =  \left(\frac{\theta}{\theta-t}\right)^n \\
+\Rightarrow M_{\theta \sum X_i}(t) &= E(\mathrm{e}^{t\theta \sum X_i}) \\
+&=M_{\sum X_i}(t \theta) = \left(\frac{\theta}{\theta-\theta t}\right)^n = \left(\frac{1}{1-t}\right)^n \\
+\Rightarrow M_{2\theta\sum X_i}(t) &= \left(\frac{1}{1-2t}\right)^n \\
+\Rightarrow &2\theta \sum X_i \sim \chi^2_{(2n)}
+\end{aligned}
+$$
+
+Portanto, $Q(\theta, \boldsymbol{X}_n) = 2\theta \sum X_i$ é uma quantidade de interesse para $\theta$
+
+$$
+\begin{aligned}
+c_{1,\gamma} &\leq Q(\theta, \boldsymbol{X}_n) \leq c_{2,\gamma} \\
+\iff c_{1,\gamma} &\leq 2\theta \sum X_i \leq c_{2\gamma} \iff \frac{c_{1,\gamma}}{2\sum X_i} \leq \theta \leq \frac{c_{2,\gamma}}{2\sum X_i}
+\end{aligned}
+$$
+
+#### Uniforme
+
+Seja $X \sim \mathrm{Unif}(0, \theta), \theta > 0$. Encontre uma quantidade pivotal para $\theta$.
+
+Note que $X_{(n)} = \max \boldsymbol{X}_n$ [é uma estatística suficiente](estatisticas-suficientes.qmd#sec-exunif) cuja f.d.p.
+é dada por
+$$
+f_(\theta)^{\boldsymbol{X}_{(n)}}(x) = \frac{n x^{n-1}}{\theta^n} \mathrm{1}_{(0,\theta]}(x)
+$$
+
+Seja $Y = \frac{X_{(n)}}{\theta}$, então 
+$$
+f_(\theta)^{Y}(x) = f_(\theta)^{\boldsymbol{X}_{(n)}}(y \theta) \cdot |J|
+$$
+em que $J = \theta$ (determinante jacobiano)
+
+$$
+f_(\theta)^{Y}(y) = \frac{n (y\theta)^{n-1}}{\theta^n} \theta \mathrm{1}_{(0,\theta]}(y \theta) = n y^{n-1} \mathrm{1}_{(0,1]}(y)
+$$
+não depende de "$\theta$"! Logo, $Q(\theta, \boldsymbol{X}_n) = \frac{\boldsymbol{X}_{(n)}}{\theta}$ é uma quantidade pivotal
+para $\theta$.
+
+$$
+\begin{aligned}
+\frac{\boldsymbol{X}_{(n)}}{c_{2,\gamma}} \leq \theta \leq \frac{\boldsymbol{X}_{(n)}}{c_{1,\gamma}}
+\Rightarrow \mathrm{IC}(\theta,\gamma) = \left[
+\frac{\boldsymbol{X}_{(n)}}{c_{2,\gamma}}, \frac{\boldsymbol{X}_{(n)}}{c_{1,\gamma}}
+\right]
+\end{aligned}
+$$
+em que os quantis são obtidos da distribuição de $Y$, nesse caso, $Y \sim \mathrm{Beta}(n,1)$:
+
+$$
+\begin{aligned}
+\int^{c_{1,\gamma}}_0 ny^{n-1} dy = \frac{1-\gamma}{2}&\ \ \ \int_{c_{2,\gamma}}^{1} ny^{n-1}dy = \frac{1-\gamma}{2} \\
+\Rightarrow \begin{cases}
+y^n \rvert_0^{c_{1,\gamma}} = \frac{1-\gamma}{2} \\
+y^n \rvert^1_{c_{2,\gamma}} = \frac{1-\gamma}{2} \\
+\end{cases}
+\Rightarrow c_{1,\gamma} &= \left(\frac{1-\gamma}{2}\right)^{1/2}\ \ \ \ c_{2,\gamma} = \left(\frac{1+\gamma}{2}\right)^{1/2}
+\end{aligned}
+$$
+
+:::{.callout-note title=""}
+Seja $Q(g(\theta), \boldsymbol{X}_n)$ uma quantidade pivotal com função densidade de probabilidade $f$.
+
+$c_{1,\gamma}, c_{2,\gamma}$ devem ser obtidos
+$$
+\int_{c_{1,\gamma}}^{c_{2,\gamma}} f(x) dx = \gamma
+$${#eq-obterquantis}
+
+Note que em geral infinitas combinações desses quantis satisfazem ([-@eq-obterquantis]). Podemos usar o par que satisfaz
+$$
+\int^{c_{1,\gamma}}_0 ny^{n-1} dy = \frac{1-\gamma}{2}\ \ \mathrm{e} \ \ \int_{c_{2,\gamma}}^{1} ny^{n-1}dy = \frac{1-\gamma}{2}
+$$
+
+Esse método produz um intervalo de confiança simétrico, não necessariamente o de menor amplitude, mas é mais fácil de
+encontrar. O intervalo de confiança com menor amplitude com quantis que satisfaçam ([-@eq-obterquantis]) é obtido minimizando
+$|c_{2,\gamma} - c_{1,\gamma}|$ sujeito a ([-@eq-obterquantis]).
+
+Pode-se demonstrar que $c_{1,\gamma}, c_2{\gamma}$ que produzem amplitude mínima e satisfazem ([-@eq-obterquantis]) são
+tais que
+$$
+f(c_{1,\gamma}) = f(c_{2,\gamma})
+$$
+ou seja, tem mesma densidade.
+:::
+
+```{julia}
+#| echo: true
+using Distributions, Random, StatsBase, LaTeXStrings
+
+theta0 = 4
+n = 10
+MC = 10000
+
+I1 = []
+I2 = []
+for _ in 1:MC
+  d = Exponential(1/theta0) # Parâmetro média => 1/theta parâmetro taxa
+  x = rand(d,n)
+
+  # Construindo um IC com 95% de confiança
+  gamma = 0.95
+  quiquadrado = Chisq(2*n)
+  c1 = quantile(quiquadrado, (1-gamma)/2)
+  c2 = quantile(quiquadrado, gamma + (1-gamma)/2)
+  push!(I1, round(c1/(2*sum(x)), digits=4))
+  push!(I2, round(c2/(2*sum(x)), digits=4))
+end
+
+sucessos = [I1 .<= theta0 .<= I2]
+display(L"\mathrm{IC}_{\mathrm{Obs (1)}}(\theta,0.95)=[%$(I1[1]), %$(I2[1])]")
+display(L"\text{ICs que contém}\ \theta: %$((sum(sucessos[1]))/MC)\%")
+```
