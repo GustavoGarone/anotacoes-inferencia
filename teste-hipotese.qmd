@@ -47,7 +47,7 @@ Contudo, devemos nos atentar aos erros de decisão
 ### Erros de decisão
 $$
 \begin{array}{c|cc}
-& H_{0} & H_{1} \\
+\ & H_{0} & H_{1} \\
 \hline
 \text{Decisão}  & \text{Não cometeu o crime}  & \text{Cometeu o crime}\\
 \hline
@@ -462,7 +462,7 @@ Com as decisões
 1. Rejeitamos $H_{0}$ se $\bar{x} > 10 + 1.96 \sqrt{  \frac{5}{10} }$ ou $\bar{x} < 10 - 1.96 \sqrt{  \frac{5}{10} }$
 Foram observados os seguintes valores
 $$
-\begin{array}{c}
+\begin{array}{ccccc}
 7.1 & 8.9 & 12 & 13 & 11.7 \\
 6.1 & 2.5 & 3.1 & 5.2 & 7
 \end{array}

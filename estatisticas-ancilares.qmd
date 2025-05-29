@@ -36,10 +36,10 @@ $$
 
 em que
 $$
-\left\{\begin{array}
+\begin{cases}
 \bar{X}_1 &= \frac{1}{k} \sum^k_{i=1} X_i \\
 \bar{X}_2 &= \frac{1}{n-k} \sum^n_{i=k+1} X_i \\
-\end{array}\right.
+\end{cases}
 $$
 
 Logo, $S_2(\boldsymbol{X}_n)$ é independente de $S_2(\boldsymbol{X}_n)$. Defina
@@ -67,14 +67,14 @@ são independentes, então
 
 $$
 \begin{aligned}
-1.&\left\{\begin{array}
+1.&\begin{cases}
 \sum^{n_1}_{i=1} \frac{(X_i - \mu_X)^2}{\sigma_X^2} \sim \chi^2_{n_1}) \\
 \sum^{n_2}_{i=1} \frac{(Y_i - \mu_X)^2}{\sigma_Y^2} \sim \chi^2_{n_2}) \\
-\end{array}\right. \\
-2.&\left\{\begin{array}
+\end{cases}\\
+2.&\begin{cases}
 \sum^{n_1}_{i=1} \frac{(X_i - \bar{X})^2}{\sigma_X^2} \sim \chi^2_{n_1-1}) \\
 \sum^{n_2}_{i=1} \frac{(Y_i - \bar{Y})^2}{\sigma_Y^2} \sim \chi^2_{n_2-1}) \\
-\end{array}\right. \\
+\end{cases}\\
 \end{aligned}
 $$
 
