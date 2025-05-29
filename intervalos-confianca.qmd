@@ -1,6 +1,6 @@
 ```{julia}
 #| output: false
-using Pkg; Pkg.add(["Distributions", "Plots", "Random", "StatsBase", "LaTeXStrings"])
+using Pkg; Pkg.add(["Distributions", "Plots", "Random", "StatsBase", "LaTeXStrings", "SpecialFunctions"])
 ```
 # Intervalos de Confiança - Aprofundamento
 
@@ -136,7 +136,7 @@ Dizemos que $Q(g(\theta), \boldsymbol{X}_n)$ é uma quantidade pivotal para $g(\
 
 2. A distribuição de $Q(g(\theta), \boldsymbol{X}_n)$ não depende de "$\theta$"
 
-3. Existem $a_1, a_2$ tais que $c_1 \leq Q(g(\theta),\boldsymbol{X}_n) \leq c_2 \iff a_1 \leq g(\theta) \leq a_2$
+3. Existem $a_1, a_2$, que não dependem de $g(\theta)$, tais que $c_1 \leq Q(g(\theta),\boldsymbol{X}_n) \leq c_2 \iff a_1 \leq g(\theta) \leq a_2$
 
 ### Exemplos
 $X \sim N(\mu, \sigma^2)$
@@ -250,8 +250,8 @@ y^n \rvert^1_{c_{2,\gamma}} = \frac{1-\gamma}{2} \\
 \end{aligned}
 $$
 
-:::{.callout-note title=""}
-Seja $Q(g(\theta), \boldsymbol{X}_n)$ uma quantidade pivotal com função densidade de probabilidade $f$.
+:::{.callout-note title="Quantis que minimizam a amplitude do IC"}
+Seja $Q(g(\theta), \boldsymbol{X}_n)$ uma quantidade pivotal com função densidade de probabilidade $f$ *unimodal*.
 
 $c_{1,\gamma}, c_{2,\gamma}$ devem ser obtidos
 $$
@@ -279,6 +279,8 @@ ou seja, tem mesma densidade.
 #| echo: true
 using Distributions, Random, StatsBase, LaTeXStrings
 
+Random.seed!(8)
+
 theta0 = 4
 n = 10
 MC = 10000
@@ -298,7 +300,225 @@ for _ in 1:MC
   push!(I2, round(c2/(2*sum(x)), digits=4))
 end
 
-sucessos = [I1 .<= theta0 .<= I2]
+acertos = [I1 .<= theta0 .<= I2]
 display(L"\mathrm{IC}_{\mathrm{Obs (1)}}(\theta,0.95)=[%$(I1[1]), %$(I2[1])]")
-display(L"\text{ICs que contém}\ \theta: %$((sum(sucessos[1]))/MC * 100)\%")
+display(L"\text{ICs que contém}\ \theta: %$((sum(acertos[1]))/MC * 100)\%")
 ```
+
+### Quantidades pivotais aproximadas ou assintóticas
+Dizemos que $Q(g(\theta), \boldsymbol{X}_n)$ é uma quantidade pivotal aproximada ou assintótica se, e somente se
+
+1. $Q(g(\theta), \boldsymbol{X}_n)$ depende de $g(\theta)$;
+
+2. A distribuição assintótica de $Q(g(\theta), \boldsymbol{X}_n)$ não depende de $g(\theta)$;
+
+3. Existem $a_1, a_2$, que não dependem de $g(\theta)$, tais que $c_1 \leq Q(g(\theta),\boldsymbol{X}_n) \leq c_2 \iff a_1 \leq g(\theta) \leq a_2$.
+Esses valores dependem apenas de $\boldsymbol{X}_n$.
+
+Podemos usar o [TLC](tlc.qmd) para [estimadores](estimadores.qmd):
+
+Se $T(\boldsymbol{X}_n)$ for um estimador para $\theta$ [assintoticamente normal](prop-est.qmd#sec-assinorm), então
+
+$$
+\sqrt{n} (T(\boldsymbol{X}_n) - \theta)  \stackrel{\mathcal{D}}{\rightarrow} N_p(0, V_\theta), \forall \theta \in \Theta.
+$$
+em que $V_\theta$ é uma matriz positiva definida. Para $p=1$,
+$$
+\sqrt{n} (T(\boldsymbol{X}_n) - \theta)  \stackrel{\mathcal{D}}{\rightarrow} N_1(0, V_\theta), \forall \theta \in \Theta.
+$$
+em que $V_\theta > 0$.
+
+Se $g: \Theta \rightarrow \mathbb{R}$ for uma função tal que $g'(\theta) \neq 0$ $g'(\theta)$ é contínua, então,
+$$
+\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))  \stackrel{\mathcal{D}}{\rightarrow} N_1(0, g'(\theta)^2V_\theta), \forall \theta \in \Theta.
+$$
+
+Além disso,
+
+1. 
+$$
+\frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(\theta)^{-2}V_\theta}}  \stackrel{\mathcal{D}}{\rightarrow} N_1(0, 1), \forall \theta \in \Theta.
+$$
+
+2. Pelo [teorema de Slutsky](slutsky.qmd)
+$$
+\frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(T(\boldsymbol{X}_n))^{-2}V_{T(\boldsymbol{X}_n)}}}  \stackrel{\mathcal{D}}{\rightarrow} N_1(0, 1), \forall \theta \in \Theta.
+$$
+
+Ou seja,
+$$
+Q(g(\theta), \boldsymbol{X}_n) = \frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(T(\boldsymbol{X}_n))^{-2}V_{T(\boldsymbol{X}_n)}}}
+$$
+é uma quantidade pivotal aproximada para $g(\theta)$. Note que, com $T(\boldsymbol{X}_n) = \hat(\theta)$,
+$$
+\begin{aligned}
+&c_1 \leq Q(g(\theta), \boldsymbol{X}_n) \leq c_2 \\
+\iff& c_1 \leq \frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(T(\boldsymbol{X}_n))^{-2}V_{T(\boldsymbol{X}_n)}}} \leq c_2 \\
+\iff& c_1 \sqrt{\frac{g'(\hat\theta)^2}{n} V_{\hat\theta}} \leq g(\hat\theta) - g(\theta) \leq c_2\sqrt{\frac{g'(\hat\theta)^2}{n} V_{\hat\theta}} \\
+\iff& g(\hat\theta) - c_2 \sqrt{\frac{g'(\hat\theta)^2}{n} V_{\hat\theta}} \leq g(\theta) \leq g(\hat\theta) - c_1\sqrt{\frac{g'(\hat\theta)^2}{n} V_{\hat\theta}} \\
+\end{aligned}
+$$
+Tomando $c_1 = -c_2$, pois a distribuição assintótica é normal, temos
+$$
+\mathrm{IC}^a(g(\theta),\gamma) = \left[
+g(\hat\theta) - c_2 \sqrt{\frac{g'(\hat\theta)^2}{n} V_{\hat\theta}}, g(\hat\theta) + c_2 \sqrt{\frac{g'(\hat\theta)^2}{n} V_{\hat\theta}}
+\right]
+$$
+em que $c_2$ é obtido dos quantis da normal padrão tal que
+$$
+P(-c_2 \leq N(0,1) \leq c_2) = \gamma
+$$
+
+:::{.callout-note title="Erro padrão"}
+A quantidade
+$$
+\sqrt{\frac{g'(\hat\theta)^2}{n} V_{\hat\theta}}
+$$
+é o erro-padrão do estimador (seu desvio padrão).
+:::
+
+Vamos conferir por [simulações de monte carlo](monte-carlo.qmd) e o [método de Newton-Raphson](metodo-nr.qmd)
+```{julia}
+#| echo: true
+#| output: false
+using SpecialFunctions, Distributions, Random, LaTeXStrings
+# Modelo Gama(θ, 1)
+# IC assintótico
+# Calcule o IC
+#a-) para θ
+#b-) para g(θ) = P(X < 950)
+#c-) para g(θ) = ln f_θ(θ)
+
+
+# Sabemos que θ.MV ~a~ N(θ, I_n(θ)^-1)
+# => IC^a(θ,γ) = θ.MV ∓ c_2 * √(I_1(θ))
+
+Random.seed!(13)
+
+function newton_raphson(x)
+
+  theta::Vector{Float64} = []
+  append!(theta, mean(x)) # Chute inicial = média
+  erromax = 10^(-5)
+  erro = Inf
+  i = 1
+  # iteracoesMax = 6 # Podemos também definir apenas um erro máximo
+  while erro > erromax # && i < iteracoesMax
+    append!(theta, theta[i] - (sum(log.(x)) - n * digamma(theta[i]))/
+            (-n*trigamma(theta[i])))
+    erro = abs(theta[i+1] - theta[i])
+    # println("Erro na iteração $i: $erro")
+    i += 1
+  end
+  # println("Theta final: $(theta[length(theta)])")
+  # println("Total de iterações: $i")
+  return theta[end]
+end
+
+# Resolução do item a
+function monte_carlo_a(M, γ, n, theta0)
+  d = Gamma(theta0, 1)
+  function mc()
+    x = rand(d, n)
+    EMV = newton_raphson(x)
+    c2 = quantile(Normal(), γ + (1-γ)/2)
+    I1 = EMV - c2 * sqrt(1/(n*trigamma(EMV)))
+    I2 = EMV + c2 * sqrt(1/(n*trigamma(EMV)))
+    return I1, I2
+  end
+
+  inferiores = []; superiores = [] 
+  for _ in 1:M
+    intervalo = mc()
+    push!(inferiores, intervalo[1])
+    push!(superiores, intervalo[2])
+  end
+
+  acertos = inferiores .<= theta0 .<= superiores
+  return mean(acertos)
+
+end
+```
+Rodando o código para o item a, temos
+```{julia}
+M = 10_000; γ = 0.95; n = 100; θ_0 = 100
+confiança = monte_carlo_a(M, γ, n, θ_0)
+display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
+M = 10_000; γ = 0.99; n = 100; θ_0 = 100
+confiança = monte_carlo_a(M, γ, n, θ_0)
+display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
+M = 10_000; γ = 0.99; n = 5; θ_0 = 75
+confiança = monte_carlo_a(M, γ, n, θ_0)
+display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
+```
+
+<!-- TODO: finalizar o item b -->
+Para o item b,
+```{julia}
+#| echo: true
+#| output: false
+
+# Resolução do item b
+function monte_carlo_b(M, γ, n, theta0)
+  d = Gamma(theta0, 1)
+  g(a) = 
+  function mc()
+    x = rand(d, n)
+    EMV = newton_raphson(x)
+    c2 = quantile(Normal(), γ + (1-γ)/2)
+    I1 = EMV - c2 * sqrt(1/(n*trigamma(EMV)))
+    I2 = EMV + c2 * sqrt(1/(n*trigamma(EMV)))
+    return I1, I2
+  end
+
+  inferiores = []; superiores = [] 
+  for _ in 1:M
+    intervalo = mc()
+    push!(inferiores, intervalo[1])
+    push!(superiores, intervalo[2])
+  end
+
+  acertos = inferiores .<= theta0 .<= superiores
+  return mean(acertos) 
+
+end
+```
+Para o item c, precisaremos calcurar as derivadas:
+$$
+\begin{aligned}
+g(\theta) &= \ln f_\theta(\theta) = - \ln \Gamma(\theta) + (\theta-1) \ln (\theta) - \theta \\
+\Rightarrow g'(\theta) &= -\psi_1(\theta) + \ln(\theta) + \frac{\theta -1}{\theta} - 1 \\
+&= -\psi_1(\theta) + \ln(\theta) - \frac{-1}{\theta} = g1(\theta)
+\end{aligned}
+$$
+
+<!-- TODO: finalizar item c -->
+
+```{julia}
+#| echo: true
+#| output: false
+
+# Resolução do item c
+function monte_carlo_c(M, γ, n, theta0)
+  d = Gamma(theta0, 1)
+  g(a) = 
+  function mc()
+    x = rand(d, n)
+    EMV = newton_raphson(x)
+    c2 = quantile(Normal(), γ + (1-γ)/2)
+    I1 = EMV - c2 * sqrt(1/(n*trigamma(EMV)))
+    I2 = EMV + c2 * sqrt(1/(n*trigamma(EMV)))
+    return I1, I2
+  end
+
+  inferiores = []; superiores = [] 
+  for _ in 1:M
+    intervalo = mc()
+    push!(inferiores, intervalo[1])
+    push!(superiores, intervalo[2])
+  end
+  acertos = inferiores .<= theta0 .<= superiores
+  return mean(acertos) 
+end
+```
+
