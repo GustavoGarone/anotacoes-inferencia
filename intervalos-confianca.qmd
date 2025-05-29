@@ -251,7 +251,7 @@ y^n \rvert^1_{c_{2,\gamma}} = \frac{1-\gamma}{2} \\
 $$
 
 :::{.callout-note title="Quantis que minimizam a amplitude do IC"}
-Seja $Q(g(\theta), \boldsymbol{X}_n)$ uma quantidade pivotal com função densidade de probabilidade $f$ *unimodal*.
+Seja $Q(g(\theta), \boldsymbol{X}_n)$ uma quantidade pivotal com função densidade de probabilidade $f$.
 
 $c_{1,\gamma}, c_{2,\gamma}$ devem ser obtidos
 $$
@@ -260,14 +260,14 @@ $${#eq-obterquantis}
 
 Note que em geral infinitas combinações desses quantis satisfazem ([-@eq-obterquantis]). Podemos usar o par que satisfaz
 $$
-\int^{c_{1,\gamma}}_0 ny^{n-1} dy = \frac{1-\gamma}{2}\ \ \mathrm{e} \ \ \int_{c_{2,\gamma}}^{1} ny^{n-1}dy = \frac{1-\gamma}{2}
+\int^{c_{1,\gamma}}_{-\infty} f(y) dy = \frac{1-\gamma}{2}\ \ \mathrm{e} \ \ \int_{c_{2,\gamma}}^{\infty} f(y)dy = \frac{1-\gamma}{2}
 $$
 
 Esse método produz um intervalo de confiança simétrico, não necessariamente o de menor amplitude, mas é mais fácil de
 encontrar. O intervalo de confiança com menor amplitude com quantis que satisfaçam ([-@eq-obterquantis]) é obtido minimizando
 $|c_{2,\gamma} - c_{1,\gamma}|$ sujeito a ([-@eq-obterquantis]).
 
-Pode-se demonstrar que $c_{1,\gamma}, c_2{\gamma}$ que produzem amplitude mínima e satisfazem ([-@eq-obterquantis]) são
+Se $f$ for *unimodal*, pode-se demonstrar que $c_{1,\gamma}, c_2{\gamma}$ que produzem amplitude mínima e satisfazem ([-@eq-obterquantis]) são
 tais que
 $$
 f(c_{1,\gamma}) = f(c_{2,\gamma})

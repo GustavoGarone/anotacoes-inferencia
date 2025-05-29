@@ -14,7 +14,7 @@ Em que $P_{0}$ é a medida de probabilidade especificada que governaria (sob $H_
 
 Neste teste co,paramos a frequência observada com a frequência esperada em $k$ eventos disjuntos e distintos observáveis.
 $$
-\begin{array}{c|cc}
+\begin{array}{c|cccc}
 \text{Eventos}  & 1  & 2 & \dots & k \\
 \hline
 P_{0} & P_{01} & P_{02} & \dots & P_{0k} \\
@@ -58,7 +58,7 @@ Em que $P_{0}(\{ i \}) = \frac{1}{60} \forall i \in \{ 1,2,\dots 60 \}$
 Vamos criar a [tabela para as frequências](tabela-frequencias.qmd). Consideraremos *a primeira bola* de todos os $2800$
 sorteios da Mega.
 $$
-\begin{array}{c|ccc}
+\begin{array}{c|cccc}
 \mathrm{Eventos}  &  1 & 2 & \dots & 60\\
 \hline
 P_{0} & \frac{1}{60} & \frac{1}{60} & \dots & \frac{1}{60} \\
@@ -104,7 +104,7 @@ a $5\%$ de significância de estatística.
 Considere os $n=30$ dados abaixo que supostamente seguem uma distribuição normal $N(10,25)$.
 (usando os dados do livro já em ordem)
 $$
-\begin{array}{}
+\begin{array}{cccccc}
 1.01 & 1.73 & 3.93 & 4.44 & 6.37 & 6.51 \\ 
 \vdots  & \vdots  & \vdots & \vdots  & \vdots & \vdots \\
 14.11 & 14.6 & 14.64 & 14.75 & 16.68 & 22.14
@@ -134,7 +134,7 @@ q_{3} = 13.3
 $$
 Podemos produzir uma tabela com as frequências por intervalo
 $$
-\begin{array}{c|cc}
+\begin{array}{c|cccc}
 \mathrm{Eventos}  &  1.  & 2. & 3. & 4.\\
 \hline
 E_{i} & 0.25 \cdot 30=7.5  & 7.5 & 7.5 & 7.5 \\

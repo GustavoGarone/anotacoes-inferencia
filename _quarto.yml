@@ -18,6 +18,9 @@ book:
       - icon: github
         href: https://github.com/GustavoGarone/anotacoes-inferencia
         aria-label: GitHub
+      - text: "<i class='fa-solid fa-file-pdf'></i> PDF"
+        href: Anotações-de-Inferência-Frequentista.pdf
+        # icon: download
   favicon: theta.png
   chapters:
     - index.qmd
@@ -74,9 +77,20 @@ format:
       light: [cosmo]
       dark: [cosmo, theme-dark.scss]
     respect-user-color-scheme: true
-  # pdf:
-  #   documentclass: scrreprt
-  #   cite-method: biblatex
-
+    include-in-header: 
+      text: |
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  pdf:
+    documentclass: scrreport
+    cite-method: biblatex
+    include-in-header:
+      - text: |
+          \usepackage{cancel}
+  latex:
+    documentclass: scrreport
+    cite-method: biblatex
+    include-in-header:
+      - text: |
+          \usepackage{cancel}
 
 

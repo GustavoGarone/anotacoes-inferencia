@@ -94,7 +94,7 @@ H_{1}: \mu_{D} < 0
 $$
 
 $$
-\begin{array}{c|c|c|c}
+\begin{array}{c|c|c|c|c}
 \mathrm{Indíce}  & \mathrm{Antes}(X)  &  \mathrm{Depois}(Y) & \mathrm{Dif}(D) & \mathrm{Dif^2}(D^2)\\
 \hline
 1 & 2.4 &  4.3 & -1.9 & 3.61\\
@@ -239,7 +239,7 @@ Queremos testar a resistência de dois tipos de viga de aço, $A$ e $B$. Tomando
 vigas do tipo $B$. de um teste $f$, conseguimos com $10\%$ de significância que as variâncias não são iguais.
 Obtemos os valores da tabela:
 $$
-\begin{array}{c|c}
+\begin{array}{c|c|c}
 \text{Tipo}  & \text{Média}  & \text{Variância} (s^2) \\
 \hline
 A & 70.5 & 81.6 \\

@@ -181,17 +181,17 @@ Note que
 $$
 \begin{aligned}
 L_{\boldsymbol{X}_n}(\theta) &= \prod f_\theta(x) = \prod \left\{\binom{3}{x_i} \theta^{x_i} (1-\theta)^{3-x}\right\} \\
-\Rightarrow \ln L_\boldsymbol{X_n}(\theta) &= \sum \ln \binom{3}{x_i} + \sum x_i \ln \theta + \sum (3-x_i)\ln(1-\theta) \\
+\Rightarrow \ln L_{\boldsymbol{X}_n}(\theta) &= \sum \ln \binom{3}{x_i} + \sum x_i \ln \theta + \sum (3-x_i)\ln(1-\theta) \\
 \Rightarrow U_n(\boldsymbol{x}_n,\theta) &= \sum \frac{x_i}{\theta} + \sum \frac{(3-x_i)}{1-\theta} (-1) \\
-& = \frac{x_i}{\theta} - \sum \frac{(3-x_i)}{1-\theta},\ \forall \theta \in \Theta.
+&= \frac{x_i}{\theta} - \sum \frac{(3-x_i)}{1-\theta},\ \forall \theta \in \Theta.
 \end{aligned}
 $$
 
 A informação de Fisher total é, pelo [teorema](escore.qmd#sec-teo-infofisher),
 $$
 \begin{aligned}
-I_n(\theta) &= - E_\theta\left(\frac{\partial}{\partial\theta} U_n(\boldsymbol{X}_n,\theta)\right) \\
-&= - E_\theta\left( - \sum \frac{X_i}{\theta^2} + \sum \frac{(3-X)}{(1-\theta)^2}(-1)\right) \\
+I_n(\theta) &= -E_\theta\left(\frac{\partial}{\partial\theta} U_n(\boldsymbol{X}_n,\theta)\right) \\
+&= -E_\theta\left( - \sum \frac{X_i}{\theta^2} + \sum \frac{(3-X)}{(1-\theta)^2}(-1)\right) \\
 &= E_\theta\left(\sum \frac{X_i}{\theta^2} + \sum \frac{(3-X)}{(1-\theta)^2}\right) \\
 &= \sum \frac{E_\theta(X_i)}{\theta^2} + \sum \frac{3 - E_\theta(X)}{(1-\theta)^2} \\
 &= \frac{n 3\theta}{\theta^2} + \frac{n(3-3\theta)}{(1-\theta)^2} \\

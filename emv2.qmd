@@ -180,19 +180,19 @@ Logo,
 $$
 \begin{aligned}
 U_n(\boldsymbol{x}_n,\theta) &= 0 \\
-\iff &\left\{\begin{array}{l}
+\iff &\left\{\begin{array}{ll}
 \frac{\partial \ln }{\partial \mu} \mathcal{L}_{\boldsymbol{x}_n}(\theta) = \frac{1}{\sigma^2} \sum (x_i - \mu) &= 0 \\
 \frac{\partial \ln }{\partial \sigma^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4} \sum (x_i-\mu)^2 &= 0
 \end{array}\right. \\
-\iff &\left\{\begin{array}{l}
+\iff &\left\{\begin{array}{ll}
 \sum x_i -n \mu= 0 \\
 -n + \frac{1}{\sigma^2} \sum (x_i - \mu)^2 = 0
 \end{array}\right. \\
-\iff &\left\{\begin{array}{l}
+\iff &\left\{\begin{array}{ll}
 \mu = \sum \frac{x_i}{n} = 0 \\
 \sigma^2 = \sum \frac{(x_i-\mu)^2}{n}
 \end{array}\right. \\
-\Rightarrow &\left\{\begin{array}{l}
+\Rightarrow &\left\{\begin{array}{ll}
 \hat{\mu} = \bar{x} \\
 \hat{\sigma^2} = \frac{1}{n} \sum (x_i - \bar{x})^2
 \end{array}\right.
