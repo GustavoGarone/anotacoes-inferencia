@@ -1,0 +1,93 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/nixos.org) (preloaded format=latex 1980.1.1)  29 MAY 2025 16:39
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**\begin{document}
+
+(/nix/store/mq10vymgzwfnbv9m9r8n2a9l6ip0wjx7-texlive-2024-env-texmfdist/tex/lat
+ex/l3backend/l3backend-dvips.def
+File: l3backend-dvips.def 2024-05-08 L3 backend support: dvips
+\l__pdf_internal_box=\box52
+\l__pdf_backend_content_box=\box53
+\l__pdf_backend_model_box=\box54
+\g__pdf_backend_annotation_int=\count196
+\g__pdf_backend_link_int=\count197
+\g__pdf_backend_link_sf_int=\count198
+)
+No file texput.aux.
+\openout1 = `texput.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 0.
+LaTeX Font Info:    ... okay on input line 0.
+
+! LaTeX Error: The font size command \normalsize is not defined:
+               there is probably something wrong with the class file.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> \begin{document}
+                    
+? \usepackage
+Type <return> to proceed, S to scroll future error messages,
+R to run without stopping, Q to run quietly,
+I to insert something, 
+1 or ... or 9 to ignore the next 1 to 9 tokens of input,
+H for help, X to quit.
+? 
+
+*\usepackage{amsmath}
+
+! LaTeX Error: Can be used only in preamble.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> \usepackage
+               {amsmath}
+? 
+
+*\end{document}
+
+
+
+! LaTeX Error: The font size command \normalsize is not defined:
+               there is probably something wrong with the class file.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+<*> \end{document}
+                  
+? 
+[1] (./texput.aux)
+ ***********
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+ ***********
+ 
+Here is how much of TeX's memory you used:
+ 210 strings out of 473204
+ 5960 string characters out of 5692228
+ 393658 words of memory out of 5000000
+ 23555 multiletter control sequences out of 15000+600000
+ 558837 words of font info for 36 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 34i,5n,50p,148b,78s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+Output written on texput.dvi (1 page, 236 bytes).

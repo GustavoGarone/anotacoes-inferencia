@@ -86,11 +86,11 @@ format:
     include-in-header:
       - text: |
           \usepackage{cancel}
+          \usepackage{unicode-math}
   latex:
     documentclass: scrreport
     cite-method: biblatex
     include-in-header:
       - text: |
           \usepackage{cancel}
-
-
+          \usepackage{unicode-math}

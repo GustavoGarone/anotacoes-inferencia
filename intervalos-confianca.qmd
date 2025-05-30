@@ -267,7 +267,7 @@ Esse método produz um intervalo de confiança simétrico, não necessariamente 
 encontrar. O intervalo de confiança com menor amplitude com quantis que satisfaçam ([-@eq-obterquantis]) é obtido minimizando
 $|c_{2,\gamma} - c_{1,\gamma}|$ sujeito a ([-@eq-obterquantis]).
 
-Se $f$ for *unimodal*, pode-se demonstrar que $c_{1,\gamma}, c_2{\gamma}$ que produzem amplitude mínima e satisfazem ([-@eq-obterquantis]) são
+Se $f$ for *unimodal* e *bicaudal*, pode-se demonstrar que $c_{1,\gamma}, c_2{\gamma}$ que produzem amplitude mínima e satisfazem ([-@eq-obterquantis]) são
 tais que
 $$
 f(c_{1,\gamma}) = f(c_{2,\gamma})
@@ -378,6 +378,14 @@ $$
 :::
 
 Vamos conferir por [simulações de monte carlo](monte-carlo.qmd) e o [método de Newton-Raphson](metodo-nr.qmd)
+
+a-) para θ
+
+b-) para $g(\theta) = P(X < 950) => g'(\theta) = f_\theta(950)$
+
+c-) para g(θ) = ln f_θ(x) g'(θ) = - ψ_1(θ) + ln(θ) - 1/θ
+
+d-) para g(θ) = f_\theta(x)
 ```{julia}
 #| echo: true
 #| output: false
@@ -386,8 +394,9 @@ using SpecialFunctions, Distributions, Random, LaTeXStrings
 # IC assintótico
 # Calcule o IC
 #a-) para θ
-#b-) para g(θ) = P(X < 950)
-#c-) para g(θ) = ln f_θ(θ)
+#b-) para g(θ) = P(X < 950) => g'(θ) = f_θ(950)
+#c-) para g_x(θ) = ln f_θ(x) g'(θ) = - ψ_1(θ) + ln(θ) - 1/θ. x = θ
+#d-) para g_x(θ) = f_\theta(x). x = θ
 
 
 # Sabemos que θ.MV ~a~ N(θ, I_n(θ)^-1)
@@ -452,7 +461,6 @@ confiança = monte_carlo_a(M, γ, n, θ_0)
 display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
 ```
 
-<!-- TODO: finalizar o item b -->
 Para o item b,
 ```{julia}
 #| echo: true
@@ -461,13 +469,14 @@ Para o item b,
 # Resolução do item b
 function monte_carlo_b(M, γ, n, theta0)
   d = Gamma(theta0, 1)
-  g(a) = 
+  g(a) = cdf(Gamma(a, 1), 950)
+  g1(a) = pdf(Gamma(a,1), 950)
   function mc()
     x = rand(d, n)
     EMV = newton_raphson(x)
     c2 = quantile(Normal(), γ + (1-γ)/2)
-    I1 = EMV - c2 * sqrt(1/(n*trigamma(EMV)))
-    I2 = EMV + c2 * sqrt(1/(n*trigamma(EMV)))
+    I1 = g(EMV) - c2 * sqrt(g1(EMV)^2/(n*trigamma(EMV)))
+    I2 = g(EMV) + c2 * sqrt(g1(EMV)^2/(n*trigamma(EMV)))
     return I1, I2
   end
 
@@ -478,11 +487,25 @@ function monte_carlo_b(M, γ, n, theta0)
     push!(superiores, intervalo[2])
   end
 
-  acertos = inferiores .<= theta0 .<= superiores
+  acertos = inferiores .<= g(theta0) .<= superiores
   return mean(acertos) 
 
 end
 ```
+
+Rodando o código para o item b, temos
+```{julia}
+M = 10_000; γ = 0.95; n = 100; θ_0 = 1000
+confiança = monte_carlo_b(M, γ, n, θ_0)
+display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
+M = 10_000; γ = 0.99; n = 100; θ_0 = 951
+confiança = monte_carlo_b(M, γ, n, θ_0)
+display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
+M = 10_000; γ = 0.99; n = 5; θ_0 = 951
+confiança = monte_carlo_b(M, γ, n, θ_0)
+display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
+```
+
 Para o item c, precisaremos calcurar as derivadas:
 $$
 \begin{aligned}
@@ -492,8 +515,6 @@ g(\theta) &= \ln f_\theta(\theta) = - \ln \Gamma(\theta) + (\theta-1) \ln (\thet
 \end{aligned}
 $$
 
-<!-- TODO: finalizar item c -->
-
 ```{julia}
 #| echo: true
 #| output: false
@@ -501,13 +522,14 @@ $$
 # Resolução do item c
 function monte_carlo_c(M, γ, n, theta0)
   d = Gamma(theta0, 1)
-  g(a) = 
+  g(a) =  log(pdf(Gamma(a, 1), a))
+  g1(a) = -digamma(a) + log(a) - 1/a
   function mc()
     x = rand(d, n)
     EMV = newton_raphson(x)
     c2 = quantile(Normal(), γ + (1-γ)/2)
-    I1 = EMV - c2 * sqrt(1/(n*trigamma(EMV)))
-    I2 = EMV + c2 * sqrt(1/(n*trigamma(EMV)))
+    I1 = g(EMV) - c2 * sqrt(g1(EMV)^2/(n*trigamma(EMV)))
+    I2 = g(EMV) + c2 * sqrt(g1(EMV)^2/(n*trigamma(EMV)))
     return I1, I2
   end
 
@@ -517,8 +539,174 @@ function monte_carlo_c(M, γ, n, theta0)
     push!(inferiores, intervalo[1])
     push!(superiores, intervalo[2])
   end
-  acertos = inferiores .<= theta0 .<= superiores
+  acertos = inferiores .<= g(theta0) .<= superiores
   return mean(acertos) 
 end
 ```
 
+Rodando o código para o item c, temos
+```{julia}
+M = 10_000; γ = 0.95; n = 100; θ_0 = 100
+confiança = monte_carlo_c(M, γ, n, θ_0)
+display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
+M = 10_000; γ = 0.99; n = 100; θ_0 = 100
+confiança = monte_carlo_c(M, γ, n, θ_0)
+display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
+M = 10_000; γ = 0.99; n = 5; θ_0 = 75
+confiança = monte_carlo_c(M, γ, n, θ_0)
+display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
+```
+
+Para o item d, note que
+$$
+g'(\theta) = \mathrm{e}^{\ln f_\theta(x)} (-\psi_1(\theta) + \ln(\theta) - 1/\theta)
+$$
+
+```{julia}
+#| echo: true
+#| output: false
+
+# Resolução do item d
+function monte_carlo_d(M, γ, n, theta0)
+  d = Gamma(theta0, 1)
+  g(a) = exp(log(pdf(Gamma(a, 1), a))) # usado a expp(log), poderia usar direto
+  g1(a) = exp(log(pdf(Gamma(a,1), a))) * (-digamma(a) + log(a) - 1/a)
+  function mc()
+    x = rand(d, n)
+    EMV = newton_raphson(x)
+    c2 = quantile(Normal(), γ + (1-γ)/2)
+    I1 = g(EMV) - c2 * sqrt(g1(EMV)^2/(n*trigamma(EMV)))
+    I2 = g(EMV) + c2 * sqrt(g1(EMV)^2/(n*trigamma(EMV)))
+    return I1, I2
+  end
+
+  inferiores = []; superiores = [] 
+  for _ in 1:M
+    intervalo = mc()
+    push!(inferiores, intervalo[1])
+    push!(superiores, intervalo[2])
+  end
+  acertos = inferiores .<= g(theta0) .<= superiores
+  return mean(acertos) 
+end
+```
+
+Rodando o código para o item d, temos
+```{julia}
+M = 10_000; γ = 0.95; n = 100; θ_0 = 100
+confiança = monte_carlo_d(M, γ, n, θ_0)
+display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
+M = 10_000; γ = 0.99; n = 100; θ_0 = 100
+confiança = monte_carlo_d(M, γ, n, θ_0)
+display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
+M = 10_000; γ = 0.99; n = 5; θ_0 = 75
+confiança = monte_carlo_d(M, γ, n, θ_0)
+display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
+```
+
+#### Comparação entre o exato e aproximado
+
+```{julia}
+#| echo: true
+#| output: false
+using Plots, LaTeXStrings, Distributions, StatsBase, Random
+
+function monte_carlo_realxaprox()
+  theta0 = 10
+  M = 100_000
+  nn = 100
+
+  γ = 0.95
+
+  g(a) = a
+  g1(a) = 1
+
+  w = 0
+  cober = zeros(nn)
+  cobera = zeros(nn)
+  for n in 1:nn
+    w += 1
+    I1 = zeros(M)
+    Ia1 = zeros(M)
+    I2 = zeros(M)
+    Ia2 = zeros(M)
+
+    for i in 1:M
+      x = rand(Exponential(1/theta0), n)
+      c1 = quantile(Chisq(2n), (1-γ)/2)
+      c2 = quantile(Chisq(2n), γ + (1-γ)/2)
+      I1[i] = c1/(2*sum(x))
+      I2[i] = c2/(2*sum(x))
+
+      ca2 = quantile(Normal(), γ + (1-γ)/2)
+      EMV =  1/mean(x)
+      Ia1[i] = g(EMV) - ca2 * sqrt(g1(EMV)^2 * EMV^2 /n)
+      Ia2[i] = g(EMV) + ca2 * sqrt(g1(EMV)^2 * EMV^2 /n)
+    end
+    cober[w] = mean(I1 .<= theta0 .<= I2)
+    cobera[w] = mean(Ia1 .<= g(theta0) .<= Ia2)
+  end
+  preal = scatter(1:10:100, cober, color="blue",
+                  label="Cobertura do IC real observado",
+                  title="Comparação entre ICs: Cobertura",
+                  ylims=(γ-0.1, γ+0.1),
+                  xlabel="Cobertura",
+                  ylabel=L"n")
+  scatter!(1:10:100, cobera, color="red", label="Cobertura IC aproximado")
+  hline!([γ], label=L"\gamma")
+  return preal
+end
+```
+
+<!-- TODO: adicionar comparação da amplitude, corrigir ylabel -->
+
+```{julia}
+display(monte_carlo_realxaprox())
+```
+
+#### Exemplo poisson
+
+Note que0
+$$
+\begin{aligned}
+\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) &= \bar{X} \\
+\sqrt{n}\frac{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) - \theta}{\sqrt{\theta}} &\stackrel{\mathcal{D}}{\rightarrow} N(0,1) \\
+\sqrt{n}\frac{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) - \theta}{\sqrt{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)}} &\stackrel{\mathcal{D}}{\rightarrow} N(0,1) \\
+\end{aligned}
+$$
+
+```{julia}
+#| echo: true
+#| output: false
+function monte_carlo_poiss()
+  theta0 = 10
+  d = Poisson(theta0)
+  g(a) = a
+  g1(a) = 1
+  nn = 1000
+  amplitude = zeros(nn)
+  cober = zeros(nn)
+  M = 10_000
+  for n in nn
+    I1 = zeros(M)
+    I2 = zeros(M)
+    for i in 1:M
+      x = rand(d, n)
+      EMV = mean(x)
+      c2 = quantile(Normal(), γ + (1-γ)/2)
+      I1[i] = EMV - c2 * sqrt(g1(EMV)^2 * EMV/n)
+      I2[i] = EMV + c2 * sqrt(g1(EMV)^2 * EMV/n)
+    end
+    amplitude[n] = mean(I2 .- I1)
+    cober[n] = mean(I1 .<= g(theta0) .<= I2)
+  end
+  amp = scatter(10:100:1000, amplitude)
+  cob = scatter(10:100:1000, cober)
+  plt = plot(amp, cob)
+  return plt
+end
+```
+
+```{julia}
+display(monte_carlo_poiss())
+```

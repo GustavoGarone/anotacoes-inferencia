@@ -4,3 +4,5 @@
 _book/
 quarto/
 /.quarto/
+index_files/
+site_libs/
