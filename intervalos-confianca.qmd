@@ -679,6 +679,7 @@ $$
 #| echo: true
 #| output: false
 function monte_carlo_poiss()
+  run(`echo \$QT_QPA_PLATFORM`)
   theta0 = 10
   d = Poisson(theta0)
   g(a) = a
@@ -700,9 +701,11 @@ function monte_carlo_poiss()
     amplitude[n] = mean(I2 .- I1)
     cober[n] = mean(I1 .<= g(theta0) .<= I2)
   end
-  amp = scatter(10:100:1000, amplitude)
-  cob = scatter(10:100:1000, cober)
-  plt = plot(amp, cob)
+  amp = scatter(10:100:1000, amplitude, title="Amplitude dos ICs", label="",
+                color=:blue, xlabel="n")
+  cob = scatter(10:100:1000, cober, title="Cobertura dos ICs", label="",
+                color=:red, xlabel="n")
+  plt = plot(cob, amp)
   return plt
 end
 ```

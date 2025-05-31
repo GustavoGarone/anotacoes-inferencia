@@ -5,6 +5,8 @@ project:
 
 
 engines: ['julia'] 
+julia:
+  env: ["QT_QPA_PLATFORM=xcb"]
 execute:
   echo: false
   cache: true
