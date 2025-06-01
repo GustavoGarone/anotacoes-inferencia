@@ -1,6 +1,7 @@
 ```{julia}
 #| output: false
-using Pkg; Pkg.add(["SpecialFunctions", "Distributions", "Plots"])
+using Pkg; Pkg.add(["SpecialFunctions", "Distributions", "Plots", "RCall", "PythonCall"])
+import RCall, PythonCall
 ```
 # Método de Newton-Raphson
 
@@ -127,14 +128,17 @@ main()
 ```
 #### Python
 
-```{Python}
-# Código em Python (TODO/TESTE)
+```{python}
+print("Teste Python")
+print(1+1)
 ```
 
 #### R
 
-```{R}
-# Código em R (TODO/TESTE)
+```{r}
+cat("Teste R")
+dados<-c(1,2,3,4,5)
+plot(dados)
 ```
 
 :::
