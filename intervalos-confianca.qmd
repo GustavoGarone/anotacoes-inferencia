@@ -219,7 +219,7 @@ $$
 
 Seja $Y = \frac{X_{(n)}}{\theta}$, então 
 $$
-f_(\theta)^{Y}(x) = f_(\theta)^{\boldsymbol{X}_{(n)}}(y \theta) \cdot |J|
+f_{\theta}^{Y}(y) = f_{\theta}^{\boldsymbol{X}_{(n)}}(y \theta) \cdot |J|
 $$
 em que $J = \theta$ (determinante jacobiano)
 
@@ -337,23 +337,23 @@ Além disso,
 
 1. 
 $$
-\frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(\theta)^{-2}V_\theta}}  \stackrel{\mathcal{D}}{\rightarrow} N_1(0, 1), \forall \theta \in \Theta.
+\frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(\theta)^{2}V_\theta}}  \stackrel{\mathcal{D}}{\rightarrow} N_1(0, 1), \forall \theta \in \Theta.
 $$
 
 2. Pelo [teorema de Slutsky](slutsky.qmd)
 $$
-\frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(T(\boldsymbol{X}_n))^{-2}V_{T(\boldsymbol{X}_n)}}}  \stackrel{\mathcal{D}}{\rightarrow} N_1(0, 1), \forall \theta \in \Theta.
+\frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(T(\boldsymbol{X}_n))^{2}V_{T(\boldsymbol{X}_n)}}}  \stackrel{\mathcal{D}}{\rightarrow} N_1(0, 1), \forall \theta \in \Theta.
 $$
 
 Ou seja,
 $$
-Q(g(\theta), \boldsymbol{X}_n) = \frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(T(\boldsymbol{X}_n))^{-2}V_{T(\boldsymbol{X}_n)}}}
+Q(g(\theta), \boldsymbol{X}_n) = \frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(T(\boldsymbol{X}_n))^{2}V_{T(\boldsymbol{X}_n)}}}
 $$
 é uma quantidade pivotal aproximada para $g(\theta)$. Note que, com $T(\boldsymbol{X}_n) = \hat(\theta)$,
 $$
 \begin{aligned}
 &c_1 \leq Q(g(\theta), \boldsymbol{X}_n) \leq c_2 \\
-\iff& c_1 \leq \frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(T(\boldsymbol{X}_n))^{-2}V_{T(\boldsymbol{X}_n)}}} \leq c_2 \\
+\iff& c_1 \leq \frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(T(\boldsymbol{X}_n))^{2}V_{T(\boldsymbol{X}_n)}}} \leq c_2 \\
 \iff& c_1 \sqrt{\frac{g'(\hat\theta)^2}{n} V_{\hat\theta}} \leq g(\hat\theta) - g(\theta) \leq c_2\sqrt{\frac{g'(\hat\theta)^2}{n} V_{\hat\theta}} \\
 \iff& g(\hat\theta) - c_2 \sqrt{\frac{g'(\hat\theta)^2}{n} V_{\hat\theta}} \leq g(\theta) \leq g(\hat\theta) - c_1\sqrt{\frac{g'(\hat\theta)^2}{n} V_{\hat\theta}} \\
 \end{aligned}
@@ -679,7 +679,6 @@ $$
 #| echo: true
 #| output: false
 function monte_carlo_poiss()
-  run(`echo \$QT_QPA_PLATFORM`)
   theta0 = 10
   d = Poisson(theta0)
   g(a) = a
@@ -713,3 +712,114 @@ end
 ```{julia}
 display(monte_carlo_poiss())
 ```
+
+## Regiões de confiança
+
+Dizemos que $\mathrm{RC}^{(a)}(g(\theta),\gamma)$ é uma região de confança para $g(\theta)$ com coeficiente de confiança $\gamma$
+se, e somente se,
+$$
+P_\theta(\theta \in \mathrm{RC}(g(\theta),\gamma)) = \gamma, \forall \theta \in \Theta.
+$$
+
+Se $\lim_{n\rightarrow \infty} P_\theta(\theta \in \mathrm{RC}(g(\theta),\gamma)) = \gamma, \forall \theta \in \Theta$, dizemos
+que $\mathrm{RC}^{(a)}(g(\theta),\gamma)$ é uma região de confiança assintótica.
+
+:::{.callout-note title="Observação"}
+Se
+$$
+P_\theta(\theta \in \mathrm{RC}(g(\theta),\gamma)) \geq \gamma,
+$$
+então dizemos que $\mathrm{RC}(g(\theta),\gamma))$ tem confiança de pelo menos $\gamma$.
+:::
+
+:::{.callout-note title="Observação"}
+$\mathrm{RC}(g(\theta),\gamma))$ é uma região aleatória que depende apenas da [amostra aleatória](populacao-e-amostra.qmd#sec-aa)
+e do coeficiente $\gamma$
+:::
+
+### Construção da Região de Confiança
+
+Seja $\hat{\theta}(\boldsymbol{X}_n)$ um [estimador](estimadores.qmd) para "$\theta$" tal que
+
+1.
+$$
+\sqrt{n}(\hat{\theta}(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, V_\theta), \forall \theta \in \Theta.
+$$
+
+2.
+$$
+\sqrt{n}V_\theta^{-1/2}(\hat{\theta}(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, I), \forall \theta \in \Theta.
+$$
+
+3.
+$$
+\sqrt{n}V_{\hat{\theta}(\boldsymbol{X}_n)}^{-1/2}(\hat{\theta}(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, I), \forall \theta \in \Theta.
+$$
+
+4.
+$$
+n(\hat{\theta}(\boldsymbol{X}_n) - \theta)^T V_{\hat{\theta}(\boldsymbol{X}_n)}^{-1} (\hat{\theta}(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} \chi^2_p, \forall \theta \in \Theta.
+$$
+
+Podemos usar 4. para construir uma RC para "$\theta$" assintótica:
+$$
+\mathrm{RC}^{(a)}(\theta, \gamma) = \left\{\theta \in \Theta : W_n(\theta) \leq q_\gamma\right\},
+$$
+em que $q_\gamma$ satisfaz
+$$
+P(\chi^2_p \leq q_\gamma) = \gamma.
+$$
+Assim, por construição,
+$$
+\lim_{n\rightarrow\infty} P_\theta(\theta \in \mathrm{RC}^{(a)}(\theta, \gamma)) = \gamma, \forall \theta \in \Theta.
+$$
+
+Para o caso $p=1$, ou seja, $\Theta \in \mathbb{R}$, note que
+$$
+n(\hat{\theta}(\boldsymbol{X}_n) - \theta)^T V_{\hat{\theta}(\boldsymbol{X}_n)}^{-1} (\hat{\theta}(\boldsymbol{X}_n) - \theta) =
+\frac{n(\hat{\theta}(\boldsymbol{X}_n) - \theta)^2}{V_{\hat{\theta}(\boldsymbol{X}_n)}} = W_n(\theta).
+$$
+Portanto,
+$$
+\begin{aligned}
+\mathrm{RC}(\theta,\gamma) &= \left\{
+\theta \in \Theta : 
+\frac{n(\hat{\theta}(\boldsymbol{X}_n) - \theta)^2}{V_{\hat{\theta}(\boldsymbol{X}_n)}} \leq q_\gamma
+\right\} \\
+\iff
+\mathrm{RC}(\theta,\gamma) &= \left\{
+\theta \in \Theta : 
+\lvert \hat{\theta}(\boldsymbol{X}_n) - \theta \rvert \leq \sqrt{q_\gamma \cdot \frac{V_{\hat{\theta}(\boldsymbol{X}_n)}}{n}}
+\right\} \\
+\iff
+\mathrm{RC}(\theta,\gamma) &= \left\{
+\theta \in \Theta : 
+-\sqrt{q_\gamma \cdot \frac{V_{\hat{\theta}(\boldsymbol{X}_n)}}{n}} \leq \hat{\theta}(\boldsymbol{X}_n) - \theta
+\leq \sqrt{q_\gamma \cdot \frac{V_{\hat{\theta}(\boldsymbol{X}_n)}}{n}}
+\right\} \\
+\iff
+\mathrm{RC}(\theta,\gamma) &= \left\{
+\theta \in \Theta : 
+\hat{\theta}(\boldsymbol{X}_n) -\sqrt{q_\gamma} \sqrt{\frac{V_{\hat{\theta}(\boldsymbol{X}_n)}}{n}} \leq \theta
+\leq \hat{\theta}(\boldsymbol{X}_n) + \sqrt{q_\gamma} \sqrt{\frac{V_{\hat{\theta}(\boldsymbol{X}_n)}}{n}}
+\right\}
+\end{aligned}
+$$
+em que $q_\gamma$ é tal que $P(\chi^2_1 \leq q_\gamma) = \gamma$.
+
+No caso em que $\Theta$ é uma semireta ou intervalo, a região de confiança coincide com o intervalo de confiança.
+
+:::{.callout-note title="Observação"}
+$$
+P(\chi^2_1 \leq q_\gamma) = P(-\sqrt{q_\gamma} \leq N(0,1) \leq \sqrt{q_\gamma}) = \gamma
+$$
+:::
+
+Para o caso $p=2$, ou seja, $\Theta = \mathbb{R}^2$, a razão de confiança aproximada é
+$$
+\mathrm{RC}(\theta, \gamma) = \left\{\theta \in \Theta : W_n(\theta) \leq q_\gamma\right\},
+$$
+
+<!-- TODO: gráfico da elipse -->
+
+

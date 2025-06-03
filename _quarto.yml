@@ -68,6 +68,7 @@ book:
       - prop-est.qmd
       - normal-multivariada.qmd
       - intervalos-confianca.qmd
+      - teste-hipotese2.qmd
     # - references.qmd
 
 bibliography: references.bib

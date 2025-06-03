@@ -95,7 +95,7 @@ P_{4}(A)&= \int_{A} f_{4}(\omega)d \omega \\
 \end{aligned}$$
 Dessa forma,
 $$P_{\theta}(A)= \int_{A}f_\theta(\omega)d \omega$$
-e $\Omega = \{1,2,3,4 \}$
+e $\Theta= \{1,2,3,4 \}$
 Seja $X: \Omega \rightarrow \mathbb{R}$ tal que $$X(\omega)= \omega$$
 Note que $$E_\theta(X)=\int_{-\infty}^{\infty}xf_\theta(x)dx, \theta \in \{1,2,3,4 \}$$
 $$E_\theta(X)=\begin{cases}

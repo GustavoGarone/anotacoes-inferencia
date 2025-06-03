@@ -135,8 +135,8 @@ em que $f^{(i)}(x_i)$ é  a f.d.p de $N(\mu_i, \sigma_{ii})$
 A função geradora de momentos de $\boldsymbol{X} \sim N_d(\boldsymbol{\mu} \Sigma)$ é dada por
 $$
 M_{\boldsymbol{X}}(\boldsymbol{t}) = \mathrm{Exp}\left\{
-\boldsymbol{\mu}^T\boldsymbol{t} + \frac{1}{2} \boldsymbol{t}^T \Sigma \boldsymbol{t}, \forall \boldsymbol{t} \in \mathbb{R}^d
-\right\}
+\boldsymbol{\mu}^T\boldsymbol{t} + \frac{1}{2} \boldsymbol{t}^T \Sigma \boldsymbol{t}
+\right\}, \forall \boldsymbol{t} \in \mathbb{R}^d
 $$
 :::
 
@@ -194,11 +194,13 @@ $$
 
 Além disso,
 $$
-\mathrm{tr}\{\Sigma\} = \mathrm{tr}\{\Gamma \Lambda \Gamma^T\} = \mathrm{tr}\{\Lambda\Gamma^T\Gamma\} = \mathrm{tr}\{\Lambda\} = \sum^d_{i=1} \lambda_1
+\mathrm{tr}\{\Sigma\} = \mathrm{tr}\{\Gamma \Lambda \Gamma^T\} = \mathrm{tr}\{\Lambda\Gamma^T\Gamma\} = \mathrm{tr}\{\Lambda\} = \sum^d_{i=1} \lambda_i
 $$
 
+<!-- TODO: terminar -->
 ```{julia}
 #|eval: false
+#| output: false
 using LinearAlgebra, Distributions, Random
 Random.seed!(10)
 d = Normal(3,1)
@@ -693,12 +695,12 @@ $$
 \Rightarrow \frac{\partial^2 \mathcal{l}_{\boldsymbol{x}_n}}{\partial \theta \partial \theta^T}(\theta) = -n
 \begin{bmatrix}
 \psi_2(\alpha) - \psi_2(\alpha + \beta) & -\psi_2(\alpha+\beta) \\
--\psi_2(\alpha+beta) & \psi_2(\beta) - \psi_2(\alpha+\beta)
+-\psi_2(\alpha+\beta) & \psi_2(\beta) - \psi_2(\alpha+\beta)
 \end{bmatrix} \\
 \Rightarrow I_n(\theta) = n
 \begin{bmatrix}
 \psi_2(\alpha) - \psi_2(\alpha + \beta) & -\psi_2(\alpha+\beta) \\
--\psi_2(\alpha+beta) & \psi_2(\beta) - \psi_2(\alpha+\beta)
+-\psi_2(\alpha+\beta) & \psi_2(\beta) - \psi_2(\alpha+\beta)
 \end{bmatrix}.
 \end{aligned}
 $$
@@ -729,7 +731,7 @@ I_1(\theta)^{-1} &= \frac{1}{(\psi_2(\alpha) - \psi_2(\alpha+\beta))(\psi_2(\bet
 &\cdot
 \begin{bmatrix}
 \psi_2(\alpha) - \psi_2(\alpha + \beta) & \psi_2(\alpha+\beta) \\
-\psi_2(\alpha+beta) & \psi_2(\beta) - \psi_2(\alpha+\beta)
+\psi_2(\alpha+\beta) & \psi_2(\beta) - \psi_2(\alpha+\beta)
 \end{bmatrix}.
 \end{aligned}
 $$
