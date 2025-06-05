@@ -334,7 +334,7 @@ $$
 $$
 é a probabilidade máxima de cometer o Erro tipo I e
 $$
-\beta_{\delta, \mathrm{max}} = \sup_{\theta \in \Theta_0} (1-\pi_\delta(\theta))
+\beta_{\delta, \mathrm{max}} = \sup_{\theta \in \Theta_1} (1-\pi_\delta(\theta))
 $$
 é a probabilidade máxima de cometer o Erro tipo II.
 
@@ -342,7 +342,7 @@ Quando $\mathrm{H}_0, \mathrm{H}_1$ são simples, temos
 $$
 \begin{aligned}
 \alpha_{\delta, \max} &= \pi_\delta(\theta_0) \\
-\beta{\delta, \max} &= 1 - \pi_\delta(\theta_0),
+\beta{\delta, \max} &= 1 - \pi_\delta(\theta_1),
 \end{aligned}
 $$
 com
