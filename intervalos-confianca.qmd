@@ -156,7 +156,7 @@ Q(\mu, \boldsymbol{X}_n) = \sqrt{n}\frac{\bar{X}-\mu}{\sqrt{S^2_{n-1}(\boldsymbo
 $$
 
 $$
-\mathrm{IC}(\mu,\gamma) = \bar{X} \mp c_{\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n}{n}}
+\mathrm{IC}(\mu,\gamma) = \bar{X} \mp c_{\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}
 $$
 essa é também uma quantidade pivotal para 1., mas o contrário não vale.
 
@@ -224,7 +224,7 @@ $$
 em que $J = \theta$ (determinante jacobiano)
 
 $$
-f_(\theta)^{Y}(y) = \frac{n (y\theta)^{n-1}}{\theta^n} \theta \mathrm{1}_{(0,\theta]}(y \theta) = n y^{n-1} \mathrm{1}_{(0,1]}(y)
+f_{\theta}^{Y}(y) = \frac{n (y\theta)^{n-1}}{\theta^n} \theta \mathbb{1}_{(0,\theta]}(y \theta) = n y^{n-1} \mathbb{1}_{(0,1]}(y)
 $$
 não depende de "$\theta$"! Logo, $Q(\theta, \boldsymbol{X}_n) = \frac{\boldsymbol{X}_{(n)}}{\theta}$ é uma quantidade pivotal
 para $\theta$.
@@ -379,13 +379,11 @@ $$
 
 Vamos conferir por [simulações de monte carlo](monte-carlo.qmd) e o [método de Newton-Raphson](metodo-nr.qmd)
 
-a-) para θ
+a) Para $\theta$
+b) Para $g(\theta) = P(X < 950) \Rightarrow g'(\theta) = f_\theta(950)$
+c) Para $g(\theta) = \ln f_\theta(x) g'(\theta) = - \psi_1(\theta) + \ln(\theta) - 1/\theta$
+d) Para $g(\theta) = f_\theta(x)$
 
-b-) para $g(\theta) = P(X < 950) => g'(\theta) = f_\theta(950)$
-
-c-) para g(θ) = ln f_θ(x) g'(θ) = - ψ_1(θ) + ln(θ) - 1/θ
-
-d-) para g(θ) = f_\theta(x)
 ```{julia}
 #| echo: true
 #| output: false

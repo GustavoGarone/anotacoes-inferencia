@@ -1,0 +1,354 @@
+# Teste de Hipótese - Aprofundamento
+
+Seja $\boldsymbol{X}_n = (X_1, \dots, X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X \sim f_\theta, \theta \in \Theta$.
+
+Note que, no caso discreto:
+$$
+P_\theta(X \in A) = \sum_{x \in A} f_\theta(x), \forall \theta \in \Theta.
+$$
+já no caso contínuo,
+$$
+P_\theta(X \in A) = \int_{A} f_\theta(x), \forall \theta \in \Theta.
+$$
+
+Temos uma família $\mathcal{P} = \{P_\theta : \theta \in \Theta\}$ de probabilidades que podem explicar o comportamento
+dos dados. Um dos objetivos do teste de hipótese é verificar se podemos reduzir $\mathcal{P}$ para uma família menor $\mathcal{P}_0 \subseteq \mathcal{P}$:
+$$
+\mathcal{P}_0 = \{P_\theta : \theta \in \Theta_0\}, \Theta_0 \subseteq \Theta.
+$$
+
+Definimos uma *hipótese estatística*
+$$
+\mathrm{H}_0 : \theta \in \Theta_0 \iff \mathrm{H}_0 : P_\theta \in \mathcal{P}_0
+$$
+$\mathrm{H}_0$ afirma que
+
+> "A medida de probabilidade que explica os dados está em $\mathcal{P}_0$"
+
+No caso em que $\Theta_0 = \{\theta_0\}$, então a hipótese
+$\mathrm{H}_0 : \theta = \theta_0 ( \iff \mathrm{H}_0 : P_{\theta} = P_{\theta_0})$ afirma que $P_{\theta_0}$ explica o
+comportamento probabilístico dos dados observados.
+
+$\mathrm{H}_0$ é chamada de *hipótese nula*.
+
+Note que a negação de $\mathrm{H}_0$ é
+
+> "Não é o caso que a família $\mathcal{P}_0$ contenha a medida que explica os dados".
+
+Ou seja, a negação de $\mathrm{H}_0$ sugere que a medida que explica os dados pode, inclusive, não estar contida em $\mathcal{P}$.
+
+Definimos também uma hipótese alternativa,
+$$
+\mathrm{H}_1: \theta \in (\Theta \setminus \Theta_0) \iff \mathrm{H}_1 : P_\theta \in (\mathcal{P} \setminus \mathcal{P}_0)
+$$
+
+<!-- Em termos de espaço paramétrico, -->
+<!-- TODO: Desenho do Theta maior e theta menor e visualização dos conjuntos e relação com hipóteses e os thetas -->
+
+<!-- Em termos de família de probabilidades,  -->
+<!-- TODO: Desenho do mathcal P maior e P0 e visualização dos conjuntos e relação com hipóteses e os P_thetas -->
+
+Observe que $\mathrm{H}_0$ e $\mathrm{H}_1$ não são exaustivas: na prática, ambas podem ser falsas.
+
+Se o analista considerar que $\mathcal{P}$ contém a medida que explica os dados, então, condicional a essa crença, $\mathrm{\mathrm{H}_0}$ e
+$\mathrm{\mathrm{H}_1}$ são exaustivas.
+
+## Exemplo
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim N(\mu, \sigma^2), \theta = (\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+$.
+
+Considere as seguintes hipóteses
+$$
+\begin{cases}
+\mathrm{H}_0 : \mu = 0 \\
+\mathrm{H}_1 : \mu \neq 0.
+\end{cases}
+$$
+Note que
+$$
+\begin{cases}
+\mathrm{H}_0 : \theta \in \Theta_0 \\
+\mathrm{H}_1 : \theta \in \Theta \setminus \Theta_0,
+\end{cases}
+$$
+em que
+$$
+\begin{aligned}
+\Theta_0 &= \{(\mu, \sigma^2) \in \mathbb{R} \times \mathbb{R}_+ : \mu = 0\} \\
+\Theta_1 &= \Theta \setminus \Theta_0 = \{(\mu, \sigma^2) \in \mathbb{R} \times \mathbb{R}_+ : \mu \neq 0\}.
+\end{aligned}
+$$
+Disso, temos que
+$$
+\begin{aligned}
+\Theta &= \Theta_0 \cup \Theta_1 \\
+\Theta_0 &\cap \Theta_1 = \emptyset.
+\end{aligned}
+$$
+
+
+As hipóteses acima podem ser reescritas em termos das suas respectivas famílias de medidas de probabilidades da seguinte forma:
+$$
+\begin{cases}
+\mathrm{H}_0: P in \mathcal{P}_0 \\
+\mathrm{H}_1: P \in \mathcal{P}_1
+\end{cases}
+$$,
+em que $\mathcal{P}_0 = \{N(\mu, \sigma^2): \ \mu = 0, \ \sigma^2 > 0 \}$ e
+$\mathcal{P}_1 = (\mathcal{P} - \mathcal{P}_0) = \{ N(\mu, \sigma^2): \ \mu \neq 0, \ \sigma^2 > 0 \}$
+
+Observe que, se assumirmos que a distribuição normal explica os dados, então $\mathrm{H}_0$ e $\mathrm{H}_1$ são exaustivas.
+Caso contrário, existe uma terceira opção: $\neg(\mathrm{H}_0 \lor \mathrm{H}_1)$.
+
+## Hipóteses estatísticas
+
+TOda hipótese estatística é uma interpretação de uma hipótese científica.
+
+| Hipótese científica |     Hipótese estatística   | Hipótese paramétrica |
+|:-------------------:|:--------------------------:|:--------------------:|
+| "A moeda é honesta" | $X \sim \mathrm{Ber}(0.5)$ |    $\theta = 0.5$    | 
+
+As hipótese estatísticas são escritas em termos de medidas de probabilidade, mas podem também ser representadas em termos
+do espaço paramétrico:
+$$
+\begin{cases}
+\mathrm{H}_0 : P_\theta \in \mathcal{P}_0 \\
+\mathrm{H}_1 : P_\theta \in \mathcal{P}_1 =  (\mathcal{P} \setminus \mathcal{P}_0),
+\end{cases}
+$$
+em que $\mathcal{P}_0 = \{P_\theta : \theta \in \Theta_0\}$ e  $\mathcal{P}_1 = \{P_\theta : \theta \in \Theta_1\}$ e
+$\Theta_1 = \Theta \setminus \Theta_0$.
+
+Observe que $\mathrm{H}_0, \mathrm{H}_1$ estão sempre restritas a modelo estatístico. Entretanto, a negação de
+$\mathrm{H}_0, \neg \mathrm{H}_0$, não está restrita ao modelo adotado.
+
+:::{.callout-note title="Algumas considerações lógicas"}
+<!-- TODO: desenho das famílias e tal igual da outra aula com o P0 no cantinho e P1 grandão no resto do quadrado uau h0 no p0 e 1 no p1 e ta mas pode ta fora, terceira via... -->
+
+1. Se o analista considerar que $\mathrm{H}_0$ ou $\mathrm{H}_1$ são verdadeiros, então ele está considerando que a medida que *explica* ou *gera*
+os dados está em $\mathcal{P}$. Está é a suposição de que o universo de possibilidades é fechado (suposição de Neyman-Pearson; Teoria da Decisão).
+
+2. $\mathrm{H}_0$ e $\mathrm{H}_1$ não pode ser simultaneamente verdadeiras.
+
+3. Se $\neg \mathrm{H}_0$ e $\neg \mathrm{H}_1$, então a medida que explica/gera os dados não está em $\mathcal{P}$.
+
+4. $\neg \mathrm{H}_0 \not\Rightarrow \mathrm{H}_1$. Isto é, se provarmos que $\mathrm{H}_0$ é falsa, não necessariamente
+$\mathrm{H}_1$ é verdadeira.
+
+5. $\mathrm{H}_1 \Rightarrow \neg \mathrm{H}_0$.
+:::
+
+## Tipos de hipótese
+
+Sejam $\mathrm{H}_0, \mathrm{H}_1$ as hipóteses nula e alternativa, respectivamente, tais que
+$$
+\begin{cases}
+\mathrm{H}_0 : \theta \in \Theta_0 \\
+\mathrm{H}_1 : \theta \in \Theta_1 \\
+\end{cases}
+$$
+em que $\Theta_0 \neq \emptyset, \Theta_0 \cup \Theta 1 = \Theta, \Theta_0 \cap \Theta_1 = \emptyset$. Dizemos que $\mathrm{H}_0$ é
+uma **hipótese simples** se $\# \Theta_0 = 1$. Caso contrário, dizemos que é uma **hipótese composta**.
+
+### Exemplos
+
+1. Seja $\boldsymbol{X}_n = (X_1, \dots, X_n)$ a.a. de $X\sim \mathrm{Ber}(\theta), \theta \in \{0.5, 0.9\}$. Considere as hipóteses
+$$
+\begin{cases}
+\mathrm{H}_0 : \theta = 0.5 \\
+\mathrm{H}_1 : \theta = 0.9
+\end{cases}\ \ \ \text{Ambas são simples!}
+$$
+
+2. Seja $\boldsymbol{X}_n = (X_1, \dots, X_n)$ a.a. de $X\sim \mathrm{Ber}(\theta), \theta \in (0,1)$. Considere as hipóteses
+$$
+\begin{cases}
+\mathrm{H}_0 : \theta = 0.5\ \  \text{Hipótese simples} \\
+\mathrm{H}_1 : \theta \neq 0.5\ \ \text{Hipótese composta}
+\end{cases}
+$$
+Note que
+$$
+\begin{cases}
+\Theta_0 = \{0.5\} \\
+\Theta_1 = (0,0.5) \cup (0.5, 1) \\
+\end{cases}
+$$
+
+3. Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+$
+$$
+a)\ \begin{cases}
+\mathrm{H}_0 : \mu = 0.5\ \  \text{Hipótese composta!} \\
+\mathrm{H}_1 : \mu \neq 0.5\ \ \text{Hipótese composta}
+\end{cases}
+$$
+Note que como
+$$
+\begin{cases}
+\Theta_0 = \{(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+ : \mu = 0\}
+\Theta_0 = \{(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+ : \mu \neq 0\}
+\end{cases}
+$$
+têm mais de um elemento, concluímos que ambas hipóteses são compostas.
+
+$$
+b)\ \begin{cases}
+\mathrm{H}_0 : (\mu, \sigma^2) = (0,1)\ \  \text{Hipótese simples!} \\
+\mathrm{H}_1 : (\mu, \sigma^2) \neq (0,1)\ \ \text{Hipótese composta}
+\end{cases}
+$$
+
+### Tipos de decisão sobre as hipóteses
+
+1. Se o espaço de possibilidades for fechado, isto é, $\mathrm{H}_0$ ou $\mathrm{H}_1$ é verdadeira, então:
+a) Aceitamos $\mathrm{H}_0$ (rejeitamos $\mathrm{H}_1$)
+b) Aceitamos $\mathrm{H}_1$ (rejeitamos $\mathrm{H}_0$)
+
+Observe que, neste caso, não há terceira opção (abordagem de Neyman-Pearson).
+
+2. Se o espaço de possibilidades for aberto, isto é, temos a terceira opção de que o modelo está equivocado, então:
+a) Não rejeitamos $\mathrm{H}_0$ (**Não** significa que aceitamos $\mathrm{H}_0$)
+b) Rejeitamos $\mathrm{H}_0$ (**Não** significa aceitar $\mathrm{H}_1$, pela existência da terceira opção.)
+
+Neste caso temos uma terceira opção (abordagem de Fisher).
+
+Atualmente, dizemos apenas que há ou não há evidências para rejeitarmos $\mathrm{H}_0$. **Não** se diz aceitar
+"$\mathrm{H}_0$"
+
+### Tipos de Erro
+
+Se o universo for aberto:
+
+*Erro tipo I*: "Rejeitar $\mathrm{H}_0$ quando este é verdadeiro"
+
+*Erro tipo II*: "Não rejeitar $\mathrm{H}_0$ quando este é falso"
+
+
+| $\mathrm{H}_0$ | Não rejeitar | Rejeitar |
+|:--------:|:-----------:|:---------------:|
+Verdadeiro |    Acerto   | Erro tipo I |
+   Falso   | Erro tipo II|    Acerto   |
+
+Se o universo for fechado:
+
+Erro tipo I: "Rejeitar $\mathrm{H}_0$ (ou aceitar $\mathrm{H}_1$) quando este é verdadeiro"
+
+Erro tipo II: "Aceitar $\mathrm{H}_0$ (ou rejeitar $\mathrm{H}_1$ quando este é falso"
+
+## Teste de Hipótese de Neyman-Pearson
+
+Considere o universo fechado.
+
+### Função teste
+
+*Definição*. Seja $\delta : \mathfrak{X}^{(n)} \rightarrow \{0,1\}$ uma função tal que
+$$
+\delta(\boldsymbol{X}_n) = \begin{cases}
+0,\ \text{Se não rejeitamos}\ \mathrm{H}_0 \\
+1,\ \text{Se rejeitamos}\ \mathrm{H}_0 \\
+\end{cases}
+$$
+em que $\mathfrak{X}^{(n)} = \{x \in \mathbb{R}^n : f_\theta^{\boldsymbol{X}_n}(\boldsymbol{x}) > 0 \}$, $\mathrm{H}_0 : \theta \in \Theta_0$,
+$\mathrm{H}_1 : \theta \in \Theta_1$, $\Theta_0 \neq \emptyset, \Theta_1 \neq \emptyset, \Theta_0 \cap \Theta_1 = \emptyset, \Theta_0 \cup \Theta_1 = \Theta$.
+
+Dizemos que $\delta(\cdot)$ é uma *função teste*.
+
+Região de rejeição de $\mathrm{H}_0$:
+$$
+S_{\delta} = \{\boldsymbol{x} \in \mathfrak{X}^{(n)} : \delta(\boldsymbol{x}) = 1 \}
+$$
+
+Região de não rejeição de $\mathrm{H}_0$:
+$$
+S_{\delta}^c = \{\boldsymbol{x} \in \mathfrak{X}^{(n)} : \delta(\boldsymbol{x}) = 0 \}
+$$
+
+<!-- TODO: desenho das regiões dentro do $\mathfrak{X}$ -->
+
+#### Exemplo
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{Ber}(\theta), \theta \in \{0.1, 0.9\}$ e as hipóteses
+$$
+\begin{cases}
+\mathrm{H}_0 : \theta = 0.1 \\
+\mathrm{H}_1 : \theta = 0.9
+\end{cases}
+$$
+
+Defina $\delta_i : \{0,1\}^n \rightarrow \{0, 1\}, i = 1, 2$ tais que
+
+$$
+\begin{aligned}
+\delta_1(\boldsymbol{x}_n) &= \begin{cases}
+0, \bar{x} \leq 0.5 \\
+1, \bar{x} > 0.5 \\
+\end{cases} \\
+\delta_2(\boldsymbol{x}_n) &= \begin{cases}
+0, \bar{x} \leq 0.8 \\
+1, \bar{x} > 0.8 \\
+\end{cases}
+\end{aligned}
+$$
+
+### Função Poder do teste $\delta$ {#sec-funpoder}
+
+*Definição*. A função poder do teste $\delta$ é
+$\pi_\delta(\theta) = P_\theta(S_\delta)$
+
+:::{.callout-note title="Observações"}
+1.
+$$
+\pi_\delta(\theta), \forall \theta \in \Theta_0,
+$$
+são probabilidades de rejeitar $\mathrm{H}_0$ quando esta é verdadeira.
+
+2.
+$$
+\pi_\delta(\theta), \forall \theta \in \Theta_1,
+$$
+são probabilidades de rejeitar $\mathrm{H}_0$ quando esta é falsa.
+:::
+
+*Definição*. O *nível de significância* é qualquer valor $\alpha \in (0,1)$ tal que:
+$$
+P_\theta(S_\delta) \leq \alpha, \forall \theta \in \Theta_0.
+$$
+em termos de função poder,
+$$
+\pi_\delta(\theta) \leq \alpha, \forall \theta \in \Theta_0
+$$
+
+
+*Definição*. O tamanho do teste $\delta$ é
+$$
+\tau_\delta = \sup_{\theta \in \Theta_0} P_\theta(S_\delta) \leq \alpha
+$$
+em termos de função poder,
+$$
+\tau_\delta = \sup_{\theta \in \Theta_0} \pi_\delta(\theta)
+$$
+
+#### Probabilidade dos Erros I, II
+$$
+\alpha_{\delta, \mathrm{max}} = \tau_\delta = \sup_{\theta \in \Theta_0} \pi_\delta(\theta)
+$$
+é a probabilidade máxima de cometer o Erro tipo I e
+$$
+\beta_{\delta, \mathrm{max}} = \sup_{\theta \in \Theta_0} (1-\pi_\delta(\theta))
+$$
+é a probabilidade máxima de cometer o Erro tipo II.
+
+Quando $\mathrm{H}_0, \mathrm{H}_1$ são simples, temos
+$$
+\begin{aligned}
+\alpha_{\delta, \max} &= \pi_\delta(\theta_0) \\
+\beta{\delta, \max} &= 1 - \pi_\delta(\theta_0),
+\end{aligned}
+$$
+com
+$$
+\begin{aligned}
+\mathrm{H}_0 : \theta = \theta_0 \\
+\mathrm{H}_1 : \theta \neq \theta_1
+\end{aligned}
+$$
