@@ -1,3 +1,7 @@
+```{julia}
+#| output: false
+using Pkg; Pkg.add(["Distributions", "StatsBase", "Plots", "StatsPlots", "LaTeXStrings"])
+```
 # Teste de Hipótese - Aprofundamento
 
 Seja $\boldsymbol{X}_n = (X_1, \dots, X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X \sim f_\theta, \theta \in \Theta$.
@@ -19,27 +23,27 @@ $$
 
 Definimos uma *hipótese estatística*
 $$
-\mathrm{H}_0 : \theta \in \Theta_0 \iff \mathrm{H}_0 : P_\theta \in \mathcal{P}_0
+\mathcal{H}_0 : \theta \in \Theta_0 \iff \mathcal{H}_0 : P_\theta \in \mathcal{P}_0
 $$
-$\mathrm{H}_0$ afirma que
+$\mathcal{H}_0$ afirma que
 
 > "A medida de probabilidade que explica os dados está em $\mathcal{P}_0$"
 
 No caso em que $\Theta_0 = \{\theta_0\}$, então a hipótese
-$\mathrm{H}_0 : \theta = \theta_0 ( \iff \mathrm{H}_0 : P_{\theta} = P_{\theta_0})$ afirma que $P_{\theta_0}$ explica o
+$\mathcal{H}_0 : \theta = \theta_0 ( \iff \mathcal{H}_0 : P_{\theta} = P_{\theta_0})$ afirma que $P_{\theta_0}$ explica o
 comportamento probabilístico dos dados observados.
 
-$\mathrm{H}_0$ é chamada de *hipótese nula*.
+$\mathcal{H}_0$ é chamada de *hipótese nula*.
 
-Note que a negação de $\mathrm{H}_0$ é
+Note que a negação de $\mathcal{H}_0$ é
 
 > "Não é o caso que a família $\mathcal{P}_0$ contenha a medida que explica os dados".
 
-Ou seja, a negação de $\mathrm{H}_0$ sugere que a medida que explica os dados pode, inclusive, não estar contida em $\mathcal{P}$.
+Ou seja, a negação de $\mathcal{H}_0$ sugere que a medida que explica os dados pode, inclusive, não estar contida em $\mathcal{P}$.
 
 Definimos também uma hipótese alternativa,
 $$
-\mathrm{H}_1: \theta \in (\Theta \setminus \Theta_0) \iff \mathrm{H}_1 : P_\theta \in (\mathcal{P} \setminus \mathcal{P}_0)
+\mathcal{H}_1: \theta \in (\Theta \setminus \Theta_0) \iff \mathcal{H}_1 : P_\theta \in (\mathcal{P} \setminus \mathcal{P}_0)
 $$
 
 <!-- Em termos de espaço paramétrico, -->
@@ -48,10 +52,10 @@ $$
 <!-- Em termos de família de probabilidades,  -->
 <!-- TODO: Desenho do mathcal P maior e P0 e visualização dos conjuntos e relação com hipóteses e os P_thetas -->
 
-Observe que $\mathrm{H}_0$ e $\mathrm{H}_1$ não são exaustivas: na prática, ambas podem ser falsas.
+Observe que $\mathcal{H}_0$ e $\mathcal{H}_1$ não são exaustivas: na prática, ambas podem ser falsas.
 
-Se o analista considerar que $\mathcal{P}$ contém a medida que explica os dados, então, condicional a essa crença, $\mathrm{\mathrm{H}_0}$ e
-$\mathrm{\mathrm{H}_1}$ são exaustivas.
+Se o analista considerar que $\mathcal{P}$ contém a medida que explica os dados, então, condicional a essa crença, $\mathrm{\mathcal{H}_0}$ e
+$\mathrm{\mathcal{H}_1}$ são exaustivas.
 
 ## Exemplo
 
@@ -60,15 +64,15 @@ Seja $\boldsymbol{X}_n$ a.a. de $X\sim N(\mu, \sigma^2), \theta = (\mu, \sigma^2
 Considere as seguintes hipóteses
 $$
 \begin{cases}
-\mathrm{H}_0 : \mu = 0 \\
-\mathrm{H}_1 : \mu \neq 0.
+\mathcal{H}_0 : \mu = 0 \\
+\mathcal{H}_1 : \mu \neq 0.
 \end{cases}
 $$
 Note que
 $$
 \begin{cases}
-\mathrm{H}_0 : \theta \in \Theta_0 \\
-\mathrm{H}_1 : \theta \in \Theta \setminus \Theta_0,
+\mathcal{H}_0 : \theta \in \Theta_0 \\
+\mathcal{H}_1 : \theta \in \Theta \setminus \Theta_0,
 \end{cases}
 $$
 em que
@@ -90,19 +94,19 @@ $$
 As hipóteses acima podem ser reescritas em termos das suas respectivas famílias de medidas de probabilidades da seguinte forma:
 $$
 \begin{cases}
-\mathrm{H}_0: P in \mathcal{P}_0 \\
-\mathrm{H}_1: P \in \mathcal{P}_1
+\mathcal{H}_0: P in \mathcal{P}_0 \\
+\mathcal{H}_1: P \in \mathcal{P}_1
 \end{cases}
 $$,
 em que $\mathcal{P}_0 = \{N(\mu, \sigma^2): \ \mu = 0, \ \sigma^2 > 0 \}$ e
 $\mathcal{P}_1 = (\mathcal{P} - \mathcal{P}_0) = \{ N(\mu, \sigma^2): \ \mu \neq 0, \ \sigma^2 > 0 \}$
 
-Observe que, se assumirmos que a distribuição normal explica os dados, então $\mathrm{H}_0$ e $\mathrm{H}_1$ são exaustivas.
-Caso contrário, existe uma terceira opção: $\neg(\mathrm{H}_0 \lor \mathrm{H}_1)$.
+Observe que, se assumirmos que a distribuição normal explica os dados, então $\mathcal{H}_0$ e $\mathcal{H}_1$ são exaustivas.
+Caso contrário, existe uma terceira opção: $\neg(\mathcal{H}_0 \lor \mathcal{H}_1)$.
 
 ## Hipóteses estatísticas
 
-TOda hipótese estatística é uma interpretação de uma hipótese científica.
+Toda hipótese estatística é uma interpretação de uma hipótese científica.
 
 | Hipótese científica |     Hipótese estatística   | Hipótese paramétrica |
 |:-------------------:|:--------------------------:|:--------------------:|
@@ -112,42 +116,42 @@ As hipótese estatísticas são escritas em termos de medidas de probabilidade, 
 do espaço paramétrico:
 $$
 \begin{cases}
-\mathrm{H}_0 : P_\theta \in \mathcal{P}_0 \\
-\mathrm{H}_1 : P_\theta \in \mathcal{P}_1 =  (\mathcal{P} \setminus \mathcal{P}_0),
+\mathcal{H}_0 : P_\theta \in \mathcal{P}_0 \\
+\mathcal{H}_1 : P_\theta \in \mathcal{P}_1 =  (\mathcal{P} \setminus \mathcal{P}_0),
 \end{cases}
 $$
 em que $\mathcal{P}_0 = \{P_\theta : \theta \in \Theta_0\}$ e  $\mathcal{P}_1 = \{P_\theta : \theta \in \Theta_1\}$ e
 $\Theta_1 = \Theta \setminus \Theta_0$.
 
-Observe que $\mathrm{H}_0, \mathrm{H}_1$ estão sempre restritas a modelo estatístico. Entretanto, a negação de
-$\mathrm{H}_0, \neg \mathrm{H}_0$, não está restrita ao modelo adotado.
+Observe que $\mathcal{H}_0, \mathcal{H}_1$ estão sempre restritas a modelo estatístico. Entretanto, a negação de
+$\mathcal{H}_0, \neg \mathcal{H}_0$, não está restrita ao modelo adotado.
 
 :::{.callout-note title="Algumas considerações lógicas"}
 <!-- TODO: desenho das famílias e tal igual da outra aula com o P0 no cantinho e P1 grandão no resto do quadrado uau h0 no p0 e 1 no p1 e ta mas pode ta fora, terceira via... -->
 
-1. Se o analista considerar que $\mathrm{H}_0$ ou $\mathrm{H}_1$ são verdadeiros, então ele está considerando que a medida que *explica* ou *gera*
+1. Se o analista considerar que $\mathcal{H}_0$ ou $\mathcal{H}_1$ são verdadeiros, então ele está considerando que a medida que *explica* ou *gera*
 os dados está em $\mathcal{P}$. Está é a suposição de que o universo de possibilidades é fechado (suposição de Neyman-Pearson; Teoria da Decisão).
 
-2. $\mathrm{H}_0$ e $\mathrm{H}_1$ não pode ser simultaneamente verdadeiras.
+2. $\mathcal{H}_0$ e $\mathcal{H}_1$ não pode ser simultaneamente verdadeiras.
 
-3. Se $\neg \mathrm{H}_0$ e $\neg \mathrm{H}_1$, então a medida que explica/gera os dados não está em $\mathcal{P}$.
+3. Se $\neg \mathcal{H}_0$ e $\neg \mathcal{H}_1$, então a medida que explica/gera os dados não está em $\mathcal{P}$.
 
-4. $\neg \mathrm{H}_0 \not\Rightarrow \mathrm{H}_1$. Isto é, se provarmos que $\mathrm{H}_0$ é falsa, não necessariamente
-$\mathrm{H}_1$ é verdadeira.
+4. $\neg \mathcal{H}_0 \not\Rightarrow \mathcal{H}_1$. Isto é, se provarmos que $\mathcal{H}_0$ é falsa, não necessariamente
+$\mathcal{H}_1$ é verdadeira.
 
-5. $\mathrm{H}_1 \Rightarrow \neg \mathrm{H}_0$.
+5. $\mathcal{H}_1 \Rightarrow \neg \mathcal{H}_0$.
 :::
 
 ## Tipos de hipótese
 
-Sejam $\mathrm{H}_0, \mathrm{H}_1$ as hipóteses nula e alternativa, respectivamente, tais que
+Sejam $\mathcal{H}_0, \mathcal{H}_1$ as hipóteses nula e alternativa, respectivamente, tais que
 $$
 \begin{cases}
-\mathrm{H}_0 : \theta \in \Theta_0 \\
-\mathrm{H}_1 : \theta \in \Theta_1 \\
+\mathcal{H}_0 : \theta \in \Theta_0 \\
+\mathcal{H}_1 : \theta \in \Theta_1 \\
 \end{cases}
 $$
-em que $\Theta_0 \neq \emptyset, \Theta_0 \cup \Theta 1 = \Theta, \Theta_0 \cap \Theta_1 = \emptyset$. Dizemos que $\mathrm{H}_0$ é
+em que $\Theta_0 \neq \emptyset, \Theta_0 \cup \Theta 1 = \Theta, \Theta_0 \cap \Theta_1 = \emptyset$. Dizemos que $\mathcal{H}_0$ é
 uma **hipótese simples** se $\# \Theta_0 = 1$. Caso contrário, dizemos que é uma **hipótese composta**.
 
 ### Exemplos
@@ -155,16 +159,16 @@ uma **hipótese simples** se $\# \Theta_0 = 1$. Caso contrário, dizemos que é 
 1. Seja $\boldsymbol{X}_n = (X_1, \dots, X_n)$ a.a. de $X\sim \mathrm{Ber}(\theta), \theta \in \{0.5, 0.9\}$. Considere as hipóteses
 $$
 \begin{cases}
-\mathrm{H}_0 : \theta = 0.5 \\
-\mathrm{H}_1 : \theta = 0.9
+\mathcal{H}_0 : \theta = 0.5 \\
+\mathcal{H}_1 : \theta = 0.9
 \end{cases}\ \ \ \text{Ambas são simples!}
 $$
 
 2. Seja $\boldsymbol{X}_n = (X_1, \dots, X_n)$ a.a. de $X\sim \mathrm{Ber}(\theta), \theta \in (0,1)$. Considere as hipóteses
 $$
 \begin{cases}
-\mathrm{H}_0 : \theta = 0.5\ \  \text{Hipótese simples} \\
-\mathrm{H}_1 : \theta \neq 0.5\ \ \text{Hipótese composta}
+\mathcal{H}_0 : \theta = 0.5\ \  \text{Hipótese simples} \\
+\mathcal{H}_1 : \theta \neq 0.5\ \ \text{Hipótese composta}
 \end{cases}
 $$
 Note que
@@ -178,8 +182,8 @@ $$
 3. Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+$
 $$
 a)\ \begin{cases}
-\mathrm{H}_0 : \mu = 0.5\ \  \text{Hipótese composta!} \\
-\mathrm{H}_1 : \mu \neq 0.5\ \ \text{Hipótese composta}
+\mathcal{H}_0 : \mu = 0.5\ \  \text{Hipótese composta!} \\
+\mathcal{H}_1 : \mu \neq 0.5\ \ \text{Hipótese composta}
 \end{cases}
 $$
 Note que como
@@ -193,47 +197,47 @@ têm mais de um elemento, concluímos que ambas hipóteses são compostas.
 
 $$
 b)\ \begin{cases}
-\mathrm{H}_0 : (\mu, \sigma^2) = (0,1)\ \  \text{Hipótese simples!} \\
-\mathrm{H}_1 : (\mu, \sigma^2) \neq (0,1)\ \ \text{Hipótese composta}
+\mathcal{H}_0 : (\mu, \sigma^2) = (0,1)\ \  \text{Hipótese simples!} \\
+\mathcal{H}_1 : (\mu, \sigma^2) \neq (0,1)\ \ \text{Hipótese composta}
 \end{cases}
 $$
 
 ### Tipos de decisão sobre as hipóteses
 
-1. Se o espaço de possibilidades for fechado, isto é, $\mathrm{H}_0$ ou $\mathrm{H}_1$ é verdadeira, então:
-a) Aceitamos $\mathrm{H}_0$ (rejeitamos $\mathrm{H}_1$)
-b) Aceitamos $\mathrm{H}_1$ (rejeitamos $\mathrm{H}_0$)
+1. Se o espaço de possibilidades for fechado, isto é, $\mathcal{H}_0$ ou $\mathcal{H}_1$ é verdadeira, então:
+a) Aceitamos $\mathcal{H}_0$ (rejeitamos $\mathcal{H}_1$)
+b) Aceitamos $\mathcal{H}_1$ (rejeitamos $\mathcal{H}_0$)
 
 Observe que, neste caso, não há terceira opção (abordagem de Neyman-Pearson).
 
 2. Se o espaço de possibilidades for aberto, isto é, temos a terceira opção de que o modelo está equivocado, então:
-a) Não rejeitamos $\mathrm{H}_0$ (**Não** significa que aceitamos $\mathrm{H}_0$)
-b) Rejeitamos $\mathrm{H}_0$ (**Não** significa aceitar $\mathrm{H}_1$, pela existência da terceira opção.)
+a) Não rejeitamos $\mathcal{H}_0$ (**Não** significa que aceitamos $\mathcal{H}_0$)
+b) Rejeitamos $\mathcal{H}_0$ (**Não** significa aceitar $\mathcal{H}_1$, pela existência da terceira opção.)
 
 Neste caso temos uma terceira opção (abordagem de Fisher).
 
-Atualmente, dizemos apenas que há ou não há evidências para rejeitarmos $\mathrm{H}_0$. **Não** se diz aceitar
-"$\mathrm{H}_0$"
+Atualmente, dizemos apenas que há ou não há evidências para rejeitarmos $\mathcal{H}_0$. **Não** se diz aceitar
+"$\mathcal{H}_0$"
 
 ### Tipos de Erro
 
 Se o universo for aberto:
 
-*Erro tipo I*: "Rejeitar $\mathrm{H}_0$ quando este é verdadeiro"
+*Erro tipo I*: "Rejeitar $\mathcal{H}_0$ quando este é verdadeiro"
 
-*Erro tipo II*: "Não rejeitar $\mathrm{H}_0$ quando este é falso"
+*Erro tipo II*: "Não rejeitar $\mathcal{H}_0$ quando este é falso"
 
 
-| $\mathrm{H}_0$ | Não rejeitar | Rejeitar |
+| $\mathcal{H}_0$ | Não rejeitar | Rejeitar |
 |:--------:|:-----------:|:---------------:|
 Verdadeiro |    Acerto   | Erro tipo I |
    Falso   | Erro tipo II|    Acerto   |
 
 Se o universo for fechado:
 
-Erro tipo I: "Rejeitar $\mathrm{H}_0$ (ou aceitar $\mathrm{H}_1$) quando este é verdadeiro"
+Erro tipo I: "Rejeitar $\mathcal{H}_0$ (ou aceitar $\mathcal{H}_1$) quando este é verdadeiro"
 
-Erro tipo II: "Aceitar $\mathrm{H}_0$ (ou rejeitar $\mathrm{H}_1$ quando este é falso"
+Erro tipo II: "Aceitar $\mathcal{H}_0$ (ou rejeitar $\mathcal{H}_1$ quando este é falso"
 
 ## Teste de Hipótese de Neyman-Pearson
 
@@ -244,21 +248,21 @@ Considere o universo fechado.
 *Definição*. Seja $\delta : \mathfrak{X}^{(n)} \rightarrow \{0,1\}$ uma função tal que
 $$
 \delta(\boldsymbol{X}_n) = \begin{cases}
-0,\ \text{Se não rejeitamos}\ \mathrm{H}_0 \\
-1,\ \text{Se rejeitamos}\ \mathrm{H}_0 \\
+0,\ \text{Se não rejeitamos}\ \mathcal{H}_0 \\
+1,\ \text{Se rejeitamos}\ \mathcal{H}_0 \\
 \end{cases}
 $$
-em que $\mathfrak{X}^{(n)} = \{x \in \mathbb{R}^n : f_\theta^{\boldsymbol{X}_n}(\boldsymbol{x}) > 0 \}$, $\mathrm{H}_0 : \theta \in \Theta_0$,
-$\mathrm{H}_1 : \theta \in \Theta_1$, $\Theta_0 \neq \emptyset, \Theta_1 \neq \emptyset, \Theta_0 \cap \Theta_1 = \emptyset, \Theta_0 \cup \Theta_1 = \Theta$.
+em que $\mathfrak{X}^{(n)} = \{x \in \mathbb{R}^n : f_\theta^{\boldsymbol{X}_n}(\boldsymbol{x}) > 0 \}$, $\mathcal{H}_0 : \theta \in \Theta_0$,
+$\mathcal{H}_1 : \theta \in \Theta_1$, $\Theta_0 \neq \emptyset, \Theta_1 \neq \emptyset, \Theta_0 \cap \Theta_1 = \emptyset, \Theta_0 \cup \Theta_1 = \Theta$.
 
 Dizemos que $\delta(\cdot)$ é uma *função teste*.
 
-Região de rejeição de $\mathrm{H}_0$:
+Região de rejeição de $\mathcal{H}_0$:
 $$
 S_{\delta} = \{\boldsymbol{x} \in \mathfrak{X}^{(n)} : \delta(\boldsymbol{x}) = 1 \}
 $$
 
-Região de não rejeição de $\mathrm{H}_0$:
+Região de não rejeição de $\mathcal{H}_0$:
 $$
 S_{\delta}^c = \{\boldsymbol{x} \in \mathfrak{X}^{(n)} : \delta(\boldsymbol{x}) = 0 \}
 $$
@@ -270,8 +274,8 @@ $$
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{Ber}(\theta), \theta \in \{0.1, 0.9\}$ e as hipóteses
 $$
 \begin{cases}
-\mathrm{H}_0 : \theta = 0.1 \\
-\mathrm{H}_1 : \theta = 0.9
+\mathcal{H}_0 : \theta = 0.1 \\
+\mathcal{H}_1 : \theta = 0.9
 \end{cases}
 $$
 
@@ -300,13 +304,13 @@ $\pi_\delta(\theta) = P_\theta(S_\delta)$
 $$
 \pi_\delta(\theta), \forall \theta \in \Theta_0,
 $$
-são probabilidades de rejeitar $\mathrm{H}_0$ quando esta é verdadeira.
+são probabilidades de rejeitar $\mathcal{H}_0$ quando esta é verdadeira.
 
 2.
 $$
 \pi_\delta(\theta), \forall \theta \in \Theta_1,
 $$
-são probabilidades de rejeitar $\mathrm{H}_0$ quando esta é falsa.
+são probabilidades de rejeitar $\mathcal{H}_0$ quando esta é falsa.
 :::
 
 *Definição*. O *nível de significância* é qualquer valor $\alpha \in (0,1)$ tal que:
@@ -329,6 +333,17 @@ $$
 $$
 
 #### Probabilidade dos Erros I, II
+
+:::{.callout-tip title="Tipos de Erro"}
+Relembrando os tipos de erro:
+$$
+\begin{cases}
+\text{Erro tipo I:}\ \text{Rejeitar $\mathcal{H}_0$ quando esta é verdadeira} \\
+\text{Erro tipo II:}\ \text{Não rejeitar $\mathcal{H}_0$ quando esta é falsa}
+\end{cases}
+$$
+:::
+
 $$
 \alpha_{\delta, \mathrm{max}} = \tau_\delta = \sup_{\theta \in \Theta_0} \pi_\delta(\theta)
 $$
@@ -338,17 +353,776 @@ $$
 $$
 é a probabilidade máxima de cometer o Erro tipo II.
 
-Quando $\mathrm{H}_0, \mathrm{H}_1$ são simples, temos
+Quando $\mathcal{H}_0, \mathcal{H}_1$ são simples, temos
 $$
 \begin{aligned}
-\alpha_{\delta, \max} &= \pi_\delta(\theta_0) \\
-\beta{\delta, \max} &= 1 - \pi_\delta(\theta_1),
+\alpha_{\delta, \max} &= \pi_\delta(\theta_0) = P_\theta(S_\delta) \\
+\beta_{\delta, \max} &= 1 - \pi_\delta(\theta_1),
 \end{aligned}
 $$
 com
 $$
 \begin{aligned}
-\mathrm{H}_0 : \theta = \theta_0 \\
-\mathrm{H}_1 : \theta \neq \theta_1
+\mathcal{H}_0 : \theta = \theta_0 \\
+\mathcal{H}_1 : \theta \neq \theta_1.
 \end{aligned}
 $$
+
+:::{.callout-warning title="Notação (equivocada) em alguns materiais"}
+Alguns livros, especialmente para iniciantes ou profissionais de outras áreas, podem escrever:
+$$
+\begin{aligned}
+\alpha_{\delta, \max} &= P(\text{Erro tipo I}) \\
+&= P(\text{Rejeitar} | \text{$\mathcal{H}_0$ é verdadeira}) \\
+&= P(\delta(\boldsymbol{X}_n) = 1 | \text{$\mathcal{H}_0$ é verdadeira}),
+\end{aligned}
+$$
+$$
+\begin{aligned}
+\beta_{\delta, \max} &= P(\text{Erro tipo II}) \\
+&= P(\text{Não rejeitar} | \text{$\mathcal{H}_0$ é falsa}) \\
+&= P(\delta(\boldsymbol{X}_n) = 0 | \text{$\mathcal{H}_0$ é falsa}).
+\end{aligned}
+$$
+Note que, formalmente, isso **não** faz sentido na estatística clássica! O parâmetro em hipótese, $\theta$, é desconhecido
+mas **não** aleatório.
+
+Note que, na estatística clássica, as hipóteses são afirmações epistêmicas, e não experimentais (eventos do experimento).
+Portanto, não são elementos da $\sigma$-álgebra do modelo estatístico. Logo, a notação
+$$
+P(S_\delta | \text{$\mathcal{H}_0$ é verdadeira})
+$$
+não está bem definida.
+:::
+
+#### Poder do Teste {#sec-poderteste}
+
+Se $\mathcal{H}_1$ for simples, isto é, $\mathcal{H}_1 : \theta = \theta_1$, então o poder do teste é definido
+$$
+1 - \beta_{\delta, \max} = \pi_\delta(\theta_1)
+$$
+
+:::{.callout-warning title="Notação (equivocada) em alguns materiais"}
+Alguns livros escrevem
+$$
+\mathrm{poder} = P(\text{Rejeitar $\mathcal{H}_0$} | \text{$\mathcal{H}_0$ é falsa})
+$$
+Isto está incorreto na interpretação clássica de estatística!
+:::
+
+
+## Lema de Neyman-Pearson
+Estamos interessados em um teste $\delta^*$ que produza menor $\alpha_{\delta^*, \max}$ e maior poder possível. O Lema
+de Neyman-Pearson apresenta um teste que, dentre os testes de tamanho $\alpha$, tem maior poder.
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta = \{\theta_0, \theta_1\}$. Considere as hipóteses
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta = \theta_0 \\
+\mathcal{H}_1 : \theta = \theta_1
+\end{cases}
+$$
+nula e alternativa. A função teste $\delta^* : \mathfrak{X}^{(n)} \rightarrow \{0,1\}$ tal que
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0) \\
+1,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0),
+\end{cases}
+$$
+em que $\eta$ satisfaz $\underbracket{P_{\theta_0}(\delta^*(\boldsymbol{X}_n) = 1)}_{\pi_{\delta^*}(\theta_0)} = \alpha$ para um $\alpha$ fixado apriori, é o teste mais
+poderoso dentre todo os testes de tamanho $\alpha$.
+
+### Exemplo (Normal)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\mu, \sigma^2)$ em que $\theta = (\mu, \sigma^2) \in \{(0,1), (0,2)\}$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta = (0,1) \\
+\mathcal{H}_1 : \theta = (0,2)
+\end{cases}
+$$
+as hipóteses nula e alternativa.
+
+Encontre o teste mais poderoso de tamanho $\alpha = 5\%$.
+
+#### Solução:
+
+De acordo com o Lema de Neyman-Pearson, o teste mais poderoso de tamanho $\alpha = 5\%$ é
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}((0,2)) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}((0,1)), \\
+1,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}((0,2)) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}((0,1)),
+\end{cases}
+$$
+em que $\eta$ satisfaz $\pi_{\delta^*}((0,1)) = 5\%$.
+
+A [função de verossimilhança](funcao-verossimilhanca.qmd) é
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \frac{1}{(\sqrt{2\pi\sigma^2})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum \frac{(x_i - \mu)^2}{\sigma^2}\right\}, \theta \in \{(0,1), (0,2)\} \\
+&= \frac{1}{(\sqrt{2\pi\sigma^2})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum \frac{x_i^2}{\sigma^2} \right\}, \theta \in \{(0,1), (0,2)\} \\
+\Rightarrow  \mathcal{L}_{\boldsymbol{x}_n}(\theta_0) 
+&= \frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum x_i^2 \right\} \\
+\mathcal{L}_{\boldsymbol{x}_n}(\theta_1) 
+&= \frac{1}{(\sqrt{4\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum \frac{x_i^2}{2} \right\} \\
+\Rightarrow \mathcal{L}_{\boldsymbol{x}_n}((0,2)) &\geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}((0,1)) \\
+\iff \frac{\mathcal{L}_{\boldsymbol{x}_n}((0,2))}{\mathcal{L}_{\boldsymbol{x}_n}((0,1))} &\geq \eta \\
+\Rightarrow &\frac{\frac{1}{(\sqrt{4\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum \frac{x_i^2}{2} \right\}}{\frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum x_i^2 \right\}} \geq \eta \\
+\iff &\frac{1}{2^{\frac{n}{2}}} \mathrm{e}^{\frac{1}{4}\sum x_i^2} \geq \eta \\
+\iff &\mathrm{e}^{\frac{1}{4}\sum x_i^2} \geq 2^{n/2}\eta \\
+\iff &\frac{1}{4}\sum x_i^2 \geq \ln(2^{n/2}\eta) \\
+\iff &\sum x_i^2 \geq 4 \ln(2^{n/2}\eta).
+\end{aligned}
+$$
+
+Logo, $\sum x_i^2 \geq 4 \ln(2^{n/2}\eta)$ é equivalente a $\frac{\frac{1}{(\sqrt{4\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum \frac{x_i^2}{2} \right\}}{\frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum x_i^2 \right\}}$.
+
+Observe ainda que
+$$
+\begin{aligned}
+\pi_{\delta^*}((0,1)) &= P_{(0,1)}(\delta^*(\boldsymbol{X}_n) = 1) \\
+&\stackrel{\text{Def.}}{=} P_{(0,1)}\left(\frac{\mathcal{L}_{\boldsymbol{x}_n}((0,2))}{\mathcal{L}_{\boldsymbol{x}_n}((0,1))} \geq \eta\right) \\
+&\stackrel{\text{Desenv.}}{=} P_{(0,1)}\left(\sum X_i^2 \geq \eta^*\right),
+\end{aligned}
+$$
+em que $\eta^* = 4\ln(2^{n/2} \eta)$. Como, sob $\mathcal{H}_0, \sum X_i^2 \sim \chi^2_n$, temos que
+$$
+\pi_{\delta^*}((0,1)) = P_{(0,1)}(\chi^2_{n} \geq \eta^*) = 5\%.
+$$
+
+Com $n=2$, temos que
+$$
+\pi_{\delta^*}((0,1)) = P_{(0,1)}(\chi^2_{n} \geq \eta^*) = 5\%. \Rightarrow \eta^* = 5.991.
+$$
+
+Portanto, o teste mais poderoso é
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0,\ \text{se}\ \sum x_i^2 < 5.991 \\
+1,\ \text{se}\ \sum x_i^2 \geq 5.991.
+\end{cases}
+$$
+
+### Exemplo (Bernoulli)
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim \mathrm{Ber}(\theta), \theta \in \{0.1, 0.9\}$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta = 0.9 \\
+\mathcal{H}_1 : \theta = 0.1
+\end{cases}
+$$
+as hipóteses nula e alternativa e $n=10$. Encontre o Teste Mais Poderoso (TMP) de tamanho $\alpha = 10\%$.
+
+#### Resposta
+
+De acordo com o Lema de Neyman-Pearson, o teste mais poderoso de tamanho $\alpha = 5\%$ é
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(0.1) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(0.9), \\
+1,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(0.1) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(0.9),
+\end{cases}
+$$
+em que $\eta$ satisfaz $\pi_{\delta^*}(0.9) = 10\%$.
+
+Note que
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \theta^{\sum x_i} (1-\theta)^{n - \sum x_i} \\
+\Rightarrow \frac{\mathcal{L}_{\boldsymbol{x}_n}(0.1)}{\mathcal{L}_{\boldsymbol{x}_n}(0.9)} &= \frac{0.1^{\sum x_i} (0.9)^{n - \sum x_i}}{0.9^{\sum x_i} (0.1)^{n - \sum x_i}} \\
+&= \frac{0.1^{\sum x_i} \cdot 0.9^{n} \cdot 0.1^{\sum x_i}}{0.9^{\sum x_i} \cdot 0.9^{\sum x_i} \cdot 0.1^n} \\
+&= \left(\frac{0.1 \cdot 0.1}{0.9 \cdot 0.9}\right)^{\sum x_i} \cdot \left(\frac{0.9}{0.1}\right)^{n} \geq \eta \\
+\iff &(\sum x_i) \ln \left(\frac{0.01}{0.81}\right) + n \ln (9) \geq \ln \eta \\
+\iff &(\sum x_i) \ln \left(\frac{1}{81}\right) \geq \ln \eta - n \ln (9) \\
+\iff &(-\sum x_i) \ln (81) \geq \ln \eta - n \ln (9) \\
+\iff &-\sum x_i \geq \frac{\ln \eta - n \ln (9)}{\ln (81)} \\
+\iff &\sum x_i \leq \frac{-\ln \eta + n \ln (9)}{\ln (81)}
+\end{aligned}
+$$
+
+Logo, $\left(\frac{0.1 \cdot 0.1}{0.9 \cdot 0.9}\right)^{\sum x_i} \cdot \left(\frac{0.9}{0.1}\right)^{n} \geq \eta \iff \sum x_i \leq \frac{-\ln \eta + n \ln (9)}{\ln (81)}$.
+$$
+\pi_{\delta^*}(0.1) = P_{0.1}(\delta^*(\boldsymbol{X}_n) = 1) = P_{0.1}(\sum X_i \leq \eta^*) = \alpha = 10\%
+$$
+
+Note que, sob $\mathcal{H}_0, \sum^10_{i=1} X_i \sim \mathrm{Bin}(10, 0.9)$. Ademais,
+$$
+P_{0.9}(\sum X \leq 7) = 0.0702,\ \ \
+P_{0.9}(\sum X \leq 8) = 0.2639.
+$$
+Logo, não é possível encontrar um valor para $\eta$ exato com esse tamanho do teste.
+
+## Testes uniformemente mais poderosos (TUMP)
+
+Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \in \Theta_0 \\
+\mathcal{H}_1 : \theta \in \Theta_1
+\end{cases}
+$$
+as hipóteses nula e alternativa em que $\Theta_0 \cup \Theta_1 = \Theta, \Theta_0 \cap \Theta_1 = \emptyset, \#(\Theta_0) \geq 1, \#(\Theta_1) \geq 1$.
+O teste de tamanho $\alpha$ $\delta^* : \mathfrak{X}^{(n)} \rightarrow \{0,1\}$ é uniformemente mais poderoso se, e somente se,
+
+1. $\sup\limits_{\theta \in \Theta_0} \pi_{\delta^*}(\theta) = \alpha$;
+
+2. Para qualquer outro teste $\delta$ tal que $\pi_{\delta}(\theta) \leq \alpha, \underbrace{\forall \theta \in \Theta_0}_{\text{Sob}\ \mathcal{H}_0}$, então
+$$
+\pi_{\delta^*}(\theta) \geq \pi_{\delta}(\theta), \underbrace{\forall \theta \in \Theta_1}_{\text{Sob}\ \mathcal{H}_1}.
+$$
+
+### Teorema de Karlin-Rubin (I)
+*Uma generalização do Lema de Neyman-Pearson.*
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \leq \theta_0\\
+\mathcal{H}_1 : \theta > \theta_0
+\end{cases}
+$$
+em que $\theta_0$ é um valor dado. Se a *razão de verossimilhanças*
+$$
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{x}_n)) = \frac{\mathcal{L}_{\boldsymbol{x}_n}(\theta')}{\mathcal{L}_{\boldsymbol{x}_n}(\theta'')}
+$$
+for *monótona não-decrescente* e $\theta' \geq \theta''$, em que $T(\boldsymbol{x}_n)$ é uma [estatística suficiente](estatisticas-suficientes.qmd) para o [modelo](modelo-estatistico.qmd), então
+o teste $\delta^* : \mathfrak{X}^{(n)} \rightarrow \{0, 1\}$ tal que
+$$
+\delta^* (\boldsymbol{x}_n) = \begin{cases}
+0, T(\boldsymbol{x}_n) < c \\
+1, T(\boldsymbol{x}_n) \geq c,
+\end{cases}
+$$
+e $c$ satisfaz
+$$
+\pi_{\delta^*}(\theta_0) = P_{\theta_0}(\delta^*(\boldsymbol{x}_n) = 1) = \alpha,
+$$
+é o teste uniformemente mais poderoso de tamanho $\alpha$.
+
+#### Exemplo (Normal)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim N(\theta, 2), \theta \in \Theta \subseteq \mathbb{R}$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \leq 1\\
+\mathcal{H}_1 : \theta > 1.
+\end{cases}
+$$
+Encontre o TUMP de tamanho $\alpha = 10\%$.
+
+##### Resposta
+
+A função de verossimilhança é dada por
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum (x_i - \theta)^{2} \right\} \\ &= 
+\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum x_i^2 - 2\theta\sum x_i + n\theta^2 \right\}.
+\end{aligned}
+$$
+Pelo [Critério de Fatoração de Fisher](estatisticas-suficientes.qmd#sec-crit-fat), $T(\boldsymbol{X}_n) = \sum x_i$ é uma estatística suficiente.
+Note que
+$$
+\begin{aligned}
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) &= \frac{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum x_i^2 - 2\theta'\sum x_i + n\theta'^2 \right\}}{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum x_i^2 - 2\theta''\sum x_i + n\theta''^2 \right\}} \\
+&= \mathrm{Exp}\left\{-\frac{1}{4}(-\theta'T(\boldsymbol{x}_n) + n\theta'^2 + 2\theta''T(\boldsymbol{x}_n) - n\theta''^2\right\} \\
+&= \mathrm{Exp}\left\{\frac{1}{2}(\theta' - \theta'')T(\boldsymbol{x}_n)-\frac{1}{4} n\theta''^2 +\frac{1}{4}\theta''^2\right\}.
+\end{aligned}
+$$
+Como $\theta' \geq \theta''$, temos que $\theta' - \theta'' \geq 0$. Logo, $\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{x}_n))$ é uma função
+monótona *não-decrescente* em $T(\boldsymbol{x}_n)$. Logo, pelo Teorema de Karlin-Rubin (I), temos que
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0, \sum x_i < c \\
+1, \sum x_i \geq c
+\end{cases}
+$$
+em que $c$ satisfaz
+$$
+\pi_{\delta^*}(1) = P_{1}(\sum X_i \geq c) = \alpha.
+$$
+
+Com $n = 5$, temos que, quando $\theta = 1$, $\sum X_i \sim N(1 \cdot 5, 5 \cdot 2)$. Assim,
+$$
+\begin{aligned}
+P_{1}(\sum X_i \geq c) &= P_1\left(\frac{\sum x_i - 5}{\sqrt{10}} \geq \frac{c - 5}{\sqrt{10}}\right) = 0.1 \\
+\Rightarrow \frac{c - 5}{\sqrt{10}} &= 1.28 \\
+\Rightarrow c &= 1.28 \cdot \sqrt{10} + 5 = 9.064 \\
+\Rightarrow  \delta^*(\boldsymbol{x}_n) &= \begin{cases}
+0, \sum x_i < 9.064 \\
+1, \sum x_i \geq 9.064
+\end{cases}
+\end{aligned}
+$$
+Portanto, se $\sum x_i < 9.064$, dizemos que *não há evidencias* para rejeitarmos $\mathcal{H}_0$ a $10\%$ de significância
+estatística. Se $\sum x_i \geq 9.064$, dizemos que *há evidencias* para rejeitarmos $\mathcal{H}_0$ a $10\%$ de significância
+estatística.
+
+#### Exemplo (Exponencial)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim \mathrm{Exp}(\theta), \theta \in \Theta \subseteq \mathbb{R}_+$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \leq 2\\
+\mathcal{H}_1 : \theta > 2.
+\end{cases}
+$$
+Encontre o TUMP de tamanho $\alpha = 5\%$.
+
+##### Resposta
+
+A função de verossimilhança é dada por
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \theta^n \cdot \mathrm{e}^{-\theta \sum x_i}.
+\end{aligned}
+$$
+
+Pelo [Critério de Fatoração de Fisher](estatisticas-suficientes.qmd#sec-crit-fat), $T(\boldsymbol{X}_n) = \sum X_i$ é uma estatística suficiente.
+$$
+\begin{aligned}
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) &= \frac{\theta'^n \cdot \mathrm{e}^{-\theta' \sum x_i}}{\theta''^n \cdot \mathrm{e}^{-\theta'' \sum x_i}} \\
+&= \left(\frac{\theta'}{\theta''}\right)^n \mathrm{Exp} \left\{ -\theta' T(\boldsymbol{x}_n) + \theta''T(\boldsymbol{x}_n) \right\} \\
+&= \left(\frac{\theta'}{\theta''}\right)^n \mathrm{Exp} \left\{ (\theta'' - \theta') T(\boldsymbol{x}_n)\right\}, \theta' \geq \theta''.
+\end{aligned}
+$$
+Como $\theta' \geq \theta''$, temos que $\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n))$ é decrescente em $T(\boldsymbol{x}_n)$.
+Tome $T'(\boldsymbol{x}_n) = - \sum x_i$, logo
+$$
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) = \left(\frac{\theta'}{\theta''}\right)^n \mathrm{Exp}
+\left\{(\theta' - \theta'') T(\boldsymbol{x}_n)\right\}, \theta' \geq \theta''.
+$$
+é monótona não-decrescente em $T'(\boldsymbol{x}_n)$. Portanto, pelo Teorema de Karlin-Rubin (I),
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0, \sum -x_i < c \\
+1, \sum -x_i \geq c
+\end{cases} \Rightarrow
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0, \sum x_i > -c \\
+1, \sum x_i \leq -c
+\end{cases}
+$$
+em que $c$ satisfaz
+$$
+\pi_{\delta^*}(1) = P_{1}(\sum X_i \leq -c) = \alpha.
+$$
+Para $n=10$, sob $\theta = 2, \sum X_i \sim \mathrm{Gama}(10,2)$. Computacionalmente, o quantil $0.05$ dessa distribuição
+é $2.7127$. Logo, $-c = 2.7127 \Rightarrow c = -2.7127$. Dessa forma, se $\sum x_i > 2.7127$, dizemos que *não há evidencias* para rejeitarmos $\mathcal{H}_0$ a $5\%$ de significância
+estatística. Se $\sum x_i \leq 2.7127$, dizemos que *há evidencias* para rejeitarmos $\mathcal{H}_0$ a $5\%$ de significância estatística.
+
+### Teorema de Karlin-Rubin (II)
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \geq \theta_0\\
+\mathcal{H}_1 : \theta < \theta_0
+\end{cases}
+$$
+em que $\theta_0$ é um valor dado. Se a *razão de verossimilhanças*
+$$
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{x}_n)) = \frac{\mathcal{L}_{\boldsymbol{x}_n}(\theta')}{\mathcal{L}_{\boldsymbol{x}_n}(\theta'')}
+$$
+for *monótona não-crescente* e $\theta' \leq \theta''$, em que $T(\boldsymbol{x}_n)$ é uma [estatística suficiente](estatisticas-suficientes.qmd) para o [modelo](modelo-estatistico.qmd), então
+o teste $\delta^* : \mathfrak{X}^{(n)} \rightarrow \{0, 1\}$ tal que
+$$
+\delta^* (\boldsymbol{x}_n) = \begin{cases}
+0, T(\boldsymbol{x}_n) > c \\
+1, T(\boldsymbol{x}_n) \leq c,
+\end{cases}
+$$
+e $c$ satisfaz
+$$
+\pi_{\delta^*}(\theta_0) = P_{\theta_0}(\delta^*(\boldsymbol{x}_n) = 1) = \alpha,
+$$
+é o teste uniformemente mais poderoso de tamanho $\alpha$.
+
+#### Exemplo (Normal)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim N(\theta, 2), \theta \in \Theta \subseteq \mathbb{R}$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \geq 1\\
+\mathcal{H}_1 : \theta < 1.
+\end{cases}
+$$
+Encontre o TUMP de tamanho $\alpha$.
+
+##### Resposta
+
+A função de verossimilhança é dada por
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum (x_i - \theta)^{2} \right\} \\ &= 
+\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum x_i^2 - 2\theta\sum x_i + n\theta^2 \right\}.
+\end{aligned}
+$$
+Pelo [Critério de Fatoração de Fisher](estatisticas-suficientes.qmd#sec-crit-fat), $T(\boldsymbol{X}_n) = \sum x_i$ é uma estatística suficiente.
+Note que
+$$
+\begin{aligned}
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) &= \frac{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum x_i^2 - 2\theta'\sum x_i + n\theta'^2 \right\}}{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum x_i^2 - 2\theta''\sum x_i + n\theta''^2 \right\}} \\
+&= \mathrm{Exp}\left\{-\frac{1}{4}(-\theta'T(\boldsymbol{x}_n) + n\theta'^2 + 2\theta''T(\boldsymbol{x}_n) - n\theta''^2\right\} \\
+&= \mathrm{Exp}\left\{\frac{1}{2}(\theta' - \theta'')T(\boldsymbol{x}_n)-\frac{1}{4} n'\theta^2 +\frac{1}{4}\theta''^2\right\}.
+\end{aligned}
+$$
+Como $\theta' \leq \theta''$, temos que $\theta' - \theta'' \leq 0$. Logo, $\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{x}_n))$ é uma função
+monótona *não-crescente* em $T(\boldsymbol{x}_n)$. Logo, pelo Teorema de Karlin-Rubin (II), temos que
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0, \sum x_i > c \\
+1, \sum x_i \leq c
+\end{cases}
+$$
+em que $c$ satisfaz
+$$
+\pi_{\delta^*}(1) = P_{1}(\sum X_i \leq c) = \alpha.
+$$
+
+### Simulações
+
+```{julia}
+#| echo: true
+# Seja X a.a. de X ~ Exp()
+# H_0 θ ≤ 2; H_1 θ > 2
+# δ(x) = 1 ⟺ ∑ x ≤ 2.71
+using Distributions, Random, StatsBase
+Random.seed!(24)
+
+# Borda do Θ_0
+θ_0 = 2
+# Valores do teste e amostra
+n = 100
+α = 0.05
+MC = 10_000
+
+function h0()
+  # Sob H_0
+  θ_00 = rand(Uniform(0, θ_0))
+
+
+  d = Exponential(1/θ_00)
+  dsoma = Gamma(n, 1/θ_00)
+  c = quantile(dsoma, α)
+
+  δ = zeros(MC)
+  for i in 1:MC
+    x = rand(d, n)
+    δ[i] = sum(x) ≤ c
+  end
+  println("Testes rejeitados sob H_0: $(mean(δ) * 100)%")
+end
+
+function h1()
+  # Sob H_0
+  θ_11 = rand(Uniform(θ_0, θ_0+10))
+
+
+  d = Exponential(1/θ_11)
+  dsoma = Gamma(n, 1/θ_11)
+  c = quantile(dsoma, α)
+
+  δ = zeros(MC)
+  for i in 1:MC
+    x = rand(d, n)
+    δ[i] = sum(x) ≥ c
+  end
+  println("Testes rejeitados sob H_1 (Poder do teste): $(mean(δ) * 100)")
+end
+
+h0()
+h1()
+```
+
+## Testes de hipótese gerais
+Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \in \Theta_0 \\
+\mathcal{H}_1 : \theta \in \Theta_1
+\end{cases}
+$$
+as hipóteses nula e alternativa em que $\Theta_0 \cup \Theta_1 = \Theta, \Theta_0 \cap \Theta_1 = \emptyset, \#(\Theta_0) \geq 1, \#(\Theta_1) \geq 1$.
+
+O teste da razão de [verossimilhanças](funcao-verossimilhanca.qmd) generalizada de tamanho $\alpha$ é $\delta:\mathfrak{X}^{(n)}\rightarrow \{0,1\}$ tal que
+
+$$
+\delta(\boldsymbol{X}_n) = \begin{cases}
+0,\ \boldsymbol{x}_n \not\in A_c
+1,\ \boldsymbol{x}_n \in A_c
+\end{cases}
+$$
+e $\sup\limits_{\theta \in \Theta_0}\pi_\delta(\theta) = \alpha$, em que
+
+$$
+A_c = \left\{
+\boldsymbol{x}_n \in \mathfrak{X}^{(n)} : \frac{\sup\limits_{\theta \in \Theta_1} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} \geq c
+\right\}
+$$
+
+:::{.callout-tip title="Constante $c$"}
+A constante $c$ é obtida resolvendo $\sup\limits_{\theta \in \Theta_0}\pi_\delta(\theta) = \alpha$
+:::
+
+:::{.callout-note title="Teste de Neyman-Pearson"}
+Se $\Theta_0 = \{\theta_0\}, \Theta_1 = \{\theta_1\}$, temos o teste mais poderoso de Neyman-Pearson.
+:::
+
+:::{.callout-note title="TUMP de Karlin-Rubin I e II"}
+Se $\Theta_0 = (-\infty \theta_0] \cap \Theta, \Theta_1 = (\theta_1, \infty) \cap \Theta$, temos o teste uniformemente
+mais poderoso de Karlin-Rubin (I). Por sua vez,
+se $\Theta_0 = [\theta_0, \infty) \cap \Theta, \Theta_1 = (-\infty \theta_1) \cap \Theta$, temos o teste uniformemente
+mais poderoso de Karlin-Rubin (II)
+:::
+
+### [Estatística](estatisticas.qmd) da razão de verossimilhanças generalizada
+Se $\dim(\Theta) = \dim(\Theta_1) > \dim(\Theta_0)$ e $\mathcal{L}_{\boldsymbol{x}_n}(\theta)$ for contínua para todo $\theta$ em $\Theta$, então:
+$$
+\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta) = \sup\limits_{\theta \in \Theta_1} \mathcal{L}_{\boldsymbol{x}_n}(\theta),\ \mathrm{q.c.}
+$$
+Portanto,
+$$
+\begin{aligned}
+\frac{\sup\limits_{\theta \in \Theta_1} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} =
+\frac{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} \cdot
+\frac{\sup\limits_{\theta \in \Theta_1} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} &= 
+\frac{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} \geq c \\
+&\iff
+\frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} \leq \frac{1}{c} \\
+\Rightarrow
+A_c &= \left\{
+\frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} \leq \frac{1}{c}
+\right\}
+\end{aligned}
+$$
+
+Dizemos que
+$$
+\lambda(\boldsymbol{x}_n; \Theta_0) = 
+\frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+$${#eq-estatrazao}
+é a estatística da razão de verossimilhanças generalizada.
+
+Denote por $\hat{\theta}_0$ o estimador para "$\theta$" sob $\mathcal{H}_0$, ou seja,
+$$
+\hat{\theta}_0 = \mathrm{argmax}_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)
+$$
+sempre que existir. Denote também
+$$
+\hat{\theta}_{\mathrm{MV}} = \mathrm{argmax}_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)
+$$
+o [estimador de máxima verossimilhança](emv2.qmd) não restrito a $\mathcal{H}_0$. A estatística da razão de verossimilhança
+generalizada pode ser reescrita:
+$$
+\lambda(\boldsymbol{x}_n; \Theta_0) = 
+\frac{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_0)}
+{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})}
+$${#eq-estatrazao2}
+
+Note que a @eq-estatrazao é bem definida sempre que $0 < \sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta) < \infty$.
+Em alguns casos, a @eq-estatrazao2 não pode ser resolvida por não existir um argumento que maximize a função de verossimilhança sob
+a hipótese nula.
+
+Observe que $\mathcal{H}_0 : \theta = \theta_0$ contra $\mathcal{H}_1 : \theta = \theta_1$ e $\Theta \subseteq \mathbb{R}$,
+$$
+\lambda(\boldsymbol{x}_n; \Theta_0) = 
+\frac{\mathcal{L}_{\boldsymbol{x}_n}(\theta_0)}
+{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})}
+$$
+
+*Teorema*. Sob as [condições de regularidade](cond-regular.qmd) e com $\dim(\Theta_0) < \dim(\Theta)$, temos que
+$$
+-2\ln \lambda(\boldsymbol{X}_n, \Theta_0) \stackrel{\mathcal{D}}{\rightarrow} \chi^2_{s},
+$$
+em que $s = \dim(\Theta) - \dim(\Theta_0)$. Supõe-se que o conjunto $\Theta_0$ *não* contém singularidades.
+
+O teste da Razão de Verossimilhança Generalizada (RVG) pode ser reescrito:
+$$
+\begin{aligned}
+\delta(\boldsymbol{x}_n) &= \begin{cases}
+0,\ \  \frac{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_0)}
+{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})} > \frac{1}{c} \\
+1,\ \ \frac{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_0)}
+{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})} \leq \frac{1}{c}
+\end{cases} \\
+\iff
+\delta(\boldsymbol{x}_n) &= \begin{cases}
+0,\ \  \lambda(\boldsymbol{x}_n, \Theta_0) > \frac{1}{c} \\
+1,\ \  \lambda(\boldsymbol{x}_n, \Theta_0) \leq \frac{1}{c}
+\end{cases} \\
+\iff
+\delta(\boldsymbol{x}_n) &= \begin{cases}
+0,\ \  -2 \ln \lambda(\boldsymbol{x}_n, \Theta_0) < 2\ln c \\
+1,\ \  -2 \ln \lambda(\boldsymbol{x}_n, \Theta_0) \geq 2 \ln c
+\end{cases} \\
+\end{aligned}
+$$
+em que $c$ deve satisfazer
+$$
+\begin{aligned}
+\sup\limits_{\theta \in \Theta_0} \pi_{\delta}(\theta) &= \alpha \\
+\iff \sup\limits_{\theta \in \Theta_0} P_\theta(\delta(\boldsymbol{X}_n) = 1) &= \alpha \\
+\iff \sup\limits_{\theta \in \Theta_0} P_\theta(-2\ln \lambda(\boldsymbol{X}_n, \Theta_0) \geq 2 \ln c) &= \alpha
+\end{aligned}
+$${#eq-testeestatrazao}
+
+1. Se a distribuição exata de $-2\ln \lambda(\boldsymbol{X}_n, \Theta_0)$ for conhecida, entã basta encontrar $2\ln c$ que satisfaça
+a @eq-testeestatrazao.
+
+2. Caso contrário, utilizamos o teorema anterior:
+$$
+-2\ln \lambda(\boldsymbol{X}_n, \Theta_0) \stackrel{\mathcal{D}}{\rightarrow} \chi^2_{s},
+$$
+em que $s = \dim(\Theta) - \dim(\Theta_0)$
+
+### Exemplo (Normal)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\theta,1), \theta \in \Theta \subseteq \mathbb{R}$, e considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta = 0 \\
+\mathcal{H}_1 : \mu \neq 0,
+\end{cases}
+$$
+as hipóteses nula e alternativa. Encontre o teste da razão de verossimilhanças generalizada de tamanho $\alpha$.
+
+#### Resposta
+
+Já sabemos que $\hat{\theta}_{\mathrm{MV}} = \bar{X}$ e
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{2\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{2} \sum (x_i - \theta)^{2} \right\} \\ &= 
+\left(\frac{1}{\sqrt{2\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{2} \sum x_i^2 - 2\theta\sum x_i + n\theta^2 \right\}.
+\end{aligned}
+$$.
+
+Assim,
+$$
+\begin{aligned}
+\lambda(\boldsymbol{x}_n; \Theta_0) &= 
+\frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}\\
+&= \frac{\mathcal{L}_{\boldsymbol{x}_n}(0)} {\mathcal{L}_{\boldsymbol{x}_n}(\bar{x})} \\
+&= \mathrm{Exp}\left\{
+-\frac{1}{2} \sum x_i^2 + \frac{1}{2}\left(\sum x_i^2 - 2n \bar{x}^2 + n \bar{x}^2\right)
+\right\} = \mathrm{e}^{-\frac{1}{2}n\bar{x}^2}
+\end{aligned}
+$$
+Portanto,
+$$
+-2\ln \lambda(\boldsymbol{x}_n, \Theta_0) = n \bar{x}^2.
+$$
+Sob $\mathcal{H}_0$, $\theta =0, \bar{X} \sim N(0, 1/n), \sqrt{n}\bar{X} \sim N(0,1) \Rightarrow n \bar{X}^2 \sim \chi^2_1$.
+Logo, o teste de RVG é
+$$
+\delta(\boldsymbol{x}_n) = \begin{cases}
+0,\ \  n\bar{x}^2 < 2\ln c
+1,\ \  n\bar{x}^2 \geq 2\ln c
+\end{cases}
+$$
+em que $c$ deve satisfazer
+$$
+\sup\limits_{\theta \in \Theta_0} P_\theta(n\bar{X}^2 \geq 2 \ln c) = \alpha.
+$$
+Note que $\forall \theta \in \Theta_0$, $n\bar{X}^2 \sim \chi^2_1$ (é [ancilar](estatisicas-ancilares.qmd) ao modelo reduzido). Portanto,
+$$
+\sup\limits_{\theta \in \Theta_0} P_{0}(n\bar{X}^2 \geq c^*) = P(\chi^2_1 \geq c^*) = \alpha.
+$$
+Tomando $c^* = 2\ln c$, podemos obter o valor para $c^*$ de uma qui-quadradado com $1$ grau de liberdade para qualquer valor de $\alpha$.
+Por exemplo, se $\alpha = 10\%, c^* = 2.70$. Se $\alpha = 5\%, c^* = 3.84$, etc.
+
+### Exemplo (Poisson)
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim \mathrm{Poiss}(\theta), \theta \in \Theta = (0, \infty)$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta = \theta_0 \\
+\mathcal{H}_1 : \mu \neq \theta_0,
+\end{cases}
+$$
+as hipóteses nula e alternativa. Encontre o teste da razão de verossimilhanças generalizada de tamanho $\alpha$. Use o resultado
+assintótico.
+
+#### Resposta
+Já sabemos que $\hat{\theta}_{\mathrm{MV}} = \bar{X}$ e
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \mathrm{e}^{n\theta} \cdot \frac{\theta^{\sum x_i}}{\prod (x_i)!} \\
+\Rightarrow \lambda(\boldsymbol{x}_n, \Theta_0) &= \frac{\mathrm{e}^{n\theta_0} \cdot \frac{\theta_0^{\sum x_i}}{\prod (x_i)!}}
+{\mathrm{e}^{n\bar{x}} \cdot \frac{\bar{x}^{\sum x_i}}{\prod (x_i)!}} \\
+&= \mathrm{e}^{n\theta_0+n\bar{x}} \cdot \left(\frac{\theta_0}{\bar{x}}\right)^{\sum x_i}
+\end{aligned}
+$$
+Sabemos que, sob $\mathcal{H}_0, \ (\mathrm{i.e.}\ \forall \theta \in \Theta_0)$, $-2\ln \lambda(\boldsymbol{X}_n, \Theta_0) \stackrel{\mathcal{D}}{\rightarrow} \chi^2_1$.
+Assim,
+$$
+\begin{aligned}
+2n\theta_0 - 2n\bar{X} - 2n\bar{X}\ln\left(\frac{\theta_0}{\bar{X}}\right) = \underbrace{2n\theta_0 -2n\bar{X} -2n\bar{X} \ln \theta_0 + 2n\bar{X} \ln \bar{X}}_{T(\boldsymbol{X}_n)}
+\stackrel{\mathcal{D}}{\rightarrow} \chi^2_1.
+\end{aligned}
+$$
+Logo, o teste de RVG é
+$$
+\delta(\boldsymbol{x}_n) = \begin{cases}
+0,\ \  T(\boldsymbol{x}_n) < c^*
+1,\ \  T(\boldsymbol{x}_n) \geq c^*
+\end{cases}
+$$
+em que $c$ deve satisfazer
+$$
+\sup\limits_{\theta \in \Theta_0} P_\theta(n\bar{X}^2 \geq c^*) = P_{\theta_0}(T(\boldsymbol{X}_n) \geq c^*) = \alpha.
+$$
+Pela aproximação,
+$$
+P_{\theta_0}(T(\boldsymbol{X}_n) \geq c^*) \approx P(\chi^2_1 \geq c^*) \alpha.
+$$
+
+```{julia}
+#| echo: true
+# Seja Xn a.a. de X ~ Pois(θ)
+# H0: θ = θ_0
+# H1: θ ≠ θ_0
+using Random, Distributions, StatsBase, Plots, StatsPlots, LaTeXStrings
+n = 100
+θ_0 = 3
+
+# Gerando sob H_0
+d = Poisson(θ_0)
+MC = 10_000
+TX = zeros(MC)
+for i in 1:MC
+x = rand(d, n)
+  TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) + 2 * n * mean(x) * log(mean(x))
+end
+histogram(TX, normalize=:pdf, title="Histograma de T(X)", label="")
+plot!(Chisq(1), label=L"\chi^2_1")
+
+## Probabilidade do erro tipo I, α = 10%
+
+quantil = quantile(Chisq(1), 0.9)
+rejeita = TX .> quantil
+println("Probilidade do Erro Tipo I com α = 10%: $(mean(rejeita))")
+```
