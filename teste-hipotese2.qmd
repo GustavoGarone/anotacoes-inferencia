@@ -94,7 +94,7 @@ $$
 As hipóteses acima podem ser reescritas em termos das suas respectivas famílias de medidas de probabilidades da seguinte forma:
 $$
 \begin{cases}
-\mathcal{H}_0: P in \mathcal{P}_0 \\
+\mathcal{H}_0: P \in \mathcal{P}_0 \\
 \mathcal{H}_1: P \in \mathcal{P}_1
 \end{cases}
 $$,
@@ -1070,9 +1070,9 @@ assintótico.
 Já sabemos que $\hat{\theta}_{\mathrm{MV}} = \bar{X}$ e
 $$
 \begin{aligned}
-\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \mathrm{e}^{n\theta} \cdot \frac{\theta^{\sum x_i}}{\prod (x_i)!} \\
-\Rightarrow \lambda(\boldsymbol{x}_n, \Theta_0) &= \frac{\mathrm{e}^{n\theta_0} \cdot \frac{\theta_0^{\sum x_i}}{\prod (x_i)!}}
-{\mathrm{e}^{n\bar{x}} \cdot \frac{\bar{x}^{\sum x_i}}{\prod (x_i)!}} \\
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \mathrm{e}^{n\theta} \cdot \frac{\theta^{\sum x_i}}{\prod (x_i!)} \\
+\Rightarrow \lambda(\boldsymbol{x}_n, \Theta_0) &= \frac{\mathrm{e}^{n\theta_0} \cdot \frac{\theta_0^{\sum x_i}}{\prod (x_i!)}}
+{\mathrm{e}^{n\bar{x}} \cdot \frac{\bar{x}^{\sum x_i}}{\prod (x_i!)}} \\
 &= \mathrm{e}^{n\theta_0+n\bar{x}} \cdot \left(\frac{\theta_0}{\bar{x}}\right)^{\sum x_i}
 \end{aligned}
 $$
@@ -1117,12 +1117,13 @@ for i in 1:MC
 x = rand(d, n)
   TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) + 2 * n * mean(x) * log(mean(x))
 end
-histogram(TX, normalize=:pdf, title="Histograma de T(X)", label="")
-plot!(Chisq(1), label=L"\chi^2_1")
+p = histogram(TX, normalize=true, title="Histograma de T(X)", label="", ylims=(0,1), bins=20, xlabel="T(X)", ylabel="Densidade")
+plot!(Chisq(1), label=L"\chi^2_1", color=:tomato)
 
 ## Probabilidade do erro tipo I, α = 10%
 
 quantil = quantile(Chisq(1), 0.9)
 rejeita = TX .> quantil
-println("Probilidade do Erro Tipo I com α = 10%: $(mean(rejeita))")
+println("Probilidade do Erro Tipo I com α = 10%: $(mean(rejeita) * 100)%")
+display(p)
 ```
