@@ -425,8 +425,8 @@ $$
 nula e alternativa. A função teste $\delta^* : \mathfrak{X}^{(n)} \rightarrow \{0,1\}$ tal que
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0) \\
-1,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0),
+0,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta_1) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0) \\
+1,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta_1) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0),
 \end{cases}
 $$
 em que $\eta$ satisfaz $\underbracket{P_{\theta_0}(\delta^*(\boldsymbol{X}_n) = 1)}_{\pi_{\delta^*}(\theta_0)} = \alpha$ para um $\alpha$ fixado apriori, é o teste mais
