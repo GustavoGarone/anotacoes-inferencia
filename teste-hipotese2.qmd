@@ -1048,7 +1048,7 @@ em que $c$ deve satisfazer
 $$
 \sup\limits_{\theta \in \Theta_0} P_\theta(n\bar{X}^2 \geq 2 \ln c) = \alpha.
 $$
-Note que $\forall \theta \in \Theta_0$, $n\bar{X}^2 \sim \chi^2_1$ (é [ancilar](estatisicas-ancilares.qmd) ao modelo reduzido). Portanto,
+Note que $\forall \theta \in \Theta_0$, $n\bar{X}^2 \sim \chi^2_1$ (é [ancilar](estatisticas-ancilares.qmd) ao modelo reduzido). Portanto,
 $$
 \sup\limits_{\theta \in \Theta_0} P_{0}(n\bar{X}^2 \geq c^*) = P(\chi^2_1 \geq c^*) = \alpha.
 $$
@@ -1127,3 +1127,436 @@ rejeita = TX .> quantil
 println("Probilidade do Erro Tipo I com α = 10%: $(mean(rejeita) * 100)%")
 display(p)
 ```
+
+### Hipótese Linear Geral
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^p$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : C \cdot \theta = d \\
+\mathcal{H}_1 : C \cdot \theta \neq d
+\end{cases}
+$${#eq-hipotesesmulti}
+
+em que $C$ é uma matriz $s \times p$ conhecida e $d$ é um vetor de dimensão $s$ conhecido. Podemos escrever as hipóteses
+em termos de $\Theta_0$ e $\Theta_1$:
+
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \in \Theta_0\\
+\mathcal{H}_1 : \theta \in \Theta_1
+\end{cases}
+$$
+em que $\Theta_0 = \{\theta \in \Theta : C\cdot \theta = d\}$ e  $\Theta_1 = \{\theta \in \Theta : C\cdot \theta \neq d\}$.
+
+A hipótese $\mathcal{H}_0 : C \cdot \theta = d$ é conhecida como *hipótese linear geral*.
+
+Note que, podemos testar as seguintes hipóteses como casos particulares:
+1.$$
+\begin{cases}
+\mathcal{H}_0 : \theta = \theta_0\\
+\mathcal{H}_1 : \theta \neq \theta_0
+\end{cases}\ \ \ \iff C=I, d = \theta_0.
+$$
+2.$$
+\begin{cases}
+\mathcal{H}_0 : \theta_1 = \theta_2\\
+\mathcal{H}_1 : \theta_1 \neq \theta_2
+\end{cases}\ \ \ \iff C=\begin{pmatrix}1  & -1 & 0 & \dots & 0\end{pmatrix}, d = 0,\ \ \theta = (\theta_1, \theta_ 2\dots, \theta_p).
+$$
+3.$$
+\begin{aligned}
+\begin{cases}
+\mathcal{H}_0 : \theta_1 = \theta_3\ \text{e}\ \theta_2 = \theta_4\\
+\mathcal{H}_1 : \text{Ao menos um diferente}
+\end{cases}\ \ \ \iff C&=\begin{bmatrix} 1 & 0 & -1 & 0 & \cdots & 0 \\ 0 & 1 & 0 & -1 & \cdots & 0 \end{bmatrix},\\
+d &= \begin{bmatrix}0 \\ 0\end{bmatrix}.
+\end{aligned}
+$$
+4.$$
+\begin{cases}
+\mathcal{H}_0 : \sum^p_{i=1} c_i \theta_i = d \\
+\mathcal{H}_1 : \sum^p_{i=1} c_i \theta_i \neq d
+\end{cases}\ \ \ \iff C=\begin{pmatrix} c_1 & c_2 & \dots & c_p \end{pmatrix}, d = d.
+$$
+5.$$
+\begin{aligned}
+\begin{cases}
+\mathcal{H}_0 : \sum^p_{i=1} c_i^{(1)} \theta_i = d^{(1)}, \dots, \sum^p_{i=1} c_i^{(p)} \theta_i = d^{(p)} \\
+\mathcal{H}_1 : \text{Ao menos um diferente}
+\end{cases}\ \ \ \iff 
+C &=\begin{bmatrix} 
+c_1^{(1)} & c_2^{(1)} & \dots & c_{p}^{(1)} \\
+c_1^{(2)} & c_2^{(2)} & \dots & c_{p}^{(2)} \\
+\vdots & \vdots & \ddots & \vdots \\
+c_1^{(p)} & c_2^{(p)} & \dots & c_{p}^{(p)} \\
+\end{bmatrix},\\
+d &= \begin{bmatrix}d^{(1)}\\ d^{(2)} \\ \vdots \\ d^{(p)}\end{bmatrix}.
+\end{aligned}
+$$
+
+### Estatística de Wald
+
+Seja $\hat{\theta}$ um [estimador](estimadores.qmd) para "$\theta$" [assintoticamente normal](prop-est.qmd#sec-assinorm), ou seja,
+$$
+\sqrt{n}(\hat{\theta} - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_s(\boldsymbol{0}, V_{\theta})
+$$
+Se $C$ tiver posto linha completo, ou seja, todas suas linhas são linearmente independentes, então
+$$
+\begin{aligned}
+\sqrt{n}(C\hat{\theta} - C\theta) &\stackrel{\mathcal{D}}{\rightarrow} N_s(\boldsymbol{0}, C V_\theta C) \\
+\Rightarrow  n(C\hat{\theta} - C\theta)^T [C V_{\hat{\theta}} C^T]^{-1} (C\hat{\theta} - C\theta) &\stackrel{\mathcal{D}}{\rightarrow} \chi^2_{s}, \forall \theta \in \Theta.
+\end{aligned}
+$$
+Sob $\mathcal{H}_0, C\theta = d$. Disso, temos que
+$$
+n(C\hat{\theta} - d)^T [C V_{\hat{\theta}} C^T]^{-1} (C\hat{\theta} - d) \stackrel{\mathcal{D}}{\rightarrow} \chi^2_{s}.
+$$
+
+A estatística de Wald é definida por
+$$
+W(\boldsymbol{X}_n) = n(C\hat{\theta}(\boldsymbol{X}_n) - d)^T [C V_{\hat{\theta}(\boldsymbol{X}_n)} C^T]^{-1} (C\hat{\theta}(\boldsymbol{X}_n) - d).
+$$
+
+Sob $\mathcal{H}_0$, $W \stackrel{\mathcal{D}}{\rightarrow} \chi^2_s$, em que $s$ é o número de linhas de $C$.
+
+#### Exemplos
+
+Considere as hipóteses com $\theta_{1,0}$ conhecido
+$$
+\begin{aligned}
+\begin{cases}
+\mathcal{H}_0 : \theta_1 = \theta_{1,0}
+\mathcal{H}_1 : \theta_1 \neq \theta_{1,0}
+\end{cases}&\ \ \ \Rightarrow C=\begin{pmatrix}1 & 0 & \dots & 0\end{pmatrix}, d = \theta_{1,0} \\
+W &= n(\hat{\theta}_1 - \theta_{1,0})(V_{\hat{\theta}}^{(1,1)})^{-1}(\hat{\theta}_1 - \theta_{1,0}) \\
+&= \frac{(\hat{\theta}_1 - \theta_{1,0})^2}{(V_{\hat{\theta}}^{(1,1)}/n)} \stackrel{\mathcal{D}}{\rightarrow} \chi^2_1,\ \text{Sob}\ \mathcal{H}_0
+\end{aligned}
+$$
+Logo,
+$$
+C V_{\hat{\theta}}C^T = \begin{pmatrix} 1 & 0 & \dots & 0 \end{pmatrix}
+\begin{bmatrix}
+V_{\hat{\theta}}^{(1,1)} &  V_{\hat{\theta}}^{(1,2)} & \dots & V_{\hat{\theta}}^{(1,p)} \\
+\cdot & V_{\hat{\theta}}^{(2,2)} & \dots & V_{\hat{\theta}}^{(2,p)} \\
+\vdots & \vdots & \ddots & \cdot \\
+\cdot & \cdot & \cdot  & V_{\hat{\theta}}^{(p,p)}
+\end{bmatrix}\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} = V_{\hat{\theta}}^{(1,1)}
+$$
+
+Considere as hipóteses
+$$
+\begin{aligned}
+\begin{cases}
+\mathcal{H}_0 : \theta_1 = \theta_{3}
+\mathcal{H}_1 : \theta_1 \neq \theta_{3}
+\end{cases}&\ \ \ \Rightarrow C=\begin{pmatrix}1 & 0 & -1 & 0 & \dots & 0\end{pmatrix}, d = 0 \\
+W &= n(\hat{\theta}_1 - \hat{\theta}_3)(C V_{\hat{\theta}} C^T)^{-1}(\hat{\theta}_1 - \hat{\theta}_3) \\
+&= \frac{n(\hat{\theta}_1 - \hat{\theta}_3)^2}{C V_{\hat{\theta}} C^T}
+\end{aligned}
+$$
+Logo,
+$$
+\begin{aligned}
+C V_{\hat{\theta}}C^T &= \begin{pmatrix}1 & 0 & -1 & 0 & \dots & 0\end{pmatrix}
+\begin{bmatrix}
+V_{\hat{\theta}}^{(1,1)} &  V_{\hat{\theta}}^{(1,2)} & \dots & V_{\hat{\theta}}^{(1,p)} \\
+V_{\hat{\theta}}^{(2,1)}& V_{\hat{\theta}}^{(2,2)} & \dots & V_{\hat{\theta}}^{(2,p)} \\
+\vdots & \vdots & \ddots & \cdot \\
+V_{\hat{\theta}}^{(p,1)}& V_{\hat{\theta}}^{(p,2)}& \cdot  & V_{\hat{\theta}}^{(p,p)}
+\end{bmatrix}\begin{pmatrix}1 \\ 0 \\ -1 \\ 0 \\ \vdots \\ 0\end{pmatrix} \\
+&= \begin{pmatrix}
+V_{\hat{\theta}}^{(1,1)} -V_{\hat{\theta}}^{(3,1)} & 
+V_{\hat{\theta}}^{(1,2)} - V_{\hat{\theta}}^{(3,2)} &
+\dots &
+V_{\hat{\theta}}^{(1,p)} - V_{\hat{\theta}}^{(3,p)}
+\end{pmatrix} \begin{pmatrix}1 \\ 0 \\ -1 \\ 0 \\ \vdots \\ 0\end{pmatrix} \\
+&= V_{\hat{\theta}}^{(1,1)} - V_{\hat{\theta}}^{(3,1)} + V_{\hat{\theta}}^{(3,3)} - V_{\hat{\theta}}^{(1,3)} \\
+& = V_{\hat{\theta}}^{(1,1)} + V_{\hat{\theta}}^{(3,3)} - 2 V_{\hat{\theta}}^{(1,3)}
+\end{aligned}
+$$
+
+O teste usando a estatística de Wald é definido por
+$$
+\delta_{W}(\boldsymbol{x}_n) = \begin{cases}
+0,\ \ \ W(\boldsymbol{x}_n) < \eta \\
+1,\ \ \ W(\boldsymbol{x}_n) \geq \eta
+\end{cases}
+$$
+em que $\eta$ é obtido de
+$$
+P(\chi^2_s \geq \eta) = \alpha
+$$
+para um teste de Wald de tamanho $\alpha$.
+
+:::{.callout-tip title="Relação com as hipóteses"}
+Sob $\mathcal{H}_0$, esperamos que $W$ seja "pequeno", enquanto
+sob $\mathcal{H}_1$, esperamos que $W$ seja "grande".
+:::
+
+### Estatística Escore (ou de Rao)
+
+Considere as hipóteses
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta = \theta_0 \\
+\mathcal{H}_1 : \theta \neq \theta_0
+\end{cases}
+$$
+em que $\theta_0$ é conhecido e $\theta \in \theta \subseteq \mathbb{R}^p$.
+A estatística escore é definida por
+
+$$
+R(\boldsymbol{X}_n) = U_n(\boldsymbol{X}_n, \theta_))^T I_n(\theta_0)^{-1} U_n(\boldsymbol{X}_n, \theta_0)
+$$
+em que $U_n$ é o [escore da amostra](escore.qmd) e $I_n$ é a [informação de fisher total](infofisher.qmd).
+
+Pode-se demonstrar que
+$$
+R \stackrel{\mathcal{D}}{\rightarrow} \chi^2_p,\ \text{sob}\ \mathcal{H}_0
+$$
+
+O teste usando a estatística escore é definido por
+$$
+\delta_{R}(\boldsymbol{x}_n) = \begin{cases}
+0,\ \ \ R(\boldsymbol{x}_n) < \eta \\
+1,\ \ \ R(\boldsymbol{x}_n) \geq \eta
+\end{cases}
+$$
+em que $\eta$ é obtido de
+$$
+P(\chi^2_p \geq \eta) = \alpha
+$$
+para um teste escore de tamanho $\alpha$.
+
+### Comparando as estatísticas
+
+<!-- TODO: adicionar probabilidades dos erros tipo II, gráfico das funções poder -->
+
+```{julia}
+#| echo: true
+#| output: false
+# Razão de verossimilhanças
+# Seja Xn a.a. de X ~ Pois(θ)
+# H0: θ = θ_0
+# H1: θ ≠ θ_0
+using Random, Distributions, StatsBase, Plots, StatsPlots, LaTeXStrings
+Random.seed!(96)
+n = 100
+α = 0.1
+
+MC = 10_000
+
+# Razão de verossimilhanças
+function razao(dist, θ_0)
+  TX = zeros(MC)
+  for i in 1:MC
+    x = rand(dist, n)
+    TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) +
+      2 * n * mean(x) * log(mean(x))
+  end
+  return TX
+end
+
+# Estatística de Wald
+function wald(dist, θ_0)
+  C = 1
+  d = θ_0
+  W = zeros(MC)
+  for i in 1:MC
+    x = rand(dist, n)
+    V = mean(x) # theta =emv> mean(x)
+    W[i] = n*(C * mean(x) - d)^2/V
+  end
+  return W
+end
+
+# Estatística de Escore
+function escore(dist, θ_0)
+  I(θ) = n/θ
+  R = zeros(MC)
+  for i in 1:MC
+    x = rand(dist, n)
+    U(θ) = sum(x) / θ - n
+    R[i] = U(θ_0)^2 / I(θ_0)
+  end
+  return R
+end
+```
+
+Geraremos sob $\mathcal{H}_0$:
+```{julia}
+#| echo: true
+# Gerando sob H_0
+θ_0 = 3
+dist = Poisson(θ_0)
+distassin = Chisq(1)
+quantil = quantile(distassin, 1-α)
+## Probabilidade do erro tipo I, α = 10%, Razão
+
+TX = razao(dist, θ_0)
+rejeita = TX .> quantil
+println("Probilidade do Erro Tipo I com α = 10% (Razão de Ver.):
+        $(mean(rejeita) * 100)%")
+
+
+## Probabilidade do erro tipo I, α = 10%, Wald
+W = wald(dist, θ_0)
+rejeita = W .> quantil
+println("Probilidade do Erro Tipo I com α = 10% (Wald):
+        $(mean(rejeita) * 100)%")
+
+## Probabilidade do erro tipo I, α = 10%, Wald
+R = escore(dist, θ_0)
+rejeita = R .> quantil
+println("Probilidade do Erro Tipo I com α = 10% (Escore):
+        $(mean(rejeita) * 100)%")
+
+pv = histogram(TX, normalize=true, title="Histograma da Razão de Ver.",
+               label="", ylims=(0,1), bins=20, xlabel="T(X)",
+               ylabel="Densidade")
+plot!(Chisq(1), label=L"\chi^2_1", color=:tomato)
+pw = histogram(W, normalize=true, title="Histograma de Wald", label="",
+               ylims=(0,1), bins=20, xlabel="W(X)", ylabel="Densidade")
+plot!(Chisq(1), label=L"\chi^2_1", color=:tomato)
+pr = histogram(R, normalize=true, title="Histograma de Escore", label="",
+               ylims=(0,1), bins=20, xlabel="R(X)", ylabel="Densidade")
+plot!(Chisq(1), label=L"\chi^2_1", color=:tomato)
+l = @layout [pv pw; pr]
+plot(pv, pw, pr, layout = l)
+```
+<!-- TODO: melhorar performance -->
+Para comparar, podemos também gerar sob $\mathcal{H}_1$:
+```{julia}
+#| echo: true
+#| eval: false
+# Gerando sob H_1
+
+rejeitaTX(θ) = mean(razao(dist, θ) .> quantil)
+rejeitaW(θ) = mean(wald(dist, θ) .> quantil)
+rejeitaR(θ) = mean(escore(dist, θ) .> quantil)
+Δ = θ_0 * 0.3
+# alance = length(Θ_0-Δ:0.1:Θ_0+Δ)
+# poderTX = zeros(alcance)
+# poderW = zeros(alcance)
+# poderR = zeros(alcance)
+# for i in Θ_0-Δ:0.1:Θ_0+Δ
+#   poderTX[i] = rejeitaTX(i) 
+# end
+pv = plot(rejeitaTX,
+          xlims=(θ_0-Δ, θ_0+Δ),
+          ylims=(0,1),
+          label="",
+          ylabel="Poder Razão de ver.", 
+          xlabel=L"θ_1")
+pw = plot(rejeitaW,
+          xlims=(θ_0-Δ, θ_0+Δ),
+          ylims=(0,1),
+          label="",
+          ylabel="Poder Wald",
+          xlabel=L"θ_1")
+pr = plot(rejeitaR,
+          xlims=(θ_0-Δ, θ_0+Δ),
+          ylims=(0,1),
+          label="",
+          ylabel="Poder Escore",
+          xlabel=L"θ_1")
+l = @layout [pv pw; pr]
+plot(pv, pw, pr, layout = l)
+```
+
+### Valor-$p$ ou nível descritivo do teste
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^p$. Considere
+$$
+\mathcal{H}_0: \theta \in \Theta_0
+$$
+
+:::{.callout-note title="Suficiência da hipótese nula para o valor-$p$"}
+A hipótese alternativa, $\mathcal{H}_1$, não é necessária para formular o valor-$p$.
+:::
+
+Seja $T_{\mathcal{H}_0}(\boldsymbol{X}_n)$ tal que, quanto maior for seu valor observado, maior é a discrepância entre 
+$\mathcal{H}_0$ e os dados observados. O valor-$p$ é definido por
+
+$$
+\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) - \sup_{\theta \in \Theta_0}
+P_\theta(T_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n))
+$$
+
+*O valor-$p$ é a probabilidade de observar uma estatística tão ou mais extrema que a observada sob o cenário mais favorável
+à $\mathcal{H}_0$.*
+
+:::{.callout-warning title="Notação em alguns textos"}
+Alguns livros, para fim didáticos, definem o valor-$p$ como probabilidade condicional:
+$$
+\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) - \sup_{\theta \in \Theta_0}
+P_\theta(T_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n) | \mathcal{H}_0)
+$$
+
+Isto, na estatística clássica, está equivocado uma vez que $\mathcal{H}_0$ é uma hipótese científica, não um evento definido
+na $\sigma$-álgebra, isto é, $P(A|B)$ só está bem definido se, e somente se, $A$ e $B$ estiverem na mesma $\sigma$-álgebra.
+:::
+
+1. Observe que, quanto menor for o valor-$p$, há mais evidencias de que $\mathcal{H}_0$ é falsa.
+
+:::{.callout-note title="Interpretação com níveis de significância"}
+Caso $\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) \leq \alpha$, então dizemos que há evidências para rejeitar
+$\mathcal{H}_0$ a $\alpha \cdot 100\%$ de significância estatística.
+:::
+
+2. Se $T_{\mathcal{H}_0} \sim G$, sob $\mathcal{H}_0$, em que $G$ não depende de "$\theta$", então
+$$
+\mathrm{valor-}p (\boldsymbol{x}_n, \mathcal{H}_0) = P(G \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n))
+$$
+
+3. Se $T_{\mathcal{H}_0} \sim G$, sob $\mathcal{H}_0$, em que $G$ não depende de "$\theta$", então
+$$
+\mathrm{valor-}p(\boldsymbol{X}_n,\mathcal{H}_0) \stackrel{\mathrm{Sob}\ \mathcal{H}_0}{\sim} \mathrm{Unif}(0,1)
+$$
+
+#### Valor-$p$ assintótico
+
+Seja $T_{\mathcal{H}_0}$ uma estatística tal que
+$$
+T_{\mathcal{H}_0} \stackrel{\mathcal{D}}{\rightarrow} G,\ \ \text{Sob}\ \mathcal{H}_0.
+$$
+então, o valor-$p$ assintótico é definido por
+$$
+\mathrm{valor-}p^{(a)} (\boldsymbol{x}_n, \mathcal{H}_0) = P(G \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n)
+$$
+
+Pode-se conduzir [simulações de Monte Carlo](monte-carlo.qmd) para verificar se o tamanho amostral é grande o suficiente
+para fazer a aproximação assintótica:
+
+1. Gerar os dados sob $\mathcal{H}_0$;
+
+2. Calcular $\mathrm{valor-}p^{(a)}$ e armazenar;
+
+3. Repetir 1-2 $M$ (tradicionalmente 10 mil) vezes;
+
+4. Fazer um histograma do valor-$p$ assintótico e comparar com $\mathrm{Unif}(0,1)$.
+
+
+#### Exemplo (Normal)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\theta, 1), \theta \in \Theta \subseteq \mathbb{R}$. Considere
+$$
+\mathcal{H}_0 : \theta = 0.
+$$
+
+Encontre um valor-$p$.
+
+##### Resposta
+
+Observe que $T_{\boldsymbol{H}_0}(\boldsymbol{x}_n) = n\bar{X}^2$ (essa também é a estatística de Wald) satisfaz o critério
+que, quanto maior o valor observado de $T_{\boldsymbol{H}_0}$, mais evidencias contra $\mathcal{H}_0$. Além disso, sob $\mathcal{H}_0$,
+
+$$
+T_{\mathcal{H}_0} \sim \chi^2_1 \Rightarrow \mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq n \bar{x}^2)
+$$
+
+Se $n = 10$ e $\bar{x} = 1$, então
+$$
+\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq 10 \cdot 1^2) = 0.001
+$$
