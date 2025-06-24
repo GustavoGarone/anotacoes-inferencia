@@ -1,0 +1,45 @@
+# Distribuição de Hotelling
+
+Sejam $Z \sim N_p(\boldsymbol{0}, I)$ e [$M \sim \mathrm{Wishart}_p(I,m)$](wishart.qmd)
+independentes. Dizemos que
+$$
+H = m \cdot Z^T M^{-1} Z
+$$
+
+tem distribuição $T^2$ de Hotelling.
+
+::: {.callout-note, title="Notação"}
+$$
+H \sim T^2(p,m)
+$$
+:::
+
+*Teorema 1.*
+
+Se $\boldsymbol{X}_n \sim N_p(\boldsymbol{\mu}, \Sigma)$ e $M \sim
+\mathrm{Wishart}_p(\Sigma, m)$, então
+
+$$
+m \cdot (\boldsymbol{X} - \mu)^T M^{-1} (\boldsymbol{X} - \mu) \sim T^2(p,m)
+$$
+
+*Prova*.
+
+Note que
+
+$$
+Z = \Sigma^{-1/2}(\boldsymbol{X} - \boldsymbol{\mu}) \sim N_p(0, I)
+$$
+
+e
+$$
+M^*= \Sigma^{-1/2}M \Sigma^{-1/2} \sim \mathrm{Wishart}_p(I, m),\ \text{pois}
+\Sigma^{-1/2}M\Sigma^{-1/2} = I
+$$
+
+Por definição,
+
+$$
+m Z^t M^* Z = m(\boldsymbol{X} - \boldsymbol{\mu})^T M^{-1} (\boldsymbol{X} -
+\boldsymbol{\mu}) \sim T^2(p,m)
+$$

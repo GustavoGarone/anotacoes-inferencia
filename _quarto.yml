@@ -1,18 +1,16 @@
+---
 lang: pt
-
 project:
   type: book
-
-
-engines: ['julia'] 
+engines: [julia]
 julia:
-  env: ["QT_QPA_PLATFORM=xcb"]
+  env: [QT_QPA_PLATFORM=xcb]
 execute:
   echo: false
   cache: true
 book:
-  title: "Anotações de Inferência Frequentista"
-  author: "Aulas de Alexandre G. Patriota, digitado por Gustavo S. Garone"
+  title: Anotações de Inferência Frequentista
+  author: Aulas de Alexandre G. Patriota, digitado por Gustavo S. Garone
   date: last-modified
   navbar:
     search: true
@@ -20,67 +18,66 @@ book:
       - icon: github
         href: https://github.com/GustavoGarone/anotacoes-inferencia
         aria-label: GitHub
-      - text: "<i class='fa-solid fa-file-pdf'></i> PDF"
+      - text: <i class='fa-solid fa-file-pdf'></i> PDF
         href: Anotações-de-Inferência-Frequentista.pdf
         # icon: download
   favicon: theta.png
   chapters:
     - index.qmd
-    - part: "Introdução à Inferência Frequentista"
+    - part: Introdução à Inferência Frequentista
       chapters:
-      - modelo-estatistico.qmd
-      - populacao-e-amostra.qmd
-      - quantidade-de-interesse.qmd
-      - dist-amostral.qmd
-      - funcao-verossimilhanca.qmd
-      - estatisticas.qmd
-      - estimadores.qmd
-      - eqm-e-vies.qmd
-      - monte-carlo.qmd
-      - emv.qmd
-      - qui-quadrado.qmd
-      - tlc.qmd
-      - estimador-intervalar.qmd
-      - teste-hipotese.qmd
-      - teste-hipotese-duas-pops.qmd
-      - teste-nao-para-media.qmd
-      - tabela-frequencias.qmd
-      - analise-aderencia.qmd
-      - testes-ind-homo.qmd
-    - part: "Inferência Frequentista"
+        - modelo-estatistico.qmd
+        - populacao-e-amostra.qmd
+        - quantidade-de-interesse.qmd
+        - dist-amostral.qmd
+        - funcao-verossimilhanca.qmd
+        - estatisticas.qmd
+        - estimadores.qmd
+        - eqm-e-vies.qmd
+        - monte-carlo.qmd
+        - emv.qmd
+        - qui-quadrado.qmd
+        - tlc.qmd
+        - estimador-intervalar.qmd
+        - teste-hipotese.qmd
+        - teste-hipotese-duas-pops.qmd
+        - teste-nao-para-media.qmd
+        - tabela-frequencias.qmd
+        - analise-aderencia.qmd
+        - testes-ind-homo.qmd
+        - val-p.qmd
+    - part: Inferência Frequentista
       chapters:
-      - familia-exponencial.qmd
-      - distribuicao-amostral.qmd
-      - estatisticas-suficientes.qmd
-      - estatisticas-ancilares.qmd
-      - estatisticas-completas.qmd
-      - envvum.qmd
-      - escore.qmd
-      - infofisher.qmd
-      - estimadores-eficientes.qmd
-      - estimadores-consistentes.qmd
-      - escolha-estimador.qmd
-      - emv2.qmd
-      - metodo-momentos.qmd
-      - metodo-nr.qmd
-      - cond-regular.qmd
-      - slutsky.qmd
-      - prop-est.qmd
-      - normal-multivariada.qmd
-      - intervalos-confianca.qmd
-      - teste-hipotese2.qmd
+        - familia-exponencial.qmd
+        - distribuicao-amostral.qmd
+        - estatisticas-suficientes.qmd
+        - estatisticas-ancilares.qmd
+        - estatisticas-completas.qmd
+        - envvum.qmd
+        - escore.qmd
+        - infofisher.qmd
+        - estimadores-eficientes.qmd
+        - estimadores-consistentes.qmd
+        - escolha-estimador.qmd
+        - emv2.qmd
+        - metodo-momentos.qmd
+        - metodo-nr.qmd
+        - cond-regular.qmd
+        - slutsky.qmd
+        - prop-est.qmd
+        - normal-multivariada.qmd
+        - intervalos-confianca.qmd
+        - teste-hipotese2.qmd
     # - references.qmd
-
 bibliography: references.bib
-csl: associacao-brasileira-de-normas-tecnicas.csl 
-
+csl: associacao-brasileira-de-normas-tecnicas.csl
 format:
   html:
     theme:
       light: [cosmo]
       dark: [cosmo, theme-dark.scss]
     respect-user-color-scheme: true
-    include-in-header: 
+    include-in-header:
       text: |
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   pdf:
@@ -94,6 +91,6 @@ format:
     documentclass: scrreport
     cite-method: biblatex
     include-in-header:
-      - text: |
+      - text: |-
           \usepackage{cancel}
           \usepackage{unicode-math}

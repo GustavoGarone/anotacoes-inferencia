@@ -1,0 +1,211 @@
+# Distribuição de Wishart
+
+Seja $\boldsymbol{X}_n^*$ a.a. de
+$\boldsymbol{X} \sim N_p(\boldsymbol{0},
+\Sigma}$. Defina
+$M = \sum^n_{i=1} \boldsymbol{X}_i \boldsymbol{X}_i^T$. Dizemos que $M$ tem
+distribuição de Wishart com matriz de escala $\Sigma$ e $n$ graus de liberdade.
+
+::: {.callout-note title="Notação"}
+
+$$
+M \sim \mathrm{Wishart}_p(\Sigma, n)
+$$
+
+:::
+
+Se $p=1$, então
+
+$$
+M \sim \mathrm{Wishart}_1(\sigma^2, n)
+$$
+
+e
+
+$$
+\frac{M}{\sigma^2} \sim \chi^2_n\ \ \ \text{ou}\ \ \ M \sim \sigma^2 \chi^2_p
+$$
+
+em que $\Sigma = \sigma^2$.
+
+_Teorema 1_.
+
+Seja $B$ uma matriz $q\times p$ cujas linhas são linearmente independentes. Se
+$M \sim \mathrm{Wishart}_p(\Sigma, n)$, então,
+
+$$
+B M B^T \sim \mathrm{Wishart}_q(B\Sigma B^T, n)
+$$
+
+_Prova_.
+
+Note que
+
+$$
+M = \sum^n_{i=1} \boldsymbol{X}_i \boldsymbol{X}_i^T, \boldsymbol{X}_i \sim
+N_p(\boldsymbol{0}, \Sigma)
+\Rightarrow B(\sum^n_{i=1} \boldsymbol{X}_i \boldsymbol{X}_i^T)B^T =
+\sum^n_{i=1} B \boldsymbol{X}_i \boldsymbol{X}_i^T B^T
+$$
+
+Note ainda que, para amostras aleatórias,
+
+$$
+\boldsymbol{Y}_i = B \boldsymbol{X}_i \sim N_q(\boldsymbol{0}, B \Sigma B^T)
+$$
+
+Como
+$B M B^T = \sum^n_{i=1} \boldsymbol{Y}_i \boldsymbol{Y}_i^T, Y \sim
+N_q(\boldsymbol{0}, B \Sigma B^T)$,
+por definição, $B M B^T \sim
+\mathrm{Wishart}_q(B \Sigma B^T, n)$.
+
+_Teorema 2_.
+
+Se $M \sim \mathrm{Wishart}_p (\Sigma, n)$ e $\boldsymbol{a} \in
+\mathbb{R}^p$
+difernete de zero, então
+
+$$
+\frac{a^T M a}{a^T \Sigma a} \sim \chi^2_n
+$$
+
+_Prova_. Pelo Teorema 1,
+
+$$
+a^T M a \sim \mathrm{Wishart}_1(a^T \Sigma a, n) \Rightarrow
+\frac{a^T M a}{a^T \Sigma a} \sim \chi^2_n
+$$
+
+_Teorema 3_.
+
+Se $M_1 \sim \mathrm{Wishart}_p(\Sigma, n_1)$ e
+$M_2 \sim \mathrm{Wishart}_p(\Sigma, n_2)$ forem independentes, então
+
+$$
+M_1 + M_2 \sim \mathrm{Wishart}_p(\Sigma, n_1 + n_2)
+$$
+
+_Prova_.
+
+Sejam $\boldsymbol{X}_1, \dots, \boldsymbol{X}_n$ e
+$\boldsymbol{Y}_1, \dots,
+\boldsymbol{Y}_$ vetores aleatórios independentes e
+identicamente distribuidos tais que
+$\boldsymbol{X}_1 \sim N_p(\boldsymbol{0}, \Sigma)$. podemos escrever
+
+$$
+M_1 = \sum^{n_1}_{i=1} \boldsymbol{X}_i \boldsymbol{X}_i^T \sim \mathrm{Wishart}_p(\Sigma, n_1)
+$$
+
+e
+
+$$
+M_2 = \sum^{n_2}_{i=1} \boldsymbol{Y}_i \boldsymbol{Y}_i^T \sim \mathrm{Wishart}_p(\Sigma, n_1)
+$$
+
+Observe ainda que
+
+$$
+M_1 + M_2 = \sum^{n_1}_{i=1} \boldsymbol{X}_i \boldsymbol{X}_i^T +
+\sum^{n_2}_{i=1} \boldsymbol{Y}_i \boldsymbol{Y}_i^T
+\sum^{n_1 + n_2}_{j=1} \boldsymbol{W}_i,\boldsymbol{W}_i^T
+$$
+
+em que $\boldsymbol{W}_i \sim N_p(\boldsymbol{0}, \Sigma)$
+
+$$
+\begin{cases}
+\boldsymbol{Z}_1 = \boldsymbol{X}_1 & \boldsymbol{Z}_{n_1+1} = \boldsymbol{Y}_1 \\
+\vdos & \vdos \\
+\boldsymbol{Z}_{n_1} = \boldsymbol{X}_n & \boldsymbol{Z}_{n_1+n_2} = \boldsymbol{Y}_1 \\
+\end{cases}
+$$
+
+Logo, por definição,
+
+$$
+M_1 + M_2 \sim \mathrm{Wishart}_p(\Sigma, n_1 + n_2)
+$$
+
+_Teorema 4_.
+
+Seja $\boldsymbol{X}_n^*$ a.a. de
+$\boldsymbol{X} \sim N_p\left(\boldsymbol{\mu},
+\frac{1}{n} \Sigma\right)$.
+Então,
+
+$$
+\bar{X} = \frac{1}{n} \sum^n_{i=1} \boldsymbol{X}_i \sim N_p\left(\mu, \frac{1}{n}
+\Sigma\right)
+$$
+
+e
+
+$$
+n \cdot S^2_n = \sum^n_{i=1} (\boldsymbol{X}_i - \bar{X})(\boldsymbol{X}_i -
+\bar{X})^T \sim \mathrm{Wishart}_p(\Sigma, n-1)
+$$
+
+_Prova_.
+
+Omitida (Teorema 3.4.4 na página 68 do livro "Multivariate Analysis" por Mardia,
+Kent e Bibby).
+
+Usamos que $\bar{X}, S^2_n$ são independentes e
+
+$$
+p=1 \Rightarrow \begin{cases}
+\bar{X} \sim N_1\left(\mu,\frac{\sigma^2}{n}\right) \\
+\frac{n S^2_n}{\sigma^2} \sim \chi^2_{(n-1)}
+\end{cases}
+$$
+
+Os autores reescrevem a soma a seguinte forma
+
+$$
+n S^2_n = \sum^n_{i=1} (\boldsymbol{X}_i - \bar{X})(\boldsymbol{X}_i - bar{X})^T
+= \sum^n_{i=1} \left(\boldsymbol{X}_i - \frac{1}{n} \sum^n_{i=1}
+\boldsymbol{X}_i\right)
+\left(\boldsymbol{X}_i - \frac{1}{n} \sum^n_{i=1}
+\boldsymbol{X}_i\right)^T
+$$
+
+Defina
+
+$$
+\boldsymbol{X}' = \begin{bmatrix}
+\boldsymbol{X}_1^T \\
+\boldsymbol{X}_2^T \\
+\vdots \\
+\boldsymbol{X}_n^T
+\end{bmatrix}\ \ \ \ \text{e} J = \begin{bmatrix} 1 & 1 & \dots & 1 \end{bmatrix}
+$$
+
+Logo,
+
+$$
+\frac{1}{n} J \boldsymbol{X}' = \sum^n_{i=1} \boldsymbol{X}_i = \bar{X}^T
+\Rightarrow
+\frac{1}{n} \boldsymbol{X}'^T j^T = \bar{X}
+$$
+
+Disso, segue que
+
+$$
+n S^2_n = \left(\boldsymbol{X}'^T - \boldsymbol{X}'^T \frac{J^T J}{n}\right)
+\left(\boldsymbol{X}'^T - \boldsymbol{X}'^T \frac{J^T J}{n}\right)^T
+= \boldsymbol{X}'^T \left(I - \frac{J^T J}{n}\right) \boldsymbol{X}'
+$$
+
+<!---->
+<!-- $$ -->
+<!-- \begin{bmatrix} 1 & 1 & \dots & 1 \end{bmatrix} -->
+<!-- \begin{bmatrix}  -->
+<!-- \boldsymbol{X}_{11} & \dots & \boldsymbol{X}_{1p} \\ -->
+<!-- \boldsymbol{X}_{21} & \dots & \boldsymbol{X}_{2p} \\ -->
+<!-- \vdots & \ddots & \vdots \\ -->
+<!-- \boldsymbol{X}_{p1} & \dots & \boldsymbol{X}_{pp} -->
+<!-- \end{bmatrix} =  -->
+<!-- \begin{bmatrix} \sum^n_{j=1} X_{j1} & \dots & \sum^n_{j=1} X_{jp} \end{bmatrix} -->
+<!-- $$ -->
