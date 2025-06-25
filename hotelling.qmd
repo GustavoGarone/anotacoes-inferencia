@@ -1,3 +1,7 @@
+```{julia}
+#| output: false
+using Pkg; Pkg.add(["Distributions"])
+```
 # Distribuição de Hotelling
 
 Sejam $Z \sim N_p(\boldsymbol{0}, I)$ e [$M \sim \mathrm{Wishart}_p(I,m)$](wishart.qmd)
@@ -10,17 +14,18 @@ tem distribuição $T^2$ de Hotelling.
 
 ::: {.callout-note, title="Notação"}
 $$
-H \sim T^2(p,m)
+H \sim T^2_{(p,m)}
 $$
 :::
 
-*Teorema 1.*
+*Teorema 5.* (continuação dos teoremas relacionados à [distribuição de
+Wishart](wishart.qmd)
 
 Se $\boldsymbol{X}_n \sim N_p(\boldsymbol{\mu}, \Sigma)$ e $M \sim
-\mathrm{Wishart}_p(\Sigma, m)$, então
+\mathrm{Wishart}_p(\Sigma, m)$ forem independentes, então
 
 $$
-m \cdot (\boldsymbol{X} - \mu)^T M^{-1} (\boldsymbol{X} - \mu) \sim T^2(p,m)
+m \cdot (\boldsymbol{X} - \mu)^T M^{-1} (\boldsymbol{X} - \mu) \sim T^2_{(p,m)}
 $$
 
 *Prova*.
@@ -41,5 +46,113 @@ Por definição,
 
 $$
 m Z^t M^* Z = m(\boldsymbol{X} - \boldsymbol{\mu})^T M^{-1} (\boldsymbol{X} -
-\boldsymbol{\mu}) \sim T^2(p,m)
+\boldsymbol{\mu}) \sim T^2_{(p,m)}
 $$
+
+*Teorema 6*.
+
+Seja $\boldsymbol{X}_n^*$ a.a. de $X \sim N_p (\boldsymbol{\mu}, \Sigma)$, então
+
+$$
+(n-1)(\bar{X} - \boldsymbol{\mu})^T [S_n^2]^{-1}(\boldsymbol{X}_n -
+\boldsymbol{\mu}) \sim T^2_{(p,n-1)}
+$$
+
+Além disso, se $C$ for uma matriz $s \times p$ com linhas linearmente
+independentes, então
+
+$$
+(n-1)(C\bar{X} - C\boldsymbol{\mu})^T [CS_n^2C^{-1}]^{-1}(C\boldsymbol{X}_n -
+C\boldsymbol{\mu}) \sim T^2_{(s,n-1)}
+$$
+
+*Prova*.
+
+$$
+\begin{aligned}
+\bar{X} \sim &N_p(\boldsymbol{\mu}, \Sigma) \\
+n S^2_n \sim &\mathrm{Wishart}_p(\Sigma, n-1) \Rightarrow S^2_n \sim \mathrm{Wishart}_p\left(\frac{1}{n}\Sigma, n-1\right) \\
+\stackrel{\text{Teo 5.}}{\Rightarrow}&
+(n-1)(\bar{X} - \boldsymbol{\mu})^T [S_n^2]^{-1}(\boldsymbol{X}_n -
+\boldsymbol{\mu}) \sim T^2_{(p,n-1)}
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+&\begin{cases}
+C \bar{X} &\sim N_s(C \boldsymbol{\mu}, C \Sigma C^T) \\
+C S_n^2 C^T &\sim \mathrm{Wishart}_s\left(C \Sigma C^T \frac{1}{n}, n-1\right)
+\end{cases}
+\Rightarrow &
+(n-1)(C\bar{X} - C\boldsymbol{\mu})^T [CS_n^2C^{-1}]^{-1}(C\boldsymbol{X}_n -
+C\boldsymbol{\mu}) \sim T^2_{(s,n-1)}
+\end{aligned}
+$$
+
+*Teorema 7*.
+
+$$
+T^2_{p,m} \stackrel{d}{=} \frac{m \cdot p}{m-p+1} F_{p, m-p+1}
+$$
+
+em que $F$ é a distribuição $F$ de Snedecor
+
+*Teorema 8*.
+
+Seja $\boldsymbol{X}_n^*$ a.a. de $\boldsymbol{X}_n \sim N_p(\boldsymbol{\mu},
+\Sigma)$, então
+
+$$
+\frac{n-p}{n}
+(\bar{X} - \boldsymbol{\mu})^T [S_n^2]^{-1}(\boldsymbol{X}_n -
+\boldsymbol{\mu}) \sim F^2_{(p,n-p)}
+$$
+
+e
+
+$$
+\frac{n-s}{s}(C\bar{X} - C\boldsymbol{\mu})^T [CS_n^2C^{-1}]^{-1}(C\boldsymbol{X}_n -
+C\boldsymbol{\mu}) \sim F_{(s,n-s)}
+$$
+
+*Prova*.
+
+$$
+\begin{aligned}
+(n-1)(\bar{X} - \boldsymbol{\mu})^T [S_n^2]^{-1}(\boldsymbol{X}_n -
+\boldsymbol{\mu}) &\sim T^2_{(p,n-1)} \\
+\Rightarrow
+\frac{(n-1) -p + 1}{(n-1)p}
+(n-1)(\bar{X} - \boldsymbol{\mu})^T [S_n^2]^{-1}(\boldsymbol{X}_n -
+\boldsymbol{\mu}) &\sim F_{(p,n-p)} \\
+\Rightarrow
+\frac{(n -p}{p}
+(\bar{X} - \boldsymbol{\mu})^T [S_n^2]^{-1}(\boldsymbol{X}_n -
+\boldsymbol{\mu}) &\sim F_{(p,n-p)}
+\end{aligned}
+$$
+
+análogo para o segundo.
+
+
+<!-- TODO: monte carlo normal multivariada (ver algoritmo), fazer na mão e com a
+multivariada direta -->
+
+```{julia}
+#| output: false
+using Distributions
+
+p = 2
+n = 15
+C = I(p)
+Sigma = [4 2; 2 3]
+mu = 10 * rand(Uniform, p)
+MC = 10_000
+
+for _i in MC
+    x = rand(MvNormal(mu, Sigma), n)
+    xbar = mean.(eachcol[x])
+    S2 = (n - 1) / n * cov(x)
+end
+```

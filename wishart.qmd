@@ -131,8 +131,7 @@ $$
 _Teorema 4_.
 
 Seja $\boldsymbol{X}_n^*$ a.a. de
-$\boldsymbol{X} \sim N_p\left(\boldsymbol{\mu},
-\frac{1}{n} \Sigma\right)$.
+$\boldsymbol{X} \sim N_p\left(\boldsymbol{\mu}, \Sigma\right)$.
 Então,
 
 $$
@@ -149,8 +148,11 @@ $$
 
 _Prova_.
 
-Omitida (Teorema 3.4.4 na página 68 do livro "Multivariate Analysis" por Mardia,
-Kent e Bibby).
+Por F.G.M.
+$$
+\bar{X} = \frac{1}{n} \sum^n_{i=1} \boldsymbol{X}_i \sim N_p\left(\mu, \frac{1}{n}
+\Sigma\right)
+$$
 
 Usamos que $\bar{X}, S^2_n$ são independentes e
 

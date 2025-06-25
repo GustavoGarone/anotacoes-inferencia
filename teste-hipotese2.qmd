@@ -1749,7 +1749,7 @@ plot(hist1, hist2, hist3, layout = l)
 L"\hat P(\mathrm{val.-}p_1 < 0.05) = %$(mean(p1 .< 0.05)), \hat P(\mathrm{val.-}p_2 < 0.05) = %$(mean(p2 .< 0.05)), \hat P(\mathrm{val.-}p_3 < 0.05) = %$(mean(p3 .< 0.05))"
 ```
 
-#### Exemplo (Médias de uma [normal multivariada])
+### Teste de hipótese para o vetor de médias sob normalidade
 
 Seja $\boldsymbol{X}_n^*$ a.a. de $\boldsymbol{X} \sim N_p(\boldsymbol{\mu},
 \Sigma)$. Considere as hipóteses
@@ -1757,7 +1757,7 @@ Seja $\boldsymbol{X}_n^*$ a.a. de $\boldsymbol{X} \sim N_p(\boldsymbol{\mu},
 $$
 \begin{cases}
 \mathcal{H}_0 : \boldsymbol{\mu} = \boldsymbol{\mu}_0 \\
-\mathcal{H}_1 : \boldsymbol{\mu} \neq \boldsymbol{\mu}_0 \\
+\mathcal{H}_1 : \boldsymbol{\mu} \neq \boldsymbol{\mu}_0
 \end{cases}
 $$
 
@@ -1823,4 +1823,49 @@ U_n(\theta_n, \boldsymbol{X}_n^*)
 $$
 
 Para encontrar a distribuição exata, precisaremos introduzir as distribuições de
-[Wishart](wishart.qmd) e [$T^2$-Hotelling](hotelling.qmd)
+[Wishart](wishart.qmd) e [$T^2$-Hotelling](hotelling.qmd).
+
+
+#### Caso geral
+
+Seja $\boldsymbol{X}_n^*$ a.a. de $X \sim N_p(\boldsymbol{\mu}, \Sigma)$.
+Considere
+
+$$
+\begin{cases}
+\mathcal{H}_0: C \boldsymbol{\mu} = d \\
+\mathcal{H}_1: C \boldsymbol{\mu} \neq d
+\end{cases}
+$$
+
+Definimos a função teste por
+
+$$
+\delta(\boldsymbol{x}^*) = \begin{cases}
+0,\ \ \text{se}\ W(\boldsymbol{x}^*) < \eta \\
+1,\ \ \text{se}\ W(\boldsymbol{x}^*) \geq \eta
+\end{cases}
+$$
+
+em que
+
+$$
+W(\boldsymbol{X}_n^*) = 
+\frac{n-s}{s}(C\bar{X} - C\boldsymbol{\mu})^T [CS_n^2C^{-1}]^{-1}(C\boldsymbol{X}_n -
+C\boldsymbol{\mu}) \sim F_{(s,n-s)},\ \text{Sob}\ \mathcal{H}_0
+$$
+
+pela propriedade da [distribuição de hotelling](hotelling.qmd) (Teorema 8)
+e $\eta$ deve ser obtido fixando o tamanho do teste igua a $\alpha$ e
+calculando:
+
+$$
+P(F_{(s, n-s)} \geq \eta) = \alpha
+$$
+
+e o valor-$p$ para testar $\mathcal{H}_0$ é
+
+$$
+\mathrm{valor-}p(\boldsymbol{x}^*, \mathcal{H}_0) = 
+P(F_{(s, n-s)} \geq W(\boldsymbol{x}^*))
+$$
