@@ -814,37 +814,37 @@ n = 100
 MC = 10_000
 
 function h0()
-  # Sob H_0
-  θ_00 = rand(Uniform(0, θ_0))
+    # Sob H_0
+    θ_00 = rand(Uniform(0, θ_0))
 
 
-  d = Exponential(1/θ_00)
-  dsoma = Gamma(n, 1/θ_00)
-  c = quantile(dsoma, α)
+    d = Exponential(1 / θ_00)
+    dsoma = Gamma(n, 1 / θ_00)
+    c = quantile(dsoma, α)
 
-  δ = zeros(MC)
-  for i in 1:MC
-    x = rand(d, n)
-    δ[i] = sum(x) ≤ c
-  end
-  println("Testes rejeitados sob H_0: $(mean(δ) * 100)%")
+    δ = zeros(MC)
+    for i in 1:MC
+        x = rand(d, n)
+        δ[i] = sum(x) ≤ c
+    end
+    return println("Testes rejeitados sob H_0: $(mean(δ) * 100)%")
 end
 
 function h1()
-  # Sob H_0
-  θ_11 = rand(Uniform(θ_0, θ_0+10))
+    # Sob H_0
+    θ_11 = rand(Uniform(θ_0, θ_0 + 10))
 
 
-  d = Exponential(1/θ_11)
-  dsoma = Gamma(n, 1/θ_11)
-  c = quantile(dsoma, α)
+    d = Exponential(1 / θ_11)
+    dsoma = Gamma(n, 1 / θ_11)
+    c = quantile(dsoma, α)
 
-  δ = zeros(MC)
-  for i in 1:MC
-    x = rand(d, n)
-    δ[i] = sum(x) ≥ c
-  end
-  println("Testes rejeitados sob H_1 (Poder do teste): $(mean(δ) * 100)")
+    δ = zeros(MC)
+    for i in 1:MC
+        x = rand(d, n)
+        δ[i] = sum(x) ≥ c
+    end
+    return println("Testes rejeitados sob H_1 (Poder do teste): $(mean(δ) * 100)")
 end
 
 h0()
@@ -922,13 +922,11 @@ $$
 
 Dizemos que
 
-<!-- prettier-ignore-start -->
 $$
 \lambda(\boldsymbol{x}_n; \Theta_0) = 
 \frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
 {\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
 $$ {#eq-estatrazao}
-<!-- prettier-ignore-end -->
 
 é a estatística da razão de verossimilhanças generalizada.
 
@@ -943,13 +941,11 @@ $$
 o [estimador de máxima verossimilhança](emv2.qmd) não restrito a $\mathcal{H}_0$. A estatística da razão de verossimilhança
 generalizada pode ser reescrita:
 
-<!-- prettier-ignore-start -->
 $$
 \lambda(\boldsymbol{x}_n; \Theta_0) = 
 \frac{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_0)}
 {\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})}
 $$ {#eq-estatrazao2}
-<!-- prettier-ignore-end -->
 
 Note que a @eq-estatrazao é bem definida sempre que $0 < \sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta) < \infty$.
 Em alguns casos, a @eq-estatrazao2 não pode ser resolvida por não existir um argumento que maximize a função de verossimilhança sob
@@ -991,7 +987,6 @@ $$
 $$
 em que $c$ deve satisfazer
 
-<!-- prettier-ignore-start -->
 $$
 \begin{aligned}
 \sup\limits_{\theta \in \Theta_0} \pi_{\delta}(\theta) &= \alpha \\
@@ -999,7 +994,6 @@ $$
 \iff \sup\limits_{\theta \in \Theta_0} P_\theta(-2\ln \lambda(\boldsymbol{X}_n, \Theta_0) \geq 2 \ln c) &= \alpha
 \end{aligned}
 $$ {#eq-testeestatrazao}
-<!-- prettier-ignore-end -->
 
 1. Se a distribuição exata de $-2\ln \lambda(\boldsymbol{X}_n, \Theta_0)$ for conhecida, entã basta encontrar $2\ln c$ que satisfaça
 a @eq-testeestatrazao.
@@ -1127,11 +1121,11 @@ d = Poisson(θ_0)
 MC = 10_000
 TX = zeros(MC)
 for i in 1:MC
-x = rand(d, n)
-  TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) + 2 * n * mean(x) * log(mean(x))
+    x = rand(d, n)
+    TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) + 2 * n * mean(x) * log(mean(x))
 end
-p = histogram(TX, normalize=true, title="Histograma de T(X)", label="", ylims=(0,1), bins=20, xlabel="T(X)", ylabel="Densidade")
-plot!(Chisq(1), label=L"\chi^2_1", color=:tomato)
+p = histogram(TX, normalize = true, title = "Histograma de T(X)", label = "", ylims = (0, 1), bins = 20, xlabel = "T(X)", ylabel = "Densidade")
+plot!(Chisq(1), label = L"\chi^2_1", color = :tomato)
 
 ## Probabilidade do erro tipo I, α = 10%
 
@@ -1362,38 +1356,38 @@ MC = 10_000
 
 # Razão de verossimilhanças
 function razao(dist, θ_0)
-  TX = zeros(MC)
-  for i in 1:MC
-    x = rand(dist, n)
-    TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) +
-      2 * n * mean(x) * log(mean(x))
-  end
-  return TX
+    TX = zeros(MC)
+    for i in 1:MC
+        x = rand(dist, n)
+        TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) +
+            2 * n * mean(x) * log(mean(x))
+    end
+    return TX
 end
 
 # Estatística de Wald
 function wald(dist, θ_0)
-  C = 1
-  d = θ_0
-  W = zeros(MC)
-  for i in 1:MC
-    x = rand(dist, n)
-    V = mean(x) # theta =emv> mean(x)
-    W[i] = n*(C * mean(x) - d)^2/V
-  end
-  return W
+    C = 1
+    d = θ_0
+    W = zeros(MC)
+    for i in 1:MC
+        x = rand(dist, n)
+        V = mean(x) # theta =emv> mean(x)
+        W[i] = n * (C * mean(x) - d)^2 / V
+    end
+    return W
 end
 
 # Estatística de Escore
 function escore(dist, θ_0)
-  I(θ) = n/θ
-  R = zeros(MC)
-  for i in 1:MC
-    x = rand(dist, n)
-    U(θ) = sum(x) / θ - n
-    R[i] = U(θ_0)^2 / I(θ_0)
-  end
-  return R
+    I(θ) = n / θ
+    R = zeros(MC)
+    for i in 1:MC
+        x = rand(dist, n)
+        U(θ) = sum(x) / θ - n
+        R[i] = U(θ_0)^2 / I(θ_0)
+    end
+    return R
 end
 ```
 
@@ -1404,7 +1398,7 @@ Geraremos sob $\mathcal{H}_0$:
 θ_0 = 3
 dist = Poisson(θ_0)
 distassin = Chisq(1)
-quantil = quantile(distassin, 1-α)
+quantil = quantile(distassin, 1 - α)
 ## Probabilidade do erro tipo I, α = 10%, Razão
 
 TX = razao(dist, θ_0)
@@ -1425,16 +1419,22 @@ rejeita = R .> quantil
 println("Probilidade do Erro Tipo I com α = 10% (Escore):
         $(mean(rejeita) * 100)%")
 
-pv = histogram(TX, normalize=true, title="Histograma da Razão de Ver.",
-               label="", ylims=(0,1), bins=20, xlabel="T(X)",
-               ylabel="Densidade")
-plot!(Chisq(1), label=L"\chi^2_1", color=:tomato)
-pw = histogram(W, normalize=true, title="Histograma de Wald", label="",
-               ylims=(0,1), bins=20, xlabel="W(X)", ylabel="Densidade")
-plot!(Chisq(1), label=L"\chi^2_1", color=:tomato)
-pr = histogram(R, normalize=true, title="Histograma de Escore", label="",
-               ylims=(0,1), bins=20, xlabel="R(X)", ylabel="Densidade")
-plot!(Chisq(1), label=L"\chi^2_1", color=:tomato)
+pv = histogram(
+    TX, normalize = true, title = "Histograma da Razão de Ver.",
+    label = "", ylims = (0, 1), bins = 20, xlabel = "T(X)",
+    ylabel = "Densidade"
+)
+plot!(Chisq(1), label = L"\chi^2_1", color = :tomato)
+pw = histogram(
+    W, normalize = true, title = "Histograma de Wald", label = "",
+    ylims = (0, 1), bins = 20, xlabel = "W(X)", ylabel = "Densidade"
+)
+plot!(Chisq(1), label = L"\chi^2_1", color = :tomato)
+pr = histogram(
+    R, normalize = true, title = "Histograma de Escore", label = "",
+    ylims = (0, 1), bins = 20, xlabel = "R(X)", ylabel = "Densidade"
+)
+plot!(Chisq(1), label = L"\chi^2_1", color = :tomato)
 l = @layout [pv pw; pr]
 plot(pv, pw, pr, layout = l)
 ```
@@ -1454,26 +1454,32 @@ rejeitaR(θ) = mean(escore(dist, θ) .> quantil)
 # poderW = zeros(alcance)
 # poderR = zeros(alcance)
 # for i in Θ_0-Δ:0.1:Θ_0+Δ
-#   poderTX[i] = rejeitaTX(i) 
+#   poderTX[i] = rejeitaTX(i)
 # end
-pv = plot(rejeitaTX,
-          xlims=(θ_0-Δ, θ_0+Δ),
-          ylims=(0,1),
-          label="",
-          ylabel="Poder Razão de ver.", 
-          xlabel=L"θ_1")
-pw = plot(rejeitaW,
-          xlims=(θ_0-Δ, θ_0+Δ),
-          ylims=(0,1),
-          label="",
-          ylabel="Poder Wald",
-          xlabel=L"θ_1")
-pr = plot(rejeitaR,
-          xlims=(θ_0-Δ, θ_0+Δ),
-          ylims=(0,1),
-          label="",
-          ylabel="Poder Escore",
-          xlabel=L"θ_1")
+pv = plot(
+    rejeitaTX,
+    xlims = (θ_0 - Δ, θ_0 + Δ),
+    ylims = (0, 1),
+    label = "",
+    ylabel = "Poder Razão de ver.",
+    xlabel = L"θ_1"
+)
+pw = plot(
+    rejeitaW,
+    xlims = (θ_0 - Δ, θ_0 + Δ),
+    ylims = (0, 1),
+    label = "",
+    ylabel = "Poder Wald",
+    xlabel = L"θ_1"
+)
+pr = plot(
+    rejeitaR,
+    xlims = (θ_0 - Δ, θ_0 + Δ),
+    ylims = (0, 1),
+    label = "",
+    ylabel = "Poder Escore",
+    xlabel = L"θ_1"
+)
 l = @layout [pv pw; pr]
 plot(pv, pw, pr, layout = l)
 ```
@@ -1660,12 +1666,18 @@ p1 = @. ccdf(Chisq(1), razao(Poisson(1), 1))
 p2 = @. ccdf(Chisq(1), wald(Poisson(1), 1))
 p3 = @. ccdf(Chisq(1), escore(Poisson(1), 1))
 
-hist1 = histogram(p1, title="Valores-P da Razão de Ver.", label="",
-                  normalize=true)
-hist2 = histogram(p2, title="Valores-P da Wald", label="",
-                  normalize=true)
-hist3 = histogram(p3, title="Valores-P da Escore", label="",
-                  normalize=true)
+hist1 = histogram(
+    p1, title = "Valores-P da Razão de Ver.", label = "",
+    normalize = true
+)
+hist2 = histogram(
+    p2, title = "Valores-P da Wald", label = "",
+    normalize = true
+)
+hist3 = histogram(
+    p3, title = "Valores-P da Escore", label = "",
+    normalize = true
+)
 
 plot(hist1, hist2, hist3, layout = l)
 ```
@@ -1684,12 +1696,18 @@ p1 = @. ccdf(Chisq(1), razao(Poisson(0.01), 0.01))
 p2 = @. ccdf(Chisq(1), wald(Poisson(0.01), 0.01))
 p3 = @. ccdf(Chisq(1), escore(Poisson(0.01), 0.01))
 
-hist1 = histogram(p1, title="Valores-P da Razão de Ver.", label="",
-                  normalize=true)
-hist2 = histogram(p2, title="Valores-P da Wald", label="", 
-                  normalize=true)
-hist3 = histogram(p3, title="Valores-P da Escore", label="", 
-                  normalize=true)
+hist1 = histogram(
+    p1, title = "Valores-P da Razão de Ver.", label = "",
+    normalize = true
+)
+hist2 = histogram(
+    p2, title = "Valores-P da Wald", label = "",
+    normalize = true
+)
+hist3 = histogram(
+    p3, title = "Valores-P da Escore", label = "",
+    normalize = true
+)
 
 plot(hist1, hist2, hist3, layout = l)
 ```
@@ -1710,12 +1728,18 @@ p1 = @. ccdf(Chisq(1), razao(Poisson(2), 1))
 p2 = @. ccdf(Chisq(1), wald(Poisson(2), 1))
 p3 = @. ccdf(Chisq(1), escore(Poisson(2), 1))
 
-hist1 = histogram(p1, title="Valores-P da Razão de Ver.", label="",
-                  normalize=:pdf)
-hist2 = histogram(p2, title="Valores-P da Wald", label="",
-                  normalize=:pdf)
-hist3 = histogram(p3, title="Valores-P da Escore", label="",
-                  normalize=:pdf)
+hist1 = histogram(
+    p1, title = "Valores-P da Razão de Ver.", label = "",
+    normalize = :pdf
+)
+hist2 = histogram(
+    p2, title = "Valores-P da Wald", label = "",
+    normalize = :pdf
+)
+hist3 = histogram(
+    p3, title = "Valores-P da Escore", label = "",
+    normalize = :pdf
+)
 
 plot(hist1, hist2, hist3, layout = l)
 ```
