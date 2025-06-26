@@ -68,6 +68,8 @@ book:
         - normal-multivariada.qmd
         - intervalos-confianca.qmd
         - teste-hipotese2.qmd
+        - wishart.qmd
+        - hotelling.qmd
     # - references.qmd
 bibliography: references.bib
 csl: associacao-brasileira-de-normas-tecnicas.csl
