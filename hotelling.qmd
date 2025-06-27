@@ -1,6 +1,6 @@
 ```{julia}
 #| output: false
-using Pkg; Pkg.add(["Distributions"])
+using Pkg; Pkg.add(["Distributions", "LinearAlgebra"])
 ```
 # Distribuição de Hotelling
 
@@ -140,8 +140,9 @@ análogo para o segundo.
 multivariada direta -->
 
 ```{julia}
+#| eval: false
 #| output: false
-using Distributions
+using Distributions, LinearAlgebra
 
 p = 2
 n = 15
