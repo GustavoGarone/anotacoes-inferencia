@@ -1,8 +1,7 @@
 # Distribuição de Wishart
 
 Seja $\boldsymbol{X}_n^*$ a.a. de
-$\boldsymbol{X} \sim N_p(\boldsymbol{0},
-\Sigma}$. Defina
+$\boldsymbol{X} \sim N_p(\boldsymbol{0}, \Sigma)$. Defina
 $M = \sum^n_{i=1} \boldsymbol{X}_i \boldsymbol{X}_i^T$. Dizemos que $M$ tem
 distribuição de Wishart com matriz de escala $\Sigma$ e $n$ graus de liberdade.
 
@@ -89,8 +88,7 @@ $$
 _Prova_.
 
 Sejam $\boldsymbol{X}_1, \dots, \boldsymbol{X}_n$ e
-$\boldsymbol{Y}_1, \dots,
-\boldsymbol{Y}_$ vetores aleatórios independentes e
+$\boldsymbol{Y}_1, \dots, \boldsymbol{Y}$ vetores aleatórios independentes e
 identicamente distribuidos tais que
 $\boldsymbol{X}_1 \sim N_p(\boldsymbol{0}, \Sigma)$. podemos escrever
 
@@ -117,7 +115,7 @@ em que $\boldsymbol{W}_i \sim N_p(\boldsymbol{0}, \Sigma)$
 $$
 \begin{cases}
 \boldsymbol{Z}_1 = \boldsymbol{X}_1 & \boldsymbol{Z}_{n_1+1} = \boldsymbol{Y}_1 \\
-\vdos & \vdos \\
+\vdots & \vdots \\
 \boldsymbol{Z}_{n_1} = \boldsymbol{X}_n & \boldsymbol{Z}_{n_1+n_2} = \boldsymbol{Y}_1 \\
 \end{cases}
 $$
@@ -181,7 +179,7 @@ $$
 \boldsymbol{X}_2^T \\
 \vdots \\
 \boldsymbol{X}_n^T
-\end{bmatrix}\ \ \ \ \text{e} J = \begin{bmatrix} 1 & 1 & \dots & 1 \end{bmatrix}
+\end{bmatrix}\ \ \ \ \text{e}\ \ J = \begin{bmatrix} 1 & 1 & \dots & 1 \end{bmatrix}
 $$
 
 Logo,

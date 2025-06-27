@@ -8,6 +8,22 @@ julia:
 execute:
   echo: false
   cache: true
+filters:
+  - diagram
+diagram:
+  cache: true
+  engine:
+    tikz:
+      header-includes:
+        - '\usetikzlibrary{patterns}'
+        - '\usetikzlibrary{arrows}'
+        - '\usetikzlibrary{automata}'
+        - '\usetikzlibrary{calc}'
+        - '\usetikzlibrary{positioning}'
+        - '\usetikzlibrary{quotes}'
+        - '\usepackage{pgfplots}'
+        - '\usepackage{mathrsfs}'
+        - '\pgfplotsset{compat=1.16}'
 book:
   title: Anotações de Inferência Frequentista
   author: Aulas de Alexandre G. Patriota, digitado por Gustavo S. Garone
@@ -70,6 +86,7 @@ book:
         - teste-hipotese2.qmd
         - wishart.qmd
         - hotelling.qmd
+        - regiao-confianca-normal.qmd
     # - references.qmd
 bibliography: references.bib
 csl: associacao-brasileira-de-normas-tecnicas.csl
@@ -82,17 +99,35 @@ format:
     include-in-header:
       text: |
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    extract-media: ./tikzdesigns/
+    fig-cap-location: top
+    fig-align: center
   pdf:
     documentclass: scrreport
     cite-method: biblatex
     include-in-header:
       - text: |
           \usepackage{cancel}
-          \usepackage{unicode-math}
+          \usepackage{amsmath}
+    fig-cap-location: top
+    fig-align: center
+    default-image-extension: tex
+    lof: true
+    lot: true
+    geometry:
+      - top = 30mm
+      - left = 30mm
+      - right = 20mm
+      - bottom = 20mm
+    # mathfont: "ams"
+    monofont: "Consolas"
   latex:
     documentclass: scrreport
     cite-method: biblatex
     include-in-header:
-      - text: |-
+      - text: |
           \usepackage{cancel}
-          \usepackage{unicode-math}
+          \usepackage{bm}
+    fig-cap-location: top
+    fig-align: center
+    default-image-extension: tex

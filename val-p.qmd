@@ -1,3 +1,203 @@
+```{julia}
+#| output: false
+using Pkg; Pkg.add(
+    [
+        "Distributions", "StatsBase", "Plots", "LaTeXStrings",
+        "StatsPlots",
+    ]
+)
+```
 # Valor-$p$, $p$-Valor ou $p$-Value
 
-Para todos os testes introduzidos até agora
+Para todos os testes introduzidos até agora, realizamos o teste com um nível de
+significância (tamanho do teste) $\alpha$ fixo previamente. Na comunidade
+cientifica, porém, é muito comum o uso de outra estatística na realização de
+testes de hipótese: o $p$-valor.
+
+Seja $T(\boldsymbol{X}_n)$ com distribuição $f_\theta(x)$ sob $\mathcal{H}_0$,
+isto é, $T(\boldsymbol{X}_n) \sim f_\theta$ *sob $\mathcal{H}_0$* uma
+estatística para testar determinada hipótese. Ou seja, assumindo a hipótese nula
+como verdadeira, utilizaremos a distribuição da estatística sob este modelo. O
+$p$-valor ou valor-$p$ é definido por
+
+$$
+P(T(\boldsymbol{X}_n) \geq T(\boldsymbol{x}_n)).
+$$
+
+Essa quantidade sempre segue uma distribuição $\mathrm{Uniforme}(0,1)$ para
+dados gerados sob $\mathcal{H}_0$, isto é, caso os dados sigam a hipótese nula,
+qualquer $\mathrm{valor-}p$ é equiprovável.
+
+## Exemplo
+
+Seja $\boldsymbol{X}_n = (X_1, \dots, X_n)$ [amostra
+aleatória](populacao-e-amostra.qmd#sec-aa) de $X \sim N(\theta, 1), \theta \in
+\Theta = \mathbb{R}$. Considere a hipótese
+
+$$
+\mathcal{H}_0 : \theta = 0
+$$
+
+Calcule o valor-$p$ do teste considerando a seguinte amostra:
+
+$$
+\boldsymbol{x} = \begin{pmatrix}(-0.157 & 0.691 & -0.603 & -1.034 & 0.121 &
+-1.293 & -0.059 & 1.201 & 0.818 & 0.037)\end{pmatrix}
+$$
+
+Realize um teste sob normalidade para a média, calcule o valor-$p$ e conclua o
+teste a $\alpha = 5\%$ de significância.
+
+### Resposta
+
+Note que o teste para a média sob normalidade que conhecemos é dado por
+
+$$
+\begin{aligned}
+&\text{Rejeita $H_{0}$ se} \\
+&\begin{cases}
+\bar{x} > 0 + z_{\alpha} \sqrt{ \frac{1}{10} } \\
+\end{cases} \\
+& \text{Em que $z_{\alpha}$ é tal que} \\
+& P\left( \mathrm{N(0,1)} \geq z_{\alpha} \right) = \alpha
+\end{aligned} \\
+$$
+
+Logo, nossa estatística é $\bar{X}$ que segue distribuição $N(0, 1/n)$ sob
+$\mathcal{H}_0$. Dessa forma, com o tamanho amostral $n=10$ e
+$\bar{x} = -0.0278$, calcularemos
+
+$$
+\mathrm{valor-}p = P(N(0, 1/10) \geq -0.0278) = P(Z \geq -0.0278 * \sqrt{10}) = 0.535
+$$
+
+Como $\mathrm{valor-p} = 0.535 \geq \alpha$, dizemos que não há evidenciais para
+rejeitarmos a hipótese nula a $\alpha = 5\%$ de significância estatística.
+
+Vamos gerar dados e comparar a distribuição dos valores-$p$.
+
+```{julia}
+#| echo: true
+using Distributions, StatsBase, Plots, Random, LaTeXStrings, StatsPlots
+Random.seed!(314)
+
+function mc_valorp(d, n)
+    # Explicitando a estatística:
+    T(X) = mean(X)
+
+    # Distribuição da estatística:
+    dest = Normal(0, 1 / sqrt(n))
+
+    # Simulações de Monte-Carlo
+    MC = 10_000
+    pvals = zeros(MC)
+    for i in 1:MC
+        x = rand(d, n)
+        pvals[i] = ccdf(dest, T(x))
+    end
+    return pvals
+end
+# Gerando dados sob H_0 com n = 40:
+pvals = mc_valorp(Normal(), 40)
+
+histogram(
+    pvals, normalize = :pdf,
+    title = "Histograma dos p-valores com dados sob " * L"\mathcal{H}_0",
+    label = "",
+    xlabel = L"\mathrm{valor-}p",
+    ylabel = "Densidade",
+)
+plot!(Uniform(0, 1), label = L"\mathrm{Unif}(0,1)")
+```
+
+Gerando em um modelo diferente de $\mathcal{H}_0$ exibirá o erro na distribuição
+do $\mathrm{valor}-p$, mesmo com desvios muito pequenos da hipótese nula ($ \mu
+= 0 \times \mu = 0.05)$:
+
+```{julia}
+#| echo: true
+# Gerando dados fora de H_0 com n = 40
+pvals = mc_valorp(Normal(0.05, 1), 40)
+
+histogram(
+    pvals, normalize = :pdf,
+    title = "Histograma dos p-valores com fora de " * L"\mathcal{H}_0",
+    label = "",
+    xlabel = L"\mathrm{valor-}p",
+    ylabel = "Densidade",
+)
+plot!(Uniform(0, 1), label = L"\mathrm{Unif}(0,1)")
+```
+
+Mesmo sob $\mathcal{H}_0$, tamanhos amostrais pequenos podem influenciar a
+distribuição observada dos valores-$p$.
+
+```{julia}
+#| echo: true
+# Gerando dados sob H_0 com n = 5
+pvals = mc_valorp(Normal(), 5)
+
+histogram(
+    pvals, normalize = :pdf,
+    title = "Histograma dos p-valores sob " * L"\mathcal{H}_0, n = 5",
+    label = "",
+    xlabel = L"\mathrm{valor-}p",
+    ylabel = "Densidade",
+)
+plot!(Uniform(0, 1), label = L"\mathrm{Unif}(0,1)")
+```
+
+O caso de dados gerados fora de $\mathcal{H}_0$ se acentua com amostras maiores:
+```{julia}
+#| echo: true
+# Gerando dados fora de H_0 com n = 100
+pvals = mc_valorp(Normal(0.05, 1), 100)
+
+histogram(
+    pvals, normalize = :pdf,
+    title = "Histograma dos p-valores com fora de " * L"\mathcal{H}_0, n = 100",
+    label = "",
+    xlabel = L"\mathrm{valor-}p",
+    ylabel = "Densidade",
+)
+plot!(Uniform(0, 1), label = L"\mathrm{Unif}(0,1)")
+```
+
+:::{.callout-warning title="Como interpretar corretamente o valor-$p$"}
+O valor-$p$ é um dos conceitos de mais difícil interpretação da estatística para
+pessoas não treinadas no tema e, por isso, grande fonte de controvérsia na
+comunidade científica. Dessa forma, atente-se:
+
+O valor-$p$ **não** é a probabilidade de $\mathcal{H}_0$ "ser verdadeira" ou de
+"não rejeitarmos" $\mathcal{H}_0$.
+
+O valor-$p$ **não** é a probabilidade de uma conclusão "estar incorreta"
+
+O valor-$p$ **não** é a probabilidade da estatística do teste observada ter
+da estatística do teste observada ter assumido determinado valor
+"por sort" ou "acidentalmente"
+
+O valor-$p$ **é** a probabilidade de, assumindo que sua hipótese sendo testada
+(a hipótese nula) seja verdadeira e que todas suas outras assunções
+(distribuição do modelo, distribuição da amostra, acurácia do método de
+amostragem, etc) também sejam verdadeiras, encontrar valores tão ou mais
+extremos que os observados.
+
+Essa discussão será retomada e aprofundada quando discutirmos
+[testes de hipótese mais complexos](teste-hipotese2.qmd).
+:::
+
+<!-- :::{.callout-caution title="Limitações do valor-$p$"} -->
+<!-- Por se tratar de uma quantidade não monotônica, o valor-$p$ não consegue medir -->
+<!-- *intensidade de efeito*. Isto é, valores-$p$ extremamente pequenos não -->
+<!-- necessariamente indicam maior ou menor efeito do objeto em questão. -->
+<!---->
+<!-- Por exemplo, caso queiramos testar a eficácia de determinado fármaco no controle -->
+<!-- da pressão sanguínea, postulariamos a hipótese de não efeito: $\mathcal{H}_0 :$ -->
+<!-- "A pressão sanguínea do grupo em teste não difere do grupo controle após uso do -->
+<!-- fármaco". Caso testassemos a hipótese e obtessemos um valor-$p$ extremamente -->
+<!-- pequeno, como $\mathrm{valor-}p = 0.000001$, não poderíamos afirmar nada sobre a -->
+<!-- intensidade do efeito do medicamento, apenas que houve efeito. Um pesquisador -->
+<!-- que queira analisar a intensidade do efeito do medicamento pode postular outra -->
+<!-- hipótese, como se a intensidade  -->
+<!-- ::: -->

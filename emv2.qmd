@@ -267,7 +267,7 @@ I_n(\theta) &= - E_\theta\left(\frac{\partial^2 \ln}{\partial \theta \partial \t
 \frac{1}{\sigma^4} \sum (X_i - \mu) & -\frac{n}{2\sigma^4} + \sum \frac{(X_i - \mu)^2}{(\sigma^2)^3}
 \end{array}\right) \\ \\
 \text{Note que}\ E_\theta[(X_i-\mu)^2] &= \mathrm{Var}_\theta(X) = \sigma^2 \\ \\
-\Rightarrow I_n (\theta) &= E_\theta\left(
+\Rightarrow I_n (\theta) &= \left(
 \begin{array}{cc}
 \frac{n}{\sigma^2} & 0 \\
 0 & \frac{n}{2\sigma^4}

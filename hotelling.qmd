@@ -12,7 +12,7 @@ $$
 
 tem distribuição $T^2$ de Hotelling.
 
-::: {.callout-note, title="Notação"}
+:::{.callout-note title="Notação"}
 $$
 H \sim T^2_{(p,m)}
 $$

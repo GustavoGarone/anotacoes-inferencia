@@ -887,9 +887,9 @@ Se $\Theta_0 = \{\theta_0\}, \Theta_1 = \{\theta_1\}$, temos o teste mais podero
 :::
 
 :::{.callout-note title="TUMP de Karlin-Rubin I e II"}
-Se $\Theta_0 = (-\infty \theta_0] \cap \Theta, \Theta_1 = (\theta_1, \infty) \cap \Theta$, temos o teste uniformemente
+Se $\Theta_0 = (-\infty, \theta_0] \cap \Theta, \Theta_1 = (\theta_1, \infty) \cap \Theta$, temos o teste uniformemente
 mais poderoso de Karlin-Rubin (I). Por sua vez,
-se $\Theta_0 = [\theta_0, \infty) \cap \Theta, \Theta_1 = (-\infty \theta_1) \cap \Theta$, temos o teste uniformemente
+se $\Theta_0 = [\theta_0, \infty) \cap \Theta, \Theta_1 = (-\infty, \theta_1) \cap \Theta$, temos o teste uniformemente
 mais poderoso de Karlin-Rubin (II)
 :::
 
@@ -1122,9 +1122,18 @@ MC = 10_000
 TX = zeros(MC)
 for i in 1:MC
     x = rand(d, n)
-    TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) + 2 * n * mean(x) * log(mean(x))
+    TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) + 2 *
+        n * mean(x) * log(mean(x))
 end
-p = histogram(TX, normalize = true, title = "Histograma de T(X)", label = "", ylims = (0, 1), bins = 20, xlabel = "T(X)", ylabel = "Densidade")
+p = histogram(
+    TX, normalize = true,
+    title = "Histograma de T(X)",
+    label = "",
+    ylims = (0, 1),
+    bins = 20,
+    xlabel = "T(X)",
+    ylabel = "Densidade"
+)
 plot!(Chisq(1), label = L"\chi^2_1", color = :tomato)
 
 ## Probabilidade do erro tipo I, α = 10%
@@ -1507,7 +1516,7 @@ $$
 à $\mathcal{H}_0$.*
 
 :::{.callout-warning title="Notação em alguns textos"}
-Alguns livros, para fim didáticos, definem o valor-$p$ como probabilidade condicional:
+Alguns livros, para fins didáticos, definem o valor-$p$ como probabilidade condicional:
 $$
 \mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) - \sup_{\theta \in \Theta_0}
 P_\theta(T_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n) | \mathcal{H}_0)
@@ -1688,6 +1697,32 @@ plot(hist1, hist2, hist3, layout = l)
 L"\hat P(\mathrm{val.-}p_1 < 0.05) = %$(mean(p1 .< 0.05)), \hat P(\mathrm{val.-}p_2 < 0.05) = %$(mean(p2 .< 0.05)), \hat P(\mathrm{val.-}p_3 < 0.05) = %$(mean(p3 .< 0.05))"
 ```
 
+Vamos aumentar o tamanho da amostra ($n = 1000$ para visualizarmos a
+convergência do valor $p$ em distribuição uniforme:
+
+```{julia}
+#| echo: true
+n = 1000
+p1 = @. ccdf(Chisq(1), razao(Poisson(1), 1))
+p2 = @. ccdf(Chisq(1), wald(Poisson(1), 1))
+p3 = @. ccdf(Chisq(1), escore(Poisson(1), 1))
+
+hist1 = histogram(
+    p1, title = "Valores-P da Razão de Ver.", label = "",
+    normalize = true
+)
+hist2 = histogram(
+    p2, title = "Valores-P da Wald", label = "",
+    normalize = true
+)
+hist3 = histogram(
+    p3, title = "Valores-P da Escore", label = "",
+    normalize = true
+)
+
+plot(hist1, hist2, hist3, layout = l)
+```
+
 Na distribuição Poisson, espera-se que, com valores pequenos de $\theta$, a aproximação piore pela assimetria. Vejamos com $\theta_0 = 0.01, n=100$:
 ```{julia}
 #| echo: true
@@ -1855,7 +1890,7 @@ W(\boldsymbol{X}_n^*) =
 C\boldsymbol{\mu}) \sim F_{(s,n-s)},\ \text{Sob}\ \mathcal{H}_0
 $$
 
-pela propriedade da [distribuição de hotelling](hotelling.qmd) (Teorema 8)
+pela propriedade da [distribuição de Hotelling](hotelling.qmd) (Teorema 8)
 e $\eta$ deve ser obtido fixando o tamanho do teste igua a $\alpha$ e
 calculando:
 

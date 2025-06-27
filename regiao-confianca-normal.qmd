@@ -1,0 +1,192 @@
+# Regiões de confiança sob normalidade
+
+## Intervalos de confiança simultâneos para o vetor de médias (sob normalidade)
+
+Seja $\boldsymbol{X}_n^*$ a.a. de $\boldsymbol{X} \sim N_p(\boldsymbol{\mu},
+\Sigma)$. Uma região de confiança para $g(\theta) = C \boldsymbol{\mu}$ com
+coeficiente de confiança $\gamma \in (0,1)$ em que $C_{s \times p}$ é uma matriz
+com linhas linearmnete independentes, pode ser definda utilizando a quantidade
+
+$$
+W(\theta) = \frac{n-s}{s} (C\bar{X} - C\boldsymbol{\mu})^T [C S^2_n C^T]^{-1}
+(C\bar{X} - C \boldsymbol{\mu}) \sim F_{(s, n-s)}
+$$
+
+$$
+\mathrm{RC}(g(\theta),\gamma) = \left\{g(\theta) : W(\theta) \leq q_{\gamma}
+\right\}
+$$
+em que $g_{\gamma}$ é tal que
+$$
+P(F_{(s,n-s)} \leq q_{\gamma}) = \gamma
+$$
+
+Casos particulares:
+
+1.
+$$
+\begin{aligned}
+g(\theta) &= \mu_1 \Rightarrow C\boldsymbol{\mu} = \begin{pmatrix}
+1 & 0 & \dots & 0
+\end{pmatrix}
+\begin{pmatrix}
+\mu_1 \\ \vdots \\ \mu_p
+\end{pmatrix} = \mu_1 \\
+\Rightarrow W(\theta) &= \frac{n-1}{1} \frac{(\bar{X}_1 -
+\mu_1)^2}{S^2_{n,(1,1)}}\sim F_{(1, n-1)} \\
+\Rightarrow \mathrm{RC}(\mu_1, \gamma) &= \left\{\mu_1 \in \mathbb{R} :
+\frac{(\bar{X}_1 - \mu_1)^2}{S^2_{n,(1,1)}} \leq q_{\gamma}\right\} \\
+\Rightarrow \mathrm{RC}(\mu_1, \gamma) &= \bar{X}_1 \pm \sqrt{q_{\gamma}
+\frac{S^2_{n,(1,1)}}{n-1}}
+\end{aligned}
+$$
+
+em que
+
+$$
+S^2_n = \frac{1}{n} \sum^n_{i=1} (X_i - \bar{X})(X_i - \bar{X})^T =
+\begin{bmatrix}
+S^2_{n,(1,1)} & \dots & S^2_{n,(1,p)} \\
+\vdots & \ddots & \vdots \\
+S^2_{n,(p,1)} & \dots & S^2_{n,(p,p)}
+\end{bmatrix}
+$$
+
+e
+$$
+P(F_{(1, n-1)} \leq q_{\gamma}) = \gamma.
+$$
+
+2.
+$$
+\begin{aligned}
+g(\theta) &= \mu_j \Rightarrow C\boldsymbol{\mu} = \begin{pmatrix}
+0 & 0 & \dots & 1 & 0 & \dots & 0
+\end{pmatrix}
+\begin{pmatrix}
+\mu_1 \\ \vdots \\ \mu_p
+\end{pmatrix} = \mu_j \\
+\Rightarrow W(\theta) &= \frac{n-1}{1} \frac{(\bar{X}_j -
+\mu_j)^2}{S^2_{n,(j,j)}} \sim F_{(1, n-1)} \\
+\Rightarrow \mathrm{RC}(\mu_j, \gamma) &= \left\{\mu_1 \in \mathbb{R} :
+\frac{(\bar{X}_j - \mu_j)^2}{S^2_{n,(j,j)}} \leq q_{\gamma}\right\} \\
+\Rightarrow \mathrm{RC}(\mu_j, \gamma) &= \bar{X}_j \pm \sqrt{q_{\gamma}
+\frac{S^2_{n,(j,j)}}{n-1}}
+\end{aligned}
+$$
+
+em que $p > j$
+
+3.
+$$
+\begin{aligned}
+g(\theta) &= \mu_1 - \mu_2 + 3\mu_3 \Rightarrow C\boldsymbol{\mu} =
+\begin{pmatrix}
+1 & -1 & 3 & 0 & \dots & 0
+\end{pmatrix}
+\begin{pmatrix}
+\mu_1 \\ \vdots \\ \mu_p
+\end{pmatrix} = \mu_1 - \mu_2 + 3\mu_3 \\
+\Rightarrow W(\theta) &= \frac{n-1}{1} [(\bar{X}_1 - \bar{X}_2 + 3\bar{X}_3) -
+(\mu_1 - \mu_2 + 3\mu_3)]^2 \frac{1}{C S^2_n C^T}
+\end{aligned}
+$$
+
+Note que
+$$
+\begin{aligned}
+&\begin{pmatrix}
+1 & -1 & 3 & 0 & \dots & 0
+\end{pmatrix}
+\begin{bmatrix}
+S^2_{n,(1,1)} & \dots & S^2_{n,(1,p)} \\
+\vdots & \ddots & \vdots \\
+S^2_{n,(p,1)} & \dots & S^2_{n,(p,p)}
+\end{bmatrix}
+\begin{pmatrix}
+1 \\ -1 \\ 3 \\ 0 \\ \dots \\ 0
+\end{pmatrix}\\ \Rightarrow&
+(S^2_{n,(1,1)} - S^2_{n,(2,1)} + 3 S^2_{n,(3,1)}) - 
+(S^2_{n,(1,1)} - S^2_{n,(2,1)} + 3 S^2_{n,(3,1)})\\ &+ 
+3(S^2_{n,(1,1)} - S^2_{n,(2,1)} + 3 S^2_{n,(3,1)}) \\
+& =
+S^2_{n,(1,1)} + S^2_{n,(2,2)} + 9 S^2_{n,(3,3)} - 2 S^2_{n,(2,1)} + 6
+S^2_{n,(1,3)} - 6 S^2_{n,(2,3)} \\
+\Rightarrow W(\theta) &= \frac{n-1 [(\bar{X}_1 - \bar{X}_2 + 3\bar{X}_3) -
+(\mu_1 - \mu_2 + 3\mu_3)]^2}{
+S^2_{n,(1,1)} + S^2_{n,(2,2)} + 9 S^2_{n,(3,3)} - 2 S^2_{n,(2,1)} + 6
+S^2_{n,(1,3)} - 6 S^2_{n,(2,3)}}
+\end{aligned}
+$$
+
+Logo,
+$$
+\begin{aligned}
+\mathrm{RC}(\mu_1 - \mu_2 + 3\mu_3, \gamma) &= \left\{
+\mu_1 - \mu_2 + 3\mu_3 \in \mathbb{R} : W(\theta) \leq q_\gamma
+\right\} \\
+\Rightarrow 
+\mathrm{RC}(\mu_1 - \mu_2 + 3\mu_3, \gamma) &= (\bar{X}_1 - \bar{X}_2 +
+3\bar{X}_3) \\ &\pm \sqrt{q_{\gamma} \frac{S^2_{n,(1,1)} + S^2_{n,(2,2)} + 9
+S^2_{n,(3,3)} - 2 S^2_{n,(2,1)} + 6 S^2_{n,(1,3)} - 6 S^2_{n,(2,3)}}{n-1}}
+\end{aligned}
+$$
+
+:::{.callout-tip title="Intervalos de confiança são um caso particular"}
+Se $s=1$, então a região de confiança é simplesmente um
+[IC](intervalo-confianca.qmd).
+
+$$
+\mathrm{RC}(g(\theta), \gamma) = C \bar{X} \pm \sqrt{q_\gamma \frac{C S^2_n C^T}{n-1}}
+$$
+:::
+
+:::{.callout-note title="Forma geral"}
+Para $s \geq 2$, representamos a região de confiança pela sua definição
+
+$$
+\mathrm{RC}(C \boldsymbol{\mu}, \gamma) = \left\{ C \boldsymbol{\mu} :
+\frac{n-s}{s}(C\bar{X} - C\boldsymbol{\mu})^T [C S^2_n C^T]^{-1} (C\bar{X} -
+C\boldsymbol{\mu})^T \leq q_{\gamma}\right\}
+$$
+:::
+
+em que $P(F_{(s, n-s)} \leq q_\gamma) = \gamma$
+
+### Exemplo
+
+Seja
+$$
+g(\theta) = \begin{pmatrix}
+\mu_1 - \mu_2 \\
+\mu_2 - \mu_3
+\end{pmatrix} \Rightarrow
+C = \begin{pmatrix}
+1 & -1 & 0 & 0 & \dots & 0 \\
+0 & 1 & -1 & 0 & \dots & 0
+\end{pmatrix} \Rightarrow s = 2
+$$
+
+Portanto,
+$$
+\mathrm{RC}(g(\theta), \gamma) = \left\{
+\begin{pmatrix}
+\mu_1 - \mu_2 \\
+\mu_2 - \mu_3
+\end{pmatrix} \in \mathbb{R}^2 : \frac{n-2}{2}
+\begin{pmatrix}
+\bar{X}_1 - \bar{X}_2 \\
+\bar{X}_2 - \bar{X}_3
+\end{pmatrix}^T
+[C S^2_n C^T]^2
+\begin{pmatrix}
+\bar{X}_1 - \bar{X}_2 \\
+\bar{X}_2 - \bar{X}_3
+\end{pmatrix}
+\right\}
+$$
+
+<!-- TODO: finalizar com algoritmos no moodle -->
+```{julia}
+#| eval: false
+```

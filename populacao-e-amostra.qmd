@@ -40,18 +40,6 @@ Sendo assim, $(X_1, \dots, X_n)$ é amostra aleatória de $X\sim f_\theta, \thet
 sempre que $(X_1, \dots, X_n)$ forem independentes para cada $P_\theta, \theta \in \Theta$ e
 $X_i \sim f_\theta, \theta \in \Theta, i = 1, 2, \dots, n$
 
-#### Diagrama
-
-```{mermaid}
-flowchart UD
-  A[$X\sim f_\theta, \theta \in \Theta, \g(\theta)$] --> B($\X_1, \sim \f_\theta, \theta \in \Theta$)
-  A --> C($\X_2, \sim \f_\theta, \theta \in \Theta$)
-  A --> D($\X_n, \sim \f_\theta, \theta \in \Theta$)
-  B --> E(x_1)
-  C --> F(x_2)
-  D --> G(x_n)
-```
-
 ## Amostra (Observada) {#sec-ao}
 
 É formada por valores numéricos após utilizar um procedimento de amostragem.
@@ -61,3 +49,76 @@ $$
 
 em que $n$ é o tamanho amostral.
 
+## Diagrama
+
+```{.tikz width=100%}
+%%| format: tex
+%%| filename: diagramaamostra
+%%| fig-cap: Diagrama: População, amostra aleatória e observada
+\begin{tikzpicture}[node distance=0.8cm and 0.5cm, thick]
+
+  \node (X1) [draw,  minimum width=2cm, minimum height=1cm] {$X_1
+  \sim f_\theta, \ \theta \in \Theta$};
+
+  \node (X2) [right=of X1, draw,  minimum width=2cm, minimum
+  height=1cm] {$X_2 \sim f_\theta, \ \theta \in \Theta$};
+
+  %\node (Xn) [right=of X2, draw, ellipse, minimum width=2cm, minimum
+  % height=1cm] {$X_n \sim f_\theta, \ \theta \in \Theta$};
+
+  \node (dots) [right=of X2] {...};
+
+  \node (XnPlus) [right=of dots, draw,  minimum width=2cm, minimum
+  height=1cm] {$X_{n} \sim f_\theta, \ \theta \in \Theta$};
+
+  % Top Node
+
+  \node (Y) [above=of X2, xshift=0.5cm, draw,  minimum width=2.5cm,
+  minimum height=1cm] {$X \sim f_\theta, \ \theta \in \Theta$, $g(\theta)$};
+
+  % Arrows
+
+  \draw[-Latex] (Y) -- (X1);
+
+  \draw[-Latex] (Y) -- (X2);
+
+  \draw[-Latex] (Y) -- (XnPlus);
+
+  % Bottom Nodes
+
+  \node (x1) [below=of X1, draw,  minimum size=1cm] {$x_1$};
+
+  \node (x2) [below=of X2, draw,  minimum size=1cm] {$x_2$};
+
+  \node (dotss) [below=1.5cm of dots] {...};
+
+  \node (xn) [below=of XnPlus, draw,  minimum size=1cm] {$x_n$};
+
+  % Lines
+
+  \draw[-Latex] (X1) -- (x1);
+
+  \draw[-Latex] (X2) -- (x2);
+
+  \draw[-Latex] (XnPlus) -- (xn);
+
+  % Labels
+
+  %\node[align=center] at (current bounding box.north) {\textbf{Diagrama}};
+
+  \node[align=center, right=of xn] {\textbf{Amostra
+  observada}};\node[align=center, right=of Y] {\textbf{Vetor
+  aleatório populacional}};
+
+  \node[align=center, right=of XnPlus] {\textbf{Amostra aleatória}};
+
+  % Theory and Practice Box
+
+  %\node[draw, align=left, right=of Y, minimum width=3cm, minimum
+  % height=4cm, label=above:Teoria] (theory) {Gráficos,\\ medidas-resumo};
+
+  %\node[draw, align=left, below=of theory, minimum width=3cm,
+  % minimum height=4cm, label=above:Prática] (practice) {};
+
+\end{tikzpicture}
+```

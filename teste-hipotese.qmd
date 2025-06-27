@@ -314,11 +314,13 @@ Podemos analisar os gráficos:
 #| echo: false
 using Plots, Distributions, LaTeXStrings
 function poder(theta)
-  dist = Binomial(2, theta)
-  return cdf(dist, 2 * 0.4)
+    dist = Binomial(2, theta)
+    return cdf(dist, 2 * 0.4)
 end
-plot(poder, xlims=(0.6, 1), legend=false, ylabel=L"\pi (\theta)", xlabel=L"\theta",
-     title=L"\alpha = \pi (\theta) = (1-\theta)^{2}")
+plot(
+    poder, xlims = (0.6, 1), legend = false, ylabel = L"\pi (\theta)", xlabel = L"\theta",
+    title = L"\alpha = \pi (\theta) = (1-\theta)^{2}"
+)
 ```
 
 Como é uma função decrescente, seu supremo está no ponto $0.6$
@@ -327,11 +329,13 @@ Como é uma função decrescente, seu supremo está no ponto $0.6$
 #| echo: false
 using Plots, Distributions, LaTeXStrings
 function poder(theta)
-  dist = Binomial(2, theta)
-  return ccdf(dist, 2 * 0.4)
+    dist = Binomial(2, theta)
+    return ccdf(dist, 2 * 0.4)
 end
-plot(poder, xlims=(0, 0.601), legend=false, ylabel=L"1 - \pi (\theta)", xlabel=L"\theta",
-     title=L"\beta  = 1 - \pi (\theta) = (1-\theta)^{2}") #.601 para exibir o último xtick
+plot(
+    poder, xlims = (0, 0.601), legend = false, ylabel = L"1 - \pi (\theta)", xlabel = L"\theta",
+    title = L"\beta  = 1 - \pi (\theta) = (1-\theta)^{2}"
+) #.601 para exibir o último xtick
 ```
 
 Como é uma função crescente, seu supremo está também no $0.6$
@@ -437,14 +441,18 @@ function poder(theta)
     return cdf(dist, (mu0 - 1.96 * sqrt(sigma2 / n))) + (1 - cdf(dist, (mu0 + 1.96 * sqrt(sigma2 / n))))
 end
 
-a = plot(poder, xlims=(mu0 - 6 * sqrt(sigma2 / 7), mu0 + 6 * sqrt(sigma2 / 7)), ylims=(0, 1.001), label="", title=L"\alpha = \pi (\theta)",
-         xlabel =L"\mu", ylabel = L"\alpha")
-vline!([7], label="7")
+a = plot(
+    poder, xlims = (mu0 - 6 * sqrt(sigma2 / 7), mu0 + 6 * sqrt(sigma2 / 7)), ylims = (0, 1.001), label = "", title = L"\alpha = \pi (\theta)",
+    xlabel = L"\mu", ylabel = L"\alpha"
+)
+vline!([7], label = "7")
 beta(theta) = 1 - poder(theta)
 beta(mu0)
-b = plot(beta, xlims=(mu0 - 6 * sqrt(sigma2 / 7), mu0 + 6 * sqrt(sigma2 / 7)), ylims=(-0.01, 1.001), label="", title=L"\beta",
-         xlabel=L"\mu", ylabel = L"\beta")
-vline!([7], label="7")
+b = plot(
+    beta, xlims = (mu0 - 6 * sqrt(sigma2 / 7), mu0 + 6 * sqrt(sigma2 / 7)), ylims = (-0.01, 1.001), label = "", title = L"\beta",
+    xlabel = L"\mu", ylabel = L"\beta"
+)
+vline!([7], label = "7")
 display(a)
 display(b)
 ```
@@ -534,8 +542,8 @@ $$
 #| echo : false
 using Distributions, Plots, StatsPlots, LaTeXStrings
 
-a = plot(Normal(), labels=false)
-vline!([-1.96, 1.96], labels=false)
+a = plot(Normal(), labels = false)
+vline!([-1.96, 1.96], labels = false)
 xticks!([-1.96, 1.96], [L"\frac{x_{a}-\mu_{0}}{\sqrt{\frac{\sigma^{2}}{n}}}", L"\frac{x_{b}-\mu_{0}}{\sqrt{\frac{\sigma^{2}}{n}}}"])
 
 display(a)
