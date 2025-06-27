@@ -151,7 +151,7 @@ Sejam $\mathcal{H}_0, \mathcal{H}_1$ as hipóteses nula e alternativa, respectiv
 $$
 \begin{cases}
 \mathcal{H}_0 : \theta \in \Theta_0 \\
-\mathcal{H}_1 : \theta \in \Theta_1 \\
+\mathcal{H}_1 : \theta \in \Theta_1
 \end{cases}
 $$
 em que $\Theta_0 \neq \emptyset, \Theta_0 \cup \Theta 1 = \Theta, \Theta_0 \cap \Theta_1 = \emptyset$. Dizemos que $\mathcal{H}_0$ é
@@ -1233,7 +1233,7 @@ Considere as hipóteses com $\theta_{1,0}$ conhecido
 $$
 \begin{aligned}
 \begin{cases}
-\mathcal{H}_0 : \theta_1 = \theta_{1,0}
+\mathcal{H}_0 : \theta_1 = \theta_{1,0} \\
 \mathcal{H}_1 : \theta_1 \neq \theta_{1,0}
 \end{cases}&\ \ \ \Rightarrow C=\begin{pmatrix}1 & 0 & \dots & 0\end{pmatrix}, d = \theta_{1,0} \\
 W &= n(\hat{\theta}_1 - \theta_{1,0})(V_{\hat{\theta}}^{(1,1)})^{-1}(\hat{\theta}_1 - \theta_{1,0}) \\
@@ -1255,7 +1255,7 @@ Considere as hipóteses
 $$
 \begin{aligned}
 \begin{cases}
-\mathcal{H}_0 : \theta_1 = \theta_{3}
+\mathcal{H}_0 : \theta_1 = \theta_{3} \\
 \mathcal{H}_1 : \theta_1 \neq \theta_{3}
 \end{cases}&\ \ \ \Rightarrow C=\begin{pmatrix}1 & 0 & -1 & 0 & \dots & 0\end{pmatrix}, d = 0 \\
 W &= n(\hat{\theta}_1 - \hat{\theta}_3)(C V_{\hat{\theta}} C^T)^{-1}(\hat{\theta}_1 - \hat{\theta}_3) \\
