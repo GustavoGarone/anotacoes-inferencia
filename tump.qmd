@@ -1,0 +1,288 @@
+# Testes uniformemente mais poderosos (TUMP)
+
+Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \in \Theta_0 \\
+\mathcal{H}_1 : \theta \in \Theta_1
+\end{cases}
+$$
+as hipóteses nula e alternativa em que $\Theta_0 \cup \Theta_1 = \Theta, \Theta_0 \cap \Theta_1 = \emptyset, \#(\Theta_0) \geq 1, \#(\Theta_1) \geq 1$.
+O teste de tamanho $\alpha$ $\delta^* : \mathfrak{X}^{(n)} \rightarrow \{0,1\}$ é uniformemente mais poderoso se, e somente se,
+
+1. $\sup\limits_{\theta \in \Theta_0} \pi_{\delta^*}(\theta) = \alpha$;
+
+2. Para qualquer outro teste $\delta$ tal que $\pi_{\delta}(\theta) \leq \alpha, \underbrace{\forall \theta \in \Theta_0}_{\text{Sob}\ \mathcal{H}_0}$, então
+$$
+\pi_{\delta^*}(\theta) \geq \pi_{\delta}(\theta), \underbrace{\forall \theta \in \Theta_1}_{\text{Sob}\ \mathcal{H}_1}.
+$$
+
+## Teorema de Karlin-Rubin (I)
+*Uma generalização do Lema de Neyman-Pearson.*
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \leq \theta_0\\
+\mathcal{H}_1 : \theta > \theta_0
+\end{cases}
+$$
+em que $\theta_0$ é um valor dado. Se a *razão de verossimilhanças*
+$$
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{x}_n)) = \frac{\mathcal{L}_{\boldsymbol{x}_n}(\theta')}{\mathcal{L}_{\boldsymbol{x}_n}(\theta'')}
+$$
+for *monótona não-decrescente* e $\theta' \geq \theta''$, em que $T(\boldsymbol{x}_n)$ é uma [estatística suficiente](estatisticas-suficientes.qmd) para o [modelo](modelo-estatistico.qmd), então
+o teste $\delta^* : \mathfrak{X}^{(n)} \rightarrow \{0, 1\}$ tal que
+$$
+\delta^* (\boldsymbol{x}_n) = \begin{cases}
+0, T(\boldsymbol{x}_n) < c \\
+1, T(\boldsymbol{x}_n) \geq c,
+\end{cases}
+$$
+e $c$ satisfaz
+$$
+\pi_{\delta^*}(\theta_0) = P_{\theta_0}(\delta^*(\boldsymbol{x}_n) = 1) = \alpha,
+$$
+é o teste uniformemente mais poderoso de tamanho $\alpha$.
+
+### Exemplo (Normal)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim N(\theta, 2), \theta \in \Theta \subseteq \mathbb{R}$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \leq 1\\
+\mathcal{H}_1 : \theta > 1.
+\end{cases}
+$$
+Encontre o TUMP de tamanho $\alpha = 10\%$.
+
+#### Resposta
+
+A função de verossimilhança é dada por
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum (x_i - \theta)^{2} \right\} \\ &= 
+\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum x_i^2 - 2\theta\sum x_i + n\theta^2 \right\}.
+\end{aligned}
+$$
+Pelo [Critério de Fatoração de Fisher](estatisticas-suficientes.qmd#sec-crit-fat), $T(\boldsymbol{X}_n) = \sum x_i$ é uma estatística suficiente.
+Note que
+$$
+\begin{aligned}
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) &= \frac{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum x_i^2 - 2\theta'\sum x_i + n\theta'^2 \right\}}{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum x_i^2 - 2\theta''\sum x_i + n\theta''^2 \right\}} \\
+&= \mathrm{Exp}\left\{-\frac{1}{4}(-\theta'T(\boldsymbol{x}_n) + n\theta'^2 + 2\theta''T(\boldsymbol{x}_n) - n\theta''^2\right\} \\
+&= \mathrm{Exp}\left\{\frac{1}{2}(\theta' - \theta'')T(\boldsymbol{x}_n)-\frac{1}{4} n\theta''^2 +\frac{1}{4}\theta''^2\right\}.
+\end{aligned}
+$$
+Como $\theta' \geq \theta''$, temos que $\theta' - \theta'' \geq 0$. Logo, $\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{x}_n))$ é uma função
+monótona *não-decrescente* em $T(\boldsymbol{x}_n)$. Logo, pelo Teorema de Karlin-Rubin (I), temos que
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0, \sum x_i < c \\
+1, \sum x_i \geq c
+\end{cases}
+$$
+em que $c$ satisfaz
+$$
+\pi_{\delta^*}(1) = P_{1}(\sum X_i \geq c) = \alpha.
+$$
+
+Com $n = 5$, temos que, quando $\theta = 1$, $\sum X_i \sim N(1 \cdot 5, 5 \cdot 2)$. Assim,
+$$
+\begin{aligned}
+P_{1}(\sum X_i \geq c) &= P_1\left(\frac{\sum x_i - 5}{\sqrt{10}} \geq \frac{c - 5}{\sqrt{10}}\right) = 0.1 \\
+\Rightarrow \frac{c - 5}{\sqrt{10}} &= 1.28 \\
+\Rightarrow c &= 1.28 \cdot \sqrt{10} + 5 = 9.064 \\
+\Rightarrow  \delta^*(\boldsymbol{x}_n) &= \begin{cases}
+0, \sum x_i < 9.064 \\
+1, \sum x_i \geq 9.064
+\end{cases}
+\end{aligned}
+$$
+Portanto, se $\sum x_i < 9.064$, dizemos que *não há evidencias* para rejeitarmos $\mathcal{H}_0$ a $10\%$ de significância
+estatística. Se $\sum x_i \geq 9.064$, dizemos que *há evidencias* para rejeitarmos $\mathcal{H}_0$ a $10\%$ de significância
+estatística.
+
+### Exemplo (Exponencial)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim \mathrm{Exp}(\theta), \theta \in \Theta \subseteq \mathbb{R}_+$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \leq 2\\
+\mathcal{H}_1 : \theta > 2.
+\end{cases}
+$$
+Encontre o TUMP de tamanho $\alpha = 5\%$.
+
+##### Resposta
+
+A função de verossimilhança é dada por
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \theta^n \cdot \mathrm{e}^{-\theta \sum x_i}.
+\end{aligned}
+$$
+
+Pelo [Critério de Fatoração de Fisher](estatisticas-suficientes.qmd#sec-crit-fat), $T(\boldsymbol{X}_n) = \sum X_i$ é uma estatística suficiente.
+$$
+\begin{aligned}
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) &= \frac{\theta'^n \cdot \mathrm{e}^{-\theta' \sum x_i}}{\theta''^n \cdot \mathrm{e}^{-\theta'' \sum x_i}} \\
+&= \left(\frac{\theta'}{\theta''}\right)^n \mathrm{Exp} \left\{ -\theta' T(\boldsymbol{x}_n) + \theta''T(\boldsymbol{x}_n) \right\} \\
+&= \left(\frac{\theta'}{\theta''}\right)^n \mathrm{Exp} \left\{ (\theta'' - \theta') T(\boldsymbol{x}_n)\right\}, \theta' \geq \theta''.
+\end{aligned}
+$$
+Como $\theta' \geq \theta''$, temos que $\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n))$ é decrescente em $T(\boldsymbol{x}_n)$.
+Tome $T'(\boldsymbol{x}_n) = - \sum x_i$, logo
+$$
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) = \left(\frac{\theta'}{\theta''}\right)^n \mathrm{Exp}
+\left\{(\theta' - \theta'') T(\boldsymbol{x}_n)\right\}, \theta' \geq \theta''.
+$$
+é monótona não-decrescente em $T'(\boldsymbol{x}_n)$. Portanto, pelo Teorema de Karlin-Rubin (I),
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0, \sum -x_i < c \\
+1, \sum -x_i \geq c
+\end{cases} \Rightarrow
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0, \sum x_i > -c \\
+1, \sum x_i \leq -c
+\end{cases}
+$$
+em que $c$ satisfaz
+$$
+\pi_{\delta^*}(1) = P_{1}(\sum X_i \leq -c) = \alpha.
+$$
+Para $n=10$, sob $\theta = 2, \sum X_i \sim \mathrm{Gama}(10,2)$. Computacionalmente, o quantil $0.05$ dessa distribuição
+é $2.7127$. Logo, $-c = 2.7127 \Rightarrow c = -2.7127$. Dessa forma, se $\sum x_i > 2.7127$, dizemos que *não há evidencias* para rejeitarmos $\mathcal{H}_0$ a $5\%$ de significância
+estatística. Se $\sum x_i \leq 2.7127$, dizemos que *há evidencias* para rejeitarmos $\mathcal{H}_0$ a $5\%$ de significância estatística.
+
+## Teorema de Karlin-Rubin (II)
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \geq \theta_0\\
+\mathcal{H}_1 : \theta < \theta_0
+\end{cases}
+$$
+em que $\theta_0$ é um valor dado. Se a *razão de verossimilhanças*
+$$
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{x}_n)) = \frac{\mathcal{L}_{\boldsymbol{x}_n}(\theta')}{\mathcal{L}_{\boldsymbol{x}_n}(\theta'')}
+$$
+for *monótona não-crescente* e $\theta' \leq \theta''$, em que $T(\boldsymbol{x}_n)$ é uma [estatística suficiente](estatisticas-suficientes.qmd) para o [modelo](modelo-estatistico.qmd), então
+o teste $\delta^* : \mathfrak{X}^{(n)} \rightarrow \{0, 1\}$ tal que
+$$
+\delta^* (\boldsymbol{x}_n) = \begin{cases}
+0, T(\boldsymbol{x}_n) > c \\
+1, T(\boldsymbol{x}_n) \leq c,
+\end{cases}
+$$
+e $c$ satisfaz
+$$
+\pi_{\delta^*}(\theta_0) = P_{\theta_0}(\delta^*(\boldsymbol{x}_n) = 1) = \alpha,
+$$
+é o teste uniformemente mais poderoso de tamanho $\alpha$.
+
+### Exemplo (Normal)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim N(\theta, 2), \theta \in \Theta \subseteq \mathbb{R}$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \geq 1\\
+\mathcal{H}_1 : \theta < 1.
+\end{cases}
+$$
+Encontre o TUMP de tamanho $\alpha$.
+
+#### Resposta
+
+A função de verossimilhança é dada por
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum (x_i - \theta)^{2} \right\} \\ &= 
+\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum x_i^2 - 2\theta\sum x_i + n\theta^2 \right\}.
+\end{aligned}
+$$
+Pelo [Critério de Fatoração de Fisher](estatisticas-suficientes.qmd#sec-crit-fat), $T(\boldsymbol{X}_n) = \sum x_i$ é uma estatística suficiente.
+Note que
+$$
+\begin{aligned}
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) &= \frac{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum x_i^2 - 2\theta'\sum x_i + n\theta'^2 \right\}}{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum x_i^2 - 2\theta''\sum x_i + n\theta''^2 \right\}} \\
+&= \mathrm{Exp}\left\{-\frac{1}{4}(-\theta'T(\boldsymbol{x}_n) + n\theta'^2 + 2\theta''T(\boldsymbol{x}_n) - n\theta''^2\right\} \\
+&= \mathrm{Exp}\left\{\frac{1}{2}(\theta' - \theta'')T(\boldsymbol{x}_n)-\frac{1}{4} n'\theta^2 +\frac{1}{4}\theta''^2\right\}.
+\end{aligned}
+$$
+Como $\theta' \leq \theta''$, temos que $\theta' - \theta'' \leq 0$. Logo, $\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{x}_n))$ é uma função
+monótona *não-crescente* em $T(\boldsymbol{x}_n)$. Logo, pelo Teorema de Karlin-Rubin (II), temos que
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0, \sum x_i > c \\
+1, \sum x_i \leq c
+\end{cases}
+$$
+em que $c$ satisfaz
+$$
+\pi_{\delta^*}(1) = P_{1}(\sum X_i \leq c) = \alpha.
+$$
+
+## Simulações
+
+```{julia}
+#| echo: true
+# Seja X a.a. de X ~ Exp()
+# H_0 θ ≤ 2; H_1 θ > 2
+# δ(x) = 1 ⟺ ∑ x ≤ 2.71
+using Distributions, Random, StatsBase
+Random.seed!(24)
+
+# Borda do Θ_0
+θ_0 = 2
+# Valores do teste e amostra
+n = 100
+α = 0.05
+MC = 10_000
+
+function h0()
+    # Sob H_0
+    θ_00 = rand(Uniform(0, θ_0))
+
+
+    d = Exponential(1 / θ_00)
+    dsoma = Gamma(n, 1 / θ_00)
+    c = quantile(dsoma, α)
+
+    δ = zeros(MC)
+    for i in 1:MC
+        x = rand(d, n)
+        δ[i] = sum(x) ≤ c
+    end
+    return println("Testes rejeitados sob H_0: $(mean(δ) * 100)%")
+end
+
+function h1()
+    # Sob H_0
+    θ_11 = rand(Uniform(θ_0, θ_0 + 10))
+
+
+    d = Exponential(1 / θ_11)
+    dsoma = Gamma(n, 1 / θ_11)
+    c = quantile(dsoma, α)
+
+    δ = zeros(MC)
+    for i in 1:MC
+        x = rand(d, n)
+        δ[i] = sum(x) ≥ c
+    end
+    return println("Testes rejeitados sob H_1 (Poder do teste): $(mean(δ) * 100)")
+end
+
+h0()
+h1()
+```

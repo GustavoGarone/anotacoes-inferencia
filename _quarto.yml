@@ -84,6 +84,10 @@ book:
         - normal-multivariada.qmd
         - intervalos-confianca.qmd
         - teste-hipotese2.qmd
+        - teste-neyman-pearson.qmd
+        - tump.qmd
+        - testes-gerais.qmd
+        - val-p2.qmd
         - wishart.qmd
         - hotelling.qmd
         - regiao-confianca-normal.qmd

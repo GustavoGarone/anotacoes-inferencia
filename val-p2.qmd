@@ -1,0 +1,296 @@
+```{julia}
+#| output: false
+using Pkg; Pkg.add(["Distributions", "StatsBase", "Plots", "StatsPlots", "LaTeXStrings"])
+```
+# Valor-$p$ ou nível descritivo do teste
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^p$. Considere
+$$
+\mathcal{H}_0: \theta \in \Theta_0
+$$
+
+:::{.callout-note title="Suficiência da hipótese nula para o valor-$p$"}
+A hipótese alternativa, $\mathcal{H}_1$, não é necessária para formular o valor-$p$.
+:::
+
+Seja $T_{\mathcal{H}_0}(\boldsymbol{X}_n)$ tal que, quanto maior for seu valor observado, maior é a discrepância entre 
+$\mathcal{H}_0$ e os dados observados. Podemos usar a estatística da [Razão de Verossimilhanças, Wald, ou de Escore](testes-gerais.qmd).
+O valor-$p$ é definido por
+
+$$
+\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) - \sup_{\theta \in \Theta_0}
+P_\theta(T_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n))
+$$
+
+*O valor-$p$ é a probabilidade de observar uma estatística tão ou mais extrema que a observada sob o cenário mais favorável
+à $\mathcal{H}_0$.*
+
+:::{.callout-warning title="Notação em alguns textos"}
+Alguns livros, para fins didáticos, definem o valor-$p$ como probabilidade condicional:
+$$
+\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) - \sup_{\theta \in \Theta_0}
+P_\theta(T_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n) | \mathcal{H}_0)
+$$
+
+Isto, na estatística clássica, está equivocado uma vez que $\mathcal{H}_0$ é uma hipótese científica, não um evento definido
+na $\sigma$-álgebra, isto é, $P(A|B)$ só está bem definido se, e somente se, $A$ e $B$ estiverem na mesma $\sigma$-álgebra.
+:::
+
+1. Observe que, quanto menor for o valor-$p$, há mais evidencias de que $\mathcal{H}_0$ é falsa.
+
+:::{.callout-note title="Interpretação com níveis de significância"}
+Caso $\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) \leq \alpha$, então dizemos que há evidências para rejeitar
+$\mathcal{H}_0$ a $\alpha \cdot 100\%$ de significância estatística.
+:::
+
+2. Se $T_{\mathcal{H}_0} \sim G$, sob $\mathcal{H}_0$, em que $G$ não depende de "$\theta$", então
+$$
+\mathrm{valor-}p (\boldsymbol{x}_n, \mathcal{H}_0) = P(G \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n))
+$$
+
+3. Se $T_{\mathcal{H}_0} \sim G$, sob $\mathcal{H}_0$, em que $G$ não depende de "$\theta$", então
+$$
+\mathrm{valor-}p(\boldsymbol{X}_n,\mathcal{H}_0) \stackrel{\mathrm{Sob}\ \mathcal{H}_0}{\sim} \mathrm{Unif}(0,1)
+$$
+
+## Valor-$p$ assintótico
+
+Seja $T_{\mathcal{H}_0}$ uma estatística tal que
+$$
+T_{\mathcal{H}_0} \stackrel{\mathcal{D}}{\rightarrow} G,\ \ \text{Sob}\ \mathcal{H}_0.
+$$
+então, o valor-$p$ assintótico é definido por
+$$
+\mathrm{valor-}p^{(a)} (\boldsymbol{x}_n, \mathcal{H}_0) = P(G \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n)
+$$
+
+Pode-se conduzir [simulações de Monte Carlo](monte-carlo.qmd) para verificar se o tamanho amostral é grande o suficiente
+para fazer a aproximação assintótica:
+
+1. Gerar os dados sob $\mathcal{H}_0$;
+
+2. Calcular $\mathrm{valor-}p^{(a)}$ e armazenar;
+
+3. Repetir 1-2 $M$ (tradicionalmente 10 mil) vezes;
+
+4. Fazer um histograma do valor-$p$ assintótico e comparar com $\mathrm{Unif}(0,1)$.
+
+
+## Exemplo (Normal)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\theta, 1), \theta \in \Theta \subseteq \mathbb{R}$. Considere
+$$
+\mathcal{H}_0 : \theta = 0.
+$$
+
+Encontre um valor-$p$.
+
+### Resposta
+
+Observe que $T_{\boldsymbol{H}_0}(\boldsymbol{x}_n) = n\bar{X}^2$ (essa também é a estatística de Wald) satisfaz o critério
+que, quanto maior o valor observado de $T_{\boldsymbol{H}_0}$, mais evidencias contra $\mathcal{H}_0$. Além disso, sob $\mathcal{H}_0$,
+
+$$
+T_{\mathcal{H}_0} \sim \chi^2_1 \Rightarrow \mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq n \bar{x}^2)
+$$
+
+Se $n = 10$ e $\bar{x} = 1$, então
+$$
+\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq 10 \cdot 1^2) = 0.001
+$$
+
+## Exemplo (Poisson)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim \mathrm{Pois}(\theta), \theta \in \Theta = (0,\infty)$. Considere
+$$
+\mathcal{H}_0: \theta = 1.
+$$
+
+Encontre o valor-$p$ assintótico utilizando as três estatísticas (Razão de Verossimilhanças, Wald e Escore,
+$T'_{\mathcal{H}_0}(\boldsymbol{X}_n), T''_{\mathcal{H}_0}(\boldsymbol{X}_n), T'''_{\mathcal{H}_0}(\boldsymbol{X}_n)$).
+
+### Resposta
+
+Para a razão de verossimilhanças,
+$$
+\begin{aligned}
+T'_{\mathcal{H}_0}(\boldsymbol{X}_n) &= 2 n \cdot 1 - 2 n \bar{X} - 2 n \bar{X} \ln \frac{1}{\bar{X}} \\
+&= 2n - 2n\bar{X} + 2n\bar{X}\ln\frac{1}{\bar{X}} \stackrel{\mathcal{D}}{\rightarrow} \chi^2_1,\ \ \theta = 1.
+\end{aligned}
+$$
+
+
+Para a estatística de Wald, usaremos $\hat{\theta} = \bar{X}$ (que é o [EMV](emv2.qmd), [EMM](metodo-momentos.qmd) e [ENVVUM](envvum.qmd))
+
+$$
+\begin{aligned}
+T''_{\mathcal{H}_0}(\boldsymbol{X}_n) &= \frac{n (\bar{X} - 1)^2}{\bar{X}} \stackrel{\mathcal{D}}{\rightarrow} \chi^2_1,\ \ \theta = 1.
+\end{aligned}
+$$
+pois $\bar{X} \stackrel{a}{\approx} N(\theta, \theta / n)$, sob $\mathcal{H}_0$, então, pelo [Teorema de Slutsky](slutsky.qmd),
+$$
+\frac{\bar{X} - \theta}{\sqrt{\frac{\bar{X}}{n}}} \stackrel{a}{\approx} N(0, 1)
+\Rightarrow n\left(\frac{\bar{X} - \theta}{\sqrt{\bar{X}}}\right)^2 \stackrel{a}{\approx} \chi^2_1, \forall \theta \in \Theta.
+$$
+Logo, sob $\mathcal{H}_0 : \theta = 1$,
+$$
+\frac{n(\bar{X} - 1)^2}{\bar{X}} \approx \chi^2_1
+$$
+
+Para a estatística de escore, temos que o [escore](escore.qmd) é dado por
+$$
+U_n(\boldsymbol{X}_n, \theta) = -n + \frac{1}{\theta_0} \sum X_i
+$$
+e a [Informação de Fisher Total](infofisher.qmd) por
+$$
+I_n(\theta_0) = -E_\theta\left(-\sum \frac{X_i}{\theta_0} \right) = \frac{n}{\theta_0},
+$$
+portanto,
+$$
+\begin{aligned}
+T'''_{\mathcal{H}_0} (\boldsymbol{X}_n) &= \left(\frac{\sum X_i}{\theta_0} - n \right)^2 \cdot \frac{\theta_0}{n} \\
+&= n \frac{(\bar{X} - \theta_0)^2}{\theta_0} = n(\bar{X} - 1)^2.
+\end{aligned}
+$$
+
+O valor-$p$ assintótico é, portanto,
+$$
+\begin{aligned}
+\mathrm{valor-}p_1 (\boldsymbol{x}_n, \mathcal{H}_0) &= P_1(T'_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T'_{H_0}(\boldsymbol{x}_n)) \stackrel{a}{\approx}
+\mathrm{val.-}p^{(a)}_1 (\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq T'_{H_0}(\boldsymbol{x}_n)) \\
+\mathrm{valor-}p_2 (\boldsymbol{x}_n, \mathcal{H}_0) &= P_1(T''_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T''_{H_0}(\boldsymbol{x}_n)) \stackrel{a}{\approx}
+\mathrm{val.-}p^{(a)}_2 (\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq T''_{H_0}(\boldsymbol{x}_n)) \\
+\mathrm{valor-}p_3 (\boldsymbol{x}_n, \mathcal{H}_0) &= P_1(T'''_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T'''_{H_0}(\boldsymbol{x}_n)) \stackrel{a}{\approx}
+\mathrm{val.-}p^{(a)}_3 (\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq T'''_{H_0}(\boldsymbol{x}_n))
+\end{aligned}
+$$
+
+Consideraremos $\bar{x} = 2$ e $n=10$ para encontramos os valores numéricos dos valor-$p$:
+$$
+\begin{aligned}
+T'_{H_0}(\boldsymbol{x}_n) &= 2 \cdot 10 - 2 \cdot 10 \cdot 2 + 2 \cdot 10 \cdot 2 \ln 2 = 7.73 \\
+\Rightarrow \mathrm{valor-}p^{(a)}_1 (\boldsymbol{x}_n, \mathcal{H}_0) &= 0.005, \\ \\
+T''_{H_0}(\boldsymbol{x}_n) &= 10 \cdot \frac{(2-1)^2}{2} = 5 \\
+\Rightarrow \mathrm{valor-}p^{(a)}_2 (\boldsymbol{x}_n, \mathcal{H}_0) &= 0.025, \\ \\
+T'''_{H_0}(\boldsymbol{x}_n) &= 10 \cdot 1^2 = 10 \\
+\Rightarrow \mathrm{valor-}p^{(a)}_3 (\boldsymbol{x}_n, \mathcal{H}_0) &= 0.002.
+\end{aligned}
+$$
+
+Note que, com $n=10$, a aproximação pode não ser tão boa:
+```{julia}
+#| echo: true
+n = 10
+p1 = @. ccdf(Chisq(1), razao(Poisson(1), 1))
+p2 = @. ccdf(Chisq(1), wald(Poisson(1), 1))
+p3 = @. ccdf(Chisq(1), escore(Poisson(1), 1))
+
+hist1 = histogram(
+    p1, title = "Valores-P da Razão de Ver.", label = "",
+    normalize = true
+)
+hist2 = histogram(
+    p2, title = "Valores-P da Wald", label = "",
+    normalize = true
+)
+hist3 = histogram(
+    p3, title = "Valores-P da Escore", label = "",
+    normalize = true
+)
+
+plot(hist1, hist2, hist3, layout = l)
+```
+(Lembre-se que, assintoticamente, esperamos um histograma uniforme). Vamos medir:
+
+```{julia}
+#| output: asis
+L"\hat P(\mathrm{val.-}p_1 < 0.05) = %$(mean(p1 .< 0.05)), \hat P(\mathrm{val.-}p_2 < 0.05) = %$(mean(p2 .< 0.05)), \hat P(\mathrm{val.-}p_3 < 0.05) = %$(mean(p3 .< 0.05))"
+```
+
+Vamos aumentar o tamanho da amostra ($n = 1000$ para visualizarmos a
+convergência do valor $p$ em distribuição uniforme:
+
+```{julia}
+#| echo: true
+n = 1000
+p1 = @. ccdf(Chisq(1), razao(Poisson(1), 1))
+p2 = @. ccdf(Chisq(1), wald(Poisson(1), 1))
+p3 = @. ccdf(Chisq(1), escore(Poisson(1), 1))
+
+hist1 = histogram(
+    p1, title = "Valores-P da Razão de Ver.", label = "",
+    normalize = true
+)
+hist2 = histogram(
+    p2, title = "Valores-P da Wald", label = "",
+    normalize = true
+)
+hist3 = histogram(
+    p3, title = "Valores-P da Escore", label = "",
+    normalize = true
+)
+
+plot(hist1, hist2, hist3, layout = l)
+```
+
+Na distribuição Poisson, espera-se que, com valores pequenos de $\theta$, a aproximação piore pela assimetria. Vejamos com $\theta_0 = 0.01, n=100$:
+```{julia}
+#| echo: true
+n = 100
+p1 = @. ccdf(Chisq(1), razao(Poisson(0.01), 0.01))
+p2 = @. ccdf(Chisq(1), wald(Poisson(0.01), 0.01))
+p3 = @. ccdf(Chisq(1), escore(Poisson(0.01), 0.01))
+
+hist1 = histogram(
+    p1, title = "Valores-P da Razão de Ver.", label = "",
+    normalize = true
+)
+hist2 = histogram(
+    p2, title = "Valores-P da Wald", label = "",
+    normalize = true
+)
+hist3 = histogram(
+    p3, title = "Valores-P da Escore", label = "",
+    normalize = true
+)
+
+plot(hist1, hist2, hist3, layout = l)
+```
+
+```{julia}
+#| output: asis
+L"\hat P(\mathrm{val.-}p_1 < 0.05) = %$(mean(p1 .< 0.05)), \hat P(\mathrm{val.-}p_2 < 0.05) = %$(mean(p2 .< 0.05)), \hat P(\mathrm{val.-}p_3 < 0.05) = %$(mean(p3 .< 0.05))"
+```
+
+Mesmo com uma amostra maior, o efeito da assimetria fez com que a convergência assintótica fosse muito lenta.
+
+Se gerarmos dados fora da hipótese nula, como $\theta_1 = 2$, será possível visualizar o erro no histograma:
+
+```{julia}
+#| echo: true
+n = 10
+p1 = @. ccdf(Chisq(1), razao(Poisson(2), 1))
+p2 = @. ccdf(Chisq(1), wald(Poisson(2), 1))
+p3 = @. ccdf(Chisq(1), escore(Poisson(2), 1))
+
+hist1 = histogram(
+    p1, title = "Valores-P da Razão de Ver.", label = "",
+    normalize = :pdf
+)
+hist2 = histogram(
+    p2, title = "Valores-P da Wald", label = "",
+    normalize = :pdf
+)
+hist3 = histogram(
+    p3, title = "Valores-P da Escore", label = "",
+    normalize = :pdf
+)
+
+plot(hist1, hist2, hist3, layout = l)
+```
+
+```{julia}
+#| output: asis
+L"\hat P(\mathrm{val.-}p_1 < 0.05) = %$(mean(p1 .< 0.05)), \hat P(\mathrm{val.-}p_2 < 0.05) = %$(mean(p2 .< 0.05)), \hat P(\mathrm{val.-}p_3 < 0.05) = %$(mean(p3 .< 0.05))"
+```
+

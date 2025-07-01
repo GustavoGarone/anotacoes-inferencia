@@ -1,0 +1,769 @@
+```{julia}
+#| output: false
+using Pkg; Pkg.add(["Distributions", "StatsBase", "Plots", "StatsPlots", "LaTeXStrings"])
+```
+# Testes de hipótese gerais
+
+## Teste da Razão de Verossimilhanças Generalizada
+
+Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \in \Theta_0 \\
+\mathcal{H}_1 : \theta \in \Theta_1
+\end{cases}
+$$
+as hipóteses nula e alternativa em que $\Theta_0 \cup \Theta_1 = \Theta, \Theta_0 \cap \Theta_1 = \emptyset, \#(\Theta_0) \geq 1, \#(\Theta_1) \geq 1$.
+
+O teste da razão de [verossimilhanças](funcao-verossimilhanca.qmd) generalizada de tamanho $\alpha$ é $\delta:\mathfrak{X}^{(n)}\rightarrow \{0,1\}$ tal que
+
+$$
+\delta(\boldsymbol{X}_n) = \begin{cases}
+0,\ \boldsymbol{x}_n \not\in A_c
+1,\ \boldsymbol{x}_n \in A_c
+\end{cases}
+$$
+e $\sup\limits_{\theta \in \Theta_0}\pi_\delta(\theta) = \alpha$, em que
+
+$$
+A_c = \left\{
+\boldsymbol{x}_n \in \mathfrak{X}^{(n)} : \frac{\sup\limits_{\theta \in \Theta_1} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} \geq c
+\right\}
+$$
+
+:::{.callout-tip title="Constante $c$"}
+A constante $c$ é obtida resolvendo $\sup\limits_{\theta \in \Theta_0}\pi_\delta(\theta) = \alpha$
+:::
+
+:::{.callout-note title="Teste de Neyman-Pearson"}
+Se $\Theta_0 = \{\theta_0\}, \Theta_1 = \{\theta_1\}$, temos o teste mais poderoso de Neyman-Pearson.
+:::
+
+:::{.callout-note title="TUMP de Karlin-Rubin I e II"}
+Se $\Theta_0 = (-\infty, \theta_0] \cap \Theta, \Theta_1 = (\theta_1, \infty) \cap \Theta$, temos o teste uniformemente
+mais poderoso de Karlin-Rubin (I). Por sua vez,
+se $\Theta_0 = [\theta_0, \infty) \cap \Theta, \Theta_1 = (-\infty, \theta_1) \cap \Theta$, temos o teste uniformemente
+mais poderoso de Karlin-Rubin (II)
+:::
+
+### [Estatística](estatisticas.qmd) da razão de verossimilhanças generalizada
+Se $\dim(\Theta) = \dim(\Theta_1) > \dim(\Theta_0)$ e $\mathcal{L}_{\boldsymbol{x}_n}(\theta)$ for contínua para todo $\theta$ em $\Theta$, então:
+$$
+\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta) = \sup\limits_{\theta \in \Theta_1} \mathcal{L}_{\boldsymbol{x}_n}(\theta),\ \mathrm{q.c.}
+$$
+Portanto,
+$$
+\begin{aligned}
+\frac{\sup\limits_{\theta \in \Theta_1} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} =
+\frac{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} \cdot
+\frac{\sup\limits_{\theta \in \Theta_1} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} &= 
+\frac{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} \geq c \\
+&\iff
+\frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} \leq \frac{1}{c} \\
+\Rightarrow
+A_c &= \left\{
+\frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} \leq \frac{1}{c}
+\right\}
+\end{aligned}
+$$
+
+Dizemos que
+
+$$
+\lambda(\boldsymbol{x}_n; \Theta_0) = 
+\frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+$$ {#eq-estatrazao}
+
+é a estatística da razão de verossimilhanças generalizada.
+
+Denote por $\hat{\theta}_0$ o estimador para "$\theta$" sob $\mathcal{H}_0$, ou seja,
+$$
+\hat{\theta}_0 = \mathrm{argmax}_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)
+$$
+sempre que existir. Denote também
+$$
+\hat{\theta}_{\mathrm{MV}} = \mathrm{argmax}_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)
+$$
+o [estimador de máxima verossimilhança](emv2.qmd) não restrito a $\mathcal{H}_0$. A estatística da razão de verossimilhança
+generalizada pode ser reescrita:
+
+$$
+\lambda(\boldsymbol{x}_n; \Theta_0) = 
+\frac{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_0)}
+{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})}
+$$ {#eq-estatrazao2}
+
+Note que a @eq-estatrazao é bem definida sempre que $0 < \sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta) < \infty$.
+Em alguns casos, a @eq-estatrazao2 não pode ser resolvida por não existir um argumento que maximize a função de verossimilhança sob
+a hipótese nula.
+
+Observe que $\mathcal{H}_0 : \theta = \theta_0$ contra $\mathcal{H}_1 : \theta = \theta_1$ e $\Theta \subseteq \mathbb{R}$,
+$$
+\lambda(\boldsymbol{x}_n; \Theta_0) = 
+\frac{\mathcal{L}_{\boldsymbol{x}_n}(\theta_0)}
+{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})}
+$$
+
+*Teorema*. Sob as [condições de regularidade](cond-regular.qmd) e com $\dim(\Theta_0) < \dim(\Theta)$, temos que
+$$
+-2\ln \lambda(\boldsymbol{X}_n, \Theta_0) \stackrel{\mathcal{D}}{\rightarrow} \chi^2_{s},
+$$
+em que $s = \dim(\Theta) - \dim(\Theta_0)$. Supõe-se que o conjunto $\Theta_0$ *não* contém singularidades.
+
+O teste da Razão de Verossimilhança Generalizada (RVG) pode ser reescrito:
+$$
+\begin{aligned}
+\delta(\boldsymbol{x}_n) &= \begin{cases}
+0,\ \  \frac{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_0)}
+{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})} > \frac{1}{c} \\
+1,\ \ \frac{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_0)}
+{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})} \leq \frac{1}{c}
+\end{cases} \\
+\iff
+\delta(\boldsymbol{x}_n) &= \begin{cases}
+0,\ \  \lambda(\boldsymbol{x}_n, \Theta_0) > \frac{1}{c} \\
+1,\ \  \lambda(\boldsymbol{x}_n, \Theta_0) \leq \frac{1}{c}
+\end{cases} \\
+\iff
+\delta(\boldsymbol{x}_n) &= \begin{cases}
+0,\ \  -2 \ln \lambda(\boldsymbol{x}_n, \Theta_0) < 2\ln c \\
+1,\ \  -2 \ln \lambda(\boldsymbol{x}_n, \Theta_0) \geq 2 \ln c
+\end{cases} \\
+\end{aligned}
+$$
+em que $c$ deve satisfazer
+
+$$
+\begin{aligned}
+\sup\limits_{\theta \in \Theta_0} \pi_{\delta}(\theta) &= \alpha \\
+\iff \sup\limits_{\theta \in \Theta_0} P_\theta(\delta(\boldsymbol{X}_n) = 1) &= \alpha \\
+\iff \sup\limits_{\theta \in \Theta_0} P_\theta(-2\ln \lambda(\boldsymbol{X}_n, \Theta_0) \geq 2 \ln c) &= \alpha
+\end{aligned}
+$$ {#eq-testeestatrazao}
+
+1. Se a distribuição exata de $-2\ln \lambda(\boldsymbol{X}_n, \Theta_0)$ for conhecida, entã basta encontrar $2\ln c$ que satisfaça
+a @eq-testeestatrazao.
+
+2. Caso contrário, utilizamos o teorema anterior:
+$$
+-2\ln \lambda(\boldsymbol{X}_n, \Theta_0) \stackrel{\mathcal{D}}{\rightarrow} \chi^2_{s},
+$$
+em que $s = \dim(\Theta) - \dim(\Theta_0)$
+
+### Exemplo (Normal)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\theta,1), \theta \in \Theta \subseteq \mathbb{R}$, e considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta = 0 \\
+\mathcal{H}_1 : \mu \neq 0,
+\end{cases}
+$$
+as hipóteses nula e alternativa. Encontre o teste da razão de verossimilhanças generalizada de tamanho $\alpha$.
+
+#### Resposta
+
+Já sabemos que $\hat{\theta}_{\mathrm{MV}} = \bar{X}$ e
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{2\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{2} \sum (x_i - \theta)^{2} \right\} \\ &= 
+\left(\frac{1}{\sqrt{2\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{2} \sum x_i^2 - 2\theta\sum x_i + n\theta^2 \right\}.
+\end{aligned}
+$$.
+
+Assim,
+$$
+\begin{aligned}
+\lambda(\boldsymbol{x}_n; \Theta_0) &= 
+\frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}\\
+&= \frac{\mathcal{L}_{\boldsymbol{x}_n}(0)} {\mathcal{L}_{\boldsymbol{x}_n}(\bar{x})} \\
+&= \mathrm{Exp}\left\{
+-\frac{1}{2} \sum x_i^2 + \frac{1}{2}\left(\sum x_i^2 - 2n \bar{x}^2 + n \bar{x}^2\right)
+\right\} = \mathrm{e}^{-\frac{1}{2}n\bar{x}^2}
+\end{aligned}
+$$
+Portanto,
+$$
+-2\ln \lambda(\boldsymbol{x}_n, \Theta_0) = n \bar{x}^2.
+$$
+Sob $\mathcal{H}_0$, $\theta =0, \bar{X} \sim N(0, 1/n), \sqrt{n}\bar{X} \sim N(0,1) \Rightarrow n \bar{X}^2 \sim \chi^2_1$.
+Logo, o teste de RVG é
+$$
+\delta(\boldsymbol{x}_n) = \begin{cases}
+0,\ \  n\bar{x}^2 < 2\ln c
+1,\ \  n\bar{x}^2 \geq 2\ln c
+\end{cases}
+$$
+em que $c$ deve satisfazer
+$$
+\sup\limits_{\theta \in \Theta_0} P_\theta(n\bar{X}^2 \geq 2 \ln c) = \alpha.
+$$
+Note que $\forall \theta \in \Theta_0$, $n\bar{X}^2 \sim \chi^2_1$ (é [ancilar](estatisticas-ancilares.qmd) ao modelo reduzido). Portanto,
+$$
+\sup\limits_{\theta \in \Theta_0} P_{0}(n\bar{X}^2 \geq c^*) = P(\chi^2_1 \geq c^*) = \alpha.
+$$
+Tomando $c^* = 2\ln c$, podemos obter o valor para $c^*$ de uma qui-quadradado com $1$ grau de liberdade para qualquer valor de $\alpha$.
+Por exemplo, se $\alpha = 10\%, c^* = 2.70$. Se $\alpha = 5\%, c^* = 3.84$, etc.
+
+### Exemplo (Poisson)
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim \mathrm{Poiss}(\theta), \theta \in \Theta = (0, \infty)$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta = \theta_0 \\
+\mathcal{H}_1 : \mu \neq \theta_0,
+\end{cases}
+$$
+as hipóteses nula e alternativa. Encontre o teste da razão de verossimilhanças generalizada de tamanho $\alpha$. Use o resultado
+assintótico.
+
+#### Resposta
+Já sabemos que $\hat{\theta}_{\mathrm{MV}} = \bar{X}$ e
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \mathrm{e}^{n\theta} \cdot \frac{\theta^{\sum x_i}}{\prod (x_i!)} \\
+\Rightarrow \lambda(\boldsymbol{x}_n, \Theta_0) &= \frac{\mathrm{e}^{n\theta_0} \cdot \frac{\theta_0^{\sum x_i}}{\prod (x_i!)}}
+{\mathrm{e}^{n\bar{x}} \cdot \frac{\bar{x}^{\sum x_i}}{\prod (x_i!)}} \\
+&= \mathrm{e}^{n\theta_0+n\bar{x}} \cdot \left(\frac{\theta_0}{\bar{x}}\right)^{\sum x_i}
+\end{aligned}
+$$
+Sabemos que, sob $\mathcal{H}_0, \ (\mathrm{i.e.}\ \forall \theta \in \Theta_0)$, $-2\ln \lambda(\boldsymbol{X}_n, \Theta_0) \stackrel{\mathcal{D}}{\rightarrow} \chi^2_1$.
+Assim,
+$$
+\begin{aligned}
+2n\theta_0 - 2n\bar{X} - 2n\bar{X}\ln\left(\frac{\theta_0}{\bar{X}}\right) = \underbrace{2n\theta_0 -2n\bar{X} -2n\bar{X} \ln \theta_0 + 2n\bar{X} \ln \bar{X}}_{T(\boldsymbol{X}_n)}
+\stackrel{\mathcal{D}}{\rightarrow} \chi^2_1.
+\end{aligned}
+$$
+Logo, o teste de RVG é
+$$
+\delta(\boldsymbol{x}_n) = \begin{cases}
+0,\ \  T(\boldsymbol{x}_n) < c^*
+1,\ \  T(\boldsymbol{x}_n) \geq c^*
+\end{cases}
+$$
+em que $c$ deve satisfazer
+$$
+\sup\limits_{\theta \in \Theta_0} P_\theta(n\bar{X}^2 \geq c^*) = P_{\theta_0}(T(\boldsymbol{X}_n) \geq c^*) = \alpha.
+$$
+Pela aproximação,
+$$
+P_{\theta_0}(T(\boldsymbol{X}_n) \geq c^*) \approx P(\chi^2_1 \geq c^*) \alpha.
+$$
+
+```{julia}
+#| echo: true
+# Seja Xn a.a. de X ~ Pois(θ)
+# H0: θ = θ_0
+# H1: θ ≠ θ_0
+using Random, Distributions, StatsBase, Plots, StatsPlots, LaTeXStrings
+n = 100
+θ_0 = 3
+
+# Gerando sob H_0
+d = Poisson(θ_0)
+MC = 10_000
+TX = zeros(MC)
+for i in 1:MC
+    x = rand(d, n)
+    TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) + 2 *
+        n * mean(x) * log(mean(x))
+end
+p = histogram(
+    TX, normalize = true,
+    title = "Histograma de T(X)",
+    label = "",
+    ylims = (0, 1),
+    bins = 20,
+    xlabel = "T(X)",
+    ylabel = "Densidade"
+)
+plot!(Chisq(1), label = L"\chi^2_1", color = :tomato)
+
+## Probabilidade do erro tipo I, α = 10%
+
+quantil = quantile(Chisq(1), 0.9)
+rejeita = TX .> quantil
+println("Probilidade do Erro Tipo I com α = 10%: $(mean(rejeita) * 100)%")
+display(p)
+```
+
+## Hipótese Linear Geral
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^p$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : C \cdot \theta = d \\
+\mathcal{H}_1 : C \cdot \theta \neq d
+\end{cases}
+$$
+
+em que $C$ é uma matriz $s \times p$ conhecida e $d$ é um vetor de dimensão $s$ conhecido. Podemos escrever as hipóteses
+em termos de $\Theta_0$ e $\Theta_1$:
+
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta \in \Theta_0\\
+\mathcal{H}_1 : \theta \in \Theta_1
+\end{cases}
+$$
+em que $\Theta_0 = \{\theta \in \Theta : C\cdot \theta = d\}$ e  $\Theta_1 = \{\theta \in \Theta : C\cdot \theta \neq d\}$.
+
+A hipótese $\mathcal{H}_0 : C \cdot \theta = d$ é conhecida como *hipótese linear geral*.
+
+Note que, podemos testar as seguintes hipóteses como casos particulares:
+1.$$
+\begin{cases}
+\mathcal{H}_0 : \theta = \theta_0\\
+\mathcal{H}_1 : \theta \neq \theta_0
+\end{cases}\ \ \ \iff C=I, d = \theta_0.
+$$
+2.$$
+\begin{cases}
+\mathcal{H}_0 : \theta_1 = \theta_2\\
+\mathcal{H}_1 : \theta_1 \neq \theta_2
+\end{cases}\ \ \ \iff C=\begin{pmatrix}1  & -1 & 0 & \dots & 0\end{pmatrix}, d = 0,\ \ \theta = (\theta_1, \theta_ 2\dots, \theta_p).
+$$
+3.$$
+\begin{aligned}
+\begin{cases}
+\mathcal{H}_0 : \theta_1 = \theta_3\ \text{e}\ \theta_2 = \theta_4\\
+\mathcal{H}_1 : \text{Ao menos um diferente}
+\end{cases}\ \ \ \iff C&=\begin{bmatrix} 1 & 0 & -1 & 0 & \cdots & 0 \\ 0 & 1 & 0 & -1 & \cdots & 0 \end{bmatrix},\\
+d &= \begin{bmatrix}0 \\ 0\end{bmatrix}.
+\end{aligned}
+$$
+4.$$
+\begin{cases}
+\mathcal{H}_0 : \sum^p_{i=1} c_i \theta_i = d \\
+\mathcal{H}_1 : \sum^p_{i=1} c_i \theta_i \neq d
+\end{cases}\ \ \ \iff C=\begin{pmatrix} c_1 & c_2 & \dots & c_p \end{pmatrix}, d = d.
+$$
+5.$$
+\begin{aligned}
+\begin{cases}
+\mathcal{H}_0 : \sum^p_{i=1} c_i^{(1)} \theta_i = d^{(1)}, \dots, \sum^p_{i=1} c_i^{(p)} \theta_i = d^{(p)} \\
+\mathcal{H}_1 : \text{Ao menos um diferente}
+\end{cases}\ \ \ \iff 
+C &=\begin{bmatrix} 
+c_1^{(1)} & c_2^{(1)} & \dots & c_{p}^{(1)} \\
+c_1^{(2)} & c_2^{(2)} & \dots & c_{p}^{(2)} \\
+\vdots & \vdots & \ddots & \vdots \\
+c_1^{(p)} & c_2^{(p)} & \dots & c_{p}^{(p)} \\
+\end{bmatrix},\\
+d &= \begin{bmatrix}d^{(1)}\\ d^{(2)} \\ \vdots \\ d^{(p)}\end{bmatrix}.
+\end{aligned}
+$$
+
+## Estatística de Wald
+
+Seja $\hat{\theta}$ um [estimador](estimadores.qmd) para "$\theta$" [assintoticamente normal](prop-est.qmd#sec-assinorm), ou seja,
+$$
+\sqrt{n}(\hat{\theta} - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_s(\boldsymbol{0}, V_{\theta})
+$$
+Se $C$ tiver posto linha completo, ou seja, todas suas linhas são linearmente independentes, então
+$$
+\begin{aligned}
+\sqrt{n}(C\hat{\theta} - C\theta) &\stackrel{\mathcal{D}}{\rightarrow} N_s(\boldsymbol{0}, C V_\theta C) \\
+\Rightarrow  n(C\hat{\theta} - C\theta)^T [C V_{\hat{\theta}} C^T]^{-1} (C\hat{\theta} - C\theta) &\stackrel{\mathcal{D}}{\rightarrow} \chi^2_{s}, \forall \theta \in \Theta.
+\end{aligned}
+$$
+Sob $\mathcal{H}_0, C\theta = d$. Disso, temos que
+$$
+n(C\hat{\theta} - d)^T [C V_{\hat{\theta}} C^T]^{-1} (C\hat{\theta} - d) \stackrel{\mathcal{D}}{\rightarrow} \chi^2_{s}.
+$$
+
+A estatística de Wald é definida por
+$$
+W(\boldsymbol{X}_n) = n(C\hat{\theta}(\boldsymbol{X}_n) - d)^T [C V_{\hat{\theta}(\boldsymbol{X}_n)} C^T]^{-1} (C\hat{\theta}(\boldsymbol{X}_n) - d).
+$$
+
+Sob $\mathcal{H}_0$, $W \stackrel{\mathcal{D}}{\rightarrow} \chi^2_s$, em que $s$ é o número de linhas de $C$.
+
+### Exemplos
+
+Considere as hipóteses com $\theta_{1,0}$ conhecido
+$$
+\begin{aligned}
+\begin{cases}
+\mathcal{H}_0 : \theta_1 = \theta_{1,0} \\
+\mathcal{H}_1 : \theta_1 \neq \theta_{1,0}
+\end{cases}&\ \ \ \Rightarrow C=\begin{pmatrix}1 & 0 & \dots & 0\end{pmatrix}, d = \theta_{1,0} \\
+W &= n(\hat{\theta}_1 - \theta_{1,0})(V_{\hat{\theta}}^{(1,1)})^{-1}(\hat{\theta}_1 - \theta_{1,0}) \\
+&= \frac{(\hat{\theta}_1 - \theta_{1,0})^2}{(V_{\hat{\theta}}^{(1,1)}/n)} \stackrel{\mathcal{D}}{\rightarrow} \chi^2_1,\ \text{Sob}\ \mathcal{H}_0
+\end{aligned}
+$$
+Logo,
+$$
+C V_{\hat{\theta}}C^T = \begin{pmatrix} 1 & 0 & \dots & 0 \end{pmatrix}
+\begin{bmatrix}
+V_{\hat{\theta}}^{(1,1)} &  V_{\hat{\theta}}^{(1,2)} & \dots & V_{\hat{\theta}}^{(1,p)} \\
+\cdot & V_{\hat{\theta}}^{(2,2)} & \dots & V_{\hat{\theta}}^{(2,p)} \\
+\vdots & \vdots & \ddots & \cdot \\
+\cdot & \cdot & \cdot  & V_{\hat{\theta}}^{(p,p)}
+\end{bmatrix}\begin{pmatrix} 1 \\ 0 \\ \vdots \\ 0 \end{pmatrix} = V_{\hat{\theta}}^{(1,1)}
+$$
+
+Considere as hipóteses
+$$
+\begin{aligned}
+\begin{cases}
+\mathcal{H}_0 : \theta_1 = \theta_{3} \\
+\mathcal{H}_1 : \theta_1 \neq \theta_{3}
+\end{cases}&\ \ \ \Rightarrow C=\begin{pmatrix}1 & 0 & -1 & 0 & \dots & 0\end{pmatrix}, d = 0 \\
+W &= n(\hat{\theta}_1 - \hat{\theta}_3)(C V_{\hat{\theta}} C^T)^{-1}(\hat{\theta}_1 - \hat{\theta}_3) \\
+&= \frac{n(\hat{\theta}_1 - \hat{\theta}_3)^2}{C V_{\hat{\theta}} C^T}
+\end{aligned}
+$$
+Logo,
+$$
+\begin{aligned}
+C V_{\hat{\theta}}C^T &= \begin{pmatrix}1 & 0 & -1 & 0 & \dots & 0\end{pmatrix}
+\begin{bmatrix}
+V_{\hat{\theta}}^{(1,1)} &  V_{\hat{\theta}}^{(1,2)} & \dots & V_{\hat{\theta}}^{(1,p)} \\
+V_{\hat{\theta}}^{(2,1)}& V_{\hat{\theta}}^{(2,2)} & \dots & V_{\hat{\theta}}^{(2,p)} \\
+\vdots & \vdots & \ddots & \cdot \\
+V_{\hat{\theta}}^{(p,1)}& V_{\hat{\theta}}^{(p,2)}& \cdot  & V_{\hat{\theta}}^{(p,p)}
+\end{bmatrix}\begin{pmatrix}1 \\ 0 \\ -1 \\ 0 \\ \vdots \\ 0\end{pmatrix} \\
+&= \begin{pmatrix}
+V_{\hat{\theta}}^{(1,1)} -V_{\hat{\theta}}^{(3,1)} & 
+V_{\hat{\theta}}^{(1,2)} - V_{\hat{\theta}}^{(3,2)} &
+\dots &
+V_{\hat{\theta}}^{(1,p)} - V_{\hat{\theta}}^{(3,p)}
+\end{pmatrix} \begin{pmatrix}1 \\ 0 \\ -1 \\ 0 \\ \vdots \\ 0\end{pmatrix} \\
+&= V_{\hat{\theta}}^{(1,1)} - V_{\hat{\theta}}^{(3,1)} + V_{\hat{\theta}}^{(3,3)} - V_{\hat{\theta}}^{(1,3)} \\
+& = V_{\hat{\theta}}^{(1,1)} + V_{\hat{\theta}}^{(3,3)} - 2 V_{\hat{\theta}}^{(1,3)}
+\end{aligned}
+$$
+
+O teste usando a estatística de Wald é definido por
+$$
+\delta_{W}(\boldsymbol{x}_n) = \begin{cases}
+0,\ \ \ W(\boldsymbol{x}_n) < \eta \\
+1,\ \ \ W(\boldsymbol{x}_n) \geq \eta
+\end{cases}
+$$
+em que $\eta$ é obtido de
+$$
+P(\chi^2_s \geq \eta) = \alpha
+$$
+para um teste de Wald de tamanho $\alpha$.
+
+:::{.callout-tip title="Relação com as hipóteses"}
+Sob $\mathcal{H}_0$, esperamos que $W$ seja "pequeno", enquanto
+sob $\mathcal{H}_1$, esperamos que $W$ seja "grande".
+:::
+
+## Estatística Escore (ou de Rao)
+
+Considere as hipóteses
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta = \theta_0 \\
+\mathcal{H}_1 : \theta \neq \theta_0
+\end{cases}
+$$
+em que $\theta_0$ é conhecido e $\theta \in \theta \subseteq \mathbb{R}^p$.
+A estatística escore é definida por
+
+$$
+R(\boldsymbol{X}_n) = U_n(\boldsymbol{X}_n, \theta_0)^T I_n(\theta_0)^{-1} U_n(\boldsymbol{X}_n, \theta_0)
+$$
+em que $U_n$ é o [escore da amostra](escore.qmd) e $I_n$ é a [informação de fisher total](infofisher.qmd).
+
+Pode-se demonstrar que
+$$
+R \stackrel{\mathcal{D}}{\rightarrow} \chi^2_p,\ \text{sob}\ \mathcal{H}_0
+$$
+
+O teste usando a estatística escore é definido por
+$$
+\delta_{R}(\boldsymbol{x}_n) = \begin{cases}
+0,\ \ \ R(\boldsymbol{x}_n) < \eta \\
+1,\ \ \ R(\boldsymbol{x}_n) \geq \eta
+\end{cases}
+$$
+em que $\eta$ é obtido de
+$$
+P(\chi^2_p \geq \eta) = \alpha
+$$
+para um teste escore de tamanho $\alpha$.
+
+## Comparando as estatísticas e os testes
+
+<!-- TODO: adicionar probabilidades dos erros tipo II, gráfico das funções poder -->
+
+```{julia}
+#| echo: true
+#| output: false
+# Razão de verossimilhanças
+# Seja Xn a.a. de X ~ Pois(θ)
+# H0: θ = θ_0
+# H1: θ ≠ θ_0
+using Random, Distributions, StatsBase, Plots, StatsPlots, LaTeXStrings
+Random.seed!(96)
+n = 100
+α = 0.1
+
+MC = 10_000
+
+# Razão de verossimilhanças
+function razao(dist, θ_0)
+    TX = zeros(MC)
+    for i in 1:MC
+        x = rand(dist, n)
+        TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) +
+            2 * n * mean(x) * log(mean(x))
+    end
+    return TX
+end
+
+# Estatística de Wald
+function wald(dist, θ_0)
+    C = 1
+    d = θ_0
+    W = zeros(MC)
+    for i in 1:MC
+        x = rand(dist, n)
+        V = mean(x) # theta =emv> mean(x)
+        W[i] = n * (C * mean(x) - d)^2 / V
+    end
+    return W
+end
+
+# Estatística de Escore
+function escore(dist, θ_0)
+    I(θ) = n / θ
+    R = zeros(MC)
+    for i in 1:MC
+        x = rand(dist, n)
+        U(θ) = sum(x) / θ - n
+        R[i] = U(θ_0)^2 / I(θ_0)
+    end
+    return R
+end
+```
+
+Geraremos sob $\mathcal{H}_0$:
+```{julia}
+#| echo: true
+# Gerando sob H_0
+θ_0 = 3
+dist = Poisson(θ_0)
+distassin = Chisq(1)
+quantil = quantile(distassin, 1 - α)
+## Probabilidade do erro tipo I, α = 10%, Razão
+
+TX = razao(dist, θ_0)
+rejeita = TX .> quantil
+println("Probilidade do Erro Tipo I com α = 10% (Razão de Ver.):
+        $(mean(rejeita) * 100)%")
+
+
+## Probabilidade do erro tipo I, α = 10%, Wald
+W = wald(dist, θ_0)
+rejeita = W .> quantil
+println("Probilidade do Erro Tipo I com α = 10% (Wald):
+        $(mean(rejeita) * 100)%")
+
+## Probabilidade do erro tipo I, α = 10%, Wald
+R = escore(dist, θ_0)
+rejeita = R .> quantil
+println("Probilidade do Erro Tipo I com α = 10% (Escore):
+        $(mean(rejeita) * 100)%")
+
+pv = histogram(
+    TX, normalize = true, title = "Histograma da Razão de Ver.",
+    label = "", ylims = (0, 1), bins = 20, xlabel = "T(X)",
+    ylabel = "Densidade"
+)
+plot!(Chisq(1), label = L"\chi^2_1", color = :tomato)
+pw = histogram(
+    W, normalize = true, title = "Histograma de Wald", label = "",
+    ylims = (0, 1), bins = 20, xlabel = "W(X)", ylabel = "Densidade"
+)
+plot!(Chisq(1), label = L"\chi^2_1", color = :tomato)
+pr = histogram(
+    R, normalize = true, title = "Histograma de Escore", label = "",
+    ylims = (0, 1), bins = 20, xlabel = "R(X)", ylabel = "Densidade"
+)
+plot!(Chisq(1), label = L"\chi^2_1", color = :tomato)
+l = @layout [pv pw; pr]
+plot(pv, pw, pr, layout = l)
+```
+<!-- TODO: melhorar performance -->
+Para comparar, podemos também gerar sob $\mathcal{H}_1$:
+```{julia}
+#| echo: true
+#| eval: false
+# Gerando sob H_1
+
+rejeitaTX(θ) = mean(razao(dist, θ) .> quantil)
+rejeitaW(θ) = mean(wald(dist, θ) .> quantil)
+rejeitaR(θ) = mean(escore(dist, θ) .> quantil)
+Δ = θ_0 * 0.3
+# alance = length(Θ_0-Δ:0.1:Θ_0+Δ)
+# poderTX = zeros(alcance)
+# poderW = zeros(alcance)
+# poderR = zeros(alcance)
+# for i in Θ_0-Δ:0.1:Θ_0+Δ
+#   poderTX[i] = rejeitaTX(i)
+# end
+pv = plot(
+    rejeitaTX,
+    xlims = (θ_0 - Δ, θ_0 + Δ),
+    ylims = (0, 1),
+    label = "",
+    ylabel = "Poder Razão de ver.",
+    xlabel = L"θ_1"
+)
+pw = plot(
+    rejeitaW,
+    xlims = (θ_0 - Δ, θ_0 + Δ),
+    ylims = (0, 1),
+    label = "",
+    ylabel = "Poder Wald",
+    xlabel = L"θ_1"
+)
+pr = plot(
+    rejeitaR,
+    xlims = (θ_0 - Δ, θ_0 + Δ),
+    ylims = (0, 1),
+    label = "",
+    ylabel = "Poder Escore",
+    xlabel = L"θ_1"
+)
+l = @layout [pv pw; pr]
+plot(pv, pw, pr, layout = l)
+```
+
+## Teste de hipótese para o vetor de médias sob normalidade
+
+Seja $\boldsymbol{X}_n^*$ a.a. de $\boldsymbol{X} \sim N_p(\boldsymbol{\mu},
+\Sigma)$. Considere as hipóteses
+
+$$
+\begin{cases}
+\mathcal{H}_0 : \boldsymbol{\mu} = \boldsymbol{\mu}_0 \\
+\mathcal{H}_1 : \boldsymbol{\mu} \neq \boldsymbol{\mu}_0
+\end{cases}
+$$
+
+em que $\boldsymbol{\mu}_0$ é um vetor de números fixado e conhecido.
+
+Se o $\Sigma$ for desconhecido, o vetor de parâmetros é
+$$
+\sigma = \begin{pmatrix}
+\boldsymbol{\mu} \\
+\mathrm{vech}(\Sigma)
+\end{pmatrix}
+= \begin{pmatrix}
+\mu_1 \\
+\vdots \\
+\mu_p \\
+\sigma_{11} \\
+\sigma_{21} \\
+\vdots \\
+\sigma_{p1} \\
+\sigma_{p2} \\
+\vdots \\
+\sigma_{pp}
+\end{pmatrix}
+$$
+
+em que 
+
+$$
+\mathrm{vech} \begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix} = \begin{bmatrix}
+a_{11} \\ a_{21} \\ a_{22}
+\end{bmatrix}
+$$
+
+Se $\Sigma$ for conhecido o vetor de parâmetros é $\theta = \boldsymbol{\mu}$.
+
+Pode-se utilizar as estatísticas  de razão de verossimilhanças, Wald e Escore
+para testar as hipóteses. Todas essas estatísticas convergem para $\chi^2_p$.o
+
+Para a razão de verossimilhanças,
+
+$$
+\frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+$$
+
+Para a estatística de Wald,
+
+$$
+\begin{cases}
+C = (I_p, \boldsymbol{0}) \\
+d = \boldsymbol{\mu}_0
+\end{cases}
+$$
+
+Para a Escore ($\Sigma$ conhecido)
+
+$$
+R = U_n(\theta_n, \boldsymbol{X}_n^*)^T I_n(\theta)^{-1}
+U_n(\theta_n, \boldsymbol{X}_n^*)
+$$
+
+Para encontrar a distribuição exata, precisaremos introduzir as distribuições de
+[Wishart](wishart.qmd) e [$T^2$-Hotelling](hotelling.qmd).
+
+
+## Caso geral
+
+Seja $\boldsymbol{X}_n^*$ a.a. de $X \sim N_p(\boldsymbol{\mu}, \Sigma)$.
+Considere
+
+$$
+\begin{cases}
+\mathcal{H}_0: C \boldsymbol{\mu} = d \\
+\mathcal{H}_1: C \boldsymbol{\mu} \neq d
+\end{cases}
+$$
+
+Definimos a função teste por
+
+$$
+\delta(\boldsymbol{x}^*) = \begin{cases}
+0,\ \ \text{se}\ W(\boldsymbol{x}^*) < \eta \\
+1,\ \ \text{se}\ W(\boldsymbol{x}^*) \geq \eta
+\end{cases}
+$$
+
+em que
+
+$$
+W(\boldsymbol{X}_n^*) = 
+\frac{n-s}{s}(C\bar{X} - C\boldsymbol{\mu})^T [CS_n^2C^{-1}]^{-1}(C\boldsymbol{X}_n -
+C\boldsymbol{\mu}) \sim F_{(s,n-s)},\ \text{Sob}\ \mathcal{H}_0
+$$
+
+pela propriedade da [distribuição de Hotelling](hotelling.qmd) (Teorema 8)
+e $\eta$ deve ser obtido fixando o tamanho do teste igua a $\alpha$ e
+calculando:
+
+$$
+P(F_{(s, n-s)} \geq \eta) = \alpha
+$$
+
+e o [valor-$p$](val-p2.qmd) para testar $\mathcal{H}_0$ é
+
+$$
+\mathrm{valor-}p(\boldsymbol{x}^*, \mathcal{H}_0) = 
+P(F_{(s, n-s)} \geq W(\boldsymbol{x}^*))
+$$

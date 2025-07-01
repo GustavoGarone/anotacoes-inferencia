@@ -1,0 +1,148 @@
+# Teste de Hipótese de Neyman-Pearson (Lema de Neyman-Pearson)
+
+Estamos interessados em um teste $\delta^*$ que produza menor $\alpha_{\delta^*, \max}$ e maior poder possível. O Lema
+de Neyman-Pearson apresenta um teste que, dentre os testes de tamanho $\alpha$, tem maior poder.
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta = \{\theta_0, \theta_1\}$. Considere as hipóteses
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta = \theta_0 \\
+\mathcal{H}_1 : \theta = \theta_1
+\end{cases}
+$$
+nula e alternativa. A função teste $\delta^* : \mathfrak{X}^{(n)} \rightarrow \{0,1\}$ tal que
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta_1) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0) \\
+1,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta_1) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0),
+\end{cases}
+$$
+em que $\eta$ satisfaz $\underbracket{P_{\theta_0}(\delta^*(\boldsymbol{X}_n) = 1)}_{\pi_{\delta^*}(\theta_0)} = \alpha$ para um $\alpha$ fixado apriori, é o teste mais
+poderoso dentre todo os testes de tamanho $\alpha$.
+
+## Exemplo (Normal)
+
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\mu, \sigma^2)$ em que $\theta = (\mu, \sigma^2) \in \{(0,1), (0,2)\}$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta = (0,1) \\
+\mathcal{H}_1 : \theta = (0,2)
+\end{cases}
+$$
+as hipóteses nula e alternativa.
+
+Encontre o teste mais poderoso de tamanho $\alpha = 5\%$.
+
+#### Solução:
+
+De acordo com o Lema de Neyman-Pearson, o teste mais poderoso de tamanho $\alpha = 5\%$ é
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}((0,2)) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}((0,1)), \\
+1,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}((0,2)) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}((0,1)),
+\end{cases}
+$$
+em que $\eta$ satisfaz $\pi_{\delta^*}((0,1)) = 5\%$.
+
+A [função de verossimilhança](funcao-verossimilhanca.qmd) é
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \frac{1}{(\sqrt{2\pi\sigma^2})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum \frac{(x_i - \mu)^2}{\sigma^2}\right\}, \theta \in \{(0,1), (0,2)\} \\
+&= \frac{1}{(\sqrt{2\pi\sigma^2})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum \frac{x_i^2}{\sigma^2} \right\}, \theta \in \{(0,1), (0,2)\} \\
+\Rightarrow  \mathcal{L}_{\boldsymbol{x}_n}(\theta_0) 
+&= \frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum x_i^2 \right\} \\
+\mathcal{L}_{\boldsymbol{x}_n}(\theta_1) 
+&= \frac{1}{(\sqrt{4\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum \frac{x_i^2}{2} \right\} \\
+\Rightarrow \mathcal{L}_{\boldsymbol{x}_n}((0,2)) &\geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}((0,1)) \\
+\iff \frac{\mathcal{L}_{\boldsymbol{x}_n}((0,2))}{\mathcal{L}_{\boldsymbol{x}_n}((0,1))} &\geq \eta \\
+\Rightarrow &\frac{\frac{1}{(\sqrt{4\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum \frac{x_i^2}{2} \right\}}{\frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum x_i^2 \right\}} \geq \eta \\
+\iff &\frac{1}{2^{\frac{n}{2}}} \mathrm{e}^{\frac{1}{4}\sum x_i^2} \geq \eta \\
+\iff &\mathrm{e}^{\frac{1}{4}\sum x_i^2} \geq 2^{n/2}\eta \\
+\iff &\frac{1}{4}\sum x_i^2 \geq \ln(2^{n/2}\eta) \\
+\iff &\sum x_i^2 \geq 4 \ln(2^{n/2}\eta).
+\end{aligned}
+$$
+
+Logo, $\sum x_i^2 \geq 4 \ln(2^{n/2}\eta)$ é equivalente a $\frac{\frac{1}{(\sqrt{4\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum \frac{x_i^2}{2} \right\}}{\frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum x_i^2 \right\}}$.
+
+Observe ainda que
+$$
+\begin{aligned}
+\pi_{\delta^*}((0,1)) &= P_{(0,1)}(\delta^*(\boldsymbol{X}_n) = 1) \\
+&\stackrel{\text{Def.}}{=} P_{(0,1)}\left(\frac{\mathcal{L}_{\boldsymbol{x}_n}((0,2))}{\mathcal{L}_{\boldsymbol{x}_n}((0,1))} \geq \eta\right) \\
+&\stackrel{\text{Desenv.}}{=} P_{(0,1)}\left(\sum X_i^2 \geq \eta^*\right),
+\end{aligned}
+$$
+em que $\eta^* = 4\ln(2^{n/2} \eta)$. Como, sob $\mathcal{H}_0, \sum X_i^2 \sim \chi^2_n$, temos que
+$$
+\pi_{\delta^*}((0,1)) = P_{(0,1)}(\chi^2_{n} \geq \eta^*) = 5\%.
+$$
+
+Com $n=2$, temos que
+$$
+\pi_{\delta^*}((0,1)) = P_{(0,1)}(\chi^2_{n} \geq \eta^*) = 5\%. \Rightarrow \eta^* = 5.991.
+$$
+
+Portanto, o teste mais poderoso é
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0,\ \text{se}\ \sum x_i^2 < 5.991 \\
+1,\ \text{se}\ \sum x_i^2 \geq 5.991.
+\end{cases}
+$$
+
+## Exemplo (Bernoulli)
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim \mathrm{Ber}(\theta), \theta \in \{0.1, 0.9\}$. Considere
+$$
+\begin{cases}
+\mathcal{H}_0 : \theta = 0.9 \\
+\mathcal{H}_1 : \theta = 0.1
+\end{cases}
+$$
+as hipóteses nula e alternativa e $n=10$. Encontre o Teste Mais Poderoso (TMP) de tamanho $\alpha = 10\%$.
+
+### Resposta
+
+De acordo com o Lema de Neyman-Pearson, o teste mais poderoso de tamanho $\alpha = 5\%$ é
+$$
+\delta^*(\boldsymbol{x}_n) = \begin{cases}
+0,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(0.1) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(0.9), \\
+1,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(0.1) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(0.9),
+\end{cases}
+$$
+em que $\eta$ satisfaz $\pi_{\delta^*}(0.9) = 10\%$.
+
+Note que
+$$
+\begin{aligned}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \theta^{\sum x_i} (1-\theta)^{n - \sum x_i} \\
+\Rightarrow \frac{\mathcal{L}_{\boldsymbol{x}_n}(0.1)}{\mathcal{L}_{\boldsymbol{x}_n}(0.9)} &= \frac{0.1^{\sum x_i} (0.9)^{n - \sum x_i}}{0.9^{\sum x_i} (0.1)^{n - \sum x_i}} \\
+&= \frac{0.1^{\sum x_i} \cdot 0.9^{n} \cdot 0.1^{\sum x_i}}{0.9^{\sum x_i} \cdot 0.9^{\sum x_i} \cdot 0.1^n} \\
+&= \left(\frac{0.1 \cdot 0.1}{0.9 \cdot 0.9}\right)^{\sum x_i} \cdot \left(\frac{0.9}{0.1}\right)^{n} \geq \eta \\
+\iff &(\sum x_i) \ln \left(\frac{0.01}{0.81}\right) + n \ln (9) \geq \ln \eta \\
+\iff &(\sum x_i) \ln \left(\frac{1}{81}\right) \geq \ln \eta - n \ln (9) \\
+\iff &(-\sum x_i) \ln (81) \geq \ln \eta - n \ln (9) \\
+\iff &-\sum x_i \geq \frac{\ln \eta - n \ln (9)}{\ln (81)} \\
+\iff &\sum x_i \leq \frac{-\ln \eta + n \ln (9)}{\ln (81)}
+\end{aligned}
+$$
+
+Logo, $\left(\frac{0.1 \cdot 0.1}{0.9 \cdot 0.9}\right)^{\sum x_i} \cdot \left(\frac{0.9}{0.1}\right)^{n} \geq \eta \iff \sum x_i \leq \frac{-\ln \eta + n \ln (9)}{\ln (81)}$.
+$$
+\pi_{\delta^*}(0.1) = P_{0.1}(\delta^*(\boldsymbol{X}_n) = 1) = P_{0.1}(\sum X_i \leq \eta^*) = \alpha = 10\%
+$$
+
+Note que, sob $\mathcal{H}_0, \sum^10_{i=1} X_i \sim \mathrm{Bin}(10, 0.9)$. Ademais,
+$$
+P_{0.9}(\sum X \leq 7) = 0.0702,\ \ \
+P_{0.9}(\sum X \leq 8) = 0.2639.
+$$
+Logo, não é possível encontrar um valor para $\eta$ exato com esse tamanho do teste.
