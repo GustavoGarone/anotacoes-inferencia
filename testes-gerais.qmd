@@ -19,7 +19,7 @@ O teste da razão de [verossimilhanças](funcao-verossimilhanca.qmd) generalizad
 
 $$
 \delta(\boldsymbol{X}_n) = \begin{cases}
-0,\ \boldsymbol{x}_n \not\in A_c
+0,\ \boldsymbol{x}_n \not\in A_c \\
 1,\ \boldsymbol{x}_n \in A_c
 \end{cases}
 $$
@@ -201,7 +201,7 @@ Sob $\mathcal{H}_0$, $\theta =0, \bar{X} \sim N(0, 1/n), \sqrt{n}\bar{X} \sim N(
 Logo, o teste de RVG é
 $$
 \delta(\boldsymbol{x}_n) = \begin{cases}
-0,\ \  n\bar{x}^2 < 2\ln c
+0,\ \  n\bar{x}^2 < 2\ln c \\
 1,\ \  n\bar{x}^2 \geq 2\ln c
 \end{cases}
 $$
@@ -248,13 +248,13 @@ $$
 Logo, o teste de RVG é
 $$
 \delta(\boldsymbol{x}_n) = \begin{cases}
-0,\ \  T(\boldsymbol{x}_n) < c^*
+0,\ \  T(\boldsymbol{x}_n) < c^* \\
 1,\ \  T(\boldsymbol{x}_n) \geq c^*
 \end{cases}
 $$
 em que $c$ deve satisfazer
 $$
-\sup\limits_{\theta \in \Theta_0} P_\theta(n\bar{X}^2 \geq c^*) = P_{\theta_0}(T(\boldsymbol{X}_n) \geq c^*) = \alpha.
+\sup\limits_{\theta \in \Theta_0} P_\theta(T(\boldsymbol{X}_n) \geq c^*) = P_{\theta_0}(T(\boldsymbol{X}_n) \geq c^*) = \alpha.
 $$
 Pela aproximação,
 $$
@@ -322,6 +322,7 @@ em que $\Theta_0 = \{\theta \in \Theta : C\cdot \theta = d\}$ e  $\Theta_1 = \{\
 A hipótese $\mathcal{H}_0 : C \cdot \theta = d$ é conhecida como *hipótese linear geral*.
 
 Note que, podemos testar as seguintes hipóteses como casos particulares:
+
 1.$$
 \begin{cases}
 \mathcal{H}_0 : \theta = \theta_0\\
@@ -374,7 +375,7 @@ $$
 Se $C$ tiver posto linha completo, ou seja, todas suas linhas são linearmente independentes, então
 $$
 \begin{aligned}
-\sqrt{n}(C\hat{\theta} - C\theta) &\stackrel{\mathcal{D}}{\rightarrow} N_s(\boldsymbol{0}, C V_\theta C) \\
+\sqrt{n}(C\hat{\theta} - C\theta) &\stackrel{\mathcal{D}}{\rightarrow} N_s(\boldsymbol{0}, C V_\theta C^T) \\
 \Rightarrow  n(C\hat{\theta} - C\theta)^T [C V_{\hat{\theta}} C^T]^{-1} (C\hat{\theta} - C\theta) &\stackrel{\mathcal{D}}{\rightarrow} \chi^2_{s}, \forall \theta \in \Theta.
 \end{aligned}
 $$
@@ -749,7 +750,7 @@ em que
 
 $$
 W(\boldsymbol{X}_n^*) = 
-\frac{n-s}{s}(C\bar{X} - C\boldsymbol{\mu})^T [CS_n^2C^{-1}]^{-1}(C\boldsymbol{X}_n -
+\frac{n-s}{s}(C\bar{X} - C\boldsymbol{\mu})^T [CS_n^2C^T]^{-1}(C\bar{X} -
 C\boldsymbol{\mu}) \sim F_{(s,n-s)},\ \text{Sob}\ \mathcal{H}_0
 $$
 

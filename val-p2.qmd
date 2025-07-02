@@ -2,6 +2,56 @@
 #| output: false
 using Pkg; Pkg.add(["Distributions", "StatsBase", "Plots", "StatsPlots", "LaTeXStrings"])
 ```
+```{julia}
+#| echo: false
+#| output: false
+# Razão de verossimilhanças
+# Seja Xn a.a. de X ~ Pois(θ)
+# H0: θ = θ_0
+# H1: θ ≠ θ_0
+using Random, Distributions, StatsBase, Plots, StatsPlots, LaTeXStrings
+Random.seed!(96)
+n = 100
+α = 0.1
+
+MC = 10_000
+
+# Razão de verossimilhanças
+function razao(dist, θ_0)
+    TX = zeros(MC)
+    for i in 1:MC
+        x = rand(dist, n)
+        TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) +
+            2 * n * mean(x) * log(mean(x))
+    end
+    return TX
+end
+
+# Estatística de Wald
+function wald(dist, θ_0)
+    C = 1
+    d = θ_0
+    W = zeros(MC)
+    for i in 1:MC
+        x = rand(dist, n)
+        V = mean(x) # theta =emv> mean(x)
+        W[i] = n * (C * mean(x) - d)^2 / V
+    end
+    return W
+end
+
+# Estatística de Escore
+function escore(dist, θ_0)
+    I(θ) = n / θ
+    R = zeros(MC)
+    for i in 1:MC
+        x = rand(dist, n)
+        U(θ) = sum(x) / θ - n
+        R[i] = U(θ_0)^2 / I(θ_0)
+    end
+    return R
+end
+```
 # Valor-$p$ ou nível descritivo do teste
 
 Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^p$. Considere
@@ -180,6 +230,7 @@ $$
 Note que, com $n=10$, a aproximação pode não ser tão boa:
 ```{julia}
 #| echo: true
+using Distributions, LaTeXStrings, Plots, StatsPlots, StatsBase
 n = 10
 p1 = @. ccdf(Chisq(1), razao(Poisson(1), 1))
 p2 = @. ccdf(Chisq(1), wald(Poisson(1), 1))
@@ -198,6 +249,7 @@ hist3 = histogram(
     normalize = true
 )
 
+l = @layout [pv pw; pr]
 plot(hist1, hist2, hist3, layout = l)
 ```
 (Lembre-se que, assintoticamente, esperamos um histograma uniforme). Vamos medir:
@@ -230,6 +282,7 @@ hist3 = histogram(
     normalize = true
 )
 
+l = @layout [pv pw; pr]
 plot(hist1, hist2, hist3, layout = l)
 ```
 
@@ -254,6 +307,7 @@ hist3 = histogram(
     normalize = true
 )
 
+l = @layout [pv pw; pr]
 plot(hist1, hist2, hist3, layout = l)
 ```
 
@@ -286,6 +340,7 @@ hist3 = histogram(
     normalize = :pdf
 )
 
+l = @layout [pv pw; pr]
 plot(hist1, hist2, hist3, layout = l)
 ```
 

@@ -192,8 +192,8 @@ $$
 Note que como
 $$
 \begin{cases}
-\Theta_0 = \{(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+ : \mu = 0\}
-\Theta_0 = \{(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+ : \mu \neq 0\}
+\Theta_0 = \{(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+ : \mu = 0.5\} \\
+\Theta_0 = \{(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+ : \mu \neq 0.5\}
 \end{cases}
 $$
 têm mais de um elemento, concluímos que ambas hipóteses são compostas.

@@ -112,7 +112,7 @@ format:
     include-in-header:
       - text: |
           \usepackage{cancel}
-          \usepackage{amsmath}
+    #      \usepackage{amsmath}
     fig-cap-location: top
     fig-align: center
     default-image-extension: tex
@@ -131,7 +131,7 @@ format:
     include-in-header:
       - text: |
           \usepackage{cancel}
-          \usepackage{bm}
+    #      \usepackage{asmath}
     fig-cap-location: top
     fig-align: center
     default-image-extension: tex
