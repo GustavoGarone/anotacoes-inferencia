@@ -44,16 +44,23 @@ Portanto, $(\Omega, \mathscr{A}, \mathcal{P})$ é um modelo paramétrico.
 
 Usando de variáveis aleatórias,
 
-Seja $X : \Omega \rightarrow \mathbb{R}$ tal que $$X(\omega)=\begin{cases}
-1, \omega = \text{S} \\
-0, c.c.
-\end{cases}$$
+Seja $X : \Omega \rightarrow \mathbb{R}$ tal que
+$$
+X(\omega)=\begin{cases}
+1,& \omega = \text{S} \\
+0,& c.c.
+\end{cases}
+$$
+
 $$E_\theta(X)=\sum\limits^{1}_{x=0}xP_\theta(X=x)$$
-$$\begin{cases}
+
+$$
+\begin{cases}
 \theta = 1 \Rightarrow E_{1}(X)=0.1 \\
 \theta = 2 \Rightarrow E_{2}(X)=0.5 \\
 \theta = 3 \Rightarrow E_{3}(X)=0.9
-\end{cases}$$
+\end{cases}
+$$
 
 #### Exemplo de Exponencial
 Seja $\Omega=(0,\infty)$ e $\mathscr{A}$ uma sigma-álgebra de $\Omega$ (Sigma-Álgebra de Borel)
@@ -64,23 +71,23 @@ $$
 \begin{aligned}
 f_{1}(\omega) &=
 \begin{cases}
-\mathrm{e}^{-1\omega}, \omega>0 \\
-0, c.c.
+\mathrm{e}^{-1\omega},& \omega>0 \\
+0,& c.c.
 \end{cases}\\
 f_{2} (\omega) &=
 \begin{cases}
-2\mathrm{e}^{-2\omega}, \omega>0 \\
-0, c.c.
+2\mathrm{e}^{-2\omega},& \omega>0 \\
+0,& c.c.
 \end{cases}\\
 f_{3} (\omega) &=
 \begin{cases}
-\frac{1}{2}\mathrm{e}^{-\frac{1}{2}\omega}, \omega>0 \\
-0, c.c.
+\frac{1}{2}\mathrm{e}^{-\frac{1}{2}\omega},& \omega>0 \\
+0,& c.c.
 \end{cases}\\
 f_{4} (\omega) &=
 \begin{cases}
-\frac{1}{10}\mathrm{e}^{- \frac{1}{10}\omega}, \omega>0 \\
-0, c.c.
+\frac{1}{10}\mathrm{e}^{- \frac{1}{10}\omega},& \omega>0 \\
+0,& c.c.
 \end{cases}
 \end{aligned}
 $$
@@ -99,10 +106,10 @@ e $\Theta= \{1,2,3,4 \}$
 Seja $X: \Omega \rightarrow \mathbb{R}$ tal que $$X(\omega)= \omega$$
 Note que $$E_\theta(X)=\int_{-\infty}^{\infty}xf_\theta(x)dx, \theta \in \{1,2,3,4 \}$$
 $$E_\theta(X)=\begin{cases}
-1,~ \theta=1 \\
-\frac{1}{2},~ \theta=2 \\
-2,~ \theta=3 \\
-10,~ \theta=4
+1,&~ \theta=1 \\
+\frac{1}{2},&~ \theta=2 \\
+2,&~ \theta=3 \\
+10,&~ \theta=4
 \end{cases}
 $$
 
@@ -113,8 +120,8 @@ $$
 Dizemos que $X$ é uma variável aleatória com modelo de Bernoulli se, e somente se,
 $$
 P_\theta(X=x)=\begin{cases}
-\theta^{x} \cdot(1-\theta)^{1-x}, x \in \{0,1 \} \\
-0, x \not \in \{0,1 \}
+\theta^{x} \cdot(1-\theta)^{1-x},& x \in \{0,1 \} \\
+0,& x \not \in \{0,1 \}
 \end{cases}$$
 O parâmetro é a probabilidade de sucesso
 $$\begin{cases}
@@ -131,8 +138,8 @@ Notação: $\mathrm{Ber}(\theta)$ em que $\theta \in \Theta=(0,1)\subseteq \math
 Dizemos que $X$ é uma variável aleatória com modelo binomial se, e somente se,
 $$
 P_\theta(X=x)=\begin{cases}
-{n \choose x} \cdot \theta^{x}\cdot(1-\theta)^{n-x}, x \in \{0,1,\dots,n \} \\
-0, x \not \in \{0,1,\dots,n \}
+{n \choose x} \cdot \theta^{x}\cdot(1-\theta)^{n-x},& x \in \{0,1,\dots,n \} \\
+0,& x \not \in \{0,1,\dots,n \}
 \end{cases}$$
 $$\begin{cases}
 E_\theta(X)=n\theta\\
@@ -148,8 +155,8 @@ probabilidade de sucesso (parâmetro do modelo) e $\Theta =(0,1)$ é o espaço p
 Dizemos que $X$, representando o número de *fracassos* até o primeiro sucesso,
 é uma variável aleatória com modelo estatístico geométrico se, e somente se,
 $$P_\theta(X=x)=\begin{cases}
-\theta (1-\theta)^{x-1}, x \in \{1,\dots\} \\
-0, x \not \in \{1,\dots\}
+\theta (1-\theta)^{x-1},& x \in \{1,\dots\} \\
+0,& x \not \in \{1,\dots\}
 \end{cases}
 $$
 $$
@@ -164,8 +171,8 @@ Notação: $\mathrm{Geom}(\theta)$ em que $\theta$ é o parâmetro do modelo (pr
 Dizemos que $X$ é uma variável aleatória com modelo estatístico Poisson, se, e somente se,
 $$
 P_\theta(X=x)=\begin{cases}
-\mathrm{e}^{-\theta}\cdot \frac{\theta^{x}}{x!}, x \in \{0,1,\dots\} \\
-0, x \not \in \{0,1,\dots\}
+\mathrm{e}^{-\theta}\cdot \frac{\theta^{x}}{x!},& x \in \{0,1,\dots\} \\
+0,& x \not \in \{0,1,\dots\}
 \end{cases}
 $$
 $$
@@ -182,8 +189,8 @@ Dizemos que $\pmb{X} = (X_1,\dots,X_k)$ é um Vetor Aleatório com modelo estat�
 $$
 P_{\theta}(X_{1}=x_{1},\dots,X_{k} = x_{k})=
 \begin{cases}
-\frac{n!}{x_{1}!x_{2}!\dots x_{k}!} \cdot \theta^{x_{1}}_{1} \cdot \cdots \cdot\theta^{x_n}_{k} ~~~~ x_{1}+\dots+x_{k}=n\\
-0, c.c
+\frac{n!}{x_{1}!x_{2}!\dots x_{k}!} \cdot \theta^{x_{1}}_{1} \cdot \cdots \cdot\theta^{x_n}_{k} & \ \ x_{1}+\dots+x_{k}=n\\
+0,& c.c
 \end{cases}
 $$
 
@@ -210,8 +217,8 @@ Dizemos que $X$ é uma variável aleatória contínua com modelo estatístico Un
 $(\theta_{1}, \theta_{2}), \theta_{1}\leq x \leq\theta_{2}$, se, e somente se, a sua Função Densidade de Probabilidade é
 $$
 f_\theta(x)=\begin{cases}
-\frac{1}{\theta_{2}-\theta_{1}}, x \in(\theta_{1}, \theta_{2}) \\
-0, c.c.
+\frac{1}{\theta_{2}-\theta_{1}},& x \in(\theta_{1}, \theta_{2}) \\
+0,& c.c.
 \end{cases}
 $$
 
@@ -230,8 +237,8 @@ Dizemos que $X$ é uma variável aleatória contínua com modelo estatístico Ex
 se, e somente se, a sua Função Densidade de Probabilidade é dada por
 $$
 f_\theta(x)=\begin{cases}
-\theta \mathrm{e}^{-\theta x}, x>0\\
-0, c.c.
+\theta \mathrm{e}^{-\theta x},& x>0\\
+0,& c.c.
 \end{cases}
 $$
 

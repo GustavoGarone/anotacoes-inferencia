@@ -15,15 +15,15 @@ $$
 \begin{aligned}
 &E_\theta(U(X,\theta)) = 0,\ \forall \theta \in \Theta \\
 &E_\theta(U(\boldsymbol{X}_n, \theta)) = 0,\ \forall \theta \in \Theta \\
-\Rightarrow &\left\{\begin{array}{ll}
+\Rightarrow &\begin{cases}
 I_1(\theta) = E_\theta(U(X,\theta)\cdot U(X,\theta)^T) \\
 I_n(\theta) = E_\theta(U_n(\boldsymbol{X}_n,\theta)\cdot U_n(\boldsymbol{X}_n,\theta)^T)\\
-\end{array}\right.\ \forall \theta \in \Theta \\
+\end{cases}\ \forall \theta \in \Theta \\
 &\text{Se } \Theta \in \mathbb{R}, \\
-\Rightarrow &\left\{\begin{array}{ll}
+\Rightarrow &\begin{cases}
 I_1(\theta) = E_\theta(U(X,\theta)^2) \\
 I_n(\theta) = E_\theta(U_n(\boldsymbol{X}_n,\theta)^2)\\
-\end{array}\right.\ \forall \theta \in \Theta \\
+\end{cases}\ \forall \theta \in \Theta \\
 \end{aligned}
 $$
 
@@ -32,10 +32,10 @@ $$
 Sob as [condições](escore.qmd#sec-condioces) $C_1:C_4$, temos que
 
 $$
-\left\{\begin{array}{ll}
+\begin{cases}
 I_1(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta^T} U(X,\theta)\right) \\
 I_n(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta^T} U_n(\boldsymbol{X}_n,\theta)\right)
-\end{array}\right.\ \forall \theta \in \Theta
+\end{cases}\ \forall \theta \in \Theta
 $$
 
 ### Prova
@@ -131,10 +131,10 @@ $$
 
 Seja $\boldsymbol{X}_n$ a.a de $X\sim f_\theta, \theta\in \mathbb{R}_+$, tal que
 $$
-f_\theta(x) = \left\{\begin{array}{ll}
+f_\theta(x) = \begin{cases}
 \theta x^{\theta-1},& x \in (0,1) \\
 0,& \mathrm{c.c.}
-\end{array}\right.
+\end{cases}
 $$
 
 Encntre a função [escore](escore.qmd) da amostra e a informação de Fisher total.

@@ -203,14 +203,14 @@ $$
 #| output: false
 using LinearAlgebra, Distributions, Random
 Random.seed!(10)
-d = Normal(3,1)
+d = Normal(3, 1)
 a = rand(d, 3, 3)
 b = a * transpose(a)
 L = Diagonal(eigvals(b))
 G = eigvecs(b)
 println("Gama: $G")
 println("Lambda: $L")
-println("Matriz raiz quadrada (direto): $(b^(-1/2))")
+println("Matriz raiz quadrada (direto): $(b^(-1 / 2))")
 println("Matriz raiz quadrada (decomposição): $(G * sqrt.(L) * transpose(G))")
 println("Traço (direto): $(tr(b))")
 println("Traço (por Lambda): $(tr(L))")
@@ -661,8 +661,8 @@ $$
 Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta = (\alpha, \beta) \in \Theta = \mathbb{R}^2_+$ tal que
 $$
 f_\theta(x) = \begin{cases}
-\frac{1}{B(\alpha, \beta)} x^{\alpha-1}(1-x)^{\beta -1}, x \in (0,1) \\
-0, \mathrm{c.c.}
+\frac{1}{B(\alpha, \beta)} x^{\alpha-1}(1-x)^{\beta -1},& x \in (0,1) \\
+0,& \mathrm{c.c.}
 \end{cases}
 $$
 
@@ -741,27 +741,27 @@ $$
 using Distributions, Random, Plots, SpecialFunctions, LinearAlgebra
 Random.seed!(1)
 n = 10
-alpha0 =  1.2
-beta0 =  7
+alpha0 = 1.2
+beta0 = 7
 x = rand(Beta(alpha0, beta0), n)
 function U(θ)
-  U1 = -n*digamma(θ[1])+n*digamma(θ[1] + θ[2]) + sum(log.(x))
-  U2 = -n*digamma(θ[2])+n*digamma(θ[1] + θ[2]) + sum(log.(1 .- x))
-  return [U1, U2]
+    U1 = -n * digamma(θ[1]) + n * digamma(θ[1] + θ[2]) + sum(log.(x))
+    U2 = -n * digamma(θ[2]) + n * digamma(θ[1] + θ[2]) + sum(log.(1 .- x))
+    return [U1, U2]
 end
 function I1(θ)
-  I11 = trigamma(θ[1]) - trigamma(θ[1] + θ[2])
-  I22 = trigamma(θ[2]) - trigamma(θ[1] + θ[2])
-  I12 = -trigamma(θ[1] + θ[2])
-  return [I11 I12; I12 I22]
+    I11 = trigamma(θ[1]) - trigamma(θ[1] + θ[2])
+    I22 = trigamma(θ[2]) - trigamma(θ[1] + θ[2])
+    I12 = -trigamma(θ[1] + θ[2])
+    return [I11 I12; I12 I22]
 end
-thetahat = [.1,.1]
+thetahat = [0.1, 0.1]
 erro = Inf
-while(erro > 0.0005)
-  thetahat0 = thetahat
-  thetahat = thetahat .+ inv(I1(thetahat)) * U(thetahat)
-  erro = maximum(abs.(thetahat .- thetahat0))
-  println(erro)
-  println(thetahat)
+while (erro > 0.0005)
+    thetahat0 = thetahat
+    thetahat = thetahat .+ inv(I1(thetahat)) * U(thetahat)
+    erro = maximum(abs.(thetahat .- thetahat0))
+    println(erro)
+    println(thetahat)
 end
 ```

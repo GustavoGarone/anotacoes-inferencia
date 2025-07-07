@@ -40,8 +40,8 @@ Portanto,
 $$
 P_\theta\left(I_1(\boldsymbol{X}_n) \leq g(\theta) \leq I_2(\boldsymbol{X}_n)\right) =
 \begin{cases}
-1, g(\theta) \in \mathrm{IC}_{\mathrm{Obs}}(g(\theta), \gamma) \\
-0, \mathrm{c.c.}
+1,& g(\theta) \in \mathrm{IC}_{\mathrm{Obs}}(g(\theta), \gamma) \\
+0,& \mathrm{c.c.}
 \end{cases}
 $$
 

@@ -48,10 +48,10 @@ $$
 
 Sabemos que $T(\boldsymbol{X}_n)=\sum^n_{i=1}X_i \sim \mathrm{Bin}(n,\theta)$ (por função geradora de momentos). Portanto,
 $$
-P_\theta(T(\boldsymbol{X}_n)=t) = \left\{ \begin{array}{ll}
+P_\theta(T(\boldsymbol{X}_n)=t) = \begin{cases}
 \binom{n}{t} \cdot \theta^t\cdot(1-\theta)^{n-t},&\text{se}\ t \in \{0,1,\dots,n\} \\
 0, & \mathrm{c.c.}
-\end{array} \right.
+\end{cases}
 $$
 
 Logo, $P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n) = t)$ só está bem definida se $t \in \{0,1,\dots,n\}$.
@@ -67,39 +67,39 @@ $$
 
 Observe que $A$ é a função probabilidade da amostra e
 $$
-B = \left \{ \begin{array}{ll}
+B = \begin{cases}
 1, & \text{se}\ t = \sum^n_{i=1} y_i \\
 0, & \mathrm{c.c}
-\end{array}\right.
+\end{cases}
 $$
 
 Para $t \in \{0,1,\dots,n\}$
 
 $$
 P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n) = t) =
-\left \{ \begin{array}{ll}
+\begin{cases}
 \frac{\prod^n_{i=1}\theta^{y_i}(1-\theta)^{1-y_i}}{\binom{n}{t}\cdot\theta^t\cdot(1-\theta)^{n-t}}, & \text{se}\ t = \sum^n_{i=1}y_i\\
 0, & \mathrm{c.c}
-\end{array}\right. \forall \theta \in \Theta
+\end{cases} \forall \theta \in \Theta
 $$
 
 Portanto,
 $$
 P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n) = t) =
-\left \{ \begin{array}{ll}
+\begin{cases}
 \frac{\theta^{\sum^n_{i=1}y_i}(1-\theta)^{\sum^n_{i=1}1-y_i}}{\binom{n}{t}\cdot\theta^t\cdot(1-\theta)^{n-t}}, & \text{se}\ t = \sum^n_{i=1}y_i \\
 0, & \mathrm{c.c}
-\end{array}\right. \forall \theta \in \Theta
+\end{cases} \forall \theta \in \Theta
 $$
 
 Concluímos que
 $$
 \begin{aligned}
 &P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n) = t) =
-\left \{ \begin{array}{ll}
+\begin{cases}
 \frac{\prod_{i=1}^n \mathbb{1}_{\{0,1\}}(y_i)}{\binom{n}{t}}, & \text{se}\ t = \sum^n_{i=1}y_i \\
 0, & \mathrm{c.c}
-\end{array}\right.\\
+\end{cases}\\
 &\forall \theta \in \Theta, t \in \{0,1,\dots,n\}, \forall y_1,\dots,y_n \in \mathbb{R}
 \end{aligned}
 $$
@@ -130,10 +130,10 @@ $$
 
 Observe que $A$ é a função probabilidade da amostra e
 $$
-B = \left \{ \begin{array}{ll}
+B = \begin{cases}
 1, & \text{Se}\ t =\frac{1}{n} \sum^n_{i=1} y_i \\
 0, & \mathrm{c.c}
-\end{array}\right.
+\end{cases}
 $$
 
 (Denominador)
@@ -141,39 +141,39 @@ $$
 Já sabemos que $\sum^n_{i=1}X_i\sim \mathrm{Pois}(n\theta)$ (por função geradora de momentos)
 
 $$
-P_\theta\left(\frac{1}{n}\sum^n_{i=1}X_i=\frac{k}{n}\right) = \left\{ \begin{array}{ll}
+P_\theta\left(\frac{1}{n}\sum^n_{i=1}X_i=\frac{k}{n}\right) = \begin{cases}
 \mathrm{e}^{-n\theta}\cdot \frac{(n\theta)^k}{k!}, & k \in \{0,1,2,\dots\} \\
 0, & \mathrm{c.c.}
-\end{array}\right.
+\end{cases}
 $$
 
 Tome $t = \frac{k}{n}$, então $k=nt$
 $$
-P_\theta\left(\sum^n_{i=1}X_i=k\right) = \left\{ \begin{array}{ll}
+P_\theta\left(\sum^n_{i=1}X_i=k\right) = \begin{cases}
 \mathrm{e}^{-n\theta}\cdot \frac{(n\theta)^{nt}}{(nt)!}, & t \in \{0,\frac{1}{n},\frac{2}{n},\dots\} \\
 0, & \mathrm{c.c.}
-\end{array}\right.
+\end{cases}
 $$
 
 Portanto, para $t \in \{0, \frac{1}{n}, \frac{2}{n},\dots\}$, temos que
 $$
 \begin{aligned}
 &P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n)=t) = \\ &= 
-\left\{ \begin{array}{ll}
+\begin{cases}
 \frac{\prod^n_{i=1}\left\{\mathrm{e}^{-\theta}\cdot\frac{\theta^{y_i}}{y_i!}\cdot \mathbb{1}_{\{0,1,\dots\}}(y_i)\right\}} 
 {\mathrm{e}^{-n\theta}\cdot \frac{(n\theta)^{nt}}{(nt)!}}, & t=\frac{1}{n} \sum^n_{i=1} y_i \\
 0, & \mathrm{c.c.}
-\end{array}\right. \\
-&= \left\{\begin{array}{ll}
+\end{cases} \\
+&= \begin{cases}
 \frac{\mathrm{e}^{-n\theta}\cdot\theta^{\sum^n_{i=1}y_i}\cdot \prod^n_{i=1}\mathbb{1}_{\{0,1,\dots\}}(y_i)(nt!)} 
 {\prod^n_{i=1}(y_i!)\cdot\mathrm{e}^{-n\theta}\cdot (n\theta)^{nt}}, & t=\frac{1}{n} \sum^n_{i=1} y_i \\
 0, & \mathrm{c.c.}
-\end{array}\right. \\
-&= \left\{\begin{array}{ll}
+\end{cases} \\
+&= \begin{cases}
 \frac{\prod^n_{i=1}\mathbb{1}_{\{0,1,\dots\}}(y_i)(nt!)} 
 {\prod^n_{i=1}(y_i!)(n)^{nt}}, & t=\frac{1}{n} \sum^n_{i=1} y_i \\
 0, & \mathrm{c.c.}
-\end{array}\right. \\
+\end{cases} \\
 \forall \theta \in \Theta
 \end{aligned} 
 $$
@@ -207,26 +207,26 @@ $$
 Note que
 $$
 \begin{aligned}
-&f_\theta^{T(\boldsymbol{X}_n)\lvert \boldsymbol{X}_n = (y_1,\dots,y_n} = \left\{ \begin{array}{ll}
+&f_\theta^{T(\boldsymbol{X}_n)\lvert \boldsymbol{X}_n = (y_1,\dots,y_n} = \begin{cases}
 1, & t = \sum^n_{i=1} y_1 \\
 0, & \mathrm{c.c.}
-\end{array}\right. \\
+\end{cases} \\
 \Rightarrow&
-f_\theta^{\boldsymbol{X}_n\lvert T(\boldsymbol{X}_n) = t}(y_1,\dots,y_n) = \left\{ \begin{array}{ll}
+f_\theta^{\boldsymbol{X}_n\lvert T(\boldsymbol{X}_n) = t}(y_1,\dots,y_n) = \begin{cases}
 \frac{f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n)}
 {f_\theta^{T(\boldsymbol{X}_n)}(t)},& t = \sum^n_{i=1}y_i \\
 0, & \mathrm{c.c.}
-\end{array} \right.
+\end{cases}
 \end{aligned}
 $$
 
 Logo
 $$
-f_\theta^{T(\boldsymbol{X}_n)\lvert \boldsymbol{X}_n = (y_1,\dots,y_n)} = \left\{ \begin{array}{ll}
+f_\theta^{T(\boldsymbol{X}_n)\lvert \boldsymbol{X}_n = (y_1,\dots,y_n)} = \begin{cases}
 \frac{\frac{1}{\sqrt{2\pi\cdot1}^n} \cdot \mathrm{exp}\left\{-\frac{1}{2} \sum^n_i=1 (y_i - \theta)^2\right\}}
 {\frac{1}{\sqrt{2\pi\cdot n}}\cdot \mathrm{exp}\left\{-\frac{1}{2n}(t-n\theta)^2\right\}}, & t = \sum y_i \\
 0, & \mathrm{c.c.}
-\end{array}\right.
+\end{cases}
 $$
 
 Note que 
@@ -243,17 +243,17 @@ estatístico.
 Por exemplo, $X\sim\mathrm{Exp}(\theta), \theta \in (0,\infty)$
 $$
 \begin{aligned}
-f_\theta(x) &= \left\{\begin{array}{ll}
+f_\theta(x) &= \begin{cases}
 \theta \mathrm{e}^{-\theta x},& x \in (0, \infty) \\
 0, & x \not \in (0,\infty)
-\end{array}\right.\ \ \theta \in \Theta \\
+\end{cases}\ \ \theta \in \Theta \\
 P_\theta(X>2)&=\int^\infty_2 \theta \cdot \mathrm{e}^{-\theta x} dx \\ 
 &\text{Se $A$ é enumerável e defina} \\
-f_{\theta}^A(x) &= \left\{\begin{array}{ll}
+f_{\theta}^A(x) &= \begin{cases}
 \theta \mathrm{e}^{-\theta x},& x \in (0, \infty) \setminus A \\
 10, & x \in \mathrm{A} \\
 0, & x \not \in (0,\infty)
-\end{array}\right. \ \ \theta \in \Theta \\
+\end{cases} \ \ \theta \in \Theta \\
 \end{aligned}
 $$
 
@@ -345,10 +345,10 @@ $$
 
 Como, com $\boldsymbol{y}_n = y_1,\dots,y_n$,
 $$
-P_\theta(T(\boldsymbol{X}_n)=t\lvert X_1=y_1,\dots,X_n=y_n) = \left\{\begin{array}{ll}
+P_\theta(T(\boldsymbol{X}_n)=t\lvert X_1=y_1,\dots,X_n=y_n) = \begin{cases}
 1, & T(\boldsymbol{y}_n) = t \\
 0, & \mathrm{cc}
-\end{array}\right.
+\end{cases}
 $$
 então
 $$
@@ -377,10 +377,10 @@ P_\theta(X_1=y_1,\dots,X_n=y_n) = h(\boldsymbol{y}_n) m(T(\boldsymbol{y}_n,\thet
 $$
 Note que
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n) = t) = \left\{ \begin{array}{ll}
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n) = t) = \begin{cases}
 \frac{P_\theta(X_1=y_1,\dots,X_n=y_n)}{P_\theta(T(\boldsymbol{X}_n)=t)}, & T(\boldsymbol{y}_n)=t \\
 0, & \mathrm{c.c.}
-\end{array}\right.
+\end{cases}
 $$
 
 Observe que
@@ -397,18 +397,18 @@ P_\theta(T(\boldsymbol{X}_n) =t) &= \sum_{\boldsymbol{y}_n : T(\boldsymbol{y}_n)
 $$
 Portanto
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n)=t) = \left\{\begin{array}{ll}
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n)=t) = \begin{cases}
 \frac{h(\boldsymbol{y}_n)\cdot m(T(\boldsymbol{y}_n),\theta)}{m(t,\theta) \cdot \sum_{\boldsymbol{y}_n: T(\boldsymbol{y}_n) = t} h(\boldsymbol{y}_n)}, & T(\boldsymbol{y}_n) = t \\
 0, & \mathrm{c.c.}
-\end{array}\right.
+\end{cases}
 $$
 
 Logo,
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n)=t) = \left\{\begin{array}{ll}
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n)=t) = \begin{cases}
 \frac{h(\boldsymbol{y}_n)}{\sum_{\boldsymbol{y}_n: T(\boldsymbol{y}_n) = t} h(\boldsymbol{y}_n)}, & T(\boldsymbol{y}_n) = t \\
 0, & \mathrm{c.c.}
-\end{array}\right.
+\end{cases}
 $$
 
 
@@ -421,10 +421,10 @@ se $T(\boldsymbol{X}_n)=\sum^n_{i=1}X_i$ é suficiente para o modelo estatístic
 Observe que
 $$
 \begin{aligned}
-f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) &= \left\{ \begin{array}{ll}
+f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) &= \begin{cases}
 \prod^n_{i=1}\left\{\theta^{y_i}\cdot(1-\theta)^{1-y_i}\right\}, & y_i \in \{0,1\}, \forall i = 1,\dots,n \\
 0, & \mathrm{c.c.}
-\end{array}\right. \\
+\end{cases} \\
 \Rightarrow
 f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) &= \theta^{\sum y_i} \cdot (1-\theta)^{n-\sum y_i} \cdot \prod^n_{i=1}\mathbb{1}_{\{0,1\}} (y_1)
 \end{aligned}
@@ -466,11 +466,11 @@ $$
 $$
 
 $$
-\Rightarrow f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = \left\{\begin{array}{ll}
+\Rightarrow f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = \begin{cases}
 \frac{1}{\beta(a,b)^n}
 \left(\prod^n_{i=1}y_1\right)^{a-1} \cdot \left( \prod^n_{i=1} (1-y_1)\right)^{b-1}, & \boldsymbol{y}_n \in (0,1)^n \\
 0, & \mathrm{c.c.}
-\end{array}\right.
+\end{cases}
 $$
 
 Tome $h(\boldsymbol{y}_n) = \prod^n_{i=1}\mathbb{1}(y_i)_{(0,1)}$ e
@@ -542,10 +542,10 @@ $$
 
 Note que
 $$
-f_\theta (x)= \left\{\begin{array}{ll}
+f_\theta (x)= \begin{cases}
 \frac{1}{\theta}, & x \in (0,\theta] \\
 0, & \mathrm{c.c.}
-\end{array}\right. = \frac{1}{\theta}\mathbb{1}(x)_{(0,\theta]}
+\end{cases} = \frac{1}{\theta}\mathbb{1}(x)_{(0,\theta]}
 $$
 
 Logo,
@@ -558,15 +558,15 @@ $$
 Note que
 $$
 \prod^n_{i=1} \mathbb{1}_{(0,\theta]}(y_i)=1 \Leftrightarrow
-\left\{\begin{array}{ll}
+\begin{cases}
 0 < y_1 \leq \theta \\
 \vdots \\
 0 < y_n \leq \theta
-\end{array}\right. \Leftrightarrow
-\left\{\begin{array}{ll}
+\end{cases} \Leftrightarrow
+\begin{cases}
 \min(\boldsymbol{y}_n) > 0 \\
 \max(\boldsymbol{y}_n) \leq \theta
-\end{array}\right.
+\end{cases}
 $$
 
 Logo
@@ -731,12 +731,12 @@ Tome $h(\boldsymbol{y}_n) = f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)$, 
 
 $$
 m(T(\boldsymbol{X}_n), \theta) = 
-\left\{\begin{array}{ll}
+\begin{cases}
 T_1(\boldsymbol{y}_n), & \theta = \theta_1 \\
 T_2(\boldsymbol{y}_n), & \theta = \theta_2 \\
 \vdots \\
 T_p(\boldsymbol{y}_n), & \theta = \theta_p \\
-\end{array}\right.
+\end{cases}
 $$
 
 Em que $T(\boldsymbol{x}) = (T_1(\boldsymbol{x}), \dots, T_p(\boldsymbol{x})$ e 
@@ -1101,7 +1101,7 @@ $$
 
 Observe que $T'(\boldsymbol{X}_n)$ é função 1:1 de $T(\boldsymbol{X}_n)$. Pois,
 $$
-\left\{\begin{array}{l}
+\begin{cases}
 T(\boldsymbol{X}_n) = (t_1,t_2) \\
 \Rightarrow T'(\boldsymbol{X}_n) = \left(
 \frac{\mathrm{exp}\left\{
@@ -1111,12 +1111,11 @@ T(\boldsymbol{X}_n) = (t_1,t_2) \\
 -\frac{4}{9} t_2 - \frac{6}{9} t_1
 \right\}}{9^{\frac{n}{2}}},
 \right)
-\end{array}\right.
+\end{cases}
 $$
 $$
 \begin{aligned}
-&\left\{
-\begin{array}{l}
+&\begin{cases}
 T'(\boldsymbol{X}_n)= (t'_1,t'_2) \\
 t'_1 = \frac{\mathrm{exp}\left\{
 -\frac{3}{8} t_2 -\frac{1}{2} t_1)
@@ -1124,35 +1123,34 @@ t'_1 = \frac{\mathrm{exp}\left\{
 t'_2 = \frac{\mathrm{exp}\left\{
 -\frac{4}{9} t_2 - \frac{6}{9} t_1
 \right\}}{9^{\frac{n}{2}}}
-\end{array}\right. \\
+\end{cases} \\
 \Rightarrow&
-\left\{
-\begin{array}{l}
+\begin{cases}
 \ln(4^{\frac{n}{2}}t'_1) = \frac{3}{8}t_2 - \frac{1}{2}t_1 \\
 \ln(9^{\frac{n}{2}}t'_2) = \frac{4}{9}t_2 - \frac{6}{9} t_1
-\end{array}\right.\\
+\end{cases}\\
 \Rightarrow&
-\left\{\begin{array}{l}
+\begin{cases}
 \ln(4^{\frac{n}{2}}t'_1) = \frac{3}{8}t_2 - \frac{1}{2}t_1 \\
 \ln(9^{\frac{n}{2}}t'_2) = \frac{4}{9}t_2 - \frac{6}{9} t_1
-\end{array}\right.\\
+\end{cases}\\
 \Rightarrow&
-\left\{\begin{array}{l}
+\begin{cases}
 t_1 = -2\ln(4^{\frac{n}{2}}t'_1) + \frac{3}{4} t_2 \\
 \ln(9^{\frac{n}{2}}t'_2) = \frac{4}{9} t_2 - \frac{6}{9}\left(\frac{3}{4}t_2 - 2\ln(4^{\frac{n}{2}}t'_1)\right)
-\end{array}\right.\\
+\end{cases}\\
 \Rightarrow&
-\left\{\begin{array}{l}
+\begin{cases}
 t_1 = \frac{3}{4}t_2 - 2\ln(4^{\frac{n}{2}}t'_1) \\
 \ln(9^{\frac{n}{2}}t'_2) - \frac{12}{9} \ln(4^{\frac{n}{2}}t'_1) = \left(\frac{4}{9} - \frac{18}{36}\right) t_2
-\end{array}\right.\\
+\end{cases}\\
 \Rightarrow&
 t_2 = \frac{\ln(9^{\frac{n}{2}}t'_2) - \frac{12}{9}(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9} - \frac{18}{36}\right)} \\
 \Rightarrow&
-\left\{\begin{array}{l}
+\begin{cases}
 t_1 = \frac{\frac{3}{4}\left(\ln(9^{\frac{n}{2}}t_2'\right) - \frac{12}{9}\ln(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9}-\frac{18}{36}\right)} - 2\ln(4^{\frac{n}{2}}t'_1)\\
 t_2 = \frac{ln(9^{\frac{n}{2}}t'_2) - \frac{12}{9}(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9} - \frac{18}{36}\right)}
-\end{array}\right.
+\end{cases}
 \end{aligned}
 $$
 

@@ -6,10 +6,10 @@ de probabilidade, por meio da família exponencial.
 Dizemos que $f_\theta$ pertence à família exponencial unidimensional se, e somente se,
 
 $$
-f_\theta(x) = \left \{\begin{array}{lr}
+f_\theta(x) = \begin{cases}
 \mathrm{e}^{c(\theta) T(x) + d(\theta) + S(x)}, & x \in \mathfrak{X} \\
 0, & x \not \in \mathfrak{X}
-\end{array} \right.
+\end{cases}
 $$
 
 em que $c(\cdot)$ e $d(\cdot)$ são funções de "$\theta$" cujas formas são conhecidas e $T(\cdot)$ e $S(\cdot)$ são funções
@@ -22,10 +22,10 @@ de $x$ com formas conhecidas, em que $\mathfrak{X} = \{x: f_\theta(x) > 0\}$ nã
 
 Considere $X \sim f_\theta, \theta \in (0,\infty)$ em que
 $$
-f_\theta(x) = \left\{\begin{array}{lr}
+f_\theta(x) = \begin{cases}
 \theta \mathrm{e}^{-\theta x}, & x > 0 \\
 0, & \mathrm{c.c}
-\end{array}\right.
+\end{cases}
 $$
 
 Ou seja, $X\sim \mathrm{Exp}(\theta), \theta > 0$. Mostre que $f_\theta$ pertence à família exponencial.
@@ -54,10 +54,10 @@ Considere $X\sim \mathrm{Ber}(\theta), \theta \in \Theta = (0,1)$. Mostre que a 
 
 Observe que 
 $$
-f_\theta(x) = \left\{\begin{array}{lr}
+f_\theta(x) = \begin{cases}
 \theta^x \cdot (1-\theta)^{1-x}, & x \in \{0,1\} \\
 0, & x \not \in \{0,1\}
-\end{array}\right.
+\end{cases}
 $$
 o suporte é $\mathfrak{X} = \{ x : f_\theta(x)>0\} = \{0,1\}$ não depende de "$\theta$".
 
@@ -163,10 +163,10 @@ Portanto, $f_\theta$ pertence à FE.
 Se $X\sim U(0,\theta), \theta \in (0,\infty)$, então a sua função densidade de probabilidade não pertence à FE, pois
 o seu suporte depende de "$\theta$".
 $$
-f_\theta(x) = \left\{\begin{array}{lr}
+f_\theta(x) = \begin{cases}
 \frac{1}{\theta}, & x \in (0, \theta) \\
 0, & x \not \in (0, \theta)
-\end{array}\right.
+\end{cases}
 $$
 
 Dessa forma, $\mathfrak{X} = \{ x : f_\theta(x)> 0\} = (0,\theta)$.
@@ -206,10 +206,10 @@ $$
 
 Dizemos que a função (densidade) de probabilidade $f_\theta$ pertence à FE k-dimensional se, e somente se,
 $$
-f_\theta(x) = \left\{\begin{array}{lr}
+f_\theta(x) = \begin{cases}
 \mathrm{e}^{\sum^k_{j=1} c_j(\theta)T_j(x)+d(\theta)+S(x)}, &x \in \mathfrak{X} \\
 0, & x \not \in \mathfrak{X}
-\end{array}\right.
+\end{cases}
 $$
 em que
 

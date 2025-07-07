@@ -19,8 +19,8 @@ O teste da razão de [verossimilhanças](funcao-verossimilhanca.qmd) generalizad
 
 $$
 \delta(\boldsymbol{X}_n) = \begin{cases}
-0,\ \boldsymbol{x}_n \not\in A_c \\
-1,\ \boldsymbol{x}_n \in A_c
+0,&\ \boldsymbol{x}_n \not\in A_c \\
+1,&\ \boldsymbol{x}_n \in A_c
 \end{cases}
 $$
 e $\sup\limits_{\theta \in \Theta_0}\pi_\delta(\theta) = \alpha$, em que
@@ -122,20 +122,20 @@ O teste da Razão de Verossimilhança Generalizada (RVG) pode ser reescrito:
 $$
 \begin{aligned}
 \delta(\boldsymbol{x}_n) &= \begin{cases}
-0,\ \  \frac{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_0)}
+0,&\ \  \frac{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_0)}
 {\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})} > \frac{1}{c} \\
-1,\ \ \frac{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_0)}
+1,&\ \ \frac{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_0)}
 {\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})} \leq \frac{1}{c}
 \end{cases} \\
 \iff
 \delta(\boldsymbol{x}_n) &= \begin{cases}
-0,\ \  \lambda(\boldsymbol{x}_n, \Theta_0) > \frac{1}{c} \\
-1,\ \  \lambda(\boldsymbol{x}_n, \Theta_0) \leq \frac{1}{c}
+0,&\ \  \lambda(\boldsymbol{x}_n, \Theta_0) > \frac{1}{c} \\
+1,&\ \  \lambda(\boldsymbol{x}_n, \Theta_0) \leq \frac{1}{c}
 \end{cases} \\
 \iff
 \delta(\boldsymbol{x}_n) &= \begin{cases}
-0,\ \  -2 \ln \lambda(\boldsymbol{x}_n, \Theta_0) < 2\ln c \\
-1,\ \  -2 \ln \lambda(\boldsymbol{x}_n, \Theta_0) \geq 2 \ln c
+0,&\ \  -2 \ln \lambda(\boldsymbol{x}_n, \Theta_0) < 2\ln c \\
+1,&\ \  -2 \ln \lambda(\boldsymbol{x}_n, \Theta_0) \geq 2 \ln c
 \end{cases} \\
 \end{aligned}
 $$
@@ -201,8 +201,8 @@ Sob $\mathcal{H}_0$, $\theta =0, \bar{X} \sim N(0, 1/n), \sqrt{n}\bar{X} \sim N(
 Logo, o teste de RVG é
 $$
 \delta(\boldsymbol{x}_n) = \begin{cases}
-0,\ \  n\bar{x}^2 < 2\ln c \\
-1,\ \  n\bar{x}^2 \geq 2\ln c
+0,&\ \  n\bar{x}^2 < 2\ln c \\
+1,&\ \  n\bar{x}^2 \geq 2\ln c
 \end{cases}
 $$
 em que $c$ deve satisfazer
@@ -248,8 +248,8 @@ $$
 Logo, o teste de RVG é
 $$
 \delta(\boldsymbol{x}_n) = \begin{cases}
-0,\ \  T(\boldsymbol{x}_n) < c^* \\
-1,\ \  T(\boldsymbol{x}_n) \geq c^*
+0,&\ \  T(\boldsymbol{x}_n) < c^* \\
+1,&\ \  T(\boldsymbol{x}_n) \geq c^*
 \end{cases}
 $$
 em que $c$ deve satisfazer
@@ -450,8 +450,8 @@ $$
 O teste usando a estatística de Wald é definido por
 $$
 \delta_{W}(\boldsymbol{x}_n) = \begin{cases}
-0,\ \ \ W(\boldsymbol{x}_n) < \eta \\
-1,\ \ \ W(\boldsymbol{x}_n) \geq \eta
+0,&\ \ \ W(\boldsymbol{x}_n) < \eta \\
+1,&\ \ \ W(\boldsymbol{x}_n) \geq \eta
 \end{cases}
 $$
 em que $\eta$ é obtido de
@@ -490,8 +490,8 @@ $$
 O teste usando a estatística escore é definido por
 $$
 \delta_{R}(\boldsymbol{x}_n) = \begin{cases}
-0,\ \ \ R(\boldsymbol{x}_n) < \eta \\
-1,\ \ \ R(\boldsymbol{x}_n) \geq \eta
+0,&\ \ \ R(\boldsymbol{x}_n) < \eta \\
+1,&\ \ \ R(\boldsymbol{x}_n) \geq \eta
 \end{cases}
 $$
 em que $\eta$ é obtido de
@@ -741,8 +741,8 @@ Definimos a função teste por
 
 $$
 \delta(\boldsymbol{x}^*) = \begin{cases}
-0,\ \ \text{se}\ W(\boldsymbol{x}^*) < \eta \\
-1,\ \ \text{se}\ W(\boldsymbol{x}^*) \geq \eta
+0,&\ \ \text{se}\ W(\boldsymbol{x}^*) < \eta \\
+1,&\ \ \text{se}\ W(\boldsymbol{x}^*) \geq \eta
 \end{cases}
 $$
 

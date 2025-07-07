@@ -20,10 +20,10 @@ Mostre que $T(\boldsymbol{X}_n) = \sum X_i$ é uma estatistica completa para o m
 Note que $T(\boldsymbol{X}_n) \sim \mathrm{Binom}(n,\theta), \theta \in (0,1)$
 
 $$
-P_\theta(T(\boldsymbol{X}_n)= k) \left\{\begin{array}{ll}
+P_\theta(T(\boldsymbol{X}_n)= k) \begin{cases}
 \binom{n}{k}\theta^k (1-\theta)^{n-k}, & k \in \{0,1,\dots,n\} \\
 0, & \mathrm{c.c.}
-\end{array}\right.
+\end{cases}
 $$
 
 Seja $h(\cdot)$ uma função real (contradomínio em $\mathbb{R}$) tal que
@@ -92,11 +92,11 @@ $$
 
 em que
 $$
-P_\theta(X\leq t) = \left\{\begin{array}{ll}
+P_\theta(X\leq t) = \begin{cases}
 0, & t \leq 0 \\
 \frac{t}{\theta}, & t \in (0,\theta] \\
 1,& t > \theta
-\end{array}\right.
+\end{cases}
 $$
 
 Portanto,
@@ -106,10 +106,10 @@ $$
 \frac{d}{dt} P_\theta(X_{(n)} \leq t) &= n [P_\theta(X_{(n)}\leq t)]^{n-1} \frac{d}{dt} P_\theta (X_{(n)} \leq t) \\
 \Rightarrow f_\theta^{\boldsymbol{X}_{(n)}}(x) &= \left.\frac{dP_\theta(X_{(n)} \leq t)}{dt} \right\rvert_{t=x} \\
 &= n [P_\theta(X_{(n)}\leq x)]^{n-1} f_\theta(x) \\
-&= \left\{\begin{array}{ll}
+&= \begin{cases}
 n \left(\frac{x}{\theta}\right)^{n-1} \frac{1}{\theta},& x \in (0,\theta] \\
 0, & \mathrm{c.c.}
-\end{array}\right.
+\end{cases}
 \end{aligned}
 $$
 

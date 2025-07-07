@@ -39,8 +39,8 @@ for *monótona não-decrescente* e $\theta' \geq \theta''$, em que $T(\boldsymbo
 o teste $\delta^* : \mathfrak{X}^{(n)} \rightarrow \{0, 1\}$ tal que
 $$
 \delta^* (\boldsymbol{x}_n) = \begin{cases}
-0, T(\boldsymbol{x}_n) < c \\
-1, T(\boldsymbol{x}_n) \geq c,
+0,&\ T(\boldsymbol{x}_n) < c \\
+1,&\ T(\boldsymbol{x}_n) \geq c,
 \end{cases}
 $$
 e $c$ satisfaz
@@ -86,8 +86,8 @@ Como $\theta' \geq \theta''$, temos que $\theta' - \theta'' \geq 0$. Logo, $\mat
 monótona *não-decrescente* em $T(\boldsymbol{x}_n)$. Logo, pelo Teorema de Karlin-Rubin (I), temos que
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0, \sum x_i < c \\
-1, \sum x_i \geq c
+0,&\ \sum x_i < c \\
+1,&\ \sum x_i \geq c
 \end{cases}
 $$
 em que $c$ satisfaz
@@ -102,8 +102,8 @@ P_{1}(\sum X_i \geq c) &= P_1\left(\frac{\sum x_i - 5}{\sqrt{10}} \geq \frac{c -
 \Rightarrow \frac{c - 5}{\sqrt{10}} &= 1.28 \\
 \Rightarrow c &= 1.28 \cdot \sqrt{10} + 5 = 9.064 \\
 \Rightarrow  \delta^*(\boldsymbol{x}_n) &= \begin{cases}
-0, \sum x_i < 9.064 \\
-1, \sum x_i \geq 9.064
+0,&\ \sum x_i < 9.064 \\
+1,&\ \sum x_i \geq 9.064
 \end{cases}
 \end{aligned}
 $$
@@ -148,12 +148,12 @@ $$
 é monótona não-decrescente em $T'(\boldsymbol{x}_n)$. Portanto, pelo Teorema de Karlin-Rubin (I),
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0, \sum -x_i < c \\
-1, \sum -x_i \geq c
+0,&\ \sum -x_i < c \\
+1,&\ \sum -x_i \geq c
 \end{cases} \Rightarrow
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0, \sum x_i > -c \\
-1, \sum x_i \leq -c
+0,&\ \sum x_i > -c \\
+1,&\ \sum x_i \leq -c
 \end{cases}
 $$
 em que $c$ satisfaz
@@ -180,8 +180,8 @@ for *monótona não-crescente* e $\theta' \leq \theta''$, em que $T(\boldsymbol{
 o teste $\delta^* : \mathfrak{X}^{(n)} \rightarrow \{0, 1\}$ tal que
 $$
 \delta^* (\boldsymbol{x}_n) = \begin{cases}
-0, T(\boldsymbol{x}_n) > c \\
-1, T(\boldsymbol{x}_n) \leq c,
+0,&\ T(\boldsymbol{x}_n) > c \\
+1,&\ T(\boldsymbol{x}_n) \leq c,
 \end{cases}
 $$
 e $c$ satisfaz
@@ -227,8 +227,8 @@ Como $\theta' \leq \theta''$, temos que $\theta' - \theta'' \leq 0$. Logo, $\mat
 monótona *não-crescente* em $T(\boldsymbol{x}_n)$. Logo, pelo Teorema de Karlin-Rubin (II), temos que
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0, \sum x_i > c \\
-1, \sum x_i \leq c
+0,&\ \sum x_i > c \\
+1,&\ \sum x_i \leq c
 \end{cases}
 $$
 em que $c$ satisfaz

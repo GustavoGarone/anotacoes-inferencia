@@ -1,7 +1,8 @@
 ```{julia}
 #| output: false
 using Pkg; Pkg.add(["SpecialFunctions", "Distributions", "Plots", "RCall", "PythonCall"])
-import RCall, PythonCall
+# Pkg.build(RCall) # Needed so it finds library path, maybe?
+using RCall, PythonCall
 ```
 # Método de Newton-Raphson
 
@@ -43,10 +44,10 @@ fixado.
 
 [Quando tentamos encontrar](emv2.qmd#sec-expnr) o EMV para $\theta$ de $X \sim f_\theta, \theta \in \Theta$ com
 $$
-f_\theta(x) = \left\{\begin{array}{ll}
+f_\theta(x) = \begin{cases}
 \frac{1}{\Gamma(\theta)} x^{\theta-1} \mathrm{e}^{-x}, & x > 0 \\
 0, & \mathrm{c.c.}
-\end{array}\right.
+\end{cases}
 $$
 não conseguimos finalizar a expressão. Vamos relembrar o [escore](escore.qmd) da amostra igualado a zero:
 
@@ -99,45 +100,46 @@ using SpecialFunctions # Funções di e trigamma (derivadas do log da gama)
 
 function main()
 
-  x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
-  n = length(x)
+    x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
+    n = length(x)
 
-  theta::Vector{Float64} = []
-  theta0 = 1
-  append!(theta, theta0)
+    theta::Vector{Float64} = []
+    theta0 = 1
+    append!(theta, theta0)
 
 
-  erromax = 10^(-5)
-  erro = Inf
-  i = 1
-  # iteracoesMax = 6 # Podemos também definir apenas um erro máximo
-  while erro > erromax # && i < iteracoesMax
-    append!(theta, theta[i] - (sum(log.(x)) - n * digamma(theta[i]))/
-                                             (-n*trigamma(theta[i])))
-    erro = abs(theta[i+1] - theta[i])
-    println("Erro na iteração $i: $erro")
-    i += 1
-  end
-  println("Theta final: $(theta[length(theta)])")
-  println("Total de iterações: $i")
+    erromax = 10^(-5)
+    erro = Inf
+    i = 1
+    # iteracoesMax = 6 # Podemos também definir apenas um erro máximo
+    while erro > erromax # && i < iteracoesMax
+        append!(
+            theta, theta[i] - (sum(log.(x)) - n * digamma(theta[i])) /
+                (-n * trigamma(theta[i]))
+        )
+        erro = abs(theta[i + 1] - theta[i])
+        println("Erro na iteração $i: $erro")
+        i += 1
+    end
+    println("Theta final: $(theta[length(theta)])")
+    return println("Total de iterações: $i")
 
 end
 
 main()
-
 ```
 #### Python
 
 ```{python}
 print("Teste Python")
-print(1+1)
+print(1 + 1)
 ```
 
 #### R
 
 ```{r}
 cat("Teste R")
-dados<-c(1,2,3,4,5)
+dados <- c(1, 2, 3, 4, 5)
 plot(dados)
 ```
 
@@ -173,30 +175,29 @@ $$
 
 function main()
 
-  x = [2, 2.5, 3, 3.5, 2, 1.5]
-  n = length(x)
+    x = [2, 2.5, 3, 3.5, 2, 1.5]
+    n = length(x)
 
-  theta::Vector{Float64} = []
-  theta0 = 0.5
-  append!(theta, theta0)
+    theta::Vector{Float64} = []
+    theta0 = 0.5
+    append!(theta, theta0)
 
 
-  erromax = 10^(-5)
-  erro = Inf
-  i = 1
-  while erro > erromax
-    append!(theta, theta[i] - ((n - sum(x) *theta[i])*theta[i])/(-n))
-    erro = abs(theta[i+1] - theta[i])
-    println("Erro na iteração $i: $erro")
-    i += 1
-  end
-  println("Theta final: $(theta[length(theta)])")
-  println("Total de iterações: $i")
+    erromax = 10^(-5)
+    erro = Inf
+    i = 1
+    while erro > erromax
+        append!(theta, theta[i] - ((n - sum(x) * theta[i]) * theta[i]) / (-n))
+        erro = abs(theta[i + 1] - theta[i])
+        println("Erro na iteração $i: $erro")
+        i += 1
+    end
+    println("Theta final: $(theta[length(theta)])")
+    return println("Total de iterações: $i")
 
 end
 
 main()
-
 ```
 
 Note que se $\Theta \subseteq \mathbb{R}^P$, o método é dado por
@@ -229,33 +230,32 @@ using SpecialFunctions # Funções di e trigamma (derivadas do log da gama)
 
 function main()
 
-  x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
-  n = length(x)
+    x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
+    n = length(x)
 
-  theta::Vector{Float64} = []
-  theta0 = 1
-  append!(theta, theta0)
-  delta = 0.01
+    theta::Vector{Float64} = []
+    theta0 = 1
+    append!(theta, theta0)
+    delta = 0.01
 
 
-  erromax = 10^(-5)
-  erro = Inf
-  i = 1
-  while erro > erromax
-    append!(theta, theta[i] + delta *(sum(log.(x)) - n * digamma(theta[i])))
-    erro = abs(theta[i+1] - theta[i])
-    if i % 100 == 0
-      println("Erro na iteração $i: $erro")
+    erromax = 10^(-5)
+    erro = Inf
+    i = 1
+    while erro > erromax
+        append!(theta, theta[i] + delta * (sum(log.(x)) - n * digamma(theta[i])))
+        erro = abs(theta[i + 1] - theta[i])
+        if i % 100 == 0
+            println("Erro na iteração $i: $erro")
+        end
+        i += 1
     end
-    i += 1
-  end
-  println("Theta final: $(theta[end])")
-  println("Total de iterações: $i")
+    println("Theta final: $(theta[end])")
+    return println("Total de iterações: $i")
 
 end
 
 main()
-
 ```
 
 ### Descida estocástica do gradiente
@@ -271,45 +271,44 @@ using SpecialFunctions, Distributions, Plots
 
 function descida_estocastica()
 
-  x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
-  n = length(x)
+    x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
+    n = length(x)
 
-  theta::Vector{Float64} = []
-  append!(theta, 1)
-  delta = 0.0001
+    theta::Vector{Float64} = []
+    append!(theta, 1)
+    delta = 0.0001
 
 
-  erro = Inf
-  erromax = 10^(-5)
-  j = 1
-  epoca = 1
-  while erro > erromax
-    for i in 1:n
-      append!(theta, theta[j] + delta * (log(x[i]) - digamma(theta[j])))
-      erro = abs(theta[j+1] - theta[j])
-      j += 1
+    erro = Inf
+    erromax = 10^(-5)
+    j = 1
+    epoca = 1
+    while erro > erromax
+        for i in 1:n
+            append!(theta, theta[j] + delta * (log(x[i]) - digamma(theta[j])))
+            erro = abs(theta[j + 1] - theta[j])
+            j += 1
+        end
+        epoca += 1
+        if epoca % 500 == 0
+            println("Erro na época $epoca: $erro")
+        end
     end
-    epoca += 1
-    if epoca % 500 == 0
-      println("Erro na época $epoca: $erro")
-    end
-  end
-  epoca -= 1
-  println("Theta final: $(theta[end])")
-  println("Total de epocas: $epoca \n \n")
+    epoca -= 1
+    println("Theta final: $(theta[end])")
+    println("Total de epocas: $epoca \n \n")
 
-  println("Verificando se é máximo local")
-  println("-n * trigamma(theta calculado) = $(-n * trigamma(theta[end]))")
-  
-  U(y) = sum(log.(x)) - n*digamma(y)
-  p = plot(U, xlims=(0.1, 100), label="U")
-  vline!(theta[1:4000:end],label="(Alguns dos) thetas calculados")
-  hline!([0],label="", color=:black)
-  display(p)
+    println("Verificando se é máximo local")
+    println("-n * trigamma(theta calculado) = $(-n * trigamma(theta[end]))")
+
+    U(y) = sum(log.(x)) - n * digamma(y)
+    p = plot(U, xlims = (0.1, 100), label = "U")
+    vline!(theta[1:4000:end], label = "(Alguns dos) thetas calculados")
+    hline!([0], label = "", color = :black)
+    return display(p)
 end
 
 descida_estocastica()
-
 ```
 
 Note que esse método é falível. Caímos em um valor que não é máximo global e diferente dos obtidos pelos outros métodos. Aumentaremos o valor de $\delta$ e adicionaremos um máximo de 5000 épocas. Também escolheremos um valor
@@ -321,45 +320,44 @@ using SpecialFunctions, Distributions, Plots
 
 function descida_estocastica_limitada()
 
-  x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
-  n = length(x)
+    x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
+    n = length(x)
 
-  theta::Vector{Float64} = []
-  append!(theta, 4)
-  delta = 0.01
+    theta::Vector{Float64} = []
+    append!(theta, 4)
+    delta = 0.01
 
 
-  erro = Inf
-  erromax = 10^(-5)
-  j = 1
-  epoca = 1
-  while erro > erromax && epoca <= 5000
-    for i in 1:n
-      append!(theta, theta[j] + delta * (log(x[i]) - digamma(theta[j])))
-      erro = abs(theta[j+1] - theta[j])
-      j += 1
+    erro = Inf
+    erromax = 10^(-5)
+    j = 1
+    epoca = 1
+    while erro > erromax && epoca <= 5000
+        for i in 1:n
+            append!(theta, theta[j] + delta * (log(x[i]) - digamma(theta[j])))
+            erro = abs(theta[j + 1] - theta[j])
+            j += 1
+        end
+        epoca += 1
+        if epoca % 1000 == 0
+            println("Erro na época $epoca: $erro")
+        end
     end
-    epoca += 1
-    if epoca % 1000 == 0
-      println("Erro na época $epoca: $erro")
-    end
-  end
-  epoca -= 1
-  println("Theta final: $(theta[end])")
-  println("Total de epocas: $epoca \n \n")
+    epoca -= 1
+    println("Theta final: $(theta[end])")
+    println("Total de epocas: $epoca \n \n")
 
-  println("Verificando se é máximo local")
-  println("-n * trigamma(theta calculado) = $(-n * trigamma(theta[end]))")
-  
-  U(y) = sum(log.(x)) - n*digamma(y)
-  p = plot(U, xlims=(0.1, 100), label="U")
-  vline!(theta[1:500:end],label="(Alguns dos) thetas calculados")
-  hline!([0],label="", color=:black)
-  display(p)
+    println("Verificando se é máximo local")
+    println("-n * trigamma(theta calculado) = $(-n * trigamma(theta[end]))")
+
+    U(y) = sum(log.(x)) - n * digamma(y)
+    p = plot(U, xlims = (0.1, 100), label = "U")
+    vline!(theta[1:500:end], label = "(Alguns dos) thetas calculados")
+    hline!([0], label = "", color = :black)
+    return display(p)
 end
 
 descida_estocastica_limitada()
-
 ```
 
 

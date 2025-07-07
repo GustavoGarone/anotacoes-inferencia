@@ -13,8 +13,8 @@ $$
 nula e alternativa. A função teste $\delta^* : \mathfrak{X}^{(n)} \rightarrow \{0,1\}$ tal que
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta_1) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0) \\
-1,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta_1) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0),
+0,&\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta_1) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0) \\
+1,&\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta_1) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0),
 \end{cases}
 $$
 em que $\eta$ satisfaz $\underbracket{P_{\theta_0}(\delta^*(\boldsymbol{X}_n) = 1)}_{\pi_{\delta^*}(\theta_0)} = \alpha$ para um $\alpha$ fixado apriori, é o teste mais
@@ -38,8 +38,8 @@ Encontre o teste mais poderoso de tamanho $\alpha = 5\%$.
 De acordo com o Lema de Neyman-Pearson, o teste mais poderoso de tamanho $\alpha = 5\%$ é
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}((0,2)) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}((0,1)), \\
-1,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}((0,2)) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}((0,1)),
+0,&\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}((0,2)) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}((0,1)), \\
+1,&\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}((0,2)) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}((0,1)),
 \end{cases}
 $$
 em que $\eta$ satisfaz $\pi_{\delta^*}((0,1)) = 5\%$.
@@ -94,8 +94,8 @@ $$
 Portanto, o teste mais poderoso é
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0,\ \text{se}\ \sum x_i^2 < 5.991 \\
-1,\ \text{se}\ \sum x_i^2 \geq 5.991.
+0,&\ \text{se}\ \sum x_i^2 < 5.991 \\
+1,&\ \text{se}\ \sum x_i^2 \geq 5.991.
 \end{cases}
 $$
 
@@ -114,8 +114,8 @@ as hipóteses nula e alternativa e $n=10$. Encontre o Teste Mais Poderoso (TMP) 
 De acordo com o Lema de Neyman-Pearson, o teste mais poderoso de tamanho $\alpha = 5\%$ é
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(0.1) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(0.9), \\
-1,\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(0.1) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(0.9),
+0,&\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(0.1) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(0.9), \\
+1,&\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(0.1) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(0.9),
 \end{cases}
 $$
 em que $\eta$ satisfaz $\pi_{\delta^*}(0.9) = 10\%$.

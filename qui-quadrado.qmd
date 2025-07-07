@@ -9,8 +9,8 @@ Se $Z\sim N(0,1)$, então $Z^{2}\sim \chi^2$, como provado por transformação d
 Se $W\sim \chi^{2}_{k}$, então sua função densidade de probabilidade é dada por
 $$
 \begin{cases}
-\frac{1}{\Gamma\left(\frac{k}{2}\right)\cdot 2 ^{\frac{k}{2}}}\cdot w^{\frac{k}{2} -1} \cdot e^{-\frac{1}{2}w}, ~ ~~ w > 0 \\
-0, cc
+\frac{1}{\Gamma\left(\frac{k}{2}\right)\cdot 2 ^{\frac{k}{2}}}\cdot w^{\frac{k}{2} -1} \cdot e^{-\frac{1}{2}w},& w > 0 \\
+0,& cc
 \end{cases}
 $$
 Sendo assim,
@@ -49,7 +49,7 @@ para $\nu > 30$
 # plotqui(n) = plot(qui(n), title="Qui-Quadrado visualizada", label=L"%$n", ylims=[0, 0.5])
 
 # a = @gif for i in 1:100
-  # plotqui(i)
+# plotqui(i)
 # end
 
 # display(a)

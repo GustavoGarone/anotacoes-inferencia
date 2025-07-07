@@ -85,14 +85,14 @@ using Distributions, StatsBase, Random, Plots, LaTeXStrings
 Random.seed!(1)
 amostra = sample(1:60, 2800)
 O = collect(values(countmap(amostra)))
-E = 2800/60
+E = 2800 / 60
 
-chisq = sum([(E-x)^2/E for x in O])
+chisq = sum([(E - x)^2 / E for x in O])
 quantil = quantile(Chisq(59), 0.95)
 
 f(t) = pdf(Chisq(59), t)
-plot(f, xlims=(0,120), label="", title=L"\chi^2_{59}")
-vline!([quantile(Chisq(59), 0.95)], label=L"c = %$(round(quantil, digits=2))")
+plot(f, xlims = (0, 120), label = "", title = L"\chi^2_{59}")
+vline!([quantile(Chisq(59), 0.95)], label = L"c = %$(round(quantil, digits=2))")
 ```
 Pelo computador, encontramos $c = 77.93$
 Logo, como $\chi^2=56.68 < 77.93$, concluímos que, sob $H_{0}$, não há evidências de que o modelo não seja equiprovável
@@ -113,8 +113,8 @@ $$
 Queremos testar se os dados de fato se distribuem de acordo com $N(10,25)$.
 $$
 \begin{cases}
-H_{0}:P=N(10,25) \\
-H_{1}:P\neq N(10,25)
+H_{0}: P=N(10,25) \\
+H_{1}: P\neq N(10,25)
 \end{cases}
 $$
 Sob $H_{0}$, podemos dividir a distribuição normal em $k$ blocos. Escolheremos $k=4$ delimitado pelos *quartis* teóricos

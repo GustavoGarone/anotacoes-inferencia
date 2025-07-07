@@ -29,9 +29,7 @@ independentes e identicamente distribuídas de acordo com a distribuição da va
 Ou seja, 
 $$
 \text{Independentes }\rightarrow\begin{cases}X_{1}\sim f_{\theta,}\theta \in \Theta \\
-. \\
-. \\
-. \\
+\vdots \\
 X_{n} \sim f_{\theta}, \theta \in \Theta
 \end{cases}
 $$

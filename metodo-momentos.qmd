@@ -65,25 +65,25 @@ P_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n) \leq t) = P_\theta(\max\pmb{X}_n 
 $$
 note que
 $$
-P_\theta(X \leq t) = \left\{\begin{array}{ll}
+P_\theta(X \leq t) = \begin{cases}
 0, & t \leq 0 \\
 \frac{t}{\theta}, & 0 < t \leq \theta \\
 1, & t \geq \theta \\
-\end{array}\right. \Rightarrow P_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n)\leq t)^n = \left\{\begin{array}{ll}
+\end{cases} \Rightarrow P_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n)\leq t)^n = \begin{cases}
 0, & t \leq 0 \\
 \left(\frac{t}{\theta}\right)^n, & 0 < t \leq \theta \\
 1, & t \geq \theta \\
-\end{array}\right.
+\end{cases}
 $$
 
 Como $P_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n))$ é absoulatemente contínua para todo $\theta > 0$, temos que
 $\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n)$ é uma variável aleatória contínua cuja f.d.p. é dada por
 $$
 f_\theta^{\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n)}(x) =\left. \frac{d}{dt} P_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n) \leq t) \right\rvert_{t=x}
-= \left\{\begin{array}{ll}
+= \begin{cases}
 \frac{n x^{n-1}}{\theta^n}, & 0 < x \leq \theta \\
 0, & \mathrm{c.c.}
-\end{array}\right. .
+\end{cases}
 $$
 
 Logo,
@@ -117,29 +117,35 @@ d = Uniform(0, theta0)
 thetaMM = zeros(M)
 thetaMV = zeros(M)
 for i in 1:M
-  x = rand(d, n)
-  thetaMM[i] = 2*mean(x)
-  thetaMV[i] = maximum(x)
+    x = rand(d, n)
+    thetaMM[i] = 2 * mean(x)
+    thetaMV[i] = maximum(x)
 end
 
 # Comparar
 println("Média simulada do EMM = $(mean(thetaMM)),
         calculada = $theta0")
 println("Média simulada do EMV = $(mean(thetaMV)),
-        calculada = $(10/11 * theta0)")
+        calculada = $(10 / 11 * theta0)")
 println("Variância simulada do EMM = $(var(thetaMM)),
-        calculada = $(theta0^2 /(3*n))")
+        calculada = $(theta0^2 / (3 * n))")
 println("Variância simuladado EMV = $(var(thetaMV)),
-        calculada = $(n * theta0^2 / (n+2) - (n/(n+1))^2 * theta0^2)")
+        calculada = $(n * theta0^2 / (n + 2) - (n / (n + 1))^2 * theta0^2)")
 
-densidade(x) = 0 < x < theta0 ? n * x^(n-1) / theta0^n : 0
+densidade(x) = 0 < x < theta0 ? n * x^(n - 1) / theta0^n : 0
 
-pmm = histogram(thetaMM, label = "",
-                title = "Histograma do EMM", normalize=:pdf)
-pmv = histogram(thetaMV, label = "",
-                title = "Histograma do EMV", normalize=:pdf)
-plot!(minimum(thetaMV):0.001:maximum(thetaMV)-0.01, densidade,
-      label="Densidade Teórica")
+pmm = histogram(
+    thetaMM, label = "",
+    title = "Histograma do EMM", normalize = :pdf
+)
+pmv = histogram(
+    thetaMV, label = "",
+    title = "Histograma do EMV", normalize = :pdf
+)
+plot!(
+    minimum(thetaMV):0.001:(maximum(thetaMV) - 0.01), densidade,
+    label = "Densidade Teórica"
+)
 display(plot(pmm, pmv))
 ```
 
@@ -171,18 +177,18 @@ os casos abaixo:
 4. $E_\theta(X) = \theta, E_\theta(X^2) = \sigma^2 + \mu^2$. Note que
 $$
 \begin{aligned}
-&\left\{\begin{array}{ll}
+&\begin{cases}
 \mu &= \bar{X} \\
 \sigma^2 + \mu^2 &= \frac{1}{n} \sum X_i^2
-\end{array}\right. \\
-\Rightarrow&\left\{\begin{array}{ll}
+\end{cases} \\
+\Rightarrow&\begin{cases}
 \hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n) &= \bar{X} \\
 \hat{\sigma^2}_{\mathrm{MM}}(\boldsymbol{X}_n) + \hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n)^2 &= \frac{1}{n} \sum X_i^2
-\end{array}\right. \\
-\Rightarrow&\left\{\begin{array}{ll}
+\end{cases} \\
+\Rightarrow&\begin{cases}
 \hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n) &= \bar{X} \\
 \hat{\sigma^2}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{1}{n} \sum X_i^2 - \bar{X}^2
-\end{array}\right. \\
+\end{cases} \\
 \Rightarrow& \hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \left(\bar{X}, \frac{1}{n} \sum X_i^2 - \bar{X}^2\right)
 \end{aligned}
 $$
@@ -193,10 +199,10 @@ $$
 ::: {.callout-note title="Distribuição Gama"}
 Se $X \sim \mathrm{Gama}(\alpha,\beta)$, então
 $$
-\left\{\begin{array}{ll}
+\begin{cases}
 f_\theta^{X}(x) = \frac{\beta^\alpha x^{\alpha-1}\mathrm{e}^{-\beta x}}{\Gamma(\alpha)}, & x > 0\\
 0, & \mathrm{c.c.}
-\end{array}\right.
+\end{cases}
 $$
 Logo,
 $$
@@ -220,40 +226,40 @@ $$
 Seguindo para as equações de momentos,
 $$
 \begin{aligned}
-&\left\{\begin{array}{ll}
+&\begin{cases}
 \frac{\alpha}{\beta} = \bar{X} \\
 \frac{\alpha (\alpha+1)}{\beta^2} = \frac{1}{n} \sum X_i^2
-\end{array}\right. \\
-\Rightarrow &\left\{\begin{array}{ll}
+\end{cases} \\
+\Rightarrow &\begin{cases}
 \alpha = \bar{X}\beta \\
 \frac{\bar{X}\beta(\bar{X}\beta+1)}{\beta^2} = \frac{1}{n} \sum X_i^2
-\end{array}\right. \\
-\Rightarrow &\left\{\begin{array}{ll}
+\end{cases} \\
+\Rightarrow &\begin{cases}
 \alpha = \bar{X}\beta \\
 (\bar{X}\beta)^2 + \bar{X}\beta = \beta^2 \frac{1}{n} \sum X_i^2
-\end{array}\right. \\
-\Rightarrow &\left\{\begin{array}{ll}
+\end{cases} \\
+\Rightarrow &\begin{cases}
 \alpha = \bar{X}\beta \\
 \beta^2\left(\frac{1}{n}\sum X_i^2\right) - (\beta\bar{X})^2 - \beta \bar{X} = 0
-\end{array}\right. \\
-\Rightarrow &\left\{\begin{array}{ll}
+\end{cases} \\
+\Rightarrow &\begin{cases}
 \alpha = \bar{X}\beta \\
 \beta^2\underbracket{\left(\frac{1}{n}\sum X_i^2 - \bar{X}^2\right)}_{S^2} -\beta\bar{X} = 0
-\end{array}\right. \\ \\
+\end{cases} \\ \\
 \frac{\bar{X} \pm \sqrt{\bar{X}^2 - 4\cdot S^2 \cdot 0}}{2S^2} &= \frac{\bar{X} \pm \sqrt{\bar{X}^2}}{2S^2}\\
 &=
-\left\{\begin{array}{l}
+\begin{cases}
 0 \\
 \frac{\bar{X}}{S^2}
-\end{array}\right. \\ \\
-\Rightarrow &\left\{\begin{array}{ll}
+\end{cases} \\ \\
+\Rightarrow &\begin{cases}
 \alpha = \bar{X}\beta \\
 \beta^2 S^2 = \beta \bar{X}
-\end{array}\right. \\
-\Rightarrow &\left\{\begin{array}{ll}
+\end{cases} \\
+\Rightarrow &\begin{cases}
 \hat{\alpha}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{\bar{X}^2}{S^2} \\
 \hat{\beta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{\bar{X}}{S^2}
-\end{array}\right. \\
+\end{cases} \\
 \Rightarrow& \hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \left(\frac{\bar{X}^2}{S^2}, \frac{\bar{X}}{S^2}\right).
 \end{aligned}
 $$
@@ -269,15 +275,15 @@ n = 10 # Tamanho da amostra
 alpha0 = 4
 beta0 = 6
 
-d = Gamma(alpha0, 1/beta0)
+d = Gamma(alpha0, 1 / beta0)
 
 alphaMM = zeros(M)
 betaMM = zeros(M)
 for i in 1:M
-  x = rand(d, n)
-  s = var(x, corrected = false)
-  alphaMM[i] = mean(x)^2/s
-  betaMM[i] = mean(x)/s
+    x = rand(d, n)
+    s = var(x, corrected = false)
+    alphaMM[i] = mean(x)^2 / s
+    betaMM[i] = mean(x) / s
 end
 
 # Comparar
@@ -287,14 +293,18 @@ println("Média simulada do EMM para beta = $(mean(betaMM)),
         real = $beta0")
 
 # Plotar
-pmmalpha = histogram(alphaMM, label = "",
-                title = "Histograma do EMM para " * L"\alpha", normalize=:pdf,
-                     bins = 40)
-vline!([alpha0], label="Valor real")
-pmmbeta = histogram(betaMM, label = "",
-                title = "Histograma do EMM para " * L"\beta", normalize=:pdf,
-                    bins = 40)
-vline!([beta0], label="Valor real")
+pmmalpha = histogram(
+    alphaMM, label = "",
+    title = "Histograma do EMM para " * L"\alpha", normalize = :pdf,
+    bins = 40
+)
+vline!([alpha0], label = "Valor real")
+pmmbeta = histogram(
+    betaMM, label = "",
+    title = "Histograma do EMM para " * L"\beta", normalize = :pdf,
+    bins = 40
+)
+vline!([beta0], label = "Valor real")
 display(plot(pmmalpha, pmmbeta))
 ```
 

@@ -68,7 +68,10 @@ $$
 \left[2.42 - 2.58 \frac{\sqrt{3}}{\sqrt{4}}, 2.42 + 2.58\frac{\sqrt{3}}{\sqrt{4}}\right] = [0.18, 4.65]
 $$
 
-Dessa forma, se repetirmos o experimento $N$ vezes, esperamos que $\gamma = 99\%$ dos ICs observados contenham a quantidade de interesse.
+Esse IC observado pode conter o verdadeiro valor de theta ou não conter. Não
+podemos afirmar que a probabilidade de esse IC observado conter o valor de theta
+seja de 99%. Por outro lado, se repetirmos o experimento $N$ vezes, esperamos
+que $\gamma = 99\%$ dos ICs observados contenham a quantidade de interesse.
 
 #### Notação
 

@@ -175,7 +175,7 @@ O valor-$p$ **não** é a probabilidade de uma conclusão "estar incorreta"
 
 O valor-$p$ **não** é a probabilidade da estatística do teste observada ter
 da estatística do teste observada ter assumido determinado valor
-"por sort" ou "acidentalmente"
+"por sorte" ou "acidentalmente"
 
 O valor-$p$ **é** a probabilidade de, assumindo que sua hipótese sendo testada
 (a hipótese nula) seja verdadeira e que todas suas outras assunções

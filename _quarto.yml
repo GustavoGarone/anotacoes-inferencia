@@ -31,12 +31,15 @@ book:
   navbar:
     search: true
     right:
-      - icon: github
-        href: https://github.com/GustavoGarone/anotacoes-inferencia
-        aria-label: GitHub
+      # - icon: github
+      #   href: https://github.com/GustavoGarone/anotacoes-inferencia
+      #   aria-label: GitHub
       - text: <i class='fa-solid fa-file-pdf'></i> PDF
         href: Anotações-de-Inferência-Frequentista.pdf
         # icon: download
+  reader-mode: true
+  repo-url: https://github.com/GustavoGarone/anotacoes-inferencia
+  repo-actions: [edit, source, issue]
   favicon: theta.png
   chapters:
     - index.qmd

@@ -250,8 +250,8 @@ Considere o universo fechado.
 *Definição*. Seja $\delta : \mathfrak{X}^{(n)} \rightarrow \{0,1\}$ uma função tal que
 $$
 \delta(\boldsymbol{X}_n) = \begin{cases}
-0,\ \text{Se não rejeitamos}\ \mathcal{H}_0 \\
-1,\ \text{Se rejeitamos}\ \mathcal{H}_0 \\
+0,&\ \text{Se não rejeitamos}\ \mathcal{H}_0 \\
+1,&\ \text{Se rejeitamos}\ \mathcal{H}_0 \\
 \end{cases}
 $$
 em que $\mathfrak{X}^{(n)} = \{x \in \mathbb{R}^n : f_\theta^{\boldsymbol{X}_n}(\boldsymbol{x}) > 0 \}$, $\mathcal{H}_0 : \theta \in \Theta_0$,
@@ -286,12 +286,12 @@ Defina $\delta_i : \{0,1\}^n \rightarrow \{0, 1\}, i = 1, 2$ tais que
 $$
 \begin{aligned}
 \delta_1(\boldsymbol{x}_n) &= \begin{cases}
-0, \bar{x} \leq 0.5 \\
-1, \bar{x} > 0.5 \\
+0,& \bar{x} \leq 0.5 \\
+1,& \bar{x} > 0.5 \\
 \end{cases} \\
 \delta_2(\boldsymbol{x}_n) &= \begin{cases}
-0, \bar{x} \leq 0.8 \\
-1, \bar{x} > 0.8 \\
+0,& \bar{x} \leq 0.8 \\
+1,& \bar{x} > 0.8 \\
 \end{cases}
 \end{aligned}
 $$
@@ -340,8 +340,8 @@ $$
 Relembrando os tipos de erro:
 $$
 \begin{cases}
-\text{Erro tipo I:}\ \text{Rejeitar $\mathcal{H}_0$ quando esta é verdadeira} \\
-\text{Erro tipo II:}\ \text{Não rejeitar $\mathcal{H}_0$ quando esta é falsa}
+\text{Erro tipo I:}&\ \text{Rejeitar $\mathcal{H}_0$ quando esta é verdadeira} \\
+\text{Erro tipo II:}&\ \text{Não rejeitar $\mathcal{H}_0$ quando esta é falsa}
 \end{cases}
 $$
 :::
