@@ -22,8 +22,8 @@ etc.
 As estatísticas são variáveis aleatórias:
 $$
 \begin{aligned}
-\pmb{X}_n&=(X_{1},\dots,X_{n}):\Omega\rightarrow \mathbb{R}^{n} \\
-T(\pmb{X}_n)&=T \circ \pmb{X}_n:\Omega\rightarrow \mathbb{R}
+\pmb{X}_n&=(X_{1},\dots,X_{n}):\Omega^n\rightarrow \mathbb{R}^{n} \\
+T(\pmb{X}_n)&=T \circ \pmb{X}_n:\Omega^n\rightarrow \mathbb{R}
 \end{aligned}
 $$
 :::
