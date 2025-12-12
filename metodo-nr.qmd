@@ -1,10 +1,11 @@
+# Método de Newton-Raphson
+
 ```{julia}
 #| output: false
 using Pkg; Pkg.add(["SpecialFunctions", "Distributions", "Plots", "RCall", "PythonCall"])
-# Pkg.build(RCall) # Needed so it finds library path, maybe?
 using RCall, PythonCall
+ENV["QT_STYLE_OVERRIDE"] = "Fusion"
 ```
-# Método de Newton-Raphson
 
 Nem sempre existem soluções fechadas para [estimadores de máxima verossimilhança](emv2.qmd) ou obtidos pelo [método de
 momentos](metodo-momentos.qmd). Por exemplo, $U_n(\boldsymbol{X}_n, \theta) = 0$ não tem solução fechada para o EMV e

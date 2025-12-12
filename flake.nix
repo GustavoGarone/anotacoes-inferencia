@@ -48,6 +48,7 @@
         shellHook = ''
           export LD_LIBRARY_PATH="${pkgs.gfortran.cc.lib}/lib"
           export R_REMOTES_NO_ERRORS_FROM_WARNINGS="TRUE"
+          export QT_STYLE_OVERRIDE="Fusion"
         '';
       };
     });

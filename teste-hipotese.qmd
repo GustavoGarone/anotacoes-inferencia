@@ -1,6 +1,7 @@
 ```{julia}
 #| output: false
 using Pkg; Pkg.add(["Distributions", "Plots", "StatsPlots", "LaTeXStrings"])
+ENV["QT_STYLE_OVERRIDE"] = "Fusion"
 ```
 # Teste de Hipótese simples
 

@@ -2,6 +2,7 @@
 #| output: false
 # Carregando funções dos outros arquivos
 using Pkg; Pkg.add(["Distributions", "StatsBase", "Plots", "StatsPlots", "LaTeXStrings"])
+ENV["QT_STYLE_OVERRIDE"] = "Fusion"
 ```
 ```{julia}
 #| echo: false

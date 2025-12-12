@@ -28,8 +28,6 @@ $info: $yellow;
 $warning: $orange;
 $danger: $red;
 
-
-
 // Base document colors
 $body-bg: $gray-900;
 $body-color: $gray-100;
@@ -42,7 +40,6 @@ $light: rgb(32.4,32.4,34.2);
 /*$navbar-bg: shade-color($gray-800, 30%);*/
 $footer-bg: $gray-900;
 $navbar-bg: shade-color($gray-800, 10%);
- 
 
 // Code blocks
 $code-block-bg-alpha: -.9;
@@ -109,7 +106,7 @@ color: #D1DBE5;
   border: none;
   border-bottom: 2px solid #ffffff !important;
   color: #ffffff !important;
-  background-color: transparent;  
+  background-color: transparent;
 }
 
 .hello-quarto-banner .nav-link {
@@ -124,13 +121,11 @@ color: #D1DBE5;
   border: 1px solid $gray-700;
 }
 
-
 body.quarto-light .alt-background {
   background-color: #17212B;
   border-top: 1px solid #dee2e6;
   border-bottom: 1px solid #dee2e6;
 }
-
 
 .layout-example {
   background: $gray-700;
@@ -173,7 +168,7 @@ details > summary {
   font-size: 1em;
   font-weight: bold;
   color: $white;
-  background-color: #ff0039; 
+  background-color: #ff0039;
 }
 
 #quarto-announcement a {

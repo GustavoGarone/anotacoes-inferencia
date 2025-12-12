@@ -1,6 +1,7 @@
 ```{julia}
 #| output: false
 using Pkg; Pkg.add(["Distributions", "StatsBase", "Plots", "StatsPlots", "LaTeXStrings"])
+ENV["QT_STYLE_OVERRIDE"] = "Fusion"
 ```
 # Testes uniformemente mais poderosos (TUMP)
 

@@ -1,6 +1,7 @@
 ```{julia}
 #| output: false
 using Pkg; Pkg.add(["Distributions", "Plots", "Random", "StatsBase", "LaTeXStrings", "SpecialFunctions"])
+ENV["QT_STYLE_OVERRIDE"] = "Fusion"
 ```
 # Intervalos de Confiança - Aprofundamento
 
