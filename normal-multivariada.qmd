@@ -1,6 +1,7 @@
 ```{julia}
 #|output: false
 using Pkg; Pkg.add(["Distributions", "StatsBase", "Plots", "LaTeXStrings", "LinearAlgebra", "Random", "DataFrames", "SpecialFunctions"])
+ENV["QT_STYLE_OVERRIDE"] = "Fusion"
 ```
 # Normal Multivariada
 

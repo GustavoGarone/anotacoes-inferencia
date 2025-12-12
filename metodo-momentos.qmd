@@ -1,6 +1,7 @@
 ```{julia}
 #| output: false
 using Pkg; Pkg.add(["Distributions", "Plots", "LaTeXStrings", "StatsBase"])
+ENV["QT_STYLE_OVERRIDE"] = "Fusion"
 ```
 # Estimação pelo método de momentos (EMM)
 

@@ -9,7 +9,7 @@ $$
 
 Formalmente, temos o enunciado do *Teorema do Limite Central*:
 $$
-\frac{\sqrt{n}(\bar{X}-E_\theta(x))}{\sqrt{\mathrm{Var}_\theta(X)}} \underset{n\rightarrow \infty}{\stackrel{\text{Distribuição}}{\rightarrow}} N\sim (0,1) \forall \theta \in \Theta
+\frac{\sqrt{n}(\bar{X}-E_\theta(X))}{\sqrt{\mathrm{Var}_\theta(X)}} \underset{n\rightarrow \infty}{\stackrel{\text{Distribuição}}{\rightarrow}} N\sim (0,1) \forall \theta \in \Theta
 $$
 
 Se $X\sim N(\mu, \sigma)$, então a distribuição é exata.

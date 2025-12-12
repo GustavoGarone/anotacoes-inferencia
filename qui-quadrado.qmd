@@ -1,6 +1,7 @@
 ```{julia}
 #| output: false
 using Pkg; Pkg.add(["Plots", "StatsPlots", "Distributions", "LaTeXStrings"])
+ENV["QT_STYLE_OVERRIDE"] = "Fusion"
 ```
 # Distribuição Qui-Quadrado
 
