@@ -4,9 +4,10 @@ project:
   type: book
 engines: [julia]
 julia:
-  env: [QT_QPA_PLATFORM=xcb]
+  env: ["QT_QPA_PLATFORM=xcb", "QT_STYLE_OVERRIDE=Fusion"]
 execute:
   echo: false
+  warning: false
   cache: true
 filters:
   - diagram
@@ -100,8 +101,8 @@ csl: associacao-brasileira-de-normas-tecnicas.csl
 format:
   html:
     theme:
-      light: [cosmo]
-      dark: [cosmo, theme-dark.scss]
+      light: [cosmo, custom.scss]
+      dark: [cosmo, theme-dark.scss, custom.scss]
     respect-user-color-scheme: true
     include-in-header:
       text: |
