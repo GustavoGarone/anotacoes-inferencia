@@ -6,3 +6,5 @@ quarto/
 /.quarto/
 index_files/
 site_libs/
+.conform*
+.direnv
