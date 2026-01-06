@@ -26,12 +26,12 @@ entendermos a necessidade de correção.
 
 ::: panel-tabset
 ## Julia
-`Julia` é uma linguagem de programação voltada para computação científica (CTEM).
-É caracterizada por sua velocidade (comparável ao `C`) e sintaxe simples.
+[`Julia`](https://julialang.org) é uma linguagem de programação voltada para computação científica (CTEM).
+É caracterizada por sua velocidade (comparável ao [`C`](https://www.c-language.org/)) e sintaxe simples.
 É a linguagem de programação favorecida por este livrete.
 Contudo, por ser relativamente nova, carece de alguns recursos importantes para
 estatística aplicada,
-por isso, fornecemos implementações dos algoritmos em `Python` e `R`.
+por isso, fornecemos implementações dos algoritmos em [`Python`](https://python.org) e [`R`](https://www.r-project.org).
 ```{julia}
 #| echo: true
 using Distributions, StatsBase, Random, Printf
@@ -79,6 +79,10 @@ simula_montecarlo(2, 10_000, 50, true)
 ```
 
 ## Python
+[`Python`](https://python.org) é uma linguagem de programação de uso geral.
+É extremamente popular por sua sintaxe simples e curva de aprendizado amigável.
+Dessa popularidade, destaca-se pelo seu ecossistema rico, contando com pacotes
+para aplicações diversas, para além da área de estatítisca e ciência de dados.
 ```{python}
 # O NumPy é uma biblioteca indispensável para computação matemática no Python.
 import numpy as np
@@ -89,8 +93,6 @@ def simula_montecarlo(theta0, M, n, corrigido=False):
     estimativas_mean = np.zeros(M)
     estimativas_var  = np.zeros(M)
 
-    # No NumPy, o parâmetro global  'ddof' (Delta Degrees of Freedom) 
-    # controla o denominador para var() e sd(). ddof=1 divide por n-1, ddof=0 divide por n.
     correcao = 1 if corrigido else 0
 
     for i in range(M):
@@ -98,6 +100,9 @@ def simula_montecarlo(theta0, M, n, corrigido=False):
         amostra = np.random.poisson(theta0, n)
         
         estimativas_mean[i] = np.mean(amostra)
+        # No NumPy, o parâmetro 'ddof' (Delta Degrees of Freedom) 
+        # controla o denominador para var() e sd().
+        # ddof=1 divide por n-1, ddof=0 divide por n.
         estimativas_var[i]  = np.var(amostra, ddof = correcao)
 
     m_esperada = np.mean(estimativas_mean)
@@ -120,7 +125,12 @@ simula_montecarlo(2, 10_000, 50, corrigido=True)
 ```
 
 ## R
-
+[`R`](https://www.r-project.org) é uma linguagem de programação voltada para a estatística e ciência de dados.
+É a sucessora da antes dominante `S`,
+por isso, e por ser fortemente influenciada pela filosofia [`GNU`](https://www.gnu.org/),
+é a linguagem de programação dominante para estatística na academia.
+Dessa forma, possui um ecossistema ainda mais rico que o `Python` para a estatística, com implementação de diversos
+modelos de ponta.
 ```{r}
 set.seed(123)
 
