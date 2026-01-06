@@ -42,7 +42,85 @@ $$
 \mathrm{EQM}(T,g(\theta)) = \mathrm{Var}_\theta(T(X_{1},\dots,X_{n})) + [\mathrm{Viés}(T(X_1,\dots,X_n),g(\theta))]^{2}
 $$
 
-## Exemplo para média
+## Exemplo do viés da variância {#sec-ex-viesvar}
+Seja $(X_{1},\dots,X_{n})$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa), ou seja, independentes e 
+identicamente distribuídas (i.i.d.), de $X\sim f(\theta), \theta \in \Theta$.
+Calcule o viés de $T(\boldsymbol{X})$ com respeito a $g(\theta)=\mathrm{Var}_\theta(X)$ em que
+$$
+T(\boldsymbol{X}) = \frac{1}{n} \sum^n_{i=1} (X_i - \bar{X})^2
+$$
+
+é um estimador para a variância de $X$.
+
+### Resolução
+Iniciaremos calculando o viés do estimador.
+
+$$
+\begin{aligned}
+\mathrm{Viés}(T,g(\theta)) &= E_\theta(T(\boldsymbol{X})) - g(\theta) \\
+&= \frac{1}{n} E_\theta[\sum^n_{i=1}(X_i - \bar{X})^2] - g(\theta) \\
+&= \frac{1}{n} E_\theta[\sum^n_{i=1} X_i^2 - 2\bar{X} \sum^n_{i=1}X_i + n\bar{X}^2] - g(\theta) \\
+&= \frac{1}{n} E_\theta[\sum^n_{i=1} X_i^2 - 2n\bar{X}^2 + n\bar{X}^2] - g(\theta) \\
+&= \frac{1}{n} E_\theta[\sum^n_{i=1} X_i^2 - n\bar{X}^2] - g(\theta) \\
+&= \frac{1}{n} \left(\sum^n_{i=1} E_\theta(X_i^2) - nE_\theta(\bar{X}^2)\right) - g(\theta) \\
+&= \frac{1}{n} \left[\sum^n_{i=1} (\mathrm{Var}_\theta(X_i) + E_\theta(X_i)^2) - nE_\theta(\bar{X}^2)\right] - g(\theta) \\
+&= \frac{1}{n} \left[\sum^n_{i=1} \mathrm{Var}_\theta(X_i) + E_\theta(X_i)^2 - n\left(\frac{\mathrm{Var}_\theta(X)}{n} + E_\theta(X)^2\right)\right] - g(\theta) \\
+&\stackrel{id. dist.}{=} \frac{1}{n} \left[n \mathrm{Var}_\theta(X) + nE_\theta(X)^2 - \mathrm{Var}_\theta(X) - n E_\theta(X_i)^2\right] - g(\theta) \\
+&= \frac{(n-1) \mathrm{Var}_\theta(X)}{n} - \mathrm{Var}_\theta(X) \\
+&= -\frac{\mathrm{Var}_\theta(X)}{n}
+\end{aligned}
+$$ {#eq-viesvar}
+
+Para, por exemplo, $X \sim \mathrm{Poisson}(\theta)$,
+
+$$
+\mathrm{Viés}(T,g(\theta)) = - \frac{\theta}{n}, \forall \theta \in \Theta.
+$$
+
+Disso, temos que este estimador subestima, em média, a variância real.
+
+:::{.callout-note}
+Segue dos cálculos acima que este é um estimador *enviesado* para a variância.
+Este pode ser um resultado um pouco surpreendente, já que é um estimador natural
+para esta, uma vez que é similar a como calculamos a variância no cálculo de
+probabilidades.
+
+De fato, este, apesar de enviesado, é um estimador importante. Estudaremos mais
+sobre ele quando falarmos de [estimadores de máxima verossimilhança](emv.qmd).
+:::
+
+Podemos facilmente obter um estimador não enviesado para a variância a partir dos resultados anteriores.
+Reescrevemos a penúltima linha da @eq-viesvar:
+
+$$
+\mathrm{Viés}(T,g(\theta)) = \frac{(n-1) \mathrm{Var}_\theta(X)}{n} - \mathrm{Var}_\theta(X)
+$$
+
+Se conseguirmos igualar, através de uma transformação, $\frac{(n-1) \mathrm{Var}_\theta(X)}{n}$ com $g(\theta) = \mathrm{Var}_\theta(X)$,
+teremos um viés de 0.
+
+Para isso, basta multiplicar o estimador por $\frac{n}{n-1}$:
+$$
+s^2 = \frac{n}{n-1}T(X) = \frac{1}{n-1} \sum^n_{i=1} (X_i - \bar{X})^2
+$$
+
+Seguindo os cálculos como antes, chegamos em:
+$$
+\begin{aligned}
+\mathrm{Viés}(s^2,g(\theta)) &= \frac{(n-1) \mathrm{Var}_\theta(X)}{n-1} - \mathrm{Var}_\theta(X) \\
+&= \mathrm{Var}_\theta(X) - \mathrm{Var}_\theta(X) = 0, \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+$s^2$ é, portanto, o estimador não enviesado para a variância de $X$.
+Este estimador é também conhecido como a variância amostral.
+$T$, normalmente escrito como $s^2_n$ é conhecido como o estimador para variância populacional.
+
+Para comparar $s^2$ com $s^2_n$, tente calcular o EQM.
+O que você observa? O estimador não enviesado apresenta menor EQM?
+Por quê?
+
+## Exemplo do EQM da média
 Seja $(X_{1},\dots,X_{n})$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa), ou seja, independentes e 
 identicamente distribuídas (i.i.d.), de $X\sim \mathrm{Ber}(\theta)$ em que $\theta \in \Theta = (0,1)$.
 Calcule o viés e o EQM de $\bar{X}_{n}$ com respeito a $g(\theta)=P_\theta(X=1)$
@@ -76,53 +154,3 @@ $$
 \end{aligned}
 $$
 
-## Exemplo para variância {#sec-ex-eqmvar}
-
-Seja $\boldsymbol{X} = (X_{1},\dots,X_{n})$ uma amostra aleatória de
-$X\sim f(\theta), \theta \in \Theta$.
-Calcule o viés e o EQM de $T(\boldsymbol{X})$ com respeito a $g(\theta)=\mathrm{Var}(\theta)$ em
-que
-$$
-T(\boldsymbol{X}) = \frac{1}{n} \sum^n_{i=1} (X_i - \bar{X})^2
-$$
-
-é um estimador para a variância de $X$.
-
-### Resolução
-Iniciaremos calculando o viés do estimador.
-
-$$
-\begin{aligned}
-\mathrm{Viés}(T,g(\theta)) &= E_\theta(T(\boldsymbol{X})) - g(\theta) \\
-&= \frac{1}{n} \sum^{n}_{i=1} E_\theta[(X_i) - \bar{X)^2] - \mathrm{Var}_\theta(X) \\
-&= \frac{1}{n} \sum^n_{i=1} \mathrm{Var}_\theta(X) - \mathrm{Var}_\theta(X) \\
-&= 1 - \mathrm{Var}_\theta(X), \forall \theta \in \Theta.
-\end{aligned}
-$$
-
-Para, por exemplo, $X \sim \mathrm{Poisson}(\theta)$,
-
-$$
-\mathrm{Viés}(T,g(\theta)) &= 1 - \theta, \forall \theta \in \Theta.
-$$
-
-:::{.callout-note}
-Disso, temos que este é um estimador *viesado* para a variância.
-Este pode ser um resultado um pouco surpreendente, já que é um estimador natural
-para esta, uma vez que é similar a como calculamos a variância no cálculo de
-probabilidades.
-
-De fato, este, apesar de viesado, é um estimador importante. Estudaremos mais
-sobre ele quando falarmos de [estimadores de máxima verossimilhança](emv.qmd)
-:::
-
-Com o viés, basta calcular sua variância para obtermos o EQM:
-
-$$
-\begin{aligned}
-\mathrm{EQM}(T, g(\theta)) &= \mathrm{Var}_\theta(T(\boldsymbol{X})) - \mathrm{Viés}(T,g(\theta)) \\
-
-\end{aligned}
-$$
-
-## Exemplo não viesado para a variância
