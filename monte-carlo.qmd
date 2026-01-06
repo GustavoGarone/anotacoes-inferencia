@@ -1,5 +1,4 @@
 ```{julia}
-using Pkg; Pkg.add(["PythonCall", "RCall", "Distributions", "Statistics"])
 using PythonCall, RCall
 ```
 # Simulações de Monte Carlo
@@ -33,8 +32,8 @@ Contudo, por ser relativamente nova, carece de alguns recursos importantes para
 estatística aplicada,
 por isso, fornecemos implementações dos algoritmos em `Python` e `R`.
 ```{julia}
-#| output: true
-using Distributions, Statistics, Random
+#| echo: true
+using Distributions, Statistics, Random, Printf
 Random.seed!(123)
 
 """
@@ -45,20 +44,32 @@ Random.seed!(123)
   exibe no final a média dessas estimativas. Espera-se que se aproximem de theta0
 """
 function simula_montecarlo(theta0, M, n, corrigido = false)
-  X = [zeros(M), zeros(M)] # Inicializa vetor com dois vetores de tamanho M vazios
-  # Inicializa um vetor que receberá as amostras de tamanho n a cada iteração
-  # Ao inicializarmos o vetor previamente, evitamos alocações desnecessárias.
-  amostra = zeros(n)
-  for i in 1:M # a:b representa um intervalo de a até b inclusivo.
-    rand!(Poisson(theta0), amostra) # Funções terminadas em ! são mutadoras.
-    X[1][i] = mean(amostra)
-    X[2][i] = var(amostra, corrected = corrigido) # Corrected divide por n-1
-  end
-  println("=============================")
-  println("M: $M, n: $n, corrigido: $corrigido")
-  println("Valor de theta0: $theta0")
-  println("Média estimada: $(mean(X[1]))")
-  println("Variância estimada: $(mean(X[2]))")
+    # Inicializa os vetores que receberão as estimativas a cada iteração
+    # Ao inicializarmos o vetor previamente, evitamos alocações desnecessárias.
+    estimativas_mean = zeros(M)
+    estimativas_var  = zeros(M)
+
+    # Inicializa o vetor das amostras
+    amostra = zeros(n)
+    dist = Poisson(theta0)
+
+    for i in 1:M
+        rand!(dist, amostra) # Funções termindas em i são mutadoras
+        estimativas_mean[i] = mean(amostra)
+        estimativas_var[i]  = var(amostra, corrected = corrigido) # Corrected = true divide por n-1.
+    end
+
+    m_esperada = mean(estimativas_mean)
+    v_esperada = mean(estimativas_var)
+    vies_observado = v_esperada - theta0
+    vies_teorico = corrigido ? 0.0 : -theta0/n # O ? é o operador de tersor, como um if.
+    println("\n" * "="^30)
+    @printf("Config: M=%d, n=%d, Corrigido=%s\n", M, n, corrigido)
+    @printf("Theta real (θ): %.2f\n", theta0)
+    @printf("Média das Médias:  %.4f (Erro: %.4f)\n", m_esperada, m_esperada - theta0)
+    @printf("Média das Vars:    %.4f\n", v_esperada)
+    @printf("Viés Observado:    %.4f\n", vies_observado)
+    @printf("Viés Teórico:      %.4f\n", vies_teorico)
 end
 
 simula_montecarlo(2, 10_000, 50)
@@ -68,17 +79,88 @@ simula_montecarlo(2, 10_000, 50, true)
 
 ## Python
 ```{python}
-#| output: false
+# O NumPy é uma biblioteca indispensável para computação matemática no Python.
+import numpy as np
+np.random.seed(123)
 
+def simula_montecarlo(theta0, M, n, corrigido=False):
+    # Inicializa os vetores que receberão as estimativas
+    estimativas_mean = np.zeros(M)
+    estimativas_var  = np.zeros(M)
 
+    # No NumPy, o parâmetro global  'ddof' (Delta Degrees of Freedom) 
+    # controla o denominador para var() e sd(). ddof=1 divide por n-1, ddof=0 divide por n.
+    correcao = 1 if corrigido else 0
+
+    for i in range(M):
+        # Gera a amostra de tamanho n de uma poisson de parâmetro theta0
+        amostra = np.random.poisson(theta0, n)
+        
+        estimativas_mean[i] = np.mean(amostra)
+        estimativas_var[i]  = np.var(amostra, ddof = correcao)
+
+    m_esperada = np.mean(estimativas_mean)
+    v_esperada = np.mean(estimativas_var)
+    vies_observado = v_esperada - theta0
+    
+    vies_teorico = 0.0 if corrigido else -theta0 / n
+
+    print("\n" + "=" * 30)
+    print(f"Config: M={M}, n={n}, Corrigido={corrigido}")
+    print(f"Theta real (θ): {theta0:.2f}")
+    print(f"Média das Médias:  {m_esperada:.4f} (Erro: {m_esperada - theta0:.4f})")
+    print(f"Média das Vars:    {v_esperada:.4f}")
+    print(f"Viés Observado:    {vies_observado:.4f}")
+    print(f"Viés Teórico:      {vies_teorico:.4f}")
+
+simula_montecarlo(2, 10_000, 50)
+simula_montecarlo(2, 10_000, 1000)
+simula_montecarlo(2, 10_000, 50, corrigido=True)
 ```
 
 ## R
 
 ```{r}
-#| output: true
-simula_montecarlo <- function() {
+set.seed(123)
+
+simula_montecarlo <- function(theta0, M, n, corrigido = FALSE) {
   
+  # Pré-alocação de vetores: exatamente como o X = [zeros(M), zeros(M)]
+  medias <- numeric(M)
+  vars   <- numeric(M)
+  
+  for (i in 1:M) {
+    # rpois gera a amostra de uma distribuição poisson de parâmetro lambda
+    amostra <- rpois(n, lambda = theta0)
+    
+    medias[i] <- mean(amostra)
+    
+    # var() no R é a corrigida (n-1). 
+    # Se corrigido = FALSE, ajustamos para a populacional (n).
+    v <- var(amostra)
+    if (!corrigido) {
+      v <- v * (n - 1) / n
+    }
+    vars[i] <- v
+  }
+  
+  m_esperada     <- mean(medias)
+  v_esperada     <- mean(vars)
+  vies_observado <- v_esperada - theta0
+  vies_teorico   <- if (corrigido) 0 else -theta0 / n
+
+  cat("\n", strrep("=", 30), "\n", sep = "")
+  cat(sprintf("Config: M=%d, n=%d, Corrigido=%s\n", M, n, as.character(corrigido)))
+  cat(sprintf("Theta real (theta): %.2f\n", theta0))
+  cat(sprintf("Média das Médias:  %.4f (Erro: %.4f)\n", m_esperada, m_esperada - theta0))
+  cat(sprintf("Média das Vars:    %.4f\n", v_esperada))
+  cat(sprintf("Viés Observado:    %.4f\n", vies_observado))
+  cat(sprintf("Viés Teórico:      %.4f\n", vies_teorico))
 }
+
+# Chamadas originais
+simula_montecarlo(2, 10000, 50)
+simula_montecarlo(2, 10000, 1000)
+simula_montecarlo(2, 10000, 50, corrigido = TRUE)
 ```
 :::
