@@ -3,8 +3,6 @@ lang: pt
 project:
   type: book
 engines: [julia]
-julia:
-  env: ["QT_QPA_PLATFORM=xcb", "QT_STYLE_OVERRIDE=Fusion"]
 execute:
   echo: false
   warning: false

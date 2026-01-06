@@ -1,3 +1,7 @@
+```{julia}
+using Pkg; Pkg.add(["PythonCall", "RCall", "Distributions", "Statistics"])
+using PythonCall, RCall
+```
 # Simulações de Monte Carlo
 Tem como objetivo replicar artificialmente os dados de um [modelo estatístico](modelo-estatistico.qmd) para estudar o 
 comportamento de [estatísticas](estatisticas.qmd) e [estimadores](estimadores.qmd) (ou qualquer procedimento estatístico)
@@ -10,5 +14,71 @@ $X\sim f_{\theta,}\theta \in \Theta$.
 4. Armazene a amostra observada
 5. Repita 3. e 4. $M=10000$ vezes (ou quantas vezes desejar, a depender do caso)
 
-<!-- TODO: Colocar exemplo com código em R, Python e julia -->
+## Exemplo
 
+Vamos estudar o comportamento do estimador para a variância.
+Como estudamos no últio capítulo sobre víes, vimos no [exemplo](eqm-e-vies.qmd#sec-ex-eqmvar)
+que o estimador para a variância é viesado e que, por isso, usamos o estimador corrigido.
+
+Vamos testar esses estimadores por simulação pelo método de Monte Carlo para
+entendermos a necessidade de correção.
+
+
+::: panel-tabset
+## Julia
+`Julia` é uma linguagem de programação voltada para computação científica (CTEM).
+É caracterizada por sua velocidade (comparável ao `C`) e sintaxe simples.
+É a linguagem de programação favorecida por este livrete.
+Contudo, por ser relativamente nova, carece de alguns recursos importantes para
+estatística aplicada,
+por isso, fornecemos implementações dos algoritmos em `Python` e `R`.
+```{julia}
+#| output: true
+using Distributions, Statistics, Random
+Random.seed!(123)
+
+"""
+  simula_montecarlo(theta0, M, n)
+
+  Seja Xn a.a. de X sim Poisson(theta), theta > 0,
+  gera M amostras aleatórias de tamanho n e armazena suas médias e variâncias
+  exibe no final a média dessas estimativas. Espera-se que se aproximem de theta0
+"""
+function simula_montecarlo(theta0, M, n, corrigido = false)
+  X = [zeros(M), zeros(M)] # Inicializa vetor com dois vetores de tamanho M vazios
+  # Inicializa um vetor que receberá as amostras de tamanho n a cada iteração
+  # Ao inicializarmos o vetor previamente, evitamos alocações desnecessárias.
+  amostra = zeros(n)
+  for i in 1:M # a:b representa um intervalo de a até b inclusivo.
+    rand!(Poisson(theta0), amostra) # Funções terminadas em ! são mutadoras.
+    X[1][i] = mean(amostra)
+    X[2][i] = var(amostra, corrected = corrigido) # Corrected divide por n-1
+  end
+  println("=============================")
+  println("M: $M, n: $n, corrigido: $corrigido")
+  println("Valor de theta0: $theta0")
+  println("Média estimada: $(mean(X[1]))")
+  println("Variância estimada: $(mean(X[2]))")
+end
+
+simula_montecarlo(2, 10_000, 50)
+simula_montecarlo(2, 10_000, 1000)
+simula_montecarlo(2, 10_000, 50, true)
+```
+
+## Python
+```{python}
+#| output: false
+
+
+```
+
+## R
+
+```{r}
+#| output: true
+simula_montecarlo <- function() {
+  
+}
+```
+:::

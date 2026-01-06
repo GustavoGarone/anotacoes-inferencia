@@ -1,5 +1,5 @@
 {
-  description = "Flake for R development";
+  description = "Flake for quarto development";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
@@ -11,9 +11,16 @@
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
+      pythonEnv = pkgs.python313.withPackages (ps:
+        with ps; [
+          numpy
+          pandas
+          matplotlib
+        ]);
+      # Extract the site-packages path directly in Nix
+      pythonPath = "${pythonEnv}/${pkgs.python313.sitePackages}";
     in {
       devShells.default = pkgs.mkShell {
-        nativeBuildInputs = [pkgs.bashInteractive];
         buildInputs = with pkgs; [
           R
           rPackages.ggplot2
@@ -23,32 +30,45 @@
           rPackages.broom
           rPackages.kableExtra
           rPackages.languageserver
-          blas
-          julia
-          curl
-          gcc
-          gfortran
-          gfortran.cc.lib
-          (python313.withPackages (ppkgs: [
-            ppkgs.pynvim
-            ppkgs.numpy
-            ppkgs.pandas
-            ppkgs.matplotlib
-            ppkgs.seaborn
-            ppkgs.flake8
-            ppkgs.scipy
-            ppkgs.black
-            ppkgs.mdformat
-            ppkgs.isort
-            ppkgs.jupyter
-            ppkgs.ipykernel
-            ppkgs.jupyter-cache
-          ]))
+          quarto
+          julia-bin
+          pythonEnv
         ];
+
+        # Export these so direnv picks them up automatically
+        R_HOME = "${pkgs.R}/lib/R";
+        LIBR = "${pkgs.R}/lib/R/lib/libR.so";
+        PYTHONPATH = pythonPath;
+        JULIA_PYTHONCALL_EXE = "${pythonEnv}/bin/python";
+        JULIA_CONDAPKG_BACKEND = "Null";
+
         shellHook = ''
-          export LD_LIBRARY_PATH="${pkgs.gfortran.cc.lib}/lib"
-          export R_REMOTES_NO_ERRORS_FROM_WARNINGS="TRUE"
-          export QT_STYLE_OVERRIDE="Fusion"
+          # Update Julia Preferences automatically so RCall works properly
+          julia --project=. -e '
+            using Pkg, Preferences
+            set_preferences!(Pkg.Types.UUID("6f49c342-dc21-5d91-9882-a32aef131414"), "Rhome" => "'$R_HOME'", "libR" => "'$LIBR'", force = true)
+            set_preferences!(Pkg.Types.UUID("6099a3de-0909-46bc-b1f4-468b9a2dfc0d"), "python" => "'$JULIA_PYTHONCALL_EXE'", force = true)
+          '
+
+          # Create a CLEAN _environment file for Quarto
+          echo "PYTHONPATH=$PYTHONPATH" > _environment
+          echo "R_HOME=$R_HOME" >> _environment
+          echo "LIBR=$LIBR" >> _environment
+          echo "JULIA_PYTHONCALL_EXE=$JULIA_PYTHONCALL_EXE" >> _environment
+          echo "JULIA_CONDAPKG_BACKEND=Null" >> _environment
+
+          # Create a YAML fragment with the Nix paths
+          cat <<EOF > _metadata.yml
+          julia:
+              env:
+                  - "PYTHONPATH=$PYTHONPATH"
+                  - "JULIA_PYTHONCALL_EXE=$JULIA_PYTHONCALL_EXE"
+                  - "JULIA_CONDAPKG_BACKEND=Null"
+                  - "R_HOME=$R_HOME"
+                  - "LIBR=$LIBR"
+                  - "QT_QPA_PLATFORM=xcb"
+                  - "QT_STYLE_OVERRIDE=Fusion"
+          EOF
         '';
       };
     });

@@ -42,10 +42,12 @@ $$
 \mathrm{EQM}(T,g(\theta)) = \mathrm{Var}_\theta(T(X_{1},\dots,X_{n})) + [\mathrm{Viés}(T(X_1,\dots,X_n),g(\theta))]^{2}
 $$
 
-## Exemplo
+## Exemplo para média
 Seja $(X_{1},\dots,X_{n})$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa), ou seja, independentes e 
 identicamente distribuídas (i.i.d.), de $X\sim \mathrm{Ber}(\theta)$ em que $\theta \in \Theta = (0,1)$.
 Calcule o viés e o EQM de $\bar{X}_{n}$ com respeito a $g(\theta)=P_\theta(X=1)$
+
+### Resolução
 
 O estimador é, então, $T(X_{1},\dots,X_{n})=\bar{X}_{n}= \frac{X_{1}+\dots+X_{n}}{n}$ para $g(\theta)=P_\theta(X=1)=\theta$
 (pelo [modelo de Bernoulli](modelo-estatistico.qmd#sec-modelobernoulli)).
@@ -74,3 +76,53 @@ $$
 \end{aligned}
 $$
 
+## Exemplo para variância {#sec-ex-eqmvar}
+
+Seja $\boldsymbol{X} = (X_{1},\dots,X_{n})$ uma amostra aleatória de
+$X\sim f(\theta), \theta \in \Theta$.
+Calcule o viés e o EQM de $T(\boldsymbol{X})$ com respeito a $g(\theta)=\mathrm{Var}(\theta)$ em
+que
+$$
+T(\boldsymbol{X}) = \frac{1}{n} \sum^n_{i=1} (X_i - \bar{X})^2
+$$
+
+é um estimador para a variância de $X$.
+
+### Resolução
+Iniciaremos calculando o viés do estimador.
+
+$$
+\begin{aligned}
+\mathrm{Viés}(T,g(\theta)) &= E_\theta(T(\boldsymbol{X})) - g(\theta) \\
+&= \frac{1}{n} \sum^{n}_{i=1} E_\theta[(X_i) - \bar{X)^2] - \mathrm{Var}_\theta(X) \\
+&= \frac{1}{n} \sum^n_{i=1} \mathrm{Var}_\theta(X) - \mathrm{Var}_\theta(X) \\
+&= 1 - \mathrm{Var}_\theta(X), \forall \theta \in \Theta.
+\end{aligned}
+$$
+
+Para, por exemplo, $X \sim \mathrm{Poisson}(\theta)$,
+
+$$
+\mathrm{Viés}(T,g(\theta)) &= 1 - \theta, \forall \theta \in \Theta.
+$$
+
+:::{.callout-note}
+Disso, temos que este é um estimador *viesado* para a variância.
+Este pode ser um resultado um pouco surpreendente, já que é um estimador natural
+para esta, uma vez que é similar a como calculamos a variância no cálculo de
+probabilidades.
+
+De fato, este, apesar de viesado, é um estimador importante. Estudaremos mais
+sobre ele quando falarmos de [estimadores de máxima verossimilhança](emv.qmd)
+:::
+
+Com o viés, basta calcular sua variância para obtermos o EQM:
+
+$$
+\begin{aligned}
+\mathrm{EQM}(T, g(\theta)) &= \mathrm{Var}_\theta(T(\boldsymbol{X})) - \mathrm{Viés}(T,g(\theta)) \\
+
+\end{aligned}
+$$
+
+## Exemplo não viesado para a variância

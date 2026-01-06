@@ -1,10 +1,16 @@
 *.html
 *.tex
+/env/
 /.cache/
 _book/
 quarto/
 /.quarto/
-index_files/
+*_files/
 site_libs/
 .conform*
 .direnv
+.CondaPkg/
+_metadata.yml
+LocalPreferences.toml
+_environment
+**/*.quarto_ipynb
