@@ -1,8 +1,3 @@
-```{julia}
-#| output: false
-using Pkg; Pkg.add(["Distributions", "Plots", "StatsPlots", "LaTeXStrings"])
-ENV["QT_STYLE_OVERRIDE"] = "Fusion"
-```
 # Teste de Hipótese simples
 
 Um dos principais objetivos da estática é testar hipóteses. Veja algumas dessas hipóteses potenciais:

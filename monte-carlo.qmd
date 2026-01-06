@@ -1,4 +1,5 @@
 ```{julia}
+#| output: false
 using PythonCall, RCall
 ```
 # Simulações de Monte Carlo
@@ -33,7 +34,7 @@ estatística aplicada,
 por isso, fornecemos implementações dos algoritmos em `Python` e `R`.
 ```{julia}
 #| echo: true
-using Distributions, Statistics, Random, Printf
+using Distributions, StatsBase, Random, Printf
 Random.seed!(123)
 
 """

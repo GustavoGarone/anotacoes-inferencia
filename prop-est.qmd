@@ -1,8 +1,3 @@
-```{julia}
-#| output: false
-using Pkg; Pkg.add(["Distributions", "Plots", "StatsPlots", "StatsBase", "LaTeXStrings"])
-ENV["QT_STYLE_OVERRIDE"] = "Fusion"
-```
 # Propriedades dos estimadores de máxima verossimilhança e de momentos
 
 ## Teorema (da invariância do EMV) {#sec-invaremv}

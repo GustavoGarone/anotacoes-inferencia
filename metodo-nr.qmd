@@ -2,9 +2,7 @@
 
 ```{julia}
 #| output: false
-using Pkg; Pkg.add(["SpecialFunctions", "Distributions", "Plots", "RCall", "PythonCall"])
 using RCall, PythonCall
-ENV["QT_STYLE_OVERRIDE"] = "Fusion"
 ```
 
 Nem sempre existem soluções fechadas para [estimadores de máxima verossimilhança](emv2.qmd) ou obtidos pelo [método de
