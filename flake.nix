@@ -1,7 +1,7 @@
 {
   description = "Flake for quarto development";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     flake-utils.url = "github:numtide/flake-utils";
   };
   outputs = {
@@ -32,6 +32,14 @@
           biber
           ;
       };
+      patchedQuarto = pkgs.quarto.overrideAttrs (oldAttrs: {
+        postPatch =
+          (oldAttrs.postPatch or "")
+          + ''
+            substituteInPlace bin/quarto.js \
+              --replace-fail "syntax-highlighting" "highlight-style"
+          '';
+      });
 
       # Extract the site-packages path directly in Nix
       pythonPath = "${pythonEnv}/${pkgs.python313.sitePackages}";
@@ -49,7 +57,7 @@
           rPackages.broom
           rPackages.kableExtra
           rPackages.languageserver
-          quarto
+          patchedQuarto
           my-tex
           julia-bin
           pythonEnv
