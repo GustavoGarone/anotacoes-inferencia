@@ -1,5 +1,6 @@
 *.html
 *.tex
+*.log
 /env/
 /.cache/
 _book/

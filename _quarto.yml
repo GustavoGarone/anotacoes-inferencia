@@ -1,10 +1,9 @@
 ---
-lang: pt
+lang: pt-BR
 project:
   type: book
 engines: [julia]
 execute:
-  echo: false
   warning: false
   cache: true
 filters:

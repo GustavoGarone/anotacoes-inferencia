@@ -1,7 +1,7 @@
 {
   description = "Flake for quarto development";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     flake-utils.url = "github:numtide/flake-utils";
   };
   outputs = {
@@ -14,9 +14,25 @@
       pythonEnv = pkgs.python313.withPackages (ps:
         with ps; [
           numpy
+          scipy
           pandas
           matplotlib
+          ipython
         ]);
+      my-tex = pkgs.texlive.combine {
+        inherit
+          (pkgs.texlive)
+          scheme-small
+          framed
+          lualatex-math
+          collection-latexextra
+          collection-luatex
+          collection-langportuguese
+          collection-fontsrecommended
+          biber
+          ;
+      };
+
       # Extract the site-packages path directly in Nix
       pythonPath = "${pythonEnv}/${pkgs.python313.sitePackages}";
     in {
@@ -24,6 +40,9 @@
         buildInputs = with pkgs; [
           R
           rPackages.ggplot2
+          rPackages.gganimate
+          rPackages.gifski # Dependency for animation
+          rPackages.png # Dependecy
           rPackages.GGally
           rPackages.dplyr
           rPackages.tidyr
@@ -31,6 +50,7 @@
           rPackages.kableExtra
           rPackages.languageserver
           quarto
+          my-tex
           julia-bin
           pythonEnv
         ];

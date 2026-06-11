@@ -90,7 +90,7 @@ $$
 \theta^{(j+1)} = \theta^{(j)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j)})}{U'_n(\boldsymbol{x}_n, \theta^{(j)})}
 $$
 
-::: panel-tabset
+::: {.panel-tabset}
 #### Julia
 ```{julia}
 #| echo: true
@@ -141,7 +141,6 @@ cat("Teste R")
 dados <- c(1, 2, 3, 4, 5)
 plot(dados)
 ```
-
 :::
 
 Note que, se $U'_n(\pmb{x}_n, \hat{\theta}^{(j+1)}) < 0$, a estimativa $\hat{\theta}^{(j+1)}$ será a de MV.

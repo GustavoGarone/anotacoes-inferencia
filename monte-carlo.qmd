@@ -24,8 +24,8 @@ Vamos testar esses estimadores por simulação pelo método de Monte Carlo para
 entendermos a necessidade de correção.
 
 
-::: panel-tabset
-## Julia
+::: {.panel-tabset}
+### Julia
 [`Julia`](https://julialang.org) é uma linguagem de programação voltada para computação científica (CTEM).
 É caracterizada por sua velocidade (comparável ao [`C`](https://www.c-language.org/)) e sintaxe simples.
 É a linguagem de programação favorecida por este livrete.
@@ -78,7 +78,7 @@ simula_montecarlo(2, 10_000, 1000)
 simula_montecarlo(2, 10_000, 50, true)
 ```
 
-## Python
+### Python
 [`Python`](https://python.org) é uma linguagem de programação de uso geral.
 É extremamente popular por sua sintaxe simples e curva de aprendizado amigável.
 Dessa popularidade, destaca-se pelo seu ecossistema rico, contando com pacotes
@@ -124,7 +124,7 @@ simula_montecarlo(2, 10_000, 1000)
 simula_montecarlo(2, 10_000, 50, corrigido=True)
 ```
 
-## R
+### R
 [`R`](https://www.r-project.org) é uma linguagem de programação voltada para a estatística e ciência de dados.
 É a sucessora da antes dominante `S`,
 por isso, e por ser fortemente influenciada pela filosofia [`GNU`](https://www.gnu.org/),
