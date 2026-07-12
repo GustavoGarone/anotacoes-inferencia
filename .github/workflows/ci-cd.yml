@@ -1,0 +1,41 @@
+name: deploy
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Install Julia
+        uses: julia-actions/setup-julia@v3
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v6
+
+      - name: Render
+        uses: quarto-dev/quarto-actions/render@v2
+        with:
+          to: _book
+
+      - name: Publish
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }}
+          TARGET: ${{ secrets.REMOTE_PATH }}
+          SOURCE: "_book/"
+          ARGS: "-rlgoDzvc --delete"

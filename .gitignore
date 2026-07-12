@@ -6,3 +6,6 @@ quarto/
 /.quarto/
 index_files/
 site_libs/
+.direnv/
+*files*
+_metadata.yml
