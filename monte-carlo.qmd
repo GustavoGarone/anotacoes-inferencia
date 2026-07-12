@@ -1,3 +1,7 @@
+```{julia}
+#| output: false
+using PythonCall, RCall
+```
 # Simulações de Monte Carlo
 Tem como objetivo replicar artificialmente os dados de um [modelo estatístico](modelo-estatistico.qmd) para estudar o 
 comportamento de [estatísticas](estatisticas.qmd) e [estimadores](estimadores.qmd) (ou qualquer procedimento estatístico)
@@ -10,5 +14,164 @@ $X\sim f_{\theta,}\theta \in \Theta$.
 4. Armazene a amostra observada
 5. Repita 3. e 4. $M=10000$ vezes (ou quantas vezes desejar, a depender do caso)
 
-<!-- TODO: Colocar exemplo com código em R, Python e julia -->
+## Exemplo
 
+Vamos estudar o comportamento do estimador para a variância.
+Como estudamos no últio capítulo sobre víes, vimos no [exemplo](eqm-e-vies.qmd#sec-ex-eqmvar)
+que o estimador para a variância é viesado e que, por isso, usamos o estimador corrigido.
+
+Vamos testar esses estimadores por simulação pelo método de Monte Carlo para
+entendermos a necessidade de correção.
+
+
+::: {.panel-tabset}
+### Julia
+[`Julia`](https://julialang.org) é uma linguagem de programação voltada para computação científica (CTEM).
+É caracterizada por sua velocidade (comparável ao [`C`](https://www.c-language.org/)) e sintaxe simples.
+É a linguagem de programação favorecida por este livrete.
+Contudo, por ser relativamente nova, carece de alguns recursos importantes para
+estatística aplicada,
+por isso, fornecemos implementações dos algoritmos em [`Python`](https://python.org) e [`R`](https://www.r-project.org).
+```{julia}
+#| echo: true
+using Distributions, StatsBase, Random, Printf
+Random.seed!(123)
+
+"""
+  simula_montecarlo(theta0, M, n)
+
+  Seja Xn a.a. de X sim Poisson(theta), theta > 0,
+  gera M amostras aleatórias de tamanho n e armazena suas médias e variâncias
+  exibe no final a média dessas estimativas. Espera-se que se aproximem de theta0
+"""
+function simula_montecarlo(theta0, M, n, corrigido = false)
+    # Inicializa os vetores que receberão as estimativas a cada iteração
+    # Ao inicializarmos o vetor previamente, evitamos alocações desnecessárias.
+    estimativas_mean = zeros(M)
+    estimativas_var  = zeros(M)
+
+    # Inicializa o vetor das amostras
+    amostra = zeros(n)
+    dist = Poisson(theta0)
+
+    for i in 1:M
+        rand!(dist, amostra) # Funções termindas em i são mutadoras
+        estimativas_mean[i] = mean(amostra)
+        estimativas_var[i]  = var(amostra, corrected = corrigido) # Corrected = true divide por n-1.
+    end
+
+    m_esperada = mean(estimativas_mean)
+    v_esperada = mean(estimativas_var)
+    vies_observado = v_esperada - theta0
+    vies_teorico = corrigido ? 0.0 : -theta0/n # O ? é o operador de tersor, como um if.
+    println("\n" * "="^30)
+    @printf("Config: M=%d, n=%d, Corrigido=%s\n", M, n, corrigido)
+    @printf("Theta real (θ): %.2f\n", theta0)
+    @printf("Média das Médias:  %.4f (Erro: %.4f)\n", m_esperada, m_esperada - theta0)
+    @printf("Média das Vars:    %.4f\n", v_esperada)
+    @printf("Viés Observado:    %.4f\n", vies_observado)
+    @printf("Viés Teórico:      %.4f\n", vies_teorico)
+end
+
+simula_montecarlo(2, 10_000, 50)
+simula_montecarlo(2, 10_000, 1000)
+simula_montecarlo(2, 10_000, 50, true)
+```
+
+### Python
+[`Python`](https://python.org) é uma linguagem de programação de uso geral.
+É extremamente popular por sua sintaxe simples e curva de aprendizado amigável.
+Dessa popularidade, destaca-se pelo seu ecossistema rico, contando com pacotes
+para aplicações diversas, para além da área de estatítisca e ciência de dados.
+```{python}
+# O NumPy é uma biblioteca indispensável para computação matemática no Python.
+import numpy as np
+np.random.seed(123)
+
+def simula_montecarlo(theta0, M, n, corrigido=False):
+    # Inicializa os vetores que receberão as estimativas
+    estimativas_mean = np.zeros(M)
+    estimativas_var  = np.zeros(M)
+
+    correcao = 1 if corrigido else 0
+
+    for i in range(M):
+        # Gera a amostra de tamanho n de uma poisson de parâmetro theta0
+        amostra = np.random.poisson(theta0, n)
+        
+        estimativas_mean[i] = np.mean(amostra)
+        # No NumPy, o parâmetro 'ddof' (Delta Degrees of Freedom) 
+        # controla o denominador para var() e sd().
+        # ddof=1 divide por n-1, ddof=0 divide por n.
+        estimativas_var[i]  = np.var(amostra, ddof = correcao)
+
+    m_esperada = np.mean(estimativas_mean)
+    v_esperada = np.mean(estimativas_var)
+    vies_observado = v_esperada - theta0
+    
+    vies_teorico = 0.0 if corrigido else -theta0 / n
+
+    print("\n" + "=" * 30)
+    print(f"Config: M={M}, n={n}, Corrigido={corrigido}")
+    print(f"Theta real (θ): {theta0:.2f}")
+    print(f"Média das Médias:  {m_esperada:.4f} (Erro: {m_esperada - theta0:.4f})")
+    print(f"Média das Vars:    {v_esperada:.4f}")
+    print(f"Viés Observado:    {vies_observado:.4f}")
+    print(f"Viés Teórico:      {vies_teorico:.4f}")
+
+simula_montecarlo(2, 10_000, 50)
+simula_montecarlo(2, 10_000, 1000)
+simula_montecarlo(2, 10_000, 50, corrigido=True)
+```
+
+### R
+[`R`](https://www.r-project.org) é uma linguagem de programação voltada para a estatística e ciência de dados.
+É a sucessora da antes dominante `S`,
+por isso, e por ser fortemente influenciada pela filosofia [`GNU`](https://www.gnu.org/),
+é a linguagem de programação dominante para estatística na academia.
+Dessa forma, possui um ecossistema ainda mais rico que o `Python` para a estatística, com implementação de diversos
+modelos de ponta.
+```{r}
+set.seed(123)
+
+simula_montecarlo <- function(theta0, M, n, corrigido = FALSE) {
+  
+  # Pré-alocação de vetores: exatamente como o X = [zeros(M), zeros(M)]
+  medias <- numeric(M)
+  vars   <- numeric(M)
+  
+  for (i in 1:M) {
+    # rpois gera a amostra de uma distribuição poisson de parâmetro lambda
+    amostra <- rpois(n, lambda = theta0)
+    
+    medias[i] <- mean(amostra)
+    
+    # var() no R é a corrigida (n-1). 
+    # Se corrigido = FALSE, ajustamos para a populacional (n).
+    v <- var(amostra)
+    if (!corrigido) {
+      v <- v * (n - 1) / n
+    }
+    vars[i] <- v
+  }
+  
+  m_esperada     <- mean(medias)
+  v_esperada     <- mean(vars)
+  vies_observado <- v_esperada - theta0
+  vies_teorico   <- if (corrigido) 0 else -theta0 / n
+
+  cat("\n", strrep("=", 30), "\n", sep = "")
+  cat(sprintf("Config: M=%d, n=%d, Corrigido=%s\n", M, n, as.character(corrigido)))
+  cat(sprintf("Theta real (theta): %.2f\n", theta0))
+  cat(sprintf("Média das Médias:  %.4f (Erro: %.4f)\n", m_esperada, m_esperada - theta0))
+  cat(sprintf("Média das Vars:    %.4f\n", v_esperada))
+  cat(sprintf("Viés Observado:    %.4f\n", vies_observado))
+  cat(sprintf("Viés Teórico:      %.4f\n", vies_teorico))
+}
+
+# Chamadas originais
+simula_montecarlo(2, 10000, 50)
+simula_montecarlo(2, 10000, 1000)
+simula_montecarlo(2, 10000, 50, corrigido = TRUE)
+```
+:::

@@ -1,7 +1,12 @@
+---
+execute:
+  eval: false
+---
+<!-- TODO: arrumar qui quadrado -->
 ```{julia}
+#| echo: false
 #| output: false
-using Pkg; Pkg.add(["Plots", "StatsPlots", "Distributions", "LaTeXStrings"])
-ENV["QT_STYLE_OVERRIDE"] = "Fusion"
+using PythonCall, RCall
 ```
 # Distribuição Qui-Quadrado
 
@@ -39,19 +44,77 @@ $$
 $$
 para $\nu > 30$
 
+## Visualizando a Qui-Quadrado
 
-<!-- TODO: terminar animação -->
+::: {.panel-tabset }
+### Julia
 ```{julia}
-#| eval: false
-# using Plots, StatsPlots, Distributions, LaTeXStrings
+#| label: fig-julia-quiqgif
+#| fig-cap: "Qui-Quadrado Visualizada (Julia)"
+using Plots, StatsPlots, Distributions, LaTeXStrings
 
-# qui(n) = Chisq(n)
+plotqui(n) = plot(Chisq(n),
+  title="Qui-Quadrado visualizada",
+  label=L"\nu = %$n",
+  xlims=(0, 1500),
+  ylims=(0.000000000001, :auto)
+  )
 
-# plotqui(n) = plot(qui(n), title="Qui-Quadrado visualizada", label=L"%$n", ylims=[0, 0.5])
-
-# a = @gif for i in 1:100
-# plotqui(i)
-# end
-
-# display(a)
+@gif for i in 1:1_000
+  plotqui(i)
+end every 9
 ```
+
+### Python
+```{python}
+#| label: fig-python-quiqgif
+#| fig-cap: "Qui-Quadrado Visualizada (Python)"
+import numpy as np
+import matplotlib.pyplot as plt # Gráficos pelo matplotlib
+from matplotlib.animation import FuncAnimation # Animação pelo matplotlib
+from scipy.stats import chi2 # Qui-quadrado do pacote scipy
+from IPython.display import HTML # Para exibir na Web
+
+fig, ax = plt.subplots()
+x = np.linspace(0, 1500, 1000)
+line, = ax.plot([], [])
+
+def update(n):
+    y = chi2.pdf(x, df=n)
+    line.set_data(x, y)
+    ax.set_title(f"Qui-Quadrado: $\\nu = {n}$")
+    ax.set_xlim(0, 1500)
+    ax.set_ylim(0, 0.1) 
+    return line,
+
+ani = FuncAnimation(fig, update, frames=range(1, 1001, 15), blit=True)
+
+# Necessário para exibir na página web
+HTML(ani.to_jshtml())
+```
+
+<!-- TODO: saída do R ainda incorreta, remover mensagens do julia, python -->
+### R
+```{r}
+#| label: fig-r-quiqgif
+#| fig-cap: "Qui-Quadrado Visualizada (R)"
+
+library(ggplot2)
+library(gganimate)
+
+frames <- seq(1, 1000, by = 15)
+x_vals <- seq(0, 1500, length.out = 300)
+
+data <- do.call(rbind, lapply(frames, function(n) {
+  data.frame(x = x_vals, y = dchisq(x_vals, df = n), nu = n)
+}))
+
+p <- ggplot(data, aes(x = x, y = y)) +
+  geom_line(color = "steelblue", size = 1) +
+  transition_states(nu) +
+  labs(title = 'Graus de Liberdade: {closest_state}') +
+  theme_minimal()
+
+p
+```
+:::

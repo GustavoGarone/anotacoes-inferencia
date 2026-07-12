@@ -1,7 +1,7 @@
 ```{julia}
+#| echo: false
 #| output: false
-using Pkg; Pkg.add(["Distributions", "Plots", "StatsPlots", "LaTeXStrings"])
-ENV["QT_STYLE_OVERRIDE"] = "Fusion"
+using PythonCall, RCall
 ```
 # Teste de Hipótese simples
 
@@ -311,33 +311,96 @@ $$
 $$
 
 Podemos analisar os gráficos:
+::: {.panel-tabset}
+### Julia
 ```{julia}
-#| echo: false
 using Plots, Distributions, LaTeXStrings
+
 function poder(theta)
     dist = Binomial(2, theta)
-    return cdf(dist, 2 * 0.4)
+		# Calcula a densidade acumulada até o ponto especificado
+    return cdf(dist, 2 * 0.4) 
 end
+
 plot(
-    poder, xlims = (0.6, 1), legend = false, ylabel = L"\pi (\theta)", xlabel = L"\theta",
-    title = L"\alpha = \pi (\theta) = (1-\theta)^{2}"
+		poder,
+		xlims = (0.6, 1),
+		legend = false,
+		ylabel = L"\pi (\theta)",
+		xlabel = L"\theta",
+		title = L"\alpha = \pi (\theta) = (1-\theta)^{2}"
 )
 ```
 
-Como é uma função decrescente, seu supremo está no ponto $0.6$
+### Python
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import binom
 
+def poder(theta):
+    return binom.cdf(2 * 0.4, 2, theta)
+
+# Precisamos gerar os valores de theta (como o xlims)
+# Verifique a documentação para entender melhor!
+val_theta = np.linspace(0.6, 1, 1_000)
+# Criamos os valores de y para serem plotados
+val_y = [poder(t) for t in val_theta]
+
+plt.figure(figsize=(8, 5))
+plt.plot(val_theta, val_y, color='blue')
+
+plt.xlim(0.6, 1)
+plt.xlabel(r'$\theta$')
+plt.ylabel(r'$\pi (\theta)$')
+plt.title(r'$\alpha = \pi (\theta) = (1-\theta)^{2}$')
+
+plt.legend().set_visible(False)
+
+plt.show()
+```
+
+### R
+```{r}
+# Biblioteca de gráficos moderna, parte do Tidyverse
+library(ggplot2)
+
+# Função poder vetorizada
+poder <- function(theta) pbinom(0.8, 2, theta)
+
+ggplot() +
+  xlim(0.6, 1) +
+  geom_function(fun = poder, color = "blue") +
+  labs(
+    x = expression(theta), 
+    y = expression(pi(theta)), 
+    title = expression(alpha == pi(theta) ~ "=" ~ (1 - theta)^2)
+  ) +
+  theme_minimal()
+```
+:::
+
+Como é uma função decrescente, seu supremo está no ponto $0.6$.
+
+<!-- TODO: continuar -->
+::: {.panel-tabset}
+### Julia
 ```{julia}
-#| echo: false
 using Plots, Distributions, LaTeXStrings
 function poder(theta)
     dist = Binomial(2, theta)
     return ccdf(dist, 2 * 0.4)
 end
 plot(
-    poder, xlims = (0, 0.601), legend = false, ylabel = L"1 - \pi (\theta)", xlabel = L"\theta",
+    poder,
+    xlims = (0, 0.601),  #.601 para exibir o último xtick
+    legend = false,
+    ylabel = L"1 - \pi (\theta)",
+    xlabel = L"\theta",
     title = L"\beta  = 1 - \pi (\theta) = (1-\theta)^{2}"
-) #.601 para exibir o último xtick
+) 
 ```
+:::
 
 Como é uma função crescente, seu supremo está também no $0.6$
 Portanto,

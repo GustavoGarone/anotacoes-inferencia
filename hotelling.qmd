@@ -1,7 +1,3 @@
-```{julia}
-#| output: false
-using Pkg; Pkg.add(["Distributions", "LinearAlgebra"])
-```
 # Distribuição de Hotelling
 
 Sejam $Z \sim N_p(\boldsymbol{0}, I)$ e [$M \sim \mathrm{Wishart}_p(I,m)$](wishart.qmd)

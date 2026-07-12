@@ -206,7 +206,8 @@ Onde $s^2_{p}= \frac{(n-1)s^2_{X}+(m-1)s^2_{Y}}{n+m-2}$, com $s^2_{X}, s^2_{Y}$ 
 as variâncias de $X$ e $Y$, respectivamente. (Ponderamos os estimadores com base no tamanho de sua amostra, assim favorecendo
 os estimadores mais precisos)
 
-### Variâncias desconhecidas e diferentes (caso geral)
+
+### Teste para médias com variâncias desconhecidas e diferentes (caso geral)
 
 Temos que $\sigma^2_{X},\sigma^2_{Y}$ são desconhecidos e diferentes.
 
@@ -235,9 +236,10 @@ $$
 Esse valor, caso não inteiro, deverá ser arredondado.
 
 #### Exemplo (Importante)
-Queremos testar a resistência de dois tipos de viga de aço, $A$ e $B$. Tomando-se $n=15$ vigas do tipo $A$ e $m=20$
-vigas do tipo $B$. de um teste $f$, conseguimos com $10\%$ de significância que as variâncias não são iguais.
-Obtemos os valores da tabela:
+Queremos testar a resistência de dois tipos de viga de aço, $A$ e $B$.
+Tomando-se $n=15$ vigas do tipo $A$ e $m=20$ vigas do tipo $B$. De um teste F
+(explicado na próxima seção), conseguimos com $10\%$ de significância que as
+variâncias não são iguais. Obtemos os valores da tabela:
 $$
 \begin{array}{c|c|c}
 \text{Tipo}  & \text{Média}  & \text{Variância} (s^2) \\
@@ -273,5 +275,92 @@ estatística.
 Primeiro calculamos $n'= 32.08 \stackrel{\text{Arrendonda}}{=}32$. Assim, $t_{32,0.025} = 2.037$.
 Portanto, $t_{32,0.025} \sqrt{  \frac{s^2_{X}}{n} + \frac{s^2_{Y}}{m} }=8.14$. Como $-13.8 < -8.15$,
 concluímos que há evidências para rejeitarmos a hipótese nula a $\alpha=5\%$ de significância estatística.
+
+### Teste para diferença de variâncias
+Ainda tratando de populações independentes, um importante e útil teste é o teste
+para igualdade de variâncias entre populações, também conhecido como teste F.
+Sejam $X \sim N(\mu_X, \sigma_X^2)$ e $Y \sim N(\mu_Y, \sigma_Y^2)$ independentes,
+$X_{n_1}$ amostra aleatória de tamanho $n_1$ de $X$ e $Y_{n_2}$ amostra
+aleatória de tamanho $n_2$ de $Y$. Considere as seguintes hipóteses:
+
+$$
+\begin{cases}
+H_0&: \sigma_X^2 = \sigma_Y^2 \\
+H_1&: \sigma_X^2 \neq \sigma_Y^2.
+\end{cases}
+$$
+
+Construiremos o teste de hipóteses com base na distribuição do estimador não
+viesado para a variância:
+
+$$
+\begin{cases}
+s_X^2 &= \frac{1}{n_1-1} \sum\limits^{n_1}_{i=1} \left(X_i - \bar{X}\right)^2 \\
+s_Y^2 &= \frac{1}{n_2-1} \sum\limits^{n_2}_{i=1} \left(Y_ - \bar{Y}\right)^2
+\end{cases}
+$$
+
+Sabemos que para uma variável aleatória $A \sim N(\mu, \sigma^2)$,
+$(n-1) \cdot \frac{s^2_A}{\sigma^2} \sim \chi^2_{n-1}$.
+Ademais, definimos a distribuição $F-$Snedecor como a razão de duas
+distribuições qui-quadrado divididas pelos seus graus de liberdade:
+
+$$
+\frac{\chi^2_{d_1} / d_1 }{\chi^2_{d_2} / d_2} \sim F_{d_1, d_2}
+$$
+
+Dessa forma,
+
+$$
+\frac{(n_1-1) \frac{s_X^2}{\sigma_X^2} / (n_1-1)}{(n_2 - 1) \frac{s_Y^2}{\sigma_Y^2} / (n_2 - 1)} \sim F_{n_1 - 1, n_2 - 1}
+$$
+
+Simplificando,
+$$
+\frac{\frac{s_X^2}{\sigma_X^2}}{\frac{s_Y^2}{\sigma_Y^2}} \sim F_{n_1 - 1, n_2 - 1}
+$$
+
+Que, sobre a hipótese nula $\sigma_x^2 = \sigma_y^2$,
+$$
+\stackrel{\Rightarrow}{H_0} \frac{s_X^2}{s_Y^2} \sim F_{n_1 - 1, n_2 - 1}
+$$
+
+Com isso, usamos a distribuição F com $(n_1 - 1)$ e $(n_2 - 1)$ graus de
+liberdade para realizarmos os testes.
+
+Considere as seguintes hipóteses:
+
+
+$$
+1.
+\begin{cases}
+H_{0}:\sigma_{X}^2\geq \sigma_{Y}^2 \\
+H_{1}: \sigma^2_{X} < \sigma^2_{Y}
+\end{cases} ~~~
+2.
+\begin{cases}
+H_{0}:\sigma^2_{X}\leq \sigma^2_{Y} \\
+H_{1}: \sigma^2_{X} > \sigma^2_{Y}
+\end{cases} ~~~
+3.
+\begin{cases}
+H_{0}:\sigma^2_{X}= \sigma^2_{Y} \\
+H_{1}: \sigma^2_{X} \neq \sigma^2_{Y}
+\end{cases}
+$$
+
+$$
+\begin{aligned}
+1.& \text{ Rejeita $H_{0}$ se } \frac{s^2_X}{s^2_Y} < F_{(n_{1} - 1, n_{2} - 1, 1-\alpha)}, \\
+2.& \text{ Rejeita $H_{0}$ se } \frac{s^2_X}{s^2_Y} > F_{(n_{1} - 1, n_{2} - 1, \alpha)}, \\
+3.& \text{ Rejeita $H_{0}$ se } \frac{s^2_X}{s^2_Y} < F_{(n_{1} - 1, n_{2} - 1, 1 - \frac{\alpha}{2})}
+\text{ ou }  \frac{s^2_X}{s^2_Y} > F_{(n_{1} - 1, n_{2} - 1, \frac{\alpha}{2})}.
+\end{aligned}
+$$
+
+em que $q = F_{(a, b, \alpha)}$ é o quantil da distribuição F com $(a,b)$ graus de liberdade tal que
+$$
+P(F > q) = \alpha.
+$$
 
 

@@ -1,12 +1,3 @@
-```{julia}
-#| output: false
-using Pkg; Pkg.add(
-    [
-        "Distributions", "StatsBase", "Plots", "LaTeXStrings",
-        "StatsPlots",
-    ]
-)
-```
 # Valor-$p$, $p$-Valor ou $p$-Value
 
 Para todos os testes introduzidos até agora, realizamos o teste com um nível de
