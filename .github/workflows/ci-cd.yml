@@ -10,27 +10,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
-      - name: Install Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
 
-      - name: Install Julia
-        uses: julia-actions/setup-julia@v3
-
-      - name: Install R
-        uses: r-lib/actions/setup-r@v2
-
-      - name: Install Python
-        uses: actions/setup-python@v6
-
-      - name: Julia dependencies
-        run: julia --threads auto --project=. -e 'using Pkg; Pkg.instantiate()'
-
-      - name: Render
-        uses: quarto-dev/quarto-actions/render@v2
-        env:
-          JULIA_PROJECT: "@."
+      - name: Render with Nix
+        run: |
+          nix develop --command bash -c "
+            # Instantiate the Julia environment and rebuild RCall to link against Nix R
+            julia --threads auto --project=. -e '
+              using Pkg
+              Pkg.instantiate()
+              Pkg.build(\"RCall\")
+            '
+            
+            # Render the project using the patched Quarto from your flake
+            quarto render
+          "
 
       - name: Publish
         uses: easingthemes/ssh-deploy@main

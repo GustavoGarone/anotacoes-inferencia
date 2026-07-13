@@ -18,7 +18,28 @@
           pandas
           matplotlib
           ipython
+          pip
         ]);
+
+      rPkgNames = [
+        "ggplot2"
+        "gganimate"
+        "gifski" # Dependency for animation
+        "png" # Dependency
+        "GGally"
+        "dplyr"
+        "tidyr"
+        "broom"
+        "kableExtra"
+        "languageserver"
+      ];
+
+      rDeps = builtins.map (name: pkgs.rPackages.${name}) rPkgNames;
+
+      rDepsNames = builtins.concatStringsSep ",\n    " (
+        builtins.map (name: "${name} (>= ${pkgs.rPackages.${name}.version})") rPkgNames
+      );
+
       my-tex = pkgs.texlive.combine {
         inherit
           (pkgs.texlive)
@@ -29,6 +50,8 @@
           collection-luatex
           collection-langportuguese
           collection-fontsrecommended
+          collection-pictures
+          collection-mathscience
           biber
           ;
       };
@@ -45,23 +68,17 @@
       pythonPath = "${pythonEnv}/${pkgs.python313.sitePackages}";
     in {
       devShells.default = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          R
-          rPackages.ggplot2
-          rPackages.gganimate
-          rPackages.gifski # Dependency for animation
-          rPackages.png # Dependecy
-          rPackages.GGally
-          rPackages.dplyr
-          rPackages.tidyr
-          rPackages.broom
-          rPackages.kableExtra
-          rPackages.languageserver
-          patchedQuarto
-          my-tex
-          julia-bin
-          pythonEnv
-        ];
+        buildInputs = with pkgs;
+          [
+            R
+            jetbrains-mono
+            patchedQuarto
+            my-tex
+            librsvg
+            julia-bin
+            pythonEnv
+          ]
+          ++ rDeps;
 
         # Export these so direnv picks them up automatically
         R_HOME = "${pkgs.R}/lib/R";
@@ -69,14 +86,31 @@
         PYTHONPATH = pythonPath;
         JULIA_PYTHONCALL_EXE = "${pythonEnv}/bin/python";
         JULIA_CONDAPKG_BACKEND = "Null";
+        OSFONTDIR = "${pkgs.jetbrains-mono}/share/fonts";
 
         shellHook = ''
           # Update Julia Preferences automatically so RCall works properly
+          luaotfload-tool --update --force
+
           julia --project=. -e '
             using Pkg, Preferences
             set_preferences!(Pkg.Types.UUID("6f49c342-dc21-5d91-9882-a32aef131414"), "Rhome" => "'$R_HOME'", "libR" => "'$LIBR'", force = true)
             set_preferences!(Pkg.Types.UUID("6099a3de-0909-46bc-b1f4-468b9a2dfc0d"), "python" => "'$JULIA_PYTHONCALL_EXE'", force = true)
           '
+
+          pip freeze | grep -v "tkinter" > py_requirements.txt
+
+          cat << EOF > DESCRIPTION
+          Package: anotacoesInferencia
+          Title: Inferência Clássica
+          Version: 0.5.0
+          Description: Pacote companheiro para o livro de Inferência Clássica
+          License: GPL-3
+          Encoding: UTF-8
+          LazyData: true
+          Imports:
+              ${rDepsNames}
+          EOF
 
           # Create a CLEAN _environment file for Quarto
           echo "PYTHONPATH=$PYTHONPATH" > _environment
@@ -96,6 +130,7 @@
                   - "LIBR=$LIBR"
                   - "QT_QPA_PLATFORM=xcb"
                   - "QT_STYLE_OVERRIDE=Fusion"
+                  - "OSFONTDIR=$OSFONTDIR"
           EOF
         '';
       };

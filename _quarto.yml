@@ -127,7 +127,7 @@ format:
       - right = 20mm
       - bottom = 20mm
     # mathfont: "ams"
-    monofont: "Consolas"
+    monofont: "JetBrains Mono"
   latex:
     documentclass: scrreport
     cite-method: biblatex

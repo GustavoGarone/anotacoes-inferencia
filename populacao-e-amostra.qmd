@@ -53,6 +53,9 @@ em que $n$ é o tamanho amostral.
 %%| format: tex
 %%| filename: diagramaamostra
 %%| fig-cap: Diagrama: População, amostra aleatória e observada
+
+\usetikzlibrary{arrows.meta}
+
 \begin{tikzpicture}[node distance=0.8cm and 0.5cm, thick]
 
   \node (X1) [draw,  minimum width=2cm, minimum height=1cm] {$X_1
@@ -119,4 +122,3 @@ em que $n$ é o tamanho amostral.
   % minimum height=4cm, label=above:Prática] (practice) {};
 
 \end{tikzpicture}
-```
