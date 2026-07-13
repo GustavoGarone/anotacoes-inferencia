@@ -28,6 +28,7 @@ book:
   title: Anotações de Inferência Frequentista
   author: Aulas de Alexandre G. Patriota, digitado por Gustavo S. Garone
   date: last-modified
+  site-url: "https://stats.garone.me/inferencia-classica/"
   navbar:
     search: true
     right:
