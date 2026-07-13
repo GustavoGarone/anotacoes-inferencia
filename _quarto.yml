@@ -3,6 +3,8 @@ lang: pt-BR
 project:
   type: book
 engines: [julia]
+env:
+  JULIA_PROJECT: "@."
 execute:
   warning: false
   cache: true

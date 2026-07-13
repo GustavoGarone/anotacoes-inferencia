@@ -24,8 +24,13 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v6
 
+      - name: Julia dependencies
+        run: julia --threads auto --project=. -e 'using Pkg; Pkg.instantiate()'
+
       - name: Render
         uses: quarto-dev/quarto-actions/render@v2
+        env:
+          JULIA_PROJECT: "@."
 
       - name: Publish
         uses: easingthemes/ssh-deploy@main
