@@ -5,7 +5,7 @@
 Seja $\boldsymbol{X}_n^*$ a.a. de $\boldsymbol{X} \sim N_p(\boldsymbol{\mu},
 \Sigma)$. Uma região de confiança para $g(\theta) = C \boldsymbol{\mu}$ com
 coeficiente de confiança $\gamma \in (0,1)$ em que $C_{s \times p}$ é uma matriz
-com linhas linearmnete independentes, pode ser definda utilizando a quantidade
+com linhas linearmente independentes, pode ser definida utilizando a quantidade
 
 $$
 W(\theta) = \frac{n-s}{s} (C\bar{X} - C\boldsymbol{\mu})^T [C S^2_n C^T]^{-1}
@@ -35,7 +35,7 @@ g(\theta) &= \mu_1 \Rightarrow C\boldsymbol{\mu} = \begin{pmatrix}
 \Rightarrow W(\theta) &= \frac{n-1}{1} \frac{(\bar{X}_1 -
 \mu_1)^2}{S^2_{n,(1,1)}}\sim F_{(1, n-1)} \\
 \Rightarrow \mathrm{RC}(\mu_1, \gamma) &= \left\{\mu_1 \in \mathbb{R} :
-\frac{(\bar{X}_1 - \mu_1)^2}{S^2_{n,(1,1)}} \leq q_{\gamma}\right\} \\
+\frac{(n-1)(\bar{X}_1 - \mu_1)^2}{S^2_{n,(1,1)}} \leq q_{\gamma}\right\} \\
 \Rightarrow \mathrm{RC}(\mu_1, \gamma) &= \bar{X}_1 \pm \sqrt{q_{\gamma}
 \frac{S^2_{n,(1,1)}}{n-1}}
 \end{aligned}
@@ -69,7 +69,7 @@ g(\theta) &= \mu_j \Rightarrow C\boldsymbol{\mu} = \begin{pmatrix}
 \Rightarrow W(\theta) &= \frac{n-1}{1} \frac{(\bar{X}_j -
 \mu_j)^2}{S^2_{n,(j,j)}} \sim F_{(1, n-1)} \\
 \Rightarrow \mathrm{RC}(\mu_j, \gamma) &= \left\{\mu_1 \in \mathbb{R} :
-\frac{(\bar{X}_j - \mu_j)^2}{S^2_{n,(j,j)}} \leq q_{\gamma}\right\} \\
+\frac{(n-1)(\bar{X}_j - \mu_j)^2}{S^2_{n,(j,j)}} \leq q_{\gamma}\right\} \\
 \Rightarrow \mathrm{RC}(\mu_j, \gamma) &= \bar{X}_j \pm \sqrt{q_{\gamma}
 \frac{S^2_{n,(j,j)}}{n-1}}
 \end{aligned}
@@ -106,8 +106,8 @@ S^2_{n,(p,1)} & \dots & S^2_{n,(p,p)}
 \begin{pmatrix}
 1 \\ -1 \\ 3 \\ 0 \\ \dots \\ 0
 \end{pmatrix}\\ \Rightarrow&
-(S^2_{n,(1,1)} - S^2_{n,(2,1)} + 3 S^2_{n,(3,1)}) - 
-(S^2_{n,(1,1)} - S^2_{n,(2,1)} + 3 S^2_{n,(3,1)})\\ &+ 
+(S^2_{n,(1,1)} - S^2_{n,(2,1)} + 3 S^2_{n,(3,1)}) -
+(S^2_{n,(1,1)} - S^2_{n,(2,1)} + 3 S^2_{n,(3,1)})\\ &+
 3(S^2_{n,(1,1)} - S^2_{n,(2,1)} + 3 S^2_{n,(3,1)}) \\
 & =
 S^2_{n,(1,1)} + S^2_{n,(2,2)} + 9 S^2_{n,(3,3)} - 2 S^2_{n,(2,1)} + 6
@@ -125,7 +125,7 @@ $$
 \mathrm{RC}(\mu_1 - \mu_2 + 3\mu_3, \gamma) &= \left\{
 \mu_1 - \mu_2 + 3\mu_3 \in \mathbb{R} : W(\theta) \leq q_\gamma
 \right\} \\
-\Rightarrow 
+\Rightarrow
 \mathrm{RC}(\mu_1 - \mu_2 + 3\mu_3, \gamma) &= (\bar{X}_1 - \bar{X}_2 +
 3\bar{X}_3) \\ &\pm \sqrt{q_{\gamma} \frac{S^2_{n,(1,1)} + S^2_{n,(2,2)} + 9
 S^2_{n,(3,3)} - 2 S^2_{n,(2,1)} + 6 S^2_{n,(1,3)} - 6 S^2_{n,(2,3)}}{n-1}}
@@ -134,7 +134,7 @@ $$
 
 :::{.callout-tip title="Intervalos de confiança são um caso particular"}
 Se $s=1$, então a região de confiança é simplesmente um
-[IC](intervalo-confianca.qmd).
+[IC](intervalos-confianca.qmd).
 
 $$
 \mathrm{RC}(g(\theta), \gamma) = C \bar{X} \pm \sqrt{q_\gamma \frac{C S^2_n C^T}{n-1}}
@@ -147,7 +147,7 @@ Para $s \geq 2$, representamos a região de confiança pela sua definição
 $$
 \mathrm{RC}(C \boldsymbol{\mu}, \gamma) = \left\{ C \boldsymbol{\mu} :
 \frac{n-s}{s}(C\bar{X} - C\boldsymbol{\mu})^T [C S^2_n C^T]^{-1} (C\bar{X} -
-C\boldsymbol{\mu})^T \leq q_{\gamma}\right\}
+C\boldsymbol{\mu}) \leq q_{\gamma}\right\}
 $$
 :::
 
@@ -155,36 +155,40 @@ em que $P(F_{(s, n-s)} \leq q_\gamma) = \gamma$
 
 ### Exemplo
 
-Seja
+Seja o vetor da quantidade de interesse
 $$
-g(\theta) = \begin{pmatrix}
+d = g(\theta) = C\boldsymbol{\mu} = \begin{pmatrix}
 \mu_1 - \mu_2 \\
 \mu_2 - \mu_3
-\end{pmatrix} \Rightarrow
+\end{pmatrix},
+$$
+em que
+$$
 C = \begin{pmatrix}
 1 & -1 & 0 & 0 & \dots & 0 \\
 0 & 1 & -1 & 0 & \dots & 0
-\end{pmatrix} \Rightarrow s = 2
+\end{pmatrix}
+\quad\text{e}\quad s=2.
+$$
+
+Seu estimador é
+$$
+\widehat d = C\bar{\boldsymbol{X}} =
+\begin{pmatrix}
+\bar{X}_1 - \bar{X}_2 \\
+\bar{X}_2 - \bar{X}_3
+\end{pmatrix}.
 $$
 
 Portanto,
 $$
-\mathrm{RC}(g(\theta), \gamma) = \left\{
-\begin{pmatrix}
-\mu_1 - \mu_2 \\
-\mu_2 - \mu_3
-\end{pmatrix} \in \mathbb{R}^2 : \frac{n-2}{2}
-\begin{pmatrix}
-\bar{X}_1 - \bar{X}_2 \\
-\bar{X}_2 - \bar{X}_3
-\end{pmatrix}^T
-[C S^2_n C^T]^2
-\begin{pmatrix}
-\bar{X}_1 - \bar{X}_2 \\
-\bar{X}_2 - \bar{X}_3
-\end{pmatrix}
+\mathrm{RC}(d, \gamma) = \left\{
+d \in \mathbb{R}^2 : \frac{n-2}{2}
+(\widehat d-d)^T [C S^2_n C^T]^{-1}(\widehat d-d)
+\leq q_\gamma
 \right\}
 $$
+em que $P(F_{(2,n-2)} \leq q_\gamma)=\gamma$.
 
 <!-- TODO: finalizar com algoritmos no moodle -->
 ```{julia}

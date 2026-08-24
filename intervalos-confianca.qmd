@@ -122,7 +122,8 @@ P_\theta\left(\bar{X} - c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}
 c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}\right) = \gamma
 $$
 no caso simétrico (minimiza o IC para distribuições como a Normal), $c_{2,\gamma} = - c_{1,\gamma}$. Note que não é
-possível construir ICs simétricos dessa forma para distribuições estritamente positivas, como a qui-quadrado.
+possível construir ICs simétricos dessa forma para distribuições
+estritamente positivas, como a qui-quadrado.
 
 ## Quantidades Pivotais {#sec-quantpivot}
 
@@ -213,7 +214,7 @@ $$
 f_(\theta)^{\boldsymbol{X}_{(n)}}(x) = \frac{n x^{n-1}}{\theta^n} \mathrm{1}_{(0,\theta]}(x)
 $$
 
-Seja $Y = \frac{X_{(n)}}{\theta}$, então 
+Seja $Y = \frac{X_{(n)}}{\theta}$, então
 $$
 f_{\theta}^{Y}(y) = f_{\theta}^{\boldsymbol{X}_{(n)}}(y \theta) \cdot |J|
 $$
@@ -254,13 +255,16 @@ $$
 \int_{c_{1,\gamma}}^{c_{2,\gamma}} f(x) dx = \gamma
 $${#eq-obterquantis}
 
-Note que em geral infinitas combinações desses quantis satisfazem ([-@eq-obterquantis]). Podemos usar o par que satisfaz
+Note que em geral infinitas combinações desses quantis satisfazem
+([-@eq-obterquantis]). Podemos usar o par que satisfaz
 $$
 \int^{c_{1,\gamma}}_{-\infty} f(y) dy = \frac{1-\gamma}{2}\ \ \mathrm{e} \ \ \int_{c_{2,\gamma}}^{\infty} f(y)dy = \frac{1-\gamma}{2}
 $$
 
-Esse método produz um intervalo de confiança simétrico, não necessariamente o de menor amplitude, mas é mais fácil de
-encontrar. O intervalo de confiança com menor amplitude com quantis que satisfaçam ([-@eq-obterquantis]) é obtido minimizando
+Esse método produz um intervalo de confiança simétrico, não necessariamente
+o de menor amplitude, mas é mais fácil de
+encontrar. O intervalo de confiança com menor amplitude com quantis que
+satisfaçam ([-@eq-obterquantis]) é obtido minimizando
 $|c_{2,\gamma} - c_{1,\gamma}|$ sujeito a ([-@eq-obterquantis]).
 
 Se $f$ for *unimodal* e *bicaudal*, pode-se demonstrar que $c_{1,\gamma}, c_2{\gamma}$ que produzem amplitude mínima e satisfazem ([-@eq-obterquantis]) são
@@ -331,7 +335,7 @@ $$
 
 Além disso,
 
-1. 
+1.
 $$
 \frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(\theta)^{2}V_\theta}}  \stackrel{\mathcal{D}}{\rightarrow} N_1(0, 1), \forall \theta \in \Theta.
 $$
@@ -373,7 +377,8 @@ $$
 é o erro-padrão do estimador (seu desvio padrão).
 :::
 
-Vamos conferir por [simulações de monte carlo](monte-carlo.qmd) e o [método de Newton-Raphson](metodo-nr.qmd)
+Vamos conferir por [simulações de monte carlo](monte-carlo.qmd) e o [método
+de Newton-Raphson](metodo-nr.qmd)
 
 a) Para $\theta$
 b) Para $g(\theta) = P(X < 950) \Rightarrow g'(\theta) = f_\theta(950)$
@@ -502,7 +507,7 @@ confiança = monte_carlo_b(M, γ, n, θ_0)
 display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
 ```
 
-Para o item c, precisaremos calcurar as derivadas:
+Para o item c, precisaremos calcular as derivadas:
 $$
 \begin{aligned}
 g(\theta) &= \ln f_\theta(\theta) = - \ln \Gamma(\theta) + (\theta-1) \ln (\theta) - \theta \\
@@ -662,9 +667,9 @@ end
 display(monte_carlo_realxaprox())
 ```
 
-#### Exemplo poisson
+#### Exemplo Poisson
 
-Note que0
+Note que
 $$
 \begin{aligned}
 \hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) &= \bar{X} \\
@@ -717,25 +722,33 @@ display(monte_carlo_poiss())
 
 ## Regiões de confiança
 
-Dizemos que $\mathrm{RC}^{(a)}(g(\theta),\gamma)$ é uma região de confança para $g(\theta)$ com coeficiente de confiança $\gamma$
+Dizemos que $\mathrm{RC}(g(\theta),\gamma)$ é uma região de confiança para $g(\theta)$ com coeficiente de confiança $\gamma$
 se, e somente se,
 $$
-P_\theta(\theta \in \mathrm{RC}(g(\theta),\gamma)) = \gamma, \forall \theta \in \Theta.
+P_\theta\left(g(\theta) \in \mathrm{RC}(g(\theta),\gamma)\right) = \gamma,
+\quad \forall \theta \in \Theta.
 $$
 
-Se $\lim_{n\rightarrow \infty} P_\theta(\theta \in \mathrm{RC}(g(\theta),\gamma)) = \gamma, \forall \theta \in \Theta$, dizemos
+Se
+$$
+\lim_{n\rightarrow \infty}
+P_\theta\left(g(\theta) \in \mathrm{RC}^{(a)}(g(\theta),\gamma)\right)
+= \gamma, \quad \forall \theta \in \Theta,
+$$
+dizemos
 que $\mathrm{RC}^{(a)}(g(\theta),\gamma)$ é uma região de confiança assintótica.
 
 :::{.callout-note title="Observação"}
 Se
 $$
-P_\theta(\theta \in \mathrm{RC}(g(\theta),\gamma)) \geq \gamma,
+P_\theta\left(g(\theta) \in \mathrm{RC}(g(\theta),\gamma)\right) \geq \gamma,
+\quad \forall \theta \in \Theta,
 $$
-então dizemos que $\mathrm{RC}(g(\theta),\gamma))$ tem confiança de pelo menos $\gamma$.
+então dizemos que $\mathrm{RC}(g(\theta),\gamma)$ tem confiança de pelo menos $\gamma$.
 :::
 
 :::{.callout-note title="Observação"}
-$\mathrm{RC}(g(\theta),\gamma))$ é uma região aleatória que depende apenas da [amostra aleatória](populacao-e-amostra.qmd#sec-aa)
+$\mathrm{RC}(g(\theta),\gamma)$ é uma região aleatória que depende apenas da [amostra aleatória](populacao-e-amostra.qmd#sec-aa)
 e do coeficiente $\gamma$
 :::
 
@@ -771,7 +784,7 @@ em que $q_\gamma$ satisfaz
 $$
 P(\chi^2_p \leq q_\gamma) = \gamma.
 $$
-Assim, por construição,
+Assim, por construção,
 $$
 \lim_{n\rightarrow\infty} P_\theta(\theta \in \mathrm{RC}^{(a)}(\theta, \gamma)) = \gamma, \forall \theta \in \Theta.
 $$
@@ -785,23 +798,23 @@ Portanto,
 $$
 \begin{aligned}
 \mathrm{RC}(\theta,\gamma) &= \left\{
-\theta \in \Theta : 
+\theta \in \Theta :
 \frac{n(\hat{\theta}(\boldsymbol{X}_n) - \theta)^2}{V_{\hat{\theta}(\boldsymbol{X}_n)}} \leq q_\gamma
 \right\} \\
 \iff
 \mathrm{RC}(\theta,\gamma) &= \left\{
-\theta \in \Theta : 
+\theta \in \Theta :
 \lvert \hat{\theta}(\boldsymbol{X}_n) - \theta \rvert \leq \sqrt{q_\gamma \cdot \frac{V_{\hat{\theta}(\boldsymbol{X}_n)}}{n}}
 \right\} \\
 \iff
 \mathrm{RC}(\theta,\gamma) &= \left\{
-\theta \in \Theta : 
+\theta \in \Theta :
 -\sqrt{q_\gamma \cdot \frac{V_{\hat{\theta}(\boldsymbol{X}_n)}}{n}} \leq \hat{\theta}(\boldsymbol{X}_n) - \theta
 \leq \sqrt{q_\gamma \cdot \frac{V_{\hat{\theta}(\boldsymbol{X}_n)}}{n}}
 \right\} \\
 \iff
 \mathrm{RC}(\theta,\gamma) &= \left\{
-\theta \in \Theta : 
+\theta \in \Theta :
 \hat{\theta}(\boldsymbol{X}_n) -\sqrt{q_\gamma} \sqrt{\frac{V_{\hat{\theta}(\boldsymbol{X}_n)}}{n}} \leq \theta
 \leq \hat{\theta}(\boldsymbol{X}_n) + \sqrt{q_\gamma} \sqrt{\frac{V_{\hat{\theta}(\boldsymbol{X}_n)}}{n}}
 \right\}
