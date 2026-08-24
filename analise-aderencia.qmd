@@ -8,7 +8,7 @@ H_{1}: P \neq P_{0}
 $$
 Em que $P_{0}$ é a medida de probabilidade especificada que governaria (sob $H_0$) os eventos observados.
 
-Neste teste co,paramos a frequência observada com a frequência esperada em $k$ eventos disjuntos e distintos observáveis.
+Neste teste comparamos a frequência observada com a frequência esperada em $k$ eventos disjuntos e distintos observáveis.
 $$
 \begin{array}{c|cccc}
 \text{Eventos}  & 1  & 2 & \dots & k \\
@@ -19,14 +19,14 @@ O_{i} & O_{1} & O_{2} & \dots & O_{k}
 \end{array}
 $$
 
-Em que observou-se uma [amostra](populacao-e-amostra#sec-ao) de tamanho $n$. Temos também que $E_{i}$ é o valor esperado
+Em que observou-se uma [amostra](populacao-e-amostra.qmd#sec-ao) de tamanho $n$. Temos também que $E_{i}$ é o valor esperado
 do número de eventos $i$ sob $H_{0}$
 $$
 \mathrm{Freq. Esperada} = E_{i} = P_{0i} \cdot n
 $$
 
-e $\mathrm{Freq. Observada} = O_{i}$ é o numero real de eventos $i$ observados na amostra.
-A [estatística](estatisticas.qmd) para testar $H_{0}$ é 
+e $\mathrm{Freq. Observada} = O_{i}$ é o número real de eventos $i$ observados na amostra.
+A [estatística](estatisticas.qmd) para testar $H_{0}$ é
 $$
 \chi^2 = \sum^k_{i=1} \frac{(E_{i}-O_{i})^2}{E_{i}}
 $$
@@ -40,7 +40,8 @@ $$
 *Esse procedimento é confiável sempre que $E_{i}>5 \forall i \in \{ 1,\dots,k \}$
 
 ## Exemplo
-Considere que queremos verificar se os números sorteados nos concursos da Mega Sena são de fato uniformemente distribuídos.
+Considere que queremos verificar se os números sorteados nos concursos da Mega
+Sena são de fato uniformemente distribuídos.
 Nesse caso, analisaremos 60 eventos, cuja probabilidade de cada um seria, caso uniformemente distribuídos, $\frac{1}{60}$.
 $$
 \begin{cases}
@@ -59,7 +60,7 @@ $$
 \hline
 P_{0} & \frac{1}{60} & \frac{1}{60} & \dots & \frac{1}{60} \\
 E_{i} & \frac{2800}{60}  & \frac{2800}{60}  & \dots  & \frac{2800}{60} \\
-O_{i} & 42 & 48 & \dots  & 55 
+O_{i} & 42 & 48 & \dots  & 55
 \end{array}
 $$
 Portanto,
@@ -76,7 +77,7 @@ using Distributions, StatsBase, Random, Plots, LaTeXStrings
 # Anal. Aderência
 # H0 = P=P0
 #
-# Mega Sena. Observar apenas o primeior número de cada sorteio
+# Mega Sena. Observar apenas o primeiro número de cada sorteio
 
 Random.seed!(1)
 amostra = sample(1:60, 2800)
@@ -101,7 +102,7 @@ Considere os $n=30$ dados abaixo que supostamente seguem uma distribuição norm
 (usando os dados do livro já em ordem)
 $$
 \begin{array}{cccccc}
-1.01 & 1.73 & 3.93 & 4.44 & 6.37 & 6.51 \\ 
+1.01 & 1.73 & 3.93 & 4.44 & 6.37 & 6.51 \\
 \vdots  & \vdots  & \vdots & \vdots  & \vdots & \vdots \\
 14.11 & 14.6 & 14.64 & 14.75 & 16.68 & 22.14
 \end{array}
@@ -114,7 +115,8 @@ H_{1}: P\neq N(10,25)
 \end{cases}
 $$
 Sob $H_{0}$, podemos dividir a distribuição normal em $k$ blocos. Escolheremos $k=4$ delimitado pelos *quartis* teóricos
-dessa distribuição normal. (Primeiro padronizamos, encontramos os valores pela tabela, então voltamos para nossa normal)
+dessa distribuição normal. (Primeiro padronizamos, encontramos os valores pela
+tabela, então voltamos para nossa normal)
 $$
 \begin{cases}
 q_{1} = 6.63 \\

@@ -2,7 +2,7 @@
 
 Para todos os testes introduzidos até agora, realizamos o teste com um nível de
 significância (tamanho do teste) $\alpha$ fixo previamente. Na comunidade
-cientifica, porém, é muito comum o uso de outra estatística na realização de
+científica, porém, é muito comum o uso de outra estatística na realização de
 testes de hipótese: o $p$-valor.
 
 Seja $T(\boldsymbol{X}_n)$ com distribuição $f_\theta(x)$ sob $\mathcal{H}_0$,
@@ -62,7 +62,7 @@ $$
 \mathrm{valor-}p = P(N(0, 1/10) \geq -0.0278) = P(Z \geq -0.0278 * \sqrt{10}) = 0.535
 $$
 
-Como $\mathrm{valor-p} = 0.535 \geq \alpha$, dizemos que não há evidenciais para
+Como $\mathrm{valor-p} = 0.535 \geq \alpha$, dizemos que não há evidências para
 rejeitarmos a hipótese nula a $\alpha = 5\%$ de significância estatística.
 
 Vamos gerar dados e comparar a distribuição dos valores-$p$.
@@ -186,7 +186,7 @@ Essa discussão será retomada e aprofundada quando discutirmos
 <!-- Por exemplo, caso queiramos testar a eficácia de determinado fármaco no controle -->
 <!-- da pressão sanguínea, postulariamos a hipótese de não efeito: $\mathcal{H}_0 :$ -->
 <!-- "A pressão sanguínea do grupo em teste não difere do grupo controle após uso do -->
-<!-- fármaco". Caso testassemos a hipótese e obtessemos um valor-$p$ extremamente -->
+<!-- fármaco". Caso testássemos a hipótese e obtivéssemos um valor-$p$ extremamente -->
 <!-- pequeno, como $\mathrm{valor-}p = 0.000001$, não poderíamos afirmar nada sobre a -->
 <!-- intensidade do efeito do medicamento, apenas que houve efeito. Um pesquisador -->
 <!-- que queira analisar a intensidade do efeito do medicamento pode postular outra -->

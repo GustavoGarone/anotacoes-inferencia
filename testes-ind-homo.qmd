@@ -10,7 +10,7 @@ Os totais marginais para cada grupo devem ser fixados antes de executarmos o exp
 $$
 \begin{cases}
 H_{0}: \text{Os grupos são independentes} \\
-H_{1} : \text{Pelo menos um dos grupos não é indepndente}
+H_{1} : \text{Pelo menos um dos grupos não é independente}
 \end{cases}
 $$
 
@@ -28,7 +28,7 @@ $$
 
 ## Exemplos
 
-### Primeiro exemplo (homogeniedade)
+### Primeiro exemplo (homogeneidade)
 
 510 segurados foram amostrados, sendo 200 de São Paulo, 100 do Ceará e 210 de Pernambuco. O objetivo é verificar se o
 número de acidentes se distribui igualmente entre os estados.
@@ -89,7 +89,7 @@ $$
 P(\chi^2_{2}> c_{p}) = 1\%
 $$
 Pela tabela, $c_{p}=9.21$
-Como $15.47 > 9.21$, concluímos que, a sinistralidade não se distribui de forma homogênea entre os estados de SP, CE e 
+Como $15.47 > 9.21$, concluímos que, a sinistralidade não se distribui de forma homogênea entre os estados de SP, CE e
 PE a $1\%$ de significância.
 
 ### Outro Exemplo (independência)
@@ -102,7 +102,7 @@ $$
 \mathrm{Satisfatório}  & 84 & 42 & 14 & 140\\
 \mathrm{Insatisfatório}  & 24 & 22 & 24 & 70 \\
 \hline
-\mathrm{Total}  & 170 & 100 & 50 & 320 
+\mathrm{Total}  & 170 & 100 & 50 & 320
 \end{array}
 $$
 Nossa tabela de valores esperados (arredondados):
@@ -114,7 +114,7 @@ $$
 \mathrm{Satisfatório}  & 74 & 44 & 22 & 140\\
 \mathrm{Insatisfatório}  & 37 & 22 & 11 & 70 \\
 \hline
-\mathrm{Total}  & 170 & 100 & 50 & 320 
+\mathrm{Total}  & 170 & 100 & 50 & 320
 \end{array}
 $$
 $$

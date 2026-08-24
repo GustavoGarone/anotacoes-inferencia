@@ -40,7 +40,7 @@ As duas hipóteses envolvidas aqui são (abordagem de Neyman-Pearson):
 
 2. “O suspeito é culpado” -> $h_{1}$ Hipótese alternativa ou hipótese que contém o efeito.
 
-- Após coletar as evidências, dizemos que, se houver evidências de que o suspeito cometeu o crime, a pessoa é culpada. 
+- Após coletar as evidências, dizemos que, se houver evidências de que o suspeito cometeu o crime, a pessoa é culpada.
 - Se não, concluímos que não é culpado.
 
 Contudo, devemos nos atentar aos erros de decisão
@@ -75,7 +75,7 @@ Nossas hipóteses são
 
 ### Erros Tipo I e II
 
-Note que $\bar{X}$ é um [estimador](estimadores.qmd) para $\theta$ e $\bar{x}$ é uma [estimativa](estimadores.qmd#estimativa).
+Note que $\bar{X}$ é um [estimador](estimadores.qmd) para $\theta$ e $\bar{x}$ é uma [estimativa](estimadores.qmd#sec-estimativa).
 - Se $\bar{x}>0.7$, rejeitaremos a hipótese nula $h_{0}$, a moeda não seria honesta e haveria um viés agindo sobre seus lançamentos.
 - Se $\bar{x}\leq 0.7$, concluiremos que a moeda é honesta.
 $$
@@ -171,7 +171,7 @@ Lembre-se que $\sum^n_{i=1}X_{i}\sim \mathrm{Bin}(n,\theta)$. Tome $n =10$.
 $$
 \begin{aligned}
 \alpha &= P_{\theta=0.5}(\bar{X} < 0.3 \text{ ou } \bar{X} > 0.7) = P_{0.5}(\bar{X}<0.3) + P_{0.5}(\bar{X}>0.7) \\
-&=P(\mathrm{Bin}(n,0.5) < 3) + P(\mathrm{Bin}(10,0.5)>7) \\ 
+&=P(\mathrm{Bin}(n,0.5) < 3) + P(\mathrm{Bin}(10,0.5)>7) \\
 &=P(\mathrm{Bin}(n,0.5) \leq 2) + P(\mathrm{Bin}(10,0.5)\geq 8) \\
 &= 0.055 +0.055 = 0.11 \\
 \end{aligned}
@@ -231,7 +231,7 @@ H_{1}: \theta > 0.5 \\
 \begin{cases}
 H_{0}: \theta \geq 0.5 \\
 H_{1}: \theta < 0.5 \\
-\end{cases} \text{ Hipótese alternativa uniteral}
+\end{cases} \text{ Hipótese alternativa unilateral}
 \end{aligned}
 $$
 
@@ -319,7 +319,7 @@ using Plots, Distributions, LaTeXStrings
 function poder(theta)
     dist = Binomial(2, theta)
 		# Calcula a densidade acumulada até o ponto especificado
-    return cdf(dist, 2 * 0.4) 
+    return cdf(dist, 2 * 0.4)
 end
 
 plot(
@@ -372,8 +372,8 @@ ggplot() +
   xlim(0.6, 1) +
   geom_function(fun = poder, color = "blue") +
   labs(
-    x = expression(theta), 
-    y = expression(pi(theta)), 
+    x = expression(theta),
+    y = expression(pi(theta)),
     title = expression(alpha == pi(theta) ~ "=" ~ (1 - theta)^2)
   ) +
   theme_minimal()
@@ -398,7 +398,7 @@ plot(
     ylabel = L"1 - \pi (\theta)",
     xlabel = L"\theta",
     title = L"\beta  = 1 - \pi (\theta) = (1-\theta)^{2}"
-) 
+)
 ```
 :::
 
@@ -447,7 +447,7 @@ $$
 P_{\mu_{0}}\left( \bar{X}>\mu_{0} + 1.96 \sqrt{  \frac{\sigma^2}{n} } \right)
 $$
 
-Sabemos que, pelo enunciado $\bar{X} \sim N\left( \mu, \frac{\sigma^2}{n} \right) \forall \mu \in \mathbb{R}$ 
+Sabemos que, pelo enunciado $\bar{X} \sim N\left( \mu, \frac{\sigma^2}{n} \right) \forall \mu \in \mathbb{R}$
 sob $H_{0}$, ou seja, quando $\mu= \mu_{0}$ temos que $\bar{X}\sim N\left( \mu_{0}, \frac{\sigma^2}{n} \right)$.
 Note que $P_{\mu_{0}}\left( \bar{X}<\mu_{0}-1.96 \sqrt{ \frac{\sigma^2}{n} } \right) =
 P_{\mu_{0}}\left(\frac{\bar{X}-\mu_{0}}{\sqrt{ \frac{\sigma^2}{n} }} \right) = 2.5\%$
@@ -475,7 +475,7 @@ $$
 P_{\theta}\left( \bar{X} > \mu_{0} + 1.96 \sqrt{  \frac{\sigma^2}{n} } \right) \\
 &= P_{\theta}\left( \frac{\bar{X}-\theta}{\sqrt{ \frac{\sigma^2}{n} }} <
 \frac{\mu_{0}-\theta-1.96 \sqrt{  \frac{\sigma^2}{n} } }{\sqrt{  \frac{\sigma^2}{n} }}\right) +
-P_{\theta}\left( \frac{\bar{X}-\theta}{\sqrt{ \frac{\sigma^2}{n} }} > 
+P_{\theta}\left( \frac{\bar{X}-\theta}{\sqrt{ \frac{\sigma^2}{n} }} >
 \frac{\mu_{0}-\theta+1.96 \sqrt{\frac{\sigma^2}{n}}}{\sqrt{\frac{\sigma^2}{n}}}\right)
 \end{aligned}
 $$
@@ -486,7 +486,7 @@ $$
 $$
 
 Ou seja, o supremo dessa expressão é dado por 1 - o ínfimo da função poder, o que significa que queremos encontrar o
-valor de $\theta$ para o qual $P_{\theta}\left( \frac{\bar{X}-\theta}{\sqrt{ \frac{\sigma^2}{n} }} < 
+valor de $\theta$ para o qual $P_{\theta}\left( \frac{\bar{X}-\theta}{\sqrt{ \frac{\sigma^2}{n} }} <
 \frac{\mu_{0}-\theta-1.96 \sqrt{\frac{\sigma^2}{n} } }{\sqrt{  \frac{\sigma^2}{n} }}\right) +
 P_{\theta}\left(\frac{\bar{X}-\theta}{\sqrt{ \frac{\sigma^2}{n} }} >
 \frac{\mu_{0}-\theta+1.96 \sqrt{\frac{\sigma^2}{n}}}{\sqrt{\frac{\sigma^2}{n}}}\right)$ é o menor possível.
@@ -569,7 +569,7 @@ Quanto menor o valor de $\alpha$, mais forte será a significância estatística
 
 ## Exemplos
 
-### Eexemplo um
+### Exemplo um
 Seja $(X_{n})$ a.a de $X\sim \mathrm{N}(\mu,\sigma^2)$ em que $\sigma^2$ é conhecido.
 Considere ($\mu_{0}$ fixado)
 
@@ -624,7 +624,7 @@ $$
 
 2. Considere $n=100$, $\mu_{0}=1$, $\sigma^2=0.1$ e $\bar{x}=0.99$. Conclua o teste considerando o mesmo nível de significância $\alpha=5\%$.
 
-	 O pontos pontos de corte são $x_{a} = 0.93$ e $x_{b} = 1.069$. Como $0.93\leq 0.99 \leq 1.069$, concluímos que não há
+	 Os pontos de corte são $x_{a} = 0.93$ e $x_{b} = 1.069$. Como $0.93\leq 0.99 \leq 1.069$, concluímos que não há
    evidências para rejeitarmos $H_{0}$ a $5\%$ de significância.
 
 3. Refaça considerando $15\%$ de significância estatística.
@@ -681,7 +681,7 @@ $$
 2. Considere $n=100, \mu_{0} = 1, \sigma^2 = 0.1, \bar{x}=0.99$. Conclua o teste anterior a $\alpha = 5\%$ de significância.
 
 	O ponto de corte é $x_{c} = 0.9836$. Como $0.99 \geq 0.9836$, concluímos que não há evidências para rejeitar a
-  hipótese nula a $5\%$ de significância. 
+  hipótese nula a $5\%$ de significância.
 
 ### 3
 Seja $(X_{n})$ amostra aleatória de $X \sim \mathrm{N}(\mu,\sigma^2)$ em que
@@ -691,7 +691,7 @@ $$
 \begin{cases}
 H_{0} : \sigma^2 = \sigma^2_{0} \\
 H_{1}: \sigma^2 \neq \sigma^2_{0}
-\end{cases} \Rightarrow 
+\end{cases} \Rightarrow
 \begin{aligned}
 & \text{Decisão com significância } \alpha \\
 &\text{Rejeita $H_{0}$ se} \\
@@ -709,24 +709,24 @@ Sabemos que $\frac{\sum_{i=1}^n(X_{i}-\bar{X})^2}{\sigma^2}\sim \chi^2_{n-1},\fo
 Em particular, sob $H_{0}$
 $$
 \begin{aligned}
-&\frac{(n-1)s^2(\underset{\sim}{X_{n}})}{\sigma^2_{0}} \sim \chi^2_{n-1}
-\\ \Rightarrow& \alpha_{\max} = \sup_{\theta \in \Theta_{0}}\left\{ P_{\theta}(s^2(\underset{\sim}{X_{n}}) < c_{1c}) +
-P_{\theta}(s^2(\underset{\sim}{X_{n}})> c_{2c}) \right\} 
+&\frac{(n-1)s^2(\boldsymbol{X}_{n})}{\sigma^2_{0}} \sim \chi^2_{n-1}
+\\ \Rightarrow& \alpha_{\max} = \sup_{\theta \in \Theta_{0}}\left\{ P_{\theta}(s^2(\boldsymbol{X}_{n}) < c_{1c}) +
+P_{\theta}(s^2(\boldsymbol{X}_{n})> c_{2c}) \right\}
 \end{aligned}
 $$
 
 Além disso, note que $\Theta_{0}=\{ (\mu,\sigma^2)\in \Theta:\sigma^2=\sigma^2_{0} \}$. Portanto, temos que
 $$
 \begin{aligned}
-& \alpha_{\max} = \sup_{\theta \in \Theta_{0}} \underbracket{ \left\{  P\left( \chi^2_{n-1} < 
-\frac{c_{1c}(n-1)}{\sigma^2_{0}}\right) + P\left( \chi^2_{n-1} > 
+& \alpha_{\max} = \sup_{\theta \in \Theta_{0}} \underbracket{ \left\{  P\left( \chi^2_{n-1} <
+\frac{c_{1c}(n-1)}{\sigma^2_{0}}\right) + P\left( \chi^2_{n-1} >
 \frac{c_{2c}(n-1)}{\sigma^2_{0}} \right) \right\}}_{\text{Não depende de $\theta$}}\\
 \Rightarrow & \alpha_{\max} =  P\left( \chi^2_{n-1} < \frac{c_{1c}(n-1)}{\sigma^2_{0}} \right) + P\left( \chi^2_{n-1} >
-\frac{c_{2c}(n-1)}{\sigma^2_{0}} \right) 
+\frac{c_{2c}(n-1)}{\sigma^2_{0}} \right)
 \end{aligned}
 $$
 
-Fixando $\alpha_{\max}=\alpha$ (significância), encontramos pela tabela os valores de 
+Fixando $\alpha_{\max}=\alpha$ (significância), encontramos pela tabela os valores de
 $q_{\frac{\alpha}{2},n-1}^{(1)}, q_{\frac{\alpha}{2},n-1}^{(2)}$ tais que dividam a distribuição $\chi^2_{n-1}$ criando
 duas seções de $\frac{\alpha}{2}$ de área. Portanto,
 
@@ -734,7 +734,7 @@ $$
 \begin{cases}
 H_{0} : \sigma^2 = \sigma^2_{0} \\
 H_{1}: \sigma^2 \neq \sigma^2_{0}
-\end{cases} \Rightarrow 
+\end{cases} \Rightarrow
 \begin{aligned}
 & \text{Decisão com significância } \alpha \\
 &\text{Rejeita $H_{0}$ se} \\
@@ -755,7 +755,7 @@ $$
 \begin{cases}
 H_{0} : \sigma^2 = 100 \\
 H_{1}: \sigma^2 \neq 100
-\end{cases} \Rightarrow 
+\end{cases} \Rightarrow
 \begin{aligned}
 & \text{Decisão com significância } 5\% \\
 &\text{Rejeita $H_{0}$ se} \\
@@ -780,7 +780,7 @@ $$
 \begin{cases}
 H_{0} : \mu = \mu_{0} \\
 H_{1}: \mu \neq \mu_{0}
-\end{cases} \Rightarrow 
+\end{cases} \Rightarrow
 \begin{aligned}
 & \text{Decisão com significância } \alpha \\
 &\text{Rejeita $H_{0}$ se} \\
@@ -795,7 +795,7 @@ H_{1}: \mu \neq \mu_{0}
 \begin{cases}
 H_{0} : \mu \geq \mu_{0} \\
 H_{1}: \mu < \mu_{0}
-\end{cases} \Rightarrow 
+\end{cases} \Rightarrow
 \begin{aligned}
 &\text{Rejeita $H_{0}$ se} \\
 &\begin{cases}
@@ -808,7 +808,7 @@ H_{1}: \mu < \mu_{0}
 \begin{cases}
 H_{0} : \mu \leq \mu_{0} \\
 H_{1}: \mu > \mu_{0}
-\end{cases} \Rightarrow 
+\end{cases} \Rightarrow
 \begin{aligned}
 &\text{Rejeita $H_{0}$ se} \\
 &\begin{cases}
@@ -831,8 +831,8 @@ $$
 H_{0} : \mu = \mu_{0}  \\
 H_{1} : \mu \neq \mu_{0} \\
 \Rightarrow \Theta_{0}=\{ (\mu,\sigma^2) \in \Theta : \mu = \mu_{0} \}\\
-\Rightarrow \Theta_{1}=\{ (\mu,\sigma^2) \in \Theta : \mu \neq \mu_{0} \}\\ 
-\end{cases} \Rightarrow 
+\Rightarrow \Theta_{1}=\{ (\mu,\sigma^2) \in \Theta : \mu \neq \mu_{0} \}\\
+\end{cases} \Rightarrow
 \begin{aligned}
 & \text{Decisão com significância } \alpha \\
 &\text{Rejeita $H_{0}$ se} \\
@@ -847,7 +847,7 @@ H_{1} : \mu \neq \mu_{0} \\
 \begin{cases}
 H_{0} : \mu \geq \mu_{0} \\
 H_{1}: \mu < \mu_{0}
-\end{cases} \Rightarrow 
+\end{cases} \Rightarrow
 \begin{aligned}
 &\text{Rejeita $H_{0}$ se} \\
 &\begin{cases}
@@ -860,7 +860,7 @@ H_{1}: \mu < \mu_{0}
 \begin{cases}
 H_{0} : \mu \leq \mu_{0} \\
 H_{1}: \mu > \mu_{0}
-\end{cases} \Rightarrow 
+\end{cases} \Rightarrow
 \begin{aligned}
 &\text{Rejeita $H_{0}$ se} \\
 &\begin{cases}
@@ -882,7 +882,7 @@ $$
 \begin{cases}
 H_{0} : \sigma^2 = \sigma^2_{0} \\
 H_{1}: \sigma^2 \neq \sigma^2_{0}
-\end{cases} \Rightarrow 
+\end{cases} \Rightarrow
 \begin{aligned}
 & \text{Decisão com significância } \alpha \\
 &\text{Rejeita $H_{0}$ se} \\

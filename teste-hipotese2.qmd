@@ -107,12 +107,12 @@ Toda hipótese estatística é uma interpretação de uma hipótese científica.
 
 | Hipótese científica |     Hipótese estatística   | Hipótese paramétrica |
 |:-------------------:|:--------------------------:|:--------------------:|
-| "A moeda é honesta" | $X \sim \mathrm{Ber}(0.5)$ |    $\theta = 0.5$    | 
+| "A moeda é honesta" | $X \sim \mathrm{Ber}(0.5)$ |    $\theta = 0.5$    |
 
-As hipótese estatísticas são escritas em termos de medidas de probabilidade, mas podem também ser representadas em termos
+As hipóteses estatísticas são escritas em termos de medidas de probabilidade, mas podem também ser representadas em termos
 do espaço paramétrico:
 
-$$ 
+$$
 \begin{cases}
 \mathcal{H}_0: P_\theta \in \mathcal{P}_0 \\
 \mathcal{H}_1: P_\theta \in \mathcal{P}_1 =  (\mathcal{P} \setminus \mathcal{P}_0),
@@ -407,5 +407,4 @@ $$
 $$
 Isto está incorreto na interpretação clássica de estatística!
 :::
-
 

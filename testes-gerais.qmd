@@ -56,7 +56,7 @@ $$
 \frac{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
 {\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} \cdot
 \frac{\sup\limits_{\theta \in \Theta_1} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
-{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} &= 
+{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} &=
 \frac{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
 {\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)} \geq c \\
 &\iff
@@ -73,7 +73,7 @@ $$
 Dizemos que
 
 $$
-\lambda(\boldsymbol{x}_n; \Theta_0) = 
+\lambda(\boldsymbol{x}_n; \Theta_0) =
 \frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
 {\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
 $$ {#eq-estatrazao}
@@ -92,7 +92,7 @@ o [estimador de máxima verossimilhança](emv2.qmd) não restrito a $\mathcal{H}
 generalizada pode ser reescrita:
 
 $$
-\lambda(\boldsymbol{x}_n; \Theta_0) = 
+\lambda(\boldsymbol{x}_n; \Theta_0) =
 \frac{\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_0)}
 {\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})}
 $$ {#eq-estatrazao2}
@@ -103,7 +103,7 @@ a hipótese nula.
 
 Observe que $\mathcal{H}_0 : \theta = \theta_0$ contra $\mathcal{H}_1 : \theta = \theta_1$ e $\Theta \subseteq \mathbb{R}$,
 $$
-\lambda(\boldsymbol{x}_n; \Theta_0) = 
+\lambda(\boldsymbol{x}_n; \Theta_0) =
 \frac{\mathcal{L}_{\boldsymbol{x}_n}(\theta_0)}
 {\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})}
 $$
@@ -145,7 +145,7 @@ $$
 \end{aligned}
 $$ {#eq-testeestatrazao}
 
-1. Se a distribuição exata de $-2\ln \lambda(\boldsymbol{X}_n, \Theta_0)$ for conhecida, entã basta encontrar $2\ln c$ que satisfaça
+1. Se a distribuição exata de $-2\ln \lambda(\boldsymbol{X}_n, \Theta_0)$ for conhecida, então basta encontrar $2\ln c$ que satisfaça
 a @eq-testeestatrazao.
 
 2. Caso contrário, utilizamos o teorema anterior:
@@ -171,7 +171,7 @@ Já sabemos que $\hat{\theta}_{\mathrm{MV}} = \bar{X}$ e
 $$
 \begin{aligned}
 \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{2\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{2} \sum (x_i - \theta)^{2} \right\} \\ &= 
+-\frac{1}{2} \sum (x_i - \theta)^{2} \right\} \\ &=
 \left(\frac{1}{\sqrt{2\pi}}\right)^n \mathrm{Exp}\left\{
 -\frac{1}{2} \sum x_i^2 - 2\theta\sum x_i + n\theta^2 \right\}.
 \end{aligned}
@@ -180,7 +180,7 @@ $$.
 Assim,
 $$
 \begin{aligned}
-\lambda(\boldsymbol{x}_n; \Theta_0) &= 
+\lambda(\boldsymbol{x}_n; \Theta_0) &=
 \frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
 {\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}\\
 &= \frac{\mathcal{L}_{\boldsymbol{x}_n}(0)} {\mathcal{L}_{\boldsymbol{x}_n}(\bar{x})} \\
@@ -209,7 +209,7 @@ Note que $\forall \theta \in \Theta_0$, $n\bar{X}^2 \sim \chi^2_1$ (é [ancilar]
 $$
 \sup\limits_{\theta \in \Theta_0} P_{0}(n\bar{X}^2 \geq c^*) = P(\chi^2_1 \geq c^*) = \alpha.
 $$
-Tomando $c^* = 2\ln c$, podemos obter o valor para $c^*$ de uma qui-quadradado com $1$ grau de liberdade para qualquer valor de $\alpha$.
+Tomando $c^* = 2\ln c$, podemos obter o valor para $c^*$ de uma qui-quadrado com $1$ grau de liberdade para qualquer valor de $\alpha$.
 Por exemplo, se $\alpha = 10\%, c^* = 2.70$. Se $\alpha = 5\%, c^* = 3.84$, etc.
 
 ### Exemplo (Poisson)
@@ -351,8 +351,8 @@ $$
 \begin{cases}
 \mathcal{H}_0 : \sum^p_{i=1} c_i^{(1)} \theta_i = d^{(1)}, \dots, \sum^p_{i=1} c_i^{(p)} \theta_i = d^{(p)} \\
 \mathcal{H}_1 : \text{Ao menos um diferente}
-\end{cases}\ \ \ \iff 
-C &=\begin{bmatrix} 
+\end{cases}\ \ \ \iff
+C &=\begin{bmatrix}
 c_1^{(1)} & c_2^{(1)} & \dots & c_{p}^{(1)} \\
 c_1^{(2)} & c_2^{(2)} & \dots & c_{p}^{(2)} \\
 \vdots & \vdots & \ddots & \vdots \\
@@ -433,7 +433,7 @@ V_{\hat{\theta}}^{(2,1)}& V_{\hat{\theta}}^{(2,2)} & \dots & V_{\hat{\theta}}^{(
 V_{\hat{\theta}}^{(p,1)}& V_{\hat{\theta}}^{(p,2)}& \cdot  & V_{\hat{\theta}}^{(p,p)}
 \end{bmatrix}\begin{pmatrix}1 \\ 0 \\ -1 \\ 0 \\ \vdots \\ 0\end{pmatrix} \\
 &= \begin{pmatrix}
-V_{\hat{\theta}}^{(1,1)} -V_{\hat{\theta}}^{(3,1)} & 
+V_{\hat{\theta}}^{(1,1)} -V_{\hat{\theta}}^{(3,1)} &
 V_{\hat{\theta}}^{(1,2)} - V_{\hat{\theta}}^{(3,2)} &
 \dots &
 V_{\hat{\theta}}^{(1,p)} - V_{\hat{\theta}}^{(3,p)}
@@ -678,7 +678,7 @@ $$
 \end{pmatrix}
 $$
 
-em que 
+em que
 
 $$
 \mathrm{vech} \begin{bmatrix}
@@ -692,7 +692,7 @@ $$
 Se $\Sigma$ for conhecido o vetor de parâmetros é $\theta = \boldsymbol{\mu}$.
 
 Pode-se utilizar as estatísticas  de razão de verossimilhanças, Wald e Escore
-para testar as hipóteses. Todas essas estatísticas convergem para $\chi^2_p$.o
+para testar as hipóteses. Todas essas estatísticas convergem para $\chi^2_p$.
 
 Para a razão de verossimilhanças,
 
@@ -745,7 +745,7 @@ $$
 em que
 
 $$
-W(\boldsymbol{X}_n^*) = 
+W(\boldsymbol{X}_n^*) =
 \frac{n-s}{s}(C\bar{X} - C\boldsymbol{\mu})^T [CS_n^2C^T]^{-1}(C\bar{X} -
 C\boldsymbol{\mu}) \sim F_{(s,n-s)},\ \text{Sob}\ \mathcal{H}_0
 $$
@@ -761,6 +761,6 @@ $$
 e o [valor-$p$](val-p2.qmd) para testar $\mathcal{H}_0$ é
 
 $$
-\mathrm{valor-}p(\boldsymbol{x}^*, \mathcal{H}_0) = 
+\mathrm{valor-}p(\boldsymbol{x}^*, \mathcal{H}_0) =
 P(F_{(s, n-s)} \geq W(\boldsymbol{x}^*))
 $$

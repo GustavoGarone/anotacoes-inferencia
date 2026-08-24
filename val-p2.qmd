@@ -59,7 +59,7 @@ $$
 A hipótese alternativa, $\mathcal{H}_1$, não é necessária para formular o valor-$p$.
 :::
 
-Seja $T_{\mathcal{H}_0}(\boldsymbol{X}_n)$ tal que, quanto maior for seu valor observado, maior é a discrepância entre 
+Seja $T_{\mathcal{H}_0}(\boldsymbol{X}_n)$ tal que, quanto maior for seu valor observado, maior é a discrepância entre
 $\mathcal{H}_0$ e os dados observados. Podemos usar a estatística da [Razão de Verossimilhanças, Wald, ou de Escore](testes-gerais.qmd).
 O valor-$p$ é definido por
 
@@ -82,7 +82,7 @@ Isto, na estatística clássica, está equivocado uma vez que $\mathcal{H}_0$ é
 na $\sigma$-álgebra, isto é, $P(A|B)$ só está bem definido se, e somente se, $A$ e $B$ estiverem na mesma $\sigma$-álgebra.
 :::
 
-1. Observe que, quanto menor for o valor-$p$, há mais evidencias de que $\mathcal{H}_0$ é falsa.
+1. Observe que, quanto menor for o valor-$p$, há mais evidências de que $\mathcal{H}_0$ é falsa.
 
 :::{.callout-note title="Interpretação com níveis de significância"}
 Caso $\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) \leq \alpha$, então dizemos que há evidências para rejeitar
@@ -134,7 +134,7 @@ Encontre um valor-$p$.
 ### Resposta
 
 Observe que $T_{\boldsymbol{H}_0}(\boldsymbol{x}_n) = n\bar{X}^2$ (essa também é a estatística de Wald) satisfaz o critério
-que, quanto maior o valor observado de $T_{\boldsymbol{H}_0}$, mais evidencias contra $\mathcal{H}_0$. Além disso, sob $\mathcal{H}_0$,
+que, quanto maior o valor observado de $T_{\boldsymbol{H}_0}$, mais evidências contra $\mathcal{H}_0$. Além disso, sob $\mathcal{H}_0$,
 
 $$
 T_{\mathcal{H}_0} \sim \chi^2_1 \Rightarrow \mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq n \bar{x}^2)
@@ -344,4 +344,3 @@ plot(hist1, hist2, hist3, layout = l)
 #| output: asis
 L"\hat P(\mathrm{val.-}p_1 < 0.05) = %$(mean(p1 .< 0.05)), \hat P(\mathrm{val.-}p_2 < 0.05) = %$(mean(p2 .< 0.05)), \hat P(\mathrm{val.-}p_3 < 0.05) = %$(mean(p3 .< 0.05))"
 ```
-

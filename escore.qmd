@@ -10,7 +10,8 @@ $$
 em que $f_\theta^{\boldsymbol{X}_n}$ é a [função (densidade) de probabilidade da amostra](dist-amostral.qmd). Assuma que
 $f_\theta$ é diferenciável com respeito a "$\theta$", $\forall \theta \in \Theta$. A *função escore* é definida por
 $$
-U : \mathfrak{X} \times \Theta \rightarrow \mathbb{R}^P, \Theta \subseteq \mathbb{R}^P
+U : \mathfrak{X} \times \Theta \rightarrow \mathbb{R}^P, \Theta \subseteq
+\mathbb{R}^P
 $$
 e $\mathfrak{X} = \{x : f_\theta(x) > 0\}$ é o suporte de $X$, tal que
 $$
@@ -24,7 +25,8 @@ U(x,\theta) = \frac{\partial \ln f_\theta(x)}{\partial \theta} = \left(
 $$
 e a função escore da amostra é definida por
 $$
-U_n(\boldsymbol{x}_n,\theta) = \frac{\partial \ln L_{\boldsymbol{x}_n}(\theta)}{\partial \theta} = \left(
+U_n(\boldsymbol{x}_n,\theta) = \frac{\partial \ln
+L_{\boldsymbol{x}_n}(\theta)}{\partial \theta} = \left(
 \begin{array}{c}
 \frac{\partial \ln L_{\boldsymbol{x}_n}(\theta)}{\partial \theta_1} \\
 \vdots \\
@@ -40,7 +42,8 @@ $$
 pois, por definição,
 $$
 \begin{aligned}
-U_n(\boldsymbol{x}_n, \theta) = \frac{\partial \ln L_{\boldsymbol{x}_n}(\theta)}{\partial \theta}
+U_n(\boldsymbol{x}_n, \theta) = \frac{\partial \ln
+L_{\boldsymbol{x}_n}(\theta)}{\partial \theta}
 &= \frac{\partial \ln }{\partial \theta} \prod f_\theta(x_i) \\
 &= \frac{\partial }{\partial \theta} \sum \ln f_\theta(x_i) \\
 &= \sum \frac{\partial \ln f_\theta(x_i)}{\partial \theta} \\
@@ -103,6 +106,7 @@ $$
 Logo, por $C_3$
 $$
 \frac{\partial}{\partial \theta} \int_{\mathfrak{X}}  f_\theta(x) dx = 0
-= \int_{\mathfrak{X}} \frac{\partial}{\partial \theta} f_\theta(x) dx,\ \forall \theta \in \Theta
+= \int_{\mathfrak{X}} \frac{\partial}{\partial \theta} f_\theta(x) dx,\ \forall
+\theta \in \Theta
 $$
 

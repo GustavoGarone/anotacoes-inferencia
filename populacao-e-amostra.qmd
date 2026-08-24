@@ -1,40 +1,46 @@
 # População e Amostra
 
-Veja: [Modelo Estatístico](modelo-estatistico.qmd) para definições dos modelos estatísticos paramétricos.
+Veja: [Modelo Estatístico](modelo-estatistico.qmd) para definições dos
+modelos estatísticos paramétricos.
 
 ## Variável Populacional {#sec-vp}
 
-Pela teoria estatística, população é o conjunto sob investigação de todos os potenciais elementos.
+Pela teoria estatística, população é o conjunto sob investigação de todos
+os potenciais elementos.
 
-A *Variável Populacional* representa os valores numéricos de cada elemento da população:
+A *Variável Populacional* representa os valores numéricos de cada elemento da
+população:
 $$
-X\sim f_{\theta,}\theta \in \Theta
+X\sim f_{	heta},\theta \in \Theta
 $$
 em que $f_\theta$ é a Função Densidade de Probabilidade da Variável Aleatória populacional. $\theta$ é o vetor de
 parâmetros (desconhecido) e $\Theta$ é o espaço paramétrico
 
 ## Amostra (Teórica)
 
-Na estatística descritiva, a amostra é definida como um subconjunto da população.
+Na estatística descritiva, a amostra é definida como um subconjunto da
+população.
 
-Alguns livros utilizam o termo "amostra representativa" para representar a amostra
-confiável de outra amostra que carrega determinados viéses de seleção. O termo
+Alguns livros utilizam o termo "amostra representativa" para representar a
+amostra
+confiável de outra amostra que carrega determinados viéses de seleção. O
+termo
 representativo é controverso na estatística teórica,
 
 ### Amostra Aleatória {#sec-aa}
 
 Na estatística teórica, dizemos que $(X_{1},\dots,X_{n})$ é uma amostra aleatória
-de $X$ (v.a. populacional) se $X_{1},\dots,X_{n}$ forem 
+de $X$ (v.a. populacional) se $X_{1},\dots,X_{n}$ forem
 independentes e identicamente distribuídas de acordo com a distribuição da variável aleatória populacional $X$
-Ou seja, 
+Ou seja,
 $$
-\text{Independentes }\rightarrow\begin{cases}X_{1}\sim f_{\theta,}\theta \in \Theta \\
+\text{Independentes }\rightarrow\begin{cases}X_{1}\sim f_{	heta},\theta \in \Theta \\
 \vdots \\
 X_{n} \sim f_{\theta}, \theta \in \Theta
 \end{cases}
 $$
 
-Sendo assim, $(X_1, \dots, X_n)$ é amostra aleatória de $X\sim f_\theta, \theta in \Theta$
+Sendo assim, $(X_1, \dots, X_n)$ é amostra aleatória de $X\sim f_\theta, 	heta in Theta$
 sempre que $(X_1, \dots, X_n)$ forem independentes para cada $P_\theta, \theta \in \Theta$ e
 $X_i \sim f_\theta, \theta \in \Theta, i = 1, 2, \dots, n$
 

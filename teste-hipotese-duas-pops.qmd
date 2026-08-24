@@ -74,7 +74,7 @@ $$
 Note ainda que as variância e covariância de $X,Y$ estão embutidas em $\sigma^2_{D}$.
 Podemos usar
 $$
-s^2_{D}(\underset{\sim}{D})=\frac{1}{n-1}\sum^n_{i=1}(D_{i}-\bar{D}_{\mathrm{Par}})^2
+s^2_{D}(\boldsymbol{D})=\frac{1}{n-1}\sum^n_{i=1}(D_{i}-\bar{D}_{\mathrm{Par}})^2
 $$
 Para estimar $\sigma^2_{D}$
 Podemos construir as decisões como já vimos anteriormente em
@@ -115,7 +115,7 @@ s^2 & 0.87  & 0.55  &  0.9
 \end{array}
 $$
 
-Temos que $s^2(\underset{\sim}{D})=0.9$. (Podemos calcular diretamente ou usando a coluna $D^2$ e substituindo no
+Temos que $s^2(\boldsymbol{D})=0.9$. (Podemos calcular diretamente ou usando a coluna $D^2$ e substituindo no
 somatório $s^2_{D}=\left( \frac{\sum^n_{i=1}d_{i}^2}{n}-\bar{d}^2 \right) \frac{n}{n-1}$ )
 Rejeitamos $H_{0}$ se $\frac{\bar{d}_{\mathrm{Par}}}{\sqrt{ \frac{s^2_{D}}{n}}}<-t_{\alpha,n-1}$ onde $t_{\alpha,n-1}$
 é tal que $P(t_{n-1}<-t_{\alpha,n-1})=\alpha$, onde $t_{n-1}$ é a distribuição T de Student com $n-1$ graus de liberdade.
@@ -272,7 +272,7 @@ Como $-13.8 < -8.65$, concluímos que há evidências para rejeitarmos a hipóte
 estatística.
 
 ##### Caso 3. Variâncias desconhecidas e diferentes
-Primeiro calculamos $n'= 32.08 \stackrel{\text{Arrendonda}}{=}32$. Assim, $t_{32,0.025} = 2.037$.
+Primeiro calculamos $n'= 32.08 \stackrel{\text{Arredonda}}{=}32$. Assim, $t_{32,0.025} = 2.037$.
 Portanto, $t_{32,0.025} \sqrt{  \frac{s^2_{X}}{n} + \frac{s^2_{Y}}{m} }=8.14$. Como $-13.8 < -8.15$,
 concluímos que há evidências para rejeitarmos a hipótese nula a $\alpha=5\%$ de significância estatística.
 

@@ -63,7 +63,7 @@ _Teorema 2_.
 
 Se $M \sim \mathrm{Wishart}_p (\Sigma, n)$ e $\boldsymbol{a} \in
 \mathbb{R}^p$
-difernete de zero, então
+diferente de zero, então
 
 $$
 \frac{a^T M a}{a^T \Sigma a} \sim \chi^2_n

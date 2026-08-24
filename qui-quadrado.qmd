@@ -10,7 +10,7 @@ using PythonCall, RCall
 ```
 # Distribuição Qui-Quadrado
 
-Se $Z\sim N(0,1)$, então $Z^{2}\sim \chi^2$, como provado por transformação de variáveis aleatórias 
+Se $Z\sim N(0,1)$, então $Z^{2}\sim \chi^2$, como provado por transformação de variáveis aleatórias
 
 Se $W\sim \chi^{2}_{k}$, então sua função densidade de probabilidade é dada por
 $$
@@ -84,7 +84,7 @@ def update(n):
     line.set_data(x, y)
     ax.set_title(f"Qui-Quadrado: $\\nu = {n}$")
     ax.set_xlim(0, 1500)
-    ax.set_ylim(0, 0.1) 
+    ax.set_ylim(0, 0.1)
     return line,
 
 ani = FuncAnimation(fig, update, frames=range(1, 1001, 15), blit=True)

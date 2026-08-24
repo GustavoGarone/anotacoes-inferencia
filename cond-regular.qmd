@@ -20,7 +20,8 @@ $$
 \end{aligned}\right.
 $$
 
-Para as duas últimas condições, substituímos no caso discreto as integrais por somatórios.
+Para as duas últimas condições, substituímos no caso discreto as integrais
+por somatórios.
 
 
 $C_5$: $\Theta$ é aberto e convexo, ou seja, se $\theta_1, \theta_2 \in \Theta$, então
@@ -39,7 +40,7 @@ $C_8$:
 $$
 \begin{aligned}
 & \sup_{\theta_2 \in \Theta} \left\lvert M(\theta,\theta_2) - \frac{1}{n}\lvert U_n(\boldsymbol{X}_n,\theta_2) \rvert \right\rvert
-\stackrel{P_\theta}{\rightarrow} 0\\ 
+\stackrel{P_\theta}{\rightarrow} 0\\
 &\forall \theta \in \Theta, M(\theta, \theta_2) = \frac{1}{n}\left\lvert E_\theta(U_n(\boldsymbol{X}_n,\theta_2))\right\rvert
 \end{aligned}
 $$
@@ -58,7 +59,8 @@ $$
 em que $\theta^*_n$ é um estimador consistente qualquer para "$\theta$".
 
 :::{.callout-note title="Suficientes mas não necessárias"}
-Nem toda condição de regularidade é necessária para provar algum teorema. Em muitos casos, por exemplo, podemos utilizar
+Nem toda condição de regularidade é necessária para provar algum teorema. Em
+muitos casos, por exemplo, podemos utilizar
 apenas as condições $C_1:C_4$, enquanto resultados mais fortes podem precisar de mais condições.
 :::
 

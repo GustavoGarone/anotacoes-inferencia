@@ -1,6 +1,6 @@
 # Distribuição Amostral - Aprofundamento
 
-Seja $(Y_1,\dots,Y_n)$ uma [amostra aleatória](populacao-e-amostra.qmd#aa) de $Y\sim f_\theta, \theta \in \Theta$.
+Seja $(Y_1,\dots,Y_n)$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $Y\sim f_\theta, \theta \in \Theta$.
 A função (densidade) de probabilidade da amostra aleatória é dada por
 $$
 f_\theta^{(n)}(y_1,\dots,y_n) \stackrel{\mathrm{iid}}{=} \prod_{i=1}^n f_\theta (y_i), \forall \theta \in \Theta
@@ -42,7 +42,7 @@ $$
 0, & \mathrm{c.c.}
 \end{array}\right. \\
 \Rightarrow
-&f_\theta^{(n)}(\boldsymbol{y}_n) = 
+&f_\theta^{(n)}(\boldsymbol{y}_n) =
 \left\{ \begin{array}{lr}
 \mathrm{e}^{\sum^k_{j=1}c_j(\theta)\sum^n_{i=1}T_j(y_i) +nd(\theta)+\sum^n_{i=1}S(y_i)}, & \mathrm{se}\ \boldsymbol{y}_n \in \mathfrak{X}^n \\
 0, & \mathrm{c.c.}
@@ -204,5 +204,6 @@ Portanto, pertence à FE k-dimensional.
 
 ::: {.callout-note title="Observação"}
 A partir de $f_\theta^{(n)}$ conseguimos fazer inferência sobre a [quantidade de interesse](quantidade-de-interesse.qmd):
-podemos encontrar a distribuição de [estatísticas](estatisticas.qmd) e [estimadores](estimadores.qmd).
+podemos encontrar a distribuição de [estatísticas](estatisticas.qmd) e
+[estimadores](estimadores.qmd).
 :::

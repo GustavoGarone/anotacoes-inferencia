@@ -4,7 +4,8 @@ Dizemos que $\boldsymbol{X} = \left(\begin{array}{c}X_1 \\ \vdots \\ X_n\end{arr
 $N_d(\boldsymbol{\mu}, \Sigma)$ se, e somente se, a sua função densidade de probabilidade é dada por:
 
 $$
-f^{\boldsymbol{X}}(\boldsymbol{x}) = \frac{1}{(2\pi)^{\frac{d}{2}} \lvert \Sigma \rvert^{\frac{1}{2}}}
+f^{\boldsymbol{X}}(\boldsymbol{x}) = \frac{1}{(2\pi)^{\frac{d}{2}} \lvert \Sigma
+\rvert^{\frac{1}{2}}}
 \mathrm{Exp}\left\{-\frac{1}{2} (\boldsymbol{x} - \boldsymbol{\mu})^T \Sigma^{-1}(\boldsymbol{x}-\boldsymbol{\mu})\right\}
 $$
 
@@ -24,7 +25,7 @@ $$
 :::
 
 :::{.callout-note title="Obs 1: Caso particular: Normal univariada"}
-Se $d=1$, então 
+Se $d=1$, então
 $\boldsymbol{X} = X_1$ e $X_1 \sim N_1(\mu_1,\sigma_{11})$
 :::
 
@@ -83,7 +84,8 @@ $$
 e
 $$
 \begin{aligned}
-(\boldsymbol{x} - \boldsymbol{\mu})^{T}\Sigma^{-1}(\boldsymbol{x} - \boldsymbol{\mu}) &=
+(\boldsymbol{x} - \boldsymbol{\mu})^{T}\Sigma^{-1}(\boldsymbol{x} -
+\boldsymbol{\mu}) &=
 \left(\begin{array}{c}
 x_1 - \mu_1 \\
 \vdots \\
@@ -115,7 +117,8 @@ $$
 Portanto, a f.d.p de $X$ quando $\Sigma = \mathrm{diag}(\sigma_{11} \dots \sigma_{dd})$ é
 $$
 \begin{aligned}
-f^{\boldsymbol{X}}(\boldsymbol{x}) &= \frac{1}{(2\pi)^{\frac{d}{2}} \left(\prod \sigma_{ii}\right)^{\frac{1}{2}}}
+f^{\boldsymbol{X}}(\boldsymbol{x}) &= \frac{1}{(2\pi)^{\frac{d}{2}} \left(\prod
+\sigma_{ii}\right)^{\frac{1}{2}}}
 \mathrm{Exp}\left\{-\frac{1}{2}\sum^d \frac{(x_i - \mu_i)^2}{(\sigma_{ii})}\right\} \\
 &= \prod \left\{
 \frac{1}{(2\pi)^{\frac{d}{2}} \sigma_{ii}^{\frac{1}{2}}}
@@ -145,7 +148,8 @@ $$
 Prova por F.G.M:
 $$
 \begin{aligned}
-M_{\boldsymbol{Y}}(\boldsymbol{t} &= E(\mathrm{e}^{\boldsymbol{Y}^T\boldsymbol{t}}) \\
+M_{\boldsymbol{Y}}(\boldsymbol{t} &=
+E(\mathrm{e}^{\boldsymbol{Y}^T\boldsymbol{t}}) \\
 &= E(\mathrm{e}^{\boldsymbol{a}^T \boldsymbol{t} + \boldsymbol{X}^T B^T \boldsymbol{t}}) \\
 &= \mathrm{e}^{\boldsymbol{a}^T\boldsymbol{t}}E(\mathrm{e}^{\boldsymbol{X}^T B^T \boldsymbol{t}}) \\
 &= \mathrm{e}^{\boldsymbol{a}^T\boldsymbol{t}} M_{\boldsymbol{X}}(B^T \boldsymbol{t}) \\
@@ -162,7 +166,7 @@ $$
 \boldsymbol{Y} = \Sigma^{-\frac{1}{2}} \boldsymbol{X} - \Sigma^{-\frac{1}{2}}\boldsymbol{\mu} = \Sigma^{-\frac{1}{2}}(\boldsymbol{X} - \boldsymbol{\mu}) \sim N_d(0,I)
 $$
 
-Como $\Sigma$ é uma matriz quadrada simétrica e positiva definida, todos seus autovalores são estritamente positivas. Logo,
+Como $\Sigma$ é uma matriz quadrada simétrica e positiva definida, todos seus autovalores são estritamente positivos. Logo,
 $$
 \Sigma = \Gamma \Lambda \Gamma^T
 $$
@@ -245,11 +249,13 @@ $$
 \left(\begin{array}{cc} \sigma_{11} & -\sigma_{12} \\ -\sigma_{12} & \sigma_{22} \end{array}\right) \\
 \Rightarrow f^{\boldsymbol{X}}(x_1, x_2)\\ = \frac{1}{2\pi \sqrt{\sigma_{11}\sigma_{22} - \sigma_{12}^2}}
 &\mathrm{Exp}\underbracket{\left\{
--\frac{1}{2} \left(\begin{array}{c} X_1 - \mu_1 \\ X_2 - \mu_2 \end{array}\right)^T
+-\frac{1}{2} \left(\begin{array}{c} X_1 - \mu_1 \\ X_2 - \mu_2
+\end{array}\right)^T
 \left(\begin{array}{cc} \sigma_{11} & -\sigma_{12} \\ -\sigma_{12} & \sigma_{22} \end{array}\right)
 \left(\begin{array}{c} X_1 - \mu_1 \\ X_2 - \mu_2 \end{array}\right) \frac{1}{\sigma_{11}\sigma_{22} - \sigma_{12}^2}
 \right\}}_{*} \\ \\
-*&= [(x_1 - \mu_1)\sigma_{22} - (x_2 - \mu_2)\sigma_{12} - (x_1-\mu_1)\sigma_{12}+(x_2 - \mu_2)\sigma_{11}]
+*&= [(x_1 - \mu_1)\sigma_{22} - (x_2 - \mu_2)\sigma_{12} -
+(x_1-\mu_1)\sigma_{12}+(x_2 - \mu_2)\sigma_{11}]
 \left(\begin{array}{c} X_1 - \mu_1 \\ X_2 - \mu_2 \end{array}\right)^T \\
 &= (x_1 - \mu_1)^2 \sigma_{22} - 2(x_1 - \mu_1)(x_2 - \mu_2)\sigma_{12} + (x_2 - \mu_2)^2 \sigma_{11} \\
 \Rightarrow \frac{*}{\sigma_{11}\sigma_{22} - \sigma_{12}^2} &=
@@ -257,15 +263,19 @@ $$
 \frac{2(x_1 - \mu_1)(x_2 - \mu_2)}{\frac{\sigma_{11}\sigma_{22} - \sigma{12}^2}{\sigma_{22}}} +
 \frac{(x_2 - \mu_2)^2}{\frac{\sigma_{11}\sigma_{22} - \sigma_{12}^2}{\sigma_{22}}} \\
 \mathrm{Tome}\ \rho = \frac{\sigma_{12}}{\sqrt{\sigma_{11} \sigma_{22}}} \\ \\
-A.\ \frac{\sigma_{11}\sigma_{22} - \sigma_{12}^2}{\sigma_{22}} &= \sigma_{11} - \frac{\sigma_{12}^2}{\sigma_{22}} \\
+A.\ \frac{\sigma_{11}\sigma_{22} - \sigma_{12}^2}{\sigma_{22}} &= \sigma_{11} -
+\frac{\sigma_{12}^2}{\sigma_{22}} \\
 &= \sigma_{11} - \sigma_{11}\frac{\sigma_{12}^2}{\sigma_{11}\sigma_{22}} \\
 &= \sigma_{11} - \sigma_{11} \rho^2  \\
 &= \sigma_{11}(1-\rho^2)\\ \\
-B.\ \frac{\sigma_{11} \sigma_{22} - \sigma_{12}^2}{\sigma_{11}} &= \sigma_{22}(1-\rho^2) \\ \\
-C.\ \frac{\sigma_{11}\sigma_{22}}{\sigma_{12}} - \sigma_{12} &= \sigma_{12} \frac{\sigma_{11}\sigma_{22}}{\sigma_{12}^2} - \sigma_{12} \\
+B.\ \frac{\sigma_{11} \sigma_{22} - \sigma_{12}^2}{\sigma_{11}} &=
+\sigma_{22}(1-\rho^2) \\ \\
+C.\ \frac{\sigma_{11}\sigma_{22}}{\sigma_{12}} - \sigma_{12} &= \sigma_{12}
+\frac{\sigma_{11}\sigma_{22}}{\sigma_{12}^2} - \sigma_{12} \\
 &= \sigma_{12}(\rho^{-2} - 1) = \sigma_{12} \left(\frac{1 - \rho^2}{\rho^2}\right) \\
 \Rightarrow \frac{*}{\sigma_{11}\sigma_{22}-\sigma_{12}^2} &= \frac{(x_1-\mu_1)^2}{\sigma_{11}(1-\rho^2)}
--2\rho^2\frac{(x_1 - \mu_1)(x_2 - \mu_2)}{\sigma_{12}(1-\rho^2)} + \frac{(x_2 - \mu_2)^2}{\sigma_{22}(1-\rho^2)}
+-2\rho^2\frac{(x_1 - \mu_1)(x_2 - \mu_2)}{\sigma_{12}(1-\rho^2)} + \frac{(x_2 -
+\mu_2)^2}{\sigma_{22}(1-\rho^2)}
 \end{aligned}
 $$
 
@@ -280,7 +290,8 @@ $$
 &f^{\boldsymbol{X}}(x_1, x_2) \\&= \frac{1}{2\pi \sqrt{\sigma_{11}, \sigma_{22}} \sqrt{1-\rho^2}}
 \mathrm{Exp} \left\{
 -\frac{1}{2(1-\rho^2)} \left(\frac{(x_1-\mu_1)^2}{\sigma_{11}}
--2\rho\frac{(x_1 - \mu_1)(x_2 - \mu_2)}{\sqrt{\sigma_{11}\sigma_{22}}} + \frac{(x_2 - \mu_2)^2}{\sigma_{22}} \right)
+-2\rho\frac{(x_1 - \mu_1)(x_2 - \mu_2)}{\sqrt{\sigma_{11}\sigma_{22}}} +
+\frac{(x_2 - \mu_2)^2}{\sigma_{22}} \right)
 \right\}
 \end{aligned}
 $$
@@ -320,7 +331,7 @@ e somente se, $\boldsymbol{X}_1,\dots,\boldsymbol{X}_n$ são independentes e $\b
 
 :::{.callout-note title="Notação"}
 $$
-\boldsymbol{X}_n^* = (\boldsymbol{X}_1, \dots, \boldsymbol{X}_n)\ \mathrm{a.a.}\ \text{de}\ \boldsymbol{X} \sim N_d(\boldsymbol{\mu}, \Sigma) 
+\boldsymbol{X}_n^* = (\boldsymbol{X}_1, \dots, \boldsymbol{X}_n)\ \mathrm{a.a.}\ \text{de}\ \boldsymbol{X} \sim N_d(\boldsymbol{\mu}, \Sigma)
 $$
 :::
 
@@ -331,7 +342,8 @@ $$
 \begin{aligned}
 \theta &= (\boldsymbol{\mu}^T, \mathrm{vech}(\Sigma)^T)^T \\
 \in \Theta &= \left\{(\boldsymbol{\mu}^T,\mathrm{vech}(\Sigma)^T) \in \mathbb{R}^d\times \mathbb{R}^{\frac{d(d+1)}{2}}
-: \Sigma\ \text{é positiva definida (p.d.)}\right\}\subseteq \mathbb{R}^{d + \frac{d(d+1)}{2}}
+: \Sigma\ \text{é positiva definida (p.d.)}\right\}\subseteq \mathbb{R}^{d +
+\frac{d(d+1)}{2}}
 \end{aligned}
 $$
 
@@ -341,11 +353,13 @@ $$
 \mathcal{L}_{\boldsymbol{x}^*}(\theta) &=  \prod^n_{i=1} f_\theta^{\boldsymbol{X}}(\boldsymbol{x}_i) =
 \prod \left\{
 \frac{1}{(2\pi)^{\frac{d}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
--\frac{1}{2}(\boldsymbol{x}_i - \boldsymbol{\mu})^T \Sigma^{-1}(\boldsymbol{x}_i - \boldsymbol{\mu})
+-\frac{1}{2}(\boldsymbol{x}_i - \boldsymbol{\mu})^T \Sigma^{-1}(\boldsymbol{x}_i
+- \boldsymbol{\mu})
 \right\}
 \right\} \\
 &=  \frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
--\frac{1}{2}\underbracket{\sum^n(\boldsymbol{x}_i - \boldsymbol{\mu})^T \Sigma^{-1}(\boldsymbol{x}_i - \boldsymbol{\mu})}_{\dagger}
+-\frac{1}{2}\underbracket{\sum^n(\boldsymbol{x}_i - \boldsymbol{\mu})^T
+\Sigma^{-1}(\boldsymbol{x}_i - \boldsymbol{\mu})}_{\dagger}
 \right\}
 \end{aligned}
 $$
@@ -358,10 +372,13 @@ $$
 &= \sum^n ((\boldsymbol{x}_i - \bar{\boldsymbol{x}}) - (\boldsymbol{\mu} - \bar{\boldsymbol{x}}))^T
 \Sigma^{-1} ((\boldsymbol{x}_i - \bar{\boldsymbol{x}}) - (\boldsymbol{\mu} - \bar{\boldsymbol{x}})) \\
 &= \sum^n \left\{
-(\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})
--\underbracket{(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})}_{A} \right .\\
+(\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i -
+\bar{\boldsymbol{x}})
+-\underbracket{(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}
+(\boldsymbol{x}_i - \bar{\boldsymbol{x}})}_{A} \right .\\
 &\left.-\underbracket{(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}})}_{B}
-+(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}})
++(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} -
+\bar{\boldsymbol{x}})
 \right\}
 \end{aligned}
 $$
@@ -369,24 +386,31 @@ $$
 Como $n\bar{\boldsymbol{x}} = \sum^n \boldsymbol{x}_i$, temos que
 
 $$
-\begin{cases} 
-A = \sum^n (\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}}) =
-(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\sum^n \boldsymbol{x}_i - \bar{\boldsymbol{x}}) = 0 \\
-B = \sum^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) =
-(\sum^n \boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) = 0
+\begin{cases}
+A = \sum^n (\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}
+(\boldsymbol{x}_i - \bar{\boldsymbol{x}}) =
+(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\sum^n \boldsymbol{x}_i
+- \bar{\boldsymbol{x}}) = 0 \\
+B = \sum^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1}
+(\boldsymbol{\mu} - \bar{\boldsymbol{x}}) =
+(\sum^n \boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu}
+- \bar{\boldsymbol{x}}) = 0
 \end{cases}
 $$
 
 Portanto,
 $$
 \begin{aligned}
-\dagger &= 
+\dagger &=
 \sum^n (\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})
-+n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) \\
++n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} -
+\bar{\boldsymbol{x}}) \\
 &=  \sum^n \mathrm{tr}\{(\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})\}
-+n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) \\
++n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} -
+\bar{\boldsymbol{x}}) \\
 &\stackrel{\text{Prop. tr}}{=}  \sum^n \mathrm{tr}\{\Sigma^{-1}(\boldsymbol{x} - \bar{\boldsymbol{x}})(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T\}
-+n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) \\
++n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} -
+\bar{\boldsymbol{x}}) \\
 \end{aligned}
 $$
 
@@ -394,7 +418,8 @@ Note que $\sum^n \mathrm{tr}\{A \boldsymbol{y}_i\} = \mathrm{tr}\{A \sum \boldsy
 $$
 \begin{aligned}
 \dagger &= n \mathrm{tr} \{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\}
-+n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) \\
++n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} -
+\bar{\boldsymbol{x}}) \\
 \end{aligned}
 $$
 em que $S^2(\boldsymbol{x}_n^*) = \frac{1}{n} \sum^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}})(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T$.
@@ -405,7 +430,8 @@ $$
 \mathcal{L}_{\boldsymbol{x}^*}(\theta) =
 \frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
 -\frac{n}{2}\left( \mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\}
-+(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}(\boldsymbol{\mu} - \bar{\boldsymbol{x}})\right)
++(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}(\boldsymbol{\mu} -
+\bar{\boldsymbol{x}})\right)
 \right\}
 $$
 
@@ -415,7 +441,8 @@ Pelo [critério da fatoração de Neyman-Fisher](estatisticas-suficientes.qmd#se
 
 Para maximizar a função de verossimilhança em relação a $\boldsymbol{\mu}$, note que basta minimizar
 $$
-(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}(\boldsymbol{\mu} - \bar{\boldsymbol{x}})
+(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}(\boldsymbol{\mu} -
+\bar{\boldsymbol{x}})
 $$
 note que, como $\Sigma$ é positiva definida (p.d.), $\Sigma^{-1}$ também é p.d. Portanto, pela definição,
 $\boldsymbol{y}^T \Sigma^{-1} \boldsymbol{y} > 0, \forall \boldsymbol{y} \in \mathbb{R}^d \setminus \{0\}$ e
@@ -430,8 +457,10 @@ $$
 $$
 em relação a $\Sigma$. Aplicando $\ln$, temos
 $$
--\frac{nd}{2} \ln(2\pi) - \frac{n}{2} \ln\lvert\Sigma\rvert - \frac{n}{2} \mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\} =
-c - \frac{n}{2}\left( \ln\lvert\Sigma\rvert +  \mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\}\right)
+-\frac{nd}{2} \ln(2\pi) - \frac{n}{2} \ln\lvert\Sigma\rvert - \frac{n}{2}
+\mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\} =
+c - \frac{n}{2}\left( \ln\lvert\Sigma\rvert +
+\mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\}\right)
 $$
 
 Note que, para qualquer $\lambda > 0$, temos
@@ -495,7 +524,8 @@ $$
 \begin{aligned}
 \hat{\mu}_{\mathrm{MV}}(\boldsymbol{X}^*_n) &= \bar{\boldsymbol{X}} = \frac{1}{n} \sum^n_{i=1} \boldsymbol{X}_i \\
 \hat{\Sigma}_{\mathrm{MV}}(\boldsymbol{X}^*_n) &= S^2(\boldsymbol{X}_n^*) = \frac{1}{n} \sum^n_{i=1}
-(\boldsymbol{X}_i - \bar{\boldsymbol{X}})(\boldsymbol{X}_i - \bar{\boldsymbol{X}})^T \\
+(\boldsymbol{X}_i - \bar{\boldsymbol{X}})(\boldsymbol{X}_i -
+\bar{\boldsymbol{X}})^T \\
 &= \frac{1}{n} \sum \boldsymbol{X}_i\boldsymbol{X}^T - \bar{\boldsymbol{X}}\bar{\boldsymbol{X}}^T
 \end{aligned}
 $$
@@ -529,7 +559,8 @@ Desenvolvendo,
 $$
 \begin{aligned}
 B\boldsymbol{\mu} &= -4\mu_1 + \mu_2 = \mu_2 - 4\mu_1 \\
-B\Sigma B^T &= (-4,1) \begin{bmatrix}\sigma_{11} & \sigma_{12} \\ \sigma_{21} & \sigma_{22} \end{bmatrix} \begin{pmatrix}-4 \\ 1 \end{pmatrix} \\
+B\Sigma B^T &= (-4,1) \begin{bmatrix}\sigma_{11} & \sigma_{12} \\ \sigma_{21} &
+\sigma_{22} \end{bmatrix} \begin{pmatrix}-4 \\ 1 \end{pmatrix} \\
 &\stackrel{\sigma_{12} = \sigma_{21}}{=} 16\sigma_{11} + \sigma_{22} - 8 \sigma_{12}
 \end{aligned}
 $$
@@ -539,7 +570,8 @@ $$
 \begin{aligned}
 g(\theta) &= P_\theta(X_2 - 4 X_1 > 0) \\
 &= P_\theta\left(\frac{(X_2 - 4X_1) - (\mu_2 -4\mu_1)}{\sqrt{16\sigma_{11} + \sigma_{22} - 8 \sigma_{12}}} >
--\frac{\mu_2 -4\mu_1}{\sqrt{16\sigma_{11} + \sigma_{22} - 8 \sigma_{12}}}\right) \\
+-\frac{\mu_2 -4\mu_1}{\sqrt{16\sigma_{11} + \sigma_{22} - 8 \sigma_{12}}}\right)
+\\
 &= P\left( Z > -\frac{\mu_2 -4\mu_1}{\sqrt{16\sigma_{11} + \sigma_{22} - 8 \sigma_{12}}}\right) \\
 &= 1 - \Phi\left(-\frac{\mu_2 -4\mu_1}{\sqrt{16\sigma_{11} + \sigma_{22} - 8 \sigma_{12}}}\right)
 \end{aligned} \\
@@ -558,11 +590,13 @@ $$
 $$
 ou, de outra forma,
 $$
-I_n(\theta)^{\frac{1}{2}}(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, \boldsymbol{I}).
+I_n(\theta)^{\frac{1}{2}}(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) - \theta)
+\stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, \boldsymbol{I}).
 $$
 Além disso, pelo [Teorema de Slutsky](slutsky.qmd),
 $$
-I_n(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n))^{\frac{1}{2}}(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) - \theta)
+I_n(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n))^{\frac{1}{2}}(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)
+- \theta)
 \stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, \boldsymbol{I})
 $$
 em que $\boldsymbol{I}$ é a matriz identidade.
@@ -607,7 +641,8 @@ $$
 em que
 $$
 \begin{aligned}
-V_\theta &= h(\theta)^{-1} \mathrm{Var}_\theta(\boldsymbol{Y})[h(\theta)^{-1}]^T \\
+V_\theta &= h(\theta)^{-1} \mathrm{Var}_\theta(\boldsymbol{Y})[h(\theta)^{-1}]^T
+\\
 \boldsymbol{Y} &= \begin{bmatrix} X \\ X^2 \\ \vdots \\ X^p \end{bmatrix}
 \end{aligned}
 $$
@@ -628,7 +663,8 @@ E_\theta(X^k) = \frac{1}{n} \sum X_i^k, k \in \{k_1, \dots, k_n\}
 $$
 Seja
 $$
-h(\theta) = \begin{bmatrix}\frac{\partial E_\theta(X^{k_1})}{\partial \theta^T} \\ \vdots \\ \frac{\partial E_\theta(X^{k_p})}{\partial \theta^T} \end{bmatrix}
+h(\theta) = \begin{bmatrix}\frac{\partial E_\theta(X^{k_1})}{\partial \theta^T}
+\\ \vdots \\ \frac{\partial E_\theta(X^{k_p})}{\partial \theta^T} \end{bmatrix}
 $$
 
 Considere que
@@ -662,7 +698,7 @@ f_\theta(x) = \begin{cases}
 \end{cases}
 $$
 
-Encontre o EMV, EMM e suas distribuições assinstóticas para $\theta$.
+Encontre o EMV, EMM e suas distribuições assintóticas para $\theta$.
 
 ##### Resposta
 Note que $B(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}$
@@ -670,7 +706,7 @@ $$
 \begin{aligned}
 \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \frac{1}{B(\alpha, \beta)^n} (\prod x_i)^{\alpha-1} (\prod(1-x_i))^{\beta - 1} \\
 \mathcal{l}_{\boldsymbol{x}_n}(\theta) &=
--n \ln \Gamma(\alpha) - n\ln\Gamma(\beta) + n \ln \Gamma(\alpha+\beta) \\ 
+-n \ln \Gamma(\alpha) - n\ln\Gamma(\beta) + n \ln \Gamma(\alpha+\beta) \\
 &+ (\alpha-1)\sum \ln x_i + (\beta -1)\sum \ln (1 - x_i), \\
 \Rightarrow \frac{\partial \mathcal{l}_{\boldsymbol{x}_n}}{\partial \alpha}(\theta)& = -n \psi_1(\alpha) + n \psi_1(\alpha + \beta)
 +\sum \ln x_i; \\
@@ -701,7 +737,8 @@ $$
 \end{aligned}
 $$
 
-A estimativa de MV pode ser obtida numericamente via [algoritmo de Newton-Raphson](metodo-nr.qmd). Neste caso, o método
+A estimativa de MV pode ser obtida numericamente via [algoritmo de
+Newton-Raphson](metodo-nr.qmd). Neste caso, o método
 é equivalente ao de escore de Fisher:
 $$
 \hat{\theta}^{(j+1)} = \hat{\theta}^{(j)} + I_n(\hat{\theta}^{(j)})^{-1} U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)})

@@ -6,7 +6,8 @@ using RCall, PythonCall
 ENV["QT_STYLE_OVERRIDE"] = "Fusion"
 ```
 
-Nem sempre existem soluções fechadas para [estimadores de máxima verossimilhança](emv2.qmd) ou obtidos pelo [método de
+Nem sempre existem soluções fechadas para [estimadores de máxima
+verossimilhança](emv2.qmd) ou obtidos pelo [método de
 momentos](metodo-momentos.qmd). Por exemplo, $U_n(\boldsymbol{X}_n, \theta) = 0$ não tem solução fechada para o EMV e
 $E_\theta(X^k) \frac{1}{n} \sum X_i^k$ para o EMM.
 
@@ -49,7 +50,8 @@ f_\theta(x) = \begin{cases}
 0, & \mathrm{c.c.}
 \end{cases}
 $$
-não conseguimos finalizar a expressão. Vamos relembrar o [escore](escore.qmd) da amostra igualado a zero:
+não conseguimos finalizar a expressão. Vamos relembrar o [escore](escore.qmd)
+da amostra igualado a zero:
 
 $$
 U_n(\boldsymbol{x}_n,\theta) = \sum \ln x_i -\frac{n}{\Gamma(\theta)}\Gamma'(\theta) + \sum \ln x_i  = 0

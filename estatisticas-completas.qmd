@@ -7,13 +7,14 @@ E_\theta(h(T(\boldsymbol{X}_n)) = 0, \forall \theta \in \Theta
 $$
 é a função nula quase certamente, isto é,
 $$
-P_\theta(h(T(\boldsymbol{X}_n))=0) = 1, \forall \theta \in \Theta\; \text{ou simplesmente}\ h(T(\boldsymbol{X}_n)) = 0 \mathrm{q.c.}
+P_\theta(h(T(\boldsymbol{X}_n))=0) = 1, \forall \theta \in \Theta\; \text{ou
+simplesmente}\ h(T(\boldsymbol{X}_n)) = 0 \mathrm{q.c.}
 $$
 
 ## Exemplo 1 (Bernoulli, Soma) {#sec-ex-comp-ber}
 
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim\mathrm{Ber}(\theta)$.
-Mostre que $T(\boldsymbol{X}_n) = \sum X_i$ é uma estatistica completa para o modelo.
+Mostre que $T(\boldsymbol{X}_n) = \sum X_i$ é uma estatística completa para o modelo.
 
 ### Resposta
 
@@ -116,7 +117,8 @@ $$
 Dessa forma,
 $$
 \begin{aligned}
-E_\theta(h(X_{(n)})) &= \int^\infty_{-\infty} h(x) f^{\boldsymbol{X}_{(n)}}_\theta (x) dx,\\
+E_\theta(h(X_{(n)})) &= \int^\infty_{-\infty} h(x)
+f^{\boldsymbol{X}_{(n)}}_\theta (x) dx,\\
 &= \int_0^\theta h(x) \cdot n \left(\frac{x}{\theta}\right)^{n-1} \frac{1}{\theta} dx,\  \forall \theta \in \Theta.
 \end{aligned}
 $$
@@ -157,7 +159,8 @@ $T(\boldsymbol{X}_n) = \boldsymbol{X}_n$ é suficiente porém não é completa p
 Pelo [critério da fatoração](estatisticas-suficientes.qmd#sec-crit-frat), já sabemos que $\boldsymbol{X}_n$ é
 suficiente para o modelo. Tome
 $$
-E_\theta(h(T(\boldsymbol{X}_n)) = E_\theta(X_1 - X_2) = \theta - \theta = 0, \forall \theta \in \Theta.
+E_\theta(h(T(\boldsymbol{X}_n)) = E_\theta(X_1 - X_2) = \theta - \theta = 0,
+\forall \theta \in \Theta.
 $$
 
 Portanto, $T(\boldsymbol{X}_n)$ não é completa para o modelo.
@@ -183,7 +186,8 @@ Note que
 $$
 \begin{aligned}
 E_\theta(\sum X_i) &= n\theta, \forall \theta \in \Theta \\
-E_\theta(\sum X_i^2) &\stackrel{\mathrm{iid}}{=} n E_\theta(X^2) = n(\theta^2+ \theta^2) = 2n\theta^2 \\
+E_\theta(\sum X_i^2) &\stackrel{\mathrm{iid}}{=} n E_\theta(X^2) = n(\theta^2+
+\theta^2) = 2n\theta^2 \\
 \Rightarrow E_\theta(T(\boldsymbol{X})n) = (n\theta, 2n\theta^2)
 \end{aligned}
 $$
@@ -192,7 +196,8 @@ Tentativas para encontrar $h(\cdot)$.
 
 $$
 \begin{aligned}
-E_\theta\left(\left(\sum X_i\right)^2\right) &= E_\theta\left(\sum_{i=1}^n \sum_{j=1}^n X_i X_j\right) \\
+E_\theta\left(\left(\sum X_i\right)^2\right) &= E_\theta\left(\sum_{i=1}^n
+\sum_{j=1}^n X_i X_j\right) \\
 &= \sum_{i=1}^n \sum_{j=1}^n E_\theta(X_i\cdot X_j) \\
 &= \sum_{i=1}^n E(X_i^2) + \underset{i\neq j}{\sum \sum} E_\theta(X_i X_j) \\
 &\stackrel{\mathrm{ind}}{=} 2n\theta^2 + \underset{i\neq j}{\sum \sum} E_\theta(X_i)E_\theta(X_j) \\
@@ -206,17 +211,20 @@ $$
 Ou seja,
 
 $$
-E_\theta\left(\frac{(\sum X_i)^2}{n^2 + n}\right) = \theta^2, \forall \theta \in \Theta.
+E_\theta\left(\frac{(\sum X_i)^2}{n^2 + n}\right) = \theta^2, \forall \theta \in
+\Theta.
 $$
 
 Note ainda que
 $$
-E_\theta\left(\frac{\sum X_i^2}{2n}\right) = \theta^2, \forall \theta \in \Theta.
+E_\theta\left(\frac{\sum X_i^2}{2n}\right) = \theta^2, \forall \theta \in
+\Theta.
 $$
 
 Logo, tome
 $$
-h(T(\boldsymbol{X}_n)) = \frac{T_1(\boldsymbol{X}_n)^2}{n^2+n} - \frac{T_2(\boldsymbol{X}_n)}{2n}
+h(T(\boldsymbol{X}_n)) = \frac{T_1(\boldsymbol{X}_n)^2}{n^2+n} -
+\frac{T_2(\boldsymbol{X}_n)}{2n}
 $$
 em que
 $$
@@ -226,7 +234,7 @@ T_2(\boldsymbol{X}_n) = \sum X_i^2.
 \end{aligned}
 $$
 
-Como $E_\theta(h(T(\boldsymbol{X}_n)) = 0, \forall \theta > 0$, concluímos que $T(\boldsymbol{X}_n)$ não é conpleta.
+Como $E_\theta(h(T(\boldsymbol{X}_n)) = 0, \forall \theta > 0$, concluímos que $T(\boldsymbol{X}_n)$ não é completa.
 
 
 ::: {.callout-caution title="Nem toda SM é completa!"}
@@ -244,7 +252,8 @@ $$
 $$
 em que $c_i$ representa a $i$-ésima componente $c$ obtida do pertencimento à família exponencial. Então a estatística
 $$
-T(\boldsymbol{X}_n) = \left(\sum T_1(\boldsymbol{X}_n),\dots,\sum T_k(\boldsymbol{X}_n)\right),
+T(\boldsymbol{X}_n) = \left(\sum T_1(\boldsymbol{X}_n),\dots,\sum
+T_k(\boldsymbol{X}_n)\right),
 $$
 em que $T_i$ representa a $i$-ésima componente $T$ obtida do pertencimento à FE, é [suficiente](estatisticas-suficientes.qmd)
 *e completa* para o modelo.
@@ -261,7 +270,8 @@ Mostre que $T(\boldsymbol{X}_n) = (\sum X_i, \sum X_i^2)$ é suficiente e comple
 
 Note que
 $$
-f_\theta(x) = \mathrm{e}^{c_1(\theta)T_1(x)+c_2(\theta)T_2(x) + d(\theta) + S(x)}
+f_\theta(x) = \mathrm{e}^{c_1(\theta)T_1(x)+c_2(\theta)T_2(x) + d(\theta) +
+S(x)}
 $$
 em que
 $$
@@ -328,7 +338,8 @@ conjunto $\mathcal{C} = \{(c_1(\theta),c_2(\theta)) : \theta \in \mathbb{R}^+$.
 
 Note que
 $$
-f_\theta(x) = \frac{1}{\sqrt{2\pi\theta^2}} \mathrm{exp}\left\{-\frac{1}{2\theta^2} (x^2 - 2x\theta + \theta^2)\right\}
+f_\theta(x) = \frac{1}{\sqrt{2\pi\theta^2}}
+\mathrm{exp}\left\{-\frac{1}{2\theta^2} (x^2 - 2x\theta + \theta^2)\right\}
 $$
 
 Tomando

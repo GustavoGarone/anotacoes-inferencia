@@ -1,13 +1,13 @@
 # Erro quadrático médio (EQM)
 
-O erro quadrático médio (EQM) do [estimador](estimadores.qmd) $T(X_{1},\dots,X_{n})$ com respeito a $g(\theta)$ é 
+O erro quadrático médio (EQM) do [estimador](estimadores.qmd) $T(X_{1},\dots,X_{n})$ com respeito a $g(\theta)$ é
 definido por
 $$
 \mathrm{EQM}(T,g(\theta))=E_{\theta}((T(X_{1},\dots,X_{n})-g(\theta))^{2})
 $$
 
 ::: {.callout-note title="Observação"}
-Se $T(X_{1},\dots,X_{n})$ for não viciado para $g(\theta)$, então 
+Se $T(X_{1},\dots,X_{n})$ for não viciado para $g(\theta)$, então
 $$\mathrm{EQM}(T,g(\theta))=\mathrm{Var}_{\theta}(T(X_{1},\dots,X_{n})) \forall \theta \in \Theta$$
 :::
 
@@ -20,7 +20,8 @@ $$
 &= E_\theta[((T(X_{1},\dots,X_{n})- \mu_{t})+ (\mu_{t}-g(\theta)))^{2}] \\
 & = E_\theta[(T(X_{1},\dots,X_{n})-\mu_{t})^{2}+2(T(X_{1},\dots,X_{n})-\mu_{t})(\mu_{t}g(\theta))+(\mu_{t}- g(\theta))^{2}] \\
 &= \overbrace{E_\theta[(T(X_{1},\dots,X_{n})-\mu_{t})^{2}]}^{\mathrm{Var}_{\theta}(T(X_{1},\dots,X_{n}))} + 2(\mu_{t} -
-g(\theta))\cancelto{0}{E_\theta(T(X_{1},\dots,X_{n})-\mu_{t})} + (\mu_{t}-g(\theta))^{2} \\
+g(\theta))\cancelto{0}{E_\theta(T(X_{1},\dots,X_{n})-\mu_{t})} +
+(\mu_{t}-g(\theta))^{2} \\
 &=\mathrm{Var}_\theta(T(X_{1},\dots,X_{n})) + (\mu_{t}-g(\theta))^{2}
 \end{aligned}
 $$
@@ -43,7 +44,7 @@ $$
 $$
 
 ## Exemplo do viés da variância {#sec-ex-viesvar}
-Seja $(X_{1},\dots,X_{n})$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa), ou seja, independentes e 
+Seja $(X_{1},\dots,X_{n})$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa), ou seja, independentes e
 identicamente distribuídas (i.i.d.), de $X\sim f(\theta), \theta \in \Theta$.
 Calcule o viés de $T(\boldsymbol{X})$ com respeito a $g(\theta)=\mathrm{Var}_\theta(X)$ em que
 $$
@@ -121,7 +122,7 @@ O que você observa? O estimador não enviesado apresenta menor EQM?
 Por quê?
 
 ## Exemplo do EQM da média
-Seja $(X_{1},\dots,X_{n})$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa), ou seja, independentes e 
+Seja $(X_{1},\dots,X_{n})$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa), ou seja, independentes e
 identicamente distribuídas (i.i.d.), de $X\sim \mathrm{Ber}(\theta)$ em que $\theta \in \Theta = (0,1)$.
 Calcule o viés e o EQM de $\bar{X}_{n}$ com respeito a $g(\theta)=P_\theta(X=1)$
 
@@ -131,7 +132,8 @@ O estimador é, então, $T(X_{1},\dots,X_{n})=\bar{X}_{n}= \frac{X_{1}+\dots+X_{
 (pelo [modelo de Bernoulli](modelo-estatistico.qmd#sec-modelobernoulli)).
 $$
 \begin{aligned}
-E_\theta(\bar{X}_{n}) &= E_\theta\left(\frac{1}{n}\sum\limits^{n}_{i=1}X_{i}\right)=
+E_\theta(\bar{X}_{n}) &=
+E_\theta\left(\frac{1}{n}\sum\limits^{n}_{i=1}X_{i}\right)=
 \frac{1}{n}\sum\limits^{n}_{i=1}E_\theta(X_{i}) \stackrel{id. dist.}{\Rightarrow} \\
 E_\theta(\bar{X}_{n}) &= \frac{1}{n} \sum\limits^{n}_{i=1} E_\theta(X) \\
 & = \frac{n}{n} \theta = \theta, \forall \theta \in \Theta

@@ -1,5 +1,6 @@
 # Modelos Estatísticos na abordagem clássica
-Em teoria de probabilidades, conhecemos a medida de probabilidade, logo, fazemos descrições probabilísticas. 
+Em teoria de probabilidades, conhecemos a medida de probabilidade, logo, fazemos
+descrições probabilísticas.
 $$(\Omega, \mathscr{A}, P)\stackrel{\text{X}}{\rightarrow}(\mathbb{R}, \mathscr{B}, P_{X})$$
 Na prática, contudo, não conhecemos a medida $P$.
 
@@ -7,12 +8,12 @@ Definimos então uma família de medidas de probabilidades que possivelmente des
 
 O *Modelo Estatístico* é definido pela trinca
 $$(\Omega, \mathscr{A}, \mathcal{P})$$
-em que $\Omega$ é o espaço amostral (evento certo), $\mathscr{A}$ é a Sigma álgebra, uma família de subconjuntos ou 
-eventos em $\Omega$, e $\mathcal{P}$ é uma família de medidas de probabilidade que possivelmente descrevem o 
+em que $\Omega$ é o espaço amostral (evento certo), $\mathscr{A}$ é a Sigma álgebra, uma família de subconjuntos ou
+eventos em $\Omega$, e $\mathcal{P}$ é uma família de medidas de probabilidade que possivelmente descrevem o
 comportamento aleatório dos dados ou eventos sob investigação.
 
 ## Modelo Estatístico Paramétrico
-Se $\mathcal{P} = \{P_{\theta} : \theta \in \Theta\}$, em que $\Theta \subseteq \mathbb{R}^{p}$ e 
+Se $\mathcal{P} = \{P_{\theta} : \theta \in \Theta\}$, em que $\Theta \subseteq \mathbb{R}^{p}$ e
 $p \in \mathbb{N}$, então dizemos que $(\Omega, \mathscr{A}, \mathcal{P})$ é um modelo estatístico **Paramétrico**.
 
 Caso não exista $\Theta \subseteq \mathbb{R}^{p}$ fixo, então dizemos que o modelo é não-paramétrico.
@@ -32,11 +33,11 @@ Temos algum conhecimento prévio que sugere que as probabilidades de sucesso pod
 
 Nesse caso,
 $$\mathcal{P} = \{P_{1}, P_{2}, P_{3} \}$$
-em que 
+em que
 $$\begin{cases}
 P_{1}(\{S\}) = 0.1;~ P_{1}(\{F\}) = 0.9;~ P_{1}(\Omega) = 1  \\
 P_{2}(\{S\}) = 0.5;~ P_{2}(\{F\}) = 0.5;~ P_{2}(\Omega) = 1  \\
-P_{3}(\{S\}) = 0.9;~ P_{3}(\{F\}) = 0.1;~ P_{3}(\Omega) = 1 
+P_{3}(\{S\}) = 0.9;~ P_{3}(\{F\}) = 0.1;~ P_{3}(\Omega) = 1
 \end{cases}$$
 Observe que $$\mathcal{P}=\{P_{\theta}: \theta \in \Theta \}$$
 em que $\Theta=\{1,2,3 \}\subseteq \mathbb{R}$
@@ -65,7 +66,8 @@ $$
 #### Exemplo de Exponencial
 Seja $\Omega=(0,\infty)$ e $\mathscr{A}$ uma sigma-álgebra de $\Omega$ (Sigma-Álgebra de Borel)
 $\Omega$ representa o tempo até a ocorrência de um evento (uma reclamação, por exemplo)
-Temos conhecimento prévio de que as funções densidade de probabilidade que possivelmente descrevem esse evento são:
+Temos conhecimento prévio de que as funções densidade de probabilidade que
+possivelmente descrevem esse evento são:
 
 $$
 \begin{aligned}
@@ -185,7 +187,7 @@ $$
 Notação: $\mathrm{Poisson}(\theta)$  em que $\theta$ é a taxa média de ocorrência do evento (parâmetro do modelo) e $\Theta = (0, \infty)$, o espaço paramétrico.
 
 ### Modelo Multinomial
-Dizemos que $\pmb{X} = (X_1,\dots,X_k)$ é um Vetor Aleatório com modelo estatístico Multinomial se, e somente se a função de probabilidade é 
+Dizemos que $\pmb{X} = (X_1,\dots,X_k)$ é um Vetor Aleatório com modelo estatístico Multinomial se, e somente se a função de probabilidade é
 $$
 P_{\theta}(X_{1}=x_{1},\dots,X_{k} = x_{k})=
 \begin{cases}
@@ -203,17 +205,17 @@ E_\theta(X_{i})=n\theta_{i}\\
 \end{cases}
 $$
 
-Notação: $\mathrm{Multinomial}(n, \theta_1,\theta_2,\dots,\theta_k)$ 
+Notação: $\mathrm{Multinomial}(n, \theta_1,\theta_2,\dots,\theta_k)$
 em que $\theta_{1}+\dots+\theta_{k}=1$ e $0\leq \theta_{i} \leq 1$, $\forall i = 1,2,\dots,k$,
-$\Theta=\{(\theta_{1},,\dots,\theta_{k}) \in \mathbb{R}^{k} : 0\leq \theta_{i} \leq 1, i=1,\dots,k, 
+$\Theta=\{(\theta_{1},,\dots,\theta_{k}) \in \mathbb{R}^{k} : 0\leq \theta_{i} \leq 1, i=1,\dots,k,
 \theta_{1}+\dots+\theta_{k} = 1 \}$
 
-Esse modelo tem aplicação em modelos de linguagem como o ChatGPT. ($k$ como tamanho do vocabulário, $n=1$, $\theta_{1}=$ 
+Esse modelo tem aplicação em modelos de linguagem como o ChatGPT. ($k$ como tamanho do vocabulário, $n=1$, $\theta_{1}=$
 probabilidade de escolher o primeiro elemento do vocabulário e assim por diante.)
 
 ### Modelo Uniforme contínuo
 
-Dizemos que $X$ é uma variável aleatória contínua com modelo estatístico Uniforme em 
+Dizemos que $X$ é uma variável aleatória contínua com modelo estatístico Uniforme em
 $(\theta_{1}, \theta_{2}), \theta_{1}\leq x \leq\theta_{2}$, se, e somente se, a sua Função Densidade de Probabilidade é
 $$
 f_\theta(x)=\begin{cases}

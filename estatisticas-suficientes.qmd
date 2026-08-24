@@ -1,7 +1,7 @@
 # Estatísticas Suficientes
 
-Seja $\boldsymbol{X}_n(X_1,\dots,X_n)$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta,
-\theta \in \Theta$. Dizemos que uma [estatística](estatisticas.qmd) $T(\boldsymbol{X}_n)$ é suficiente para o 
+Seja $\boldsymbol{X}_n=(X_1,\dots,X_n)$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta,
+\theta \in \Theta$. Dizemos que uma [estatística](estatisticas.qmd) $T(\boldsymbol{X}_n)$ é suficiente para o
 [modelo estatístico](modelo-estatistico.qmd) se, e somente se, a distribuição da amostra dado que $T(\boldsymbol{X}_n) = t$
 não depende de "$\theta$". Ou seja,
 $$
@@ -42,7 +42,8 @@ Verifique se $T(\boldsymbol{X}_n)=\sum^n_{i=1}X_i$ é suficiente para o modelo e
 
 Por definição,
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n) = t) = \frac{P_\theta(X_1=y_1,\dots,X_n=y_n,T(\boldsymbol{X}_n)=t)}
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n) = t) =
+\frac{P_\theta(X_1=y_1,\dots,X_n=y_n,T(\boldsymbol{X}_n)=t)}
 {P_\theta(T(\boldsymbol{X}_n)=t)}
 $$
 
@@ -158,24 +159,24 @@ $$
 Portanto, para $t \in \{0, \frac{1}{n}, \frac{2}{n},\dots\}$, temos que
 $$
 \begin{aligned}
-&P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n)=t) = \\ &= 
+&P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n)=t) = \\ &=
 \begin{cases}
-\frac{\prod^n_{i=1}\left\{\mathrm{e}^{-\theta}\cdot\frac{\theta^{y_i}}{y_i!}\cdot \mathbb{1}_{\{0,1,\dots\}}(y_i)\right\}} 
+\frac{\prod^n_{i=1}\left\{\mathrm{e}^{-\theta}\cdot\frac{\theta^{y_i}}{y_i!}\cdot \mathbb{1}_{\{0,1,\dots\}}(y_i)\right\}}
 {\mathrm{e}^{-n\theta}\cdot \frac{(n\theta)^{nt}}{(nt)!}}, & t=\frac{1}{n} \sum^n_{i=1} y_i \\
 0, & \mathrm{c.c.}
 \end{cases} \\
 &= \begin{cases}
-\frac{\mathrm{e}^{-n\theta}\cdot\theta^{\sum^n_{i=1}y_i}\cdot \prod^n_{i=1}\mathbb{1}_{\{0,1,\dots\}}(y_i)(nt!)} 
+\frac{\mathrm{e}^{-n\theta}\cdot\theta^{\sum^n_{i=1}y_i}\cdot \prod^n_{i=1}\mathbb{1}_{\{0,1,\dots\}}(y_i)(nt!)}
 {\prod^n_{i=1}(y_i!)\cdot\mathrm{e}^{-n\theta}\cdot (n\theta)^{nt}}, & t=\frac{1}{n} \sum^n_{i=1} y_i \\
 0, & \mathrm{c.c.}
 \end{cases} \\
 &= \begin{cases}
-\frac{\prod^n_{i=1}\mathbb{1}_{\{0,1,\dots\}}(y_i)(nt!)} 
+\frac{\prod^n_{i=1}\mathbb{1}_{\{0,1,\dots\}}(y_i)(nt!)}
 {\prod^n_{i=1}(y_i!)(n)^{nt}}, & t=\frac{1}{n} \sum^n_{i=1} y_i \\
 0, & \mathrm{c.c.}
 \end{cases} \\
 \forall \theta \in \Theta
-\end{aligned} 
+\end{aligned}
 $$
 
 Não depende de "$\theta$" para todo $y_1,\dots,y_n \in \mathbb{R}$ e $t \in \{0,\frac{1}{n},\frac{2}{n},\dots\}$.
@@ -189,7 +190,8 @@ $T(\boldsymbol{X}_n) = \sum^n_{i=1}X_i$ é suficiente para o modelo estatístico
 #### Resposta
 Por definição
 $$
-f_\theta^{\boldsymbol{X}_n\lvert T(\boldsymbol{X}_n) = t}(y_1,\dots,y_n) = \frac{f_\theta^{\boldsymbol{X}_n, T(\boldsymbol{X}_n)}(y_1,\dots,y_n,t)}
+f_\theta^{\boldsymbol{X}_n\lvert T(\boldsymbol{X}_n) = t}(y_1,\dots,y_n) =
+\frac{f_\theta^{\boldsymbol{X}_n, T(\boldsymbol{X}_n)}(y_1,\dots,y_n,t)}
 {f_\theta^{T(\boldsymbol{X}_n)}(t)}
 $$
 
@@ -200,8 +202,9 @@ $$
 $$
 (Numerador)
 $$
-f_\theta^{\boldsymbol{X}_n,T(\boldsymbol{X}_n)}(y_1,\dots,y_n,t) = 
-f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) \cdot f_\theta^{T(\boldsymbol{X}_n)\lvert \boldsymbol{X}_n=(y_1,\dots,y_n)}(t)
+f_\theta^{\boldsymbol{X}_n,T(\boldsymbol{X}_n)}(y_1,\dots,y_n,t) =
+f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) \cdot
+f_\theta^{T(\boldsymbol{X}_n)\lvert \boldsymbol{X}_n=(y_1,\dots,y_n)}(t)
 $$
 
 Note que
@@ -212,7 +215,8 @@ $$
 0, & \mathrm{c.c.}
 \end{cases} \\
 \Rightarrow&
-f_\theta^{\boldsymbol{X}_n\lvert T(\boldsymbol{X}_n) = t}(y_1,\dots,y_n) = \begin{cases}
+f_\theta^{\boldsymbol{X}_n\lvert T(\boldsymbol{X}_n) = t}(y_1,\dots,y_n) =
+\begin{cases}
 \frac{f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n)}
 {f_\theta^{T(\boldsymbol{X}_n)}(t)},& t = \sum^n_{i=1}y_i \\
 0, & \mathrm{c.c.}
@@ -222,14 +226,15 @@ $$
 
 Logo
 $$
-f_\theta^{T(\boldsymbol{X}_n)\lvert \boldsymbol{X}_n = (y_1,\dots,y_n)} = \begin{cases}
+f_\theta^{T(\boldsymbol{X}_n)\lvert \boldsymbol{X}_n = (y_1,\dots,y_n)} =
+\begin{cases}
 \frac{\frac{1}{\sqrt{2\pi\cdot1}^n} \cdot \mathrm{exp}\left\{-\frac{1}{2} \sum^n_i=1 (y_i - \theta)^2\right\}}
 {\frac{1}{\sqrt{2\pi\cdot n}}\cdot \mathrm{exp}\left\{-\frac{1}{2n}(t-n\theta)^2\right\}}, & t = \sum y_i \\
 0, & \mathrm{c.c.}
 \end{cases}
 $$
 
-Note que 
+Note que
 $$
 -\frac{1}{2}\sum(y_i-\theta)^2=-\frac{1}{2}\left(\frac{t^2}{n}-2t\theta+n\theta^2\right)
 $$
@@ -247,8 +252,8 @@ f_\theta(x) &= \begin{cases}
 \theta \mathrm{e}^{-\theta x},& x \in (0, \infty) \\
 0, & x \not \in (0,\infty)
 \end{cases}\ \ \theta \in \Theta \\
-P_\theta(X>2)&=\int^\infty_2 \theta \cdot \mathrm{e}^{-\theta x} dx \\ 
-&\text{Se $A$ é enumerável e defina} \\
+P_\theta(X>2)&=\int^\infty_2 \theta \cdot \mathrm{e}^{-\theta x} dx \\
+&\text{Se $A$ é enumerável e definimos} \\
 f_{\theta}^A(x) &= \begin{cases}
 \theta \mathrm{e}^{-\theta x},& x \in (0, \infty) \setminus A \\
 10, & x \in \mathrm{A} \\
@@ -260,7 +265,8 @@ $$
 Temos que
 $$
 \begin{aligned}
-f_\theta(x) &= f_\theta^A(x), \forall x \in \mathbb{R} \setminus A, \forall \theta \in \Theta \\
+f_\theta(x) &= f_\theta^A(x), \forall x \in \mathbb{R} \setminus A, \forall
+\theta \in \Theta \\
 \text{e} \\
 f_\theta(x) &\neq f_\theta^A(x), \forall x \in A, \forall \theta \in \Theta
 \end{aligned}
@@ -274,7 +280,8 @@ P_\theta\left(f_\theta(x)=f_\theta^A(x)\right) = 1, \forall \theta \in \Theta
 $$
 Ou, de outra forma,
 $$
-P_\theta\left(f_\theta(x)\neq f_\theta^A(x)\right) = 0, \forall \theta \in \Theta
+P_\theta\left(f_\theta(x)\neq f_\theta^A(x)\right) = 0, \forall \theta \in
+\Theta
 $$
 
 Notação:
@@ -295,7 +302,8 @@ Uma estatística $T(\boldsymbol{X}_n)$ é suficiente para o modelo estatístico 
 $h(\cdot): \mathbb{R}^n\rightarrow \mathbb{R}, m(\cdot,\cdot): \mathrm{Im}(T)\times\theta\rightarrow\mathbb{R}$
 (mensuráveis) tais que:
 $$
-f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) = h(y_1,\dots,y_n)\cdot m\left(T(y_1,\dots,y_n),\theta\right), \forall \theta \in \Theta\; \mathrm{q.c.}
+f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) = h(y_1,\dots,y_n)\cdot
+m\left(T(y_1,\dots,y_n),\theta\right), \forall \theta \in \Theta\; \mathrm{q.c.}
 $$
 
 Obs:
@@ -309,12 +317,14 @@ Obs:
 4. Note que a [função de verossimilhança](funcao-verossimilhanca.qmd) é obtida calculando $f_\theta^{\boldsymbol{X}_n}$ na
 amostra observada, ou seja,
 $$
-L_{\boldsymbol{X}_n}(\theta) = f_\theta^{\boldsymbol{X}_n}\underbracket{(x_1,\dots,x_n)}_{\boldsymbol{X}_n}
+L_{\boldsymbol{X}_n}(\theta) =
+f_\theta^{\boldsymbol{X}_n}\underbracket{(x_1,\dots,x_n)}_{\boldsymbol{X}_n}
 $$
 
 5. Alguns livros usam a função de verossimilhança no critério da fatoração
 $$
-L_{\boldsymbol{X}_n}(\theta) =  h(\boldsymbol{X}_n) \cdot m(T(\boldsymbol{X}_n),\theta)\; \mathrm{q.c.} \forall \theta \in \Theta
+L_{\boldsymbol{X}_n}(\theta) = h(\boldsymbol{X}_n) \cdot
+m(T(\boldsymbol{X}_n),\theta)\; \mathrm{q.c.} \forall \theta \in \Theta
 $$
 em que $\boldsymbol{X}_n = (x_1,\dots,x_n)$ da [amostra observada](populacao-e-amostra.qmd#sec-ao)
 
@@ -325,7 +335,8 @@ em que $\boldsymbol{X}_n = (x_1,\dots,x_n)$ da [amostra observada](populacao-e-a
 Assuma que $T(\boldsymbol{X}_n)$ seja suficiente. Por definição, $P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n) = t)$
 não depende de "$\theta$". Logo, podemos escrever:
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n)=t) = h^*(y_1,\dots,y_n,t) \forall \theta \in \Theta
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n)=t) =
+h^*(y_1,\dots,y_n,t) \forall \theta \in \Theta
 $$ {#eq-podemos}
 Note também que,
 $$
@@ -339,7 +350,8 @@ $$
 \begin{aligned}
 &P_\theta(X_1=y_1,\dots,X_n=y_n, T(\boldsymbol{X}_n)=t) \\
 &=
-P_\theta(X_1=y_1,\dots,X_n=y_n)\cdot P_\theta(T(\boldsymbol{X}_n)=t\lvert X_1=y_1,\dots,X_n=y_n).
+P_\theta(X_1=y_1,\dots,X_n=y_n)\cdot P_\theta(T(\boldsymbol{X}_n)=t\lvert
+X_1=y_1,\dots,X_n=y_n).
 \end{aligned}
 $$
 
@@ -362,18 +374,21 @@ $${#eq-aberto}
 
 Por ([-@eq-podemos]) e ([-@eq-aberto]), temos que
 $$
-h^*(y_1,\dots,y_n, t) \cdot P_\theta(T(\boldsymbol{X}_n)=t) = P_\theta(X_1=y_1,\dots,X_n=y_n\lvert \mathbb{1}(T(\boldsymbol{X}_n)=t)).
+h^*(y_1,\dots,y_n, t) \cdot P_\theta(T(\boldsymbol{X}_n)=t) =
+P_\theta(X_1=y_1,\dots,X_n=y_n\lvert \mathbb{1}(T(\boldsymbol{X}_n)=t)).
 $$
 
 Para $T(\boldsymbol{X}_n)=t$, temos que
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n) = h^*(y_1,\dots,y_n, T(\boldsymbol{y}_n)) \cdot P_\theta(T(\boldsymbol{X}_n)=T(\boldsymbol{y}_n))
+P_\theta(X_1=y_1,\dots,X_n=y_n) = h^*(y_1,\dots,y_n, T(\boldsymbol{y}_n)) \cdot
+P_\theta(T(\boldsymbol{X}_n)=T(\boldsymbol{y}_n))
 $$
 
 #### $\Leftarrow$
 Assuma que existam $h, m$ tais que
 $$
-P_\theta(X_1=y_1,\dots,X_n=y_n) = h(\boldsymbol{y}_n) m(T(\boldsymbol{y}_n,\theta))
+P_\theta(X_1=y_1,\dots,X_n=y_n) = h(\boldsymbol{y}_n)
+m(T(\boldsymbol{y}_n,\theta))
 $$
 Note que
 $$
@@ -385,12 +400,15 @@ $$
 
 Observe que
 $$
-P_\theta(T(\boldsymbol{X}_n) = t) = \sum_{(y_1,\dots,y_n) : T(\boldsymbol{y})_n=t} P_\theta(X_1=y_1,\dots,X_n=y_n)
+P_\theta(T(\boldsymbol{X}_n) = t) = \sum_{(y_1,\dots,y_n) :
+T(\boldsymbol{y})_n=t} P_\theta(X_1=y_1,\dots,X_n=y_n)
 $$
 Por suposição
 $$
 \begin{aligned}
-P_\theta(T(\boldsymbol{X}_n) =t) &= \sum_{\boldsymbol{y}_n : T(\boldsymbol{y}_n)=t} h(\boldsymbol{y}_n) \cdot m (T(\boldsymbol{y}_n), \theta) \\
+P_\theta(T(\boldsymbol{X}_n) =t) &= \sum_{\boldsymbol{y}_n :
+T(\boldsymbol{y}_n)=t} h(\boldsymbol{y}_n) \cdot m (T(\boldsymbol{y}_n), \theta)
+\\
 &= \sum_{\boldsymbol{y}_n : T(\boldsymbol{y}_n)=t} h(\boldsymbol{y}_n) \cdot m(t,\theta) \\
 &= m(t,\theta) \cdot \sum_{\boldsymbol{y}_n : T(\boldsymbol{y}_n)=t} h(\boldsymbol{y}_n)
 \end{aligned}
@@ -426,14 +444,16 @@ f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) &= \begin{cases}
 0, & \mathrm{c.c.}
 \end{cases} \\
 \Rightarrow
-f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) &= \theta^{\sum y_i} \cdot (1-\theta)^{n-\sum y_i} \cdot \prod^n_{i=1}\mathbb{1}_{\{0,1\}} (y_1)
+f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) &= \theta^{\sum y_i} \cdot
+(1-\theta)^{n-\sum y_i} \cdot \prod^n_{i=1}\mathbb{1}_{\{0,1\}} (y_1)
 \end{aligned}
 $$
 
 Tome $h(y_1,\dots,y_n) = \prod^n_{i=1}\mathbb{1}_{\{0,1\}}(y_1)$ e $m(T(y_1,\dots,y_n),\theta) = \theta^{\sum y_i} \cdot (1-\theta)^{n-\sum y_i}$
 em que $T(y_1,\dots,y_n) = \sum^n_{i=1}y_i$. Temos que
 $$
-f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) = h(y_1,\dots,y_n) m(T(y_1,\dots,y_n),\theta),\forall \theta \in \Theta
+f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) = h(y_1,\dots,y_n)
+m(T(y_1,\dots,y_n),\theta),\forall \theta \in \Theta
 $$
 
 Pelo critério da fatoração, $T(\boldsymbol{X}_n) = \sum^n_{i=1}X_i$ é suficiente para o modelo de Bernoulli.
@@ -484,7 +504,8 @@ T(\boldsymbol{X}_n) = \left(\prod^n_{i=1}X_i, \prod^n_{i=1}(1-X_i)\right)
 $$
 é uma estatística suficiente para o modelo pois
 $$
-f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) =  m(T(\boldsymbol{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta.
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = m(T(\boldsymbol{y}_n),\theta)\
+\mathrm{q.c.}\ \forall \theta \in \Theta.
 $$
 
 #### Exemplo b
@@ -496,7 +517,8 @@ uma estatística suficiente para o modelo.
 A função densidade de probabilidade da amostra aleatória é
 $$
 \begin{aligned}
-f_\theta^{\boldsymbol{X}_n} (y_1,\dots,y_n) &\stackrel{\mathrm{a.a.}}{=} \prod_{i=1}^n f_\theta(y_i), \forall \boldsymbol{y}_n \in \mathbb{R}^n \\
+f_\theta^{\boldsymbol{X}_n} (y_1,\dots,y_n) &\stackrel{\mathrm{a.a.}}{=}
+\prod_{i=1}^n f_\theta(y_i), \forall \boldsymbol{y}_n \in \mathbb{R}^n \\
 &= \prod_{i=1}^n \left\{
 \frac{1}{\sqrt{2\pi\sigma^2}} \cdot \mathrm{exp}\left\{-\frac{1}{2\sigma^2}(y_i-\mu)^2\right\}
 \right\} \\
@@ -507,7 +529,8 @@ $$
 Note que $(y_1-\mu)^2 =y_i^2 -2y_i\mu + \mu^2$, logo,
 
 $$
-f_\theta^{\boldsymbol{X}_n} = \frac{1}{(2\pi\sigma^2)^{\frac{n}{2}}} \cdot \mathrm{exp} \left\{
+f_\theta^{\boldsymbol{X}_n} = \frac{1}{(2\pi\sigma^2)^{\frac{n}{2}}} \cdot
+\mathrm{exp} \left\{
 -\frac{1}{\sigma^2}\left(
 \sum^n_{i=1} y_i^2-2\mu\sum^n_{i=1}y_i + n\mu^2
 \right)
@@ -525,7 +548,8 @@ Em que $t=(t_1,t_2)$ e $t_1 = \sum^n_{i=1}y_i, t_2 = \sum^n_{i=1}y^2_i$
 
 Ou seja, $T(\boldsymbol{X}_n) = \left(\sum^n_{i=1}X_i,\sum^n_{i=1}X^2\right)$ é uma estatística suficiente para o modelo pois
 $$
-f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) \cdot m(T(\boldsymbol{X}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta.
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) \cdot
+m(T(\boldsymbol{X}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta.
 $$
 
 #### Exemplo c
@@ -550,7 +574,8 @@ $$
 
 Logo,
 $$
-f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) \stackrel{\mathrm{Unif}}{=} \prod^n_{i=1}
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) \stackrel{\mathrm{Unif}}{=}
+\prod^n_{i=1}
 \frac{1}{\theta} \mathbb{1}_{(0,\theta]}(y_i) \\
 = \frac{1}{\theta^n} \cdot \prod^n_{i=1} \mathbb{1}_{(0,\theta]}(y_i)
 $$
@@ -579,7 +604,7 @@ $$
 e
 
 $$
-f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = \frac{1}{\theta^n} 
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = \frac{1}{\theta^n}
 \mathbb{1}_{(0,\infty)}(\min(\boldsymbol{y}_n)) \cdot
 \mathbb{1}_{(0,\theta]}(\max(\boldsymbol{y}_n))
 $$
@@ -595,30 +620,33 @@ Seja $T(\boldsymbol{X}_n)$ uma estatística suficiente para o modelo estatístic
 $$
 G(\boldsymbol{X}_n) = s(T(\boldsymbol{X}_n))
 $$
-é uma estatistica suficiente se $s(\cdot)$ for bijetora (só precisa ser injetora)
+é uma estatística suficiente se $s(\cdot)$ for bijetora (só precisa ser injetora)
 
 ### Prova
 
 Como $T(\boldsymbol{X}_n)$ é suficiente para o modelo temos, pelo critério da fatoração, que
 $$
-f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = h(\boldsymbol{y}_n) \cdot m(T(\boldsymbol{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = h(\boldsymbol{y}_n) \cdot
+m(T(\boldsymbol{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
 $$
 
 Como $s(\cdot)$ é bijetora, temos que sua inversa existe:
 $$
-T(\boldsymbol{X}_n) = s^{-1}(G(\boldsymbol{X}_n)) \Rightarrow 
+T(\boldsymbol{X}_n) = s^{-1}(G(\boldsymbol{X}_n)) \Rightarrow
 T(\boldsymbol{y}_n) = s^{-1}(G(\boldsymbol{y}_n))
 $$
 
 Portanto,
 $$
-f_\theta^{\boldsymbol{X}_n} (\boldsymbol{y}_n)= h(\boldsymbol{y}_n) \cdot m(s^{-1}(G(\boldsymbol{X}_n)), \theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
+f_\theta^{\boldsymbol{X}_n} (\boldsymbol{y}_n)= h(\boldsymbol{y}_n) \cdot
+m(s^{-1}(G(\boldsymbol{X}_n)), \theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
 $$
 
 Tome $m^*(\cdot,\theta) = m(s^{-1}(\cdot),\theta)$. Substituindo, temos que
 
 $$
-f_\theta^{\boldsymbol{X}_n} (\boldsymbol{y}_n)= h(\boldsymbol{y}_n) \cdot m^*((G(\boldsymbol{X}_n)), \theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
+f_\theta^{\boldsymbol{X}_n} (\boldsymbol{y}_n)= h(\boldsymbol{y}_n) \cdot
+m^*((G(\boldsymbol{X}_n)), \theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
 $$
 
 Logo, pelo [critério da fatoração](estatisticas-suficientes.qmd#sec-crit-fat), $G(\boldsymbol{X}_n)$ é suficiente para o
@@ -646,7 +674,7 @@ b) Se $T(\boldsymbol{X}_n)$ for suficiente para o modelo estatístico, então
 3. $G(\boldsymbol{X}_n) = (T(\boldsymbol{X}_n), \boldsymbol{X}_n)$ é suficiente para o modelo pois $\boldsymbol{X}_n$ é suficiente
 para o modelo;
 
-4. $G(\boldsymbol{X}_n) = (X_1\dots,X_n)$ "quase" nunca será suficiente para o modelo;
+4. $G(\boldsymbol{X}_n) = (X_1,dots,X_n)$ "quase" nunca será suficiente para o modelo;
 
 5. $G(\boldsymbol{X}_n) = (\boldsymbol{X}_n,X_1)$ é suficiente para o modelo.
 
@@ -685,7 +713,8 @@ $$
 
 Pelo critério da fatoração,
 $$
-T(\boldsymbol{X}_n) = \left(\sum^n_{i=1} T_1(X_i),\dots,\sum^n_{i=1}T_k(X_i)\right)
+T(\boldsymbol{X}_n) = \left(\sum^n_{i=1}
+T_1(X_i),\dots,\sum^n_{i=1}T_k(X_i)\right)
 $$
 
 Isso é útil para encontrar [estatísticas completas](estatisticas-completas.qmd) e suficientes pelo
@@ -708,7 +737,7 @@ Obs: A $\sigma$-álgebra associada à estatística suficiente minimal é a menor
 ### Teorema (1 das estatísticas SM) {#sec-teo-um}
 
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ de $X\sim f_\theta, \theta \in \Theta_0=\{\theta_0,\theta_1,\dots,\theta_p\}$ em que
-$\mathfrak{X} = \{x:f_\theta(x)>0\}$ não depende de "$\theta$". Então, 
+$\mathfrak{X} = \{x:f_\theta(x)>0\}$ não depende de "$\theta$". Então,
 $$
 T(\boldsymbol{x}) = \left(
 \frac{f_{\theta_1}^{\boldsymbol{X}}(\boldsymbol{x})}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{x})}, \dots,
@@ -717,20 +746,20 @@ T(\boldsymbol{x}) = \left(
 $$
 em que $T:\mathfrak{X} \rightarrow \mathbb{R}^p$ é uma estatística suficiente minimal ($T(\boldsymbol{X}_n)$) para o modelo estatístico.
 
-Isso trata de *razões entre [funções verossimilhança](funcao-verossimilhanca.qmd)*.
+Isso trata de *razões entre [funções de verossimilhança](funcao-verossimilhanca.qmd)*.
 
 #### Prova
 
 Note que, $\forall \boldsymbol{y}_n \in \mathfrak{X}$, temos que
 $$
-f_{\theta_j}^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = 
-f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n) \cdot 
+f_{\theta_j}^{\boldsymbol{X}_n}(\boldsymbol{y}_n) =
+f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n) \cdot
 \frac{f_{\theta_j}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}
 $$
 Tome $h(\boldsymbol{y}_n) = f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)$, não depende dos diferentes valores de "$\theta$" e
 
 $$
-m(T(\boldsymbol{X}_n), \theta) = 
+m(T(\boldsymbol{X}_n), \theta) =
 \begin{cases}
 T_1(\boldsymbol{y}_n), & \theta = \theta_1 \\
 T_2(\boldsymbol{y}_n), & \theta = \theta_2 \\
@@ -739,7 +768,7 @@ T_p(\boldsymbol{y}_n), & \theta = \theta_p \\
 \end{cases}
 $$
 
-Em que $T(\boldsymbol{x}) = (T_1(\boldsymbol{x}), \dots, T_p(\boldsymbol{x})$ e 
+Em que $T(\boldsymbol{x}) = (T_1(\boldsymbol{x}), \dots, T_p(\boldsymbol{x})$ e
 $T_j = \frac{f_{\theta_j}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}$.
 
 Logo, $T(\boldsymbol{X}_n)$ é suficiente para o modelo pelo [critério da fatoração](estatisticas-suficientes.qmd#sec-crit-fat).
@@ -747,20 +776,21 @@ Logo, $T(\boldsymbol{X}_n)$ é suficiente para o modelo pelo [critério da fator
 Seja $U(\boldsymbol{X}_n)$ uma estatística suficiente para o modelo. Então pelo critério da fatoração,
 
 $$
-f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = h'(\boldsymbol{y}_n) \cdot m'(U(\boldsymbol{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta_0
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = h'(\boldsymbol{y}_n) \cdot
+m'(U(\boldsymbol{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta_0
 $$
 
 Observe que $\forall \boldsymbol{y}_n \in \mathfrak{X}$,
 $$
-\frac{f_{\theta_j}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)} = 
+\frac{f_{\theta_j}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)} =
 \frac{h'(\boldsymbol{y}_n)\cdot m'(U(\boldsymbol{y}_n),\theta_j)}{h'(\boldsymbol{y}_n)\cdot m'(U(\boldsymbol{y}_n),\theta_0)}\ \mathrm{q.c.}\ \forall \theta \in \Theta_0
 $$
 
-Logo, 
+Logo,
 
 $$
-T_j(\boldsymbol{y}_n) = 
-\frac{f_{\theta_j}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)} = 
+T_j(\boldsymbol{y}_n) =
+\frac{f_{\theta_j}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)} =
 \frac{m'(U(\boldsymbol{y}_n),\theta_j)}{m'(U(\boldsymbol{y}_n),\theta_0)},\ j=1,\dots,p
 $$
 
@@ -785,18 +815,21 @@ $X\sim\mathrm{Ber}(\theta), \theta \in \Theta = \{0.1,0,5\}$. Encontre uma estat
 
 Pelo teorema anterior,
 $$
-T(\boldsymbol{y}_n) = \frac{f_{\theta_1}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)} 
+T(\boldsymbol{y}_n) =
+\frac{f_{\theta_1}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}
 $$
 é suficiente minimal, em que $\theta_0=0.1,\theta_1=0.5$ e
 
 $$
 \begin{aligned}
-f_{0.1}^{\boldsymbol{X}_n} (\boldsymbol{y}_n) &= 0.1^{\sum y_i} \cdot 0.9^{n-\sum y_i} \\
-f_{0.5}^{\boldsymbol{X}_n} (\boldsymbol{y}_n) &= 0.5^{\sum y_i} \cdot 0.5^{n-\sum y_i} \\
+f_{0.1}^{\boldsymbol{X}_n} (\boldsymbol{y}_n) &= 0.1^{\sum y_i} \cdot
+0.9^{n-\sum y_i} \\
+f_{0.5}^{\boldsymbol{X}_n} (\boldsymbol{y}_n) &= 0.5^{\sum y_i} \cdot
+0.5^{n-\sum y_i} \\
 &\forall \boldsymbol{y}_n \in \mathfrak{X} = \{0,1\}^n
 \end{aligned}
 $$
-Logo 
+Logo
 $$
 \begin{aligned}
 T(\boldsymbol{y}_n) &= \frac{0.5^n}{0.1^{\sum y_i} \cdot 0.9^{n-\sum y_i}} \\
@@ -814,7 +847,7 @@ $$
 #### Exemplo (Normal) {#sec-ex-norm-teo-um}
 
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de
-$X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \{(0,1),(1,1),(0,2)\}$. 
+$X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \{(0,1),(1,1),(0,2)\}$.
 Encontre uma estatística suficiente minimal.
 
 ##### Resposta
@@ -823,7 +856,7 @@ Pelo teorema,
 $$
 T(\boldsymbol{y}_n) = \left(
 \frac{f_{\theta_1}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)},
-\frac{f_{\theta_2}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)} 
+\frac{f_{\theta_2}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}
 \right)
 $$
 
@@ -844,13 +877,13 @@ Portanto,
 $$
 \begin{aligned}
 T(\boldsymbol{y}_n) &= \left(
-\mathrm{exp}\left\{-\frac{1}{2}(n-2\sum y_i)\right\}, 
-\frac{\mathrm{exp}\left\{-\frac{1}{4}\sum y_i^2 + \frac{1}{2}\sum y_i^2)\right\}}{2^{\frac{n}{2}}}, 
+\mathrm{exp}\left\{-\frac{1}{2}(n-2\sum y_i)\right\},
+\frac{\mathrm{exp}\left\{-\frac{1}{4}\sum y_i^2 + \frac{1}{2}\sum y_i^2)\right\}}{2^{\frac{n}{2}}},
 \right)
 \\
 &= \left(
-\mathrm{exp}\left\{-\frac{1}{2}(n-2\sum y_i)\right\}, 
-\frac{\mathrm{exp}\left\{\frac{1}{4}\sum y_i^2)\right\}}{2^{\frac{n}{2}}}, 
+\mathrm{exp}\left\{-\frac{1}{2}(n-2\sum y_i)\right\},
+\frac{\mathrm{exp}\left\{\frac{1}{4}\sum y_i^2)\right\}}{2^{\frac{n}{2}}},
 \right)
 \end{aligned}
 $$
@@ -899,7 +932,7 @@ completo.
 #### Exemplo (Normal)
 
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ amostra aleatória de
-$X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}^+$. Mostre que 
+$X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu,\sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}^+$. Mostre que
 $T(\boldsymbol{X}_n) = (\sum X_i, \sum X_i^2)$ é suficiente minimal para o modelo.
 
 ##### Resposta correta
@@ -912,12 +945,15 @@ para o modelo completo. Logo, pelo teorema 2, é SM para o modelo completo.
 
 Tome $\Theta_0 = \{(0,1),(1,1)\}$. Pelo [teorema 1](estatisticas-suficientes.qmd#sec-teo-um), temos que
 $$
-T(\boldsymbol{X}_n) = \frac{f_{\theta_1}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}
+T(\boldsymbol{X}_n) =
+\frac{f_{\theta_1}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}
 $$
 é SM para o modelo reduzido.
 
 $$
-T(\boldsymbol{X}_n) = \frac{\frac{1}{(2\pi)^{\frac{n}{2}}}\mathrm{exp}\left\{-\frac{1}{2} (\sum X_i^2 -2\sum X_i + n)\right\}}
+T(\boldsymbol{X}_n) =
+\frac{\frac{1}{(2\pi)^{\frac{n}{2}}}\mathrm{exp}\left\{-\frac{1}{2} (\sum X_i^2
+-2\sum X_i + n)\right\}}
 {\frac{1}{(2\pi)^{\frac{n}{2}}}\mathrm{exp}\left\{-\frac{1}{2} \sum X_i^2\right\}} = \mathrm{e}^{\sum X_i -\frac{1}{2} n}
 $$
 
@@ -929,11 +965,12 @@ $\sum X_i$ não é suficiente para o modelo completo.
 Tome $\Theta_0 = \{(0,1),(1,1), (2,1)\}$. Então, pelo [teorema 1](estatisticas-suficientes.qmd#sec-teo-um), temos que
 
 $$
-T(\boldsymbol{X}_n) = \left(\frac{f_{\theta_1}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}, 
+T(\boldsymbol{X}_n) =
+\left(\frac{f_{\theta_1}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)},
 \frac{f_{\theta_2}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}\right) \stackrel{\text{Tent. Ant.}}{=}
 \left(
-\mathrm{e}^{\sum X_i - \frac{1}{2}n}, 
-\frac{f_{\theta_2}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}\right) 
+\mathrm{e}^{\sum X_i - \frac{1}{2}n},
+\frac{f_{\theta_2}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}\right)
 $$
 
 Temos que
@@ -943,9 +980,9 @@ $$
 \frac{\frac{1}{(2\pi)^{\frac{n}{2}}}\mathrm{exp}\left\{-\frac{1}{2} (\sum X_i^2 -4\sum X_i + 4n)\right\}}
 {\frac{1}{(2\pi)^{\frac{n}{2}}}\mathrm{exp}\left\{-\frac{1}{2} \sum X_i^2\right\}} = \mathrm{e}^{2\sum X_i -2 n}
 $$
-Logo, 
+Logo,
 $$
-T(\boldsymbol{X}_n) = 
+T(\boldsymbol{X}_n) =
 \left(
 \mathrm{e}^{\sum X_i - \frac{1}{2}n},
 \mathrm{e}^{2\sum X_i -2 n}\right)
@@ -958,7 +995,7 @@ Observe que o espaço paramétrico do modelo completo é $\mathbb{R}\times\mathb
 
 #### Exemplo (Uniforme) {#sec-exunif}
 
-Seja $\boldsymbol{X}_n=(X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de 
+Seja $\boldsymbol{X}_n=(X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de
 $X\sim U(0,\theta), \theta \in \Theta = (0,\infty)$. Verifique se $\boldsymbol{X}_{(n)} = \max\{X_1,\dots,X_n\}$ é SM
 para o modelo.
 
@@ -975,7 +1012,8 @@ $$
 Seja $f_\theta^{\boldsymbol{X}_n}$ a função densidade probabilidade da amostra aleatória
 $$
 \begin{aligned}
-f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) &= \frac{1}{\theta^n} \prod \mathbb{1}_{(0,\theta]}(y_i)  \\
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) &= \frac{1}{\theta^n} \prod
+\mathbb{1}_{(0,\theta]}(y_i) \\
 &= \frac{1}{\theta^n} \mathbb{1}_{(0,\infty)} (\min\{y_1,\dots,y_n\}) \cdot \mathbb{1}_{(0,\theta]}(\max\{y_1,\dots,y_n\})
 \end{aligned}
 $$
@@ -989,24 +1027,28 @@ $$
 
 Logo, a estatística $X_{(n)}$ pode ser reescrita por
 $$
-X_{(n)} = \inf\left\{\theta \in (0,\infty) : f^{\boldsymbol{X}_n}_\theta (\boldsymbol{X}_n) > 0\right\}
+X_{(n)} = \inf\left\{\theta \in (0,\infty) : f^{\boldsymbol{X}_n}_\theta
+(\boldsymbol{X}_n) > 0\right\}
 $$
 
 Seja $U(\boldsymbol{X}_n)$ uma estatística suficiente qualquer. Então, pelo [CF](estatisticas-suficientes.qmd#sec-crit-fat),
 temos que existem $h'$ e $m'$ tais que
 $$
-f_\theta{\boldsymbol{y}_n}^{\boldsymbol{X}_n} = h'(\boldsymbol{y}_n) \cdot m'(U(\boldsymbol{y}_n), \theta),\ \mathrm{q.c.}\ \forall \theta >0
+f_\theta{\boldsymbol{y}_n}^{\boldsymbol{X}_n} = h'(\boldsymbol{y}_n) \cdot
+m'(U(\boldsymbol{y}_n), \theta),\ \mathrm{q.c.}\ \forall \theta >0
 $$
 
 Logo,
 $$
-X_{(n)} = \inf\left\{\theta \in (0,\infty) : h'(\boldsymbol{X}_n) \cdot m'(U(\boldsymbol{X}_n),\theta) > 0\right\} \mathrm{q.c.}
+X_{(n)} = \inf\left\{\theta \in (0,\infty) : h'(\boldsymbol{X}_n) \cdot
+m'(U(\boldsymbol{X}_n),\theta) > 0\right\} \mathrm{q.c.}
 $$
 
 Como $h'(\boldsymbol{y}_n)> 0\ \mathrm{q.c.}$ temos que
 
 $$
-X_{(n)} = \inf\left\{\theta \in (0,\infty) : m'(U(\boldsymbol{X}_n),\theta)>0 \right\} \mathrm{q.c.}
+X_{(n)} = \inf\left\{\theta \in (0,\infty) : m'(U(\boldsymbol{X}_n),\theta)>0
+\right\} \mathrm{q.c.}
 $$
 
 Portanto, $X_{(n)}$ é suficiente minimal para o modelo, pois existe $H(\cdot)$ tal que
@@ -1047,16 +1089,21 @@ Sabemos que $(\sum X_i, \sum X_i^2)$ é suficiente para o modelo completo
 
 Tome $\Theta_0 = \{1,2,3\}$. Pelo [Teorema 1](estatisticas-suficientes.qmd#sec-teo-um), temos que:
 $$
-T'(\boldsymbol{X}_n) = \left(\frac{f_{\theta_1}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}, 
+T'(\boldsymbol{X}_n) =
+\left(\frac{f_{\theta_1}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)},
 \frac{f_{\theta_2}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{X}_n)}\right)
 $$
 em que $\theta_0=1,\theta_1=2,\theta_2=3$. Dessa forma,
 $$
 \begin{aligned}
-f_{\theta_0}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2}\sum(X_i-1)^2\right\}}{(\sqrt{2\pi})^n}
-= \frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum X_i^2 - 2 \sum X_i +n)\right\}}{(\sqrt{2\pi})^n} \\
-f_{\theta_1}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 4}(\sum X_i^2 - 2\cdot 2 \cdot \sum X_i +4n)\right\}}{(\sqrt{2\pi\cdot4})^n} \\
-f_{\theta_2}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 9}(\sum X_i^2 - 2\cdot 3 \cdot \sum X_i +9n)\right\}}{(\sqrt{2\pi\cdot9})^n}.
+f_{\theta_0}^{\boldsymbol{X}_n} &=
+\frac{\mathrm{exp}\left\{-\frac{1}{2}\sum(X_i-1)^2\right\}}{(\sqrt{2\pi})^n}
+= \frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum X_i^2 - 2 \sum X_i
++n)\right\}}{(\sqrt{2\pi})^n} \\
+f_{\theta_1}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2\cdot
+4}(\sum X_i^2 - 2\cdot 2 \cdot \sum X_i +4n)\right\}}{(\sqrt{2\pi\cdot4})^n} \\
+f_{\theta_2}^{\boldsymbol{X}_n} &= \frac{\mathrm{exp}\left\{-\frac{1}{2\cdot
+9}(\sum X_i^2 - 2\cdot 3 \cdot \sum X_i +9n)\right\}}{(\sqrt{2\pi\cdot9})^n}.
 \end{aligned}
 $$
 Portanto,
@@ -1106,7 +1153,7 @@ T(\boldsymbol{X}_n) = (t_1,t_2) \\
 \Rightarrow T'(\boldsymbol{X}_n) = \left(
 \frac{\mathrm{exp}\left\{
 -\frac{3}{8} t_2 -\frac{1}{2} t_1)
-\right\}}{4^{\frac{n}{2}}}, 
+\right\}}{4^{\frac{n}{2}}},
 \frac{\mathrm{exp}\left\{
 -\frac{4}{9} t_2 - \frac{6}{9} t_1
 \right\}}{9^{\frac{n}{2}}},
@@ -1145,11 +1192,15 @@ t_1 = \frac{3}{4}t_2 - 2\ln(4^{\frac{n}{2}}t'_1) \\
 \ln(9^{\frac{n}{2}}t'_2) - \frac{12}{9} \ln(4^{\frac{n}{2}}t'_1) = \left(\frac{4}{9} - \frac{18}{36}\right) t_2
 \end{cases}\\
 \Rightarrow&
-t_2 = \frac{\ln(9^{\frac{n}{2}}t'_2) - \frac{12}{9}(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9} - \frac{18}{36}\right)} \\
+t_2 = \frac{\ln(9^{\frac{n}{2}}t'_2) -
+\frac{12}{9}(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9} - \frac{18}{36}\right)} \\
 \Rightarrow&
 \begin{cases}
-t_1 = \frac{\frac{3}{4}\left(\ln(9^{\frac{n}{2}}t_2'\right) - \frac{12}{9}\ln(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9}-\frac{18}{36}\right)} - 2\ln(4^{\frac{n}{2}}t'_1)\\
-t_2 = \frac{ln(9^{\frac{n}{2}}t'_2) - \frac{12}{9}(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9} - \frac{18}{36}\right)}
+t_1 = \frac{\frac{3}{4}\left(\ln(9^{\frac{n}{2}}t_2'\right) -
+\frac{12}{9}\ln(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9}-\frac{18}{36}\right)} -
+2\ln(4^{\frac{n}{2}}t'_1)\\
+t_2 = \frac{ln(9^{\frac{n}{2}}t'_2) -
+\frac{12}{9}(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9} - \frac{18}{36}\right)}
 \end{cases}
 \end{aligned}
 $$
