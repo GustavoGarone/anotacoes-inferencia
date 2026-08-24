@@ -20,7 +20,8 @@ em que $\theta_0$ é o verdadeiro valor de $\theta$ se, e somente se, para cada 
 $$
 \lim_{n\rightarrow \infty} P\left(\lvert T(\boldsymbol{X}_n) - g(\theta_0) \rvert > \epsilon\right) = 0.
 $$
-Apesar de ser uma forma comum de exposição para pessoas não treinadas em estatística, essa notação não está bem
+Apesar de ser uma forma comum de exposição para pessoas não treinadas em
+estatística, essa notação não está bem
 formalizada na estrutura do modelo estatístico clássico.
 :::
 
@@ -38,11 +39,12 @@ Alguns livros escrevem
 $$
 T(\boldsymbol{X}_n) \stackrel{\mathrm{q.c.}}{\rightarrow} g(\theta_0)
 $$
-em que $\theta_0$ é o verdadeiro valor de $\theta$ se, e somente se, 
+em que $\theta_0$ é o verdadeiro valor de $\theta$ se, e somente se,
 $$
  P\left(\lim_{n\rightarrow \infty}T(\boldsymbol{X}_n) = g(\theta_0)\right) = 1.
 $$
-Apesar de ser uma forma comum de exposição para pessoas não treinadas em estatística, essa notação não está bem
+Apesar de ser uma forma comum de exposição para pessoas não treinadas em
+estatística, essa notação não está bem
 formalizada na estrutura do modelo estatístico clássico.
 :::
 
@@ -89,7 +91,7 @@ Usando desse recurso nos exercícios, basta mostrar que o EQM vai para zero quan
 :::
 
 ::: {.callout-tip}
-Disso, temos que, se $T(\pmb{X}_n)$ for [assintóticamente eficiente](estimadores-eficientes.qmd#sec-efassin), então será *fracamente* consistente.
+Disso, temos que, se $T(\pmb{X}_n)$ for [assintoticamente eficiente](estimadores-eficientes.qmd#sec-efassin), então será *fracamente* consistente.
 :::
 
 ## Exemplos
@@ -102,7 +104,7 @@ Mostre que $T(\pmb{X}_n)$ é consistente para $g(\theta) = \theta$.
 #### Resposta
 
 Como $E_\theta(\bar{X}) = \theta$ e $\mathrm{Var}_\theta(\bar{X}) \frac{\theta(1-\theta)}{n}, \forall \theta \in \Theta.$,
-temos que 
+temos que
 $$
 \begin{aligned}
 \mathrm{Viés}_\theta(\bar{X},\theta) &= 0, \forall \theta \in \Theta, \\
