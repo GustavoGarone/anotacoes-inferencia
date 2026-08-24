@@ -1,6 +1,7 @@
 # Estimadores não-viciados com variância uniformemente mínima (ENVVUM)
 
-[Estimadores](estimadores.qmd) são [estatísticas](estatisticas.qmd) cujo objetivo é estimar uma
+[Estimadores](estimadores.qmd) são [estatísticas](estatisticas.qmd) cujo
+objetivo é estimar uma
 [quantidade de interesse](quantidade-de-interesse.qmd) $g(\theta)$.
 
 Dizemos que $T(\boldsymbol{X}_n)$ é um ENVVUM se, e somente se,
@@ -18,7 +19,7 @@ $$
 \mathrm{Var}_\theta(T(\boldsymbol{X}_n)) \leq \mathrm{Var}_\theta(U(\boldsymbol{X}_n)), \forall \theta \in \Theta;
 $$
 
-## Teorema de Lehmamn-Scheffé {#sec-teo-ls}
+## Teorema de Lehmann-Scheffé {#sec-teo-ls}
 
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_j)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta, \theta \in \Theta$,
 $f_\theta$ a [distribuição amostral](distribuicao-amostral.qmd).
@@ -100,7 +101,7 @@ $$
 E_\theta(T(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)) = T(\boldsymbol{X}_n).
 $$
 
-Logo, o ENVVUM é, pelo [Teorema de Lehmamn-Scheffé](envum.qmd$sec-teo-ls),
+Logo, o ENVVUM é, pelo [Teorema de Lehmann-Scheffé](envum.qmd$sec-teo-ls),
 $$
 \stackrel{\sim}{T}(\boldsymbol{X}_n) =  E_\theta(T(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)) = T(\boldsymbol{X}_n)
 = \frac{1}{n} \sum^n_{i=1} X_i
@@ -154,7 +155,7 @@ $$
 \stackrel{\sim}{T}(\boldsymbol{X}_n) =  E_\theta\left(1-\frac{1}{n}\sum X_i \left\lvert\right. \sum X_i\right) = 1- \frac{1}{n}\sum X_i
 $$
 
-Logo, pelo Teorema de Lehmamn-Scheffé, é o ENVVUM para $g(\theta) = 1-\theta$.
+Logo, pelo Teorema de Lehmann-Scheffé, é o ENVVUM para $g(\theta) = 1-\theta$.
 
 ## Exemplo (Normal)
 
@@ -164,7 +165,7 @@ Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{N}(\mu,\sigma^2), \theta = (\mu, \
 Encontre o (quase certamente) ENVVUM para $g(\theta) = (\mu, \sigma^2)$.
 
 [Já sabemos que](estatisticas-completas.qmd#sec-ex-norm-livre), pelo
-[Teorema das FEs](estatisticas-completas.qmd#sec-teo-tres-completa), 
+[Teorema das FEs](estatisticas-completas.qmd#sec-teo-tres-completa),
 $$
 T(\boldsymbol{X}_n) = \left(\sum X_i,\sum X_i^2\right)
 $$
@@ -199,7 +200,7 @@ $$
 Logo, $T''(\boldsymbol{X}_n)$ é o ENVVUM quase certamente para $g(\theta) = \theta$.
 
 ### Item b (DP)
-Encontre o ENVVUM para $g(\theta) = \sigma$  
+Encontre o ENVVUM para $g(\theta) = \sigma$
 
 Já temos, do item a, uma estatística suficiente completa para o modelo, como $T''(\boldsymbol{X}_n)$.
 
@@ -212,7 +213,7 @@ $$
 para obtermos um estimador não viciado. Sob normalidade, $\bar{X}$ e $S^2_{n-1}(\boldsymbol{X}_n)$ são independentes. Logo, $\bar{X}$ e
 $S'_{n-1}$ também são independentes. Portanto,
 $$
-E_\theta(S'(\boldsymbol{X}_n)\lvert T''(\boldsymbol{X}_n)) \stackrel{\mathrm{Ind.}}{=} E_\theta(S'(\boldsymbol{X}_n) \lvert S^2_{n-1}(\boldsymbol{X}_n)) 
+E_\theta(S'(\boldsymbol{X}_n)\lvert T''(\boldsymbol{X}_n)) \stackrel{\mathrm{Ind.}}{=} E_\theta(S'(\boldsymbol{X}_n) \lvert S^2_{n-1}(\boldsymbol{X}_n))
 \stackrel{\mathrm{Cond.}}{=}S'(\boldsymbol{X}_n).
 $$
 
@@ -283,7 +284,7 @@ $$
 P_\theta(\mathbb{1}_{\{0\}}(X_1) = P_\theta(X_1 = 0) \stackrel{\mathrm{a.a.}}{=} P_\theta(X = 0) = \mathrm{e}^{-\theta}
 $$
 
-Portanto, pelo Teorema de Lehmamn-Scheffé,
+Portanto, pelo Teorema de Lehmann-Scheffé,
 $$
 \stackrel{\sim}{T} = E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n))
 $$
@@ -337,7 +338,7 @@ E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n) = t) = \frac{(n-1)^t}{n^t
 $$
 
 Portanto, substituindo $t$ por $T(\boldsymbol{X}_n)$, temos que
-$$ 
+$$
 E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)) = \left(1 - \frac{1}{n}\right)^{T(\boldsymbol{X}_n)}
 $$
 
@@ -355,7 +356,7 @@ T(\boldsymbol{X}_n) = (-1)^{X_1}
 $$
 A quantidade de interesse está estritamente entre $(0,1)$, mas o estimador pode apenas assumir valores $-1$ e $1$.
 
-Para $n=2$, temos que
+Para $n=2$ e $\sum_i X_i \neq 0$, temos que
 $$
 T(\boldsymbol{X}_n) = 0
 $$
@@ -373,15 +374,15 @@ function simulacaoENVVUM(M=10000, n=50)
   # ENVVUM para g(theta) = e^{-2theta}, T(X_n) = (1-2/n)^{soma de X_i}
   theta = log(rand())^2 # fixo: número real (não uniformemente) aleatório
   d = Poisson(theta)
-  estatisticas = []
+  estatísticas = []
   for i in 1:M
     amostra = rand(d, n)
     envvum = (1-2/n)^(sum(amostra))
-    append!(estatisticas, envvum)
+    append!(estatísticas, envvum)
   end
-  media = mean(estatisticas)
+  media = mean(estatísticas)
   e2theta = MathConstants.e^(-2*theta)
-  h = histogram(estatisticas,
+  h = histogram(estatísticas,
                 title = LaTeXString("Histograma de \$T(X_{$n})\$"),
                 normalize=:pdf,
                 label="",

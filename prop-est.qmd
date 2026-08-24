@@ -55,7 +55,7 @@ $$
 
 Logo, pelo [teorema de Slutsky](slutsky.qmd)
 $$
-\sqrt{n}I_1(\hat{\theta}_{\mathrm{MV}})\frac{(g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(\hat{\theta}_{\mathrm{MV}})^2}}
+\frac{\sqrt{nI_1(\hat{\theta}_{\mathrm{MV}})}\left(g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) - g(\theta)\right)}{\sqrt{g'(\hat{\theta}_{\mathrm{MV}})^2}}
 \stackrel{\mathcal{D}}{\rightarrow} N(0, 1), \forall \theta \in \Theta
 $$
 
@@ -79,7 +79,7 @@ $$
 :::{.callout-note title="Notação"}
 $$
 \begin{cases}
-\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) &\stackrel{a}{\approx} N(\theta, I_n(\theta)) \\
+\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) &\stackrel{a}{\approx} N(\theta, I_n(\theta)^{-1}) \\
 g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) &\stackrel{a}{\approx} N(g(\theta), g'(\theta)^2I_n(\theta)^{-1}) \\
 \end{cases}
 $$
@@ -126,7 +126,7 @@ $$
 
 Além disso, se $g : \Theta \rightarrow \mathbb{R}$ for diferenciável com derivada contínua tal que $g'(\theta) \neq 0$, então
 $$
-\sqrt{n}(g(\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) - \theta) - g(\theta)
+\sqrt{n}\left(g(\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n)) - g(\theta)\right)
 \stackrel{\mathcal{D}}{\rightarrow} N\left(0,g'(\theta)^2 \frac{\mathrm{Var}_\theta (X^k)}{h(\theta)^2}\right)
 $$
 

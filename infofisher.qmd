@@ -5,7 +5,8 @@ $$
 I_1(\theta) = \mathrm{Var}_\theta(U(X,\theta))
 $$
 
-A informação de Fisher **total** é a variância da função escore da amostra:
+A informação de Fisher **total** é a variância da função escore da
+amostra:
 $$
 I_n(\theta) = \mathrm{Var}_\theta(U_n(\boldsymbol{X}_n,\theta))
 $$
@@ -29,7 +30,7 @@ $$
 
 ## Teorema (da informação de Fisher sob as condições) {#sec-teo-infofisher}
 
-Sob as [condições](escore.qmd#sec-condioces) $C_1:C_4$, temos que
+Sob as [condições](escore.qmd#sec-condicoes) $C_1:C_4$, temos que
 
 $$
 \begin{cases}
@@ -43,7 +44,7 @@ $$
 Sem perda de generalidade, considere apenas o caso contínuo e $\Theta \subseteq \mathbb{R}$. Para $\Theta \subseteq \mathbb{R}^P$, basta utilizar
 da transposição de $\theta$ nas derivadas e $U(X,\theta)$.
 
-Sabemos que $U(X,\theta) = \frac{\partial}{\partial\theta}f_\theta(x)$. Além disso,
+Sabemos que $U(X,\theta) = \frac{\partial}{\partial\theta}\ln f_\theta(x)$. Além disso,
 $$
 \int_{\mathfrak{X}} f_\theta(x) dx = 1,\ \forall \theta \in \Theta
 $$
@@ -62,9 +63,9 @@ I_1(\theta) &= E_\theta(U(X,\theta)^2) \\
 &= \int_{\mathfrak{X}} U(x,\theta)^2 f_\theta(x)dx \\
 &= \int_{\mathfrak{X}} \left[\frac{\partial \ln}{\partial \theta} f_\theta(x)\right]^2 f_\theta(x)dx,\ \forall \theta \in \Theta
 \end{aligned}
-$$ 
+$$
 
-Observe que, por ([-@eq-c30]), 
+Observe que, por ([-@eq-c30]),
 $$
 \begin{aligned}
 &\int_{\mathfrak{X}}\frac{\partial}{\partial\theta} \left[\frac{\partial f_\theta(x)}{\partial \theta} \frac{f_\theta(x)}{f_\theta(x)}\right]dx = 0\\
@@ -137,7 +138,8 @@ f_\theta(x) = \begin{cases}
 \end{cases}
 $$
 
-Encntre a função [escore](escore.qmd) da amostra e a informação de Fisher total.
+Encontre a função [escore](escore.qmd) da amostra e a informação de Fisher
+total.
 
 ### Resposta
 
@@ -155,7 +157,8 @@ U_n(\boldsymbol{X}_n,\theta) &= \frac{\partial}{\partial \theta} \ln L_{\boldsym
 \end{aligned}
 $$
 
-A informação de Fisher total é, pelo [teorema](escore.qmd#sec-teo-infofisher),
+A informação de Fisher total é, pelo
+[teorema](infofisher.qmd#sec-teo-infofisher),
 $$
 I_n(\theta) = - E_\theta\left(\frac{\partial}{\partial \theta} U_n(\boldsymbol{X}_n,\theta)\right), \forall \theta \in \Theta.
 $$
@@ -167,7 +170,7 @@ $$
 
 Portanto,
 $$
-I_n(\theta) = -\frac{n}{\theta^2}, \forall \theta \in \Theta.
+I_n(\theta) = \frac{n}{\theta^2}, \forall \theta \in \Theta.
 $$
 
 ## Exemplo (Binomial) {#sec-ex-bin}
@@ -187,7 +190,8 @@ L_{\boldsymbol{X}_n}(\theta) &= \prod f_\theta(x) = \prod \left\{\binom{3}{x_i} 
 \end{aligned}
 $$
 
-A informação de Fisher total é, pelo [teorema](escore.qmd#sec-teo-infofisher),
+A informação de Fisher total é, pelo
+[teorema](infofisher.qmd#sec-teo-infofisher),
 $$
 \begin{aligned}
 I_n(\theta) &= -E_\theta\left(\frac{\partial}{\partial\theta} U_n(\boldsymbol{X}_n,\theta)\right) \\
@@ -235,7 +239,7 @@ $$
 ## Teorema (Desigualdade da informação, LICR) {#sec-licr}
 
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}$, em que $f_\theta$ satisfaz
-as [condições $C_1:C_4$](escore.qmd#sec-condioces). Considere $T(\boldsymbol{X}_n)$ um [estimador não-viciado](estimadores.qmd#sec-est-naovies)
+as [condições $C_1:C_4$](escore.qmd#sec-condicoes). Considere $T(\boldsymbol{X}_n)$ um [estimador não-viciado](estimadores.qmd#sec-est-naovies)
 para $g(\theta) = \theta$. Então,
 $$
 \mathrm{Var}_\theta(T(\boldsymbol{X}_n)) \geq \frac{1}{n I_1(\theta)} = \frac{1}{I_n(\theta)}, \forall \theta \in \Theta,
@@ -244,7 +248,7 @@ sempre que $E_\theta(T(\boldsymbol{X}_n)^2)<\infty, \forall \theta \in \Theta$, 
 e $I_n(\theta)$ é a informação de Fisher total.
 
 ::: {.callout-note title="Observação"}
-A quantidade $\frac{1}{I_n(\theta)}$ é chamada de *Limite Inferior de Crammer Rao (LICR)*
+A quantidade $\frac{1}{I_n(\theta)}$ é chamada de *Limite Inferior de Cramér-Rao (LICR)*
 :::
 
 ### Prova
@@ -268,7 +272,7 @@ $$
 Diferenciando ([-@eq-defesp]) com relação a "$\theta$"
 $$
 \begin{aligned}
-&\frac{\partial}{\partial \theta} 
+&\frac{\partial}{\partial \theta}
 \int_{-\infty}^{\infty} \dots \int_{-\infty}^{\infty} T(\boldsymbol{x}_n) f_\theta^{\boldsymbol{X}_n} d\boldsymbol{x}_n = 1 \\
 &\stackrel{C_3}{\Rightarrow}  \int_{-\infty}^{\infty} \dots \int_{-\infty}^{\infty}
 T(\boldsymbol{x}_n) \frac{\partial}{\partial \theta} f^{\boldsymbol{X}_n}_\theta(\boldsymbol{x}_n) = 1 \\
@@ -306,7 +310,7 @@ $$
 
 ## Teorema (generalização)
 
-Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta$, em que $f_\theta$ satisfaz as [condições $C_1,C_4$](escore.qmd#sec-condioces).
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta$, em que $f_\theta$ satisfaz as [condições $C_1,C_4$](escore.qmd#sec-condicoes).
 Considere $T(\boldsymbol{X}_n)$ um estimador não-viciado para $g(\theta) \in \mathbb{R}$ cuja derivada com respeito a "$\theta$"
 existe $\forall \theta \in \Theta$. Então,
 $$

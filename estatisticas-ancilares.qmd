@@ -42,7 +42,7 @@ $$
 \end{cases}
 $$
 
-Logo, $S_2(\boldsymbol{X}_n)$ é independente de $S_2(\boldsymbol{X}_n)$. Defina
+Logo, $S_1(\boldsymbol{X}_n)$ é independente de $S_2(\boldsymbol{X}_n)$. Defina
 $$
 S(\boldsymbol{X}_n) = \frac{S_1(\boldsymbol{X}_n)}{S_2(\boldsymbol{X}_n)} =
 \frac{\sum^k_{i=1}\frac{(X_i - \bar{X}_1)^2}{k-1}}{\sum^n_{i=k+1}\frac{(X_i - \bar{X}_2)^2}{n-k-1}}
@@ -78,7 +78,7 @@ $$
 \end{aligned}
 $$
 
-Se $W\sim\chi^2_k$ e $M\sim\chi^2_m$ são independentes, então
+Se $W\sim\chi^2_k$ e $Q\sim\chi^2_m$ são independentes, então
 
 $$
 \frac{\frac{W}{k}}{\frac{Q}{m}} \sim F_{(k,m)}
@@ -102,7 +102,8 @@ estatística que não é ancilar de primeira ordem não é ancilar.
 Seja $\boldsymbol{X}_n$ amostra aleatória de $X\sim\mathrm{N}(\mu,\sigma^2)$ e $U(\boldsymbol{X}_n) = X_1 - \bar{X}$
 
 $$
-E_\theta(U(\boldsymbol{X}_n)) = E_\theta(X_1) - E_\theta(\bar{X}) = \mu - \mu = 0, \forall \theta \in \Theta
+E_\theta(U(\boldsymbol{X}_n)) = E_\theta(X_1) - E_\theta(\bar{X}) = \mu - \mu =
+0, \forall \theta \in \Theta
 $$
 
 $$
@@ -110,9 +111,9 @@ $$
 \mathrm{Var}_\theta (U(\boldsymbol{X}_n)) &= \mathrm{Var}_\theta (X_i - \bar{X}) \\
 X_1 - \bar{X} &= X_1 - \frac{1}{n}X_1 - \dots - \frac{1}{n}X_n \\
 &= (1-\frac{1}{n})X_1 - \frac{1}{n}X_2 - \dots - \frac{1}{n}X_n \\
-\Rightarrow 
+\Rightarrow
 \mathrm{Var}_\theta (U(\boldsymbol{X}_n)) &= \left(1-\frac{1}{n}\right)^2 \sigma^2 + \underbracket{\frac{1}{n^2}\sigma^2 + \dots + \frac{1}{n^2}\sigma^2}_{n-1} \\
-\Rightarrow 
+\Rightarrow
 \mathrm{Var}_\theta (U(\boldsymbol{X}_n)) &= \left(1-\frac{1}{n}\right)^2 \sigma^2 + \frac{n-1}{n^2}\sigma^2 \forall \theta \in \Theta
 \end{aligned}
 $$

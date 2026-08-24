@@ -1,10 +1,10 @@
 # Estimação via máxima verossimilhança (EMV)
 O valor numérico $\hat\theta_{n}$ que maximiza a [função de verossimilhança](funcao-verossimilhanca.qmd), ou seja,
-$L_{\stackrel{x}{\sim}}(\hat\theta_{n}) \geq L_{\stackrel{x}{\sim}}(\theta)\forall \theta \in \Theta$ é dito ser uma
-[estimativa](estimadores.qmd#estimativas) de máxima verossimilhança (MV) para $\theta$. Observe que $\hat\theta_{n}$ depende da
+$L_{\boldsymbol{x}}(\hat\theta_{n}) \geq L_{\boldsymbol{x}}(\theta)\forall \theta \in \Theta$ é dito ser uma
+[estimativa](estimadores.qmd#sec-estimativa) de máxima verossimilhança (MV) para $\theta$. Observe que $\hat\theta_{n}$ depende da
 [amostra observada](populacao-e-amostra.qmd#sec-ao) e portanto: $\hat\theta_{n} = \hat\theta(x_{1},x_{2},\dots,x_{n})$.
 
-O [estimador](estimadores.qmd) de máxima verossimilhança é obtido substituindo $(x_{1},\dots,x_{n})$ por 
+O [estimador](estimadores.qmd) de máxima verossimilhança é obtido substituindo $(x_{1},\dots,x_{n})$ por
 $(X_{1},\dots,X_{n})$, ou seja, $\hat\theta(X_{1},\dots,X_{n})$ é o Estimador de Máxima Verossimilhança (EMV)
 
 ## Exemplo
@@ -21,9 +21,9 @@ f_{\theta}(x): & \theta & \theta^{2} & 1-\theta-\theta^{2}\\
 \hline
 \end{array}
 $$
-Considere que a amostra observada é $\stackrel{x}{\sim}=(0,0,1)$.
+Considere que a amostra observada é $\boldsymbol{x}=(0,0,1)$.
 
-a-) Encontre a estimativa da máxima verossimilhança 
+a-) Encontre a estimativa da máxima verossimilhança
 
 Sabemos que
 $$
@@ -33,21 +33,21 @@ $$
 portanto,
 
 $$
-L_{\stackrel{x}{\sim}}(\theta)\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_{\theta}(x_{i})  = 
-\theta^{\sum\limits^{n}_{i=1}\mathbb{1}_{\{0\}}(x_{i})} \cdot (\theta^{2})^{\sum\limits^{n}_{i=1}\mathbb{1}_{\{1\}}(x_{i})} 
+L_{\boldsymbol{x}}(\theta)\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_{\theta}(x_{i})  =
+\theta^{\sum\limits^{n}_{i=1}\mathbb{1}_{\{0\}}(x_{i})} \cdot (\theta^{2})^{\sum\limits^{n}_{i=1}\mathbb{1}_{\{1\}}(x_{i})}
 \cdot (1-\theta-\theta^{2})^{\sum\limits^{n}_{i=1}\mathbb{1}_{\{2\}}(x_{i})} \forall \theta \in \Theta
 $$
 
-Para $\stackrel{x}{\sim}=(0,0,1)$,
+Para $\boldsymbol{x}=(0,0,1)$,
 $$
-L_{\stackrel{x}{\sim}}(\theta) = \theta^{2} \cdot \theta^{2} \cdot (1-\theta -\theta^{2})^{0} = \theta^{4}
+L_{\boldsymbol{x}}(\theta) = \theta^{2} \cdot \theta^{2} \cdot (1-\theta -\theta^{2})^{0} = \theta^{4}
 \forall \theta \in \Theta
 $$
 
 Substituindo $\forall \theta \in \Theta$:
 $$
-\theta = \frac{1}{2}\Rightarrow L_{\stackrel{x}{\sim}}\left(\frac{1}{2}\right)=\frac{1}{16} ~~~~ \theta =
-\frac{1}{3}\Rightarrow L_{\stackrel{x}{\sim}}\left(\frac{1}{3}\right)=\frac{1}{81}
+\theta = \frac{1}{2}\Rightarrow L_{\boldsymbol{x}}\left(\frac{1}{2}\right)=\frac{1}{16} ~~~~ \theta =
+\frac{1}{3}\Rightarrow L_{\boldsymbol{x}}\left(\frac{1}{3}\right)=\frac{1}{81}
 $$
 
 Portanto, $\hat\theta_{n}=\frac{1}{2}$ é a estimativa de máxima verossimilhança.
@@ -55,14 +55,14 @@ Portanto, $\hat\theta_{n}=\frac{1}{2}$ é a estimativa de máxima verossimilhan�
 ### Invariância dos EMVs
 
 **Teorema.**
-Se $\hat\theta_{(X_{1},\dots,X_{n})}$ for EMV para $\theta$, então $g(\hat\theta_{(X_{1},\dots,X_{n})})$ é o EMV para 
+Se $\hat\theta_{(X_{1},\dots,X_{n})}$ for EMV para $\theta$, então $g(\hat\theta_{(X_{1},\dots,X_{n})})$ é o EMV para
 $g(\theta)$, ou seja, $g(\hat\theta_n)$ é a estimativa de máxima verossimilhança para $g(\theta)$
 
 Mais um exemplo:
 
 Seja $(X_{1},\dots,X_{n})$ a.a. de $X\sim N(\mu, \sigma^2)$ em que
 $\theta = (\mu, \sigma^{2}) \in \Theta=\mathbb{R}\times \mathbb{R}^{+}$
-Assuma que $\stackrel{x}{\sim} = (x_{1},\dots,x_{n})$ é a amostra observada.
+Assuma que $\boldsymbol{x} = (x_{1},\dots,x_{n})$ é a amostra observada.
 Lembrando que estaremos chamando $\theta=(\mu, \sigma^{2})$, mas estes são parâmetros genéricos.
 Poderíamos, por exemplo, chamá-los de $\theta=(\theta_{1},\theta_{2})$, o que pode facilitar a visualizar algumas derivadas.
 
@@ -71,23 +71,23 @@ a-) Encontre as estimativas de máxima verossimilhança para $\theta = (\mu, \si
 A Função de Verossimilhança é:
 $$
 \begin{aligned}
-L_{\underset{\sim}{x}}(\theta)&\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_\theta(x_{i}) = \prod^{n}_{i=1}
+L_{\boldsymbol{x}}(\theta)&\stackrel{\text{iid}}{=}\prod^{n}_{i=1}f_\theta(x_{i}) = \prod^{n}_{i=1}
 \left\{ \frac{1}{\sqrt{2 \pi \sigma^{2}}}\cdot \exp\left\{\frac{-1}{2}\cdot\frac{(x_{i}-\mu)^{2}}{\sigma^{2}} \right\} \right\}\\
 &= \frac{1}{(2\pi \sigma^{2})^{\frac{n}{2}}} \cdot \exp\left\{ \frac{-1}{2\sigma^{2}}\sum\limits^{n}_{i=1}(x_{i}-\mu)^{2}\right\}
 \end{aligned}
 $$
 
-Podemos derivar para encontrar o máximo da FMV. Para isso, derivaremos e igualamos a zero primeiro em relação a $\mu$, 
+Podemos derivar para encontrar o máximo da FMV. Para isso, derivaremos e igualamos a zero primeiro em relação a $\mu$,
 então a $\sigma^{2}$ (podemos aplicar o logaritmo para facilitar as operações.)
 
 $$
 \begin{aligned}
-\frac{\partial\ln(L_{\underset{\sim}{x}})}{\partial \mu} &= \frac{1}{\sigma^{2}}\sum\limits^{n}_{i=1}(x_{i}-\mu) =0
+\frac{\partial\ln(L_{\boldsymbol{x}})}{\partial \mu} &= \frac{1}{\sigma^{2}}\sum\limits^{n}_{i=1}(x_{i}-\mu) =0
 \Rightarrow \hat \mu =\frac{1}{n} \sum\limits^{n}_{i=1}x_{i} \\
-\frac{\partial \ln(L_{\underset{\sim}{x}})}{\partial \sigma^{2}} &= - \frac{n}{2\sigma^{2}} + \frac{1}{2\sigma^{4}} 
+\frac{\partial \ln(L_{\boldsymbol{x}})}{\partial \sigma^{2}} &= - \frac{n}{2\sigma^{2}} + \frac{1}{2\sigma^{4}}
 \sum\limits^{n}_{i=1}(x_{i}-\mu)^{2} =0 \\
 \therefore \\
-\mathrm{Estimativas~ MV} & = 
+\mathrm{Estimativas~ MV} & =
 \begin{cases}
 \mu = \bar{x} \\
 -\frac{n}{2\sigma^{2}} + \frac{1}{2 \sigma^{4}} \sum\limits^{n}_{i=1}(x_{i}-\mu)^{2}=0 \\
@@ -99,15 +99,16 @@ $$
 \end{aligned}
 $$
 
-Estes são os pontos que maximizam a Função de Máxima Verossimilhança. (Provados em cálculo), ou seja, são as estimativas
+Estes são os pontos que maximizam a Função de Máxima Verossimilhança.
+(Provados em cálculo), ou seja, são as estimativas
 de máxima verossimilhança para $\mu, \sigma^{2}$ respectivamente, e
-$\hat{\mu}(X_{1},\dots,X_{n})=\bar{X}, \sigma^{2}(X_{1},\dots,X_{n})=\frac{1}{n}\sum\limits^{n}_{i=1}(X_{i}-\bar{X})^{2}$
+$\hat{\mu}(X_{1},\dots,X_{n})=\bar{X}, \hat{\sigma^{2}}(X_{1},\dots,X_{n})=\frac{1}{n}\sum\limits^{n}_{i=1}(X_{i}-\bar{X})^{2}$
 são os estimadores de máxima verossimilhança.
 
 
 Pela propriedade de invariância podemos encontrar o EMV para $g(\theta)= \frac{\sqrt{\mathrm{Var}_\theta(X)}}{E_{\theta(X)}}$:
 $$
-\widehat{g(\theta)} = \frac{\sqrt{\frac{1}{n}\sum\limits^{n}_{i=1}(X_{i}-\bar{X})}}{\bar{X}}
+\widehat{g(\theta)} = \frac{\sqrt{\frac{1}{n}\sum\limits^{n}_{i=1}(X_{i}-\bar{X})^2}}{\bar{X}}
 $$
 
 ::: {.callout-note title="Observação"}
@@ -115,7 +116,7 @@ Seja $(X_{1},\dots,X_{n})$ a.a. de $X\sim N(\mu, \sigma^{2})$. Então,
 
 1. $\bar{X} \underset{\text{Exata!}}{\sim}N\left(\mu, \frac{\sigma^{2}}{n}\right)\forall \mu, \sigma \in \mathbb{R} : \sigma^{2}>0 \text{ e } n\geq 1$
 
-2. $\sum\limits^{n}_{i=1} \frac{(x_{1}-\bar{X})^{2}}{\sigma^{2}}\underset{\text{Exata!}}{\sim}\chi^{2}_{(n-1)}$
+2. $\sum\limits^{n}_{i=1} \frac{(x_{i}-\bar{X})^{2}}{\sigma^{2}}\underset{\text{Exata!}}{\sim}\chi^{2}_{(n-1)}$
 
 em que $\chi^{2}_{k}$ representa a [Distribuição Qui-Quadrado](qui-quadrado.qmd) com $k$ grau de liberdade, cuja
 função densidade de probabilidade é:
@@ -123,6 +124,6 @@ $$
 f(x) = \frac{1}{\Gamma(\frac{k}{2})2^{\frac{k}{2}}} \cdot x^{\frac{k}{2}-1} \cdot \exp\left\{\frac{-x}{2}\right\} \cdot \mathbb{1}_{(0, \infty)}(x).
 $$
 
-Para qualquer outra distribuição, existe um resultado aproximado pelo [Teorema do Limite Central](tlc.qmd).
+Para qualquer outra distribuição, existe um resultado aproximado pelo [Teorema
+do Limite Central](tlc.qmd).
 :::
-

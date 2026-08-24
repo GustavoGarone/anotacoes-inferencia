@@ -10,8 +10,9 @@ $$
 E_\theta(X^k) = \frac{1}{n} \sum^n_{i=1} X_i^k, k = 1, \dots, p.
 $$
 
-Note que a estimação pelo método de momentos *não* utiliza toda a informação contida na
-[função de verossimilhança](funcao-verossimilhanca.qmd). Precisamos conhecer a forma dos primeiros $p$ momentos.
+Note que a estimação pelo método de momentos *não* utiliza toda a
+informação contida na [função de verossimilhança](funcao-verossimilhanca.qmd).
+Precisamos conhecer a forma dos primeiros $p$ momentos.
 
 ## Exemplos
 
@@ -19,7 +20,8 @@ Note que a estimação pelo método de momentos *não* utiliza toda a informaç�
 
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim U(0,\theta), \theta > 0$. Encontre o estimador pelo método de momentos.
 
-Calcule o [EQM](eqm-e-vies.qmd) do [EMV](emv2.qmd) e do estimador obtido pelo método de momentos.
+Calcule o [EQM](eqm-e-vies.qmd) do [EMV](emv2.qmd) e do estimador obtido pelo
+método de momentos.
 
 #### Resposta
 
@@ -42,7 +44,7 @@ $$
 \mathrm{EQM}_\theta(\hat{\theta}_{\mathrm{MM}}(\pmb{X}_n), \theta) &= E_\theta((\hat{\theta}_{\mathrm{MM}}(\pmb{X}_n) - \theta)^2) \\
 &=\mathrm{Var}_\theta(\hat{\theta}_{\mathrm{MM}}(\pmb{X}_n)) + \mathrm{Viés}(\hat{\theta}_{\mathrm{MM}}(\pmb{X}_n), \theta)^2 \\ \\
 E_\theta(\hat{\theta}_{\mathrm{MM}}(\pmb{X}_n)) &= 2 E_\theta(X) = 2 \frac{\theta}{2} = \theta \\
-\Rightarrow \mathrm{Viés}_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n),\theta) &= 0, \forall \theta \in \Theta. \\ \\
+\Rightarrow \mathrm{Viés}_\theta(\hat{\theta}_{\mathrm{MM}}(\pmb{X}_n),\theta) &= 0, \forall \theta \in \Theta. \\ \\
 \mathrm{Var}_\theta(\hat{\theta}_{\mathrm{MM}}(\pmb{X}_n)) = \mathrm{Var}_\theta(2\bar{X}) &\stackrel{\mathrm{i.i.d.}}{=} 4 \frac{\mathrm{Var}_\theta(X)}{n}
 \stackrel{\mathrm{Unif}}{=}  \frac{\theta^2}{3n} \\
 \Rightarrow \mathrm{EQM}_\theta(\hat{\theta}_{\mathrm{MM}}(\pmb{X}_n),\theta) = \frac{\theta^2}{3n}
@@ -65,14 +67,14 @@ P_\theta(X \leq t) = \begin{cases}
 0, & t \leq 0 \\
 \frac{t}{\theta}, & 0 < t \leq \theta \\
 1, & t \geq \theta \\
-\end{cases} \Rightarrow P_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n)\leq t)^n = \begin{cases}
+\end{cases} \Rightarrow P_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n)\leq t) = \begin{cases}
 0, & t \leq 0 \\
 \left(\frac{t}{\theta}\right)^n, & 0 < t \leq \theta \\
 1, & t \geq \theta \\
 \end{cases}
 $$
 
-Como $P_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n))$ é absoulatemente contínua para todo $\theta > 0$, temos que
+Como $P_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n))$ é absolutamente contínua para todo $\theta > 0$, temos que
 $\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n)$ é uma variável aleatória contínua cuja f.d.p. é dada por
 $$
 f_\theta^{\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n)}(x) =\left. \frac{d}{dt} P_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n) \leq t) \right\rvert_{t=x}
@@ -125,7 +127,7 @@ println("Média simulada do EMV = $(mean(thetaMV)),
         calculada = $(10 / 11 * theta0)")
 println("Variância simulada do EMM = $(var(thetaMM)),
         calculada = $(theta0^2 / (3 * n))")
-println("Variância simuladado EMV = $(var(thetaMV)),
+println("Variância simulada do EMV = $(var(thetaMV)),
         calculada = $(n * theta0^2 / (n + 2) - (n / (n + 1))^2 * theta0^2)")
 
 densidade(x) = 0 < x < theta0 ? n * x^(n - 1) / theta0^n : 0
@@ -173,25 +175,25 @@ os casos abaixo:
 4. $E_\theta(X) = \theta, E_\theta(X^2) = \sigma^2 + \mu^2$. Note que
 $$
 \begin{aligned}
-&\begin{cases}
+\begin{cases}
 \mu &= \bar{X} \\
 \sigma^2 + \mu^2 &= \frac{1}{n} \sum X_i^2
-\end{cases} \\
-\Rightarrow&\begin{cases}
+\end{cases}
+&\Rightarrow \begin{cases}
 \hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n) &= \bar{X} \\
-\hat{\sigma^2}_{\mathrm{MM}}(\boldsymbol{X}_n) + \hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n)^2 &= \frac{1}{n} \sum X_i^2
+\hat{\sigma}^{2}_{\mathrm{MM}}(\boldsymbol{X}_n) + \hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n)^2 &= \frac{1}{n} \sum X_i^2
 \end{cases} \\
-\Rightarrow&\begin{cases}
+&\Rightarrow \begin{cases}
 \hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n) &= \bar{X} \\
-\hat{\sigma^2}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{1}{n} \sum X_i^2 - \bar{X}^2
+\hat{\sigma}^{2}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{1}{n} \sum X_i^2 - \bar{X}^2
 \end{cases} \\
-\Rightarrow& \hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \left(\bar{X}, \frac{1}{n} \sum X_i^2 - \bar{X}^2\right)
+&\Rightarrow \hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \left(\bar{X}, \frac{1}{n} \sum X_i^2 - \bar{X}^2\right)
 \end{aligned}
 $$
 
 5. $E_\theta(X) = \frac{1}{\theta}$. Portanto, $\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{1}{\bar{X}}$
 
-6. 
+6.
 ::: {.callout-note title="Distribuição Gama"}
 Se $X \sim \mathrm{Gama}(\alpha,\beta)$, então
 $$
@@ -213,7 +215,7 @@ y = \beta x, dy &= \beta dx, x = \frac{y}{\beta} \\ \\
 \Rightarrow E_\theta(X) &= \frac{1}{\Gamma(\alpha) \beta} \Gamma(\alpha +1 ) = \frac{\alpha \Gamma(\alpha)}{\Gamma(\alpha) \beta}
 = \frac{\alpha}{\beta} \\
 \Rightarrow E_\theta(X^2) &= \frac{1}{\Gamma(\alpha) \beta^2} \Gamma(\alpha +2)\\
-&= \frac{(\alpha+1) \Gamma(\alpha+1)}{\Gamma(\alpha) \beta}
+&= \frac{(\alpha+1) \Gamma(\alpha+1)}{\Gamma(\alpha) \beta^2}
 = \frac{(\alpha+1)\alpha\Gamma(\alpha)}{\Gamma(\alpha)\beta^2} = \frac{\alpha(\alpha+1)}{\beta^2}
 \end{aligned}
 $$
@@ -303,5 +305,4 @@ pmmbeta = histogram(
 vline!([beta0], label = "Valor real")
 display(plot(pmmalpha, pmmbeta))
 ```
-
 

@@ -37,7 +37,7 @@ $$
 $$
 
 Note que a função é *estritamente decrescente* para qualquer valor de $\theta \geq \max \boldsymbol{x}_n$ e vale $0$ para $\theta \leq \max \boldsymbol{x}_n$,
-temos que $\theta = \max\boldsymbol{x}_n$  é o ponto que maximiza a função de verossilhança, logo,
+temos que $\theta = \max\boldsymbol{x}_n$  é o ponto que maximiza a função de verossimilhança, logo,
 $$
 \hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \max \boldsymbol{X}_n
 $$
@@ -107,7 +107,7 @@ em que
 $$
 U_n(\boldsymbol{x}_n,\theta) = \frac{\partial \ln \mathcal{L}_{\boldsymbol{x}_n}(\theta)}{\partial \theta}
 $$
-desde que 
+desde que
 $$
 \left.\frac{\partial U_n(\boldsymbol{x}_n,\theta)}{\partial \theta^T}\right\rvert_{\theta = \hat{\theta}_{\mathrm{MV}}(\boldsymbol{x}_n)}
 $$
@@ -189,7 +189,7 @@ U_n(\boldsymbol{x}_n,\theta) &= 0 \\
 -n + \frac{1}{\sigma^2} \sum (x_i - \mu)^2 = 0
 \end{array}\right. \\
 \iff &\left\{\begin{array}{ll}
-\mu = \sum \frac{x_i}{n} = 0 \\
+\mu = \frac{1}{n}\sum x_i = \bar{x} \\
 \sigma^2 = \sum \frac{(x_i-\mu)^2}{n}
 \end{array}\right. \\
 \Rightarrow &\left\{\begin{array}{ll}
@@ -223,7 +223,7 @@ $$
 \frac{\partial^2 \ln}{\partial \mu \partial \sigma^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= -\frac{1}{\sigma^4} \sum (x_i - \mu) \\
 \frac{\partial^2 \ln}{\partial (\sigma^2)^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \frac{n}{2\sigma^4} + \frac{1}{2} \sum (x_i - \mu)^2 \cdot \frac{\partial (\sigma^2)^2}{\partial \sigma^2} \\
 &= \frac{n}{2\sigma^4} - \sum \frac{(x_i - \mu)^2}{\sigma^6} \\
-\Rightarrow 
+\Rightarrow
 \left.\frac{\partial^2 \ln}{\partial \theta \partial \theta^T} \mathcal{L}_{\boldsymbol{x}_n}(\theta)\right\rvert_{\theta = \hat{\theta}} &=
 \left[
 \begin{array}{cc}
@@ -232,12 +232,12 @@ $$
 \end{array}\right] \\ \\
 \text{Note que}\ \sum(x_i - \bar{x}) &= \sum x_i - n \bar{x} = \sum x_i - \sum x_i = 0 \\
 \text{e que}\ \frac{n}{2(\hat{\sigma}^2)^2} - \frac{n\hat{\sigma}^2}{(\hat{\sigma}^2)^3} &= - \frac{n}{2(\hat{\sigma}^2)^2}\\ \\
-\Rightarrow 
+\Rightarrow
 \left.\frac{\partial^2 \ln}{\partial \theta \partial \theta^T} \mathcal{L}_{\boldsymbol{x}_n}(\theta)\right\rvert_{\theta = \hat{\theta}} &=
 \left[
 \begin{array}{cc}
 -\frac{n}{\hat{\sigma}^2} & 0 \\
-0 & \frac{-n}{(\hat{\sigma}^2)^2}
+0 & -\frac{n}{2(\hat{\sigma}^2)^2}
 \end{array}\right]
 \end{aligned}
 $$
@@ -252,7 +252,8 @@ $$
 
 ## Relação com a [Informação de Fisher](infofisher.qmd)
 
-Note que a informação de Fisher total sob o [modelo normal anterior](emv2.qmd#sec-exnorm) é
+Note que a informação de Fisher total sob o [modelo normal
+anterior](emv2.qmd#sec-exnorm) é
 $$
 \begin{aligned}
 I_n(\theta) &= - E_\theta\left(\frac{\partial^2 \ln}{\partial \theta \partial \theta^T} \mathcal{L}_{\boldsymbol{x}_n}(\theta)\right) \\
@@ -317,7 +318,8 @@ $$
 \sum \ln x_i = n \frac{\Gamma'(\theta)}{\Gamma(\theta)}.
 $$
 
-Posteriormente, [encontraremos um método](metodo-nr.qmd) para encontrar essa solução.
+Posteriormente, [encontraremos um método](metodo-nr.qmd) para encontrar essa
+solução.
 
 6. $X \sim f_\theta, \theta \in \Theta$, em que $f_\theta$
 pertence à [Família Exponencial $k$ dimensional](familia-exponencial.qmd#sec-fek), isto é,
@@ -350,5 +352,6 @@ $$
 $${#eq-formageral}
 
 :::{.callout-hint title="Uso de métodos numéricos"}
-Em alguns casos, ([-@eq-formageral]) não tem solução fechada e utilizaremos um método numério para encontrar as soluções.
+Em alguns casos, ([-@eq-formageral]) não tem solução fechada e utilizaremos
+um método numérico para encontrar as soluções.
 :::
