@@ -17,8 +17,8 @@ $$
 1,&\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(\theta_1) \geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(\theta_0),
 \end{cases}
 $$
-em que $\eta$ satisfaz $\underbracket{P_{\theta_0}(\delta^*(\boldsymbol{X}_n) = 1)}_{\pi_{\delta^*}(\theta_0)} = \alpha$ para um $\alpha$ fixado apriori, é o teste mais
-poderoso dentre todo os testes de tamanho $\alpha$.
+em que $\eta$ satisfaz $\underbracket{P_{\theta_0}(\delta^*(\boldsymbol{X}_n) = 1)}_{\pi_{\delta^*}(\theta_0)} = \alpha$ para um $\alpha$ fixado a priori, é o teste mais
+poderoso dentre todos os testes de tamanho $\alpha$.
 
 ## Exemplo (Normal)
 
@@ -51,10 +51,10 @@ $$
 -\frac{1}{2} \sum \frac{(x_i - \mu)^2}{\sigma^2}\right\}, \theta \in \{(0,1), (0,2)\} \\
 &= \frac{1}{(\sqrt{2\pi\sigma^2})^n} \cdot \mathrm{Exp}\left\{
 -\frac{1}{2} \sum \frac{x_i^2}{\sigma^2} \right\}, \theta \in \{(0,1), (0,2)\} \\
-\Rightarrow  \mathcal{L}_{\boldsymbol{x}_n}(\theta_0) 
+\Rightarrow  \mathcal{L}_{\boldsymbol{x}_n}(\theta_0)
 &= \frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
 -\frac{1}{2} \sum x_i^2 \right\} \\
-\mathcal{L}_{\boldsymbol{x}_n}(\theta_1) 
+\mathcal{L}_{\boldsymbol{x}_n}(\theta_1)
 &= \frac{1}{(\sqrt{4\pi})^n} \cdot \mathrm{Exp}\left\{
 -\frac{1}{2} \sum \frac{x_i^2}{2} \right\} \\
 \Rightarrow \mathcal{L}_{\boldsymbol{x}_n}((0,2)) &\geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}((0,1)) \\
@@ -111,7 +111,7 @@ as hipóteses nula e alternativa e $n=10$. Encontre o Teste Mais Poderoso (TMP) 
 
 ### Resposta
 
-De acordo com o Lema de Neyman-Pearson, o teste mais poderoso de tamanho $\alpha = 5\%$ é
+De acordo com o Lema de Neyman-Pearson, o teste mais poderoso de tamanho $\alpha = 10\%$ é
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
 0,&\ \text{se}\ \mathcal{L}_{\boldsymbol{x}_n}(0.1) < \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}(0.9), \\
@@ -137,7 +137,7 @@ $$
 
 Logo, $\left(\frac{0.1 \cdot 0.1}{0.9 \cdot 0.9}\right)^{\sum x_i} \cdot \left(\frac{0.9}{0.1}\right)^{n} \geq \eta \iff \sum x_i \leq \frac{-\ln \eta + n \ln (9)}{\ln (81)}$.
 $$
-\pi_{\delta^*}(0.1) = P_{0.1}(\delta^*(\boldsymbol{X}_n) = 1) = P_{0.1}(\sum X_i \leq \eta^*) = \alpha = 10\%
+\pi_{\delta^*}(0.9) = P_{0.9}(\delta^*(\boldsymbol{X}_n) = 1) = P_{0.9}(\sum X_i \leq \eta^*) = \alpha = 10\%.
 $$
 
 Note que, sob $\mathcal{H}_0, \sum^10_{i=1} X_i \sim \mathrm{Bin}(10, 0.9)$. Ademais,

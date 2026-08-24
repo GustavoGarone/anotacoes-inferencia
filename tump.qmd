@@ -62,7 +62,7 @@ A função de verossimilhança é dada por
 $$
 \begin{aligned}
 \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{4} \sum (x_i - \theta)^{2} \right\} \\ &= 
+-\frac{1}{4} \sum (x_i - \theta)^{2} \right\} \\ &=
 \left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
 -\frac{1}{4} \sum x_i^2 - 2\theta\sum x_i + n\theta^2 \right\}.
 \end{aligned}
@@ -103,8 +103,8 @@ P_{1}(\sum X_i \geq c) &= P_1\left(\frac{\sum x_i - 5}{\sqrt{10}} \geq \frac{c -
 \end{cases}
 \end{aligned}
 $$
-Portanto, se $\sum x_i < 9.064$, dizemos que *não há evidencias* para rejeitarmos $\mathcal{H}_0$ a $10\%$ de significância
-estatística. Se $\sum x_i \geq 9.064$, dizemos que *há evidencias* para rejeitarmos $\mathcal{H}_0$ a $10\%$ de significância
+Portanto, se $\sum x_i < 9.064$, dizemos que *não há evidências* para rejeitarmos $\mathcal{H}_0$ a $10\%$ de significância
+estatística. Se $\sum x_i \geq 9.064$, dizemos que *há evidências* para rejeitarmos $\mathcal{H}_0$ a $10\%$ de significância
 estatística.
 
 ### Exemplo (Exponencial)
@@ -154,11 +154,11 @@ $$
 $$
 em que $c$ satisfaz
 $$
-\pi_{\delta^*}(1) = P_{1}(\sum X_i \leq -c) = \alpha.
+\pi_{\delta^*}(2) = P_{2}(\sum X_i \leq -c) = \alpha.
 $$
 Para $n=10$, sob $\theta = 2, \sum X_i \sim \mathrm{Gama}(10,2)$. Computacionalmente, o quantil $0.05$ dessa distribuição
-é $2.7127$. Logo, $-c = 2.7127 \Rightarrow c = -2.7127$. Dessa forma, se $\sum x_i > 2.7127$, dizemos que *não há evidencias* para rejeitarmos $\mathcal{H}_0$ a $5\%$ de significância
-estatística. Se $\sum x_i \leq 2.7127$, dizemos que *há evidencias* para rejeitarmos $\mathcal{H}_0$ a $5\%$ de significância estatística.
+é $2.7127$. Logo, $-c = 2.7127 \Rightarrow c = -2.7127$. Dessa forma, se $\sum x_i > 2.7127$, dizemos que *não há evidências* para rejeitarmos $\mathcal{H}_0$ a $5\%$ de significância
+estatística. Se $\sum x_i \leq 2.7127$, dizemos que *há evidências* para rejeitarmos $\mathcal{H}_0$ a $5\%$ de significância estatística.
 
 ## Teorema de Karlin-Rubin (II)
 Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}$. Considere
@@ -203,7 +203,7 @@ A função de verossimilhança é dada por
 $$
 \begin{aligned}
 \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{4} \sum (x_i - \theta)^{2} \right\} \\ &= 
+-\frac{1}{4} \sum (x_i - \theta)^{2} \right\} \\ &=
 \left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
 -\frac{1}{4} \sum x_i^2 - 2\theta\sum x_i + n\theta^2 \right\}.
 \end{aligned}
