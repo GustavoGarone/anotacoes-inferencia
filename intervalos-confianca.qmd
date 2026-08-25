@@ -49,14 +49,14 @@ $$
 \begin{aligned}
 \#\frac{(g(\theta) \in \mathrm{IC}_{\mathrm{Obs}})}{N} \approx \gamma \\
 \left[
-\frac{1}{N} \sum \mathbb{1}_{\{\mathrm{IC}_{\mathrm{Obs}}^{(i)}\}}(g(\theta)) \stackrel{N \uparrow \infty}{\rightarrow} \gamma
+\frac{1}{N} \sum_{i=1}^N \mathbb{1}_{\{\mathrm{IC}_{\mathrm{Obs}}^{(i)}\}}(g(\theta)) \stackrel{N \uparrow \infty}{\rightarrow} \gamma
 \right]
 \end{aligned}
 $$
 
 Dizemos que
 $$
-\frac{1}{N} \sum \mathbb{1}_{\{\mathrm{IC}_{\mathrm{Obs}}^{(i)}\}}(g(\theta))
+\frac{1}{N} \sum_{i=1}^N \mathbb{1}_{\{\mathrm{IC}_{\mathrm{Obs}}^{(i)}\}}(g(\theta))
 $$
 é a cobertura de $\mathrm{IC}(g(\theta),\gamma)$
 
@@ -75,18 +75,18 @@ Encontre um IC com coeficiente de confiança $\gamma = 95\%$...
 
 Sabemos que
 $$
-\bar{X} = \frac{1}{n} \sum X_i \sim N(\mu, \sigma^2/n).
+\bar{X} = \frac{1}{n} \sum_{i=1}^n X_i \sim N(\mu, \sigma^2/n).
 $$
 Além disso,
 $$
-\sum \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{n-1}
+\sum_{i=1}^n \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{n-1}
 $$
 
 Por definição de t-student, com as V.As das distribuições independentes,
 $$
 \begin{aligned}
 \frac{N(0,1)}{\sqrt{\frac{\chi^2_k}{k}}} &\sim t_k  \\
-\Rightarrow\frac{\sqrt{n} \frac{(\bar{X} - \mu)}{\sigma}}{\sqrt{\frac{\sum \frac{(X_i - \bar{X})^2}{\sigma^2}}{n-1}}} &\sim t_{(n-1)} \\
+\Rightarrow\frac{\sqrt{n} \frac{(\bar{X} - \mu)}{\sigma}}{\sqrt{\frac{\sum_{i=1}^n \frac{(X_i - \bar{X})^2}{\sigma^2}}{n-1}}} &\sim t_{(n-1)} \\
 \Rightarrow \frac{\sqrt{n} (\bar{X} - \mu)}{\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}} &\sim t_{(n-1)}
 \end{aligned}
 $$
@@ -114,7 +114,7 @@ $$
 $$
 em que
 $$
-S^2_{n-1}(\boldsymbol{X}_n) = \frac{1}{n-1} \sum  (X_i - \bar{X})^2
+S^2_{n-1}(\boldsymbol{X}_n) = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2
 $$
 e $c_{1,\gamma}, c_{2,\gamma}$ são os quantis obtidos da distribuição t-student com $n-1$ graus de liberdade que satisfaçam
 $$
@@ -160,47 +160,47 @@ essa é também uma quantidade pivotal para 1., mas o contrário não vale.
 3. Se $\mu$ é conhecido e $\theta = \sigma^2, g(\theta) = \sigma^2$, então
 
 $$
-Q(\sigma^2, \boldsymbol{X}_n) = \sum \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{n}
+Q(\sigma^2, \boldsymbol{X}_n) = \sum_{i=1}^n \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{n}
 $$
 
 $$
-\mathrm{IC}(\sigma^2,\gamma) = \left[\frac{\sum (X_i - \mu)^2}{c_{2,\gamma}}, \frac{\sum (X_i - \mu)^2}{c_{1,\gamma}}\right]
+\mathrm{IC}(\sigma^2,\gamma) = \left[\frac{\sum_{i=1}^n (X_i - \mu)^2}{c_{2,\gamma}}, \frac{\sum_{i=1}^n (X_i - \mu)^2}{c_{1,\gamma}}\right]
 $$
 
 4. Se $\mu$ é desconhecido e $\theta = (\mu, \sigma^2), g(\theta) = \sigma^2$, então
 $$
-Q(\sigma^2, \boldsymbol{X}_n) = \sum \frac{(X_i - \bar{X})}{\sigma^2} \sim \chi^2_{(n-1)}
+Q(\sigma^2, \boldsymbol{X}_n) = \sum_{i=1}^n \frac{(X_i - \bar{X})}{\sigma^2} \sim \chi^2_{(n-1)}
 $$
 
 $$
-\mathrm{IC}(\sigma^2,\gamma) = \left[\frac{\sum (X_i - \bar{X})^2}{c_{2,\gamma}}, \frac{\sum (X_i - \bar{X})^2}{c_{1,\gamma}}\right]
+\mathrm{IC}(\sigma^2,\gamma) = \left[\frac{\sum_{i=1}^n (X_i - \bar{X})^2}{c_{2,\gamma}}, \frac{\sum_{i=1}^n (X_i - \bar{X})^2}{c_{1,\gamma}}\right]
 $$
 
 #### Exponencial
 
 Seja $X \sim \mathrm{Exp}(\theta), \theta > 0$. Encontre uma quantidade pivotal para $\theta$.
 
-Note que $\sum X_i \sim \mathrm{Gama}(n,\theta)$ com F.G.M. dada por
+Note que $\sum_{i=1}^n X_i \sim \mathrm{Gama}(n,\theta)$ com F.G.M. dada por
 $$
-M_{\sum X_i}(t) = \left(\frac{\theta}{\theta-t}\right)^n
+M_{\sum_{i=1}^n X_i}(t) = \left(\frac{\theta}{\theta-t}\right)^n
 $$
 note ainda que
 $$
 \begin{aligned}
-M_{\sum X_i}(t) &= E(\mathrm{e}^{t \sum X_i}) =  \left(\frac{\theta}{\theta-t}\right)^n \\
-\Rightarrow M_{\theta \sum X_i}(t) &= E(\mathrm{e}^{t\theta \sum X_i}) \\
-&=M_{\sum X_i}(t \theta) = \left(\frac{\theta}{\theta-\theta t}\right)^n = \left(\frac{1}{1-t}\right)^n \\
-\Rightarrow M_{2\theta\sum X_i}(t) &= \left(\frac{1}{1-2t}\right)^n \\
-\Rightarrow &2\theta \sum X_i \sim \chi^2_{(2n)}
+M_{\sum_{i=1}^n X_i}(t) &= E(\mathrm{e}^{t \sum_{i=1}^n X_i}) =  \left(\frac{\theta}{\theta-t}\right)^n \\
+\Rightarrow M_{\theta \sum_{i=1}^n X_i}(t) &= E(\mathrm{e}^{t\theta \sum_{i=1}^n X_i}) \\
+&=M_{\sum_{i=1}^n X_i}(t \theta) = \left(\frac{\theta}{\theta-\theta t}\right)^n = \left(\frac{1}{1-t}\right)^n \\
+\Rightarrow M_{2\theta\sum_{i=1}^n X_i}(t) &= \left(\frac{1}{1-2t}\right)^n \\
+\Rightarrow &2\theta \sum_{i=1}^n X_i \sim \chi^2_{(2n)}
 \end{aligned}
 $$
 
-Portanto, $Q(\theta, \boldsymbol{X}_n) = 2\theta \sum X_i$ é uma quantidade de interesse para $\theta$
+Portanto, $Q(\theta, \boldsymbol{X}_n) = 2\theta \sum_{i=1}^n X_i$ é uma quantidade de interesse para $\theta$
 
 $$
 \begin{aligned}
 c_{1,\gamma} &\leq Q(\theta, \boldsymbol{X}_n) \leq c_{2,\gamma} \\
-\iff c_{1,\gamma} &\leq 2\theta \sum X_i \leq c_{2\gamma} \iff \frac{c_{1,\gamma}}{2\sum X_i} \leq \theta \leq \frac{c_{2,\gamma}}{2\sum X_i}
+\iff c_{1,\gamma} &\leq 2\theta \sum_{i=1}^n X_i \leq c_{2\gamma} \iff \frac{c_{1,\gamma}}{2\sum_{i=1}^n X_i} \leq \theta \leq \frac{c_{2,\gamma}}{2\sum_{i=1}^n X_i}
 \end{aligned}
 $$
 

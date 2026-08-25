@@ -229,16 +229,16 @@ $$
 f_\theta^{T(\boldsymbol{X}_n)\lvert \boldsymbol{X}_n = (y_1,\dots,y_n)} =
 \begin{cases}
 \frac{\frac{1}{\sqrt{2\pi\cdot1}^n} \cdot \mathrm{exp}\left\{-\frac{1}{2} \sum^n_i=1 (y_i - \theta)^2\right\}}
-{\frac{1}{\sqrt{2\pi\cdot n}}\cdot \mathrm{exp}\left\{-\frac{1}{2n}(t-n\theta)^2\right\}}, & t = \sum y_i \\
+{\frac{1}{\sqrt{2\pi\cdot n}}\cdot \mathrm{exp}\left\{-\frac{1}{2n}(t-n\theta)^2\right\}}, & t = \sum_{i=1}^n y_i \\
 0, & \mathrm{c.c.}
 \end{cases}
 $$
 
 Note que
 $$
--\frac{1}{2}\sum(y_i-\theta)^2=-\frac{1}{2}\left(\frac{t^2}{n}-2t\theta+n\theta^2\right)
+-\frac{1}{2}\sum_{i=1}^n(y_i-\theta)^2=-\frac{1}{2}\left(\frac{t^2}{n}-2t\theta+n\theta^2\right)
 $$
-logo $f_\theta^{\boldsymbol{X}_n\lvert T(\boldsymbol{X}_n)=t}$ não depende de $\theta$ e $\sum X_i$ é suficiente para o modelo
+logo $f_\theta^{\boldsymbol{X}_n\lvert T(\boldsymbol{X}_n)=t}$ não depende de $\theta$ e $\sum_{i=1}^n X_i$ é suficiente para o modelo
 estatístico.
 
 ### Problema das funções densidade de probabilidade {#sec-problema}
@@ -444,12 +444,12 @@ f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) &= \begin{cases}
 0, & \mathrm{c.c.}
 \end{cases} \\
 \Rightarrow
-f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) &= \theta^{\sum y_i} \cdot
-(1-\theta)^{n-\sum y_i} \cdot \prod^n_{i=1}\mathbb{1}_{\{0,1\}} (y_1)
+f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) &= \theta^{\sum_{i=1}^n y_i} \cdot
+(1-\theta)^{n-\sum_{i=1}^n y_i} \cdot \prod^n_{i=1}\mathbb{1}_{\{0,1\}} (y_1)
 \end{aligned}
 $$
 
-Tome $h(y_1,\dots,y_n) = \prod^n_{i=1}\mathbb{1}_{\{0,1\}}(y_1)$ e $m(T(y_1,\dots,y_n),\theta) = \theta^{\sum y_i} \cdot (1-\theta)^{n-\sum y_i}$
+Tome $h(y_1,\dots,y_n) = \prod^n_{i=1}\mathbb{1}_{\{0,1\}}(y_1)$ e $m(T(y_1,\dots,y_n),\theta) = \theta^{\sum_{i=1}^n y_i} \cdot (1-\theta)^{n-\sum_{i=1}^n y_i}$
 em que $T(y_1,\dots,y_n) = \sum^n_{i=1}y_i$. Temos que
 $$
 f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) = h(y_1,\dots,y_n)
@@ -701,13 +701,13 @@ f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) &\stackrel{\mathrm{iid}}{=}
 \end{aligned}
 $$
 
-Tome $h(\boldsymbol{y}_n) = \prod \mathbb{1}_{\mathfrak{X}}(y_i)\cdot \mathrm{e}^{\sum S(y_i)}$,
+Tome $h(\boldsymbol{y}_n) = \prod_{i=1}^n \mathbb{1}_{\mathfrak{X}}(y_i)\cdot \mathrm{e}^{\sum_{i=1}^n S(y_i)}$,
 $m(t,\theta) = \mathrm{exp}\left\{c_1(\theta)t_1+\dots+c_k(\theta)t_k +nd(\theta)\right\}$, em que $t=(t_1,\dots,t_k)$ e
 $$
 \begin{aligned}
-t_1 &= \sum T_1(y_i) \\
+t_1 &= \sum_{i=1}^n T_1(y_i) \\
 \vdots \\
-t_k & = \sum T_k(y_i)
+t_k & = \sum_{i=1}^n T_k(y_i)
 \end{aligned}
 $$
 

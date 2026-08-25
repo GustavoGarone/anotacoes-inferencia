@@ -23,13 +23,13 @@ Seja $\boldsymbol{X}_n$ [a.a.](populacao-e-amostra.qmd#sec-aa) de $X\sim \mathrm
 
 A função de verossimilhança é dada por
 $$
-\mathcal{L}_{\boldsymbol{x}_n}(\theta) \stackrel{\mathrm{iid}}{=} \prod^n_{i=1} f_\theta(x_i) = \prod\left\{\frac{1}{\theta} \mathbb{1}_{(0,\theta]}(x_i)\right\}
-= \frac{1}{\theta^n} \prod \mathbb{1}_{(0,\theta]}(x_i)
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) \stackrel{\mathrm{iid}}{=} \prod^n_{i=1} f_\theta(x_i) = \prod_{i=1}^n\left\{\frac{1}{\theta} \mathbb{1}_{(0,\theta]}(x_i)\right\}
+= \frac{1}{\theta^n} \prod_{i=1}^n \mathbb{1}_{(0,\theta]}(x_i)
 $$
 
 Note que
 $$
-\prod \mathbb{1}_{(0,\theta]}(x_i) = 1 \iff \mathbb{1}_{[0,\infty)}(\min\boldsymbol{x}_n) \mathbb{1}_{(-\infty,\theta]}(\max\boldsymbol{x}_n) = 1
+\prod_{i=1}^n \mathbb{1}_{(0,\theta]}(x_i) = 1 \iff \mathbb{1}_{[0,\infty)}(\min\boldsymbol{x}_n) \mathbb{1}_{(-\infty,\theta]}(\max\boldsymbol{x}_n) = 1
 $$
 Como $0 < \max \boldsymbol{x}_n \leq \theta < \infty$,
 $$
@@ -61,14 +61,14 @@ A função de verossimilhança é
 $$
 \begin{aligned}
 \mathcal{L}_{\boldsymbol{x}_n}(\theta) &\stackrel{\mathrm{i.i.d.}}{=} \prod^n_{i=1} f_\theta(x_i) \\
-&= \prod \left\{\theta x_i^{\theta-1}\right\} \\
-&= \theta^n\left(\prod x_i\right)^{\theta-1}
+&= \prod_{i=1}^n \left\{\theta x_i^{\theta-1}\right\} \\
+&= \theta^n\left(\prod_{i=1}^n x_i\right)^{\theta-1}
 \end{aligned}
 $$
 
 Como $\mathcal{L}_{\boldsymbol{x}_n}$ é positiva $\forall \theta \in \Theta$, temos que,
 $$
-\ln\mathcal{L}_{\boldsymbol{x}_n}(\theta) = n \ln \theta + (\theta-1) \sum \ln x_i
+\ln\mathcal{L}_{\boldsymbol{x}_n}(\theta) = n \ln \theta + (\theta-1) \sum_{i=1}^n \ln x_i
 $$
 
 Ademais, $\ln(\cdot)$ é uma função estritamente crescente. Portanto, o valor que maximiza $\mathcal{L}_{\boldsymbol{x}_n}(\cdot)$ é
@@ -78,8 +78,8 @@ Encontramos os pontos críticos de $\ln \mathcal{L}_{\boldsymbol{X}_n}(\theta)$
 $$
 \begin{aligned}
 &\frac{d\ln \mathcal{L}_{\boldsymbol{x}_n}(\theta)}{d\theta} = 0 \\
-&\Rightarrow \frac{n}{\theta} + \sum \ln x_i = 0 \\
-&\iff \hat{\theta} = - \frac{n}{\sum \ln x_i}\ \text{é um ponto crítico.}
+&\Rightarrow \frac{n}{\theta} + \sum_{i=1}^n \ln x_i = 0 \\
+&\iff \hat{\theta} = - \frac{n}{\sum_{i=1}^n \ln x_i}\ \text{é um ponto crítico.}
 \end{aligned}
 $$
 
@@ -90,7 +90,7 @@ $$
 
 Logo,
 $$
-\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = - \frac{n}{\sum \ln x_i}
+\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = - \frac{n}{\sum_{i=1}^n \ln x_i}
 $$
 é o EMV.
 

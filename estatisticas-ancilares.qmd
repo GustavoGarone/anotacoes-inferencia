@@ -18,7 +18,7 @@ $X\sim\mathrm{N}(\mu,\sigma^2),\theta = (\mu,\sigma^2) \in \Theta=\mathbb{R}\tim
 Note que:
 
 $$
-S(\boldsymbol{X}_n) = \sum \frac{(X_i-\bar{X})^2}{\sigma^2} \sim \chi^2_{(n-1)}
+S(\boldsymbol{X}_n) = \sum_{i=1}^n \frac{(X_i-\bar{X})^2}{\sigma^2} \sim \chi^2_{(n-1)}
 $$
 
 não é uma estatística apesar de sua *distribuição* não depender de "$\theta$", uma vez que a estatística depende
@@ -58,9 +58,9 @@ Se $(X_1,\dots,X_n)$ é amostra aleatória de $X\sim \mathrm{N}(\mu,\sigma^2)$, 
 
 1. $\bar{X} \sim \mathrm{N}(\mu, \frac{\sigma^2}{n})$ (por função geradora de momentos);
 
-2. $\sum \frac{(X_i - \mu)^2}{\sigma^2} \sim \chi^2_{n})$ (por função geradora de momentos e transformação de VAs);
+2. $\sum_{i=1}^n \frac{(X_i - \mu)^2}{\sigma^2} \sim \chi^2_{n})$ (por função geradora de momentos e transformação de VAs);
 
-3. $\sum \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{n-1})$ (por função geradora de momentos, álgebra linear e transformação de VAs);
+3. $\sum_{i=1}^n \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{n-1})$ (por função geradora de momentos, álgebra linear e transformação de VAs);
 
 Se $(X_1,\dots,X_n)$ é amostra aleatória de $X\sim \mathrm{N}(\mu,\sigma^2)$ e $(Y_1,\dots,Y_n)$ a.a. de $Y\sim\mathrm{N}(\mu,\sigma^2)$
 são independentes, então

@@ -117,10 +117,10 @@ $$
 Portanto, a f.d.p de $X$ quando $\Sigma = \mathrm{diag}(\sigma_{11} \dots \sigma_{dd})$ é
 $$
 \begin{aligned}
-f^{\boldsymbol{X}}(\boldsymbol{x}) &= \frac{1}{(2\pi)^{\frac{d}{2}} \left(\prod
+f^{\boldsymbol{X}}(\boldsymbol{x}) &= \frac{1}{(2\pi)^{\frac{d}{2}} \left(\prod_{i=1}^d
 \sigma_{ii}\right)^{\frac{1}{2}}}
-\mathrm{Exp}\left\{-\frac{1}{2}\sum^d \frac{(x_i - \mu_i)^2}{(\sigma_{ii})}\right\} \\
-&= \prod \left\{
+\mathrm{Exp}\left\{-\frac{1}{2}\sum_{i=1}^d \frac{(x_i - \mu_i)^2}{(\sigma_{ii})}\right\} \\
+&= \prod_{i=1}^d \left\{
 \frac{1}{(2\pi)^{\frac{d}{2}} \sigma_{ii}^{\frac{1}{2}}}
 \mathrm{Exp}\left\{-\frac{1}{2} \frac{(x_i - \mu_i)^2 }{(\sigma_{ii})}\right\}
 \right\} \\
@@ -350,28 +350,28 @@ $$
 A função de verossimilhança é:
 $$
 \begin{aligned}
-\mathcal{L}_{\boldsymbol{x}^*}(\theta) &=  \prod^n_{i=1} f_\theta^{\boldsymbol{X}}(\boldsymbol{x}_i) =
-\prod \left\{
+\mathcal{L}_{\boldsymbol{x}^*}(\theta) &=  \prod_{i=1}^n f_\theta^{\boldsymbol{X}}(\boldsymbol{x}_i) =
+\prod_{i=1}^n \left\{
 \frac{1}{(2\pi)^{\frac{d}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
 -\frac{1}{2}(\boldsymbol{x}_i - \boldsymbol{\mu})^T \Sigma^{-1}(\boldsymbol{x}_i
 - \boldsymbol{\mu})
 \right\}
 \right\} \\
 &=  \frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
--\frac{1}{2}\underbracket{\sum^n(\boldsymbol{x}_i - \boldsymbol{\mu})^T
+-\frac{1}{2}\underbracket{\sum_{i=1}^n(\boldsymbol{x}_i - \boldsymbol{\mu})^T
 \Sigma^{-1}(\boldsymbol{x}_i - \boldsymbol{\mu})}_{\dagger}
 \right\}
 \end{aligned}
 $$
 
-Defina $\bar{\boldsymbol{x}} = \frac{1}{n} \sum^n \boldsymbol{x}_i$, então
+Defina $\bar{\boldsymbol{x}} = \frac{1}{n} \sum_{i=1}^n \boldsymbol{x}_i$, então
 $$
 \begin{aligned}
-\dagger &= \sum^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}} + \bar{\boldsymbol{x}} - \boldsymbol{\mu})^T
+\dagger &= \sum_{i=1}^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}} + \bar{\boldsymbol{x}} - \boldsymbol{\mu})^T
 \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}} + \bar{\boldsymbol{x}} - \boldsymbol{\mu}) \\
-&= \sum^n ((\boldsymbol{x}_i - \bar{\boldsymbol{x}}) - (\boldsymbol{\mu} - \bar{\boldsymbol{x}}))^T
+&= \sum_{i=1}^n ((\boldsymbol{x}_i - \bar{\boldsymbol{x}}) - (\boldsymbol{\mu} - \bar{\boldsymbol{x}}))^T
 \Sigma^{-1} ((\boldsymbol{x}_i - \bar{\boldsymbol{x}}) - (\boldsymbol{\mu} - \bar{\boldsymbol{x}})) \\
-&= \sum^n \left\{
+&= \sum_{i=1}^n \left\{
 (\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i -
 \bar{\boldsymbol{x}})
 -\underbracket{(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}
@@ -383,17 +383,17 @@ $$
 \end{aligned}
 $$
 
-Como $n\bar{\boldsymbol{x}} = \sum^n \boldsymbol{x}_i$, temos que
+Como $n\bar{\boldsymbol{x}} = \sum_{i=1}^n \boldsymbol{x}_i$, temos que
 
 $$
 \begin{cases}
-A = \sum^n (\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}
+A = \sum_{i=1}^n (\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}
 (\boldsymbol{x}_i - \bar{\boldsymbol{x}}) =
-(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\sum^n \boldsymbol{x}_i
+(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\sum_{i=1}^n \boldsymbol{x}_i
 - \bar{\boldsymbol{x}}) = 0 \\
-B = \sum^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1}
+B = \sum_{i=1}^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1}
 (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) =
-(\sum^n \boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu}
+(\sum_{i=1}^n \boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu}
 - \bar{\boldsymbol{x}}) = 0
 \end{cases}
 $$
@@ -402,19 +402,19 @@ Portanto,
 $$
 \begin{aligned}
 \dagger &=
-\sum^n (\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})
+\sum_{i=1}^n (\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})
 +n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} -
 \bar{\boldsymbol{x}}) \\
-&=  \sum^n \mathrm{tr}\{(\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})\}
+&=  \sum_{i=1}^n \mathrm{tr}\{(\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})\}
 +n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} -
 \bar{\boldsymbol{x}}) \\
-&\stackrel{\text{Prop. tr}}{=}  \sum^n \mathrm{tr}\{\Sigma^{-1}(\boldsymbol{x} - \bar{\boldsymbol{x}})(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T\}
+&\stackrel{\text{Prop. tr}}{=}  \sum_{i=1}^n \mathrm{tr}\{\Sigma^{-1}(\boldsymbol{x} - \bar{\boldsymbol{x}})(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T\}
 +n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} -
 \bar{\boldsymbol{x}}) \\
 \end{aligned}
 $$
 
-Note que $\sum^n \mathrm{tr}\{A \boldsymbol{y}_i\} = \mathrm{tr}\{A \sum \boldsymbol{y}_i\}$, usando essa propriedade,
+Note que $\sum_{i=1}^n \mathrm{tr}\{A \boldsymbol{y}_i\} = \mathrm{tr}\left\{A \sum_{i=1}^n \boldsymbol{y}_i\right\}$, usando essa propriedade,
 $$
 \begin{aligned}
 \dagger &= n \mathrm{tr} \{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\}
@@ -422,7 +422,7 @@ $$
 \bar{\boldsymbol{x}}) \\
 \end{aligned}
 $$
-em que $S^2(\boldsymbol{x}_n^*) = \frac{1}{n} \sum^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}})(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T$.
+em que $S^2(\boldsymbol{x}_n^*) = \frac{1}{n} \sum_{i=1}^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}})(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T$.
 
 Dessa forma, podemos escrever a função de verossimilhança da seguinte forma:
 
@@ -472,8 +472,8 @@ Sejam $\lambda_1, \dots, \lambda_d$ autovalores de uma matriz positiva definida 
 $$
 \begin{aligned}
 \lambda_i &- \ln \lambda_i \geq 1 \forall i = 1, \dots, d \\
-\Rightarrow &\sum^d \lambda_i - \sum^d \ln_i \geq d \\
-\iff& \sum^d \lambda_i - \ln(\prod^d \lambda_i) \geq d \\
+\Rightarrow &\sum_{i=1}^d \lambda_i - \sum_{i=1}^d \ln \lambda_i \geq d \\
+\iff& \sum_{i=1}^d \lambda_i - \ln\left(\prod_{i=1}^d \lambda_i\right) \geq d \\
 \Rightarrow &\mathrm{tr}\{M\} - \ln\lvert M\rvert \geq d
 \end{aligned}
 $$
@@ -526,7 +526,7 @@ $$
 \hat{\Sigma}_{\mathrm{MV}}(\boldsymbol{X}^*_n) &= S^2(\boldsymbol{X}_n^*) = \frac{1}{n} \sum^n_{i=1}
 (\boldsymbol{X}_i - \bar{\boldsymbol{X}})(\boldsymbol{X}_i -
 \bar{\boldsymbol{X}})^T \\
-&= \frac{1}{n} \sum \boldsymbol{X}_i\boldsymbol{X}^T - \bar{\boldsymbol{X}}\bar{\boldsymbol{X}}^T
+&= \frac{1}{n} \sum_{i=1}^n \boldsymbol{X}_i\boldsymbol{X}_i^T - \bar{\boldsymbol{X}}\bar{\boldsymbol{X}}^T
 \end{aligned}
 $$
 e as estimativas por
@@ -534,10 +534,10 @@ $$
 \begin{aligned}
 \hat{\mu}_{\mathrm{MV}}(\boldsymbol{x}^*_n) &= \bar{\boldsymbol{x}} = \frac{1}{n} \sum^n_{i=1} \boldsymbol{x}_i
 = \frac{1}{n}\begin{pmatrix}
-\sum x_{1i} \\
-\sum x_{2i}
+\sum_{i=1}^n x_{1i} \\
+\sum_{i=1}^n x_{2i}
 \end{pmatrix}\\
-\hat{\Sigma}_{\mathrm{MV}}(\boldsymbol{x}^*_n) &= S^2(\boldsymbol{x}_n^*) = \frac{1}{n} \sum \boldsymbol{x}_i\boldsymbol{x}^T - \bar{\boldsymbol{x}}\bar{\boldsymbol{x}}^T\\
+\hat{\Sigma}_{\mathrm{MV}}(\boldsymbol{x}^*_n) &= S^2(\boldsymbol{x}_n^*) = \frac{1}{n} \sum_{i=1}^n \boldsymbol{x}_i\boldsymbol{x}_i^T - \bar{\boldsymbol{x}}\bar{\boldsymbol{x}}^T\\
 &=\frac{1}{n} \sum^n_{i=1}\begin{bmatrix}
 (x_{1i} - \bar{x}_1)^2 & (x_{1i} - \bar{x}_1)(x_{2i} - \bar{x}_2) \\
 (x_{2i} - \bar{x}_2)(x_{1i} - \bar{x}_1) & (x_{2i} - \bar{x}_2)^2
@@ -659,7 +659,7 @@ O [método de momentos](metodo-momentos.qmd) pode ser generalizado da seguinte f
 Se $E_\theta(|X|^k) < \infty$ para $k \in \{k_1, k_2, \dots, k_p\} \subseteq N$ ou, se $X$ for não negativa, $k \in \{k_1, \dots, k_p\} \subseteq \mathrm{Q}$.
 O EMM é obtido igualando
 $$
-E_\theta(X^k) = \frac{1}{n} \sum X_i^k, k \in \{k_1, \dots, k_n\}
+E_\theta(X^k) = \frac{1}{n} \sum_{i=1}^n X_i^k, k \in \{k_1, \dots, k_n\}
 $$
 Seja
 $$
@@ -704,14 +704,14 @@ Encontre o EMV, EMM e suas distribuições assintóticas para $\theta$.
 Note que $B(\alpha, \beta) = \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)}$
 $$
 \begin{aligned}
-\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \frac{1}{B(\alpha, \beta)^n} (\prod x_i)^{\alpha-1} (\prod(1-x_i))^{\beta - 1} \\
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \frac{1}{B(\alpha, \beta)^n} \left(\prod_{i=1}^n x_i\right)^{\alpha-1} \left(\prod_{i=1}^n(1-x_i)\right)^{\beta - 1} \\
 \mathcal{l}_{\boldsymbol{x}_n}(\theta) &=
 -n \ln \Gamma(\alpha) - n\ln\Gamma(\beta) + n \ln \Gamma(\alpha+\beta) \\
-&+ (\alpha-1)\sum \ln x_i + (\beta -1)\sum \ln (1 - x_i), \\
+&+ (\alpha-1)\sum_{i=1}^n \ln x_i + (\beta -1)\sum_{i=1}^n \ln (1 - x_i), \\
 \Rightarrow \frac{\partial \mathcal{l}_{\boldsymbol{x}_n}}{\partial \alpha}(\theta)& = -n \psi_1(\alpha) + n \psi_1(\alpha + \beta)
-+\sum \ln x_i; \\
++\sum_{i=1}^n \ln x_i; \\
 \Rightarrow \frac{\partial \mathcal{l}_{\boldsymbol{x}_n}}{\partial \beta}(\theta)& = -n \psi_1(\beta) + n \psi_1(\alpha + \beta)
-+\sum \ln (1-x_i)
++\sum_{i=1}^n \ln (1-x_i)
 \end{aligned}
 $$
 em que
@@ -747,8 +747,8 @@ em que
 $$
 \begin{aligned}
 U_n(\boldsymbol{x}_n, \theta) = \begin{bmatrix}
--n \psi_1(\alpha) + n \psi_1(\alpha + \beta) +\sum \ln x_i \\
--n \psi_1(\beta) + n \psi_1(\alpha + \beta) +\sum \ln(1-x_i)
+-n \psi_1(\alpha) + n \psi_1(\alpha + \beta) +\sum_{i=1}^n \ln x_i \\
+-n \psi_1(\beta) + n \psi_1(\alpha + \beta) +\sum_{i=1}^n \ln(1-x_i)
 \end{bmatrix}
 \end{aligned}
 $$

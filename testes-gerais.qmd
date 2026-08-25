@@ -171,9 +171,9 @@ Já sabemos que $\hat{\theta}_{\mathrm{MV}} = \bar{X}$ e
 $$
 \begin{aligned}
 \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{2\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{2} \sum (x_i - \theta)^{2} \right\} \\ &=
+-\frac{1}{2} \sum_{i=1}^n (x_i - \theta)^{2} \right\} \\ &=
 \left(\frac{1}{\sqrt{2\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{2} \sum x_i^2 - 2\theta\sum x_i + n\theta^2 \right\}.
+-\frac{1}{2} \sum_{i=1}^n x_i^2 - 2\theta\sum_{i=1}^n x_i + n\theta^2 \right\}.
 \end{aligned}
 $$.
 
@@ -185,7 +185,7 @@ $$
 {\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}\\
 &= \frac{\mathcal{L}_{\boldsymbol{x}_n}(0)} {\mathcal{L}_{\boldsymbol{x}_n}(\bar{x})} \\
 &= \mathrm{Exp}\left\{
--\frac{1}{2} \sum x_i^2 + \frac{1}{2}\left(\sum x_i^2 - 2n \bar{x}^2 + n \bar{x}^2\right)
+-\frac{1}{2} \sum_{i=1}^n x_i^2 + \frac{1}{2}\left(\sum_{i=1}^n x_i^2 - 2n \bar{x}^2 + n \bar{x}^2\right)
 \right\} = \mathrm{e}^{-\frac{1}{2}n\bar{x}^2}
 \end{aligned}
 $$
@@ -227,10 +227,10 @@ assintótico.
 Já sabemos que $\hat{\theta}_{\mathrm{MV}} = \bar{X}$ e
 $$
 \begin{aligned}
-\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \mathrm{e}^{n\theta} \cdot \frac{\theta^{\sum x_i}}{\prod (x_i!)} \\
-\Rightarrow \lambda(\boldsymbol{x}_n, \Theta_0) &= \frac{\mathrm{e}^{n\theta_0} \cdot \frac{\theta_0^{\sum x_i}}{\prod (x_i!)}}
-{\mathrm{e}^{n\bar{x}} \cdot \frac{\bar{x}^{\sum x_i}}{\prod (x_i!)}} \\
-&= \mathrm{e}^{n\theta_0+n\bar{x}} \cdot \left(\frac{\theta_0}{\bar{x}}\right)^{\sum x_i}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \mathrm{e}^{n\theta} \cdot \frac{\theta^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n (x_i!)} \\
+\Rightarrow \lambda(\boldsymbol{x}_n, \Theta_0) &= \frac{\mathrm{e}^{n\theta_0} \cdot \frac{\theta_0^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n (x_i!)}}
+{\mathrm{e}^{n\bar{x}} \cdot \frac{\bar{x}^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n (x_i!)}} \\
+&= \mathrm{e}^{n\theta_0+n\bar{x}} \cdot \left(\frac{\theta_0}{\bar{x}}\right)^{\sum_{i=1}^n x_i}
 \end{aligned}
 $$
 Sabemos que, sob $\mathcal{H}_0, \ (\mathrm{i.e.}\ \forall \theta \in \Theta_0)$, $-2\ln \lambda(\boldsymbol{X}_n, \Theta_0) \stackrel{\mathcal{D}}{\rightarrow} \chi^2_1$.

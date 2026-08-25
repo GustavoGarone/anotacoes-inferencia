@@ -62,18 +62,18 @@ A função de verossimilhança é dada por
 $$
 \begin{aligned}
 \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{4} \sum (x_i - \theta)^{2} \right\} \\ &=
+-\frac{1}{4} \sum_{i=1}^n (x_i - \theta)^{2} \right\} \\ &=
 \left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{4} \sum x_i^2 - 2\theta\sum x_i + n\theta^2 \right\}.
+-\frac{1}{4} \sum_{i=1}^n x_i^2 - 2\theta\sum_{i=1}^n x_i + n\theta^2 \right\}.
 \end{aligned}
 $$
-Pelo [Critério de Fatoração de Fisher](estatisticas-suficientes.qmd#sec-crit-fat), $T(\boldsymbol{X}_n) = \sum x_i$ é uma estatística suficiente.
+Pelo [Critério de Fatoração de Fisher](estatisticas-suficientes.qmd#sec-crit-fat), $T(\boldsymbol{X}_n) = \sum_{i=1}^n x_i$ é uma estatística suficiente.
 Note que
 $$
 \begin{aligned}
 \mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) &= \frac{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{4} \sum x_i^2 - 2\theta'\sum x_i + n\theta'^2 \right\}}{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{4} \sum x_i^2 - 2\theta''\sum x_i + n\theta''^2 \right\}} \\
+-\frac{1}{4} \sum_{i=1}^n x_i^2 - 2\theta'\sum_{i=1}^n x_i + n\theta'^2 \right\}}{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum_{i=1}^n x_i^2 - 2\theta''\sum_{i=1}^n x_i + n\theta''^2 \right\}} \\
 &= \mathrm{Exp}\left\{-\frac{1}{4}(-\theta'T(\boldsymbol{x}_n) + n\theta'^2 + 2\theta''T(\boldsymbol{x}_n) - n\theta''^2\right\} \\
 &= \mathrm{Exp}\left\{\frac{1}{2}(\theta' - \theta'')T(\boldsymbol{x}_n)-\frac{1}{4} n\theta''^2 +\frac{1}{4}\theta''^2\right\}.
 \end{aligned}
@@ -82,29 +82,29 @@ Como $\theta' \geq \theta''$, temos que $\theta' - \theta'' \geq 0$. Logo, $\mat
 monótona *não-decrescente* em $T(\boldsymbol{x}_n)$. Logo, pelo Teorema de Karlin-Rubin (I), temos que
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0,&\ \sum x_i < c \\
-1,&\ \sum x_i \geq c
+0,&\ \sum_{i=1}^n x_i < c \\
+1,&\ \sum_{i=1}^n x_i \geq c
 \end{cases}
 $$
 em que $c$ satisfaz
 $$
-\pi_{\delta^*}(1) = P_{1}(\sum X_i \geq c) = \alpha.
+\pi_{\delta^*}(1) = P_{1}(\sum_{i=1}^n X_i \geq c) = \alpha.
 $$
 
-Com $n = 5$, temos que, quando $\theta = 1$, $\sum X_i \sim N(1 \cdot 5, 5 \cdot 2)$. Assim,
+Com $n = 5$, temos que, quando $\theta = 1$, $\sum_{i=1}^n X_i \sim N(1 \cdot 5, 5 \cdot 2)$. Assim,
 $$
 \begin{aligned}
-P_{1}(\sum X_i \geq c) &= P_1\left(\frac{\sum x_i - 5}{\sqrt{10}} \geq \frac{c - 5}{\sqrt{10}}\right) = 0.1 \\
+P_{1}(\sum_{i=1}^n X_i \geq c) &= P_1\left(\frac{\sum_{i=1}^n x_i - 5}{\sqrt{10}} \geq \frac{c - 5}{\sqrt{10}}\right) = 0.1 \\
 \Rightarrow \frac{c - 5}{\sqrt{10}} &= 1.28 \\
 \Rightarrow c &= 1.28 \cdot \sqrt{10} + 5 = 9.064 \\
 \Rightarrow  \delta^*(\boldsymbol{x}_n) &= \begin{cases}
-0,&\ \sum x_i < 9.064 \\
-1,&\ \sum x_i \geq 9.064
+0,&\ \sum_{i=1}^n x_i < 9.064 \\
+1,&\ \sum_{i=1}^n x_i \geq 9.064
 \end{cases}
 \end{aligned}
 $$
-Portanto, se $\sum x_i < 9.064$, dizemos que *não há evidências* para rejeitarmos $\mathcal{H}_0$ a $10\%$ de significância
-estatística. Se $\sum x_i \geq 9.064$, dizemos que *há evidências* para rejeitarmos $\mathcal{H}_0$ a $10\%$ de significância
+Portanto, se $\sum_{i=1}^n x_i < 9.064$, dizemos que *não há evidências* para rejeitarmos $\mathcal{H}_0$ a $10\%$ de significância
+estatística. Se $\sum_{i=1}^n x_i \geq 9.064$, dizemos que *há evidências* para rejeitarmos $\mathcal{H}_0$ a $10\%$ de significância
 estatística.
 
 ### Exemplo (Exponencial)
@@ -123,20 +123,20 @@ Encontre o TUMP de tamanho $\alpha = 5\%$.
 A função de verossimilhança é dada por
 $$
 \begin{aligned}
-\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \theta^n \cdot \mathrm{e}^{-\theta \sum x_i}.
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \theta^n \cdot \mathrm{e}^{-\theta \sum_{i=1}^n x_i}.
 \end{aligned}
 $$
 
-Pelo [Critério de Fatoração de Fisher](estatisticas-suficientes.qmd#sec-crit-fat), $T(\boldsymbol{X}_n) = \sum X_i$ é uma estatística suficiente.
+Pelo [Critério de Fatoração de Fisher](estatisticas-suficientes.qmd#sec-crit-fat), $T(\boldsymbol{X}_n) = \sum_{i=1}^n X_i$ é uma estatística suficiente.
 $$
 \begin{aligned}
-\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) &= \frac{\theta'^n \cdot \mathrm{e}^{-\theta' \sum x_i}}{\theta''^n \cdot \mathrm{e}^{-\theta'' \sum x_i}} \\
+\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) &= \frac{\theta'^n \cdot \mathrm{e}^{-\theta' \sum_{i=1}^n x_i}}{\theta''^n \cdot \mathrm{e}^{-\theta'' \sum_{i=1}^n x_i}} \\
 &= \left(\frac{\theta'}{\theta''}\right)^n \mathrm{Exp} \left\{ -\theta' T(\boldsymbol{x}_n) + \theta''T(\boldsymbol{x}_n) \right\} \\
 &= \left(\frac{\theta'}{\theta''}\right)^n \mathrm{Exp} \left\{ (\theta'' - \theta') T(\boldsymbol{x}_n)\right\}, \theta' \geq \theta''.
 \end{aligned}
 $$
 Como $\theta' \geq \theta''$, temos que $\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n))$ é decrescente em $T(\boldsymbol{x}_n)$.
-Tome $T'(\boldsymbol{x}_n) = - \sum x_i$, logo
+Tome $T'(\boldsymbol{x}_n) = - \sum_{i=1}^n x_i$, logo
 $$
 \mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) = \left(\frac{\theta'}{\theta''}\right)^n \mathrm{Exp}
 \left\{(\theta' - \theta'') T(\boldsymbol{x}_n)\right\}, \theta' \geq \theta''.
@@ -144,21 +144,21 @@ $$
 é monótona não-decrescente em $T'(\boldsymbol{x}_n)$. Portanto, pelo Teorema de Karlin-Rubin (I),
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0,&\ \sum -x_i < c \\
-1,&\ \sum -x_i \geq c
+0,&\ \sum_{i=1}^n -x_i < c \\
+1,&\ \sum_{i=1}^n -x_i \geq c
 \end{cases} \Rightarrow
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0,&\ \sum x_i > -c \\
-1,&\ \sum x_i \leq -c
+0,&\ \sum_{i=1}^n x_i > -c \\
+1,&\ \sum_{i=1}^n x_i \leq -c
 \end{cases}
 $$
 em que $c$ satisfaz
 $$
-\pi_{\delta^*}(2) = P_{2}(\sum X_i \leq -c) = \alpha.
+\pi_{\delta^*}(2) = P_{2}(\sum_{i=1}^n X_i \leq -c) = \alpha.
 $$
-Para $n=10$, sob $\theta = 2, \sum X_i \sim \mathrm{Gama}(10,2)$. Computacionalmente, o quantil $0.05$ dessa distribuição
-é $2.7127$. Logo, $-c = 2.7127 \Rightarrow c = -2.7127$. Dessa forma, se $\sum x_i > 2.7127$, dizemos que *não há evidências* para rejeitarmos $\mathcal{H}_0$ a $5\%$ de significância
-estatística. Se $\sum x_i \leq 2.7127$, dizemos que *há evidências* para rejeitarmos $\mathcal{H}_0$ a $5\%$ de significância estatística.
+Para $n=10$, sob $\theta = 2, \sum_{i=1}^n X_i \sim \mathrm{Gama}(10,2)$. Computacionalmente, o quantil $0.05$ dessa distribuição
+é $2.7127$. Logo, $-c = 2.7127 \Rightarrow c = -2.7127$. Dessa forma, se $\sum_{i=1}^n x_i > 2.7127$, dizemos que *não há evidências* para rejeitarmos $\mathcal{H}_0$ a $5\%$ de significância
+estatística. Se $\sum_{i=1}^n x_i \leq 2.7127$, dizemos que *há evidências* para rejeitarmos $\mathcal{H}_0$ a $5\%$ de significância estatística.
 
 ## Teorema de Karlin-Rubin (II)
 Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}$. Considere
@@ -203,18 +203,18 @@ A função de verossimilhança é dada por
 $$
 \begin{aligned}
 \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{4} \sum (x_i - \theta)^{2} \right\} \\ &=
+-\frac{1}{4} \sum_{i=1}^n (x_i - \theta)^{2} \right\} \\ &=
 \left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{4} \sum x_i^2 - 2\theta\sum x_i + n\theta^2 \right\}.
+-\frac{1}{4} \sum_{i=1}^n x_i^2 - 2\theta\sum_{i=1}^n x_i + n\theta^2 \right\}.
 \end{aligned}
 $$
-Pelo [Critério de Fatoração de Fisher](estatisticas-suficientes.qmd#sec-crit-fat), $T(\boldsymbol{X}_n) = \sum x_i$ é uma estatística suficiente.
+Pelo [Critério de Fatoração de Fisher](estatisticas-suficientes.qmd#sec-crit-fat), $T(\boldsymbol{X}_n) = \sum_{i=1}^n x_i$ é uma estatística suficiente.
 Note que
 $$
 \begin{aligned}
 \mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) &= \frac{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{4} \sum x_i^2 - 2\theta'\sum x_i + n\theta'^2 \right\}}{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{4} \sum x_i^2 - 2\theta''\sum x_i + n\theta''^2 \right\}} \\
+-\frac{1}{4} \sum_{i=1}^n x_i^2 - 2\theta'\sum_{i=1}^n x_i + n\theta'^2 \right\}}{\left(\frac{1}{\sqrt{4\pi}}\right)^n \mathrm{Exp}\left\{
+-\frac{1}{4} \sum_{i=1}^n x_i^2 - 2\theta''\sum_{i=1}^n x_i + n\theta''^2 \right\}} \\
 &= \mathrm{Exp}\left\{-\frac{1}{4}(-\theta'T(\boldsymbol{x}_n) + n\theta'^2 + 2\theta''T(\boldsymbol{x}_n) - n\theta''^2\right\} \\
 &= \mathrm{Exp}\left\{\frac{1}{2}(\theta' - \theta'')T(\boldsymbol{x}_n)-\frac{1}{4} n'\theta^2 +\frac{1}{4}\theta''^2\right\}.
 \end{aligned}
@@ -223,13 +223,13 @@ Como $\theta' \leq \theta''$, temos que $\theta' - \theta'' \leq 0$. Logo, $\mat
 monótona *não-crescente* em $T(\boldsymbol{x}_n)$. Logo, pelo Teorema de Karlin-Rubin (II), temos que
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0,&\ \sum x_i > c \\
-1,&\ \sum x_i \leq c
+0,&\ \sum_{i=1}^n x_i > c \\
+1,&\ \sum_{i=1}^n x_i \leq c
 \end{cases}
 $$
 em que $c$ satisfaz
 $$
-\pi_{\delta^*}(1) = P_{1}(\sum X_i \leq c) = \alpha.
+\pi_{\delta^*}(1) = P_{1}(\sum_{i=1}^n X_i \leq c) = \alpha.
 $$
 
 ## Simulações

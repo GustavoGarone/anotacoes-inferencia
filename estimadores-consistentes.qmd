@@ -155,8 +155,8 @@ $$
 Logo,
 $$
 \begin{aligned}
-E_\theta(T_k(\pmb{X}_n)) &= E_\theta\left(\frac{1}{n-k} \sum (X_i - \bar{X})^2\right) \\
-&= \frac{\sigma^2}{n-k}E_\theta\left(\sum \frac{(X_i - \bar{X})^2}{\sigma^2}\right) \\
+E_\theta(T_k(\pmb{X}_n)) &= E_\theta\left(\frac{1}{n-k} \sum_{i=1}^n (X_i - \bar{X})^2\right) \\
+&= \frac{\sigma^2}{n-k}E_\theta\left(\sum_{i=1}^n \frac{(X_i - \bar{X})^2}{\sigma^2}\right) \\
 &= \frac{\sigma^2}{n-k}(n-1), \forall \theta \in \Theta.
 \end{aligned}
 $$
@@ -164,8 +164,8 @@ $$
 Ademais,
 $$
 \begin{aligned}
-\mathrm{Var}_\theta(T_k(\pmb{X}_n)) &= \mathrm{Var}_\theta\left(\frac{1}{n-k} \sum (X_i - \bar{X})^2\right) \\
-&= \frac{\sigma^4}{(n-k)^2}\mathrm{Var}_\theta\left(\sum \frac{(X_i - \bar{X})^2}{\sigma^2}\right) \\
+\mathrm{Var}_\theta(T_k(\pmb{X}_n)) &= \mathrm{Var}_\theta\left(\frac{1}{n-k} \sum_{i=1}^n (X_i - \bar{X})^2\right) \\
+&= \frac{\sigma^4}{(n-k)^2}\mathrm{Var}_\theta\left(\sum_{i=1}^n \frac{(X_i - \bar{X})^2}{\sigma^2}\right) \\
 &= \frac{\sigma^4}{(n-k)^2}2(n-1), \forall \theta \in \Theta.
 \end{aligned}
 $$

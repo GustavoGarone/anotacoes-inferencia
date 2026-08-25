@@ -94,16 +94,16 @@ $$
 Sabemos que $U_n(\boldsymbol{X}_n,\theta) = \sum\limits^n_{i=1} U(X_i,\theta)$. Portanto,
 $$
 \begin{aligned}
-I_n(\theta) &= E_\theta\left[\left( \sum U(X_i,\theta)\right)^2\right]\\
+I_n(\theta) &= E_\theta\left[\left( \sum_{i=1}^n U(X_i,\theta)\right)^2\right]\\
 &= E_\theta(\sum_i\sum_j U(X_i,\theta)U(X_j,\theta)) \\
 &= E_\theta\left(\sum_{i=1}^n U(X_i,\theta)^2 + \sum_{i\neq j} U(X_i,\theta) U(X_j,\theta)\right) \\
-&= \sum E_\theta (U(X_i,\theta)^2) + \sum_{i\neq j }E_\theta(U(X_i,\theta)U(X_j,\theta)), \forall \theta \in \Theta.
+&= \sum_{i=1}^n E_\theta (U(X_i,\theta)^2) + \sum_{\substack{i,j=1\\i\neq j}}^n E_\theta(U(X_i,\theta)U(X_j,\theta)), \forall \theta \in \Theta.
 \end{aligned}
 $$
 
 Como $X_1,\dots,X_n$ são i.i.d, temos que $U(X_1,\theta),\dots,U(X_n,\theta)$ também são i.i.d. Logo,
 $$
-I_n(\theta) = \sum E_\theta(U(X_i,\theta)^2) + \sum_{i\neq j} E_\theta(\cancelto{0}{U(X_i,\theta)}) E_\theta(\cancelto{0}{U(X_j,\theta)})
+I_n(\theta) = \sum_{i=1}^n E_\theta(U(X_i,\theta)^2) + \sum_{\substack{i,j=1\\i\neq j}}^n E_\theta(\cancelto{0}{U(X_i,\theta)}) E_\theta(\cancelto{0}{U(X_j,\theta)})
 $$
 
 Por ser i.i.d., temos portanto que
@@ -114,8 +114,8 @@ $$
 Note também que
 $$
 \begin{aligned}
-E_\theta\left(\frac{\partial}{\partial\theta}U(\boldsymbol{X}_n, \theta)\right) &= E_\theta\left(\frac{\partial}{\partial \theta} \sum U(X_i,\theta)\right) \\
-&= E_\theta\left(\sum \frac{\partial}{\partial \theta} U(X_i,\theta)\right) \\
+E_\theta\left(\frac{\partial}{\partial\theta}U(\boldsymbol{X}_n, \theta)\right) &= E_\theta\left(\frac{\partial}{\partial \theta} \sum_{i=1}^n U(X_i,\theta)\right) \\
+&= E_\theta\left(\sum_{i=1}^n \frac{\partial}{\partial \theta} U(X_i,\theta)\right) \\
 &= n E_\theta\left(\frac{\partial}{\partial \theta} U(X_i,\theta)\right),\ \forall \theta \in \Theta.
 \end{aligned}
 $$
@@ -145,15 +145,15 @@ total.
 
 Note que
 $$
-L_{\boldsymbol{X}_n}(\theta) = \prod^n \left\{ \theta x_i^{\theta-1}\right\} = \theta^n (\prod x_i)^{\theta-1},\ \forall \theta \in \Theta.
+L_{\boldsymbol{X}_n}(\theta) = \prod_{i=1}^n \left\{ \theta x_i^{\theta-1}\right\} = \theta^n \left(\prod_{i=1}^n x_i\right)^{\theta-1},\ \forall \theta \in \Theta.
 $$
 
 A função escore da amostra é
 $$
 \begin{aligned}
 U_n(\boldsymbol{X}_n,\theta) &= \frac{\partial}{\partial \theta} \ln L_{\boldsymbol{X}_n} (\theta) \\
-&= \frac{\partial}{\partial \theta} \left[n \ln \theta + (\theta-1) \sum \ln x_i\right] \\
-&= \frac{n}{\theta} + \sum \ln x_i, \forall \theta \in \Theta.
+&= \frac{\partial}{\partial \theta} \left[n \ln \theta + (\theta-1) \sum_{i=1}^n \ln x_i\right] \\
+&= \frac{n}{\theta} + \sum_{i=1}^n \ln x_i, \forall \theta \in \Theta.
 \end{aligned}
 $$
 
@@ -183,10 +183,9 @@ de Fisher total.
 Note que
 $$
 \begin{aligned}
-L_{\boldsymbol{X}_n}(\theta) &= \prod f_\theta(x) = \prod \left\{\binom{3}{x_i} \theta^{x_i} (1-\theta)^{3-x}\right\} \\
-\Rightarrow \ln L_{\boldsymbol{X}_n}(\theta) &= \sum \ln \binom{3}{x_i} + \sum x_i \ln \theta + \sum (3-x_i)\ln(1-\theta) \\
-\Rightarrow U_n(\boldsymbol{x}_n,\theta) &= \sum \frac{x_i}{\theta} + \sum \frac{(3-x_i)}{1-\theta} (-1) \\
-&= \frac{x_i}{\theta} - \sum \frac{(3-x_i)}{1-\theta},\ \forall \theta \in \Theta.
+L_{\boldsymbol{X}_n}(\theta) &= \prod_{i=1}^n f_\theta(x_i) = \prod_{i=1}^n \left\{\binom{3}{x_i} \theta^{x_i} (1-\theta)^{3-x_i}\right\} \\
+\Rightarrow \ln L_{\boldsymbol{X}_n}(\theta) &= \sum_{i=1}^n \ln \binom{3}{x_i} + \sum_{i=1}^n x_i \ln \theta + \sum_{i=1}^n (3-x_i)\ln(1-\theta) \\
+\Rightarrow U_n(\boldsymbol{x}_n,\theta) &= \sum_{i=1}^n \frac{x_i}{\theta} - \sum_{i=1}^n \frac{3-x_i}{1-\theta},\ \forall \theta \in \Theta.
 \end{aligned}
 $$
 
@@ -195,9 +194,9 @@ A informação de Fisher total é, pelo
 $$
 \begin{aligned}
 I_n(\theta) &= -E_\theta\left(\frac{\partial}{\partial\theta} U_n(\boldsymbol{X}_n,\theta)\right) \\
-&= -E_\theta\left( - \sum \frac{X_i}{\theta^2} + \sum \frac{(3-X)}{(1-\theta)^2}(-1)\right) \\
-&= E_\theta\left(\sum \frac{X_i}{\theta^2} + \sum \frac{(3-X)}{(1-\theta)^2}\right) \\
-&= \sum \frac{E_\theta(X_i)}{\theta^2} + \sum \frac{3 - E_\theta(X)}{(1-\theta)^2} \\
+&= -E_\theta\left( - \sum_{i=1}^n \frac{X_i}{\theta^2} + \sum_{i=1}^n \frac{3-X_i}{(1-\theta)^2}(-1)\right) \\
+&= E_\theta\left(\sum_{i=1}^n \frac{X_i}{\theta^2} + \sum_{i=1}^n \frac{3-X_i}{(1-\theta)^2}\right) \\
+&= \sum_{i=1}^n \frac{E_\theta(X_i)}{\theta^2} + \sum_{i=1}^n \frac{3 - E_\theta(X_i)}{(1-\theta)^2} \\
 &= \frac{n 3\theta}{\theta^2} + \frac{n(3-3\theta)}{(1-\theta)^2} \\
 &= \frac{ 3n}{\theta} + \frac{3n(1-\theta)}{(1-\theta)^2} \\
 &= \frac{3n}{\theta} + \frac{3n}{(1-\theta)} \\
@@ -211,8 +210,8 @@ Podemos também fazer pela definição.
 Observe que
 $$
 \begin{aligned}
-E_\theta(U_n(\boldsymbol{X}_n,\theta) &= E_\theta\left(\sum \frac{X_i}{\theta} - \sum \frac{3-X_i}{1-\theta}\right) \\
-&= \sum \frac{E_\theta(X_i)}{\theta} - \frac{(3-E_\theta(X_i)}{1-\theta} \\
+E_\theta(U_n(\boldsymbol{X}_n,\theta) &= E_\theta\left(\sum_{i=1}^n \frac{X_i}{\theta} - \sum_{i=1}^n \frac{3-X_i}{1-\theta}\right) \\
+&= \sum_{i=1}^n \frac{E_\theta(X_i)}{\theta} - \sum_{i=1}^n \frac{3-E_\theta(X_i)}{1-\theta} \\
 &= \frac{n 3 \theta}{\theta} - \frac{n (3- 3\theta)}{1-\theta} \\
 &= n3 - n3 \frac{1-\theta}{1-\theta} = 0,\ \forall \theta \in \Theta.
 \end{aligned}
@@ -222,10 +221,10 @@ $$
 \begin{aligned}
 I_n(\theta) &= \mathrm{Var}_\theta(U_n(\boldsymbol{X}_n,\theta)) \\
 &= E_\theta(U_n(\boldsymbol{X},\theta)^2) \\
-&= E_\theta\left(\left[\sum \left(\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}\right)\right]^2\right) \\
+&= E_\theta\left(\left[\sum_{i=1}^n \left(\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}\right)\right]^2\right) \\
 &= E_\theta\left(\sum_i \sum_j \left(\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}\right)\left(\frac{X_j}{\theta} - \frac{(3-X_j)}{1-\theta}\right)\right) \\
-&= \sum_i E_\theta\left(\left(\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}\right)^2\right) \\
-&\cdot\underset{i \neq j}{\sum\sum}E_\theta\left(\cancelto{0}{\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}}\right)
+&= \sum_{i=1}^n E_\theta\left(\left(\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}\right)^2\right) \\
+&\cdot\sum_{\substack{i,j=1\\i\neq j}}^n E_\theta\left(\cancelto{0}{\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}}\right)
 E_\theta\left(\cancelto{0}{\frac{X_j}{\theta} - \frac{(3-X_j)}{1-\theta}}\right)\\
 &= n E_\theta\left[\left( \frac{X}{\theta} - \frac{3-X}{1-\theta}\right)^2\right] \\
 &= n E_\theta\left[\left( \frac{X(1-\theta)-(3-x)\theta}{\theta(1-\theta)}\right)^2\right] \\

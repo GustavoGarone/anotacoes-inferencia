@@ -48,40 +48,40 @@ A [função de verossimilhança](funcao-verossimilhanca.qmd) é
 $$
 \begin{aligned}
 \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \frac{1}{(\sqrt{2\pi\sigma^2})^n} \cdot \mathrm{Exp}\left\{
--\frac{1}{2} \sum \frac{(x_i - \mu)^2}{\sigma^2}\right\}, \theta \in \{(0,1), (0,2)\} \\
+-\frac{1}{2} \sum_{i=1}^n \frac{(x_i - \mu)^2}{\sigma^2}\right\}, \theta \in \{(0,1), (0,2)\} \\
 &= \frac{1}{(\sqrt{2\pi\sigma^2})^n} \cdot \mathrm{Exp}\left\{
--\frac{1}{2} \sum \frac{x_i^2}{\sigma^2} \right\}, \theta \in \{(0,1), (0,2)\} \\
+-\frac{1}{2} \sum_{i=1}^n \frac{x_i^2}{\sigma^2} \right\}, \theta \in \{(0,1), (0,2)\} \\
 \Rightarrow  \mathcal{L}_{\boldsymbol{x}_n}(\theta_0)
 &= \frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
--\frac{1}{2} \sum x_i^2 \right\} \\
+-\frac{1}{2} \sum_{i=1}^n x_i^2 \right\} \\
 \mathcal{L}_{\boldsymbol{x}_n}(\theta_1)
 &= \frac{1}{(\sqrt{4\pi})^n} \cdot \mathrm{Exp}\left\{
--\frac{1}{2} \sum \frac{x_i^2}{2} \right\} \\
+-\frac{1}{2} \sum_{i=1}^n \frac{x_i^2}{2} \right\} \\
 \Rightarrow \mathcal{L}_{\boldsymbol{x}_n}((0,2)) &\geq \eta \cdot \mathcal{L}_{\boldsymbol{x}_n}((0,1)) \\
 \iff \frac{\mathcal{L}_{\boldsymbol{x}_n}((0,2))}{\mathcal{L}_{\boldsymbol{x}_n}((0,1))} &\geq \eta \\
 \Rightarrow &\frac{\frac{1}{(\sqrt{4\pi})^n} \cdot \mathrm{Exp}\left\{
--\frac{1}{2} \sum \frac{x_i^2}{2} \right\}}{\frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
--\frac{1}{2} \sum x_i^2 \right\}} \geq \eta \\
-\iff &\frac{1}{2^{\frac{n}{2}}} \mathrm{e}^{\frac{1}{4}\sum x_i^2} \geq \eta \\
-\iff &\mathrm{e}^{\frac{1}{4}\sum x_i^2} \geq 2^{n/2}\eta \\
-\iff &\frac{1}{4}\sum x_i^2 \geq \ln(2^{n/2}\eta) \\
-\iff &\sum x_i^2 \geq 4 \ln(2^{n/2}\eta).
+-\frac{1}{2} \sum_{i=1}^n \frac{x_i^2}{2} \right\}}{\frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum_{i=1}^n x_i^2 \right\}} \geq \eta \\
+\iff &\frac{1}{2^{\frac{n}{2}}} \mathrm{e}^{\frac{1}{4}\sum_{i=1}^n x_i^2} \geq \eta \\
+\iff &\mathrm{e}^{\frac{1}{4}\sum_{i=1}^n x_i^2} \geq 2^{n/2}\eta \\
+\iff &\frac{1}{4}\sum_{i=1}^n x_i^2 \geq \ln(2^{n/2}\eta) \\
+\iff &\sum_{i=1}^n x_i^2 \geq 4 \ln(2^{n/2}\eta).
 \end{aligned}
 $$
 
-Logo, $\sum x_i^2 \geq 4 \ln(2^{n/2}\eta)$ é equivalente a $\frac{\frac{1}{(\sqrt{4\pi})^n} \cdot \mathrm{Exp}\left\{
--\frac{1}{2} \sum \frac{x_i^2}{2} \right\}}{\frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
--\frac{1}{2} \sum x_i^2 \right\}}$.
+Logo, $\sum_{i=1}^n x_i^2 \geq 4 \ln(2^{n/2}\eta)$ é equivalente a $\frac{\frac{1}{(\sqrt{4\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum_{i=1}^n \frac{x_i^2}{2} \right\}}{\frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
+-\frac{1}{2} \sum_{i=1}^n x_i^2 \right\}}$.
 
 Observe ainda que
 $$
 \begin{aligned}
 \pi_{\delta^*}((0,1)) &= P_{(0,1)}(\delta^*(\boldsymbol{X}_n) = 1) \\
 &\stackrel{\text{Def.}}{=} P_{(0,1)}\left(\frac{\mathcal{L}_{\boldsymbol{x}_n}((0,2))}{\mathcal{L}_{\boldsymbol{x}_n}((0,1))} \geq \eta\right) \\
-&\stackrel{\text{Desenv.}}{=} P_{(0,1)}\left(\sum X_i^2 \geq \eta^*\right),
+&\stackrel{\text{Desenv.}}{=} P_{(0,1)}\left(\sum_{i=1}^n X_i^2 \geq \eta^*\right),
 \end{aligned}
 $$
-em que $\eta^* = 4\ln(2^{n/2} \eta)$. Como, sob $\mathcal{H}_0, \sum X_i^2 \sim \chi^2_n$, temos que
+em que $\eta^* = 4\ln(2^{n/2} \eta)$. Como, sob $\mathcal{H}_0, \sum_{i=1}^n X_i^2 \sim \chi^2_n$, temos que
 $$
 \pi_{\delta^*}((0,1)) = P_{(0,1)}(\chi^2_{n} \geq \eta^*) = 5\%.
 $$
@@ -94,8 +94,8 @@ $$
 Portanto, o teste mais poderoso é
 $$
 \delta^*(\boldsymbol{x}_n) = \begin{cases}
-0,&\ \text{se}\ \sum x_i^2 < 5.991 \\
-1,&\ \text{se}\ \sum x_i^2 \geq 5.991.
+0,&\ \text{se}\ \sum_{i=1}^n x_i^2 < 5.991 \\
+1,&\ \text{se}\ \sum_{i=1}^n x_i^2 \geq 5.991.
 \end{cases}
 $$
 
@@ -123,21 +123,21 @@ em que $\eta$ satisfaz $\pi_{\delta^*}(0.9) = 10\%$.
 Note que
 $$
 \begin{aligned}
-\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \theta^{\sum x_i} (1-\theta)^{n - \sum x_i} \\
-\Rightarrow \frac{\mathcal{L}_{\boldsymbol{x}_n}(0.1)}{\mathcal{L}_{\boldsymbol{x}_n}(0.9)} &= \frac{0.1^{\sum x_i} (0.9)^{n - \sum x_i}}{0.9^{\sum x_i} (0.1)^{n - \sum x_i}} \\
-&= \frac{0.1^{\sum x_i} \cdot 0.9^{n} \cdot 0.1^{\sum x_i}}{0.9^{\sum x_i} \cdot 0.9^{\sum x_i} \cdot 0.1^n} \\
-&= \left(\frac{0.1 \cdot 0.1}{0.9 \cdot 0.9}\right)^{\sum x_i} \cdot \left(\frac{0.9}{0.1}\right)^{n} \geq \eta \\
-\iff &(\sum x_i) \ln \left(\frac{0.01}{0.81}\right) + n \ln (9) \geq \ln \eta \\
-\iff &(\sum x_i) \ln \left(\frac{1}{81}\right) \geq \ln \eta - n \ln (9) \\
-\iff &(-\sum x_i) \ln (81) \geq \ln \eta - n \ln (9) \\
-\iff &-\sum x_i \geq \frac{\ln \eta - n \ln (9)}{\ln (81)} \\
-\iff &\sum x_i \leq \frac{-\ln \eta + n \ln (9)}{\ln (81)}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \theta^{\sum_{i=1}^n x_i} (1-\theta)^{n - \sum_{i=1}^n x_i} \\
+\Rightarrow \frac{\mathcal{L}_{\boldsymbol{x}_n}(0.1)}{\mathcal{L}_{\boldsymbol{x}_n}(0.9)} &= \frac{0.1^{\sum_{i=1}^n x_i} (0.9)^{n - \sum_{i=1}^n x_i}}{0.9^{\sum_{i=1}^n x_i} (0.1)^{n - \sum_{i=1}^n x_i}} \\
+&= \frac{0.1^{\sum_{i=1}^n x_i} \cdot 0.9^{n} \cdot 0.1^{\sum_{i=1}^n x_i}}{0.9^{\sum_{i=1}^n x_i} \cdot 0.9^{\sum_{i=1}^n x_i} \cdot 0.1^n} \\
+&= \left(\frac{0.1 \cdot 0.1}{0.9 \cdot 0.9}\right)^{\sum_{i=1}^n x_i} \cdot \left(\frac{0.9}{0.1}\right)^{n} \geq \eta \\
+\iff &(\sum_{i=1}^n x_i) \ln \left(\frac{0.01}{0.81}\right) + n \ln (9) \geq \ln \eta \\
+\iff &(\sum_{i=1}^n x_i) \ln \left(\frac{1}{81}\right) \geq \ln \eta - n \ln (9) \\
+\iff &(-\sum_{i=1}^n x_i) \ln (81) \geq \ln \eta - n \ln (9) \\
+\iff &-\sum_{i=1}^n x_i \geq \frac{\ln \eta - n \ln (9)}{\ln (81)} \\
+\iff &\sum_{i=1}^n x_i \leq \frac{-\ln \eta + n \ln (9)}{\ln (81)}
 \end{aligned}
 $$
 
-Logo, $\left(\frac{0.1 \cdot 0.1}{0.9 \cdot 0.9}\right)^{\sum x_i} \cdot \left(\frac{0.9}{0.1}\right)^{n} \geq \eta \iff \sum x_i \leq \frac{-\ln \eta + n \ln (9)}{\ln (81)}$.
+Logo, $\left(\frac{0.1 \cdot 0.1}{0.9 \cdot 0.9}\right)^{\sum_{i=1}^n x_i} \cdot \left(\frac{0.9}{0.1}\right)^{n} \geq \eta \iff \sum_{i=1}^n x_i \leq \frac{-\ln \eta + n \ln (9)}{\ln (81)}$.
 $$
-\pi_{\delta^*}(0.9) = P_{0.9}(\delta^*(\boldsymbol{X}_n) = 1) = P_{0.9}(\sum X_i \leq \eta^*) = \alpha = 10\%.
+\pi_{\delta^*}(0.9) = P_{0.9}(\delta^*(\boldsymbol{X}_n) = 1) = P_{0.9}(\sum_{i=1}^n X_i \leq \eta^*) = \alpha = 10\%.
 $$
 
 Note que, sob $\mathcal{H}_0, \sum^10_{i=1} X_i \sim \mathrm{Bin}(10, 0.9)$. Ademais,

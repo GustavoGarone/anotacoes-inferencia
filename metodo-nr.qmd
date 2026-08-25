@@ -9,7 +9,7 @@ ENV["QT_STYLE_OVERRIDE"] = "Fusion"
 Nem sempre existem soluções fechadas para [estimadores de máxima
 verossimilhança](emv2.qmd) ou obtidos pelo [método de
 momentos](metodo-momentos.qmd). Por exemplo, $U_n(\boldsymbol{X}_n, \theta) = 0$ não tem solução fechada para o EMV e
-$E_\theta(X^k) \frac{1}{n} \sum X_i^k$ para o EMM.
+$E_\theta(X^k) \frac{1}{n} \sum_{i=1}^n X_i^k$ para o EMM.
 
 Nos dois casos, estamos interessados em encontrar os valores de "$\theta$" que "zeram" uma função $G(\theta)$,
 
@@ -19,9 +19,9 @@ $$
 \begin{aligned}
 2.& \ \ \ \ \ \ \ \ \ \ \ \  G(\theta) = \left(
 \begin{array}{c}
-E_\theta(X) - \frac{1}{n} \sum X_i \\
+E_\theta(X) - \frac{1}{n} \sum_{i=1}^n X_i \\
 \vdots \\
-E_\theta(X^p) - \frac{1}{n} \sum X_i^p
+E_\theta(X^p) - \frac{1}{n} \sum_{i=1}^n X_i^p
 \end{array}\right)
 \end{aligned}
 $$
@@ -54,21 +54,21 @@ não conseguimos finalizar a expressão. Vamos relembrar o [escore](escore.qmd)
 da amostra igualado a zero:
 
 $$
-U_n(\boldsymbol{x}_n,\theta) = \sum \ln x_i -\frac{n}{\Gamma(\theta)}\Gamma'(\theta) + \sum \ln x_i  = 0
+U_n(\boldsymbol{x}_n,\theta) = \sum_{i=1}^n \ln x_i -\frac{n}{\Gamma(\theta)}\Gamma'(\theta) + \sum_{i=1}^n \ln x_i  = 0
 $$
 
 Considere os $n=7$ valores observados, $\boldsymbol{x}_7 = (3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5)$
 $$
 \Rightarrow U_n(\boldsymbol{x}_n,\theta) = \underbracket{\frac{7}{\Gamma(\theta)}\Gamma'(\theta)}_{\frac{\partial \ln}{\partial \theta} \Gamma(\theta)}
-+\sum \ln x_i = 0
++\sum_{i=1}^n \ln x_i = 0
 $$
 
 Utilizando $\theta^{(0)} = 1$,
 $$
 \begin{aligned}
 \theta^{(j)} &= \theta^{(j-1)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j-1)})}{U'_n(\boldsymbol{x}_n, \theta^{(j-1)})} \\
-&= \theta^{(j-1)} - \frac{-7 \psi_1(\theta^{(j-1)})+ 7 \sum \ln x_i}{-7\psi_2(\theta^{(j-1)})} \\
-&= \theta^{(j-1)} - \frac{-\psi_1(\theta^{(j-1)})+ \sum \ln x_i}{-\psi_2(\theta^{(j-1)})}
+&= \theta^{(j-1)} - \frac{-7 \psi_1(\theta^{(j-1)})+ 7 \sum_{i=1}^n \ln x_i}{-7\psi_2(\theta^{(j-1)})} \\
+&= \theta^{(j-1)} - \frac{-\psi_1(\theta^{(j-1)})+ \sum_{i=1}^n \ln x_i}{-\psi_2(\theta^{(j-1)})}
 \end{aligned}
 $$
 
@@ -85,7 +85,7 @@ Considere um erro $\epsilon = 10^{-5}$ e $\hat{\theta}^{(0)} = 1.$
 $$
 \theta^{(j+1)} = \theta^{(j)} - \frac{U_n(\boldsymbol{x}_n,\theta^{(j)})}{U'_n(\boldsymbol{x}_n, \theta^{(j)})}
 $$
-em que $U_n(\boldsymbol{x}_n,\theta) = -n\psi_1(\theta^{(j-1)})+ \sum \ln x_i$ e $U_n'(\boldsymbol{x}_n,\theta) = -n\psi_2(\theta^{(j-1)})$
+em que $U_n(\boldsymbol{x}_n,\theta) = -n\psi_1(\theta^{(j-1)})+ \sum_{i=1}^n \ln x_i$ e $U_n'(\boldsymbol{x}_n,\theta) = -n\psi_2(\theta^{(j-1)})$
 com $\psi_j(\theta) = \frac{\partial^j \ln \Gamma(\theta)}{\partial \theta^j}$ e $n=7$.
 
 Logo,
@@ -156,9 +156,9 @@ Note que
 $$
 \begin{aligned}
 f_\theta(x) &= \theta \mathrm{e}^{-\theta x} \\
-\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \theta^n \mathrm{e}^{-\theta\sum x_i} \\
-\ln \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= n \ln\theta -\theta\sum x_i \\
-U_n(\boldsymbol{x}_n,\theta) &= \frac{n}{\theta} - \sum x_i \\
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \theta^n \mathrm{e}^{-\theta\sum_{i=1}^n x_i} \\
+\ln \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= n \ln\theta -\theta\sum_{i=1}^n x_i \\
+U_n(\boldsymbol{x}_n,\theta) &= \frac{n}{\theta} - \sum_{i=1}^n x_i \\
 U_n'(\boldsymbol{x}_n,\theta) &= -\frac{n}{\theta^2}
 \end{aligned}
 $$
@@ -166,8 +166,8 @@ $$
 Logo
 $$
 \begin{aligned}
-\hat{\theta}^{(j+1)} &= \hat{\theta}^{(j)} - \frac{\frac{n}{\hat{\theta}^{(j)}}- \sum x_i}{-\frac{n}{(\hat{\theta}^{(j)})^2}} \\
-&= \hat{\theta}^{(j)} - \frac{[n - \hat{\theta}^{(j)}\sum x_i]\hat{\theta}^{(j)}}{-n}
+\hat{\theta}^{(j+1)} &= \hat{\theta}^{(j)} - \frac{\frac{n}{\hat{\theta}^{(j)}}- \sum_{i=1}^n x_i}{-\frac{n}{(\hat{\theta}^{(j)})^2}} \\
+&= \hat{\theta}^{(j)} - \frac{[n - \hat{\theta}^{(j)}\sum_{i=1}^n x_i]\hat{\theta}^{(j)}}{-n}
 \end{aligned}
 $$
 
@@ -360,6 +360,4 @@ end
 
 descida_estocastica_limitada()
 ```
-
-
 

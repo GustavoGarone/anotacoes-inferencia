@@ -44,10 +44,10 @@ $$
 \begin{aligned}
 U_n(\boldsymbol{x}_n, \theta) = \frac{\partial \ln
 L_{\boldsymbol{x}_n}(\theta)}{\partial \theta}
-&= \frac{\partial \ln }{\partial \theta} \prod f_\theta(x_i) \\
-&= \frac{\partial }{\partial \theta} \sum \ln f_\theta(x_i) \\
-&= \sum \frac{\partial \ln f_\theta(x_i)}{\partial \theta} \\
-&= \sum U(x_i, \theta).
+&= \frac{\partial \ln }{\partial \theta} \prod_{i=1}^n f_\theta(x_i) \\
+&= \frac{\partial }{\partial \theta} \sum_{i=1}^n \ln f_\theta(x_i) \\
+&= \sum_{i=1}^n \frac{\partial \ln f_\theta(x_i)}{\partial \theta} \\
+&= \sum_{i=1}^n U(x_i, \theta).
 \end{aligned}
 $$
 
@@ -87,10 +87,10 @@ $$
 
 #### Prova
 
-Note que $U_n(\boldsymbol{X}_n,\theta) = \sum U(X_i,\theta)$. Por $C_4(a)$, podemos calcular a esperança:
+Note que $U_n(\boldsymbol{X}_n,\theta) = \sum_{i=1}^n U(X_i,\theta)$. Por $C_4(a)$, podemos calcular a esperança:
 $$
 \begin{aligned}
-E_\theta(U_n(\boldsymbol{X}_n,\theta)) &= \sum E_\theta(U(X_i,\theta)) \\
+E_\theta(U_n(\boldsymbol{X}_n,\theta)) &= \sum_{i=1}^n E_\theta(U(X_i,\theta)) \\
 &\stackrel{\mathrm{id.}}{=} nE_\theta(U(X,\theta)) \\
 \Rightarrow E_\theta(U(X,\theta)) &= \int_{\mathfrak{X}} U(x,\theta)f_\theta(x)dx \\
 &= \int_{\mathfrak{X}} \frac{\partial}{\partial\theta}\ln f_\theta(x) \cdot f_\theta(x) dx \\
@@ -109,4 +109,3 @@ $$
 = \int_{\mathfrak{X}} \frac{\partial}{\partial \theta} f_\theta(x) dx,\ \forall
 \theta \in \Theta
 $$
-

@@ -28,7 +28,7 @@ método de momentos.
 Note que $\Theta = (0,\infty) \subseteq \mathbb{R}$. Portanto, $p=1$. Precisamos encontrar o valor de "$\theta$" que
 satisfaz
 $$
-E_\theta(X) = \frac{1}{n} \sum X_i
+E_\theta(X) = \frac{1}{n} \sum_{i=1}^n X_i
 $$
 
 Sabemos que
@@ -59,7 +59,7 @@ $$
 
 Precisaremos encontrar a distribuição do estimador,
 $$
-P_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n) \leq t) = P_\theta(\max\pmb{X}_n \leq t) \stackrel{\mathrm{iid}}{=} \prod P_\theta(X \leq t) = P_\theta(X \leq t)^n
+P_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n) \leq t) = P_\theta(\max\pmb{X}_n \leq t) \stackrel{\mathrm{iid}}{=} \prod_{i=1}^n P_\theta(X_i \leq t) = P_\theta(X \leq t)^n
 $$
 note que
 $$
@@ -177,17 +177,17 @@ $$
 \begin{aligned}
 \begin{cases}
 \mu &= \bar{X} \\
-\sigma^2 + \mu^2 &= \frac{1}{n} \sum X_i^2
+\sigma^2 + \mu^2 &= \frac{1}{n} \sum_{i=1}^n X_i^2
 \end{cases}
 &\Rightarrow \begin{cases}
 \hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n) &= \bar{X} \\
-\hat{\sigma}^{2}_{\mathrm{MM}}(\boldsymbol{X}_n) + \hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n)^2 &= \frac{1}{n} \sum X_i^2
+\hat{\sigma}^{2}_{\mathrm{MM}}(\boldsymbol{X}_n) + \hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n)^2 &= \frac{1}{n} \sum_{i=1}^n X_i^2
 \end{cases} \\
 &\Rightarrow \begin{cases}
 \hat{\mu}_{\mathrm{MM}}(\boldsymbol{X}_n) &= \bar{X} \\
-\hat{\sigma}^{2}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{1}{n} \sum X_i^2 - \bar{X}^2
+\hat{\sigma}^{2}_{\mathrm{MM}}(\boldsymbol{X}_n) = \frac{1}{n} \sum_{i=1}^n X_i^2 - \bar{X}^2
 \end{cases} \\
-&\Rightarrow \hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \left(\bar{X}, \frac{1}{n} \sum X_i^2 - \bar{X}^2\right)
+&\Rightarrow \hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \left(\bar{X}, \frac{1}{n} \sum_{i=1}^n X_i^2 - \bar{X}^2\right)
 \end{aligned}
 $$
 
@@ -226,23 +226,23 @@ $$
 \begin{aligned}
 &\begin{cases}
 \frac{\alpha}{\beta} = \bar{X} \\
-\frac{\alpha (\alpha+1)}{\beta^2} = \frac{1}{n} \sum X_i^2
+\frac{\alpha (\alpha+1)}{\beta^2} = \frac{1}{n} \sum_{i=1}^n X_i^2
 \end{cases} \\
 \Rightarrow &\begin{cases}
 \alpha = \bar{X}\beta \\
-\frac{\bar{X}\beta(\bar{X}\beta+1)}{\beta^2} = \frac{1}{n} \sum X_i^2
+\frac{\bar{X}\beta(\bar{X}\beta+1)}{\beta^2} = \frac{1}{n} \sum_{i=1}^n X_i^2
 \end{cases} \\
 \Rightarrow &\begin{cases}
 \alpha = \bar{X}\beta \\
-(\bar{X}\beta)^2 + \bar{X}\beta = \beta^2 \frac{1}{n} \sum X_i^2
+(\bar{X}\beta)^2 + \bar{X}\beta = \beta^2 \frac{1}{n} \sum_{i=1}^n X_i^2
 \end{cases} \\
 \Rightarrow &\begin{cases}
 \alpha = \bar{X}\beta \\
-\beta^2\left(\frac{1}{n}\sum X_i^2\right) - (\beta\bar{X})^2 - \beta \bar{X} = 0
+\beta^2\left(\frac{1}{n}\sum_{i=1}^n X_i^2\right) - (\beta\bar{X})^2 - \beta \bar{X} = 0
 \end{cases} \\
 \Rightarrow &\begin{cases}
 \alpha = \bar{X}\beta \\
-\beta^2\underbracket{\left(\frac{1}{n}\sum X_i^2 - \bar{X}^2\right)}_{S^2} -\beta\bar{X} = 0
+\beta^2\underbracket{\left(\frac{1}{n}\sum_{i=1}^n X_i^2 - \bar{X}^2\right)}_{S^2} -\beta\bar{X} = 0
 \end{cases} \\ \\
 \frac{\bar{X} \pm \sqrt{\bar{X}^2 - 4\cdot S^2 \cdot 0}}{2S^2} &= \frac{\bar{X} \pm \sqrt{\bar{X}^2}}{2S^2}\\
 &=
@@ -305,4 +305,3 @@ pmmbeta = histogram(
 vline!([beta0], label = "Valor real")
 display(plot(pmmalpha, pmmbeta))
 ```
-

@@ -114,7 +114,7 @@ Se uma a.a. de $X\sim N(\mu,\sigma^2)$, $\theta = (\mu, \sigma^2) \in \mathbb{R}
 3. $\sum\limits^{n}_{i=1}\frac{(X_{i} - \bar{X})^2}{\sigma^2} \sim \chi^2_{n-1}$
 4. $\sqrt{n}\frac{\bar{X} - \mu}{\sqrt{s^2}} = \sqrt{n}\frac{\bar{X} - \mu}{\sqrt{s^2}} \cdot
 \frac{\sqrt{\sigma^2}}{\sqrt{\sigma^2}}  = \frac{\sqrt{n}\frac{\bar{X} - \mu}{\sqrt{\sigma^2}}}
-{\sqrt{\frac{\sum(X_i - \bar{X})^2}{\sigma^2} \cdot \frac{1}{n-1}}}$
+{\sqrt{\frac{\sum_{i=1}^n (X_i - \bar{X})^2}{\sigma^2} \cdot \frac{1}{n-1}}}$
 5. Se $Z \sim N(0,1)$ e $W \sim \chi^{2}_{k}$, então $t = \frac{Z}{\sqrt{\frac{W}{k}}} \sim t_{k}$
 6. $\sqrt{n} \frac{(\bar{X} - \mu)}{\sqrt{s^2}} \sim t_{(n-1)}$
 

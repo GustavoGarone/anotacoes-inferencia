@@ -112,7 +112,7 @@ $$
 Calcule as probabilidades dos erros considerando $n=10$ e a aproximação pela distribuição normal.
 
 #### Calculando Exato e pela aproximação do [Teorema do Limite Central](tlc.qmd)
-Sabemos que $\sum ^{n}_{i=1}X_{i}\sim \mathrm{Bin}(n, \theta)$, logo
+Sabemos que $\sum_{i=1}^{n} X_{i}\sim \mathrm{Bin}(n, \theta)$, logo
 $$
 \begin{aligned}
 \alpha &= P(\text{Erro Tipo I}) \stackrel{\text{Sob $h_{0}$}}{=} P_{0.5}\left( \frac{1}{n} \sum^n_{i=1}X_{i}> 0.7\right)
@@ -188,7 +188,7 @@ $$
 
 Para $n=10$,
 $$
-\beta(\theta) = P_{\theta}\left( 3\leq \sum^{n=10}_{i=1} X_{i} \leq 7 \right) = P\left( 3\leq \mathrm{Bin}(10,\theta)
+\beta(\theta) = P_{\theta}\left( 3\leq \sum_{i=1}^{10} X_{i} \leq 7 \right) = P\left( 3\leq \mathrm{Bin}(10,\theta)
 \leq 7 \right), \theta \in \Theta \setminus \{ 0.5 \}
 $$
 

@@ -88,13 +88,13 @@ Seja $\boldsymbol{X}_n$ amostra aleatória de $X\sim \mathrm{Ber}(\theta), \thet
 
 a-) Encontre o ENVVUM para $g(\theta) = P_\theta(X=1)$.
 
-[Já sabemos](estatisticas-completas.qmd#sec-ex-comp-ber) que $\sum X_i$ é suficiente e completa para o modelo de Bernoulli.
+[Já sabemos](estatisticas-completas.qmd#sec-ex-comp-ber) que $\sum_{i=1}^n X_i$ é suficiente e completa para o modelo de Bernoulli.
 Além disso,
 $$
-E_\theta\left(\frac{1}{n} \sum X_i\right) = \theta, \forall \theta \in \Theta.
+E_\theta\left(\frac{1}{n} \sum_{i=1}^n X_i\right) = \theta, \forall \theta \in \Theta.
 $$
 
-Ou seja, $T(\boldsymbol{X}_n) =\frac{1}{n} \sum X_i$ é suficiente e completa, pois é função 1:1 de $\sum X_i$ e, além disso,
+Ou seja, $T(\boldsymbol{X}_n) =\frac{1}{n} \sum_{i=1}^n X_i$ é suficiente e completa, pois é função 1:1 de $\sum_{i=1}^n X_i$ e, além disso,
 é não viciada para $g(\theta) = P_\theta(X=1) = \theta$. Portanto,
 
 $$
@@ -109,41 +109,41 @@ $$
 
 Obs: Poderíamos iniciar com $S(\boldsymbol{X}_n) = X_1$ pois $E_\theta(X_1) = \theta, \forall \theta \in \Theta$.
 $$
-\stackrel{\sim}{T}(\boldsymbol{X}_n) = E_\theta\left(S(\boldsymbol{X}_n)\lvert \sum X_i\right)
+\stackrel{\sim}{T}(\boldsymbol{X}_n) = E_\theta\left(S(\boldsymbol{X}_n)\lvert \sum_{i=1}^n X_i\right)
 $$
 também é ENVVUM. Para demonstrar, precisamos calcular
 
 $$
-E_\theta\left(X_1\lvert \sum X_i\right).
+E_\theta\left(X_1\lvert \sum_{i=1}^n X_i\right).
 $$
 
 Uma estratégia é encontrar
 
 $$
-E_\theta(S(\boldsymbol{X}_n)\lvert \sum X_i = t) = m(t), \forall \theta \in \Theta
+E_\theta(S(\boldsymbol{X}_n)\lvert \sum_{i=1}^n X_i = t) = m(t), \forall \theta \in \Theta
 $$
-e substituir $t$ pela estatística suficiente e completa, neste caso $\sum X_i$. Note que, para $t=0$
+e substituir $t$ pela estatística suficiente e completa, neste caso $\sum_{i=1}^n X_i$. Note que, para $t=0$
 
 $$
-E_\theta(X_1\lvert \sum X_i = 0) = 0, \forall \theta \in \Theta.
+E_\theta(X_1\lvert \sum_{i=1}^n X_i = 0) = 0, \forall \theta \in \Theta.
 $$
 
 Se $t\neq 0$, então
 
 $$
 \begin{aligned}
-\frac{t}{t} = 1 &\iff E_\theta\left(\frac{t}{t}\lvert \sum X_i = t\right) = 1, \forall \theta \in \Theta \\
-&\iff E_\theta(\frac{t}{t} \lvert \sum X_i = t) = E_\theta\left(\frac{\sum X_i}{\sum X_i}\lvert \sum X_i = t\right) = 1, \forall \theta \in \Theta \\
-&\iff\sum E_\theta\left(\frac{X_i}{\sum X_i}\lvert \sum X_i = t\right) = 1, \forall \theta \in \Theta \\
-&\stackrel{\mathrm{iid}}{\iff} n E_\theta\left(\frac{X_1}{\sum X_i}\lvert \sum X_i = t\right) = 1, \forall \theta \in \Theta \\
-&\iff \frac{n}{t} E_\theta\left(X_1 \lvert \sum X_i = t\right) = 1, \forall \theta \in \Theta \\
-&\Rightarrow E_\theta\left(X_1\lvert \sum X_i = t\right) = \frac{t}{n}, \forall\theta \in \Theta.
+\frac{t}{t} = 1 &\iff E_\theta\left(\frac{t}{t}\lvert \sum_{i=1}^n X_i = t\right) = 1, \forall \theta \in \Theta \\
+&\iff E_\theta(\frac{t}{t} \lvert \sum_{i=1}^n X_i = t) = E_\theta\left(\frac{\sum_{i=1}^n X_i}{\sum_{i=1}^n X_i}\lvert \sum_{i=1}^n X_i = t\right) = 1, \forall \theta \in \Theta \\
+&\iff\sum_{i=1}^n E_\theta\left(\frac{X_i}{\sum_{i=1}^n X_i}\lvert \sum_{i=1}^n X_i = t\right) = 1, \forall \theta \in \Theta \\
+&\stackrel{\mathrm{iid}}{\iff} n E_\theta\left(\frac{X_1}{\sum_{i=1}^n X_i}\lvert \sum_{i=1}^n X_i = t\right) = 1, \forall \theta \in \Theta \\
+&\iff \frac{n}{t} E_\theta\left(X_1 \lvert \sum_{i=1}^n X_i = t\right) = 1, \forall \theta \in \Theta \\
+&\Rightarrow E_\theta\left(X_1\lvert \sum_{i=1}^n X_i = t\right) = \frac{t}{n}, \forall\theta \in \Theta.
 \end{aligned}
 $$
 
-Logo, substituindo $t$ por $\sum X_i$, temos que
+Logo, substituindo $t$ por $\sum_{i=1}^n X_i$, temos que
 $$
-E_\theta\left(S(\boldsymbol{X}_n)\lvert \sum X_i\right) = \frac{1}{n} \sum X_i
+E_\theta\left(S(\boldsymbol{X}_n)\lvert \sum_{i=1}^n X_i\right) = \frac{1}{n} \sum_{i=1}^n X_i
 $$
 
 b-) Encontre o ENVVUM para $g(\theta) = P_\theta(X=0)$.
@@ -167,23 +167,23 @@ Encontre o (quase certamente) ENVVUM para $g(\theta) = (\mu, \sigma^2)$.
 [Já sabemos que](estatisticas-completas.qmd#sec-ex-norm-livre), pelo
 [Teorema das FEs](estatisticas-completas.qmd#sec-teo-tres-completa),
 $$
-T(\boldsymbol{X}_n) = \left(\sum X_i,\sum X_i^2\right)
+T(\boldsymbol{X}_n) = \left(\sum_{i=1}^n X_i,\sum_{i=1}^n X_i^2\right)
 $$
 é suficiente e completa para o modelo. Observe ainda que
 $$
-T'(\boldsymbol{X}_n) = \left(\frac{1}{n} \sum X_i, \frac{1}{n} \sum X_i^2 - \left(\frac{1}{n} \sum X_i\right)^2\right)
+T'(\boldsymbol{X}_n) = \left(\frac{1}{n} \sum_{i=1}^n X_i, \frac{1}{n} \sum_{i=1}^n X_i^2 - \left(\frac{1}{n} \sum_{i=1}^n X_i\right)^2\right)
 $$
 é função 1:1 de $T(\boldsymbol{X}_n)$. Portanto, $T'(\boldsymbol{X}_n)$ é uma estatística suficiente e completa para o modelo.
 
 Note que
 $$
-E_\theta\left(\frac{1}{n}\sum X_i\right) = \mu, \forall \theta \in \Theta
+E_\theta\left(\frac{1}{n}\sum_{i=1}^n X_i\right) = \mu, \forall \theta \in \Theta
 $$
 e
 $$
 \begin{aligned}
-E_\theta\left(\frac{1}{\sigma^2} \sum (X_i-\bar{X})^2\right) &\stackrel{\chi^2_{n-1}}{=} n-1 \\
-\Rightarrow E_\theta\left(\frac{1}{n} \sum (X_i - \bar{X})^2 \right) &= \frac{n-1}{n} \sigma^2, \forall \theta \in \Theta.
+E_\theta\left(\frac{1}{\sigma^2} \sum_{i=1}^n (X_i-\bar{X})^2\right) &\stackrel{\chi^2_{n-1}}{=} n-1 \\
+\Rightarrow E_\theta\left(\frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2 \right) &= \frac{n-1}{n} \sigma^2, \forall \theta \in \Theta.
 \end{aligned}
 $$
 
@@ -270,7 +270,7 @@ Encontre o ENVVUM para $g(\theta) = P_\theta(X = 0)$.
 
 Pelo Teorema da FE k-dimensional, temos que
 $$
-T(\boldsymbol{X}_n) = \sum X_i
+T(\boldsymbol{X}_n) = \sum_{i=1}^n X_i
 $$
 é suficiente e completa para o modelo.
 
@@ -304,7 +304,7 @@ $$
 
 Note que, por FGM,
 $$
-T(\boldsymbol{X}_n) = \sum X_i \sim \mathrm{Poiss}(n\theta), \theta \in (0,\infty)
+T(\boldsymbol{X}_n) = \sum_{i=1}^n X_i \sim \mathrm{Poiss}(n\theta), \theta \in (0,\infty)
 $$
 
 e para $t \in \{0,1,\dots\}$

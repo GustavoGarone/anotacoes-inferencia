@@ -106,7 +106,7 @@ Seja $\boldsymbol{X}_n$ [a.a.](populacao-e-amostra.qmd#sec-aa) de $X$ tal que $\
 para algum $k \in \mathbb{N} \setminus \{0\}$. Então, o estimador $\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n)$ tal que
 
 $$
-E_{\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n)}(X^k) = \frac{1}{n} \sum X_i^k
+E_{\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n)}(X^k) = \frac{1}{n} \sum_{i=1}^n X_i^k
 $$
 
 é [assintoticamente normal](prop-est.qmd#sec-assinorm) se as seguintes condições estiverem satisfeitas:
