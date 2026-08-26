@@ -138,8 +138,8 @@ $$
 Como $\theta' \geq \theta''$, temos que $\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n))$ é decrescente em $T(\boldsymbol{x}_n)$.
 Tome $T'(\boldsymbol{x}_n) = - \sum_{i=1}^n x_i$, logo
 $$
-\mathrm{R}_{\theta',\theta''}(T(\boldsymbol{X}_n)) = \left(\frac{\theta'}{\theta''}\right)^n \mathrm{Exp}
-\left\{(\theta' - \theta'') T(\boldsymbol{x}_n)\right\}, \theta' \geq \theta''.
+\mathrm{R}_{\theta',\theta''}(T'(\boldsymbol{X}_n)) = \left(\frac{\theta'}{\theta''}\right)^n \mathrm{Exp}
+\left\{(\theta' - \theta'') T'(\boldsymbol{x}_n)\right\}, \theta' \geq \theta''.
 $$
 é monótona não-decrescente em $T'(\boldsymbol{x}_n)$. Portanto, pelo Teorema de Karlin-Rubin (I),
 $$
@@ -238,51 +238,39 @@ $$
 #| echo: true
 # Seja X a.a. de X ~ Exp()
 # H_0 θ ≤ 2; H_1 θ > 2
-# δ(x) = 1 ⟺ ∑ x ≤ 2.71
+# δ(x) = 1 ⟺ ∑ x ≤ c_soma
 using Distributions, Random, StatsBase
 Random.seed!(24)
 
 # Borda do Θ_0
 θ_0 = 2
-# Valores do teste e amostra
-n = 100
+# Valor sob H_1
+θ_1 = 3
+
+# Valores do teste e da simulação
+n = 10
 α = 0.05
 MC = 10_000
 
-function h0()
-    # Sob H_0
-    θ_00 = rand(Uniform(0, θ_0))
+# O ponto crítico para a soma, c_soma = -c, é calculado uma única vez,
+# na borda de Θ_0.
+dist_soma_h0 = Gamma(n, 1 / θ_0)
+c_soma = quantile(dist_soma_h0, α)
 
-
-    d = Exponential(1 / θ_00)
-    dsoma = Gamma(n, 1 / θ_00)
-    c = quantile(dsoma, α)
-
-    δ = zeros(MC)
+function proporcao_rejeicoes(θ, c_soma)
+    d = Exponential(1 / θ)
+    rejeicoes = zeros(MC)
     for i in 1:MC
         x = rand(d, n)
-        δ[i] = sum(x) ≤ c
+        rejeicoes[i] = sum(x) ≤ c_soma
     end
-    return println("Testes rejeitados sob H_0: $(mean(δ) * 100)%")
+    return mean(rejeicoes)
 end
 
-function h1()
-    # Sob H_0
-    θ_11 = rand(Uniform(θ_0, θ_0 + 10))
+erro_tipo_i = proporcao_rejeicoes(θ_0, c_soma)
+poder = proporcao_rejeicoes(θ_1, c_soma)
 
-
-    d = Exponential(1 / θ_11)
-    dsoma = Gamma(n, 1 / θ_11)
-    c = quantile(dsoma, α)
-
-    δ = zeros(MC)
-    for i in 1:MC
-        x = rand(d, n)
-        δ[i] = sum(x) ≥ c
-    end
-    return println("Testes rejeitados sob H_1 (Poder do teste): $(mean(δ) * 100)")
-end
-
-h0()
-h1()
+println("Ponto crítico para a soma: $c_soma")
+println("Testes rejeitados na borda de H_0: $(erro_tipo_i * 100)%")
+println("Poder do teste em θ = $θ_1: $(poder * 100)%")
 ```

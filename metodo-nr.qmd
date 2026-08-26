@@ -113,8 +113,8 @@ function main()
     erromax = 10^(-5)
     erro = Inf
     i = 1
-    # iteracoesMax = 6 # Podemos também definir apenas um erro máximo
-    while erro > erromax # && i < iteracoesMax
+    iteracoesMax = 1000
+    while erro > erromax && i <= iteracoesMax
         append!(
             theta, theta[i] - (sum(log.(x)) - n * digamma(theta[i])) /
                 (-n * trigamma(theta[i]))
@@ -123,8 +123,11 @@ function main()
         println("Erro na iteração $i: $erro")
         i += 1
     end
+    if erro > erromax
+        error("O método não convergiu em $iteracoesMax iterações.")
+    end
     println("Theta final: $(theta[length(theta)])")
-    return println("Total de iterações: $i")
+    return println("Total de iterações: $(i - 1)")
 
 end
 
@@ -187,14 +190,18 @@ function main()
     erromax = 10^(-5)
     erro = Inf
     i = 1
-    while erro > erromax
+    iteracoesMax = 1000
+    while erro > erromax && i <= iteracoesMax
         append!(theta, theta[i] - ((n - sum(x) * theta[i]) * theta[i]) / (-n))
         erro = abs(theta[i + 1] - theta[i])
         println("Erro na iteração $i: $erro")
         i += 1
     end
+    if erro > erromax
+        error("O método não convergiu em $iteracoesMax iterações.")
+    end
     println("Theta final: $(theta[length(theta)])")
-    return println("Total de iterações: $i")
+    return println("Total de iterações: $(i - 1)")
 
 end
 
@@ -217,7 +224,7 @@ $$
 \theta^{(j+1)} = \theta^{(j)} + \left[I_n(\boldsymbol{x}_n,\theta^{(j)})\right]^{-1} \cdot U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)}), j = 0, 1, \dots
 $$
 
-### Método de descida do gradiente
+### Método de descida (ou subida) do gradiente
 $$
 \theta^{(j+1)} = \theta^{(j)} + \delta \cdot U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)}), j = 0, 1, \dots
 $$
@@ -243,7 +250,8 @@ function main()
     erromax = 10^(-5)
     erro = Inf
     i = 1
-    while erro > erromax
+    iteracoesMax = 1000
+    while erro > erromax && i <= iteracoesMax
         append!(theta, theta[i] + delta * (sum(log.(x)) - n * digamma(theta[i])))
         erro = abs(theta[i + 1] - theta[i])
         if i % 100 == 0
@@ -251,26 +259,40 @@ function main()
         end
         i += 1
     end
+    if erro > erromax
+        error("O método não convergiu em $iteracoesMax iterações.")
+    end
     println("Theta final: $(theta[end])")
-    return println("Total de iterações: $i")
+    return println("Total de iterações: $(i - 1)")
 
 end
 
 main()
 ```
 
-### Descida estocástica do gradiente
+### Descida (ou subida) estocástica do gradiente
+
+Na descida (ou subida) do gradiente, cada atualização utiliza o escore da amostra completa. Na versão estocástica, atualizamos o parâmetro utilizando o escore de uma observação por vez:
+
 $$
-\theta^{(j+1, i)} = \theta^{(j, i)} + \delta \cdot U(x_i, \hat{\theta}^{(j, i)}), j = 0, 1, \dots, i \in \{1,\dots,n\}
+\theta^{(j,i+1)} = \theta^{(j,i)} + \delta_j U(x_i, \theta^{(j,i)}),
+\qquad i=1,\dots,n,
 $$
 
-Em que $U(x, \hat{\theta}^{(j)})$ é a [função escore](escore.qmd) para uma observação. Usaremos o mesmo modelo gama.
+em que $j$ representa a época, isto é, uma passagem completa pelas observações, e $\delta_j>0$ é a taxa de aprendizado.
+
+Usaremos novamente o modelo $X\sim\mathrm{Gamma}(\theta,1)$. Para uma observação, o [escore](escore.qmd) é
+$$
+U(x,\theta)=\ln x-\psi_1(\theta).
+$$
+
+Primeiro, consideraremos uma implementação ingênua, na qual as observações são percorridas sempre na mesma ordem, a taxa de aprendizado é constante e a convergência é avaliada apenas pela última atualização de cada época.
 
 ```{julia}
 #| echo: true
 using SpecialFunctions, Distributions, Plots
 
-function descida_estocastica()
+function descida_estocastica_ingenua()
 
     x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
     n = length(x)
@@ -284,80 +306,107 @@ function descida_estocastica()
     erromax = 10^(-5)
     j = 1
     epoca = 1
-    while erro > erromax
+    epocasMax = 10_000
+    while erro > erromax && epoca <= epocasMax
         for i in 1:n
             append!(theta, theta[j] + delta * (log(x[i]) - digamma(theta[j])))
             erro = abs(theta[j + 1] - theta[j])
             j += 1
         end
-        epoca += 1
         if epoca % 500 == 0
-            println("Erro na época $epoca: $erro")
+            println("Erro da última atualização na época $epoca: $erro")
         end
+        epoca += 1
     end
-    epoca -= 1
+    epocasExecutadas = epoca - 1
+    if erro > erromax
+        error("O método não convergiu em $epocasMax épocas.")
+    end
     println("Theta final: $(theta[end])")
-    println("Total de epocas: $epoca \n \n")
-
-    println("Verificando se é máximo local")
-    println("-n * trigamma(theta calculado) = $(-n * trigamma(theta[end]))")
+    println("Total de épocas: $epocasExecutadas")
 
     U(y) = sum(log.(x)) - n * digamma(y)
+    println("Escore da amostra no valor final: $(U(theta[end]))")
     p = plot(U, xlims = (0.1, 100), label = "U")
     vline!(theta[1:4000:end], label = "(Alguns dos) thetas calculados")
     hline!([0], label = "", color = :black)
     return display(p)
 end
 
-descida_estocastica()
+descida_estocastica_ingenua()
 ```
 
-Note que esse método é falível. Caímos em um valor que não é máximo global e diferente dos obtidos pelos outros métodos. Aumentaremos o valor de $\delta$ e adicionaremos um máximo de 5000 épocas. Também escolheremos um valor
-mais alto para $\theta_0$, como $4$.
+O algoritmo anterior encerra com uma estimativa próxima de $3.65$. Entretanto, esse valor não maximiza a função de verossimilhança, pois o escore da amostra completa ainda é diferente de zero.
+
+Além disso,
+$$
+U_n'(\boldsymbol{x}_n,\theta)=-n\psi_2(\theta)<0,
+\qquad \theta>0.
+$$
+
+Logo, a log-verossimilhança é estritamente côncava e possui, no máximo, um ponto de máximo. Portanto, o algoritmo não encontrou um máximo local diferente do máximo global; ele apenas encerrou prematuramente porque a última atualização individual foi pequena.
+
+Para obter uma implementação mais adequada:
+
+1. sortearemos a ordem das observações no início de cada época;
+2. diminuiremos gradualmente a taxa de aprendizado;
+3. verificaremos a convergência por meio do escore da amostra completa;
+4. fixaremos um número máximo de épocas.
+
+Consideraremos
+$$
+\delta_j=\frac{\delta_0}{\sqrt{j}}
+$$
+e encerraremos o algoritmo quando
+$$
+\left|U_n(\boldsymbol{x}_n,\theta^{(j)})\right|\leq\epsilon.
+$$
 
 ```{julia}
 #| echo: true
-using SpecialFunctions, Distributions, Plots
+using SpecialFunctions, Distributions, Plots, Random
+Random.seed!(24)
 
-function descida_estocastica_limitada()
+function descida_estocastica()
 
     x = [3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5]
     n = length(x)
 
     theta::Vector{Float64} = []
     append!(theta, 4)
-    delta = 0.01
-
-
-    erro = Inf
-    erromax = 10^(-5)
-    j = 1
-    epoca = 1
-    while erro > erromax && epoca <= 5000
-        for i in 1:n
-            append!(theta, theta[j] + delta * (log(x[i]) - digamma(theta[j])))
-            erro = abs(theta[j + 1] - theta[j])
-            j += 1
-        end
-        epoca += 1
-        if epoca % 1000 == 0
-            println("Erro na época $epoca: $erro")
-        end
-    end
-    epoca -= 1
-    println("Theta final: $(theta[end])")
-    println("Total de epocas: $epoca \n \n")
-
-    println("Verificando se é máximo local")
-    println("-n * trigamma(theta calculado) = $(-n * trigamma(theta[end]))")
+    delta0 = 0.1
 
     U(y) = sum(log.(x)) - n * digamma(y)
+    erromax = 10^(-5)
+    erro = abs(U(theta[end]))
+    j = 1
+    epoca = 1
+    epocasMax = 5000
+    while erro > erromax && epoca <= epocasMax
+        delta = delta0 / sqrt(epoca)
+        for i in randperm(n)
+            append!(theta, theta[j] + delta * (log(x[i]) - digamma(theta[j])))
+            j += 1
+        end
+        erro = abs(U(theta[end]))
+        if epoca % 500 == 0
+            println("Erro na época $epoca: $erro")
+        end
+        epoca += 1
+    end
+    epocasExecutadas = epoca - 1
+    if erro > erromax
+        error("O método não convergiu em $epocasMax épocas.")
+    end
+    println("Theta final: $(theta[end])")
+    println("Total de épocas: $epocasExecutadas")
+    println("Escore da amostra no valor final: $(U(theta[end]))")
+
     p = plot(U, xlims = (0.1, 100), label = "U")
     vline!(theta[1:500:end], label = "(Alguns dos) thetas calculados")
     hline!([0], label = "", color = :black)
     return display(p)
 end
 
-descida_estocastica_limitada()
+descida_estocastica()
 ```
-

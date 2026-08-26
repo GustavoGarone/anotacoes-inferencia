@@ -45,13 +45,11 @@ Note que o teste para a média sob normalidade que conhecemos é dado por
 
 $$
 \begin{aligned}
-&\text{Rejeita $H_{0}$ se} \\
-&\begin{cases}
-\bar{x} > 0 + z_{\alpha} \sqrt{ \frac{1}{10} } \\
-\end{cases} \\
-& \text{Em que $z_{\alpha}$ é tal que} \\
+&\text{Rejeita } \mathcal{H}_{0} \text{ se} \\
+&\bar{x} > 0 + z_{\alpha} \sqrt{\frac{1}{10}}, \\
+&\text{em que } z_{\alpha} \text{ é tal que} \\
 & P\left( \mathrm{N(0,1)} \geq z_{\alpha} \right) = \alpha
-\end{aligned} \\
+\end{aligned}
 $$
 
 Logo, nossa estatística é $\bar{X}$ que segue distribuição $N(0, 1/n)$ sob
@@ -101,9 +99,9 @@ histogram(
 plot!(Uniform(0, 1), label = L"\mathrm{Unif}(0,1)")
 ```
 
-Gerando em um modelo diferente de $\mathcal{H}_0$ exibirá o erro na distribuição
-do $\mathrm{valor}-p$, mesmo com desvios muito pequenos da hipótese nula ($ \mu
-= 0 \times \mu = 0.05)$:
+Gerar dados sob um modelo diferente de $\mathcal{H}_0$ faz com que a
+distribuição dos valores-$p$ deixe de ser uniforme, mesmo para desvios muito
+pequenos em relação à hipótese nula (de $\mu = 0$ para $\mu = 0{,}05$):
 
 ```{julia}
 #| echo: true
@@ -120,8 +118,10 @@ histogram(
 plot!(Uniform(0, 1), label = L"\mathrm{Unif}(0,1)")
 ```
 
-Mesmo sob $\mathcal{H}_0$, tamanhos amostrais pequenos podem influenciar a
-distribuição observada dos valores-$p$.
+Neste modelo normal com variância conhecida, sob $\mathcal{H}_0$ os
+valores-$p$ seguem exatamente uma distribuição uniforme em $(0,1)$ para
+qualquer tamanho amostral. Portanto, potenciais desvios são causados apenas
+pela variabilidade aleatória da simulação.
 
 ```{julia}
 #| echo: true

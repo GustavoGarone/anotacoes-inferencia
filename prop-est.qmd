@@ -144,7 +144,6 @@ $$
 Seja $X\sim \mathrm{Beta}(\theta, 1)$.
 
 <!-- TODO: bonitificar histogramas: Bordas brancas, grossura vline, cor da normal (talvez grossura) -->
-<!-- TODO: resultados estranhos -->
 
 ```{julia}
 #| echo: true
@@ -188,11 +187,13 @@ qMM = quantile(normMM, 0.25)
 qMV = quantile(normMV, 0.25)
 println("theta0: $theta0")
 println("Viés simulado MM: $(mean(MMs)-theta0)")
-println("EQM simulado MM: $(n *mean((MMs .- theta0).^2))")
+println("EQM simulado MM: $(mean((MMs .- theta0).^2))")
 println("Viés simulado MV: $(mean(MVs) - theta0)")
-println("EQM simulado MV: $(n * mean((MVs .- theta0).^2))")
-println("P(NormalMM > $(qMM)) = $(round(ccdf(normMM, qMM), digits=2))")
-println("P(NormalMV > $(qMV)) = $(round(ccdf(normMM, qMV),digits=2))")
-println("Real MM > 2.5 = $(mean(MMs .> qMM))")
-println("Real MV > 2.5 = $(mean(MVs .> qMV))")
+println("EQM simulado MV: $(mean((MVs .- theta0).^2))")
+println("P(NormalMM > qMM = $(round(qMM, digits=4))) = " *
+        "$(round(ccdf(normMM, qMM), digits=2))")
+println("P(NormalMV > qMV = $(round(qMV, digits=4))) = " *
+        "$(round(ccdf(normMV, qMV), digits=2))")
+println("Proporção simulada MM > qMM: $(mean(MMs .> qMM))")
+println("Proporção simulada MV > qMV: $(mean(MVs .> qMV))")
 ```

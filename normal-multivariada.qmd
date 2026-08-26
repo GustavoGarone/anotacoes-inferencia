@@ -170,7 +170,7 @@ Como $\Sigma$ é uma matriz quadrada simétrica e positiva definida, todos seus 
 $$
 \Sigma = \Gamma \Lambda \Gamma^T
 $$
-em que $\Gamma$ é a matriz diagonal de autovetores de $\Sigma$ e $\Lambda$ é a matriz diagonal de autovalores de $\Sigma$.
+em que $\Gamma$ é a matriz ortogonal cujas colunas são os autovetores de $\Sigma$ e $\Lambda$ é a matriz diagonal de autovalores de $\Sigma$.
 
 Pode-se mostrar que $\Sigma^{-1} = \Gamma \Lambda^{-1}\Gamma^T$ e $\Sigma^{-\frac{1}{2}} = \Gamma \Lambda^{-\frac{1}{2}}\Gamma^T$
 em que
@@ -199,8 +199,7 @@ $$
 
 <!-- TODO: terminar -->
 ```{julia}
-#|eval: false
-#| output: false
+#| echo: true
 using LinearAlgebra, Distributions, Random
 Random.seed!(10)
 d = Normal(3, 1)
@@ -208,10 +207,13 @@ a = rand(d, 3, 3)
 b = a * transpose(a)
 L = Diagonal(eigvals(b))
 G = eigvecs(b)
+raiz_inversa_direta = b^(-1 / 2)
+raiz_inversa_decomp = G * Diagonal(diag(L) .^ (-1 / 2)) * transpose(G)
 println("Gama: $G")
 println("Lambda: $L")
-println("Matriz raiz quadrada (direto): $(b^(-1 / 2))")
-println("Matriz raiz quadrada (decomposição): $(G * sqrt.(L) * transpose(G))")
+println("Matriz raiz quadrada inversa (direto): $raiz_inversa_direta")
+println("Matriz raiz quadrada inversa (decomposição): $raiz_inversa_decomp")
+println("Norma da diferença: $(norm(raiz_inversa_direta - raiz_inversa_decomp))")
 println("Traço (direto): $(tr(b))")
 println("Traço (por Lambda): $(tr(L))")
 ```
@@ -763,38 +765,55 @@ $$
 I_1(\theta)^{-1} &= \frac{1}{(\psi_2(\alpha) - \psi_2(\alpha+\beta))(\psi_2(\beta)-\psi_2(\alpha+\beta))-\psi_2(\alpha+\beta)^2} \\
 &\cdot
 \begin{bmatrix}
-\psi_2(\alpha) - \psi_2(\alpha + \beta) & \psi_2(\alpha+\beta) \\
-\psi_2(\alpha+\beta) & \psi_2(\beta) - \psi_2(\alpha+\beta)
+\psi_2(\beta) - \psi_2(\alpha + \beta) & \psi_2(\alpha+\beta) \\
+\psi_2(\alpha+\beta) & \psi_2(\alpha) - \psi_2(\alpha+\beta)
 \end{bmatrix}.
 \end{aligned}
 $$
 
 ```{julia}
-#| eval: false
-using Distributions, Random, Plots, SpecialFunctions, LinearAlgebra
+#| echo: true
+using Distributions, Random, SpecialFunctions, LinearAlgebra
 Random.seed!(1)
-n = 10
-alpha0 = 1.2
-beta0 = 7
-x = rand(Beta(alpha0, beta0), n)
-function U(θ)
-    U1 = -n * digamma(θ[1]) + n * digamma(θ[1] + θ[2]) + sum(log.(x))
-    U2 = -n * digamma(θ[2]) + n * digamma(θ[1] + θ[2]) + sum(log.(1 .- x))
-    return [U1, U2]
+function main()
+    n = 10
+    alpha0 = 1.2
+    beta0 = 7
+    x = rand(Beta(alpha0, beta0), n)
+
+    function U(θ)
+        U1 = -n * digamma(θ[1]) + n * digamma(θ[1] + θ[2]) + sum(log.(x))
+        U2 = -n * digamma(θ[2]) + n * digamma(θ[1] + θ[2]) + sum(log.(1 .- x))
+        return [U1, U2]
+    end
+
+    function I1(θ)
+        I11 = trigamma(θ[1]) - trigamma(θ[1] + θ[2])
+        I22 = trigamma(θ[2]) - trigamma(θ[1] + θ[2])
+        I12 = -trigamma(θ[1] + θ[2])
+        return [I11 I12; I12 I22]
+    end
+
+    In(θ) = n * I1(θ)
+    thetahat = [0.1, 0.1]
+    erromax = 0.0005
+    erro = Inf
+    i = 1
+    iteracoesMax = 1000
+    while erro > erromax && i <= iteracoesMax
+        thetahat0 = thetahat
+        thetahat = thetahat .+ inv(In(thetahat)) * U(thetahat)
+        erro = maximum(abs.(thetahat .- thetahat0))
+        println("Erro na iteração $i: $erro")
+        i += 1
+    end
+    if erro > erromax
+        error("O método não convergiu em $iteracoesMax iterações.")
+    end
+    println("Theta final: $thetahat")
+    println("Total de iterações: $(i - 1)")
+    return thetahat
 end
-function I1(θ)
-    I11 = trigamma(θ[1]) - trigamma(θ[1] + θ[2])
-    I22 = trigamma(θ[2]) - trigamma(θ[1] + θ[2])
-    I12 = -trigamma(θ[1] + θ[2])
-    return [I11 I12; I12 I22]
-end
-thetahat = [0.1, 0.1]
-erro = Inf
-while (erro > 0.0005)
-    thetahat0 = thetahat
-    thetahat = thetahat .+ inv(I1(thetahat)) * U(thetahat)
-    erro = maximum(abs.(thetahat .- thetahat0))
-    println(erro)
-    println(thetahat)
-end
+
+thetahat = main()
 ```

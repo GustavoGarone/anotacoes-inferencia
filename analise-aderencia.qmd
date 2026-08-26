@@ -73,7 +73,12 @@ P(\chi^2_{59}>c) = 0.05
 $$
 
 ```{julia}
+#| echo: false
+#| output: false
 using Distributions, StatsBase, Random, Plots, LaTeXStrings
+```
+
+```{julia}
 # Anal. Aderência
 # H0 = P=P0
 #
@@ -81,7 +86,7 @@ using Distributions, StatsBase, Random, Plots, LaTeXStrings
 
 Random.seed!(1)
 amostra = sample(1:60, 2800)
-O = collect(values(countmap(amostra)))
+O = counts(amostra, 1:60)
 E = 2800 / 60
 
 chisq = sum([(E - x)^2 / E for x in O])
@@ -92,7 +97,7 @@ plot(f, xlims = (0, 120), label = "", title = L"\chi^2_{59}")
 vline!([quantile(Chisq(59), 0.95)], label = L"c = %$(round(quantil, digits=2))")
 ```
 Pelo computador, encontramos $c = 77.93$
-Logo, como $\chi^2=56.68 < 77.93$, concluímos que, sob $H_{0}$, não há evidências de que o modelo não seja equiprovável
+Logo, como $\chi^2=63.8 < 77.93$, concluímos que, sob $H_{0}$, não há evidências de que o modelo não seja equiprovável
 a $5\%$ de significância de estatística.
 
 ## K-Grupos

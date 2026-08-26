@@ -397,7 +397,7 @@ plot(
     legend = false,
     ylabel = L"1 - \pi (\theta)",
     xlabel = L"\theta",
-    title = L"\beta  = 1 - \pi (\theta) = (1-\theta)^{2}"
+    title = L"\beta  = 1 - \pi (\theta) = 1-(1-\theta)^{2}"
 )
 ```
 :::
@@ -506,14 +506,14 @@ function poder(theta)
 end
 
 a = plot(
-    poder, xlims = (mu0 - 6 * sqrt(sigma2 / 7), mu0 + 6 * sqrt(sigma2 / 7)), ylims = (0, 1.001), label = "", title = L"\alpha = \pi (\theta)",
+    poder, xlims = (mu0 - 6 * sqrt(sigma2 / n), mu0 + 6 * sqrt(sigma2 / n)), ylims = (0, 1.001), label = "", title = L"\alpha = \pi (\theta)",
     xlabel = L"\mu", ylabel = L"\alpha"
 )
 vline!([7], label = "7")
 beta(theta) = 1 - poder(theta)
 beta(mu0)
 b = plot(
-    beta, xlims = (mu0 - 6 * sqrt(sigma2 / 7), mu0 + 6 * sqrt(sigma2 / 7)), ylims = (-0.01, 1.001), label = "", title = L"\beta",
+    beta, xlims = (mu0 - 6 * sqrt(sigma2 / n), mu0 + 6 * sqrt(sigma2 / n)), ylims = (-0.01, 1.001), label = "", title = L"\beta",
     xlabel = L"\mu", ylabel = L"\beta"
 )
 vline!([7], label = "7")

@@ -128,3 +128,4 @@ em que $n$ é o tamanho amostral.
   % minimum height=4cm, label=above:Prática] (practice) {};
 
 \end{tikzpicture}
+```

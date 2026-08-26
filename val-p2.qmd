@@ -11,27 +11,26 @@ n = 100
 α = 0.1
 
 MC = 10_000
+xlogx(x) = iszero(x) ? zero(x) : x * log(x)
 
 # Razão de verossimilhanças
 function razao(dist, θ_0)
     TX = zeros(MC)
     for i in 1:MC
         x = rand(dist, n)
-        TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) +
-            2 * n * mean(x) * log(mean(x))
+        xbar = mean(x)
+        TX[i] = 2n * (θ_0 - xbar - xbar * log(θ_0) + xlogx(xbar))
     end
     return TX
 end
 
 # Estatística de Wald
 function wald(dist, θ_0)
-    C = 1
-    d = θ_0
     W = zeros(MC)
     for i in 1:MC
         x = rand(dist, n)
-        V = mean(x) # theta =emv> mean(x)
-        W[i] = n * (C * mean(x) - d)^2 / V
+        xbar = mean(x)
+        W[i] = iszero(xbar) ? Inf : n * (xbar - θ_0)^2 / xbar
     end
     return W
 end

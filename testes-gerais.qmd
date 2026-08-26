@@ -270,10 +270,11 @@ n = 100
 d = Poisson(θ_0)
 MC = 10_000
 TX = zeros(MC)
+xlogx(x) = iszero(x) ? zero(x) : x * log(x)
 for i in 1:MC
     x = rand(d, n)
-    TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) + 2 *
-        n * mean(x) * log(mean(x))
+    xbar = mean(x)
+    TX[i] = 2n * (θ_0 - xbar - xbar * log(θ_0) + xlogx(xbar))
 end
 p = histogram(
     TX, normalize = true,
@@ -290,7 +291,7 @@ plot!(Chisq(1), label = L"\chi^2_1", color = :tomato)
 
 quantil = quantile(Chisq(1), 0.9)
 rejeita = TX .> quantil
-println("Probilidade do Erro Tipo I com α = 10%: $(mean(rejeita) * 100)%")
+println("Probabilidade do Erro Tipo I com α = 10%: $(mean(rejeita) * 100)%")
 display(p)
 ```
 
@@ -498,8 +499,6 @@ para um teste escore de tamanho $\alpha$.
 
 ## Comparando as estatísticas e os testes
 
-<!-- TODO: adicionar probabilidades dos erros tipo II, gráfico das funções poder -->
-
 ```{julia}
 #| echo: true
 #| output: false
@@ -519,21 +518,19 @@ function razao(dist, θ_0)
     TX = zeros(MC)
     for i in 1:MC
         x = rand(dist, n)
-        TX[i] = 2 * n * θ_0 - 2 * n * mean(x) - 2 * n * mean(x) * log(θ_0) +
-            2 * n * mean(x) * log(mean(x))
+        xbar = mean(x)
+        TX[i] = 2n * (θ_0 - xbar - xbar * log(θ_0) + xlogx(xbar))
     end
     return TX
 end
 
 # Estatística de Wald
 function wald(dist, θ_0)
-    C = 1
-    d = θ_0
     W = zeros(MC)
     for i in 1:MC
         x = rand(dist, n)
-        V = mean(x) # theta =emv> mean(x)
-        W[i] = n * (C * mean(x) - d)^2 / V
+        xbar = mean(x)
+        W[i] = iszero(xbar) ? Inf : n * (xbar - θ_0)^2 / xbar
     end
     return W
 end
@@ -563,20 +560,20 @@ quantil = quantile(distassin, 1 - α)
 
 TX = razao(dist, θ_0)
 rejeita = TX .> quantil
-println("Probilidade do Erro Tipo I com α = 10% (Razão de Ver.):
+println("Probabilidade do Erro Tipo I com α = 10% (Razão de Ver.):
         $(mean(rejeita) * 100)%")
 
 
 ## Probabilidade do erro tipo I, α = 10%, Wald
 W = wald(dist, θ_0)
 rejeita = W .> quantil
-println("Probilidade do Erro Tipo I com α = 10% (Wald):
+println("Probabilidade do Erro Tipo I com α = 10% (Wald):
         $(mean(rejeita) * 100)%")
 
-## Probabilidade do erro tipo I, α = 10%, Wald
+## Probabilidade do erro tipo I, α = 10%, Escore
 R = escore(dist, θ_0)
 rejeita = R .> quantil
-println("Probilidade do Erro Tipo I com α = 10% (Escore):
+println("Probabilidade do Erro Tipo I com α = 10% (Escore):
         $(mean(rejeita) * 100)%")
 
 pv = histogram(
@@ -598,48 +595,78 @@ plot!(Chisq(1), label = L"\chi^2_1", color = :tomato)
 l = @layout [pv pw; pr]
 plot(pv, pw, pr, layout = l)
 ```
-<!-- TODO: melhorar performance -->
+
 Para comparar, podemos também gerar sob $\mathcal{H}_1$:
 ```{julia}
 #| echo: true
-#| eval: false
 # Gerando sob H_1
 
-rejeitaTX(θ) = mean(razao(dist, θ) .> quantil)
-rejeitaW(θ) = mean(wald(dist, θ) .> quantil)
-rejeitaR(θ) = mean(escore(dist, θ) .> quantil)
+function estatisticas_poisson(θ, θ_0)
+    # Se X_i ~ Pois(θ), então a soma da amostra tem distribuição Pois(nθ).
+    totais = rand(Poisson(n * θ), MC)
+    xbar = totais ./ n
+
+    TX = @. 2n * (θ_0 - xbar - xbar * log(θ_0) + xlogx(xbar))
+    W = [iszero(x) ? Inf : n * (x - θ_0)^2 / x for x in xbar]
+    R = @. n * (xbar - θ_0)^2 / θ_0
+    return TX, W, R
+end
+
 Δ = θ_0 * 0.3
-# alance = length(Θ_0-Δ:0.1:Θ_0+Δ)
-# poderTX = zeros(alcance)
-# poderW = zeros(alcance)
-# poderR = zeros(alcance)
-# for i in Θ_0-Δ:0.1:Θ_0+Δ
-#   poderTX[i] = rejeitaTX(i)
-# end
+valores_theta = range(θ_0 - Δ, θ_0 + Δ, length = 31)
+poderTX = zeros(length(valores_theta))
+poderW = zeros(length(valores_theta))
+poderR = zeros(length(valores_theta))
+
+for (i, θ_1) in enumerate(valores_theta)
+    TX1, W1, R1 = estatisticas_poisson(θ_1, θ_0)
+    poderTX[i] = mean(TX1 .> quantil)
+    poderW[i] = mean(W1 .> quantil)
+    poderR[i] = mean(R1 .> quantil)
+end
+
+# Probabilidades do erro tipo II em dois valores representativos sob H_1.
+indices_beta = [
+    argmin(abs.(valores_theta .- (θ_0 - Δ / 3))),
+    argmin(abs.(valores_theta .- (θ_0 + Δ / 3)))
+]
+for i in indices_beta
+    println("θ_1 = $(valores_theta[i]):")
+    println("  β (Razão de Ver.) = $(round(1 - poderTX[i], digits = 4))")
+    println("  β (Wald) = $(round(1 - poderW[i], digits = 4))")
+    println("  β (Escore) = $(round(1 - poderR[i], digits = 4))")
+end
+
 pv = plot(
-    rejeitaTX,
-    xlims = (θ_0 - Δ, θ_0 + Δ),
+    valores_theta,
+    poderTX,
     ylims = (0, 1),
     label = "",
     ylabel = "Poder Razão de ver.",
     xlabel = L"θ_1"
 )
+vline!([θ_0], label = L"θ_0", color = :black)
+hline!([α], label = L"\alpha", color = :grey, linestyle = :dash)
 pw = plot(
-    rejeitaW,
-    xlims = (θ_0 - Δ, θ_0 + Δ),
+    valores_theta,
+    poderW,
     ylims = (0, 1),
     label = "",
     ylabel = "Poder Wald",
     xlabel = L"θ_1"
 )
+vline!([θ_0], label = L"θ_0", color = :black)
+hline!([α], label = L"\alpha", color = :grey, linestyle = :dash)
 pr = plot(
-    rejeitaR,
-    xlims = (θ_0 - Δ, θ_0 + Δ),
+    valores_theta,
+    poderR,
     ylims = (0, 1),
     label = "",
     ylabel = "Poder Escore",
     xlabel = L"θ_1"
 )
+vline!([θ_0], label = L"θ_0", color = :black)
+hline!([α], label = L"\alpha", color = :grey, linestyle = :dash)
 l = @layout [pv pw; pr]
 plot(pv, pw, pr, layout = l)
 ```

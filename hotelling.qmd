@@ -131,25 +131,68 @@ $$
 
 análogo para o segundo.
 
+## Simulação de Monte Carlo
 
-<!-- TODO: monte carlo normal multivariada (ver algoritmo), fazer na mão e com a
-multivariada direta -->
+Vamos comparar a distribuição empírica da estatística com a distribuição
+$F_{(p,n-p)}$. Geraremos as amostras de duas formas: pela transformação de
+normais padrão e diretamente por meio da normal multivariada.
 
 ```{julia}
-#| eval: false
-#| output: false
-using Distributions, LinearAlgebra
+#| echo: true
+using Distributions, LaTeXStrings, LinearAlgebra, Random, StatsBase
+using Plots, StatsPlots
+
+Random.seed!(25)
 
 p = 2
 n = 15
-C = I(p)
 Sigma = [4 2; 2 3]
-mu = 10 * rand(Uniform, p)
+mu = 10 * rand(Uniform(), p)
 MC = 10_000
 
-for _i in MC
-    x = rand(MvNormal(mu, Sigma), n)
-    xbar = mean.(eachcol[x])
-    S2 = (n - 1) / n * cov(x)
+function estatistica_hotelling(x, mu)
+    n = size(x, 2)
+    p = size(x, 1)
+    xbar = vec(mean(x, dims = 2))
+    centralizada = x .- xbar
+    S2 = centralizada * transpose(centralizada) / n
+    diferenca = xbar - mu
+    return (n - p) / p * dot(diferenca, S2 \ diferenca)
 end
+
+estatisticas_manual = zeros(MC)
+estatisticas_direta = zeros(MC)
+
+# Geração manual: X = mu + Sigma^(1/2) Z, com Z ~ N_p(0, I).
+raiz_Sigma = cholesky(Symmetric(Sigma)).L
+dist = MvNormal(mu, Sigma)
+for i in 1:MC
+    x_manual = mu .+ raiz_Sigma * randn(p, n)
+    x_direta = rand(dist, n)
+    estatisticas_manual[i] = estatistica_hotelling(x_manual, mu)
+    estatisticas_direta[i] = estatistica_hotelling(x_direta, mu)
+end
+
+dist_assintotica = FDist(p, n - p)
+quantil = quantile(dist_assintotica, 0.95)
+println("Cobertura empírica pela geração manual: " *
+        "$(mean(estatisticas_manual .<= quantil) * 100)%")
+println("Cobertura empírica pela geração direta: " *
+        "$(mean(estatisticas_direta .<= quantil) * 100)%")
+
+pmanual = histogram(
+    estatisticas_manual, normalize = :pdf, bins = 50,
+    title = "Geração manual", label = "", xlabel = "Estatística",
+    ylabel = "Densidade"
+)
+plot!(dist_assintotica, label = L"F_{p,n-p}", color = :tomato)
+
+pdireta = histogram(
+    estatisticas_direta, normalize = :pdf, bins = 50,
+    title = "Normal multivariada direta", label = "", xlabel = "Estatística",
+    ylabel = "Densidade"
+)
+plot!(dist_assintotica, label = L"F_{p,n-p}", color = :tomato)
+
+display(plot(pmanual, pdireta))
 ```
