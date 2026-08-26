@@ -64,6 +64,15 @@
           '';
       });
 
+      juliaFFmpeg = pkgs.writeShellScriptBin "ffmpeg" ''
+        unset LD_LIBRARY_PATH
+        exec ${pkgs.ffmpeg-headless}/bin/ffmpeg "$@"
+      '';
+      juliaFFprobe = pkgs.writeShellScriptBin "ffprobe" ''
+        unset LD_LIBRARY_PATH
+        exec ${pkgs.ffmpeg-headless}/bin/ffprobe "$@"
+      '';
+
       # Extract the site-packages path directly in Nix
       pythonPath = "${pythonEnv}/${pkgs.python313.sitePackages}";
     in {
@@ -75,6 +84,8 @@
             patchedQuarto
             my-tex
             librsvg
+            juliaFFmpeg
+            juliaFFprobe
             julia-bin
             pythonEnv
           ]
@@ -96,6 +107,7 @@
             using Pkg, Preferences
             set_preferences!(Pkg.Types.UUID("6f49c342-dc21-5d91-9882-a32aef131414"), "Rhome" => "'$R_HOME'", "libR" => "'$LIBR'", force = true)
             set_preferences!(Pkg.Types.UUID("6099a3de-0909-46bc-b1f4-468b9a2dfc0d"), "python" => "'$JULIA_PYTHONCALL_EXE'", force = true)
+            set_preferences!((Pkg.Types.UUID("b22a6f82-2f65-5046-a5b2-351ab43fb4e5"), "FFMPEG_jll"), "ffmpeg_path" => "${juliaFFmpeg}/bin/ffmpeg", "ffprobe_path" => "${juliaFFprobe}/bin/ffprobe", force = true)
           '
 
           pip freeze | grep -v "tkinter" > py_requirements.txt
