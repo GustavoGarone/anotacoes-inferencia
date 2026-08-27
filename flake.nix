@@ -83,6 +83,7 @@
             jetbrains-mono
             patchedQuarto
             my-tex
+            inkscape
             librsvg
             juliaFFmpeg
             juliaFFprobe
