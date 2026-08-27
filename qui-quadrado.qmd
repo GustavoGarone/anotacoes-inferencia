@@ -49,7 +49,7 @@ para $\nu > 30$
 #| echo: false
 #| output: false
 ENV["GKSwstype"] = "100"
-using Plots, Distributions, LaTeXStrings
+using Plots, Distributions, LaTeXStrings, Logging
 ```
 
 ```{julia}
@@ -60,7 +60,6 @@ function grafico_quiquadrado(nu, x)
     plot(
         x,
         pdf.(Chisq(nu), x),
-        title = "Distribuição qui-quadrado",
         label = L"\nu = %$nu",
         xlabel = "x",
         ylabel = "Densidade",
@@ -69,7 +68,8 @@ function grafico_quiquadrado(nu, x)
         linewidth = 2,
         color = :steelblue,
         legend = :topright,
-        size = (800, 450),
+        right_margin = 5Plots.mm,
+        size = (700, 400),
     )
 end
 
@@ -80,7 +80,10 @@ animacao = @animate for nu in graus_liberdade
     grafico_quiquadrado(nu, x)
 end
 
-gif(animacao, fps = 10)
+animacao_gif = with_logger(NullLogger()) do
+    gif(animacao, fps = 10)
+end
+animacao_gif
 ```
 
 ### Python
@@ -104,7 +107,7 @@ from scipy.stats import chi2
 graus_liberdade = np.arange(1, 1_001, 15)
 x = np.linspace(0.01, 1_500, 1_000)
 
-fig, ax = plt.subplots(figsize=(8, 4.5), dpi=100)
+fig, ax = plt.subplots(figsize=(7, 4), dpi=100)
 linha, = ax.plot(
     [], [],
     color="steelblue",
@@ -112,7 +115,6 @@ linha, = ax.plot(
     label=rf"$\nu = {graus_liberdade[0]}$",
 )
 ax.set(
-    title="Distribuição qui-quadrado",
     xlabel="x",
     ylabel="Densidade",
     xlim=(0, 1_500),
@@ -145,7 +147,7 @@ plt.close(fig)
 
 HTML(
     f'<img src="data:image/gif;base64,{gif_base64}" '
-    'width="800" height="450" '
+    'width="700" height="400" '
     'style="max-width: 100%; height: auto;" '
     'alt="Animação da distribuição qui-quadrado">'
 )
@@ -184,7 +186,6 @@ p <- ggplot(dados, aes(x = x, y = densidade, group = nu)) +
   ) +
   coord_cartesian(xlim = c(0, 1500), ylim = c(0, 0.1), expand = FALSE) +
   labs(
-    title = "Distribuição qui-quadrado",
     x = "x",
     y = "Densidade"
   ) +
@@ -196,15 +197,15 @@ animate(
   p,
   nframes = length(graus_liberdade),
   fps = 10,
-  width = 800,
-  height = 450,
+  width = 700,
+  height = 400,
   renderer = gifski_renderer(arquivo_gif)
 )
 
 gif_base64 <- base64enc::base64encode(arquivo_gif)
 html_animacao_r <- paste0(
   '<img src="data:image/gif;base64,', gif_base64,
-  '" width="800" height="450" ',
+  '" width="700" height="400" ',
   'style="max-width: 100%; height: auto;" ',
   'alt="Animação da distribuição qui-quadrado">'
 )
@@ -223,7 +224,7 @@ Base.HTML(html_animacao_r)
 :::
 
 ::: {.content-visible unless-format="html"}
-No PDF, apresentamos um quadro estático da animação, correspondente a $\nu = 31$.
+Neste livro, apresentamos um quadro estático da animação, correspondente a $\nu = 31$.
 
 ```{julia}
 #| label: fig-quiq-estatica
@@ -238,7 +239,6 @@ x = range(0.01, 1500, length = 1_000)
 plot(
     x,
     pdf.(Chisq(nu), x),
-    title = "Distribuição qui-quadrado",
     label = L"\nu = %$nu",
     xlabel = "x",
     ylabel = "Densidade",
@@ -247,7 +247,8 @@ plot(
     linewidth = 2,
     color = :steelblue,
     legend = :topright,
-    size = (800, 450),
+    right_margin = 5Plots.mm,
+    size = (700, 400),
 )
 ```
 :::
