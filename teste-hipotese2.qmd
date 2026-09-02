@@ -42,11 +42,80 @@ $$
 \mathcal{H}_1: \theta \in (\Theta \setminus \Theta_0) \iff \mathcal{H}_1 : P_\theta \in (\mathcal{P} \setminus \mathcal{P}_0)
 $$
 
-<!-- Em termos de espaço paramétrico, -->
-<!-- TODO: Desenho do Theta maior e theta menor e visualização dos conjuntos e relação com hipóteses e os thetas -->
+Em termos do espaço paramétrico,
 
-<!-- Em termos de família de probabilidades,  -->
-<!-- TODO: Desenho do mathcal P maior e P0 e visualização dos conjuntos e relação com hipóteses e os P_thetas -->
+```{.tikz #fig-particao-espaco-parametrico-hipoteses width=75%}
+%%| format: tex
+%%| filename: particao-espaco-parametrico-hipoteses
+%%| fig-cap: Partição do espaço paramétrico pelas hipóteses nula e alternativa
+
+\begin{tikzpicture}[x=1cm,y=1cm]
+  % Espaço paramétrico e hipótese alternativa
+  \fill[blue!10,rounded corners=8pt] (0,0) rectangle (8,4.5);
+  \draw[blue!65!black,very thick,rounded corners=8pt]
+    (0,0) rectangle (8,4.5);
+  \node[blue!65!black,font=\large] at (0.45,4.1) {$\Theta$};
+
+  % Hipótese nula
+  \fill[orange!22] (2.35,2.25) ellipse (1.55 and 1.25);
+  \draw[orange!80!black,very thick]
+    (2.35,2.25) ellipse (1.55 and 1.25);
+  \node[orange!80!black,font=\large] at (2.35,3.05) {$\Theta_0$};
+
+  % Complemento de Theta_0 dentro de Theta
+  \node[blue!65!black,align=center] at (5.75,3.45)
+    {$\Theta_1=\Theta\setminus\Theta_0$};
+
+  % Valores representativos do parâmetro
+  \fill[orange!80!black] (2.35,2.2) circle (2.2pt);
+  \node[below=5pt,font=\small] at (2.35,2.2)
+    {$\theta^{(0)}\in\Theta_0\;(\mathcal{H}_0)$};
+
+  \fill[blue!65!black] (5.75,1.9) circle (2.2pt);
+  \node[below=5pt,font=\small] at (5.75,1.9)
+    {$\theta^{(1)}\in\Theta_1\;(\mathcal{H}_1)$};
+\end{tikzpicture}
+```
+
+Assim, dentro do modelo estatístico, cada $\theta\in\Theta$ pertence a exatamente um dos conjuntos $\Theta_0$ e
+$\Theta_1=\Theta\setminus\Theta_0$.
+
+Em termos da família de probabilidades,
+
+```{.tikz #fig-particao-familia-probabilidades-hipoteses width=75%}
+%%| format: tex
+%%| filename: particao-familia-probabilidades-hipoteses
+%%| fig-cap: Partição da família de probabilidades pelas hipóteses nula e alternativa
+
+\begin{tikzpicture}[x=1cm,y=1cm]
+  % Modelo estatístico e hipótese alternativa
+  \fill[blue!10,rounded corners=8pt] (0,0) rectangle (8,4.5);
+  \draw[blue!65!black,very thick,rounded corners=8pt]
+    (0,0) rectangle (8,4.5);
+  \node[blue!65!black,font=\large] at (0.5,4.1) {$\mathcal{P}$};
+
+  % Família correspondente à hipótese nula
+  \fill[orange!22] (2.35,2.25) ellipse (1.55 and 1.25);
+  \draw[orange!80!black,very thick]
+    (2.35,2.25) ellipse (1.55 and 1.25);
+  \node[orange!80!black,font=\large] at (2.35,3.05)
+    {$\mathcal{P}_0\;(\mathcal{H}_0)$};
+
+  % Complemento de P_0 dentro de P
+  \node[blue!65!black,align=center] at (5.65,3.45)
+    {$\mathcal{P}_1=\mathcal{P}\setminus\mathcal{P}_0$\\$(\mathcal{H}_1)$};
+
+  % Medidas de probabilidade representativas
+  \fill[orange!80!black] (2.35,2.05) circle (2.2pt);
+  \node[below=5pt] at (2.35,2.05) {$P_{\theta^{(0)}}$};
+
+  \fill[blue!65!black] (5.65,1.75) circle (2.2pt);
+  \node[below=5pt] at (5.65,1.75) {$P_{\theta^{(1)}}$};
+\end{tikzpicture}
+```
+
+A parametrização $\theta\mapsto P_\theta$ leva as duas regiões do espaço paramétrico às famílias $\mathcal{P}_0$ e
+$\mathcal{P}_1$, respectivamente.
 
 Observe que $\mathcal{H}_0$ e $\mathcal{H}_1$ não são exaustivas: na prática, ambas podem ser falsas.
 
@@ -126,7 +195,51 @@ Observe que $\mathcal{H}_0, \mathcal{H}_1$ estão sempre restritas a modelo esta
 $\mathcal{H}_0, \neg \mathcal{H}_0$, não está restrita ao modelo adotado.
 
 :::{.callout-note title="Algumas considerações lógicas"}
-<!-- TODO: desenho das famílias e tal igual da outra aula com o P0 no cantinho e P1 grandão no resto do quadrado uau h0 no p0 e 1 no p1 e ta mas pode ta fora, terceira via... -->
+```{.tikz #fig-hipoteses-fora-modelo width=90%}
+%%| format: tex
+%%| filename: hipoteses-fora-modelo
+%%| fig-cap: Hipóteses estatísticas e a possibilidade de a medida geradora estar fora do modelo
+
+\begin{tikzpicture}[x=1cm,y=1cm]
+  % Universo de medidas de probabilidade
+  \fill[gray!7,rounded corners=8pt] (0,0) rectangle (10,5.5);
+  \draw[gray!70,very thick,dashed,rounded corners=8pt]
+    (0,0) rectangle (10,5.5);
+  \node[gray!70,anchor=west] at (0.3,5.15)
+    {medidas de probabilidade};
+
+  % Modelo estatístico adotado
+  \fill[blue!10,rounded corners=8pt] (0.65,0.55) rectangle (7.15,4.7);
+  \draw[blue!65!black,very thick,rounded corners=8pt]
+    (0.65,0.55) rectangle (7.15,4.7);
+  \node[blue!65!black,font=\large] at (1.1,4.3) {$\mathcal{P}$};
+
+  % Família da hipótese nula
+  \fill[orange!22] (2.45,2.55) ellipse (1.35 and 1.15);
+  \draw[orange!80!black,very thick]
+    (2.45,2.55) ellipse (1.35 and 1.15);
+  \node[orange!80!black,align=center] at (2.45,3.25)
+    {$\mathcal{P}_0$\\$(\mathcal{H}_0)$};
+
+  % Família da hipótese alternativa
+  \node[blue!65!black,align=center] at (5.35,3.55)
+    {$\mathcal{P}_1=\mathcal{P}\setminus\mathcal{P}_0$\\$(\mathcal{H}_1)$};
+
+  % Medidas representativas dentro do modelo
+  \fill[orange!80!black] (2.45,2.35) circle (2.2pt);
+  \node[below=5pt] at (2.45,2.35) {$P_{\theta^{(0)}}$};
+
+  \fill[blue!65!black] (5.35,1.75) circle (2.2pt);
+  \node[below=5pt] at (5.35,1.75) {$P_{\theta^{(1)}}$};
+
+  % Terceira possibilidade: medida geradora fora do modelo
+  \fill[gray!80!black] (8.6,2.45) circle (2.5pt);
+  \node[below=6pt,align=center] at (8.6,2.45)
+    {$P^\star\notin\mathcal{P}$\\$\neg\mathcal{H}_0\wedge\neg\mathcal{H}_1$};
+\end{tikzpicture}
+```
+
+No diagrama, $P^\star$ representa a medida de probabilidade que de fato explica ou gera os dados.
 
 1. Se o analista considerar que $\mathcal{H}_0$ ou $\mathcal{H}_1$ são verdadeiros, então ele está considerando que a medida que *explica* ou *gera*
 os dados está em $\mathcal{P}$. Está é a suposição de que o universo de possibilidades é fechado (suposição de Neyman-Pearson; Teoria da Decisão).
@@ -265,7 +378,45 @@ $$
 S_{\delta}^c = \{\boldsymbol{x} \in \mathfrak{X}^{(n)} : \delta(\boldsymbol{x}) = 0 \}
 $$
 
-<!-- TODO: desenho das regiões dentro do $\mathfrak{X}$ -->
+```{.tikz #fig-regioes-funcao-teste width=80%}
+%%| format: tex
+%%| filename: regioes-funcao-teste
+%%| fig-cap: Regiões de rejeição e de não rejeição no espaço amostral
+
+\begin{tikzpicture}[x=1cm,y=1cm]
+  % Espaço amostral e região de não rejeição
+  \fill[blue!10,rounded corners=8pt] (0,0) rectangle (8,4.5);
+  \draw[blue!65!black,very thick,rounded corners=8pt]
+    (0,0) rectangle (8,4.5);
+  \node[blue!65!black,font=\large] at (0.75,4.08)
+    {$\mathfrak{X}^{(n)}$};
+  \node[blue!65!black,align=center] at (2.25,3.35)
+    {$S_\delta^c$\\não rejeição de $\mathcal{H}_0$};
+
+  % Região de rejeição
+  \fill[orange!22] (5.55,2.25) ellipse (1.55 and 1.3);
+  \draw[orange!80!black,very thick]
+    (5.55,2.25) ellipse (1.55 and 1.3);
+  \node[orange!80!black,align=center] at (5.55,3.05)
+    {$S_\delta$\\rejeição de $\mathcal{H}_0$};
+
+  % Amostras representativas e valores da função teste
+  \fill[blue!65!black] (2.25,1.75) circle (2.2pt);
+  \node[below=5pt,font=\small] at (2.25,1.75)
+    {$\delta(\boldsymbol{x}^{(0)})=0$};
+
+  \fill[orange!80!black] (5.55,1.95) circle (2.2pt);
+  \node[below=5pt,font=\small] at (5.55,1.95)
+    {$\delta(\boldsymbol{x}^{(1)})=1$};
+\end{tikzpicture}
+```
+
+O complemento é tomado em relação a $\mathfrak{X}^{(n)}$. Portanto,
+$$
+\mathfrak{X}^{(n)}=S_\delta\cup S_\delta^c
+\qquad\text{e}\qquad
+S_\delta\cap S_\delta^c=\emptyset.
+$$
 
 ### Exemplo
 
@@ -407,4 +558,3 @@ $$
 $$
 Isto está incorreto na interpretação clássica de estatística!
 :::
-

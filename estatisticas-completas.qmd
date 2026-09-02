@@ -292,7 +292,40 @@ $$
 \mathcal{C} = \mathbb{R}^-\times\mathbb{R}
 $$
 
-<!-- TODO: gráfico para visualizar R- e R e relação com C_1, C\_2 (foto yukio) -->
+```{.tikz width=80%}
+%%| format: tex
+%%| filename: conjunto-c-normal-livre
+%%| fig-cap: Espaço dos parâmetros naturais da família normal com média e variância livres
+
+\begin{tikzpicture}[x=1.5cm,y=1.1cm]
+  % C = R^- x R
+  \fill[blue!10] (-3,-2.3) rectangle (0,2.7);
+  \draw[blue!60!black,thick] (0,-2.3) -- (0,2.7);
+
+  % Eixos dos parâmetros naturais
+  \draw[->,thick] (-3.2,0) -- (1.15,0)
+    node[right] {$c_1(\theta)=-\frac{1}{2\sigma^2}$};
+  \draw[->,thick] (0,-2.5) -- (0,2.9)
+    node[above] {$c_2(\theta)=\frac{\mu}{\sigma^2}$};
+
+  % Retângulo aberto (-2,-1) x (1,2)
+  \fill[orange!25] (-2,1) rectangle (-1,2);
+  \draw[orange!80!black,very thick,dashed] (-2,1) rectangle (-1,2);
+  \foreach \p in {(-2,1),(-2,2),(-1,1),(-1,2)}
+    \draw[orange!80!black,fill=white,thick] \p circle (1.8pt);
+
+  % Marcas dos limites do retângulo
+  \foreach \x in {-2,-1}
+    \draw (\x,0.08) -- (\x,-0.08) node[below] {$\x$};
+  \foreach \y in {1,2}
+    \draw (0.06,\y) -- (-0.06,\y) node[right=3pt] {$\y$};
+
+  \node[blue!60!black,align=center] at (-2.25,-1.35)
+    {$\mathcal{C}=(-\infty,0)\times\mathbf{R}$\\[-2pt]$c_1<0,\ c_2\in\mathbf{R}$};
+  \node[orange!80!black,align=center] at (-1.5,2.35)
+    {$(-2,-1)\times(1,2)$};
+\end{tikzpicture}
+```
 
 Tome, por exemplo,
 $$
@@ -356,10 +389,44 @@ $$
 \mathcal{C} = \{(c_1(\theta),c_2(\theta)):\theta>0\} = \left\{\left(-\frac{1}{2\theta^2},\frac{1}{\theta}\right)\right\}
 $$
 
-Como $c_1(\theta)$ e $c_2(\theta)$ estão relacionados funcionalmente (podemos escrever $c_1(\theta)$ como função de $c_2(\theta)$,
-temos uma curva ao invés de uma área e, portanto, não é possível encontrar um retângulo cujo interior esteja contido em $\mathcal{C}$.
+Como $c_2(\theta)=1/\theta>0$, podemos eliminar $\theta$ e escrever
+$$
+c_1(\theta)=-\frac{c_2(\theta)^2}{2},\qquad c_2(\theta)>0.
+$$
+Logo, $c_1(\theta)$ e $c_2(\theta)$ estão relacionados funcionalmente: $\mathcal{C}$ é uma curva em vez de uma área.
+Consequentemente, não existe um retângulo aberto cujo interior esteja contido em $\mathcal{C}$.
 
-<!-- TODO: gráfico como da aula (foto) -->
+```{.tikz width=80%}
+%%| format: tex
+%%| filename: conjunto-c-normal-curvada
+%%| fig-cap: Curva dos parâmetros naturais da família normal com média e desvio-padrão iguais
+
+\begin{tikzpicture}[x=1.3cm,y=1.25cm]
+  % Um retângulo aberto qualquer em torno de um ponto da curva
+  \fill[orange!18] (-1.15,0.65) rectangle (-0.2,1.35);
+  \draw[orange!80!black,thick,dashed] (-1.15,0.65) rectangle (-0.2,1.35);
+
+  % Eixos dos parâmetros naturais
+  \draw[->,thick] (-4.8,0) -- (1.1,0) node[right] {$c_1(\theta)$};
+  \draw[->,thick] (0,-0.35) -- (0,3.35) node[above] {$c_2(\theta)$};
+
+  % C = {(-c_2^2/2,c_2): c_2 > 0}
+  \draw[blue!65!black,very thick,->,domain=0.08:3,samples=100]
+    plot ({-0.5*\x*\x},{\x});
+  \draw[blue!65!black,fill=white,thick] (0,0) circle (2pt);
+
+  % Pontos representativos da parametrização
+  \fill[blue!65!black] (-0.5,1) circle (1.8pt)
+    node[below left=2pt] {$\theta=1$};
+  \fill[blue!65!black] (-2,2) circle (1.8pt)
+    node[above right=2pt] {$\theta=\frac{1}{2}$};
+
+  \node[blue!65!black,align=left] at (-3.45,0.65)
+    {$\mathcal{C}:\ c_1=-\frac{c_2^2}{2}$\\[-2pt]$c_2>0$};
+  \node[orange!80!black] at (-0.68,1.55)
+    {$R\not\subseteq\mathcal{C}$};
+\end{tikzpicture}
+```
 
 Note que esse teorema não diz se não há uma estatística completa. Para isso, [é necessário testar as estatísticas pela
 definição](estatisticas-completas.qmd#sec-ex-norm-curv)

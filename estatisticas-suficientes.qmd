@@ -1018,7 +1018,43 @@ f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) &= \frac{1}{\theta^n} \prod
 \end{aligned}
 $$
 
-<!-- TODO: add gráfico da foto -->
+Fixando $\boldsymbol{y}_n$ com $y_i>0$ para todo $i$ e escrevendo
+$y_{(n)}=\max\{y_1,\dots,y_n\}$, podemos visualizar essa densidade como função de $\theta$:
+
+```{.tikz width=80%}
+%%| format: tex
+%%| filename: densidade-uniforme-funcao-theta
+%%| fig-cap: Densidade amostral do modelo uniforme como função do parâmetro
+
+\begin{tikzpicture}[x=1.3cm,y=1.15cm]
+  \def\m{2}
+  \def\h{2.1}
+
+  % Eixos
+  \draw[->,thick] (0,0) -- (5.4,0) node[right] {$\theta$};
+  \draw[->,thick] (0,-0.25) -- (0,2.9)
+    node[above] {$f_\theta^{\mathbf{X}_n}(\mathbf{y}_n)$};
+
+  % Região em que a densidade é nula
+  \draw[blue!65!black,very thick] (0.05,0) -- (\m,0);
+  \draw[blue!65!black,fill=white,thick] (\m,0) circle (2pt);
+
+  % Salto em y_(n) e ramo theta^{-n}
+  \draw[densely dashed] (\m,0) -- (\m,\h);
+  \draw[densely dashed] (0,\h) -- (\m,\h);
+  \fill[blue!65!black] (\m,\h) circle (2pt);
+  \draw[blue!65!black,very thick,->]
+    (\m,\h) .. controls (2.65,1.15) and (3.8,0.45) .. (5.15,0.2);
+
+  % Marcas e rótulos
+  \node[below] at (\m,0) {$y_{(n)}$};
+  \node[left] at (0,\h) {$y_{(n)}^{-n}$};
+  \node[blue!65!black] at (1,0.38) {$f_\theta=0$};
+  \node[blue!65!black] at (3.65,1.25) {$f_\theta=\theta^{-n}$};
+  \node[align=center] at (\m,-0.7)
+    {$y_{(n)}=\max\{y_1,\dots,y_n\}$};
+\end{tikzpicture}
+```
 
 Note que podemos escrever
 $$
