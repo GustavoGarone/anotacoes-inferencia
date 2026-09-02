@@ -314,6 +314,8 @@ Podemos analisar os gráficos:
 ::: {.panel-tabset}
 ### Julia
 ```{julia}
+#| label: fig-teste-hipotese-alfa-julia
+#| fig-cap: 'Função poder $\alpha=\pi(\theta)=(1-\theta)^2$'
 using Plots, Distributions, LaTeXStrings
 
 function poder(theta)
@@ -327,13 +329,14 @@ plot(
 		xlims = (0.6, 1),
 		legend = false,
 		ylabel = L"\pi (\theta)",
-		xlabel = L"\theta",
-		title = L"\alpha = \pi (\theta) = (1-\theta)^{2}"
+		xlabel = L"\theta"
 )
 ```
 
 ### Python
 ```{python}
+#| label: fig-teste-hipotese-alfa-python
+#| fig-cap: 'Função poder $\alpha=\pi(\theta)=(1-\theta)^2$'
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import binom
@@ -353,7 +356,6 @@ plt.plot(val_theta, val_y, color='blue')
 plt.xlim(0.6, 1)
 plt.xlabel(r'$\theta$')
 plt.ylabel(r'$\pi (\theta)$')
-plt.title(r'$\alpha = \pi (\theta) = (1-\theta)^{2}$')
 
 plt.legend().set_visible(False)
 
@@ -362,6 +364,8 @@ plt.show()
 
 ### R
 ```{r}
+#| label: fig-teste-hipotese-alfa-r
+#| fig-cap: 'Função poder $\alpha=\pi(\theta)=(1-\theta)^2$'
 # Biblioteca de gráficos moderna, parte do Tidyverse
 library(ggplot2)
 
@@ -373,8 +377,7 @@ ggplot() +
   geom_function(fun = poder, color = "blue") +
   labs(
     x = expression(theta),
-    y = expression(pi(theta)),
-    title = expression(alpha == pi(theta) ~ "=" ~ (1 - theta)^2)
+    y = expression(pi(theta))
   ) +
   theme_minimal()
 ```
@@ -386,6 +389,8 @@ Como é uma função decrescente, seu supremo está no ponto $0.6$.
 ::: {.panel-tabset}
 ### Julia
 ```{julia}
+#| label: fig-teste-hipotese-beta-julia
+#| fig-cap: 'Função erro tipo II $\beta=1-\pi(\theta)=1-(1-\theta)^2$'
 using Plots, Distributions, LaTeXStrings
 function poder(theta)
     dist = Binomial(2, theta)
@@ -396,8 +401,7 @@ plot(
     xlims = (0, 0.601),  #.601 para exibir o último xtick
     legend = false,
     ylabel = L"1 - \pi (\theta)",
-    xlabel = L"\theta",
-    title = L"\beta  = 1 - \pi (\theta) = 1-(1-\theta)^{2}"
+    xlabel = L"\theta"
 )
 ```
 :::
@@ -495,6 +499,8 @@ Vamos usar $\mu_0 = 7$ e $\sigma^2 = 5$ para visualizarmos o comportamento de $\
 
 ```{julia}
 #| echo : false
+#| label: fig-teste-hipotese-poder-normal
+#| fig-cap: 'Função poder $\alpha=\pi(\theta)$ sob normalidade'
 using Distributions, Plots, StatsPlots, LaTeXStrings
 
 mu0 = 7
@@ -506,18 +512,24 @@ function poder(theta)
 end
 
 a = plot(
-    poder, xlims = (mu0 - 6 * sqrt(sigma2 / n), mu0 + 6 * sqrt(sigma2 / n)), ylims = (0, 1.001), label = "", title = L"\alpha = \pi (\theta)",
+    poder, xlims = (mu0 - 6 * sqrt(sigma2 / n), mu0 + 6 * sqrt(sigma2 / n)), ylims = (0, 1.001), label = "",
     xlabel = L"\mu", ylabel = L"\alpha"
 )
 vline!([7], label = "7")
 beta(theta) = 1 - poder(theta)
 beta(mu0)
 b = plot(
-    beta, xlims = (mu0 - 6 * sqrt(sigma2 / n), mu0 + 6 * sqrt(sigma2 / n)), ylims = (-0.01, 1.001), label = "", title = L"\beta",
+    beta, xlims = (mu0 - 6 * sqrt(sigma2 / n), mu0 + 6 * sqrt(sigma2 / n)), ylims = (-0.01, 1.001), label = "",
     xlabel = L"\mu", ylabel = L"\beta"
 )
 vline!([7], label = "7")
 display(a)
+```
+
+```{julia}
+#| echo: false
+#| label: fig-teste-hipotese-beta-normal
+#| fig-cap: 'Função erro tipo II $\beta$ sob normalidade'
 display(b)
 ```
 

@@ -190,7 +190,69 @@ d \in \mathbb{R}^2 : \frac{n-2}{2}
 $$
 em que $P(F_{(2,n-2)} \leq q_\gamma)=\gamma$.
 
-<!-- TODO: finalizar com algoritmos no moodle -->
 ```{julia}
-#| eval: false
+#| echo: true
+#| label: fig-regiao-confianca-normal-pivo
+#| fig-cap: 'Distribuição simulada da quantidade pivotal e densidade $F_{2,148}$'
+using Random, LinearAlgebra, Statistics
+using Distributions, Plots, StatsPlots, LaTeXStrings
+
+Random.seed!(10)
+
+p = 4
+n = 150
+MC = 10_000
+
+A = randn(p, p)
+Sigma = A * transpose(A)
+mu = 10 .* rand(p)
+
+C = [
+    1.0  -1.0   0.0   0.0
+    0.0   1.0  -1.0   0.0
+]
+s = size(C, 1)
+d = C * mu
+
+function estatistica_regiao(x, d, C)
+    n = size(x, 2)
+    s = size(C, 1)
+    xbar = vec(mean(x, dims=2))
+    x_centralizado = x .- xbar
+    S2 = x_centralizado * transpose(x_centralizado) / n
+    diferenca = C * xbar - d
+
+    return (n - s) / s * dot(diferenca, (C * S2 * transpose(C)) \ diferenca)
+end
+
+dist = MvNormal(mu, Sigma)
+W = zeros(MC)
+for i in 1:MC
+    # Cada coluna de x é uma observação de N_p(mu, Sigma).
+    x = rand(dist, n)
+    W[i] = estatistica_regiao(x, d, C)
+end
+
+dist_teorica = FDist(s, n - s)
+gamma = 0.95
+qgamma = quantile(dist_teorica, gamma)
+cobertura = mean(W .<= qgamma)
+
+println("Quantil teórico qγ: ", round(qgamma, digits=4))
+println("Cobertura de Monte Carlo: ", round(100 * cobertura, digits=2), "%")
+
+pivo = histogram(
+    W, normalize=:pdf, bins=50, label="Simulação de Monte Carlo",
+    color=:steelblue, linecolor=:white, linewidth=0.5, alpha=0.8,
+    xlabel=L"W(\theta)", ylabel="Densidade"
+)
+plot!(pivo, dist_teorica, label=L"F_{2,148}", color=:crimson,
+      linewidth=2.5)
+vline!(pivo, [qgamma], label=L"q_{0{,}95}", color=:black,
+       linewidth=2, linestyle=:dash)
+display(pivo)
 ```
+
+Como a quantidade é calculada no verdadeiro valor $d=C\boldsymbol{\mu}$, a proporção de valores menores ou iguais a
+$q_{0{,}95}$ estima o coeficiente de confiança da região. Assim, além da proximidade entre o histograma e a densidade
+$F_{(2,148)}$, esperamos obter uma cobertura de Monte Carlo próxima de $95\%$.

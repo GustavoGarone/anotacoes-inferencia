@@ -628,6 +628,9 @@ display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %
 
 #### Comparação entre o exato e aproximado
 
+A comparação começa em $n=5$. Para $n=1$, as amplitudes dos dois intervalos são proporcionais a
+$1/\sum_iX_i$, cuja esperança é infinita, e dominariam a escala do gráfico.
+
 ```{julia}
 #| echo: true
 #| output: false
@@ -636,12 +639,14 @@ using Plots, LaTeXStrings, Distributions, StatsBase, Random
 function monte_carlo_realxaprox()
     theta0 = 10
     M = 100_000
-    ns = 1:10:100
+    ns = 5:5:100
     γ = 0.95
     z = quantile(Normal(), (1 + γ) / 2)
 
     cober = zeros(length(ns))
     cobera = zeros(length(ns))
+    amplitude = zeros(length(ns))
+    amplitudea = zeros(length(ns))
     for (i, n) in enumerate(ns)
         # A soma de n exponenciais com taxa theta0 tem distribuição
         # Gamma(n, escala = 1 / theta0).
@@ -658,22 +663,33 @@ function monte_carlo_realxaprox()
 
         cober[i] = mean(I1 .<= theta0 .<= I2)
         cobera[i] = mean(Ia1 .<= theta0 .<= Ia2)
+        amplitude[i] = mean(I2 .- I1)
+        amplitudea[i] = mean(Ia2 .- Ia1)
     end
-    preal = scatter(
+
+    pcobertura = scatter(
         ns, cober, color = "blue",
-        label = "Cobertura do IC real observado",
-        title = "Comparação entre ICs: Cobertura",
+        label = "IC exato",
+        title = "Cobertura",
         ylims = (γ - 0.1, γ + 0.1),
         xlabel = L"n",
-        ylabel = "Cobertura"
+        ylabel = "Probabilidade de cobertura"
     )
-    scatter!(ns, cobera, color = "red", label = "Cobertura IC aproximado")
-    hline!([γ], label = L"\gamma")
-    return preal
+    scatter!(pcobertura, ns, cobera, color = "red", label = "IC aproximado")
+    hline!(pcobertura, [γ], label = L"\gamma")
+
+    pamplitude = scatter(
+        ns, amplitude, color = "blue",
+        label = "IC exato",
+        title = "Amplitude",
+        xlabel = L"n",
+        ylabel = "Amplitude média"
+    )
+    scatter!(pamplitude, ns, amplitudea, color = "red", label = "IC aproximado")
+
+    return plot(pcobertura, pamplitude, layout = (1, 2), size = (1000, 400))
 end
 ```
-
-<!-- TODO: adicionar comparação da amplitude, corrigir ylabel -->
 
 ```{julia}
 display(monte_carlo_realxaprox())
@@ -845,4 +861,42 @@ $$
 \mathrm{RC}(\theta, \gamma) = \left\{\theta \in \Theta : W_n(\theta) \leq q_\gamma\right\},
 $$
 
-<!-- TODO: gráfico da elipse -->
+```{.tikz width=75%}
+%%| format: tex
+%%| filename: regiao-confianca-wald-elipse
+%%| fig-cap: Região de confiança de Wald para um parâmetro bidimensional
+
+\begin{tikzpicture}[x=1.25cm,y=1.25cm]
+  \coordinate (centro) at (2.6,1.8);
+
+  % Eixos do espaço paramétrico
+  \draw[->,thick] (-0.25,0) -- (5.6,0) node[right] {$\theta_1$};
+  \draw[->,thick] (0,-0.25) -- (0,4.1) node[above] {$\theta_2$};
+
+  % Região W_n(theta) <= q_gamma
+  \begin{scope}[rotate around={25:(centro)}]
+    \fill[blue!14] (centro) ellipse (1.75 and 0.9);
+    \draw[blue!65!black,very thick] (centro) ellipse (1.75 and 0.9);
+  \end{scope}
+
+  % Centro da região e suas coordenadas
+  \draw[densely dashed] (2.6,0) -- (centro);
+  \draw[densely dashed] (0,1.8) -- (centro);
+  \fill[blue!65!black] (centro) circle (2pt);
+  \node[below] at (2.6,0) {$\hat{\theta}_1$};
+  \node[left] at (0,1.8) {$\hat{\theta}_2$};
+  \node[below right=2pt] at (centro)
+    {$\hat{\theta}=(\hat{\theta}_1,\hat{\theta}_2)$};
+
+  % Interior, fronteira e exterior
+  \node[blue!65!black] at (2.15,2.35) {$W_n(\theta)<q_\gamma$};
+  \draw[->,orange!80!black,thick] (4.85,3.45) -- (3.65,2.95);
+  \node[orange!80!black,align=left] at (4.55,3.7)
+    {fronteira: $W_n(\theta)=q_\gamma$};
+  \node at (4.75,0.75) {$W_n(\theta)>q_\gamma$};
+\end{tikzpicture}
+```
+
+A elipse é centrada em $\hat{\theta}(\boldsymbol{X}_n)$. Seus eixos principais têm as direções dos autovetores de
+$V_{\hat{\theta}(\boldsymbol{X}_n)}$ e, se $\lambda_j$ é o autovalor correspondente, o $j$-ésimo semieixo tem comprimento
+$\sqrt{q_\gamma\lambda_j/n}$.

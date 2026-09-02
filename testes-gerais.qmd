@@ -259,6 +259,8 @@ $$
 
 ```{julia}
 #| echo: true
+#| label: fig-testes-gerais-tx-sob-h0
+#| fig-cap: 'Histograma de $T(\boldsymbol{X}_n)$ sob $\mathcal{H}_0$'
 # Seja Xn a.a. de X ~ Pois(θ)
 # H0: θ = θ_0
 # H1: θ ≠ θ_0
@@ -278,7 +280,6 @@ for i in 1:MC
 end
 p = histogram(
     TX, normalize = true,
-    title = "Histograma de T(X)",
     label = "",
     ylims = (0, 1),
     bins = 20,

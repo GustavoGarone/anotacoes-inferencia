@@ -67,6 +67,8 @@ Vamos gerar dados e comparar a distribuição dos valores-$p$.
 
 ```{julia}
 #| echo: true
+#| label: fig-valorp-sob-h0-n40
+#| fig-cap: 'Histograma dos valores-$p$ sob $\mathcal{H}_0$'
 using Distributions, StatsBase, Plots, Random, LaTeXStrings, StatsPlots
 Random.seed!(314)
 
@@ -91,7 +93,6 @@ pvals = mc_valorp(Normal(), 40)
 
 histogram(
     pvals, normalize = :pdf,
-    title = "Histograma dos p-valores com dados sob " * L"\mathcal{H}_0",
     label = "",
     xlabel = L"\mathrm{valor-}p",
     ylabel = "Densidade",
@@ -105,12 +106,13 @@ pequenos em relação à hipótese nula (de $\mu = 0$ para $\mu = 0{,}05$):
 
 ```{julia}
 #| echo: true
+#| label: fig-valorp-fora-h0-n40
+#| fig-cap: 'Histograma dos valores-$p$ fora de $\mathcal{H}_0$'
 # Gerando dados fora de H_0 com n = 40
 pvals = mc_valorp(Normal(0.05, 1), 40)
 
 histogram(
     pvals, normalize = :pdf,
-    title = "Histograma dos p-valores com fora de " * L"\mathcal{H}_0",
     label = "",
     xlabel = L"\mathrm{valor-}p",
     ylabel = "Densidade",
@@ -125,12 +127,13 @@ pela variabilidade aleatória da simulação.
 
 ```{julia}
 #| echo: true
+#| label: fig-valorp-sob-h0-n5
+#| fig-cap: 'Histograma dos valores-$p$ sob $\mathcal{H}_0$, com $n=5$'
 # Gerando dados sob H_0 com n = 5
 pvals = mc_valorp(Normal(), 5)
 
 histogram(
     pvals, normalize = :pdf,
-    title = "Histograma dos p-valores sob " * L"\mathcal{H}_0, n = 5",
     label = "",
     xlabel = L"\mathrm{valor-}p",
     ylabel = "Densidade",
@@ -141,12 +144,13 @@ plot!(Uniform(0, 1), label = L"\mathrm{Unif}(0,1)")
 O caso de dados gerados fora de $\mathcal{H}_0$ se acentua com amostras maiores:
 ```{julia}
 #| echo: true
+#| label: fig-valorp-fora-h0-n100
+#| fig-cap: 'Histograma dos valores-$p$ fora de $\mathcal{H}_0$, com $n=100$'
 # Gerando dados fora de H_0 com n = 100
 pvals = mc_valorp(Normal(0.05, 1), 100)
 
 histogram(
     pvals, normalize = :pdf,
-    title = "Histograma dos p-valores com fora de " * L"\mathcal{H}_0, n = 100",
     label = "",
     xlabel = L"\mathrm{valor-}p",
     ylabel = "Densidade",
