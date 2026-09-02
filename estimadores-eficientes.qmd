@@ -166,11 +166,12 @@ Dizemos que $T(\boldsymbol{X}_n)$ é um [estimador assintoticamente](estimadores
 
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{Poiss}(\theta),\theta \in \mathbb{R}_+$.
 
-a-) Verifique se $T(\boldsymbol{X}_n) = \left(1- \frac{1}{n}\right)^{\sum_{i=1}^n X_i}$
+a-) Verifique se $T(\boldsymbol{X}_n) = \left(1- \frac{1}{n}\right)^{\sum_{i=1}^n X_i}$ é assintoticamente eficiente.
 
-b-) Verifique se $T^*(\boldsymbol{X}_n) = \frac{1}{n} \mathbb{1}(X_i=0)$
+b-) Verifique se $T^*(\boldsymbol{X}_n) = \frac{1}{n}\sum_{i=1}^n\mathbb{1}(X_i=0)$ é assintoticamente eficiente.
 
-c-) Verifique se $T_{MV}(\boldsymbol{X}_n) = \mathrm{e}^{-\bar{X}}$ é eficiente para $g(\theta) = P_\theta(X=0)$.
+c-) Verifique se $T_{MV}(\boldsymbol{X}_n) = \mathrm{e}^{-\bar{X}}$ é assintoticamente eficiente para
+$g(\theta) = P_\theta(X=0)$.
 
 #### Resposta a-)
 
@@ -203,7 +204,7 @@ $$
 Portanto,
 $$
 \begin{aligned}
-\mathrm{e}^{\frac{\theta}{n}} &= 1 + \frac{\theta}{n} + (\frac{\theta}{n})^2\frac{1}{x!} + \dots \\
+\mathrm{e}^{\frac{\theta}{n}} &= 1 + \frac{\theta}{n} + \left(\frac{\theta}{n}\right)^2\frac{1}{2!} + \dots \\
 \iff \mathrm{e}^{\frac{\theta}{n}} - 1 &= \frac{\theta}{n} + \frac{\theta^2}{n^2 2!} + \dots \\
 \iff n (\mathrm{e}^{\frac{\theta}{n}} - 1) &= \theta + \frac{\theta^2}{n 2!} + \dots \\
 \Rightarrow \lim_{n\rightarrow \infty} n (\mathrm{e}^{\frac{\theta}{n}} - 1) &= \theta,\ \forall \theta \in \Theta.
@@ -262,28 +263,31 @@ $$
 E_\theta(T_{MV}(\boldsymbol{X}_n)) = M_{\sum X_i}(-\frac{1}{n}) = \mathrm{e}^{n\theta (\mathrm{e}^{-\frac{1}{n}} - 1)}
 $$
 
-<!-- TODO: arrumar 2h como j = 2h etc -->
-
-Ademais,
+Para estudar o limite dessa esperança, usaremos o limite fundamental
+$$
+\lim_{x\to 0}\frac{\mathrm{e}^x-1}{x}=1.
+$$
+De fato,
 $$
 \begin{aligned}
-\mathrm{e}^{-\frac{1}{n}} &= 1 - \frac{1}{n} + \left(-\frac{1}{n}\right)^2 \cdot \frac{1}{2} + \dots \\
-\iff \mathrm{e}^{-\frac{1}{n}} - 1 &= - \frac{1}{n} + \frac{1}{n^2 2!}+ \dots \\
-\iff n\theta(\mathrm{e}^{-\frac{1}{n}} - 1) &= -\theta + \underbracket{\left(\frac{\theta}{2n}+ \dots\right)}_{h(\theta,n)} \\
-\Rightarrow E_\theta(T_{MV}(\boldsymbol{X}_n)) &= \mathrm{e}^{-\theta + h(\theta,n)}
+\lim_{n\to\infty}n\theta\left(\mathrm{e}^{-1/n}-1\right)
+&=-\theta\lim_{n\to\infty}
+\frac{\mathrm{e}^{-1/n}-1}{-1/n} \\
+&=-\theta.
 \end{aligned}
 $$
-
-Como $h(\theta,n) \neq 0$,
+Pela continuidade da função exponencial,
 $$
-E_\theta(T_{MV}(\boldsymbol{X}_n)) \neq \mathrm{e}^{-\theta},
-$$
-e
-$$
-\lim_{n\rightarrow\infty} E_\theta(T_{MV}(\boldsymbol{X}_n)) = \mathrm{e}^{-\theta},\ \forall \theta \in \Theta.
+\lim_{n\to\infty}E_\theta\left(T_{MV}(\boldsymbol{X}_n)\right)
+=\mathrm{e}^{-\theta}
+=g(\theta),\qquad \forall\theta\in\Theta.
 $$
 
-Apesar de $T_{MV}(\boldsymbol{X}_n)$ ser viciado para $g(\theta) = \mathrm{e}^{\theta}$, ela é não-viciada assintoticamente.
+Para todo $n$ finito, $\mathrm{e}^{-1/n}\neq 1-1/n$. Portanto,
+$$
+E_\theta\left(T_{MV}(\boldsymbol{X}_n)\right)\neq\mathrm{e}^{-\theta},
+$$
+e $T_{MV}(\boldsymbol{X}_n)$ é viciado, mas assintoticamente não-viciado para $g(\theta)=\mathrm{e}^{-\theta}$.
 
 Note ainda que
 $$
@@ -294,56 +298,52 @@ E_\theta(T_{MV}(\boldsymbol{X}_n)^2) &= E_\theta\left(\mathrm{e}^{-\frac{2}{n} \
 \end{aligned}
 $$
 
-Portanto,
+Defina
 $$
-\mathrm{Var}_\theta(T_{MV}(\boldsymbol{X}_n)) = \mathrm{e}^{n\theta \left(\mathrm{e}^{-\frac{2}{n}} -1\right)} - \mathrm{e}^{-2\theta + 2h(\theta,n)}
+a_n=n\theta\left(\mathrm{e}^{-1/n}-1\right).
 $$
-
-Seguindo,
+Como $E_\theta(T_{MV}(\boldsymbol{X}_n))=\mathrm{e}^{a_n}$, temos que
 $$
 \begin{aligned}
-\mathrm{e}^{-\frac{2}{n}} &= 1 + \left(-\frac{2}{n}\right) + \left(-\frac{2}{n}\right)^2 \cdot \frac{1}{2!} + \dots \\
-\iff n\theta(\mathrm{e}^{-\frac{2}{n}} - 1) &= -2\theta + \underbracket{n\theta\left(\frac{2}{n}\right)^2 + n\theta(\dots)}_{w(\theta,n)} \\
-\Rightarrow \mathrm{Var}_\theta(T_{MV}(\boldsymbol{X}_n)) &=  \mathrm{e}^{-2\theta + w(\theta,n)} - \mathrm{e}^{-2\theta + 2h(\theta,n)} \\
-&= \mathrm{e}^{-2\theta} \left(\mathrm{e}^{w(\theta,n)} -\mathrm{e}^{2h(\theta,n)}\right)  \\
-\Rightarrow \lim_{n\rightarrow \infty} n \mathrm{Var}_\theta(T_{MV}(\boldsymbol{X}_n)
-&= \lim_{n\rightarrow \infty} n \mathrm{e}^{-2\theta} \left(\mathrm{e}^{w(\theta,n)} -\mathrm{e}^{2h(\theta,n)}\right)\\
-&= \mathrm{e}^{-2\theta} \lim_{n\rightarrow \infty} n \left(\mathrm{e}^{w(\theta,n)} -\mathrm{e}^{2h(\theta,n)}\right) \\
+\mathrm{Var}_\theta(T_{MV}(\boldsymbol{X}_n))
+&=\mathrm{e}^{n\theta(\mathrm{e}^{-2/n}-1)}-\mathrm{e}^{2a_n} \\
+&=\mathrm{e}^{2a_n}
+\left(\mathrm{e}^{n\theta(\mathrm{e}^{-1/n}-1)^2}-1\right),
+\end{aligned}
+$$
+pois
+$$
+\begin{aligned}
+n\theta\left(\mathrm{e}^{-2/n}-1\right)-2a_n
+&=n\theta\left(\mathrm{e}^{-2/n}-2\mathrm{e}^{-1/n}+1\right) \\
+&=n\theta\left(\mathrm{e}^{-1/n}-1\right)^2.
 \end{aligned}
 $$
 
-Note que
+Tome
+$$
+c_n=n\theta\left(\mathrm{e}^{-1/n}-1\right)^2.
+$$
+Temos que $c_n\to0$ e
 $$
 \begin{aligned}
-\mathrm{e}^{w(\theta,n)} &= 1 + w(\theta,n) + \frac{w(\theta,n)^2}{2!} + \dots \\
-\mathrm{e}^{2h(\theta,n)} &= 1 + 2h(\theta,n) + \frac{2h(\theta,n)^2}{2!} + \dots \\ \\
-\Rightarrow \mathrm{e}^{w(\theta,n)} -\mathrm{e}^{2h(\theta,n)} &=
-[w(\theta,n) - 2h(\theta,n)] + \left[\frac{w(\theta,n)^2}{2!} - \frac{2h(\theta,n)^2}{2!}\right] + \dots \\
-\Rightarrow n\left(\mathrm{e}^{w(\theta,n)} -\mathrm{e}^{2h(\theta,n)}\right) &=
-n[w(\theta,n) - 2h(\theta,n)] +
-\underbracket{n\left[\frac{w(\theta,n)^2}{2!} - \frac{2h(\theta,n)^2}{2!}\right] + \dots}_{\stackrel{n\uparrow\infty}{\rightarrow 0}} \\
+\lim_{n\to\infty}nc_n
+&=\theta\lim_{n\to\infty}
+\left(\frac{\mathrm{e}^{-1/n}-1}{-1/n}\right)^2 \\
+&=\theta.
+\end{aligned}
+$$
+Logo,
+$$
+\begin{aligned}
+\lim_{n\to\infty}n\mathrm{Var}_\theta(T_{MV}(\boldsymbol{X}_n))
+&=\lim_{n\to\infty}
+\mathrm{e}^{2a_n}(nc_n)\frac{\mathrm{e}^{c_n}-1}{c_n} \\
+&=\mathrm{e}^{-2\theta}\theta \\
+&=\frac{g'(\theta)^2}{I_1(\theta)},
+\qquad \forall\theta\in\Theta.
 \end{aligned}
 $$
 
-Em que
-$$
-\begin{aligned}
-2h(\theta,n) &= \frac{2\theta}{2n} - \frac{2\theta}{3!n^2} + \frac{2\theta}{4!n^3} + \dots \\
-w(\theta,n) &= \frac{4\theta}{2n} - \frac{8\theta}{3!n^2} + \frac{\theta}{4!n^3} + \dots
-\end{aligned}
-$$
-
-Agora,
-$$
-\begin{aligned}
-&n\left[\left(\frac{4\theta}{2!n} - \frac{8\theta}{3!n^2} + \dots\right) - \left(\frac{\theta}{n}-\frac{2\theta}{3!n^2} + \dots\right)\right] \\
-&=\left[\left(2\theta - \frac{8\theta}{3!n} + \dots\right) - \left(\theta - \frac{2\theta}{3!n^2} + \dots\right)\right] \\
-\stackrel{n\uparrow\infty}{\rightarrow} 2\theta - \theta &= \theta
-\end{aligned}
-$$
-
-Portanto,
-$$
-\lim_{n\rightarrow \infty} n \mathrm{Var}_\theta(T(\boldsymbol{X}_n)) = \mathrm{e}^{-2\theta} \cdot \theta,\ \forall \theta \in \Theta.
-$$
-e concluímos que $T_{MV}(\boldsymbol{X}_n) = \mathrm{e}^{-\bar{X}}$ é assintoticamente eficiente.
+Portanto, $T_{MV}(\boldsymbol{X}_n)=\mathrm{e}^{-\bar{X}}$ não é eficiente para $n$ finito, pois é viciado,
+mas é assintoticamente eficiente para $g(\theta)=\mathrm{e}^{-\theta}$.

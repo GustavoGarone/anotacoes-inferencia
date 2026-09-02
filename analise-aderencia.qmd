@@ -79,6 +79,8 @@ using Distributions, StatsBase, Random, Plots, LaTeXStrings
 ```
 
 ```{julia}
+#| label: fig-analise-aderencia-qui-quadrado
+#| fig-cap: 'Distribuição $\chi^2_{59}$ e ponto crítico do teste de aderência'
 # Anal. Aderência
 # H0 = P=P0
 #
@@ -93,7 +95,7 @@ chisq = sum([(E - x)^2 / E for x in O])
 quantil = quantile(Chisq(59), 0.95)
 
 f(t) = pdf(Chisq(59), t)
-plot(f, xlims = (0, 120), label = "", title = L"\chi^2_{59}")
+plot(f, xlims = (0, 120), label = "")
 vline!([quantile(Chisq(59), 0.95)], label = L"c = %$(round(quantil, digits=2))")
 ```
 Pelo computador, encontramos $c = 77.93$
@@ -101,13 +103,14 @@ Logo, como $\chi^2=63.8 < 77.93$, concluímos que, sob $H_{0}$, não há evidên
 a $5\%$ de significância de estatística.
 
 ## K-Grupos
-<!-- TODO: Adicionar referência bibliográfica do boletim em references.bib e .qmd -->
-(Morettin, Pag.404 E.7)
+O exemplo a seguir é o Exemplo 14.6 de
+@morettinEstatisticaBasica10a2024 [p. 427].
+
 Considere os $n=30$ dados abaixo que supostamente seguem uma distribuição normal $N(10,25)$.
 (usando os dados do livro já em ordem)
 $$
 \begin{array}{cccccc}
-1.01 & 1.73 & 3.93 & 4.44 & 6.37 & 6.51 \\
+1.04 & 1.73 & 3.93 & 4.44 & 6.37 & 6.51 \\
 \vdots  & \vdots  & \vdots & \vdots  & \vdots & \vdots \\
 14.11 & 14.6 & 14.64 & 14.75 & 16.68 & 22.14
 \end{array}
@@ -126,7 +129,7 @@ $$
 \begin{cases}
 q_{1} = 6.63 \\
 q_{2} = 10 \\
-q_{3} = 13.3
+q_{3} = 13.37
 \end{cases} \stackrel{\mathrm{Intervalos}}{\Rightarrow}
 \begin{cases}
 1.(-\infty, q_{1}) \\

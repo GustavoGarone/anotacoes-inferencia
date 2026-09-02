@@ -279,67 +279,43 @@ $$
 g(\theta) = P_\theta(X=0) = \mathrm{e^-\theta}
 $$
 
-Um estimador não-viesado para essa quantidade de interesse é $\mathbb{1}_{\{0\}}(X_1)$, uma vez que
+Um estimador não-viesado para essa quantidade de interesse é
+$S(\boldsymbol{X}_n)=\mathbb{1}_{\{0\}}(X_1)$, uma vez que
 $$
-P_\theta(\mathbb{1}_{\{0\}}(X_1) = P_\theta(X_1 = 0) \stackrel{\mathrm{a.a.}}{=} P_\theta(X = 0) = \mathrm{e}^{-\theta}
+E_\theta\left(S(\boldsymbol{X}_n)\right)
+=P_\theta(X_1=0)
+=P_\theta(X=0)
+=\mathrm{e}^{-\theta}.
 $$
 
 Portanto, pelo Teorema de Lehmann-Scheffé,
 $$
-\stackrel{\sim}{T} = E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n))
+\stackrel{\sim}{T}(\boldsymbol{X}_n)
+=E_\theta\left(S(\boldsymbol{X}_n)\mid T(\boldsymbol{X}_n)\right)
 $$
-é o ENVVUM para $g(\theta) = \mathrm{e}^{-\theta}$
+é o ENVVUM para $g(\theta) = \mathrm{e}^{-\theta}$.
 
-<!-- TODO: estratégia de gente como na lista -->
-uma estratégia é calcular $m(t) = E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)=t)$ e depois substituir $t$
-por $T(\boldsymbol{X}_n)$ em $m(t)$. Note que, por definição,
+Para calcular essa esperança condicional, note que, dado o total
+$T(\boldsymbol{X}_n)=t$, cada uma das $t$ ocorrências pode pertencer, com a
+mesma probabilidade, a qualquer uma das $n$ observações. Portanto,
+$$
+X_1 \mid T(\boldsymbol{X}_n)=t \sim \mathrm{Bin}\left(t,\frac{1}{n}\right).
+$$
 
+Como $S(\boldsymbol{X}_n)=\mathbb{1}_{\{0\}}(X_1)$, segue que
 $$
 \begin{aligned}
-E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)=t) &= \sum_{s \in \{0,1\}} s \cdot P_\theta(S(\boldsymbol{X}_n) = s \lvert T(\boldsymbol{X}_n) = t) \\
-&= P_\theta(S(\boldsymbol{X}_n) = 1 \lvert T(\boldsymbol{X}_n) = t) \\
-&= \frac{P_\theta(S(\boldsymbol{X}_n) = 1, T(\boldsymbol{X}_n) = t)}{P_\theta(T(\boldsymbol{X}_n) = t)}
+E_\theta\left(S(\boldsymbol{X}_n)\mid T(\boldsymbol{X}_n)=t\right)
+&=P_\theta\left(X_1=0\mid T(\boldsymbol{X}_n)=t\right) \\
+&=\left(1-\frac{1}{n}\right)^t.
 \end{aligned}
 $$
 
-Note que, por FGM,
+Substituindo $t$ por $T(\boldsymbol{X}_n)=\sum_{i=1}^n X_i$, obtemos o ENVVUM
 $$
-T(\boldsymbol{X}_n) = \sum_{i=1}^n X_i \sim \mathrm{Poiss}(n\theta), \theta \in (0,\infty)
-$$
-
-e para $t \in \{0,1,\dots\}$
-$$
-\text{"}S(\boldsymbol{X}_n) = 1\text{"} \iff \text{"}X_1 = 0\text{"} \Rightarrow
-E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n) = t) = \frac{P_\theta(X_1=0\lvert \sum X_i =t)}{e^{-n\theta}\frac{(n\theta)^t}{t!}}
-$$
-
-Note que
-$$
-\begin{aligned}
-P_\theta(X_1=0\lvert \sum X_i =t) &= P_\theta(\sum X_i =t \lvert X_1 = 0) \cdot P_\theta(X_1 = 0) \\
-&=P_\theta(X_1 + X_2 + \dots + X_n = t \lvert X_1 = 0)\cdot \mathrm{e}^{-\theta} \\
-&=P_\theta(0 + X_2 + \dots + X_n = t \lvert X_1 = 0)\cdot \mathrm{e}^{-\theta} \\
-&\stackrel{\mathrm{iid}}{=}P_\theta\left(\sum^n_{i=2} X_i = t - 0\right)\cdot \mathrm{e}^{-\theta} \\
-\end{aligned}
-$$
-
-Como, por FGM,
-$$
-\sum^n_{i=2} X_i \sim \mathrm{Poiss}((n-1)\theta), \theta \in (0,\infty)
-$$
-temos que
-$$
-P_\theta(X_1 = 0, \sum^n_{i=1} X_i = t) = \frac{\mathrm{e}^{-(n-1)\theta}((n-1)\theta)^t}{t!} \mathrm{e}^{-\theta}
-$$
-
-Logo,
-$$
-E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n) = t) = \frac{(n-1)^t}{n^t} = \left(1 - \frac{1}{n}\right)^t
-$$
-
-Portanto, substituindo $t$ por $T(\boldsymbol{X}_n)$, temos que
-$$
-E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)) = \left(1 - \frac{1}{n}\right)^{T(\boldsymbol{X}_n)}
+\stackrel{\sim}{T}(\boldsymbol{X}_n)
+=\left(1-\frac{1}{n}\right)^{T(\boldsymbol{X}_n)}
+=\left(1-\frac{1}{n}\right)^{\sum_{i=1}^n X_i}.
 $$
 
 ## Exemplo "patológico"
@@ -364,9 +340,10 @@ $$
 Ainda assim, em média, (como podemos verificar por [simulação de Monte Carlo](monte-carlo.qmd)), ele estimará $g(\theta)$
 sem viés com variância uniformemente mínima. Disso, temos que só deveríamos usar o ENVVUM para $n\geq 3$.
 
-<!-- TODO: Ajustar saída para LaTeX -->
 ```{julia}
 #|echo: true
+#| label: fig-envvum-simulacao
+#| fig-cap: 'Histograma de $T(\boldsymbol{X}_n)$'
 using Random, Distributions, Plots, LaTeXStrings
 Random.seed!(15)
 function simulacaoENVVUM(M=10000, n=50)
@@ -383,7 +360,6 @@ function simulacaoENVVUM(M=10000, n=50)
   media = mean(estatísticas)
   e2theta = MathConstants.e^(-2*theta)
   h = histogram(estatísticas,
-                title = LaTeXString("Histograma de \$T(X_{$n})\$"),
                 normalize=:pdf,
                 label="",
                 xlabel=LaTeXString("\$T(X_{$n})\$"),
@@ -391,8 +367,8 @@ function simulacaoENVVUM(M=10000, n=50)
   vline!([e2theta],label=L"e^{-2\theta}")
   vline!([media],label="Média")
   display(h)
-  display("Média: $media")
-  display("e^{-2 * theta} = $e2theta")
+  display(L"\text{Média simulada: } %$(round(media, digits=6))")
+  display(L"\mathrm{e}^{-2\theta} = %$(round(e2theta, digits=6))")
 end
 simulacaoENVVUM()
 ```

@@ -7,11 +7,12 @@ e somente se, sua distribuição não depende de "$\theta$".
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa)
 de $X\sim\mathrm{N}(\theta,2),\theta \in \Theta=\mathbb{R}$.
 $$
-U(\boldsymbol{X}_n) = \sum^{n}{i=1} \frac{(X_i-\bar{X})^2}{2}\sim \chi^2_{(n-1)}
+U(\boldsymbol{X}_n) = \sum_{i=1}^n \frac{(X_i-\bar{X})^2}{2}\sim \chi^2_{n-1},
 $$
-é, portanto, ancilar ao modelo.
+como mostramos na @sec-teo-somas-quadrados-normal. Como essa distribuição não depende de $\theta$,
+$U(\boldsymbol{X}_n)$ é ancilar ao modelo.
 
-## Exemplo 2 (Normal $\rightarrow$ t-student)
+## Exemplo 2 (Normal $\rightarrow \mathrm{F}$)
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ amostra aleatória de
 $X\sim\mathrm{N}(\mu,\sigma^2),\theta = (\mu,\sigma^2) \in \Theta=\mathbb{R}\times\mathbb{R}^+$.
 
@@ -24,9 +25,8 @@ $$
 não é uma estatística apesar de sua *distribuição* não depender de "$\theta$", uma vez que a estatística depende
 de "$\theta$".
 
-Construiremos duas novas estatísticas
+Construiremos duas novas estatísticas. Seja $2\leq k\leq n-2$ e defina
 
-Sejam, com $k<n$,
 $$
 \begin{aligned}
 S_1 (\boldsymbol{X}_n) &= \sum^k_{i=1}\frac{(X_i - \bar{X}_1)^2}{k-1} \\
@@ -42,52 +42,163 @@ $$
 \end{cases}
 $$
 
-Logo, $S_1(\boldsymbol{X}_n)$ é independente de $S_2(\boldsymbol{X}_n)$. Defina
+As duas subamostras são independentes. Logo, pela @sec-cor-duas-amostras-normais,
+$S_1(\boldsymbol{X}_n)$ e $S_2(\boldsymbol{X}_n)$ são independentes e
 $$
-S(\boldsymbol{X}_n) = \frac{S_1(\boldsymbol{X}_n)}{S_2(\boldsymbol{X}_n)} =
-\frac{\sum^k_{i=1}\frac{(X_i - \bar{X}_1)^2}{k-1}}{\sum^n_{i=k+1}\frac{(X_i - \bar{X}_2)^2}{n-k-1}}
-\sim \mathrm{F}_{k-1,n-k-1}
+\frac{(k-1)S_1(\boldsymbol{X}_n)}{\sigma^2}\sim\chi^2_{k-1}
+\quad\text{e}\quad
+\frac{(n-k-1)S_2(\boldsymbol{X}_n)}{\sigma^2}\sim\chi^2_{n-k-1}.
 $$
 
-Portanto, essa estatística $S(\boldsymbol{X}_n)$ é ancilar ao modelo.
-
-<!-- TODO: criar seção própria com as provas disso -->
-Observações: (serão transferidas para uma seção própria posteriormente)
-
-Se $(X_1,\dots,X_n)$ é amostra aleatória de $X\sim \mathrm{N}(\mu,\sigma^2)$, então
-
-1. $\bar{X} \sim \mathrm{N}(\mu, \frac{\sigma^2}{n})$ (por função geradora de momentos);
-
-2. $\sum_{i=1}^n \frac{(X_i - \mu)^2}{\sigma^2} \sim \chi^2_{n})$ (por função geradora de momentos e transformação de VAs);
-
-3. $\sum_{i=1}^n \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{n-1})$ (por função geradora de momentos, álgebra linear e transformação de VAs);
-
-Se $(X_1,\dots,X_n)$ é amostra aleatória de $X\sim \mathrm{N}(\mu,\sigma^2)$ e $(Y_1,\dots,Y_n)$ a.a. de $Y\sim\mathrm{N}(\mu,\sigma^2)$
-são independentes, então
-
+Pela definição dada na @sec-def-f-t,
 $$
 \begin{aligned}
-1.&\begin{cases}
-\sum^{n_1}_{i=1} \frac{(X_i - \mu_X)^2}{\sigma_X^2} \sim \chi^2_{n_1}) \\
-\sum^{n_2}_{i=1} \frac{(Y_i - \mu_X)^2}{\sigma_Y^2} \sim \chi^2_{n_2}) \\
-\end{cases}\\
-2.&\begin{cases}
-\sum^{n_1}_{i=1} \frac{(X_i - \bar{X})^2}{\sigma_X^2} \sim \chi^2_{n_1-1}) \\
-\sum^{n_2}_{i=1} \frac{(Y_i - \bar{Y})^2}{\sigma_Y^2} \sim \chi^2_{n_2-1}) \\
-\end{cases}\\
+S(\boldsymbol{X}_n)
+&=\frac{S_1(\boldsymbol{X}_n)}{S_2(\boldsymbol{X}_n)} \\
+&=\frac{\dfrac{(k-1)S_1(\boldsymbol{X}_n)/\sigma^2}{k-1}}
+        {\dfrac{(n-k-1)S_2(\boldsymbol{X}_n)/\sigma^2}{n-k-1}}
+\sim \mathrm{F}_{k-1,n-k-1}.
 \end{aligned}
 $$
 
-Se $W\sim\chi^2_k$ e $Q\sim\chi^2_m$ são independentes, então
+Portanto, $S(\boldsymbol{X}_n)$ é ancilar ao modelo.
 
+## Resultados para amostras normais {#sec-resultados-amostras-normais}
+
+### Teorema (da média e das somas de quadrados) {#sec-teo-somas-quadrados-normal}
+
+Seja $\boldsymbol{X}_n=(X_1,\dots,X_n)$ uma amostra aleatória de
+$X\sim\mathrm{N}(\mu,\sigma^2)$. Então,
+
+1. $\displaystyle \bar{X}\sim\mathrm{N}\left(\mu,\frac{\sigma^2}{n}\right)$;
+
+2. $\displaystyle \sum_{i=1}^n\frac{(X_i-\mu)^2}{\sigma^2}\sim\chi^2_n$;
+
+3. $\displaystyle \sum_{i=1}^n\frac{(X_i-\bar{X})^2}{\sigma^2}\sim\chi^2_{n-1}$;
+
+4. $\displaystyle \bar{X}$ e $\displaystyle \sum_{i=1}^n(X_i-\bar{X})^2$ são independentes.
+
+#### Prova
+
+Padronize cada elemento da amostra:
 $$
-\frac{\frac{W}{k}}{\frac{Q}{m}} \sim F_{(k,m)}
+Z_i=\frac{X_i-\mu}{\sigma},\quad i=1,\dots,n.
+$$
+Assim, $Z_1,\dots,Z_n$ são independentes e têm distribuição $\mathrm{N}(0,1)$.
+Em notação vetorial,
+$$
+\boldsymbol{Z}=(Z_1,\dots,Z_n)^T\sim
+\mathrm{N}_n(\boldsymbol{0},I_n).
 $$
 
-Se $Z\sim\mathrm{N}(0,1)$ e $W\sim\chi^2_{k}$, então
-
+Considere uma matriz ortogonal $A$ cuja primeira linha seja
 $$
-\frac{Z}{\sqrt{\frac{W}{k}}} \sim t_{k}
+\boldsymbol{a}_1^T=\frac{1}{\sqrt{n}}(1,\dots,1)
+$$
+e defina $\boldsymbol{Y}=A\boldsymbol{Z}$. Como $AA^T=I_n$, pela propriedade de
+[transformações lineares da distribuição normal multivariada](normal-multivariada.qmd),
+$$
+\boldsymbol{Y}\sim\mathrm{N}_n(\boldsymbol{0},I_n).
+$$
+Logo, $Y_1,\dots,Y_n$ são independentes e cada $Y_j\sim\mathrm{N}(0,1)$.
+Além disso,
+$$
+Y_1=\boldsymbol{a}_1^T\boldsymbol{Z}
+=\frac{1}{\sqrt{n}}\sum_{i=1}^n\frac{X_i-\mu}{\sigma}
+=\frac{\sqrt{n}(\bar{X}-\mu)}{\sigma}.
+$$
+Como $Y_1\sim\mathrm{N}(0,1)$, concluímos que
+$$
+\bar{X}\sim\mathrm{N}\left(\mu,\frac{\sigma^2}{n}\right).
+$$
+
+Uma transformação ortogonal preserva a soma de quadrados. Portanto,
+$$
+\sum_{i=1}^n\frac{(X_i-\mu)^2}{\sigma^2}
+=\boldsymbol{Z}^T\boldsymbol{Z}
+=\boldsymbol{Y}^T\boldsymbol{Y}
+=\sum_{j=1}^nY_j^2
+\sim\chi^2_n,
+$$
+pela [definição da distribuição qui-quadrado](qui-quadrado.qmd).
+
+Definindo $\bar{Z}=(\bar{X}-\mu)/\sigma$, temos que
+$$
+\begin{aligned}
+\sum_{i=1}^n\frac{(X_i-\bar{X})^2}{\sigma^2}
+&=\sum_{i=1}^n(Z_i-\bar{Z})^2 \\
+&=\sum_{i=1}^nZ_i^2-n\bar{Z}^2 \\
+&=\sum_{j=1}^nY_j^2-Y_1^2 \\
+&=\sum_{j=2}^nY_j^2
+\sim\chi^2_{n-1}.
+\end{aligned}
+$$
+
+Por fim, $\bar{X}=\mu+\sigma Y_1/\sqrt{n}$ depende apenas de $Y_1$, enquanto
+$\sum_{i=1}^n(X_i-\bar{X})^2=\sigma^2\sum_{j=2}^nY_j^2$ depende apenas de
+$Y_2,\dots,Y_n$. Como essas variáveis são independentes, as duas estatísticas também são independentes.
+
+### Corolário (duas amostras normais independentes) {#sec-cor-duas-amostras-normais}
+
+Sejam
+$$
+\boldsymbol{X}_{n_1}\ \text{a.a. de}\ X\sim\mathrm{N}(\mu_X,\sigma_X^2)
+\quad\text{e}\quad
+\boldsymbol{Y}_{n_2}\ \text{a.a. de}\ Y\sim\mathrm{N}(\mu_Y,\sigma_Y^2),
+$$
+com as duas amostras independentes. Pela @sec-teo-somas-quadrados-normal,
+$$
+\begin{aligned}
+\sum_{i=1}^{n_1}\frac{(X_i-\mu_X)^2}{\sigma_X^2}&\sim\chi^2_{n_1}, &
+\sum_{i=1}^{n_2}\frac{(Y_i-\mu_Y)^2}{\sigma_Y^2}&\sim\chi^2_{n_2}, \\
+\sum_{i=1}^{n_1}\frac{(X_i-\bar{X})^2}{\sigma_X^2}&\sim\chi^2_{n_1-1}, &
+\sum_{i=1}^{n_2}\frac{(Y_i-\bar{Y})^2}{\sigma_Y^2}&\sim\chi^2_{n_2-1}.
+\end{aligned}
+$$
+
+Em cada linha, as duas variáveis aleatórias são independentes, pois são funções de amostras independentes.
+
+### Definições das distribuições $\mathrm{F}$ e $t$ de Student {#sec-def-f-t}
+
+Se $W\sim\chi^2_k$ e $Q\sim\chi^2_m$ são independentes, definimos a distribuição
+$\mathrm{F}$ com $k$ e $m$ graus de liberdade por
+$$
+\frac{W/k}{Q/m}\sim\mathrm{F}_{k,m}.
+$$
+
+Se $Z\sim\mathrm{N}(0,1)$ e $W\sim\chi^2_k$ são independentes, definimos a distribuição
+$t$ de Student com $k$ graus de liberdade por
+$$
+\frac{Z}{\sqrt{W/k}}\sim t_k.
+$$
+
+Essas definições, juntamente com a @sec-teo-somas-quadrados-normal, produzem duas estatísticas importantes. Se
+$$
+S^2_{n-1}=\frac{1}{n-1}\sum_{i=1}^n(X_i-\bar{X})^2,
+$$
+então
+$$
+Z=\frac{\sqrt{n}(\bar{X}-\mu)}{\sigma}\sim\mathrm{N}(0,1)
+\quad\text{e}\quad
+W=\frac{(n-1)S^2_{n-1}}{\sigma^2}\sim\chi^2_{n-1}.
+$$
+Além disso, $Z$ e $W$ são independentes pelo item 4 da @sec-teo-somas-quadrados-normal. Logo,
+$$
+\frac{\sqrt{n}(\bar{X}-\mu)}{S_{n-1}}
+=\frac{Z}{\sqrt{W/(n-1)}}
+\sim t_{n-1}.
+$$
+
+Da mesma forma, para as duas amostras independentes da @sec-cor-duas-amostras-normais, defina
+$$
+S_X^2=\frac{1}{n_1-1}\sum_{i=1}^{n_1}(X_i-\bar{X})^2
+\quad\text{e}\quad
+S_Y^2=\frac{1}{n_2-1}\sum_{i=1}^{n_2}(Y_i-\bar{Y})^2.
+$$
+Como as duas somas de quadrados são independentes, temos que
+$$
+\frac{S_X^2/\sigma_X^2}{S_Y^2/\sigma_Y^2}
+\sim\mathrm{F}_{n_1-1,n_2-1}.
 $$
 
 ## Ancilar de Primeira Ordem
