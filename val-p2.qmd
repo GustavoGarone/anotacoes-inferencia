@@ -6,6 +6,7 @@
 # H0: θ = θ_0
 # H1: θ ≠ θ_0
 using Random, Distributions, StatsBase, Plots, StatsPlots, LaTeXStrings
+using PythonCall, RCall
 Random.seed!(96)
 n = 100
 α = 0.1
@@ -47,6 +48,100 @@ function escore(dist, θ_0)
     return R
 end
 ```
+
+```{julia}
+#| echo: false
+#| output: false
+Main.QuartoNotebookWorker.py"""
+import numpy as np
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from scipy.stats import chi2, poisson
+
+rng = np.random.default_rng(96)
+n = 100
+alpha = 0.1
+MC = 10_000
+
+def x_log_x(x):
+    # Calcula x log(x), usando o limite 0 log(0) = 0.
+    resultado = np.zeros_like(x, dtype=float)
+    positivos = x > 0
+    resultado[positivos] = x[positivos] * np.log(x[positivos])
+    return resultado
+
+def medias_amostrais(dist):
+    # Gera MC amostras de tamanho n e devolve suas médias.
+    amostras = dist.rvs(size=(MC, n), random_state=rng)
+    return amostras.mean(axis=1)
+
+def razao(dist, theta_0):
+    xbar = medias_amostrais(dist)
+    return 2 * n * (
+        theta_0 - xbar - xbar * np.log(theta_0) + x_log_x(xbar)
+    )
+
+def wald(dist, theta_0):
+    xbar = medias_amostrais(dist)
+    estatistica = np.full(MC, np.inf)
+    positivos = xbar > 0
+    estatistica[positivos] = (
+        n * (xbar[positivos] - theta_0) ** 2 / xbar[positivos]
+    )
+    return estatistica
+
+def escore(dist, theta_0):
+    xbar = medias_amostrais(dist)
+    informacao = n / theta_0
+    funcao_escore = n * xbar / theta_0 - n
+    return funcao_escore**2 / informacao
+"""
+
+RCall.R"""
+set.seed(96)
+n <- 100
+alpha <- 0.1
+MC <- 10000
+
+xlogx <- function(x) {
+  # Calcula x log(x), usando o limite 0 log(0) = 0.
+  resultado <- numeric(length(x))
+  positivos <- x > 0
+  resultado[positivos] <- x[positivos] * log(x[positivos])
+  resultado
+}
+
+medias_amostrais <- function(theta) {
+  # Gera MC amostras de tamanho n e devolve suas médias.
+  amostras <- matrix(rpois(MC * n, lambda = theta), nrow = MC)
+  rowMeans(amostras)
+}
+
+razao <- function(theta, theta_0) {
+  xbar <- medias_amostrais(theta)
+  2 * n * (theta_0 - xbar - xbar * log(theta_0) + xlogx(xbar))
+}
+
+wald <- function(theta, theta_0) {
+  xbar <- medias_amostrais(theta)
+  estatistica <- rep(Inf, MC)
+  positivos <- xbar > 0
+  estatistica[positivos] <- (
+    n * (xbar[positivos] - theta_0)^2 / xbar[positivos]
+  )
+  estatistica
+}
+
+escore <- function(theta, theta_0) {
+  xbar <- medias_amostrais(theta)
+  informacao <- n / theta_0
+  funcao_escore <- n * xbar / theta_0 - n
+  funcao_escore^2 / informacao
+}
+"""
+```
+
 # Valor-$p$ ou nível descritivo do teste
 
 Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^p$. Considere
@@ -223,6 +318,10 @@ T'''_{H_0}(\boldsymbol{x}_n) &= 10 \cdot 1^2 = 10 \\
 $$
 
 Note que, com $n=10$, a aproximação pode não ser tão boa:
+
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 #| echo: true
 using Distributions, LaTeXStrings, Plots, StatsPlots, StatsBase
@@ -247,15 +346,102 @@ hist3 = histogram(
 l = @layout [pv pw; pr]
 plot(hist1, hist2, hist3, layout = l)
 ```
+
+### Python
+
+```{python}
+n = 10
+p1 = chi2.sf(razao(poisson(mu=1), 1), df=1)
+p2 = chi2.sf(wald(poisson(mu=1), 1), df=1)
+p3 = chi2.sf(escore(poisson(mu=1), 1), df=1)
+
+def graficos_valores_p(p1, p2, p3):
+    # Compara os valores-p das três estatísticas.
+    fig, eixos = plt.subplots(2, 2, figsize=(9, 7))
+    titulos = (
+        "Valores-P da Razão de Ver.",
+        "Valores-P de Wald",
+        "Valores-P de Escore",
+    )
+    for eixo, valores, titulo in zip(
+        (eixos[0, 0], eixos[0, 1], eixos[1, 0]),
+        (p1, p2, p3),
+        titulos,
+    ):
+        eixo.hist(valores, bins="auto", range=(0, 1), density=True)
+        eixo.set_title(titulo)
+        eixo.set(xlabel="valor-p", ylabel="Densidade")
+    eixos[1, 1].axis("off")
+    fig.tight_layout()
+    plt.show()
+
+graficos_valores_p(p1, p2, p3)
+```
+
+### R
+
+```{r}
+n <- 10
+p1 <- pchisq(razao(1, 1), df = 1, lower.tail = FALSE)
+p2 <- pchisq(wald(1, 1), df = 1, lower.tail = FALSE)
+p3 <- pchisq(escore(1, 1), df = 1, lower.tail = FALSE)
+
+graficos_valores_p <- function(p1, p2, p3) {
+  # Organiza os três histogramas em uma grade 2 x 2.
+  configuracao_anterior <- par(mfrow = c(2, 2))
+  on.exit(par(configuracao_anterior))
+
+  hist(p1, probability = TRUE, main = "Valores-P da Razão de Ver.", xlab = "valor-p")
+  hist(p2, probability = TRUE, main = "Valores-P de Wald", xlab = "valor-p")
+  hist(p3, probability = TRUE, main = "Valores-P de Escore", xlab = "valor-p")
+  plot.new()
+}
+
+graficos_valores_p(p1, p2, p3)
+```
+:::
+
 (Lembre-se que, assintoticamente, esperamos um histograma uniforme). Vamos medir:
+
+::: {.panel-tabset}
+### Julia
 
 ```{julia}
 #| output: asis
 L"\hat P(\mathrm{val.-}p_1 < 0.05) = %$(mean(p1 .< 0.05)), \hat P(\mathrm{val.-}p_2 < 0.05) = %$(mean(p2 .< 0.05)), \hat P(\mathrm{val.-}p_3 < 0.05) = %$(mean(p3 .< 0.05))"
 ```
 
+### Python
+
+```{python}
+#| output: asis
+print(
+    rf"$\hat P(\mathrm{{val.-}}p_1 < 0.05) = {np.mean(p1 < 0.05):.4f}, "
+    rf"\hat P(\mathrm{{val.-}}p_2 < 0.05) = {np.mean(p2 < 0.05):.4f}, "
+    rf"\hat P(\mathrm{{val.-}}p_3 < 0.05) = {np.mean(p3 < 0.05):.4f}$"
+)
+```
+
+### R
+
+```{r}
+#| output: asis
+cat(sprintf(
+  paste0(
+    "$\\hat P(\\mathrm{val.-}p_1 < 0.05) = %.4f, ",
+    "\\hat P(\\mathrm{val.-}p_2 < 0.05) = %.4f, ",
+    "\\hat P(\\mathrm{val.-}p_3 < 0.05) = %.4f$"
+  ),
+  mean(p1 < 0.05), mean(p2 < 0.05), mean(p3 < 0.05)
+))
+```
+:::
+
 Vamos aumentar o tamanho da amostra ($n = 1000$ para visualizarmos a
 convergência do valor $p$ em distribuição uniforme:
+
+::: {.panel-tabset}
+### Julia
 
 ```{julia}
 #| echo: true
@@ -281,7 +467,34 @@ l = @layout [pv pw; pr]
 plot(hist1, hist2, hist3, layout = l)
 ```
 
+### Python
+
+```{python}
+n = 1_000
+p1 = chi2.sf(razao(poisson(mu=1), 1), df=1)
+p2 = chi2.sf(wald(poisson(mu=1), 1), df=1)
+p3 = chi2.sf(escore(poisson(mu=1), 1), df=1)
+
+graficos_valores_p(p1, p2, p3)
+```
+
+### R
+
+```{r}
+n <- 1000
+p1 <- pchisq(razao(1, 1), df = 1, lower.tail = FALSE)
+p2 <- pchisq(wald(1, 1), df = 1, lower.tail = FALSE)
+p3 <- pchisq(escore(1, 1), df = 1, lower.tail = FALSE)
+
+graficos_valores_p(p1, p2, p3)
+```
+:::
+
 Na distribuição Poisson, espera-se que, com valores pequenos de $\theta$, a aproximação piore pela assimetria. Vejamos com $\theta_0 = 0.01, n=100$:
+
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 #| echo: true
 n = 100
@@ -306,14 +519,69 @@ l = @layout [pv pw; pr]
 plot(hist1, hist2, hist3, layout = l)
 ```
 
+### Python
+
+```{python}
+n = 100
+p1 = chi2.sf(razao(poisson(mu=0.01), 0.01), df=1)
+p2 = chi2.sf(wald(poisson(mu=0.01), 0.01), df=1)
+p3 = chi2.sf(escore(poisson(mu=0.01), 0.01), df=1)
+
+graficos_valores_p(p1, p2, p3)
+```
+
+### R
+
+```{r}
+n <- 100
+p1 <- pchisq(razao(0.01, 0.01), df = 1, lower.tail = FALSE)
+p2 <- pchisq(wald(0.01, 0.01), df = 1, lower.tail = FALSE)
+p3 <- pchisq(escore(0.01, 0.01), df = 1, lower.tail = FALSE)
+
+graficos_valores_p(p1, p2, p3)
+```
+:::
+
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 #| output: asis
 L"\hat P(\mathrm{val.-}p_1 < 0.05) = %$(mean(p1 .< 0.05)), \hat P(\mathrm{val.-}p_2 < 0.05) = %$(mean(p2 .< 0.05)), \hat P(\mathrm{val.-}p_3 < 0.05) = %$(mean(p3 .< 0.05))"
 ```
 
+### Python
+
+```{python}
+#| output: asis
+print(
+    rf"$\hat P(\mathrm{{val.-}}p_1 < 0.05) = {np.mean(p1 < 0.05):.4f}, "
+    rf"\hat P(\mathrm{{val.-}}p_2 < 0.05) = {np.mean(p2 < 0.05):.4f}, "
+    rf"\hat P(\mathrm{{val.-}}p_3 < 0.05) = {np.mean(p3 < 0.05):.4f}$"
+)
+```
+
+### R
+
+```{r}
+#| output: asis
+cat(sprintf(
+  paste0(
+    "$\\hat P(\\mathrm{val.-}p_1 < 0.05) = %.4f, ",
+    "\\hat P(\\mathrm{val.-}p_2 < 0.05) = %.4f, ",
+    "\\hat P(\\mathrm{val.-}p_3 < 0.05) = %.4f$"
+  ),
+  mean(p1 < 0.05), mean(p2 < 0.05), mean(p3 < 0.05)
+))
+```
+:::
+
 Mesmo com uma amostra maior, o efeito da assimetria fez com que a convergência assintótica fosse muito lenta.
 
 Se gerarmos dados fora da hipótese nula, como $\theta_1 = 2$, será possível visualizar o erro no histograma:
+
+::: {.panel-tabset}
+### Julia
 
 ```{julia}
 #| echo: true
@@ -339,7 +607,59 @@ l = @layout [pv pw; pr]
 plot(hist1, hist2, hist3, layout = l)
 ```
 
+### Python
+
+```{python}
+n = 10
+p1 = chi2.sf(razao(poisson(mu=2), 1), df=1)
+p2 = chi2.sf(wald(poisson(mu=2), 1), df=1)
+p3 = chi2.sf(escore(poisson(mu=2), 1), df=1)
+
+graficos_valores_p(p1, p2, p3)
+```
+
+### R
+
+```{r}
+n <- 10
+p1 <- pchisq(razao(2, 1), df = 1, lower.tail = FALSE)
+p2 <- pchisq(wald(2, 1), df = 1, lower.tail = FALSE)
+p3 <- pchisq(escore(2, 1), df = 1, lower.tail = FALSE)
+
+graficos_valores_p(p1, p2, p3)
+```
+:::
+
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 #| output: asis
 L"\hat P(\mathrm{val.-}p_1 < 0.05) = %$(mean(p1 .< 0.05)), \hat P(\mathrm{val.-}p_2 < 0.05) = %$(mean(p2 .< 0.05)), \hat P(\mathrm{val.-}p_3 < 0.05) = %$(mean(p3 .< 0.05))"
 ```
+
+### Python
+
+```{python}
+#| output: asis
+print(
+    rf"$\hat P(\mathrm{{val.-}}p_1 < 0.05) = {np.mean(p1 < 0.05):.4f}, "
+    rf"\hat P(\mathrm{{val.-}}p_2 < 0.05) = {np.mean(p2 < 0.05):.4f}, "
+    rf"\hat P(\mathrm{{val.-}}p_3 < 0.05) = {np.mean(p3 < 0.05):.4f}$"
+)
+```
+
+### R
+
+```{r}
+#| output: asis
+cat(sprintf(
+  paste0(
+    "$\\hat P(\\mathrm{val.-}p_1 < 0.05) = %.4f, ",
+    "\\hat P(\\mathrm{val.-}p_2 < 0.05) = %.4f, ",
+    "\\hat P(\\mathrm{val.-}p_3 < 0.05) = %.4f$"
+  ),
+  mean(p1 < 0.05), mean(p2 < 0.05), mean(p3 < 0.05)
+))
+```
+:::

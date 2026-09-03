@@ -1,3 +1,9 @@
+```{julia}
+#| echo: false
+#| output: false
+using PythonCall, RCall
+```
+
 # Testes de hipótese gerais
 
 ## Teste da Razão de Verossimilhanças Generalizada
@@ -257,9 +263,11 @@ $$
 P_{\theta_0}(T(\boldsymbol{X}_n) \geq c^*) \approx P(\chi^2_1 \geq c^*) \alpha.
 $$
 
+::: {.panel-tabset}
+### Julia
 ```{julia}
 #| echo: true
-#| label: fig-testes-gerais-tx-sob-h0
+#| label: fig-testes-gerais-tx-sob-h0-julia
 #| fig-cap: 'Histograma de $T(\boldsymbol{X}_n)$ sob $\mathcal{H}_0$'
 # Seja Xn a.a. de X ~ Pois(θ)
 # H0: θ = θ_0
@@ -295,6 +303,83 @@ rejeita = TX .> quantil
 println("Probabilidade do Erro Tipo I com α = 10%: $(mean(rejeita) * 100)%")
 display(p)
 ```
+
+### Python
+```{python}
+#| label: fig-testes-gerais-tx-sob-h0-python
+#| fig-cap: 'Histograma de $T(\boldsymbol{X}_n)$ sob $\mathcal{H}_0$'
+import numpy as np
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from scipy.stats import chi2
+
+# Seja Xn a.a. de X ~ Pois(θ)
+# H0: θ = θ_0
+# H1: θ ≠ θ_0
+n = 100
+theta_0 = 3
+MC = 10_000
+rng = np.random.default_rng(96)
+
+# Cada linha da matriz representa uma amostra gerada sob H0
+amostras = rng.poisson(theta_0, size=(MC, n))
+xbar = amostras.mean(axis=1)
+xlogx = np.zeros_like(xbar)
+positivos = xbar > 0
+xlogx[positivos] = xbar[positivos] * np.log(xbar[positivos])
+TX = 2 * n * (theta_0 - xbar - xbar * np.log(theta_0) + xlogx)
+
+quantil = chi2.ppf(0.9, df=1)
+rejeita = TX > quantil
+print(f"Probabilidade do Erro Tipo I com α = 10%: {rejeita.mean() * 100:.2f}%")
+
+plt.figure(figsize=(8, 5))
+plt.hist(TX, bins=20, density=True, label="")
+valores_x = np.linspace(0.001, max(10, TX.max()), 1_000)
+plt.plot(valores_x, chi2.pdf(valores_x, df=1), color="tomato", label=r'$\chi^2_1$')
+plt.ylim(0, 1)
+plt.xlabel("T(X)")
+plt.ylabel("Densidade")
+plt.legend()
+plt.show()
+```
+
+### R
+```{r}
+#| label: fig-testes-gerais-tx-sob-h0-r
+#| fig-cap: 'Histograma de $T(\boldsymbol{X}_n)$ sob $\mathcal{H}_0$'
+# Seja Xn a.a. de X ~ Pois(θ)
+# H0: θ = θ_0
+# H1: θ ≠ θ_0
+set.seed(96)
+n <- 100
+theta_0 <- 3
+MC <- 10000
+
+# Cada linha da matriz representa uma amostra gerada sob H0
+amostras <- matrix(rpois(MC * n, lambda = theta_0), nrow = MC)
+xbar <- rowMeans(amostras)
+xlogx <- numeric(length(xbar))
+positivos <- xbar > 0
+xlogx[positivos] <- xbar[positivos] * log(xbar[positivos])
+TX <- 2 * n * (theta_0 - xbar - xbar * log(theta_0) + xlogx)
+
+quantil <- qchisq(0.9, df = 1)
+rejeita <- TX > quantil
+cat(sprintf(
+  "Probabilidade do Erro Tipo I com α = 10%%: %.2f%%\n",
+  mean(rejeita) * 100
+))
+
+hist(
+  TX, probability = TRUE, breaks = 20,
+  xlab = "T(X)", ylab = "Densidade", main = "", ylim = c(0, 1)
+)
+curve(dchisq(x, df = 1), from = 0.001, add = TRUE, col = "tomato")
+legend("topright", legend = expression(chi[1]^2), col = "tomato", lty = 1)
+```
+:::
 
 ## Hipótese Linear Geral
 
@@ -500,6 +585,8 @@ para um teste escore de tamanho $\alpha$.
 
 ## Comparando as estatísticas e os testes
 
+::: {.panel-tabset}
+### Julia
 ```{julia}
 #| echo: true
 #| output: false
@@ -549,9 +636,110 @@ function escore(dist, θ_0)
 end
 ```
 
+### Python
+```{python}
+#| output: false
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import chi2, poisson
+
+# Razão de verossimilhanças
+# Seja Xn a.a. de X ~ Pois(θ)
+# H0: θ = θ_0
+# H1: θ ≠ θ_0
+rng = np.random.default_rng(96)
+n = 100
+alpha = 0.1
+MC = 10_000
+
+def x_log_x(x):
+    # Calcula x log(x), usando o limite 0 log(0) = 0.
+    resultado = np.zeros_like(x, dtype=float)
+    positivos = x > 0
+    resultado[positivos] = x[positivos] * np.log(x[positivos])
+    return resultado
+
+def medias_amostrais(dist):
+    # Gera MC amostras de tamanho n e devolve suas médias.
+    amostras = dist.rvs(size=(MC, n), random_state=rng)
+    return amostras.mean(axis=1)
+
+def razao(dist, theta_0):
+    xbar = medias_amostrais(dist)
+    return 2 * n * (
+        theta_0 - xbar - xbar * np.log(theta_0) + x_log_x(xbar)
+    )
+
+def wald(dist, theta_0):
+    xbar = medias_amostrais(dist)
+    W = np.full(MC, np.inf)
+    positivos = xbar > 0
+    W[positivos] = n * (xbar[positivos] - theta_0) ** 2 / xbar[positivos]
+    return W
+
+def escore(dist, theta_0):
+    xbar = medias_amostrais(dist)
+    informacao = n / theta_0
+    funcao_escore = n * xbar / theta_0 - n
+    return funcao_escore**2 / informacao
+```
+
+### R
+```{r}
+#| output: false
+# Razão de verossimilhanças
+# Seja Xn a.a. de X ~ Pois(θ)
+# H0: θ = θ_0
+# H1: θ ≠ θ_0
+set.seed(96)
+n <- 100
+alpha <- 0.1
+MC <- 10000
+
+xlogx <- function(x) {
+  # Calcula x log(x), usando o limite 0 log(0) = 0.
+  resultado <- numeric(length(x))
+  positivos <- x > 0
+  resultado[positivos] <- x[positivos] * log(x[positivos])
+  resultado
+}
+
+medias_amostrais <- function(theta) {
+  # Gera MC amostras de tamanho n e devolve suas médias.
+  amostras <- matrix(rpois(MC * n, lambda = theta), nrow = MC)
+  rowMeans(amostras)
+}
+
+razao <- function(theta, theta_0) {
+  xbar <- medias_amostrais(theta)
+  2 * n * (theta_0 - xbar - xbar * log(theta_0) + xlogx(xbar))
+}
+
+wald <- function(theta, theta_0) {
+  xbar <- medias_amostrais(theta)
+  W <- rep(Inf, MC)
+  positivos <- xbar > 0
+  W[positivos] <- n * (xbar[positivos] - theta_0)^2 / xbar[positivos]
+  W
+}
+
+escore <- function(theta, theta_0) {
+  xbar <- medias_amostrais(theta)
+  informacao <- n / theta_0
+  funcao_escore <- n * xbar / theta_0 - n
+  funcao_escore^2 / informacao
+}
+```
+:::
+
 Geraremos sob $\mathcal{H}_0$:
+
+::: {.panel-tabset}
+### Julia
 ```{julia}
 #| echo: true
+#| label: fig-testes-gerais-comparacao-h0-julia
+#| fig-cap: 'Distribuições das estatísticas sob $\mathcal{H}_0$'
 # Gerando sob H_0
 θ_0 = 3
 dist = Poisson(θ_0)
@@ -597,9 +785,118 @@ l = @layout [pv pw; pr]
 plot(pv, pw, pr, layout = l)
 ```
 
+### Python
+```{python}
+#| label: fig-testes-gerais-comparacao-h0-python
+#| fig-cap: 'Distribuições das estatísticas sob $\mathcal{H}_0$'
+# Gerando sob H0
+theta_0 = 3
+dist = poisson(mu=theta_0)
+quantil = chi2.ppf(1 - alpha, df=1)
+
+# Probabilidade do erro tipo I, alpha = 10%, Razão
+TX = razao(dist, theta_0)
+rejeita = TX > quantil
+print(
+    "Probabilidade do Erro Tipo I com α = 10% (Razão de Ver.): "
+    f"{rejeita.mean() * 100:.2f}%"
+)
+
+# Probabilidade do erro tipo I, alpha = 10%, Wald
+W = wald(dist, theta_0)
+rejeita = W > quantil
+print(
+    "Probabilidade do Erro Tipo I com α = 10% (Wald): "
+    f"{rejeita.mean() * 100:.2f}%"
+)
+
+# Probabilidade do erro tipo I, alpha = 10%, Escore
+R = escore(dist, theta_0)
+rejeita = R > quantil
+print(
+    "Probabilidade do Erro Tipo I com α = 10% (Escore): "
+    f"{rejeita.mean() * 100:.2f}%"
+)
+
+fig, eixos = plt.subplots(2, 2, figsize=(12, 8))
+graficos = [
+    (TX, "Histograma da Razão de Ver.", "T(X)"),
+    (W, "Histograma de Wald", "W(X)"),
+    (R, "Histograma de Escore", "R(X)"),
+]
+
+for eixo, (valores, titulo, nome_x) in zip(eixos.flat, graficos):
+    eixo.hist(valores, bins=20, density=True)
+    valores_x = np.linspace(0.001, max(10, valores.max()), 1_000)
+    eixo.plot(
+        valores_x, chi2.pdf(valores_x, df=1),
+        color="tomato", label=r'$\chi^2_1$'
+    )
+    eixo.set(title=titulo, xlabel=nome_x, ylabel="Densidade", ylim=(0, 1))
+    eixo.legend()
+
+eixos[1, 1].axis("off")
+fig.tight_layout()
+plt.show()
+```
+
+### R
+```{r}
+#| label: fig-testes-gerais-comparacao-h0-r
+#| fig-cap: 'Distribuições das estatísticas sob $\mathcal{H}_0$'
+# Gerando sob H0
+theta_0 <- 3
+quantil <- qchisq(1 - alpha, df = 1)
+
+# Probabilidade do erro tipo I, alpha = 10%, Razão
+TX <- razao(theta_0, theta_0)
+rejeita <- TX > quantil
+cat(sprintf(
+  "Probabilidade do Erro Tipo I com α = 10%% (Razão de Ver.): %.2f%%\n",
+  mean(rejeita) * 100
+))
+
+# Probabilidade do erro tipo I, alpha = 10%, Wald
+W <- wald(theta_0, theta_0)
+rejeita <- W > quantil
+cat(sprintf(
+  "Probabilidade do Erro Tipo I com α = 10%% (Wald): %.2f%%\n",
+  mean(rejeita) * 100
+))
+
+# Probabilidade do erro tipo I, alpha = 10%, Escore
+R <- escore(theta_0, theta_0)
+rejeita <- R > quantil
+cat(sprintf(
+  "Probabilidade do Erro Tipo I com α = 10%% (Escore): %.2f%%\n",
+  mean(rejeita) * 100
+))
+
+histograma_com_chi <- function(valores, titulo, nome_x) {
+  hist(
+    valores, probability = TRUE, breaks = 20,
+    main = titulo, xlab = nome_x, ylab = "Densidade", ylim = c(0, 1)
+  )
+  curve(dchisq(x, df = 1), from = 0.001, add = TRUE, col = "tomato")
+  legend("topright", legend = expression(chi[1]^2), col = "tomato", lty = 1)
+}
+
+layout(matrix(c(1, 2, 3, 3), nrow = 2, byrow = TRUE))
+histograma_com_chi(TX, "Histograma da Razão de Ver.", "T(X)")
+histograma_com_chi(W, "Histograma de Wald", "W(X)")
+histograma_com_chi(R, "Histograma de Escore", "R(X)")
+layout(1)
+```
+:::
+
 Para comparar, podemos também gerar sob $\mathcal{H}_1$:
+
+::: {.panel-tabset}
+### Julia
 ```{julia}
 #| echo: true
+#| label: fig-testes-gerais-comparacao-h1-julia
+#| fig-cap: 'Funções poder dos três testes sob $\mathcal{H}_1$'
 # Gerando sob H_1
 
 function estatisticas_poisson(θ, θ_0)
@@ -671,6 +968,129 @@ hline!([α], label = L"\alpha", color = :grey, linestyle = :dash)
 l = @layout [pv pw; pr]
 plot(pv, pw, pr, layout = l)
 ```
+
+### Python
+```{python}
+#| label: fig-testes-gerais-comparacao-h1-python
+#| fig-cap: 'Funções poder dos três testes sob $\mathcal{H}_1$'
+# Gerando sob H1
+def estatisticas_poisson(theta, theta_0):
+    # Se X_i ~ Pois(theta), a soma da amostra tem distribuição Pois(n * theta).
+    totais = rng.poisson(n * theta, size=MC)
+    xbar = totais / n
+
+    TX = 2 * n * (
+        theta_0 - xbar - xbar * np.log(theta_0) + x_log_x(xbar)
+    )
+    W = np.full(MC, np.inf)
+    positivos = xbar > 0
+    W[positivos] = n * (xbar[positivos] - theta_0) ** 2 / xbar[positivos]
+    R = n * (xbar - theta_0) ** 2 / theta_0
+    return TX, W, R
+
+delta_theta = theta_0 * 0.3
+valores_theta = np.linspace(theta_0 - delta_theta, theta_0 + delta_theta, 31)
+poder_TX = np.zeros(len(valores_theta))
+poder_W = np.zeros(len(valores_theta))
+poder_R = np.zeros(len(valores_theta))
+
+for i, theta_1 in enumerate(valores_theta):
+    TX1, W1, R1 = estatisticas_poisson(theta_1, theta_0)
+    poder_TX[i] = np.mean(TX1 > quantil)
+    poder_W[i] = np.mean(W1 > quantil)
+    poder_R[i] = np.mean(R1 > quantil)
+
+# Probabilidades do erro tipo II em dois valores representativos sob H1
+indices_beta = [
+    np.argmin(np.abs(valores_theta - (theta_0 - delta_theta / 3))),
+    np.argmin(np.abs(valores_theta - (theta_0 + delta_theta / 3))),
+]
+for i in indices_beta:
+    print(f"theta_1 = {valores_theta[i]:.2f}:")
+    print(f"  β (Razão de Ver.) = {1 - poder_TX[i]:.4f}")
+    print(f"  β (Wald) = {1 - poder_W[i]:.4f}")
+    print(f"  β (Escore) = {1 - poder_R[i]:.4f}")
+
+fig, eixos = plt.subplots(2, 2, figsize=(12, 8))
+graficos = [
+    (poder_TX, "Poder Razão de ver."),
+    (poder_W, "Poder Wald"),
+    (poder_R, "Poder Escore"),
+]
+
+for eixo, (poder, nome_y) in zip(eixos.flat, graficos):
+    eixo.plot(valores_theta, poder)
+    eixo.axvline(theta_0, color="black", label=r'$\theta_0$')
+    eixo.axhline(alpha, color="grey", linestyle="--", label=r'$\alpha$')
+    eixo.set(xlabel=r'$\theta_1$', ylabel=nome_y, ylim=(0, 1))
+    eixo.legend()
+
+eixos[1, 1].axis("off")
+fig.tight_layout()
+plt.show()
+```
+
+### R
+```{r}
+#| label: fig-testes-gerais-comparacao-h1-r
+#| fig-cap: 'Funções poder dos três testes sob $\mathcal{H}_1$'
+# Gerando sob H1
+estatisticas_poisson <- function(theta, theta_0) {
+  # Se X_i ~ Pois(theta), a soma da amostra tem distribuição Pois(n * theta).
+  totais <- rpois(MC, lambda = n * theta)
+  xbar <- totais / n
+
+  TX <- 2 * n * (theta_0 - xbar - xbar * log(theta_0) + xlogx(xbar))
+  W <- ifelse(xbar == 0, Inf, n * (xbar - theta_0)^2 / xbar)
+  R <- n * (xbar - theta_0)^2 / theta_0
+  list(TX = TX, W = W, R = R)
+}
+
+delta_theta <- theta_0 * 0.3
+valores_theta <- seq(theta_0 - delta_theta, theta_0 + delta_theta, length.out = 31)
+poder_TX <- numeric(length(valores_theta))
+poder_W <- numeric(length(valores_theta))
+poder_R <- numeric(length(valores_theta))
+
+for (i in seq_along(valores_theta)) {
+  estatisticas <- estatisticas_poisson(valores_theta[i], theta_0)
+  poder_TX[i] <- mean(estatisticas$TX > quantil)
+  poder_W[i] <- mean(estatisticas$W > quantil)
+  poder_R[i] <- mean(estatisticas$R > quantil)
+}
+
+# Probabilidades do erro tipo II em dois valores representativos sob H1
+indices_beta <- c(
+  which.min(abs(valores_theta - (theta_0 - delta_theta / 3))),
+  which.min(abs(valores_theta - (theta_0 + delta_theta / 3)))
+)
+for (i in indices_beta) {
+  cat(sprintf("theta_1 = %.2f:\n", valores_theta[i]))
+  cat(sprintf("  β (Razão de Ver.) = %.4f\n", 1 - poder_TX[i]))
+  cat(sprintf("  β (Wald) = %.4f\n", 1 - poder_W[i]))
+  cat(sprintf("  β (Escore) = %.4f\n", 1 - poder_R[i]))
+}
+
+grafico_poder <- function(poder, nome_y) {
+  plot(
+    valores_theta, poder, type = "l", ylim = c(0, 1),
+    xlab = expression(theta[1]), ylab = nome_y
+  )
+  abline(v = theta_0, col = "black")
+  abline(h = alpha, col = "grey", lty = 2)
+  legend(
+    "bottomright", legend = c(expression(theta[0]), expression(alpha)),
+    col = c("black", "grey"), lty = c(1, 2)
+  )
+}
+
+layout(matrix(c(1, 2, 3, 3), nrow = 2, byrow = TRUE))
+grafico_poder(poder_TX, "Poder Razão de ver.")
+grafico_poder(poder_W, "Poder Wald")
+grafico_poder(poder_R, "Poder Escore")
+layout(1)
+```
+:::
 
 ## Teste de hipótese para o vetor de médias sob normalidade
 

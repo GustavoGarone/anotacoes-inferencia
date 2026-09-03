@@ -1,3 +1,9 @@
+```{julia}
+#| echo: false
+#| output: false
+using PythonCall, RCall
+```
+
 # Valor-$p$, $p$-Valor ou $p$-Value
 
 Para todos os testes introduzidos até agora, realizamos o teste com um nível de
@@ -65,9 +71,12 @@ rejeitarmos a hipótese nula a $\alpha = 5\%$ de significância estatística.
 
 Vamos gerar dados e comparar a distribuição dos valores-$p$.
 
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 #| echo: true
-#| label: fig-valorp-sob-h0-n40
+#| label: fig-valorp-sob-h0-n40-julia
 #| fig-cap: 'Histograma dos valores-$p$ sob $\mathcal{H}_0$'
 using Distributions, StatsBase, Plots, Random, LaTeXStrings, StatsPlots
 Random.seed!(314)
@@ -100,13 +109,80 @@ histogram(
 plot!(Uniform(0, 1), label = L"\mathrm{Unif}(0,1)")
 ```
 
+### Python
+
+```{python}
+#| label: fig-valorp-sob-h0-n40-python
+#| fig-cap: 'Histograma dos valores-$p$ sob $\mathcal{H}_0$'
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import norm
+
+rng = np.random.default_rng(314)
+
+def mc_valorp(distribuicao, n):
+    # Simula valores-p para o teste unilateral da média.
+    mc = 10_000
+    amostras = distribuicao.rvs(size=(mc, n), random_state=rng)
+    medias = amostras.mean(axis=1)
+    return norm.sf(medias, loc=0, scale=1 / np.sqrt(n))
+
+# Gerando dados sob H_0 com n = 40
+pvals = mc_valorp(norm(), 40)
+
+fig, ax = plt.subplots()
+ax.hist(pvals, bins="auto", density=True, label="")
+ax.plot([0, 1], [1, 1], label=r"$\mathrm{Unif}(0,1)$")
+ax.set(xlabel="valor-p", ylabel="Densidade")
+ax.legend()
+plt.show()
+```
+
+### R
+
+```{r}
+#| label: fig-valorp-sob-h0-n40-r
+#| fig-cap: 'Histograma dos valores-$p$ sob $\mathcal{H}_0$'
+set.seed(314)
+
+mc_valorp <- function(gerador, n) {
+  # Estatística e distribuição sob H_0
+  estatistica <- function(x) mean(x)
+  desvio_media <- 1 / sqrt(n)
+
+  # Simulações de Monte Carlo
+  mc <- 10000
+  medias <- replicate(mc, estatistica(gerador(n)))
+  pnorm(medias, mean = 0, sd = desvio_media, lower.tail = FALSE)
+}
+
+# Gerando dados sob H_0 com n = 40
+pvals <- mc_valorp(function(n) rnorm(n), 40)
+
+hist(
+  pvals,
+  probability = TRUE,
+  main = "",
+  xlab = "valor-p",
+  ylab = "Densidade"
+)
+curve(dunif(x), from = 0, to = 1, add = TRUE, col = "tomato", lwd = 2)
+legend("topright", legend = "Unif(0,1)", col = "tomato", lwd = 2, bty = "n")
+```
+:::
+
 Gerar dados sob um modelo diferente de $\mathcal{H}_0$ faz com que a
 distribuição dos valores-$p$ deixe de ser uniforme, mesmo para desvios muito
 pequenos em relação à hipótese nula (de $\mu = 0$ para $\mu = 0{,}05$):
 
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 #| echo: true
-#| label: fig-valorp-fora-h0-n40
+#| label: fig-valorp-fora-h0-n40-julia
 #| fig-cap: 'Histograma dos valores-$p$ fora de $\mathcal{H}_0$'
 # Gerando dados fora de H_0 com n = 40
 pvals = mc_valorp(Normal(0.05, 1), 40)
@@ -120,14 +196,53 @@ histogram(
 plot!(Uniform(0, 1), label = L"\mathrm{Unif}(0,1)")
 ```
 
+### Python
+
+```{python}
+#| label: fig-valorp-fora-h0-n40-python
+#| fig-cap: 'Histograma dos valores-$p$ fora de $\mathcal{H}_0$'
+# Gerando dados fora de H_0 com n = 40
+pvals = mc_valorp(norm(loc=0.05, scale=1), 40)
+
+fig, ax = plt.subplots()
+ax.hist(pvals, bins="auto", density=True, label="")
+ax.plot([0, 1], [1, 1], label=r"$\mathrm{Unif}(0,1)$")
+ax.set(xlabel="valor-p", ylabel="Densidade")
+ax.legend()
+plt.show()
+```
+
+### R
+
+```{r}
+#| label: fig-valorp-fora-h0-n40-r
+#| fig-cap: 'Histograma dos valores-$p$ fora de $\mathcal{H}_0$'
+# Gerando dados fora de H_0 com n = 40
+pvals <- mc_valorp(function(n) rnorm(n, mean = 0.05, sd = 1), 40)
+
+hist(
+  pvals,
+  probability = TRUE,
+  main = "",
+  xlab = "valor-p",
+  ylab = "Densidade"
+)
+curve(dunif(x), from = 0, to = 1, add = TRUE, col = "tomato", lwd = 2)
+legend("topright", legend = "Unif(0,1)", col = "tomato", lwd = 2, bty = "n")
+```
+:::
+
 Neste modelo normal com variância conhecida, sob $\mathcal{H}_0$ os
 valores-$p$ seguem exatamente uma distribuição uniforme em $(0,1)$ para
 qualquer tamanho amostral. Portanto, potenciais desvios são causados apenas
 pela variabilidade aleatória da simulação.
 
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 #| echo: true
-#| label: fig-valorp-sob-h0-n5
+#| label: fig-valorp-sob-h0-n5-julia
 #| fig-cap: 'Histograma dos valores-$p$ sob $\mathcal{H}_0$, com $n=5$'
 # Gerando dados sob H_0 com n = 5
 pvals = mc_valorp(Normal(), 5)
@@ -141,10 +256,50 @@ histogram(
 plot!(Uniform(0, 1), label = L"\mathrm{Unif}(0,1)")
 ```
 
+### Python
+
+```{python}
+#| label: fig-valorp-sob-h0-n5-python
+#| fig-cap: 'Histograma dos valores-$p$ sob $\mathcal{H}_0$, com $n=5$'
+# Gerando dados sob H_0 com n = 5
+pvals = mc_valorp(norm(), 5)
+
+fig, ax = plt.subplots()
+ax.hist(pvals, bins="auto", density=True, label="")
+ax.plot([0, 1], [1, 1], label=r"$\mathrm{Unif}(0,1)$")
+ax.set(xlabel="valor-p", ylabel="Densidade")
+ax.legend()
+plt.show()
+```
+
+### R
+
+```{r}
+#| label: fig-valorp-sob-h0-n5-r
+#| fig-cap: 'Histograma dos valores-$p$ sob $\mathcal{H}_0$, com $n=5$'
+# Gerando dados sob H_0 com n = 5
+pvals <- mc_valorp(function(n) rnorm(n), 5)
+
+hist(
+  pvals,
+  probability = TRUE,
+  main = "",
+  xlab = "valor-p",
+  ylab = "Densidade"
+)
+curve(dunif(x), from = 0, to = 1, add = TRUE, col = "tomato", lwd = 2)
+legend("topright", legend = "Unif(0,1)", col = "tomato", lwd = 2, bty = "n")
+```
+:::
+
 O caso de dados gerados fora de $\mathcal{H}_0$ se acentua com amostras maiores:
+
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 #| echo: true
-#| label: fig-valorp-fora-h0-n100
+#| label: fig-valorp-fora-h0-n100-julia
 #| fig-cap: 'Histograma dos valores-$p$ fora de $\mathcal{H}_0$, com $n=100$'
 # Gerando dados fora de H_0 com n = 100
 pvals = mc_valorp(Normal(0.05, 1), 100)
@@ -157,6 +312,42 @@ histogram(
 )
 plot!(Uniform(0, 1), label = L"\mathrm{Unif}(0,1)")
 ```
+
+### Python
+
+```{python}
+#| label: fig-valorp-fora-h0-n100-python
+#| fig-cap: 'Histograma dos valores-$p$ fora de $\mathcal{H}_0$, com $n=100$'
+# Gerando dados fora de H_0 com n = 100
+pvals = mc_valorp(norm(loc=0.05, scale=1), 100)
+
+fig, ax = plt.subplots()
+ax.hist(pvals, bins="auto", density=True, label="")
+ax.plot([0, 1], [1, 1], label=r"$\mathrm{Unif}(0,1)$")
+ax.set(xlabel="valor-p", ylabel="Densidade")
+ax.legend()
+plt.show()
+```
+
+### R
+
+```{r}
+#| label: fig-valorp-fora-h0-n100-r
+#| fig-cap: 'Histograma dos valores-$p$ fora de $\mathcal{H}_0$, com $n=100$'
+# Gerando dados fora de H_0 com n = 100
+pvals <- mc_valorp(function(n) rnorm(n, mean = 0.05, sd = 1), 100)
+
+hist(
+  pvals,
+  probability = TRUE,
+  main = "",
+  xlab = "valor-p",
+  ylab = "Densidade"
+)
+curve(dunif(x), from = 0, to = 1, add = TRUE, col = "tomato", lwd = 2)
+legend("topright", legend = "Unif(0,1)", col = "tomato", lwd = 2, bty = "n")
+```
+:::
 
 :::{.callout-warning title="Como interpretar corretamente o valor-$p$"}
 O valor-$p$ é um dos conceitos de mais difícil interpretação da estatística para

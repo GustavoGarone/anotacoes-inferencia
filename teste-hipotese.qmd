@@ -311,6 +311,7 @@ $$
 $$
 
 Podemos analisar os gráficos:
+
 ::: {.panel-tabset}
 ### Julia
 ```{julia}
@@ -338,6 +339,8 @@ plot(
 #| label: fig-teste-hipotese-alfa-python
 #| fig-cap: 'Função poder $\alpha=\pi(\theta)=(1-\theta)^2$'
 import numpy as np
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from scipy.stats import binom
 
@@ -385,7 +388,6 @@ ggplot() +
 
 Como é uma função decrescente, seu supremo está no ponto $0.6$.
 
-<!-- TODO: continuar -->
 ::: {.panel-tabset}
 ### Julia
 ```{julia}
@@ -403,6 +405,50 @@ plot(
     ylabel = L"1 - \pi (\theta)",
     xlabel = L"\theta"
 )
+```
+
+### Python
+```{python}
+#| label: fig-teste-hipotese-beta-python
+#| fig-cap: 'Função erro tipo II $\beta=1-\pi(\theta)=1-(1-\theta)^2$'
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import binom
+
+def poder(theta):
+    # P(X > 0,8) = P(X >= 1), para X com distribuição Binomial(2, theta)
+    return binom.sf(2 * 0.4, 2, theta)
+
+val_theta = np.linspace(0, 0.601, 1_000)
+val_y = poder(val_theta)
+
+plt.figure(figsize=(8, 5))
+plt.plot(val_theta, val_y, color="blue")
+plt.xlim(0, 0.601)
+plt.xlabel(r'$\theta$')
+plt.ylabel(r'$1 - \pi(\theta)$')
+plt.show()
+```
+
+### R
+```{r}
+#| label: fig-teste-hipotese-beta-r
+#| fig-cap: 'Função erro tipo II $\beta=1-\pi(\theta)=1-(1-\theta)^2$'
+library(ggplot2)
+
+# P(X > 0,8) = P(X >= 1), para X com distribuição Binomial(2, theta)
+poder <- function(theta) {
+  pbinom(2 * 0.4, size = 2, prob = theta, lower.tail = FALSE)
+}
+
+ggplot() +
+  xlim(0, 0.601) +
+  geom_function(fun = poder, color = "blue") +
+  labs(
+    x = expression(theta),
+    y = expression(1 - pi(theta))
+  ) +
+  theme_minimal()
 ```
 :::
 
