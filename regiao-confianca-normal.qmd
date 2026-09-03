@@ -1,3 +1,9 @@
+```{julia}
+#| echo: false
+#| output: false
+using PythonCall, RCall
+```
+
 # Regiões de confiança sob normalidade
 
 ## Intervalos de confiança simultâneos para o vetor de médias (sob normalidade)
@@ -190,9 +196,12 @@ d \in \mathbb{R}^2 : \frac{n-2}{2}
 $$
 em que $P(F_{(2,n-2)} \leq q_\gamma)=\gamma$.
 
+::: {.panel-tabset}
+#### Julia
+
 ```{julia}
 #| echo: true
-#| label: fig-regiao-confianca-normal-pivo
+#| label: fig-regiao-confianca-normal-pivo-julia
 #| fig-cap: 'Distribuição simulada da quantidade pivotal e densidade $F_{2,148}$'
 using Random, LinearAlgebra, Statistics
 using Distributions, Plots, StatsPlots, LaTeXStrings
@@ -252,6 +261,155 @@ vline!(pivo, [qgamma], label=L"q_{0{,}95}", color=:black,
        linewidth=2, linestyle=:dash)
 display(pivo)
 ```
+
+#### Python
+
+```{python}
+#| label: fig-regiao-confianca-normal-pivo-python
+#| fig-cap: 'Distribuição simulada da quantidade pivotal e densidade $F_{2,148}$'
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import f
+
+rng = np.random.default_rng(10)
+
+p = 4
+n = 150
+MC = 10_000
+
+A = rng.standard_normal((p, p))
+Sigma = A @ A.T
+mu = 10 * rng.random(p)
+
+C = np.array([
+    [1.0, -1.0,  0.0, 0.0],
+    [0.0,  1.0, -1.0, 0.0],
+])
+s = C.shape[0]
+d = C @ mu
+
+def estatistica_regiao(x, d, C):
+    # Calcula a quantidade pivotal; cada coluna de x é uma observação.
+    n = x.shape[1]
+    s = C.shape[0]
+    xbar = x.mean(axis=1)
+    x_centralizado = x - xbar[:, None]
+    S2 = x_centralizado @ x_centralizado.T / n
+    diferenca = C @ xbar - d
+    cov_d = C @ S2 @ C.T
+
+    return (n - s) / s * diferenca @ np.linalg.solve(cov_d, diferenca)
+
+W = np.empty(MC)
+for i in range(MC):
+    # A transposição deixa uma observação em cada coluna.
+    x = rng.multivariate_normal(mu, Sigma, size=n).T
+    W[i] = estatistica_regiao(x, d, C)
+
+gamma = 0.95
+qgamma = f.ppf(gamma, dfn=s, dfd=n - s)
+cobertura = np.mean(W <= qgamma)
+
+print(f"Quantil teórico qγ: {qgamma:.4f}")
+print(f"Cobertura de Monte Carlo: {100 * cobertura:.2f}%")
+
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.hist(
+    W, density=True, bins=50, label="Simulação de Monte Carlo",
+    color="steelblue", edgecolor="white", linewidth=0.5, alpha=0.8,
+)
+valores = np.linspace(0, np.quantile(W, 0.995), 500)
+ax.plot(valores, f.pdf(valores, s, n - s), color="crimson",
+        linewidth=2.5, label=r"$F_{2,148}$")
+ax.axvline(qgamma, color="black", linewidth=2, linestyle="--",
+           label=r"$q_{0{,}95}$")
+ax.set(xlabel=r"$W(\theta)$", ylabel="Densidade")
+ax.legend()
+fig.tight_layout()
+plt.show()
+```
+
+#### R
+
+```{r}
+#| label: fig-regiao-confianca-normal-pivo-r
+#| fig-cap: 'Distribuição simulada da quantidade pivotal e densidade $F_{2,148}$'
+set.seed(10)
+
+p <- 4
+n <- 150
+MC <- 10000
+
+A <- matrix(rnorm(p * p), nrow = p)
+Sigma <- A %*% t(A)
+mu <- 10 * runif(p)
+
+C <- matrix(
+  c(1, -1,  0, 0,
+    0,  1, -1, 0),
+  nrow = 2,
+  byrow = TRUE
+)
+s <- nrow(C)
+d <- as.vector(C %*% mu)
+
+estatistica_regiao <- function(x, d, C) {
+  # Cada coluna de x é uma observação.
+  n <- ncol(x)
+  s <- nrow(C)
+  xbar <- rowMeans(x)
+  x_centralizado <- sweep(x, 1, xbar)
+  S2 <- x_centralizado %*% t(x_centralizado) / n
+  diferenca <- as.vector(C %*% xbar - d)
+  cov_d <- C %*% S2 %*% t(C)
+
+  as.numeric((n - s) / s * crossprod(diferenca, solve(cov_d, diferenca)))
+}
+
+# chol() devolve o fator triangular superior: Sigma = t(L) %*% L.
+raiz_Sigma <- t(chol(Sigma))
+W <- numeric(MC)
+for (i in seq_len(MC)) {
+  x <- mu + raiz_Sigma %*% matrix(rnorm(p * n), nrow = p)
+  W[i] <- estatistica_regiao(x, d, C)
+}
+
+gamma <- 0.95
+qgamma <- qf(gamma, df1 = s, df2 = n - s)
+cobertura <- mean(W <= qgamma)
+
+cat(sprintf("Quantil teórico qγ: %.4f\n", qgamma))
+cat(sprintf("Cobertura de Monte Carlo: %.2f%%\n", 100 * cobertura))
+
+hist(
+  W,
+  probability = TRUE,
+  breaks = 50,
+  col = "steelblue",
+  border = "white",
+  xlab = expression(W(theta)),
+  ylab = "Densidade",
+  main = "",
+  xlim = c(0, quantile(W, 0.995))
+)
+curve(df(x, df1 = s, df2 = n - s), add = TRUE,
+      col = "firebrick", lwd = 2.5)
+abline(v = qgamma, lty = 2, lwd = 2)
+legend(
+  "topright",
+  legend = c("Simulação de Monte Carlo", expression(F[2,148]),
+             expression(q[0.95])),
+  fill = c("steelblue", NA, NA),
+  border = c("white", NA, NA),
+  lty = c(NA, 1, 2),
+  col = c(NA, "firebrick", "black"),
+  lwd = c(NA, 2.5, 2),
+  bty = "n"
+)
+```
+:::
 
 Como a quantidade é calculada no verdadeiro valor $d=C\boldsymbol{\mu}$, a proporção de valores menores ou iguais a
 $q_{0{,}95}$ estima o coeficiente de confiança da região. Assim, além da proximidade entre o histograma e a densidade

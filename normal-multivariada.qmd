@@ -1,3 +1,9 @@
+```{julia}
+#| echo: false
+#| output: false
+using PythonCall, RCall
+```
+
 # Normal Multivariada
 
 Dizemos que $\boldsymbol{X} = \left(\begin{array}{c}X_1 \\ \vdots \\ X_n\end{array}\right)$ tem distribuição multivariada
@@ -207,6 +213,9 @@ $$
 $$
 O código abaixo calcula sua decomposição espectral e verifica numericamente as identidades anteriores.
 
+::: {.panel-tabset}
+## Julia
+
 ```{julia}
 #| echo: true
 using LinearAlgebra
@@ -235,6 +244,74 @@ println("Soma dos autovalores: ", round(sum(diag(Λ)), digits=6))
 println("Σ⁻¹ᐟ²:")
 display(round.(Σ_raiz_inversa, digits=4))
 ```
+
+## Python
+
+```{python}
+import numpy as np
+
+Sigma = np.array([
+    [2.0, 1.0, 0.0],
+    [1.0, 2.0, 0.0],
+    [0.0, 0.0, 4.0],
+])
+
+# eigh() explora a simetria de Sigma e devolve os autovalores em ordem crescente.
+autovalores, Gamma = np.linalg.eigh(Sigma)
+Lambda = np.diag(autovalores)
+
+Sigma_reconstruida = Gamma @ Lambda @ Gamma.T
+Sigma_raiz_inversa = Gamma @ np.diag(autovalores ** (-1 / 2)) @ Gamma.T
+I_recuperada = Sigma_raiz_inversa @ Sigma @ Sigma_raiz_inversa.T
+
+print("Autovalores de Sigma:", np.round(autovalores, 6))
+print("Erro na decomposição Sigma = Gamma Lambda Gammaᵀ:",
+      np.linalg.norm(Sigma - Sigma_reconstruida))
+print("Erro na identidade Sigma⁻¹/² Sigma Sigma⁻¹/² = I:",
+      np.linalg.norm(np.eye(3) - I_recuperada))
+print("det(Sigma):", round(np.linalg.det(Sigma), 6))
+print("Produto dos autovalores:", round(np.prod(autovalores), 6))
+print("tr(Sigma):", round(np.trace(Sigma), 6))
+print("Soma dos autovalores:", round(np.sum(autovalores), 6))
+print("Sigma⁻¹/²:")
+print(np.round(Sigma_raiz_inversa, 4))
+```
+
+## R
+
+```{r}
+Sigma <- matrix(
+  c(2, 1, 0,
+    1, 2, 0,
+    0, 0, 4),
+  nrow = 3,
+  byrow = TRUE
+)
+
+decomposicao <- eigen(Sigma, symmetric = TRUE)
+# eigen() usa ordem decrescente; reordenamos para acompanhar Julia e Python.
+ordem <- order(decomposicao$values)
+autovalores <- decomposicao$values[ordem]
+Gamma <- decomposicao$vectors[, ordem]
+Lambda <- diag(autovalores)
+
+Sigma_reconstruida <- Gamma %*% Lambda %*% t(Gamma)
+Sigma_raiz_inversa <- Gamma %*% diag(autovalores^(-1 / 2)) %*% t(Gamma)
+I_recuperada <- Sigma_raiz_inversa %*% Sigma %*% t(Sigma_raiz_inversa)
+
+cat("Autovalores de Sigma:", round(autovalores, 6), "\n")
+cat("Erro na decomposição Sigma = Gamma Lambda Gammaᵀ:",
+    norm(Sigma - Sigma_reconstruida, type = "F"), "\n")
+cat("Erro na identidade Sigma⁻¹/² Sigma Sigma⁻¹/² = I:",
+    norm(diag(3) - I_recuperada, type = "F"), "\n")
+cat("det(Sigma):", round(det(Sigma), 6), "\n")
+cat("Produto dos autovalores:", round(prod(autovalores), 6), "\n")
+cat("tr(Sigma):", round(sum(diag(Sigma)), 6), "\n")
+cat("Soma dos autovalores:", round(sum(autovalores), 6), "\n")
+cat("Sigma⁻¹/²:\n")
+print(round(Sigma_raiz_inversa, 4))
+```
+:::
 
 Os autovalores obtidos são $1$, $3$ e $4$; como todos são positivos, $\Sigma$ é positiva definida. As normas das diferenças
 nas duas primeiras verificações são próximas de zero, havendo apenas erro de arredondamento numérico. Além disso,
@@ -844,6 +921,9 @@ I_1(\theta)^{-1} &= \frac{1}{(\psi_2(\alpha) - \psi_2(\alpha+\beta))(\psi_2(\bet
 \end{aligned}
 $$
 
+::: {.panel-tabset}
+###### Julia
+
 ```{julia}
 #| echo: true
 using Distributions, Random, SpecialFunctions, LinearAlgebra
@@ -890,3 +970,114 @@ end
 
 thetahat = main()
 ```
+
+###### Python
+
+```{python}
+import numpy as np
+from scipy.special import digamma, polygamma
+
+rng = np.random.default_rng(1)
+
+def main():
+    n = 10
+    alpha0 = 1.2
+    beta0 = 7
+    x = rng.beta(alpha0, beta0, size=n)
+
+    def U(theta):
+        # Vetor escore da distribuição beta.
+        alpha, beta = theta
+        U1 = -n * digamma(alpha) + n * digamma(alpha + beta) + np.log(x).sum()
+        U2 = -n * digamma(beta) + n * digamma(alpha + beta) + np.log1p(-x).sum()
+        return np.array([U1, U2])
+
+    def I1(theta):
+        # Informação de Fisher por observação.
+        alpha, beta = theta
+        I11 = polygamma(1, alpha) - polygamma(1, alpha + beta)
+        I22 = polygamma(1, beta) - polygamma(1, alpha + beta)
+        I12 = -polygamma(1, alpha + beta)
+        return np.array([[I11, I12], [I12, I22]])
+
+    thetahat = np.array([0.1, 0.1])
+    erro_maximo = 0.0005
+    erro = np.inf
+    i = 1
+    iteracoes_maximas = 1_000
+
+    while erro > erro_maximo and i <= iteracoes_maximas:
+        thetahat_anterior = thetahat.copy()
+        # Resolver o sistema linear evita calcular explicitamente a inversa.
+        thetahat = thetahat + np.linalg.solve(n * I1(thetahat), U(thetahat))
+        erro = np.max(np.abs(thetahat - thetahat_anterior))
+        print(f"Erro na iteração {i}: {erro}")
+        i += 1
+
+    if erro > erro_maximo:
+        raise RuntimeError(
+            f"O método não convergiu em {iteracoes_maximas} iterações."
+        )
+
+    print("Theta final:", thetahat)
+    print("Total de iterações:", i - 1)
+    return thetahat
+
+thetahat = main()
+```
+
+###### R
+
+```{r}
+set.seed(1)
+
+main <- function() {
+  n <- 10
+  alpha0 <- 1.2
+  beta0 <- 7
+  x <- rbeta(n, shape1 = alpha0, shape2 = beta0)
+
+  U <- function(theta) {
+    alpha <- theta[1]
+    beta <- theta[2]
+    U1 <- -n * digamma(alpha) + n * digamma(alpha + beta) + sum(log(x))
+    U2 <- -n * digamma(beta) + n * digamma(alpha + beta) + sum(log1p(-x))
+    c(U1, U2)
+  }
+
+  I1 <- function(theta) {
+    alpha <- theta[1]
+    beta <- theta[2]
+    I11 <- trigamma(alpha) - trigamma(alpha + beta)
+    I22 <- trigamma(beta) - trigamma(alpha + beta)
+    I12 <- -trigamma(alpha + beta)
+    matrix(c(I11, I12, I12, I22), nrow = 2, byrow = TRUE)
+  }
+
+  thetahat <- c(0.1, 0.1)
+  erro_maximo <- 0.0005
+  erro <- Inf
+  i <- 1
+  iteracoes_maximas <- 1000
+
+  while (erro > erro_maximo && i <= iteracoes_maximas) {
+    thetahat_anterior <- thetahat
+    # solve(A, b) resolve A x = b sem calcular explicitamente A^(-1).
+    thetahat <- thetahat + solve(n * I1(thetahat), U(thetahat))
+    erro <- max(abs(thetahat - thetahat_anterior))
+    cat(sprintf("Erro na iteração %d: %g\n", i, erro))
+    i <- i + 1
+  }
+
+  if (erro > erro_maximo) {
+    stop(sprintf("O método não convergiu em %d iterações.", iteracoes_maximas))
+  }
+
+  cat("Theta final:", thetahat, "\n")
+  cat("Total de iterações:", i - 1, "\n")
+  thetahat
+}
+
+thetahat <- main()
+```
+:::

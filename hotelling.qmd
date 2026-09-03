@@ -1,3 +1,9 @@
+```{julia}
+#| echo: false
+#| output: false
+using PythonCall, RCall
+```
+
 # Distribuição de Hotelling
 
 Sejam $Z \sim N_p(\boldsymbol{0}, I)$ e [$M \sim \mathrm{Wishart}_p(I,m)$](wishart.qmd)
@@ -137,6 +143,9 @@ Vamos comparar a distribuição empírica da estatística com a distribuição
 $F_{(p,n-p)}$. Geraremos as amostras de duas formas: pela transformação de
 normais padrão e diretamente por meio da normal multivariada.
 
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 #| echo: true
 using Distributions, LaTeXStrings, LinearAlgebra, Random, StatsBase
@@ -196,3 +205,135 @@ plot!(dist_assintotica, label = L"F_{p,n-p}", color = :tomato)
 
 display(plot(pmanual, pdireta))
 ```
+
+### Python
+
+```{python}
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import f
+
+rng = np.random.default_rng(25)
+
+p = 2
+n = 15
+Sigma = np.array([[4.0, 2.0], [2.0, 3.0]])
+mu = 10 * rng.random(p)
+MC = 10_000
+
+def estatistica_hotelling(x, mu):
+    # Calcula a estatística; cada coluna de x é uma observação.
+    n = x.shape[1]
+    p = x.shape[0]
+    xbar = x.mean(axis=1)
+    centralizada = x - xbar[:, None]
+    S2 = centralizada @ centralizada.T / n
+    diferenca = xbar - mu
+    return (n - p) / p * diferenca @ np.linalg.solve(S2, diferenca)
+
+estatisticas_manual = np.empty(MC)
+estatisticas_direta = np.empty(MC)
+
+# Geração manual: X = mu + Sigma^(1/2) Z, com Z ~ N_p(0, I).
+raiz_Sigma = np.linalg.cholesky(Sigma)
+for i in range(MC):
+    x_manual = mu[:, None] + raiz_Sigma @ rng.standard_normal((p, n))
+    x_direta = rng.multivariate_normal(mu, Sigma, size=n).T
+    estatisticas_manual[i] = estatistica_hotelling(x_manual, mu)
+    estatisticas_direta[i] = estatistica_hotelling(x_direta, mu)
+
+quantil = f.ppf(0.95, dfn=p, dfd=n - p)
+print(
+    "Cobertura empírica pela geração manual: "
+    f"{np.mean(estatisticas_manual <= quantil) * 100:.2f}%"
+)
+print(
+    "Cobertura empírica pela geração direta: "
+    f"{np.mean(estatisticas_direta <= quantil) * 100:.2f}%"
+)
+
+fig, eixos = plt.subplots(1, 2, figsize=(10, 4), sharey=True)
+valores = np.linspace(0, max(
+    np.quantile(estatisticas_manual, 0.995),
+    np.quantile(estatisticas_direta, 0.995),
+), 500)
+for ax, estatisticas, titulo in zip(
+    eixos,
+    (estatisticas_manual, estatisticas_direta),
+    ("Geração manual", "Normal multivariada direta"),
+):
+    ax.hist(estatisticas, density=True, bins=50, color="steelblue", alpha=0.8)
+    ax.plot(valores, f.pdf(valores, p, n - p), color="tomato",
+            label=r"$F_{p,n-p}$")
+    ax.set(title=titulo, xlabel="Estatística")
+    ax.legend()
+eixos[0].set_ylabel("Densidade")
+fig.tight_layout()
+plt.show()
+```
+
+### R
+
+```{r}
+set.seed(25)
+
+p <- 2
+n <- 15
+Sigma <- matrix(c(4, 2, 2, 3), nrow = 2, byrow = TRUE)
+mu <- 10 * runif(p)
+MC <- 10000
+
+estatistica_hotelling <- function(x, mu) {
+  # Cada coluna de x é uma observação.
+  n <- ncol(x)
+  p <- nrow(x)
+  xbar <- rowMeans(x)
+  centralizada <- sweep(x, 1, xbar)
+  S2 <- centralizada %*% t(centralizada) / n
+  diferenca <- xbar - mu
+  as.numeric((n - p) / p * crossprod(diferenca, solve(S2, diferenca)))
+}
+
+estatisticas_manual <- numeric(MC)
+estatisticas_direta <- numeric(MC)
+
+# Geração manual: X = mu + Sigma^(1/2) Z, com Z ~ N_p(0, I).
+raiz_Sigma <- t(chol(Sigma))
+for (i in seq_len(MC)) {
+  x_manual <- mu + raiz_Sigma %*% matrix(rnorm(p * n), nrow = p)
+  x_direta <- t(MASS::mvrnorm(n, mu = mu, Sigma = Sigma))
+  estatisticas_manual[i] <- estatistica_hotelling(x_manual, mu)
+  estatisticas_direta[i] <- estatistica_hotelling(x_direta, mu)
+}
+
+quantil <- qf(0.95, df1 = p, df2 = n - p)
+cat(sprintf(
+  "Cobertura empírica pela geração manual: %.2f%%\n",
+  100 * mean(estatisticas_manual <= quantil)
+))
+cat(sprintf(
+  "Cobertura empírica pela geração direta: %.2f%%\n",
+  100 * mean(estatisticas_direta <= quantil)
+))
+
+op <- par(mfrow = c(1, 2))
+limite <- max(
+  quantile(estatisticas_manual, 0.995),
+  quantile(estatisticas_direta, 0.995)
+)
+for (j in seq_along(list(estatisticas_manual, estatisticas_direta))) {
+  estatisticas <- list(estatisticas_manual, estatisticas_direta)[[j]]
+  titulo <- c("Geração manual", "Normal multivariada direta")[j]
+  hist(estatisticas, probability = TRUE, breaks = 50,
+       main = titulo, xlab = "Estatística", ylab = "Densidade",
+       col = "steelblue", border = "white", xlim = c(0, limite))
+  curve(df(x, df1 = p, df2 = n - p), add = TRUE,
+        col = "tomato", lwd = 2)
+  legend("topright", legend = expression(F[p,n-p]),
+         col = "tomato", lty = 1, lwd = 2, bty = "n")
+}
+par(op)
+```
+:::

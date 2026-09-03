@@ -1,3 +1,9 @@
+```{julia}
+#| echo: false
+#| output: false
+using PythonCall, RCall
+```
+
 # Intervalos de Confiança - Aprofundamento
 
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) e $X \sim f_\theta, \theta \in \Theta$.
@@ -275,6 +281,9 @@ $$
 ou seja, tem mesma densidade.
 :::
 
+::: {.panel-tabset}
+##### Julia
+
 ```{julia}
 #| echo: true
 using Distributions, Random, StatsBase, LaTeXStrings
@@ -304,6 +313,65 @@ acertos = [I1 .<= theta0 .<= I2]
 display(L"\mathrm{IC}_{\mathrm{Obs (1)}}(\theta,0.95)=[%$(I1[1]), %$(I2[1])]")
 display(L"\text{ICs que contém}\ \theta: %$((sum(acertos[1]))/MC * 100)\%")
 ```
+
+##### Python
+
+```{python}
+import numpy as np
+from scipy.stats import chi2
+
+rng = np.random.default_rng(8)
+
+theta0 = 4
+n = 10
+MC = 10_000
+gamma = 0.95
+
+I1 = np.empty(MC)
+I2 = np.empty(MC)
+for i in range(MC):
+    # O NumPy usa o parâmetro de escala; a taxa é theta0.
+    x = rng.exponential(scale=1 / theta0, size=n)
+
+    # Construindo um IC com 95% de confiança.
+    c1 = chi2.ppf((1 - gamma) / 2, df=2 * n)
+    c2 = chi2.ppf((1 + gamma) / 2, df=2 * n)
+    I1[i] = round(c1 / (2 * x.sum()), 4)
+    I2[i] = round(c2 / (2 * x.sum()), 4)
+
+acertos = (I1 <= theta0) & (theta0 <= I2)
+print(f"IC_Obs(1)(theta, 0.95) = [{I1[0]}, {I2[0]}]")
+print(f"ICs que contêm theta: {100 * acertos.mean():.2f}%")
+```
+
+##### R
+
+```{r}
+set.seed(8)
+
+theta0 <- 4
+n <- 10
+MC <- 10000
+gamma <- 0.95
+
+I1 <- numeric(MC)
+I2 <- numeric(MC)
+for (i in seq_len(MC)) {
+  # rexp() recebe diretamente a taxa theta0.
+  x <- rexp(n, rate = theta0)
+
+  # Construindo um IC com 95% de confiança.
+  c1 <- qchisq((1 - gamma) / 2, df = 2 * n)
+  c2 <- qchisq((1 + gamma) / 2, df = 2 * n)
+  I1[i] <- round(c1 / (2 * sum(x)), 4)
+  I2[i] <- round(c2 / (2 * sum(x)), 4)
+}
+
+acertos <- I1 <= theta0 & theta0 <= I2
+cat(sprintf("IC_Obs(1)(theta, 0.95) = [%g, %g]\n", I1[1], I2[1]))
+cat(sprintf("ICs que contêm theta: %.2f%%\n", 100 * mean(acertos)))
+```
+:::
 
 ### Quantidades pivotais aproximadas ou assintóticas
 Dizemos que $Q(g(\theta), \boldsymbol{X}_n)$ é uma quantidade pivotal aproximada ou assintótica se, e somente se
@@ -385,6 +453,9 @@ b) Para $g(\theta) = \mathrm{CV}_\theta(X) = 1 / \sqrt{\theta} \Rightarrow g'(\t
 c) Para $g(\theta) = \ln f_\theta(x) g'(\theta) = - \psi_1(\theta) + \ln(\theta) - 1/\theta$
 d) Para $g(\theta) = f_\theta(x)$
 
+::: {.panel-tabset}
+#### Julia
+
 ```{julia}
 #| echo: true
 #| output: false
@@ -453,7 +524,110 @@ function monte_carlo_a(M, γ, n, theta0)
 
 end
 ```
+
+#### Python
+
+```{python}
+#| output: false
+import numpy as np
+from scipy.special import digamma, polygamma
+from scipy.stats import norm
+
+# Modelo Gama(theta, 1) e ICs assintóticos.
+rng_gamma = np.random.default_rng(13)
+
+def newton_raphson(x):
+    # Calcula o EMV do parâmetro de forma da gama por Newton--Raphson.
+    n = len(x)
+    theta = x.mean()  # Chute inicial: média amostral.
+    erro_maximo = 1e-5
+    erro = np.inf
+    iteracoes_maximas = 1_000
+
+    for _ in range(iteracoes_maximas):
+        escore = np.log(x).sum() - n * digamma(theta)
+        hessiana = -n * polygamma(1, theta)
+        theta_novo = theta - escore / hessiana
+        erro = abs(theta_novo - theta)
+        theta = theta_novo
+        if erro <= erro_maximo:
+            return theta
+
+    raise RuntimeError(
+        f"O método não convergiu em {iteracoes_maximas} iterações."
+    )
+
+def monte_carlo_a(M, gamma, n, theta0):
+    # Estima a cobertura do IC assintótico para theta.
+    inferiores = np.empty(M)
+    superiores = np.empty(M)
+    c2 = norm.ppf((1 + gamma) / 2)
+
+    for i in range(M):
+        x = rng_gamma.gamma(shape=theta0, scale=1, size=n)
+        emv = newton_raphson(x)
+        erro_padrao = np.sqrt(1 / (n * polygamma(1, emv)))
+        inferiores[i] = emv - c2 * erro_padrao
+        superiores[i] = emv + c2 * erro_padrao
+
+    acertos = (inferiores <= theta0) & (theta0 <= superiores)
+    return acertos.mean()
+```
+
+#### R
+
+```{r}
+#| output: false
+# Modelo Gama(theta, 1) e ICs assintóticos.
+set.seed(13)
+
+newton_raphson <- function(x) {
+  n <- length(x)
+  theta <- mean(x) # Chute inicial: média amostral.
+  erro_maximo <- 1e-5
+  erro <- Inf
+  iteracoes_maximas <- 1000
+
+  for (i in seq_len(iteracoes_maximas)) {
+    escore <- sum(log(x)) - n * digamma(theta)
+    hessiana <- -n * trigamma(theta)
+    theta_novo <- theta - escore / hessiana
+    erro <- abs(theta_novo - theta)
+    theta <- theta_novo
+    if (erro <= erro_maximo) {
+      return(theta)
+    }
+  }
+
+  stop(sprintf(
+    "O método não convergiu em %d iterações.",
+    iteracoes_maximas
+  ))
+}
+
+monte_carlo_a <- function(M, gamma, n, theta0) {
+  inferiores <- numeric(M)
+  superiores <- numeric(M)
+  c2 <- qnorm((1 + gamma) / 2)
+
+  for (i in seq_len(M)) {
+    x <- rgamma(n, shape = theta0, scale = 1)
+    emv <- newton_raphson(x)
+    erro_padrao <- sqrt(1 / (n * trigamma(emv)))
+    inferiores[i] <- emv - c2 * erro_padrao
+    superiores[i] <- emv + c2 * erro_padrao
+  }
+
+  acertos <- inferiores <= theta0 & theta0 <= superiores
+  mean(acertos)
+}
+```
+:::
 Rodando o código para o item a, temos
+
+::: {.panel-tabset}
+#### Julia
+
 ```{julia}
 M = 10_000; γ = 0.95; n = 100; θ_0 = 100
 confiança = monte_carlo_a(M, γ, n, θ_0)
@@ -465,6 +639,46 @@ M = 10_000; γ = 0.99; n = 5; θ_0 = 75
 confiança = monte_carlo_a(M, γ, n, θ_0)
 display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
 ```
+
+#### Python
+
+```{python}
+cenarios = [
+    (10_000, 0.95, 100, 100),
+    (10_000, 0.99, 100, 100),
+    (10_000, 0.99, 5, 75),
+]
+for M, gamma, n, theta0 in cenarios:
+    confianca = monte_carlo_a(M, gamma, n, theta0)
+    print(
+        f"Confiança para {M} simulações com alvo {gamma}, "
+        f"n = {n}, theta0 = {theta0}: {100 * confianca:.2f}%"
+    )
+```
+
+#### R
+
+```{r}
+cenarios <- list(
+  c(M = 10000, gamma = 0.95, n = 100, theta0 = 100),
+  c(M = 10000, gamma = 0.99, n = 100, theta0 = 100),
+  c(M = 10000, gamma = 0.99, n = 5, theta0 = 75)
+)
+for (cenario in cenarios) {
+  confianca <- monte_carlo_a(
+    cenario["M"], cenario["gamma"], cenario["n"], cenario["theta0"]
+  )
+  cat(sprintf(
+    paste0(
+      "Confiança para %.0f simulações com alvo %.2f, ",
+      "n = %.0f, theta0 = %g: %.2f%%\n"
+    ),
+    cenario["M"], cenario["gamma"], cenario["n"], cenario["theta0"],
+    100 * confianca
+  ))
+}
+```
+:::
 
 Para o item b, note que, para $X \sim \mathrm{Gamma}(\theta,1)$,
 $$
@@ -483,6 +697,9 @@ g'(\theta)
 &= -\frac{1}{2\theta^{3/2}}.
 \end{aligned}
 $$
+
+::: {.panel-tabset}
+#### Julia
 
 ```{julia}
 #| echo: true
@@ -515,7 +732,64 @@ function monte_carlo_b(M, γ, n, theta0)
 end
 ```
 
+#### Python
+
+```{python}
+#| output: false
+def monte_carlo_b(M, gamma, n, theta0):
+    # Estima a cobertura do IC para o coeficiente de variação.
+    def g(a):
+        return 1 / np.sqrt(a)
+
+    def g1(a):
+        return -1 / (2 * a ** (3 / 2))
+
+    inferiores = np.empty(M)
+    superiores = np.empty(M)
+    c2 = norm.ppf((1 + gamma) / 2)
+
+    for i in range(M):
+        x = rng_gamma.gamma(shape=theta0, scale=1, size=n)
+        emv = newton_raphson(x)
+        erro_padrao = np.sqrt(g1(emv) ** 2 / (n * polygamma(1, emv)))
+        inferiores[i] = g(emv) - c2 * erro_padrao
+        superiores[i] = g(emv) + c2 * erro_padrao
+
+    acertos = (inferiores <= g(theta0)) & (g(theta0) <= superiores)
+    return acertos.mean()
+```
+
+#### R
+
+```{r}
+#| output: false
+monte_carlo_b <- function(M, gamma, n, theta0) {
+  g <- function(a) 1 / sqrt(a)
+  g1 <- function(a) -1 / (2 * a^(3 / 2))
+
+  inferiores <- numeric(M)
+  superiores <- numeric(M)
+  c2 <- qnorm((1 + gamma) / 2)
+
+  for (i in seq_len(M)) {
+    x <- rgamma(n, shape = theta0, scale = 1)
+    emv <- newton_raphson(x)
+    erro_padrao <- sqrt(g1(emv)^2 / (n * trigamma(emv)))
+    inferiores[i] <- g(emv) - c2 * erro_padrao
+    superiores[i] <- g(emv) + c2 * erro_padrao
+  }
+
+  acertos <- inferiores <= g(theta0) & g(theta0) <= superiores
+  mean(acertos)
+}
+```
+:::
+
 Rodando o código para o item b, temos
+
+::: {.panel-tabset}
+#### Julia
+
 ```{julia}
 M = 10_000; γ = 0.95; n = 100; θ_0 = 100
 confiança = monte_carlo_b(M, γ, n, θ_0)
@@ -528,6 +802,36 @@ confiança = monte_carlo_b(M, γ, n, θ_0)
 display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
 ```
 
+#### Python
+
+```{python}
+for M, gamma, n, theta0 in cenarios:
+    confianca = monte_carlo_b(M, gamma, n, theta0)
+    print(
+        f"Confiança para {M} simulações com alvo {gamma}, "
+        f"n = {n}, theta0 = {theta0}: {100 * confianca:.2f}%"
+    )
+```
+
+#### R
+
+```{r}
+for (cenario in cenarios) {
+  confianca <- monte_carlo_b(
+    cenario["M"], cenario["gamma"], cenario["n"], cenario["theta0"]
+  )
+  cat(sprintf(
+    paste0(
+      "Confiança para %.0f simulações com alvo %.2f, ",
+      "n = %.0f, theta0 = %g: %.2f%%\n"
+    ),
+    cenario["M"], cenario["gamma"], cenario["n"], cenario["theta0"],
+    100 * confianca
+  ))
+}
+```
+:::
+
 Para o item c, precisaremos calcular as derivadas:
 $$
 \begin{aligned}
@@ -536,6 +840,9 @@ g(\theta) &= \ln f_\theta(\theta) = - \ln \Gamma(\theta) + (\theta-1) \ln (\thet
 &= -\psi_1(\theta) + \ln(\theta) - \frac{-1}{\theta} = g1(\theta)
 \end{aligned}
 $$
+
+::: {.panel-tabset}
+#### Julia
 
 ```{julia}
 #| echo: true
@@ -566,7 +873,66 @@ function monte_carlo_c(M, γ, n, theta0)
 end
 ```
 
+#### Python
+
+```{python}
+#| output: false
+from scipy.stats import gamma as gamma_dist
+
+def monte_carlo_c(M, gamma, n, theta0):
+    # Estima a cobertura do IC para g(theta) = log f_theta(theta).
+    def g(a):
+        return gamma_dist.logpdf(a, a=a, scale=1)
+
+    def g1(a):
+        return -digamma(a) + np.log(a) - 1 / a
+
+    inferiores = np.empty(M)
+    superiores = np.empty(M)
+    c2 = norm.ppf((1 + gamma) / 2)
+
+    for i in range(M):
+        x = rng_gamma.gamma(shape=theta0, scale=1, size=n)
+        emv = newton_raphson(x)
+        erro_padrao = np.sqrt(g1(emv) ** 2 / (n * polygamma(1, emv)))
+        inferiores[i] = g(emv) - c2 * erro_padrao
+        superiores[i] = g(emv) + c2 * erro_padrao
+
+    acertos = (inferiores <= g(theta0)) & (g(theta0) <= superiores)
+    return acertos.mean()
+```
+
+#### R
+
+```{r}
+#| output: false
+monte_carlo_c <- function(M, gamma, n, theta0) {
+  g <- function(a) dgamma(a, shape = a, scale = 1, log = TRUE)
+  g1 <- function(a) -digamma(a) + log(a) - 1 / a
+
+  inferiores <- numeric(M)
+  superiores <- numeric(M)
+  c2 <- qnorm((1 + gamma) / 2)
+
+  for (i in seq_len(M)) {
+    x <- rgamma(n, shape = theta0, scale = 1)
+    emv <- newton_raphson(x)
+    erro_padrao <- sqrt(g1(emv)^2 / (n * trigamma(emv)))
+    inferiores[i] <- g(emv) - c2 * erro_padrao
+    superiores[i] <- g(emv) + c2 * erro_padrao
+  }
+
+  acertos <- inferiores <= g(theta0) & g(theta0) <= superiores
+  mean(acertos)
+}
+```
+:::
+
 Rodando o código para o item c, temos
+
+::: {.panel-tabset}
+#### Julia
+
 ```{julia}
 M = 10_000; γ = 0.95; n = 100; θ_0 = 100
 confiança = monte_carlo_c(M, γ, n, θ_0)
@@ -579,10 +945,43 @@ confiança = monte_carlo_c(M, γ, n, θ_0)
 display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
 ```
 
+#### Python
+
+```{python}
+for M, gamma, n, theta0 in cenarios:
+    confianca = monte_carlo_c(M, gamma, n, theta0)
+    print(
+        f"Confiança para {M} simulações com alvo {gamma}, "
+        f"n = {n}, theta0 = {theta0}: {100 * confianca:.2f}%"
+    )
+```
+
+#### R
+
+```{r}
+for (cenario in cenarios) {
+  confianca <- monte_carlo_c(
+    cenario["M"], cenario["gamma"], cenario["n"], cenario["theta0"]
+  )
+  cat(sprintf(
+    paste0(
+      "Confiança para %.0f simulações com alvo %.2f, ",
+      "n = %.0f, theta0 = %g: %.2f%%\n"
+    ),
+    cenario["M"], cenario["gamma"], cenario["n"], cenario["theta0"],
+    100 * confianca
+  ))
+}
+```
+:::
+
 Para o item d, note que
 $$
 g'(\theta) = \mathrm{e}^{\ln f_\theta(x)} (-\psi_1(\theta) + \ln(\theta) - 1/\theta)
 $$
+
+::: {.panel-tabset}
+#### Julia
 
 ```{julia}
 #| echo: true
@@ -613,7 +1012,64 @@ function monte_carlo_d(M, γ, n, theta0)
 end
 ```
 
+#### Python
+
+```{python}
+#| output: false
+def monte_carlo_d(M, gamma, n, theta0):
+    # Estima a cobertura do IC para g(theta) = f_theta(theta).
+    def g(a):
+        return gamma_dist.pdf(a, a=a, scale=1)
+
+    def g1(a):
+        return g(a) * (-digamma(a) + np.log(a) - 1 / a)
+
+    inferiores = np.empty(M)
+    superiores = np.empty(M)
+    c2 = norm.ppf((1 + gamma) / 2)
+
+    for i in range(M):
+        x = rng_gamma.gamma(shape=theta0, scale=1, size=n)
+        emv = newton_raphson(x)
+        erro_padrao = np.sqrt(g1(emv) ** 2 / (n * polygamma(1, emv)))
+        inferiores[i] = g(emv) - c2 * erro_padrao
+        superiores[i] = g(emv) + c2 * erro_padrao
+
+    acertos = (inferiores <= g(theta0)) & (g(theta0) <= superiores)
+    return acertos.mean()
+```
+
+#### R
+
+```{r}
+#| output: false
+monte_carlo_d <- function(M, gamma, n, theta0) {
+  g <- function(a) dgamma(a, shape = a, scale = 1)
+  g1 <- function(a) g(a) * (-digamma(a) + log(a) - 1 / a)
+
+  inferiores <- numeric(M)
+  superiores <- numeric(M)
+  c2 <- qnorm((1 + gamma) / 2)
+
+  for (i in seq_len(M)) {
+    x <- rgamma(n, shape = theta0, scale = 1)
+    emv <- newton_raphson(x)
+    erro_padrao <- sqrt(g1(emv)^2 / (n * trigamma(emv)))
+    inferiores[i] <- g(emv) - c2 * erro_padrao
+    superiores[i] <- g(emv) + c2 * erro_padrao
+  }
+
+  acertos <- inferiores <= g(theta0) & g(theta0) <= superiores
+  mean(acertos)
+}
+```
+:::
+
 Rodando o código para o item d, temos
+
+::: {.panel-tabset}
+#### Julia
+
 ```{julia}
 M = 10_000; γ = 0.95; n = 100; θ_0 = 100
 confiança = monte_carlo_d(M, γ, n, θ_0)
@@ -626,10 +1082,43 @@ confiança = monte_carlo_d(M, γ, n, θ_0)
 display(L"\text{Confiança para } %$M \text{ simulações com alvo } %$γ, n = %$n, \theta_0 = %$(θ_0):\ %$(confiança * 100)\%")
 ```
 
+#### Python
+
+```{python}
+for M, gamma, n, theta0 in cenarios:
+    confianca = monte_carlo_d(M, gamma, n, theta0)
+    print(
+        f"Confiança para {M} simulações com alvo {gamma}, "
+        f"n = {n}, theta0 = {theta0}: {100 * confianca:.2f}%"
+    )
+```
+
+#### R
+
+```{r}
+for (cenario in cenarios) {
+  confianca <- monte_carlo_d(
+    cenario["M"], cenario["gamma"], cenario["n"], cenario["theta0"]
+  )
+  cat(sprintf(
+    paste0(
+      "Confiança para %.0f simulações com alvo %.2f, ",
+      "n = %.0f, theta0 = %g: %.2f%%\n"
+    ),
+    cenario["M"], cenario["gamma"], cenario["n"], cenario["theta0"],
+    100 * confianca
+  ))
+}
+```
+:::
+
 #### Comparação entre o exato e aproximado
 
 A comparação começa em $n=5$. Para $n=1$, as amplitudes dos dois intervalos são proporcionais a
 $1/\sum_iX_i$, cuja esperança é infinita, e dominariam a escala do gráfico.
+
+::: {.panel-tabset}
+##### Julia
 
 ```{julia}
 #| echo: true
@@ -695,6 +1184,149 @@ end
 display(monte_carlo_realxaprox())
 ```
 
+##### Python
+
+```{python}
+#| output: false
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import chi2, norm
+
+rng_comparacao = np.random.default_rng(13)
+
+def monte_carlo_realxaprox():
+    theta0 = 10
+    M = 100_000
+    ns = np.arange(5, 101, 5)
+    gamma = 0.95
+    z = norm.ppf((1 + gamma) / 2)
+
+    cobertura_exata = np.empty(len(ns))
+    cobertura_aproximada = np.empty(len(ns))
+    amplitude_exata = np.empty(len(ns))
+    amplitude_aproximada = np.empty(len(ns))
+
+    for i, n in enumerate(ns):
+        # A soma de n exponenciais com taxa theta0 segue uma gama.
+        somas = rng_comparacao.gamma(shape=n, scale=1 / theta0, size=M)
+
+        c1 = chi2.ppf((1 - gamma) / 2, df=2 * n)
+        c2 = chi2.ppf((1 + gamma) / 2, df=2 * n)
+        I1 = c1 / (2 * somas)
+        I2 = c2 / (2 * somas)
+
+        emv = n / somas
+        Ia1 = emv - z * emv / np.sqrt(n)
+        Ia2 = emv + z * emv / np.sqrt(n)
+
+        cobertura_exata[i] = np.mean((I1 <= theta0) & (theta0 <= I2))
+        cobertura_aproximada[i] = np.mean((Ia1 <= theta0) & (theta0 <= Ia2))
+        amplitude_exata[i] = np.mean(I2 - I1)
+        amplitude_aproximada[i] = np.mean(Ia2 - Ia1)
+
+    fig, eixos = plt.subplots(1, 2, figsize=(10, 4))
+    eixos[0].scatter(ns, cobertura_exata, color="blue", label="IC exato")
+    eixos[0].scatter(ns, cobertura_aproximada, color="red",
+                     label="IC aproximado")
+    eixos[0].axhline(gamma, color="black", label=r"$\gamma$")
+    eixos[0].set(
+        title="Cobertura", xlabel=r"$n$", ylabel="Probabilidade de cobertura",
+        ylim=(gamma - 0.1, gamma + 0.1),
+    )
+    eixos[0].legend()
+
+    eixos[1].scatter(ns, amplitude_exata, color="blue", label="IC exato")
+    eixos[1].scatter(ns, amplitude_aproximada, color="red",
+                     label="IC aproximado")
+    eixos[1].set(title="Amplitude", xlabel=r"$n$", ylabel="Amplitude média")
+    eixos[1].legend()
+    fig.tight_layout()
+    return fig
+```
+
+```{python}
+monte_carlo_realxaprox()
+plt.show()
+```
+
+##### R
+
+```{r}
+#| output: false
+set.seed(13)
+
+monte_carlo_realxaprox <- function() {
+  theta0 <- 10
+  M <- 100000
+  ns <- seq(5, 100, by = 5)
+  gamma <- 0.95
+  z <- qnorm((1 + gamma) / 2)
+
+  cobertura_exata <- numeric(length(ns))
+  cobertura_aproximada <- numeric(length(ns))
+  amplitude_exata <- numeric(length(ns))
+  amplitude_aproximada <- numeric(length(ns))
+
+  for (i in seq_along(ns)) {
+    n <- ns[i]
+    # A soma de n exponenciais com taxa theta0 segue uma gama.
+    somas <- rgamma(M, shape = n, scale = 1 / theta0)
+
+    c1 <- qchisq((1 - gamma) / 2, df = 2 * n)
+    c2 <- qchisq((1 + gamma) / 2, df = 2 * n)
+    I1 <- c1 / (2 * somas)
+    I2 <- c2 / (2 * somas)
+
+    emv <- n / somas
+    Ia1 <- emv - z * emv / sqrt(n)
+    Ia2 <- emv + z * emv / sqrt(n)
+
+    cobertura_exata[i] <- mean(I1 <= theta0 & theta0 <= I2)
+    cobertura_aproximada[i] <- mean(Ia1 <= theta0 & theta0 <= Ia2)
+    amplitude_exata[i] <- mean(I2 - I1)
+    amplitude_aproximada[i] <- mean(Ia2 - Ia1)
+  }
+
+  op <- par(mfrow = c(1, 2))
+  on.exit(par(op))
+
+  plot(
+    ns, cobertura_exata,
+    col = "blue", pch = 16,
+    ylim = c(gamma - 0.1, gamma + 0.1),
+    main = "Cobertura", xlab = "n", ylab = "Probabilidade de cobertura"
+  )
+  points(ns, cobertura_aproximada, col = "red", pch = 16)
+  abline(h = gamma)
+  legend(
+    "bottomright",
+    legend = c("IC exato", "IC aproximado", expression(gamma)),
+    col = c("blue", "red", "black"), pch = c(16, 16, NA),
+    lty = c(NA, NA, 1), bty = "n"
+  )
+
+  plot(
+    ns, amplitude_exata,
+    col = "blue", pch = 16,
+    main = "Amplitude", xlab = "n", ylab = "Amplitude média"
+  )
+  points(ns, amplitude_aproximada, col = "red", pch = 16)
+  legend(
+    "topright", legend = c("IC exato", "IC aproximado"),
+    col = c("blue", "red"), pch = 16, bty = "n"
+  )
+
+  invisible(NULL)
+}
+```
+
+```{r}
+monte_carlo_realxaprox()
+```
+:::
+
 #### Exemplo Poisson
 
 Note que
@@ -705,6 +1337,9 @@ $$
 \sqrt{n}\frac{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) - \theta}{\sqrt{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)}} &\stackrel{\mathcal{D}}{\rightarrow} N(0,1) \\
 \end{aligned}
 $$
+
+::: {.panel-tabset}
+##### Julia
 
 ```{julia}
 #| echo: true
@@ -745,6 +1380,91 @@ end
 ```{julia}
 display(monte_carlo_poiss())
 ```
+
+##### Python
+
+```{python}
+#| output: false
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import norm
+
+rng_poisson = np.random.default_rng(13)
+
+def monte_carlo_poiss():
+    theta0 = 10
+    ns = np.arange(10, 1_001, 100)
+    M = 10_000
+    gamma = 0.95
+    z = norm.ppf((1 + gamma) / 2)
+
+    amplitude = np.empty(len(ns))
+    cobertura = np.empty(len(ns))
+    for i, n in enumerate(ns):
+        # A soma de n Poisson(theta0) segue Poisson(n * theta0).
+        emv = rng_poisson.poisson(n * theta0, size=M) / n
+        erro_padrao = np.sqrt(emv / n)
+        I1 = emv - z * erro_padrao
+        I2 = emv + z * erro_padrao
+
+        amplitude[i] = np.mean(I2 - I1)
+        cobertura[i] = np.mean((I1 <= theta0) & (theta0 <= I2))
+
+    fig, eixos = plt.subplots(1, 2, figsize=(10, 4))
+    eixos[0].scatter(ns, cobertura, color="red")
+    eixos[0].set(title="Cobertura dos ICs", xlabel="n")
+    eixos[1].scatter(ns, amplitude, color="blue")
+    eixos[1].set(title="Amplitude dos ICs", xlabel="n")
+    fig.tight_layout()
+    return fig
+```
+
+```{python}
+monte_carlo_poiss()
+plt.show()
+```
+
+##### R
+
+```{r}
+#| output: false
+set.seed(13)
+
+monte_carlo_poiss <- function() {
+  theta0 <- 10
+  ns <- seq(10, 1000, by = 100)
+  M <- 10000
+  gamma <- 0.95
+  z <- qnorm((1 + gamma) / 2)
+
+  amplitude <- numeric(length(ns))
+  cobertura <- numeric(length(ns))
+  for (i in seq_along(ns)) {
+    n <- ns[i]
+    # A soma de n Poisson(theta0) segue Poisson(n * theta0).
+    emv <- rpois(M, lambda = n * theta0) / n
+    erro_padrao <- sqrt(emv / n)
+    I1 <- emv - z * erro_padrao
+    I2 <- emv + z * erro_padrao
+
+    amplitude[i] <- mean(I2 - I1)
+    cobertura[i] <- mean(I1 <= theta0 & theta0 <= I2)
+  }
+
+  op <- par(mfrow = c(1, 2))
+  on.exit(par(op))
+  plot(ns, cobertura, col = "red", pch = 16,
+       main = "Cobertura dos ICs", xlab = "n", ylab = "")
+  plot(ns, amplitude, col = "blue", pch = 16,
+       main = "Amplitude dos ICs", xlab = "n", ylab = "")
+  invisible(NULL)
+}
+```
+
+```{r}
+monte_carlo_poiss()
+```
+:::
 
 ## Regiões de confiança
 
