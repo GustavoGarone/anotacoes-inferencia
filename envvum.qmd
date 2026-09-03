@@ -1,3 +1,9 @@
+```{julia}
+#| echo: false
+#| output: false
+using PythonCall, RCall
+```
+
 # Estimadores não-viciados com variância uniformemente mínima (ENVVUM)
 
 [Estimadores](estimadores.qmd) são [estatísticas](estatisticas.qmd) cujo
@@ -340,9 +346,12 @@ $$
 Ainda assim, em média, (como podemos verificar por [simulação de Monte Carlo](monte-carlo.qmd)), ele estimará $g(\theta)$
 sem viés com variância uniformemente mínima. Disso, temos que só deveríamos usar o ENVVUM para $n\geq 3$.
 
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 #|echo: true
-#| label: fig-envvum-simulacao
+#| label: fig-envvum-simulacao-julia
 #| fig-cap: 'Histograma de $T(\boldsymbol{X}_n)$'
 using Random, Distributions, Plots, LaTeXStrings
 Random.seed!(15)
@@ -373,8 +382,104 @@ end
 simulacaoENVVUM()
 ```
 
+### Python
+
+```{python}
+#| label: fig-envvum-simulacao-python
+#| fig-cap: 'Histograma de $T(\boldsymbol{X}_n)$'
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+
+rng = np.random.default_rng(15)
+
+
+def simulacao_envvum(M=10_000, n=50):
+    # Seja X_n a.a. de X~Pois(theta), theta em (0, infinito). Vamos avaliar o
+    # ENVVUM para g(theta) = e^{-2theta}, T(X_n) = (1-2/n)^{soma de X_i}.
+    theta = np.log(rng.random()) ** 2
+    estatisticas = np.zeros(M)
+
+    for i in range(M):
+        amostra = rng.poisson(theta, size=n)
+        estatisticas[i] = (1 - 2 / n) ** np.sum(amostra)
+
+    media = np.mean(estatisticas)
+    e2theta = np.exp(-2 * theta)
+
+    plt.hist(estatisticas, bins="auto", density=True)
+    plt.axvline(e2theta, label=r"$e^{-2\theta}$")
+    plt.axvline(media, label="Média")
+    plt.xlabel(rf"$T(X_{{{n}}})$")
+    plt.ylabel("Frequência")
+    plt.legend()
+    plt.show()
+
+    print(f"Média simulada: {media:.6f}")
+    print(f"e^(-2 theta) = {e2theta:.6f}")
+
+
+simulacao_envvum()
+```
+
+### R
+
+```{r}
+#| label: fig-envvum-simulacao-r
+#| fig-cap: 'Histograma de $T(\boldsymbol{X}_n)$'
+set.seed(15)
+
+simulacao_envvum <- function(M = 10000, n = 50) {
+  # Seja X_n a.a. de X~Pois(theta), theta em (0, infinito). Vamos avaliar o
+  # ENVVUM para g(theta) = e^{-2theta}, T(X_n) = (1-2/n)^{soma de X_i}.
+  theta <- log(runif(1))^2
+  estatisticas <- numeric(M)
+
+  for (i in seq_len(M)) {
+    amostra <- rpois(n, lambda = theta)
+    estatisticas[i] <- (1 - 2 / n)^sum(amostra)
+  }
+
+  media <- mean(estatisticas)
+  e2theta <- exp(-2 * theta)
+
+  hist(estatisticas, probability = TRUE, main = "",
+       xlab = bquote(T(X[.(n)])), ylab = "Frequência")
+  abline(v = e2theta, lwd = 2)
+  abline(v = media, lwd = 2, lty = 2)
+  legend("topright", legend = c(expression(e^{-2 * theta}), "Média"),
+         lwd = 2, lty = c(1, 2), bty = "n")
+
+  cat(sprintf("Média simulada: %.6f\n", media))
+  cat(sprintf("e^(-2 theta) = %.6f\n", e2theta))
+}
+
+simulacao_envvum()
+```
+:::
+
 Podemos ainda avaliar os nossos casos patológicos.
+
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 simulacaoENVVUM(10000, 1)
 simulacaoENVVUM(10000, 2)
 ```
+
+### Python
+
+```{python}
+simulacao_envvum(10_000, 1)
+simulacao_envvum(10_000, 2)
+```
+
+### R
+
+```{r}
+simulacao_envvum(10000, 1)
+simulacao_envvum(10000, 2)
+```
+:::

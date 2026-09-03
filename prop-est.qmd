@@ -1,3 +1,9 @@
+```{julia}
+#| echo: false
+#| output: false
+using PythonCall, RCall
+```
+
 # Propriedades dos estimadores de máxima verossimilhança e de momentos
 
 ## Teorema (da invariância do EMV) {#sec-invaremv}
@@ -143,9 +149,12 @@ $$
 
 Seja $X\sim \mathrm{Beta}(\theta, 1)$.
 
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 #| echo: true
-#| label: fig-prop-est-emv-emm-beta
+#| label: fig-prop-est-emv-emm-beta-julia
 #| fig-cap: 'Distribuições simuladas dos EMVs e EMMs para $X\sim\mathrm{Beta}(\theta,1)$'
 using Distributions, Random, Plots, StatsPlots, StatsBase, LaTeXStrings
 
@@ -209,3 +218,156 @@ println("P(NormalMV > qMV = $(round(qMV, digits=4))) = " *
 println("Proporção simulada MM > qMM: $(mean(MMs .> qMM))")
 println("Proporção simulada MV > qMV: $(mean(MVs .> qMV))")
 ```
+
+### Python
+
+```{python}
+#| label: fig-prop-est-emv-emm-beta-python
+#| fig-cap: 'Distribuições simuladas dos EMVs e EMMs para $X\sim\mathrm{Beta}(\theta,1)$'
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import norm
+
+rng = np.random.default_rng(10)
+n = 50
+M = 10_000
+
+
+def estimador_mv(obs):
+    return -n / np.sum(np.log(obs))
+
+
+def estimador_mm(obs):
+    media = np.mean(obs)
+    return media / (1 - media)
+
+
+theta0 = rng.uniform(0, 100)
+MVs = np.zeros(M)
+MMs = np.zeros(M)
+for i in range(M):
+    xsim = rng.beta(theta0, 1, size=n)
+    MVs[i] = estimador_mv(xsim)
+    MMs[i] = estimador_mm(xsim)
+
+
+def variancia_mv(theta):
+    return theta**2 / n
+
+
+def variancia_mm(theta):
+    return theta * (theta + 1) ** 2 / ((theta + 2) * n)
+
+
+normMV = norm(loc=theta0, scale=np.sqrt(variancia_mv(theta0)))
+normMM = norm(loc=theta0, scale=np.sqrt(variancia_mm(theta0)))
+
+fig, eixos = plt.subplots(1, 2, figsize=(9, 4))
+
+eixos[0].hist(MVs, bins=40, density=True, color="steelblue",
+              edgecolor="white", alpha=0.8)
+grade_mv = np.linspace(np.min(MVs), np.max(MVs), 500)
+eixos[0].plot(grade_mv, normMV.pdf(grade_mv), color="black",
+              linewidth=2.5, label="Aproximação normal")
+eixos[0].axvline(theta0, color="crimson", linewidth=2,
+                linestyle="--", label=r"$\theta_0$")
+eixos[0].set(title="Histograma EMVs", xlabel=r"$\hat{\theta}$",
+            ylabel="Densidade")
+eixos[0].legend()
+
+eixos[1].hist(MMs, bins=40, density=True, color="tomato",
+              edgecolor="white", alpha=0.8)
+grade_mm = np.linspace(np.min(MMs), np.max(MMs), 500)
+eixos[1].plot(grade_mm, normMM.pdf(grade_mm), color="black",
+              linewidth=2.5, label="Aproximação normal")
+eixos[1].axvline(theta0, color="crimson", linewidth=2,
+                linestyle="--", label=r"$\theta_0$")
+eixos[1].set(title="Histograma EMMs", xlabel=r"$\hat{\theta}$",
+            ylabel="Densidade")
+eixos[1].legend()
+
+plt.tight_layout()
+plt.show()
+
+qMM = normMM.ppf(0.25)
+qMV = normMV.ppf(0.25)
+print(f"theta0: {theta0}")
+print(f"Viés simulado MM: {np.mean(MMs) - theta0}")
+print(f"EQM simulado MM: {np.mean((MMs - theta0) ** 2)}")
+print(f"Viés simulado MV: {np.mean(MVs) - theta0}")
+print(f"EQM simulado MV: {np.mean((MVs - theta0) ** 2)}")
+print(f"P(NormalMM > qMM = {qMM:.4f}) = {normMM.sf(qMM):.2f}")
+print(f"P(NormalMV > qMV = {qMV:.4f}) = {normMV.sf(qMV):.2f}")
+print(f"Proporção simulada MM > qMM: {np.mean(MMs > qMM)}")
+print(f"Proporção simulada MV > qMV: {np.mean(MVs > qMV)}")
+```
+
+### R
+
+```{r}
+#| label: fig-prop-est-emv-emm-beta-r
+#| fig-cap: 'Distribuições simuladas dos EMVs e EMMs para $X\sim\mathrm{Beta}(\theta,1)$'
+set.seed(10)
+n <- 50
+M <- 10000
+
+estimador_mv <- function(obs) -n / sum(log(obs))
+estimador_mm <- function(obs) {
+  media <- mean(obs)
+  media / (1 - media)
+}
+
+theta0 <- runif(1, min = 0, max = 100)
+MVs <- numeric(M)
+MMs <- numeric(M)
+for (i in seq_len(M)) {
+  xsim <- rbeta(n, shape1 = theta0, shape2 = 1)
+  MVs[i] <- estimador_mv(xsim)
+  MMs[i] <- estimador_mm(xsim)
+}
+
+variancia_mv <- function(theta) theta^2 / n
+variancia_mm <- function(theta) {
+  theta * (theta + 1)^2 / ((theta + 2) * n)
+}
+
+desvio_mv <- sqrt(variancia_mv(theta0))
+desvio_mm <- sqrt(variancia_mm(theta0))
+
+op <- par(mfrow = c(1, 2))
+hist(MVs, breaks = 40, probability = TRUE, col = "steelblue",
+     border = "white", main = "Histograma EMVs",
+     xlab = expression(hat(theta)), ylab = "Densidade")
+curve(dnorm(x, mean = theta0, sd = desvio_mv), add = TRUE,
+      lwd = 2.5, col = "black")
+abline(v = theta0, col = "crimson", lwd = 2, lty = 2)
+legend("topright", legend = c("Aproximação normal", expression(theta[0])),
+       col = c("black", "crimson"), lwd = 2, lty = c(1, 2), bty = "n")
+
+hist(MMs, breaks = 40, probability = TRUE, col = "tomato",
+     border = "white", main = "Histograma EMMs",
+     xlab = expression(hat(theta)), ylab = "Densidade")
+curve(dnorm(x, mean = theta0, sd = desvio_mm), add = TRUE,
+      lwd = 2.5, col = "black")
+abline(v = theta0, col = "crimson", lwd = 2, lty = 2)
+legend("topright", legend = c("Aproximação normal", expression(theta[0])),
+       col = c("black", "crimson"), lwd = 2, lty = c(1, 2), bty = "n")
+par(op)
+
+qMM <- qnorm(0.25, mean = theta0, sd = desvio_mm)
+qMV <- qnorm(0.25, mean = theta0, sd = desvio_mv)
+cat("theta0:", theta0, "\n")
+cat("Viés simulado MM:", mean(MMs) - theta0, "\n")
+cat("EQM simulado MM:", mean((MMs - theta0)^2), "\n")
+cat("Viés simulado MV:", mean(MVs) - theta0, "\n")
+cat("EQM simulado MV:", mean((MVs - theta0)^2), "\n")
+cat(sprintf("P(NormalMM > qMM = %.4f) = %.2f\n", qMM,
+            pnorm(qMM, mean = theta0, sd = desvio_mm, lower.tail = FALSE)))
+cat(sprintf("P(NormalMV > qMV = %.4f) = %.2f\n", qMV,
+            pnorm(qMV, mean = theta0, sd = desvio_mv, lower.tail = FALSE)))
+cat("Proporção simulada MM > qMM:", mean(MMs > qMM), "\n")
+cat("Proporção simulada MV > qMV:", mean(MVs > qMV), "\n")
+```
+:::

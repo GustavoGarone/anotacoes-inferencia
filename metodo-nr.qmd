@@ -1,6 +1,7 @@
 # Método de Newton-Raphson
 
 ```{julia}
+#| echo: false
 #| output: false
 using RCall, PythonCall
 ENV["QT_STYLE_OVERRIDE"] = "Fusion"
@@ -136,16 +137,69 @@ main()
 #### Python
 
 ```{python}
-print("Teste Python")
-print(1 + 1)
+import numpy as np
+from scipy.special import digamma, polygamma
+
+
+def main():
+    x = np.array([3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5])
+    n = len(x)
+
+    theta = [1.0]
+    erro_max = 10 ** (-5)
+    erro = np.inf
+    i = 0
+    iteracoes_max = 1_000
+
+    while erro > erro_max and i < iteracoes_max:
+        escore = np.sum(np.log(x)) - n * digamma(theta[i])
+        derivada_escore = -n * polygamma(1, theta[i])
+        theta.append(theta[i] - escore / derivada_escore)
+        erro = abs(theta[i + 1] - theta[i])
+        print(f"Erro na iteração {i + 1}: {erro}")
+        i += 1
+
+    if erro > erro_max:
+        raise RuntimeError(
+            f"O método não convergiu em {iteracoes_max} iterações."
+        )
+    print(f"Theta final: {theta[-1]}")
+    print(f"Total de iterações: {i}")
+
+
+main()
 ```
 
 #### R
 
 ```{r}
-cat("Teste R")
-dados <- c(1, 2, 3, 4, 5)
-plot(dados)
+main <- function() {
+  x <- c(3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5)
+  n <- length(x)
+
+  theta <- 1
+  erro_max <- 10^(-5)
+  erro <- Inf
+  i <- 1
+  iteracoes_max <- 1000
+
+  while (erro > erro_max && i <= iteracoes_max) {
+    escore <- sum(log(x)) - n * digamma(theta[i])
+    derivada_escore <- -n * trigamma(theta[i])
+    theta[i + 1] <- theta[i] - escore / derivada_escore
+    erro <- abs(theta[i + 1] - theta[i])
+    cat("Erro na iteração", i, ":", erro, "\n")
+    i <- i + 1
+  }
+
+  if (erro > erro_max) {
+    stop("O método não convergiu em ", iteracoes_max, " iterações.")
+  }
+  cat("Theta final:", tail(theta, 1), "\n")
+  cat("Total de iterações:", i - 1, "\n")
+}
+
+main()
 ```
 :::
 
@@ -173,6 +227,9 @@ $$
 &= \hat{\theta}^{(j)} - \frac{[n - \hat{\theta}^{(j)}\sum_{i=1}^n x_i]\hat{\theta}^{(j)}}{-n}
 \end{aligned}
 $$
+
+::: {.panel-tabset}
+#### Julia
 
 ```{julia}
 #| echo: true
@@ -208,6 +265,74 @@ end
 main()
 ```
 
+#### Python
+
+```{python}
+import numpy as np
+
+
+def main():
+    x = np.array([2, 2.5, 3, 3.5, 2, 1.5])
+    n = len(x)
+
+    theta = [0.5]
+    erro_max = 10 ** (-5)
+    erro = np.inf
+    i = 0
+    iteracoes_max = 1_000
+
+    while erro > erro_max and i < iteracoes_max:
+        proximo_theta = theta[i] - (
+            (n - np.sum(x) * theta[i]) * theta[i]
+        ) / (-n)
+        theta.append(proximo_theta)
+        erro = abs(theta[i + 1] - theta[i])
+        print(f"Erro na iteração {i + 1}: {erro}")
+        i += 1
+
+    if erro > erro_max:
+        raise RuntimeError(
+            f"O método não convergiu em {iteracoes_max} iterações."
+        )
+    print(f"Theta final: {theta[-1]}")
+    print(f"Total de iterações: {i}")
+
+
+main()
+```
+
+#### R
+
+```{r}
+main <- function() {
+  x <- c(2, 2.5, 3, 3.5, 2, 1.5)
+  n <- length(x)
+
+  theta <- 0.5
+  erro_max <- 10^(-5)
+  erro <- Inf
+  i <- 1
+  iteracoes_max <- 1000
+
+  while (erro > erro_max && i <= iteracoes_max) {
+    theta[i + 1] <- theta[i] -
+      ((n - sum(x) * theta[i]) * theta[i]) / (-n)
+    erro <- abs(theta[i + 1] - theta[i])
+    cat("Erro na iteração", i, ":", erro, "\n")
+    i <- i + 1
+  }
+
+  if (erro > erro_max) {
+    stop("O método não convergiu em ", iteracoes_max, " iterações.")
+  }
+  cat("Theta final:", tail(theta, 1), "\n")
+  cat("Total de iterações:", i - 1, "\n")
+}
+
+main()
+```
+:::
+
 Note que se $\Theta \subseteq \mathbb{R}^P$, o método é dado por
 $$
 \theta^{(j+1)} = \theta^{(j)} - \left[U_n'(\boldsymbol{x}_n,\theta^{(j)})\right]^{-1} \cdot U_n(\boldsymbol{x}_n, \hat{\theta}^{(j)}), j = 0, 1, \dots
@@ -231,6 +356,10 @@ $$
 em que $\delta \in (0,1)$ é a *taxa de "aprendizado"*.
 
 Para o exemplo da Gama,
+
+::: {.panel-tabset}
+#### Julia
+
 ```{julia}
 #| echo: true
 using SpecialFunctions # Funções di e trigamma (derivadas do log da gama)
@@ -270,6 +399,78 @@ end
 main()
 ```
 
+#### Python
+
+```{python}
+import numpy as np
+from scipy.special import digamma
+
+
+def main():
+    x = np.array([3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5])
+    n = len(x)
+
+    theta = [1.0]
+    delta = 0.01
+    erro_max = 10 ** (-5)
+    erro = np.inf
+    i = 0
+    iteracoes_max = 1_000
+
+    while erro > erro_max and i < iteracoes_max:
+        escore = np.sum(np.log(x)) - n * digamma(theta[i])
+        theta.append(theta[i] + delta * escore)
+        erro = abs(theta[i + 1] - theta[i])
+        if (i + 1) % 100 == 0:
+            print(f"Erro na iteração {i + 1}: {erro}")
+        i += 1
+
+    if erro > erro_max:
+        raise RuntimeError(
+            f"O método não convergiu em {iteracoes_max} iterações."
+        )
+    print(f"Theta final: {theta[-1]}")
+    print(f"Total de iterações: {i}")
+
+
+main()
+```
+
+#### R
+
+```{r}
+main <- function() {
+  x <- c(3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5)
+  n <- length(x)
+
+  theta <- 1
+  delta <- 0.01
+  erro_max <- 10^(-5)
+  erro <- Inf
+  i <- 1
+  iteracoes_max <- 1000
+
+  while (erro > erro_max && i <= iteracoes_max) {
+    escore <- sum(log(x)) - n * digamma(theta[i])
+    theta[i + 1] <- theta[i] + delta * escore
+    erro <- abs(theta[i + 1] - theta[i])
+    if (i %% 100 == 0) {
+      cat("Erro na iteração", i, ":", erro, "\n")
+    }
+    i <- i + 1
+  }
+
+  if (erro > erro_max) {
+    stop("O método não convergiu em ", iteracoes_max, " iterações.")
+  }
+  cat("Theta final:", tail(theta, 1), "\n")
+  cat("Total de iterações:", i - 1, "\n")
+}
+
+main()
+```
+:::
+
 ### Descida (ou subida) estocástica do gradiente
 
 Na descida (ou subida) do gradiente, cada atualização utiliza o escore da amostra completa. Na versão estocástica, atualizamos o parâmetro utilizando o escore de uma observação por vez:
@@ -287,6 +488,9 @@ U(x,\theta)=\ln x-\psi_1(\theta).
 $$
 
 Primeiro, consideraremos uma implementação ingênua, na qual as observações são percorridas sempre na mesma ordem, a taxa de aprendizado é constante e a convergência é avaliada apenas pela última atualização de cada época.
+
+::: {.panel-tabset}
+#### Julia
 
 ```{julia}
 #| echo: true
@@ -336,6 +540,113 @@ end
 descida_estocastica_ingenua()
 ```
 
+#### Python
+
+```{python}
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.special import digamma
+
+
+def descida_estocastica_ingenua():
+    x = np.array([3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5])
+    n = len(x)
+
+    theta = [1.0]
+    delta = 0.0001
+    erro = np.inf
+    erro_max = 10 ** (-5)
+    epoca = 1
+    epocas_max = 10_000
+
+    while erro > erro_max and epoca <= epocas_max:
+        for observacao in x:
+            proximo_theta = theta[-1] + delta * (
+                np.log(observacao) - digamma(theta[-1])
+            )
+            erro = abs(proximo_theta - theta[-1])
+            theta.append(proximo_theta)
+        if epoca % 500 == 0:
+            print(f"Erro da última atualização na época {epoca}: {erro}")
+        epoca += 1
+
+    epocas_executadas = epoca - 1
+    if erro > erro_max:
+        raise RuntimeError(
+            f"O método não convergiu em {epocas_max} épocas."
+        )
+
+    def escore(y):
+        return np.sum(np.log(x)) - n * digamma(y)
+
+    print(f"Theta final: {theta[-1]}")
+    print(f"Total de épocas: {epocas_executadas}")
+    print(f"Escore da amostra no valor final: {escore(theta[-1])}")
+
+    grade = np.linspace(0.1, 100, 1_000)
+    plt.plot(grade, escore(grade), label="U")
+    for valor in theta[::4000]:
+        plt.axvline(valor, color="tab:orange", alpha=0.4)
+    plt.axhline(0, color="black")
+    plt.xlim(0.1, 100)
+    plt.legend(["U", "(Alguns dos) thetas calculados"])
+    plt.show()
+
+
+descida_estocastica_ingenua()
+```
+
+#### R
+
+```{r}
+descida_estocastica_ingenua <- function() {
+  x <- c(3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5)
+  n <- length(x)
+
+  theta <- 1
+  delta <- 0.0001
+  erro <- Inf
+  erro_max <- 10^(-5)
+  epoca <- 1
+  epocas_max <- 10000
+
+  while (erro > erro_max && epoca <= epocas_max) {
+    for (observacao in x) {
+      proximo_theta <- tail(theta, 1) +
+        delta * (log(observacao) - digamma(tail(theta, 1)))
+      erro <- abs(proximo_theta - tail(theta, 1))
+      theta <- c(theta, proximo_theta)
+    }
+    if (epoca %% 500 == 0) {
+      cat("Erro da última atualização na época", epoca, ":", erro, "\n")
+    }
+    epoca <- epoca + 1
+  }
+
+  epocas_executadas <- epoca - 1
+  if (erro > erro_max) {
+    stop("O método não convergiu em ", epocas_max, " épocas.")
+  }
+
+  escore <- function(y) sum(log(x)) - n * digamma(y)
+  cat("Theta final:", tail(theta, 1), "\n")
+  cat("Total de épocas:", epocas_executadas, "\n")
+  cat("Escore da amostra no valor final:", escore(tail(theta, 1)), "\n")
+
+  curve(escore, from = 0.1, to = 100, ylab = "U", xlab = "theta")
+  indices <- seq(1, length(theta), by = 4000)
+  abline(v = theta[indices], col = "orange")
+  abline(h = 0)
+  legend("topright", legend = c("U", "(Alguns dos) thetas calculados"),
+         col = c("black", "orange"), lty = 1, bty = "n")
+}
+
+descida_estocastica_ingenua()
+```
+:::
+
 O algoritmo anterior encerra com uma estimativa próxima de $3.65$. Entretanto, esse valor não maximiza a função de verossimilhança, pois o escore da amostra completa ainda é diferente de zero.
 
 Além disso,
@@ -361,6 +672,9 @@ e encerraremos o algoritmo quando
 $$
 \left|U_n(\boldsymbol{x}_n,\theta^{(j)})\right|\leq\epsilon.
 $$
+
+::: {.panel-tabset}
+#### Julia
 
 ```{julia}
 #| echo: true
@@ -410,3 +724,117 @@ end
 
 descida_estocastica()
 ```
+
+#### Python
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.special import digamma
+
+rng = np.random.default_rng(24)
+
+
+def descida_estocastica():
+    x = np.array([3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5])
+    n = len(x)
+
+    theta = [4.0]
+    delta0 = 0.1
+
+    def escore(y):
+        return np.sum(np.log(x)) - n * digamma(y)
+
+    erro_max = 10 ** (-5)
+    erro = abs(escore(theta[-1]))
+    epoca = 1
+    epocas_max = 5_000
+
+    while erro > erro_max and epoca <= epocas_max:
+        delta = delta0 / np.sqrt(epoca)
+        for i in rng.permutation(n):
+            theta.append(
+                theta[-1] + delta * (np.log(x[i]) - digamma(theta[-1]))
+            )
+        erro = abs(escore(theta[-1]))
+        if epoca % 500 == 0:
+            print(f"Erro na época {epoca}: {erro}")
+        epoca += 1
+
+    epocas_executadas = epoca - 1
+    if erro > erro_max:
+        raise RuntimeError(
+            f"O método não convergiu em {epocas_max} épocas."
+        )
+
+    print(f"Theta final: {theta[-1]}")
+    print(f"Total de épocas: {epocas_executadas}")
+    print(f"Escore da amostra no valor final: {escore(theta[-1])}")
+
+    grade = np.linspace(0.1, 100, 1_000)
+    plt.plot(grade, escore(grade), label="U")
+    for valor in theta[::500]:
+        plt.axvline(valor, color="tab:orange", alpha=0.4)
+    plt.axhline(0, color="black")
+    plt.xlim(0.1, 100)
+    plt.legend(["U", "(Alguns dos) thetas calculados"])
+    plt.show()
+
+
+descida_estocastica()
+```
+
+#### R
+
+```{r}
+set.seed(24)
+
+descida_estocastica <- function() {
+  x <- c(3.1, 4.2, 5.7, 2.3, 7.7, 5.1, 3.5)
+  n <- length(x)
+
+  theta <- 4
+  delta0 <- 0.1
+  escore <- function(y) sum(log(x)) - n * digamma(y)
+
+  erro_max <- 10^(-5)
+  erro <- abs(escore(tail(theta, 1)))
+  epoca <- 1
+  epocas_max <- 5000
+
+  while (erro > erro_max && epoca <= epocas_max) {
+    delta <- delta0 / sqrt(epoca)
+    for (i in sample.int(n)) {
+      theta_atual <- tail(theta, 1)
+      theta <- c(
+        theta,
+        theta_atual + delta * (log(x[i]) - digamma(theta_atual))
+      )
+    }
+    erro <- abs(escore(tail(theta, 1)))
+    if (epoca %% 500 == 0) {
+      cat("Erro na época", epoca, ":", erro, "\n")
+    }
+    epoca <- epoca + 1
+  }
+
+  epocas_executadas <- epoca - 1
+  if (erro > erro_max) {
+    stop("O método não convergiu em ", epocas_max, " épocas.")
+  }
+
+  cat("Theta final:", tail(theta, 1), "\n")
+  cat("Total de épocas:", epocas_executadas, "\n")
+  cat("Escore da amostra no valor final:", escore(tail(theta, 1)), "\n")
+
+  curve(escore, from = 0.1, to = 100, ylab = "U", xlab = "theta")
+  indices <- seq(1, length(theta), by = 500)
+  abline(v = theta[indices], col = "orange")
+  abline(h = 0)
+  legend("topright", legend = c("U", "(Alguns dos) thetas calculados"),
+         col = c("black", "orange"), lty = 1, bty = "n")
+}
+
+descida_estocastica()
+```
+:::

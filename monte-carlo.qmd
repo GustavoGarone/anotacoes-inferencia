@@ -1,4 +1,5 @@
 ```{julia}
+#| echo: false
 #| output: false
 using PythonCall, RCall
 ```

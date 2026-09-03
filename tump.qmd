@@ -1,3 +1,9 @@
+```{julia}
+#| echo: false
+#| output: false
+using PythonCall, RCall
+```
+
 # Testes uniformemente mais poderosos (TUMP)
 
 Considere
@@ -234,6 +240,9 @@ $$
 
 ## Simulações
 
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
 #| echo: true
 # Seja X a.a. de X ~ Exp()
@@ -274,3 +283,78 @@ println("Ponto crítico para a soma: $c_soma")
 println("Testes rejeitados na borda de H_0: $(erro_tipo_i * 100)%")
 println("Poder do teste em θ = $θ_1: $(poder * 100)%")
 ```
+
+### Python
+
+```{python}
+import numpy as np
+from scipy.stats import gamma
+
+# Seja X a.a. de X ~ Exp(theta)
+# H_0: theta <= 2; H_1: theta > 2
+# delta(x) = 1 se, e somente se, sum(x) <= c_soma
+rng = np.random.default_rng(24)
+
+# Borda de Theta_0
+theta_0 = 2
+# Valor sob H_1
+theta_1 = 3
+
+# Valores do teste e da simulação
+n = 10
+alpha = 0.05
+MC = 10_000
+
+# O ponto crítico para a soma, c_soma = -c, é calculado uma única vez,
+# na borda de Theta_0.
+c_soma = gamma.ppf(alpha, a=n, scale=1 / theta_0)
+
+def proporcao_rejeicoes(theta, c_soma):
+    amostras = rng.exponential(scale=1 / theta, size=(MC, n))
+    somas = np.sum(amostras, axis=1)
+    return np.mean(somas <= c_soma)
+
+erro_tipo_i = proporcao_rejeicoes(theta_0, c_soma)
+poder = proporcao_rejeicoes(theta_1, c_soma)
+
+print(f"Ponto crítico para a soma: {c_soma}")
+print(f"Testes rejeitados na borda de H_0: {erro_tipo_i * 100}%")
+print(f"Poder do teste em theta = {theta_1}: {poder * 100}%")
+```
+
+### R
+
+```{r}
+# Seja X a.a. de X ~ Exp(theta)
+# H_0: theta <= 2; H_1: theta > 2
+# delta(x) = 1 se, e somente se, sum(x) <= c_soma
+set.seed(24)
+
+# Borda de Theta_0
+theta_0 <- 2
+# Valor sob H_1
+theta_1 <- 3
+
+# Valores do teste e da simulação
+n <- 10
+alpha <- 0.05
+MC <- 10000
+
+# O ponto crítico para a soma, c_soma = -c, é calculado uma única vez,
+# na borda de Theta_0.
+c_soma <- qgamma(alpha, shape = n, scale = 1 / theta_0)
+
+proporcao_rejeicoes <- function(theta, c_soma) {
+  amostras <- matrix(rexp(MC * n, rate = theta), nrow = MC)
+  somas <- rowSums(amostras)
+  mean(somas <= c_soma)
+}
+
+erro_tipo_i <- proporcao_rejeicoes(theta_0, c_soma)
+poder <- proporcao_rejeicoes(theta_1, c_soma)
+
+cat("Ponto crítico para a soma:", c_soma, "\n")
+cat("Testes rejeitados na borda de H_0:", erro_tipo_i * 100, "%\n")
+cat("Poder do teste em theta =", theta_1, ":", poder * 100, "%\n")
+```
+:::

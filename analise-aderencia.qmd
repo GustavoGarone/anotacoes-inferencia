@@ -76,10 +76,14 @@ $$
 #| echo: false
 #| output: false
 using Distributions, StatsBase, Random, Plots, LaTeXStrings
+using PythonCall, RCall
 ```
 
+::: {.panel-tabset}
+### Julia
+
 ```{julia}
-#| label: fig-analise-aderencia-qui-quadrado
+#| label: fig-analise-aderencia-qui-quadrado-julia
 #| fig-cap: 'Distribuição $\chi^2_{59}$ e ponto crítico do teste de aderência'
 # Anal. Aderência
 # H0 = P=P0
@@ -98,6 +102,77 @@ f(t) = pdf(Chisq(59), t)
 plot(f, xlims = (0, 120), label = "")
 vline!([quantile(Chisq(59), 0.95)], label = L"c = %$(round(quantil, digits=2))")
 ```
+
+### Python
+
+```{python}
+#| label: fig-analise-aderencia-qui-quadrado-python
+#| fig-cap: 'Distribuição $\chi^2_{59}$ e ponto crítico do teste de aderência'
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import chi2
+
+# Análise de aderência
+# H0: P = P0
+#
+# Mega-Sena: observamos apenas o primeiro número de cada sorteio.
+rng = np.random.default_rng(1)
+amostra = rng.choice(np.arange(1, 61), size=2_800)
+O = np.bincount(amostra, minlength=61)[1:]
+E = 2_800 / 60
+
+qui_quadrado = np.sum((E - O) ** 2 / E)
+quantil = chi2.ppf(0.95, df=59)
+
+t = np.linspace(0, 120, 500)
+fig, ax = plt.subplots()
+ax.plot(t, chi2.pdf(t, df=59), color="steelblue")
+ax.axvline(
+    quantil,
+    color="firebrick",
+    label=fr"$c = {quantil:.2f}$",
+)
+ax.set_xlim(0, 120)
+ax.legend()
+plt.show()
+```
+
+### R
+
+```{r}
+#| label: fig-analise-aderencia-qui-quadrado-r
+#| fig-cap: 'Distribuição $\chi^2_{59}$ e ponto crítico do teste de aderência'
+# Análise de aderência
+# H0: P = P0
+#
+# Mega-Sena: observamos apenas o primeiro número de cada sorteio.
+set.seed(1)
+amostra <- sample(1:60, size = 2800, replace = TRUE)
+O <- tabulate(amostra, nbins = 60)
+E <- 2800 / 60
+
+qui_quadrado <- sum((E - O)^2 / E)
+quantil <- qchisq(0.95, df = 59)
+
+curve(
+  dchisq(x, df = 59),
+  from = 0,
+  to = 120,
+  xlab = "t",
+  ylab = "Densidade"
+)
+abline(v = quantil, col = "firebrick")
+legend(
+  "topright",
+  legend = sprintf("c = %.2f", quantil),
+  col = "firebrick",
+  lty = 1,
+  bty = "n"
+)
+```
+:::
 Pelo computador, encontramos $c = 77.93$
 Logo, como $\chi^2=63.8 < 77.93$, concluímos que, sob $H_{0}$, não há evidências de que o modelo não seja equiprovável
 a $5\%$ de significância de estatística.

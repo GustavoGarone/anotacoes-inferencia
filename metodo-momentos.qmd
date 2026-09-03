@@ -1,3 +1,9 @@
+```{julia}
+#| echo: false
+#| output: false
+using PythonCall, RCall
+```
+
 # Estimação pelo método de momentos (EMM)
 
 Seja $\boldsymbol{X}_n$ uma [a.a.](populacao-e-amostra.qmd#sec-aa) de $X$ tal que
@@ -100,6 +106,9 @@ $$
 
 #### Simulação
 
+::: {.panel-tabset}
+##### Julia
+
 ```{julia}
 #| echo: true
 using Random, Distributions, StatsBase, Plots, LaTeXStrings
@@ -146,6 +155,97 @@ plot!(
 )
 display(plot(pmm, pmv))
 ```
+
+##### Python
+
+```{python}
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import poisson
+
+rng = np.random.default_rng(76)
+
+M = 10_000
+n = 10
+theta0 = rng.poisson(4) + 1
+
+thetaMM = np.zeros(M)
+thetaMV = np.zeros(M)
+for i in range(M):
+    x = rng.uniform(0, theta0, size=n)
+    thetaMM[i] = 2 * np.mean(x)
+    thetaMV[i] = np.max(x)
+
+# Comparar os resultados simulados com os valores teóricos
+print(f"Média simulada do EMM = {np.mean(thetaMM)}, calculada = {theta0}")
+print(
+    f"Média simulada do EMV = {np.mean(thetaMV)}, "
+    f"calculada = {10 / 11 * theta0}"
+)
+print(
+    f"Variância simulada do EMM = {np.var(thetaMM, ddof=1)}, "
+    f"calculada = {theta0**2 / (3 * n)}"
+)
+print(
+    f"Variância simulada do EMV = {np.var(thetaMV, ddof=1)}, "
+    "calculada = "
+    f"{n * theta0**2 / (n + 2) - (n / (n + 1))**2 * theta0**2}"
+)
+
+fig, eixos = plt.subplots(1, 2, figsize=(9, 4))
+eixos[0].hist(thetaMM, bins="auto", density=True)
+eixos[0].set_title("Histograma do EMM")
+
+eixos[1].hist(thetaMV, bins="auto", density=True)
+grade = np.linspace(np.min(thetaMV), np.max(thetaMV) - 0.01, 500)
+densidade = n * grade ** (n - 1) / theta0**n
+eixos[1].plot(grade, densidade, label="Densidade Teórica")
+eixos[1].set_title("Histograma do EMV")
+eixos[1].legend()
+plt.tight_layout()
+plt.show()
+```
+
+##### R
+
+```{r}
+set.seed(76)
+
+M <- 10000
+n <- 10
+theta0 <- rpois(1, lambda = 4) + 1
+
+thetaMM <- numeric(M)
+thetaMV <- numeric(M)
+for (i in seq_len(M)) {
+  x <- runif(n, min = 0, max = theta0)
+  thetaMM[i] <- 2 * mean(x)
+  thetaMV[i] <- max(x)
+}
+
+# Comparar os resultados simulados com os valores teóricos
+cat("Média simulada do EMM =", mean(thetaMM),
+    ", calculada =", theta0, "\n")
+cat("Média simulada do EMV =", mean(thetaMV),
+    ", calculada =", 10 / 11 * theta0, "\n")
+cat("Variância simulada do EMM =", var(thetaMM),
+    ", calculada =", theta0^2 / (3 * n), "\n")
+cat("Variância simulada do EMV =", var(thetaMV),
+    ", calculada =",
+    n * theta0^2 / (n + 2) - (n / (n + 1))^2 * theta0^2, "\n")
+
+op <- par(mfrow = c(1, 2))
+hist(thetaMM, probability = TRUE, main = "Histograma do EMM", xlab = "")
+hist(thetaMV, probability = TRUE, main = "Histograma do EMV", xlab = "")
+grade <- seq(min(thetaMV), max(thetaMV) - 0.01, length.out = 500)
+densidade <- n * grade^(n - 1) / theta0^n
+lines(grade, densidade, lwd = 2)
+legend("topleft", legend = "Densidade Teórica", lwd = 2, bty = "n")
+par(op)
+```
+:::
 
 ### Exemplos adicionais
 
@@ -262,6 +362,9 @@ $$
 \end{aligned}
 $$
 
+::: {.panel-tabset}
+##### Julia
+
 ```{julia}
 #| echo: true
 using Random, Distributions, StatsBase, Plots, LaTeXStrings
@@ -305,3 +408,87 @@ pmmbeta = histogram(
 vline!([beta0], label = "Valor real")
 display(plot(pmmalpha, pmmbeta))
 ```
+
+##### Python
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+
+rng = np.random.default_rng(31)
+
+M = 10_000
+n = 10  # Tamanho da amostra
+alpha0 = 4
+beta0 = 6
+
+alphaMM = np.zeros(M)
+betaMM = np.zeros(M)
+for i in range(M):
+    # O NumPy parametriza a Gama por forma e escala; escala = 1 / beta0.
+    x = rng.gamma(shape=alpha0, scale=1 / beta0, size=n)
+    s = np.var(x, ddof=0)
+    alphaMM[i] = np.mean(x) ** 2 / s
+    betaMM[i] = np.mean(x) / s
+
+print(
+    f"Média simulada do EMM para alpha = {np.mean(alphaMM)}, "
+    f"real = {alpha0}"
+)
+print(
+    f"Média simulada do EMM para beta = {np.mean(betaMM)}, "
+    f"real = {beta0}"
+)
+
+fig, eixos = plt.subplots(1, 2, figsize=(9, 4))
+eixos[0].hist(alphaMM, bins=40, density=True)
+eixos[0].axvline(alpha0, color="black", label="Valor real")
+eixos[0].set_title(r"Histograma do EMM para $\alpha$")
+eixos[0].legend()
+
+eixos[1].hist(betaMM, bins=40, density=True)
+eixos[1].axvline(beta0, color="black", label="Valor real")
+eixos[1].set_title(r"Histograma do EMM para $\beta$")
+eixos[1].legend()
+plt.tight_layout()
+plt.show()
+```
+
+##### R
+
+```{r}
+set.seed(31)
+
+M <- 10000
+n <- 10 # Tamanho da amostra
+alpha0 <- 4
+beta0 <- 6
+
+alphaMM <- numeric(M)
+betaMM <- numeric(M)
+for (i in seq_len(M)) {
+  x <- rgamma(n, shape = alpha0, rate = beta0)
+  # var() usa n - 1; o fator abaixo produz a variância com denominador n.
+  s <- var(x) * (n - 1) / n
+  alphaMM[i] <- mean(x)^2 / s
+  betaMM[i] <- mean(x) / s
+}
+
+cat("Média simulada do EMM para alpha =", mean(alphaMM),
+    ", real =", alpha0, "\n")
+cat("Média simulada do EMM para beta =", mean(betaMM),
+    ", real =", beta0, "\n")
+
+op <- par(mfrow = c(1, 2))
+hist(alphaMM, breaks = 40, probability = TRUE,
+     main = expression(paste("Histograma do EMM para ", alpha)), xlab = "")
+abline(v = alpha0, lwd = 2)
+legend("topright", legend = "Valor real", lwd = 2, bty = "n")
+
+hist(betaMM, breaks = 40, probability = TRUE,
+     main = expression(paste("Histograma do EMM para ", beta)), xlab = "")
+abline(v = beta0, lwd = 2)
+legend("topright", legend = "Valor real", lwd = 2, bty = "n")
+par(op)
+```
+:::
