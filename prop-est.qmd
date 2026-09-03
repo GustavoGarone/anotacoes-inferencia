@@ -342,18 +342,18 @@ hist(MVs, breaks = 40, probability = TRUE, col = "steelblue",
      xlab = expression(hat(theta)), ylab = "Densidade")
 curve(dnorm(x, mean = theta0, sd = desvio_mv), add = TRUE,
       lwd = 2.5, col = "black")
-abline(v = theta0, col = "crimson", lwd = 2, lty = 2)
+abline(v = theta0, col = "#DC143C", lwd = 2, lty = 2)
 legend("topright", legend = c("Aproximação normal", expression(theta[0])),
-       col = c("black", "crimson"), lwd = 2, lty = c(1, 2), bty = "n")
+       col = c("black", "#DC143C"), lwd = 2, lty = c(1, 2), bty = "n")
 
 hist(MMs, breaks = 40, probability = TRUE, col = "tomato",
      border = "white", main = "Histograma EMMs",
      xlab = expression(hat(theta)), ylab = "Densidade")
 curve(dnorm(x, mean = theta0, sd = desvio_mm), add = TRUE,
       lwd = 2.5, col = "black")
-abline(v = theta0, col = "crimson", lwd = 2, lty = 2)
+abline(v = theta0, col = "#DC143C", lwd = 2, lty = 2)
 legend("topright", legend = c("Aproximação normal", expression(theta[0])),
-       col = c("black", "crimson"), lwd = 2, lty = c(1, 2), bty = "n")
+       col = c("black", "#DC143C"), lwd = 2, lty = c(1, 2), bty = "n")
 par(op)
 
 qMM <- qnorm(0.25, mean = theta0, sd = desvio_mm)
