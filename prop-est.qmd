@@ -227,6 +227,7 @@ println("Proporção simulada MV > qMV: $(mean(MVs .> qMV))")
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from juliacall import Base as jl
 import numpy as np
 from scipy.stats import norm
 
@@ -289,7 +290,7 @@ eixos[1].set(title="Histograma EMMs", xlabel=r"$\hat{\theta}$",
 eixos[1].legend()
 
 plt.tight_layout()
-plt.show()
+jl.display(plt.gcf())
 
 qMM = normMM.ppf(0.25)
 qMV = normMV.ppf(0.25)

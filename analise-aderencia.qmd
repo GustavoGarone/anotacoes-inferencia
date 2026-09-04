@@ -111,6 +111,7 @@ vline!([quantile(Chisq(59), 0.95)], label = L"c = %$(round(quantil, digits=2))")
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from juliacall import Base as jl
 import numpy as np
 from scipy.stats import chi2
 
@@ -136,7 +137,7 @@ ax.axvline(
 )
 ax.set_xlim(0, 120)
 ax.legend()
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ### R

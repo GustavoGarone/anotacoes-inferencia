@@ -57,6 +57,7 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from juliacall import Base as jl
 from scipy.stats import chi2, poisson
 
 rng = np.random.default_rng(96)
@@ -373,7 +374,7 @@ def graficos_valores_p(p1, p2, p3):
         eixo.set(xlabel="valor-p", ylabel="Densidade")
     eixos[1, 1].axis("off")
     fig.tight_layout()
-    plt.show()
+    jl.display(plt.gcf())
 
 graficos_valores_p(p1, p2, p3)
 ```

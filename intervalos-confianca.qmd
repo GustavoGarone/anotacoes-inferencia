@@ -1191,6 +1191,7 @@ display(monte_carlo_realxaprox())
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from juliacall import Base as jl
 import numpy as np
 from scipy.stats import chi2, norm
 
@@ -1248,7 +1249,7 @@ def monte_carlo_realxaprox():
 
 ```{python}
 monte_carlo_realxaprox()
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ##### R
@@ -1421,7 +1422,7 @@ def monte_carlo_poiss():
 
 ```{python}
 monte_carlo_poiss()
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ##### R

@@ -342,6 +342,7 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from juliacall import Base as jl
 from scipy.stats import binom
 
 def poder(theta):
@@ -360,9 +361,7 @@ plt.xlim(0.6, 1)
 plt.xlabel(r'$\theta$')
 plt.ylabel(r'$\pi (\theta)$')
 
-plt.legend().set_visible(False)
-
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ### R
@@ -375,7 +374,7 @@ library(ggplot2)
 # Função poder vetorizada
 poder <- function(theta) pbinom(0.8, 2, theta)
 
-ggplot() +
+grafico <- ggplot() +
   xlim(0.6, 1) +
   geom_function(fun = poder, color = "blue") +
   labs(
@@ -383,6 +382,8 @@ ggplot() +
     y = expression(pi(theta))
   ) +
   theme_minimal()
+print(grafico)
+invisible(NULL)
 ```
 :::
 
@@ -427,7 +428,7 @@ plt.plot(val_theta, val_y, color="blue")
 plt.xlim(0, 0.601)
 plt.xlabel(r'$\theta$')
 plt.ylabel(r'$1 - \pi(\theta)$')
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ### R
@@ -441,7 +442,7 @@ poder <- function(theta) {
   pbinom(2 * 0.4, size = 2, prob = theta, lower.tail = FALSE)
 }
 
-ggplot() +
+grafico <- ggplot() +
   xlim(0, 0.601) +
   geom_function(fun = poder, color = "blue") +
   labs(
@@ -449,6 +450,8 @@ ggplot() +
     y = expression(1 - pi(theta))
   ) +
   theme_minimal()
+print(grafico)
+invisible(NULL)
 ```
 :::
 

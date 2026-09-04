@@ -212,6 +212,7 @@ display(plot(pmanual, pdireta))
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from juliacall import Base as jl
 import numpy as np
 from scipy.stats import f
 
@@ -271,7 +272,7 @@ for ax, estatisticas, titulo in zip(
     ax.legend()
 eixos[0].set_ylabel("Densidade")
 fig.tight_layout()
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ### R

@@ -312,6 +312,7 @@ import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from juliacall import Base as jl
 from scipy.stats import chi2
 
 # Seja Xn a.a. de X ~ Pois(θ)
@@ -342,7 +343,7 @@ plt.ylim(0, 1)
 plt.xlabel("T(X)")
 plt.ylabel("Densidade")
 plt.legend()
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ### R
@@ -837,7 +838,7 @@ for eixo, (valores, titulo, nome_x) in zip(eixos.flat, graficos):
 
 eixos[1, 1].axis("off")
 fig.tight_layout()
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ### R
@@ -1027,7 +1028,7 @@ for eixo, (poder, nome_y) in zip(eixos.flat, graficos):
 
 eixos[1, 1].axis("off")
 fig.tight_layout()
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ### R

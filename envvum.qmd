@@ -390,6 +390,7 @@ simulacaoENVVUM()
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from juliacall import Base as jl
 import numpy as np
 
 rng = np.random.default_rng(15)
@@ -414,7 +415,7 @@ def simulacao_envvum(M=10_000, n=50):
     plt.xlabel(rf"$T(X_{{{n}}})$")
     plt.ylabel("Frequência")
     plt.legend()
-    plt.show()
+    jl.display(plt.gcf())
 
     print(f"Média simulada: {media:.6f}")
     print(f"e^(-2 theta) = {e2theta:.6f}")

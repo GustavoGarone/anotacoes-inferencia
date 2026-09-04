@@ -546,6 +546,7 @@ descida_estocastica_ingenua()
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from juliacall import Base as jl
 import numpy as np
 from scipy.special import digamma
 
@@ -592,7 +593,7 @@ def descida_estocastica_ingenua():
     plt.axhline(0, color="black")
     plt.xlim(0.1, 100)
     plt.legend(["U", "(Alguns dos) thetas calculados"])
-    plt.show()
+    jl.display(plt.gcf())
 
 
 descida_estocastica_ingenua()
@@ -778,7 +779,7 @@ def descida_estocastica():
     plt.axhline(0, color="black")
     plt.xlim(0.1, 100)
     plt.legend(["U", "(Alguns dos) thetas calculados"])
-    plt.show()
+    jl.display(plt.gcf())
 
 
 descida_estocastica()

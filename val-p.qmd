@@ -117,6 +117,7 @@ plot!(Uniform(0, 1), label = L"\mathrm{Unif}(0,1)")
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from juliacall import Base as jl
 import numpy as np
 from scipy.stats import norm
 
@@ -137,7 +138,7 @@ ax.hist(pvals, bins="auto", density=True, label="")
 ax.plot([0, 1], [1, 1], label=r"$\mathrm{Unif}(0,1)$")
 ax.set(xlabel="valor-p", ylabel="Densidade")
 ax.legend()
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ### R
@@ -209,7 +210,7 @@ ax.hist(pvals, bins="auto", density=True, label="")
 ax.plot([0, 1], [1, 1], label=r"$\mathrm{Unif}(0,1)$")
 ax.set(xlabel="valor-p", ylabel="Densidade")
 ax.legend()
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ### R
@@ -269,7 +270,7 @@ ax.hist(pvals, bins="auto", density=True, label="")
 ax.plot([0, 1], [1, 1], label=r"$\mathrm{Unif}(0,1)$")
 ax.set(xlabel="valor-p", ylabel="Densidade")
 ax.legend()
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ### R
@@ -326,7 +327,7 @@ ax.hist(pvals, bins="auto", density=True, label="")
 ax.plot([0, 1], [1, 1], label=r"$\mathrm{Unif}(0,1)$")
 ax.set(xlabel="valor-p", ylabel="Densidade")
 ax.legend()
-plt.show()
+jl.display(plt.gcf())
 ```
 
 ### R

@@ -270,6 +270,7 @@ display(pivo)
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from juliacall import Base as jl
 import numpy as np
 from scipy.stats import f
 
@@ -328,7 +329,7 @@ ax.axvline(qgamma, color="black", linewidth=2, linestyle="--",
 ax.set(xlabel=r"$W(\theta)$", ylabel="Densidade")
 ax.legend()
 fig.tight_layout()
-plt.show()
+jl.display(plt.gcf())
 ```
 
 #### R
