@@ -370,5 +370,6 @@ cat(sprintf("P(NormalMV > qMV = %.4f) = %.2f\n", qMV,
             pnorm(qMV, mean = theta0, sd = desvio_mv, lower.tail = FALSE)))
 cat("Proporção simulada MM > qMM:", mean(MMs > qMM), "\n")
 cat("Proporção simulada MV > qMV:", mean(MVs > qMV), "\n")
+invisible(NULL)
 ```
 :::

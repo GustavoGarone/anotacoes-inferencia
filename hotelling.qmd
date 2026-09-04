@@ -336,5 +336,6 @@ for (j in seq_along(list(estatisticas_manual, estatisticas_direta))) {
          col = "tomato", lty = 1, lwd = 2, bty = "n")
 }
 par(op)
+invisible(NULL)
 ```
 :::

@@ -399,6 +399,7 @@ graficos_valores_p <- function(p1, p2, p3) {
 }
 
 graficos_valores_p(p1, p2, p3)
+invisible(NULL)
 ```
 :::
 

@@ -172,6 +172,7 @@ legend(
   lty = 1,
   bty = "n"
 )
+invisible(NULL)
 ```
 :::
 Pelo computador, encontramos $c = 77.93$

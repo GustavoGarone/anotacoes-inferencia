@@ -645,6 +645,7 @@ descida_estocastica_ingenua <- function() {
 }
 
 descida_estocastica_ingenua()
+invisible(NULL)
 ```
 :::
 
@@ -837,5 +838,6 @@ descida_estocastica <- function() {
 }
 
 descida_estocastica()
+invisible(NULL)
 ```
 :::

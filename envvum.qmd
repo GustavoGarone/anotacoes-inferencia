@@ -457,6 +457,7 @@ simulacao_envvum <- function(M = 10000, n = 50) {
 }
 
 simulacao_envvum()
+invisible(NULL)
 ```
 :::
 

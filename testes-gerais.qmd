@@ -379,6 +379,7 @@ hist(
 )
 curve(dchisq(x, df = 1), from = 0.001, add = TRUE, col = "tomato")
 legend("topright", legend = expression(chi[1]^2), col = "tomato", lty = 1)
+invisible(NULL)
 ```
 :::
 
@@ -887,6 +888,7 @@ histograma_com_chi(TX, "Histograma da Razão de Ver.", "T(X)")
 histograma_com_chi(W, "Histograma de Wald", "W(X)")
 histograma_com_chi(R, "Histograma de Escore", "R(X)")
 layout(1)
+invisible(NULL)
 ```
 :::
 
@@ -1090,6 +1092,7 @@ grafico_poder(poder_TX, "Poder Razão de ver.")
 grafico_poder(poder_W, "Poder Wald")
 grafico_poder(poder_R, "Poder Escore")
 layout(1)
+invisible(NULL)
 ```
 :::
 

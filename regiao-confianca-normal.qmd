@@ -409,6 +409,7 @@ legend(
   lwd = c(NA, 2.5, 2),
   bty = "n"
 )
+invisible(NULL)
 ```
 :::
 

@@ -245,6 +245,7 @@ densidade <- n * grade^(n - 1) / theta0^n
 lines(grade, densidade, lwd = 2)
 legend("topleft", legend = "Densidade Teórica", lwd = 2, bty = "n")
 par(op)
+invisible(NULL)
 ```
 :::
 
@@ -491,5 +492,6 @@ hist(betaMM, breaks = 40, probability = TRUE,
 abline(v = beta0, lwd = 2)
 legend("topright", legend = "Valor real", lwd = 2, bty = "n")
 par(op)
+invisible(NULL)
 ```
 :::
