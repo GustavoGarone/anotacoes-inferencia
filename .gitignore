@@ -1,18 +1,25 @@
 *.html
 *.tex
 *.log
-/env/
-/.cache/
-_book/
-quarto/
+
+# Quarto and computation output
 /.quarto/
-*_files/
-site_libs/
+/_book/
+/.cache/
+/site_libs/
+/*_files/
+/tikzdesigns/
+/texput.*
+/**/*.quarto_ipynb
+
+# Local environments and generated metadata
+/env/
+/quarto/
+/.direnv/
+/.CondaPkg/
+/_metadata.yml
+/_environment
+/LocalPreferences.toml
 .conform*
-.direnv
-.CondaPkg/
-_metadata.yml
-LocalPreferences.toml
-_environment
+
 **/*.quarto_ipynb
-tikz*

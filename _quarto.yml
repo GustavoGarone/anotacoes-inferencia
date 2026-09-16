@@ -2,6 +2,7 @@
 lang: pt-BR
 project:
   type: book
+  output-dir: _book
 engines: [julia]
 env:
   JULIA_PROJECT: "@."
@@ -41,7 +42,8 @@ book:
   reader-mode: true
   repo-url: https://github.com/GustavoGarone/anotacoes-inferencia
   repo-actions: [edit, source, issue]
-  favicon: theta.png
+  cover-image: assets/images/cover.png
+  favicon: assets/images/theta.png
   chapters:
     - index.qmd
     - part: Introdução à Inferência Frequentista
@@ -95,14 +97,14 @@ book:
         - wishart.qmd
         - hotelling.qmd
         - regiao-confianca-normal.qmd
-    # - references.qmd
-bibliography: references.bib
-csl: associacao-brasileira-de-normas-tecnicas.csl
+    - references.qmd
+bibliography: bibliography/references.bib
+csl: bibliography/associacao-brasileira-de-normas-tecnicas.csl
 format:
   html:
     theme:
-      light: [cosmo, custom.scss]
-      dark: [cosmo, theme-dark.scss, custom.scss]
+      light: [cosmo, styles/custom.scss]
+      dark: [cosmo, styles/theme-dark.scss, styles/custom.scss]
     respect-user-color-scheme: true
     include-in-header:
       text: |

@@ -159,7 +159,7 @@ $\mathcal{H}_0$ e os dados observados. Podemos usar a estatística da [Razão de
 O valor-$p$ é definido por
 
 $$
-\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) - \sup_{\theta \in \Theta_0}
+\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) = \sup_{\theta \in \Theta_0}
 P_\theta(T_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n))
 $$
 
@@ -169,7 +169,7 @@ $$
 :::{.callout-warning title="Notação em alguns textos"}
 Alguns livros, para fins didáticos, definem o valor-$p$ como probabilidade condicional:
 $$
-\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) - \sup_{\theta \in \Theta_0}
+\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) = \sup_{\theta \in \Theta_0}
 P_\theta(T_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n) | \mathcal{H}_0)
 $$
 
