@@ -128,7 +128,7 @@ Se $X\sim\mathrm{Dirichlet}(\alpha_1,\dots,\alpha_k)$, então $X=(Y_1,\dots,Y_k)
 cuja função densidade de probabilidade é dada por
 $$
 f_\theta(y) = \left\{\begin{array}{ll}
-\frac{\Gamma(\sum^k_{j=1} \alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j)} \prod^k_{j=1} y_j^{\alpha_j-1}, & y_j \in \mathfrak{X} \\
+\frac{\Gamma(\sum^k_{j=1} \alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j)} \prod^k_{j=1} y_j^{\alpha_j-1}, & (y_1,\dots,y_k) \in \mathfrak{X} \\
 0, & \mathrm{c.c.}
 \end{array} \right.
 $$
@@ -161,10 +161,10 @@ Y_{kn}
 \right)
 $$
 
-e sua função densidade de probabilidade é dada por
+Escrevendo $y_i=(y_{1i},\dots,y_{ki})$, sua função densidade de probabilidade é dada por
 $$
 f_\theta(\boldsymbol{y}_n) \stackrel{\mathrm{iid}}{=}\left\{\begin{array}{ll}
-\left[\frac{\Gamma(\sum^k_{j=1} \alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j)}\right]^n \prod_{i=1}^n\left(\prod^k_{j=1} y_{ij}^{\alpha_j-1}\right), & y_i \in \mathfrak{X}, \forall i=1,\dots,n \\
+\left[\frac{\Gamma(\sum^k_{j=1} \alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j)}\right]^n \prod_{i=1}^n\left(\prod^k_{j=1} y_{ji}^{\alpha_j-1}\right), & y_i \in \mathfrak{X}, \forall i=1,\dots,n \\
 0, & \mathrm{c.c.}
 \end{array} \right.
 $$
@@ -173,11 +173,11 @@ Tome
 $$
 \begin{aligned}
 g(\theta) &= \left[
-\frac{\Gamma(\sum^k_{j=1}\alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j}
+\frac{\Gamma(\sum^k_{j=1}\alpha_j)}{\prod^k_{j=1}\Gamma(\alpha_j)}
 \right]^n \\
 \Rightarrow
 f_\theta^{(n)}(\boldsymbol{y}_n) &= \left\{ \begin{array}{ll}
-g(\theta)\prod^n_{i=1}\prod^k_{j=1} y_{ij}^{\alpha_j-1}, & y_1,\dots,y_n \in \mathfrak{X} \\
+g(\theta)\prod^n_{i=1}\prod^k_{j=1} y_{ji}^{\alpha_j-1}, & y_1,\dots,y_n \in \mathfrak{X} \\
 0,  & \mathrm{c.c.}
 \end{array}\right.
 \end{aligned}
@@ -186,9 +186,9 @@ $$
 Note que
 $$
 \begin{aligned}
-g(\theta)\prod^n_{i=1} \prod^k_{j=1} y_{ij}^{\alpha_j-1} &= \mathrm{e}^
-{\ln g(\theta) + \sum^n_{i=1} \sum^k_{j=1}(\alpha_j-1)\ln y_{ij}} \\
-&= \mathrm{e}^{\ln g(\theta) + \sum^k_{j=1}(\alpha_j -1) \sum^n_{i=1} \ln y_{ij}}
+g(\theta)\prod^n_{i=1} \prod^k_{j=1} y_{ji}^{\alpha_j-1} &= \mathrm{e}^
+{\ln g(\theta) + \sum^n_{i=1} \sum^k_{j=1}(\alpha_j-1)\ln y_{ji}} \\
+&= \mathrm{e}^{\ln g(\theta) + \sum^k_{j=1}(\alpha_j -1) \sum^n_{i=1} \ln y_{ji}}
 \end{aligned}
 $$
 

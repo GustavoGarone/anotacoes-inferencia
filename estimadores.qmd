@@ -87,15 +87,15 @@ $$
 
 ## Propriedades dos estimadores para quantidades de interesse
 
-### Estimadores não-viciados ou não-enviesados {#sec-est-naovies}
+### Estimadores não viciados ou não enviesados {#sec-est-naovies}
 
-Seja $(X_{1},\dots,X_{n})$ a.a. de $X\sim f_{	heta},\theta \in \Theta$ e considere $T(X_{1},\dots,X_{n})=\hat{\theta}_n$
+Seja $(X_{1},\dots,X_{n})$ a.a. de $X\sim f_{\theta},\theta \in \Theta$ e considere $T(X_{1},\dots,X_{n})=\hat{\theta}_n$
 um estimador para $\theta$.
-Dizemos que $\hat{\theta}_n$ é *não-enviesado* para $\theta \Leftrightarrow$
+Dizemos que $\hat{\theta}_n$ é *não enviesado* para $\theta \Leftrightarrow$
 $$
 E_\theta(\hat \theta_{n}) = \theta, \forall \theta \in \Theta
 $$
-De forma geral, $T(X_{1},\dots,X_{n})$ é um estimador não-viciado para $g(\theta) \Leftrightarrow$
+De forma geral, $T(X_{1},\dots,X_{n})$ é um estimador não viciado para $g(\theta) \Leftrightarrow$
 $$
 E_\theta(T(X_{1},\dots,X_{n}))=g(\theta), \forall \theta \in \Theta
 $$

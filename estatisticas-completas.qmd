@@ -1,9 +1,9 @@
 # Estatísticas Completas
 
-Dizemos que $T(\boldsymbol{X}_n)$ é uma [estatística](estatisticas.qmd) completa se, e somente se, existe a função real
-$h(\cdot)$ tal que
+Dizemos que $T(\boldsymbol{X}_n)$ é uma [estatística](estatisticas.qmd) completa se, e somente se, toda função real
+$h(\cdot)$ cujas esperanças estão definidas e que satisfaz
 $$
-E_\theta(h(T(\boldsymbol{X}_n)) = 0, \forall \theta \in \Theta
+E_\theta(h(T(\boldsymbol{X}_n))) = 0, \forall \theta \in \Theta
 $$
 é a função nula quase certamente, isto é,
 $$
@@ -21,7 +21,7 @@ Mostre que $T(\boldsymbol{X}_n) = \sum_{i=1}^n X_i$ é uma estatística completa
 Note que $T(\boldsymbol{X}_n) \sim \mathrm{Binom}(n,\theta), \theta \in (0,1)$
 
 $$
-P_\theta(T(\boldsymbol{X}_n)= k) \begin{cases}
+P_\theta(T(\boldsymbol{X}_n)= k) = \begin{cases}
 \binom{n}{k}\theta^k (1-\theta)^{n-k}, & k \in \{0,1,\dots,n\} \\
 0, & \mathrm{c.c.}
 \end{cases}
@@ -77,10 +77,10 @@ que $T(\boldsymbol{X}_n) = \max\{X_1,\dots,X_n\}$ é uma estatística completa p
 
 Seja $h(\cdot)$ uma função tal que
 $$
-E_\theta(h(\boldsymbol{X}_n)) = 0,\ \forall \theta \in \Theta = (0,\infty)
+E_\theta(h(X_{(n)})) = 0,\ \forall \theta \in \Theta = (0,\infty)
 $$
 
-Precisamos encontrar a função densidade de probabilidade de $X_(n)$ (máximo). Sabemos que a f.d.p é a derivada da
+Precisamos encontrar a função densidade de probabilidade de $X_{(n)}$ (máximo). Sabemos que a f.d.p é a derivada da
 função de distribuição acumulada. Isto é,
 
 $$
@@ -104,9 +104,9 @@ Portanto,
 
 $$
 \begin{aligned}
-\frac{d}{dt} P_\theta(X_{(n)} \leq t) &= n [P_\theta(X_{(n)}\leq t)]^{n-1} \frac{d}{dt} P_\theta (X_{(n)} \leq t) \\
+\frac{d}{dt} P_\theta(X_{(n)} \leq t) &= n [P_\theta(X\leq t)]^{n-1} \frac{d}{dt} P_\theta (X \leq t) \\
 \Rightarrow f_\theta^{\boldsymbol{X}_{(n)}}(x) &= \left.\frac{dP_\theta(X_{(n)} \leq t)}{dt} \right\rvert_{t=x} \\
-&= n [P_\theta(X_{(n)}\leq x)]^{n-1} f_\theta(x) \\
+&= n [P_\theta(X\leq x)]^{n-1} f_\theta(x) \\
 &= \begin{cases}
 n \left(\frac{x}{\theta}\right)^{n-1} \frac{1}{\theta},& x \in (0,\theta] \\
 0, & \mathrm{c.c.}
@@ -156,10 +156,10 @@ $T(\boldsymbol{X}_n) = \boldsymbol{X}_n$ é suficiente porém não é completa p
 
 ### Resposta
 
-Pelo [critério da fatoração](estatisticas-suficientes.qmd#sec-crit-frat), já sabemos que $\boldsymbol{X}_n$ é
+Pelo [critério da fatoração](estatisticas-suficientes.qmd#sec-crit-fat), já sabemos que $\boldsymbol{X}_n$ é
 suficiente para o modelo. Tome
 $$
-E_\theta(h(T(\boldsymbol{X}_n)) = E_\theta(X_1 - X_2) = \theta - \theta = 0,
+E_\theta(h(T(\boldsymbol{X}_n))) = E_\theta(X_1 - X_2) = \theta - \theta = 0,
 \forall \theta \in \Theta.
 $$
 
@@ -188,7 +188,7 @@ $$
 E_\theta(\sum_{i=1}^n X_i) &= n\theta, \forall \theta \in \Theta \\
 E_\theta(\sum_{i=1}^n X_i^2) &\stackrel{\mathrm{iid}}{=} n E_\theta(X^2) = n(\theta^2+
 \theta^2) = 2n\theta^2 \\
-\Rightarrow E_\theta(T(\boldsymbol{X})n) = (n\theta, 2n\theta^2)
+\Rightarrow E_\theta(T(\boldsymbol{X}_n)) = (n\theta, 2n\theta^2)
 \end{aligned}
 $$
 
@@ -234,13 +234,13 @@ T_2(\boldsymbol{X}_n) = \sum_{i=1}^n X_i^2.
 \end{aligned}
 $$
 
-Como $E_\theta(h(T(\boldsymbol{X}_n)) = 0, \forall \theta > 0$, concluímos que $T(\boldsymbol{X}_n)$ não é completa.
+Como $E_\theta(h(T(\boldsymbol{X}_n))) = 0, \forall \theta > 0$, concluímos que $T(\boldsymbol{X}_n)$ não é completa.
 
 
 ::: {.callout-caution title="Nem toda SM é completa!"}
 [Já demonstramos](estatisticas-suficientes.qmd#sec-norm-curv) que $T(\boldsymbol{X}_n)$ é SM. Portanto, nem toda
 estatística SM é também completa. Dessa forma, pelo [Teorema 2](estatisticas-completas.qmd#sec-teo-dois-completa),
-concluímos que não existe uma estatística completa para o modelo.
+concluímos que não existe uma estatística suficiente e completa para o modelo.
 :::
 
 ## Teorema 3 (da relação com a família exponencial) {#sec-teo-tres-completa}
@@ -248,12 +248,12 @@ concluímos que não existe uma estatística completa para o modelo.
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta$, em que $f_\theta$ pertence à
 [família exponencial k-dimensional](familia-exponencial.qmd#sec-fek). Se "couber" um "retângulo" k-dimensional no conjunto
 $$
-\mathcal{C} = \{(c_1(\theta),\dots,c_k(\theta) : \theta \in \Theta \},
+\mathcal{C} = \{(c_1(\theta),\dots,c_k(\theta)) : \theta \in \Theta \},
 $$
 em que $c_i$ representa a $i$-ésima componente $c$ obtida do pertencimento à família exponencial. Então a estatística
 $$
 T(\boldsymbol{X}_n) = \left(\sum_{i=1}^n T_1(X_i),\dots,\sum_{i=1}^n
-T_k(\boldsymbol{X}_n)\right),
+T_k(X_i)\right),
 $$
 em que $T_i$ representa a $i$-ésima componente $T$ obtida do pertencimento à FE, é [suficiente](estatisticas-suficientes.qmd)
 *e completa* para o modelo.
@@ -276,7 +276,7 @@ $$
 em que
 $$
 \begin{array}{cc}
-c_1(\theta) = -\frac{1}{2\sigma^2} & T_1(x) = X^2 \\
+c_1(\theta) = -\frac{1}{2\sigma^2} & T_1(x) = x^2 \\
 c_2(\theta) = \frac{\mu}{\sigma^2} & T_2(x) = x \\
 d(\theta) = -\frac{\mu^2}{2\sigma^2} - \frac{1}{2}\ln(2\pi\sigma^2) & S(x) = 0.
 \end{array}
@@ -347,10 +347,10 @@ suficiente e completa.
 #### Resposta
 Note que
 $$
-f_\theta(x) = \begin{array}{ll}
+f_\theta(x) = \left\{\begin{array}{ll}
 \theta \mathrm{e}^{-\theta x}, & x > 0\\
 0, & \mathrm{c.c.}
-\end{array}
+\end{array}\right.
 $$
 
 [Já mostramos](familia-exponencial.qmd#sec-fe-exp) que pertence à [FE](familia-exponencial.qmd) com $c_1(\theta) = -\theta$,
@@ -365,7 +365,7 @@ Como $(-1,-0.5) \subseteq \mathcal{C}$, concluímos que $\sum_{i=1}^n T_1(X_i)$ 
 ### Exemplo negativo (Normal curvada)
 
 Seja $\boldsymbol{X}_n$ a.a. de $X\sim\mathrm{N}(\theta,\theta^2), \theta\in\Theta = \mathbb{R}^+$. Verifique se o
-conjunto $\mathcal{C} = \{(c_1(\theta),c_2(\theta)) : \theta \in \mathbb{R}^+$.
+conjunto $\mathcal{C} = \{(c_1(\theta),c_2(\theta)) : \theta \in \mathbb{R}^+\}$ contém um retângulo aberto.
 
 #### Resposta
 

@@ -8,7 +8,7 @@ P_\theta(X \in A) = \sum_{x \in A} f_\theta(x), \forall \theta \in \Theta.
 $$
 já no caso contínuo,
 $$
-P_\theta(X \in A) = \int_{A} f_\theta(x), \forall \theta \in \Theta.
+P_\theta(X \in A) = \int_{A} f_\theta(x)\,dx, \forall \theta \in \Theta.
 $$
 
 Temos uma família $\mathcal{P} = \{P_\theta : \theta \in \Theta\}$ de probabilidades que podem explicar o comportamento
@@ -191,7 +191,7 @@ $$
 em que $\mathcal{P}_0 = \{P_\theta : \theta \in \Theta_0\}$ e  $\mathcal{P}_1 = \{P_\theta : \theta \in \Theta_1\}$ e
 $\Theta_1 = \Theta \setminus \Theta_0$.
 
-Observe que $\mathcal{H}_0, \mathcal{H}_1$ estão sempre restritas a modelo estatístico. Entretanto, a negação de
+Observe que $\mathcal{H}_0, \mathcal{H}_1$ estão sempre restritas ao modelo estatístico. Entretanto, a negação de
 $\mathcal{H}_0, \neg \mathcal{H}_0$, não está restrita ao modelo adotado.
 
 :::{.callout-note title="Algumas considerações lógicas"}
@@ -241,10 +241,10 @@ $\mathcal{H}_0, \neg \mathcal{H}_0$, não está restrita ao modelo adotado.
 
 No diagrama, $P^\star$ representa a medida de probabilidade que de fato explica ou gera os dados.
 
-1. Se o analista considerar que $\mathcal{H}_0$ ou $\mathcal{H}_1$ são verdadeiros, então ele está considerando que a medida que *explica* ou *gera*
-os dados está em $\mathcal{P}$. Está é a suposição de que o universo de possibilidades é fechado (suposição de Neyman-Pearson; Teoria da Decisão).
+1. Se o analista considerar que uma das hipóteses $\mathcal{H}_0$ ou $\mathcal{H}_1$ é verdadeira, então ele está considerando que a medida que *explica* ou *gera*
+os dados está em $\mathcal{P}$. Esta é a suposição de que o universo de possibilidades é fechado (suposição de Neyman-Pearson; Teoria da Decisão).
 
-2. $\mathcal{H}_0$ e $\mathcal{H}_1$ não pode ser simultaneamente verdadeiras.
+2. $\mathcal{H}_0$ e $\mathcal{H}_1$ não podem ser simultaneamente verdadeiras.
 
 3. Se $\neg \mathcal{H}_0$ e $\neg \mathcal{H}_1$, então a medida que explica/gera os dados não está em $\mathcal{P}$.
 
@@ -263,7 +263,7 @@ $$
 \mathcal{H}_1 : \theta \in \Theta_1
 \end{cases}
 $$
-em que $\Theta_0 \neq \emptyset, \Theta_0 \cup \Theta 1 = \Theta, \Theta_0 \cap \Theta_1 = \emptyset$. Dizemos que $\mathcal{H}_0$ é
+em que $\Theta_0 \neq \emptyset, \Theta_0 \cup \Theta_1 = \Theta, \Theta_0 \cap \Theta_1 = \emptyset$. Dizemos que $\mathcal{H}_0$ é
 uma **hipótese simples** se $\# \Theta_0 = 1$. Caso contrário, dizemos que é uma **hipótese composta**.
 
 ### Exemplos
@@ -291,7 +291,7 @@ $$
 \end{cases}
 $$
 
-3. Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+$
+3. Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\mu, \sigma^2)$, $(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+$
 $$
 a)\ \begin{cases}
 \mathcal{H}_0 : \mu = 0.5\ \  \text{Hipótese composta!} \\
@@ -302,10 +302,10 @@ Note que como
 $$
 \begin{cases}
 \Theta_0 = \{(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+ : \mu = 0.5\} \\
-\Theta_0 = \{(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+ : \mu \neq 0.5\}
+\Theta_1 = \{(\mu, \sigma^2) \in \mathbb{R}\times\mathbb{R}_+ : \mu \neq 0.5\}
 \end{cases}
 $$
-têm mais de um elemento, concluímos que ambas hipóteses são compostas.
+têm mais de um elemento, concluímos que ambas as hipóteses são compostas.
 
 $$
 b)\ \begin{cases}
@@ -335,21 +335,21 @@ Atualmente, dizemos apenas que há ou não há evidências para rejeitarmos $\ma
 
 Se o universo for aberto:
 
-*Erro tipo I*: "Rejeitar $\mathcal{H}_0$ quando este é verdadeiro"
+*Erro tipo I*: "Rejeitar $\mathcal{H}_0$ quando esta é verdadeira"
 
-*Erro tipo II*: "Não rejeitar $\mathcal{H}_0$ quando este é falso"
+*Erro tipo II*: "Não rejeitar $\mathcal{H}_0$ quando esta é falsa"
 
 
 | $\mathcal{H}_0$ | Não rejeitar | Rejeitar |
 |:--------:|:-----------:|:---------------:|
-Verdadeiro |    Acerto   | Erro tipo I |
-   Falso   | Erro tipo II|    Acerto   |
+Verdadeira |    Acerto   | Erro tipo I |
+   Falsa   | Erro tipo II|    Acerto   |
 
 Se o universo for fechado:
 
-Erro tipo I: "Rejeitar $\mathcal{H}_0$ (ou aceitar $\mathcal{H}_1$) quando este é verdadeiro"
+Erro tipo I: "Rejeitar $\mathcal{H}_0$ (ou aceitar $\mathcal{H}_1$) quando esta é verdadeira"
 
-Erro tipo II: "Aceitar $\mathcal{H}_0$ (ou rejeitar $\mathcal{H}_1$ quando este é falso"
+Erro tipo II: "Aceitar $\mathcal{H}_0$ (ou rejeitar $\mathcal{H}_1$) quando esta é falsa"
 
 
 Considere o universo fechado.
@@ -505,7 +505,7 @@ $$
 Quando $\mathcal{H}_0, \mathcal{H}_1$ são simples, temos
 $$
 \begin{aligned}
-\alpha_{\delta, \max} &= \pi_\delta(\theta_0) = P_\theta(S_\delta) \\
+\alpha_{\delta, \max} &= \pi_\delta(\theta_0) = P_{\theta_0}(S_\delta) \\
 \beta_{\delta, \max} &= 1 - \pi_\delta(\theta_1),
 \end{aligned}
 $$
@@ -513,7 +513,7 @@ com
 $$
 \begin{aligned}
 \mathcal{H}_0 : \theta = \theta_0 \\
-\mathcal{H}_1 : \theta \neq \theta_1.
+\mathcal{H}_1 : \theta = \theta_1.
 \end{aligned}
 $$
 

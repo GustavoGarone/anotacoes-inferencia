@@ -1,7 +1,7 @@
 # Testes de Independência e Homogeneidade
 Com a ajuda da [tabela de frequências](tabela-frequencias.qmd), conseguimos [testar](teste-hipotese.qmd) independência entre
 eventos e homogeneidade em distribuição de eventos. Por mais que utilizem o mesmo mecanismo, os dois testes são interpretados
-de forma diferentes e, portanto, também apresentados individualmente nesta seção.
+de formas diferentes e, portanto, também apresentados individualmente nesta seção.
 
 ## Teste de Homogeneidade
 Usamos esse teste para verificar se as medidas de probabilidade de vários grupos diferentes são iguais (seguem uma mesma distribuição).
@@ -9,8 +9,8 @@ Usamos esse teste para verificar se as medidas de probabilidade de vários grupo
 Os totais marginais para cada grupo devem ser fixados antes de executarmos o experimento.
 $$
 \begin{cases}
-H_{0}: \text{Os grupos são independentes} \\
-H_{1} : \text{Pelo menos um dos grupos não é independente}
+\mathcal{H}_{0}: \text{As distribuições são iguais entre os grupos} \\
+\mathcal{H}_{1} : \text{Pelo menos um dos grupos tem distribuição diferente}
 \end{cases}
 $$
 
@@ -21,8 +21,8 @@ Aqui, apenas o tamanho amostral (total dos totais) é fixado.
 
 $$
 \begin{cases}
-H_{0}: \text{Os grupos se distribuem de forma equivalente} \\
-H_{1} : \text{Pelo menos um dos grupos não se distribui de forma equivalente}
+\mathcal{H}_{0}: \text{Os grupos se distribuem de forma equivalente} \\
+\mathcal{H}_{1} : \text{Pelo menos um dos grupos não se distribui de forma equivalente}
 \end{cases}
 $$
 
@@ -80,7 +80,7 @@ $$
 \end{aligned}
 $$
 Concluiremos o teste tomando $\alpha = 1\%$ de significância estatística
-Sabemos que, sob $H_{0}$,
+Sabemos que, sob $\mathcal{H}_{0}$,
 $$
 \chi^2_{obs} \sim \chi^2_{(3-1)(2-1)}
 $$
@@ -89,7 +89,7 @@ $$
 P(\chi^2_{2}> c_{p}) = 1\%
 $$
 Pela tabela, $c_{p}=9.21$
-Como $15.47 > 9.21$, concluímos que, a sinistralidade não se distribui de forma homogênea entre os estados de SP, CE e
+Como $15.47 > 9.21$, concluímos que a sinistralidade não se distribui de forma homogênea entre os estados de SP, CE e
 PE a $1\%$ de significância.
 
 ### Outro Exemplo (independência)
@@ -128,5 +128,5 @@ Considerando $\alpha= 5\%$, precisamos encontrar $c_{p}$ tal que
 $$
 P(\chi^2_{4}>c_{p})=5\% \Rightarrow c_{p} = 9.49
 $$
-Como $26.14 > 9.49$, podemos concluir que, a $5\%$ de significância estatística, existem evidências que o número da
+Como $26.14 > 9.49$, podemos concluir que, a $5\%$ de significância estatística, existem evidências de que o número da
 tentativa tem influência sobre a opinião do cliente.

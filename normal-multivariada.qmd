@@ -6,7 +6,7 @@ using PythonCall, RCall
 
 # Normal Multivariada
 
-Dizemos que $\boldsymbol{X} = \left(\begin{array}{c}X_1 \\ \vdots \\ X_n\end{array}\right)$ tem distribuição multivariada
+Dizemos que $\boldsymbol{X} = \left(\begin{array}{c}X_1 \\ \vdots \\ X_d\end{array}\right)$ tem distribuição multivariada
 $N_d(\boldsymbol{\mu}, \Sigma)$ se, e somente se, a sua função densidade de probabilidade é dada por:
 
 $$
@@ -15,7 +15,7 @@ f^{\boldsymbol{X}}(\boldsymbol{x}) = \frac{1}{(2\pi)^{\frac{d}{2}} \lvert \Sigma
 \mathrm{Exp}\left\{-\frac{1}{2} (\boldsymbol{x} - \boldsymbol{\mu})^T \Sigma^{-1}(\boldsymbol{x}-\boldsymbol{\mu})\right\}
 $$
 
-em que $\mu=\left(\begin{array}{c} \mu_1, \vdots, \mu_n\end{array}\right)$ e $\Sigma = \left[\begin{array}{cccc}
+em que $\mu=\left(\begin{array}{c} \mu_1 \\ \vdots \\ \mu_d\end{array}\right)$ e $\Sigma = \left[\begin{array}{cccc}
 \sigma_{11} & \sigma_{12} & \dots & \sigma_{1d} \\
 \sigma_{21} & \sigma_{22} & \dots & \sigma_{2d} \\
 \vdots & \vdots & \ddots & \vdots \\
@@ -58,7 +58,7 @@ $$
 :::
 
 
-:::{.callout-note title="Obs 3: Covariância implica independência para normais"}
+:::{.callout-note title="Obs 3: Covariância nula implica independência sob normalidade conjunta"}
 Se
 $$
 \Sigma = \mathrm{diag}(\sigma_{11}\dots\sigma_{dd}) = \left[\begin{array}{cccc}
@@ -110,7 +110,7 @@ x_d - \mu_d \\
 \end{array}\right) \\
 &=
 \left(
-\frac{(x_1 - \mu_1}{\sigma_{11}} \dots \frac{x_d - \mu_d}{\sigma_{dd}}
+\frac{x_1 - \mu_1}{\sigma_{11}} \dots \frac{x_d - \mu_d}{\sigma_{dd}}
 \right)
 \left(\begin{array}{c}
 x_1 - \mu_1 \\
@@ -127,7 +127,7 @@ f^{\boldsymbol{X}}(\boldsymbol{x}) &= \frac{1}{(2\pi)^{\frac{d}{2}} \left(\prod_
 \sigma_{ii}\right)^{\frac{1}{2}}}
 \mathrm{Exp}\left\{-\frac{1}{2}\sum_{i=1}^d \frac{(x_i - \mu_i)^2}{(\sigma_{ii})}\right\} \\
 &= \prod_{i=1}^d \left\{
-\frac{1}{(2\pi)^{\frac{d}{2}} \sigma_{ii}^{\frac{1}{2}}}
+\frac{1}{(2\pi)^{\frac{1}{2}} \sigma_{ii}^{\frac{1}{2}}}
 \mathrm{Exp}\left\{-\frac{1}{2} \frac{(x_i - \mu_i)^2 }{(\sigma_{ii})}\right\}
 \right\} \\
 &= \prod^d_{i=1} f^{(i)}(x_i)
@@ -137,7 +137,7 @@ em que $f^{(i)}(x_i)$ é  a f.d.p de $N(\mu_i, \sigma_{ii})$
 :::
 
 :::{.callout-note title="Obs 5: Função geradora de momentos"}
-A função geradora de momentos de $\boldsymbol{X} \sim N_d(\boldsymbol{\mu} \Sigma)$ é dada por
+A função geradora de momentos de $\boldsymbol{X} \sim N_d(\boldsymbol{\mu}, \Sigma)$ é dada por
 $$
 M_{\boldsymbol{X}}(\boldsymbol{t}) = \mathrm{Exp}\left\{
 \boldsymbol{\mu}^T\boldsymbol{t} + \frac{1}{2} \boldsymbol{t}^T \Sigma \boldsymbol{t}
@@ -154,12 +154,12 @@ $$
 Prova por F.G.M:
 $$
 \begin{aligned}
-M_{\boldsymbol{Y}}(\boldsymbol{t} &=
+M_{\boldsymbol{Y}}(\boldsymbol{t}) &=
 E(\mathrm{e}^{\boldsymbol{Y}^T\boldsymbol{t}}) \\
 &= E(\mathrm{e}^{\boldsymbol{a}^T \boldsymbol{t} + \boldsymbol{X}^T B^T \boldsymbol{t}}) \\
 &= \mathrm{e}^{\boldsymbol{a}^T\boldsymbol{t}}E(\mathrm{e}^{\boldsymbol{X}^T B^T \boldsymbol{t}}) \\
 &= \mathrm{e}^{\boldsymbol{a}^T\boldsymbol{t}} M_{\boldsymbol{X}}(B^T \boldsymbol{t}) \\
-&= \mathrm{e}^{\boldsymbol{a}^T\boldsymbol{t}} \mathrm{e}^{\boldsymbol{\mu}(B^T\boldsymbol{t}) + \frac{1}{2} \boldsymbol{t}^T B \Sigma B^T \boldsymbol{t}}\\
+&= \mathrm{e}^{\boldsymbol{a}^T\boldsymbol{t}} \mathrm{e}^{\boldsymbol{\mu}^T(B^T\boldsymbol{t}) + \frac{1}{2} \boldsymbol{t}^T B \Sigma B^T \boldsymbol{t}}\\
 &= \mathrm{e}^{(\boldsymbol{a} + B\boldsymbol{\mu})^T\boldsymbol{t} + \frac{1}{2} \boldsymbol{t}^T B \Sigma B^T \boldsymbol{t}}
 \end{aligned}
 $$
@@ -353,22 +353,24 @@ $$
 \begin{aligned}
 \lvert \Sigma \rvert &= \sigma_{11} \sigma_{22} - \sigma_{12}^2 \\
 \Sigma^{-1} =& \frac{1}{\sigma_{11} \sigma_{22} - \sigma_{12}^2}
-\left(\begin{array}{cc} \sigma_{11} & -\sigma_{12} \\ -\sigma_{12} & \sigma_{22} \end{array}\right) \\
+\left(\begin{array}{cc} \sigma_{22} & -\sigma_{12} \\ -\sigma_{12} & \sigma_{11} \end{array}\right) \\
 \Rightarrow f^{\boldsymbol{X}}(x_1, x_2)\\ = \frac{1}{2\pi \sqrt{\sigma_{11}\sigma_{22} - \sigma_{12}^2}}
-&\mathrm{Exp}\underbracket{\left\{
--\frac{1}{2} \left(\begin{array}{c} X_1 - \mu_1 \\ X_2 - \mu_2
+&\mathrm{Exp}\left\{-\frac{1}{2(\sigma_{11}\sigma_{22} - \sigma_{12}^2)}
+\underbracket{\left(\begin{array}{c} x_1 - \mu_1 \\ x_2 - \mu_2
 \end{array}\right)^T
-\left(\begin{array}{cc} \sigma_{11} & -\sigma_{12} \\ -\sigma_{12} & \sigma_{22} \end{array}\right)
-\left(\begin{array}{c} X_1 - \mu_1 \\ X_2 - \mu_2 \end{array}\right) \frac{1}{\sigma_{11}\sigma_{22} - \sigma_{12}^2}
-\right\}}_{*} \\ \\
-*&= [(x_1 - \mu_1)\sigma_{22} - (x_2 - \mu_2)\sigma_{12} -
-(x_1-\mu_1)\sigma_{12}+(x_2 - \mu_2)\sigma_{11}]
-\left(\begin{array}{c} X_1 - \mu_1 \\ X_2 - \mu_2 \end{array}\right)^T \\
+\left(\begin{array}{cc} \sigma_{22} & -\sigma_{12} \\ -\sigma_{12} & \sigma_{11} \end{array}\right)
+\left(\begin{array}{c} x_1 - \mu_1 \\ x_2 - \mu_2 \end{array}\right)}_{*}
+\right\} \\ \\
+*&= \left(\begin{array}{cc}
+(x_1 - \mu_1)\sigma_{22} - (x_2 - \mu_2)\sigma_{12} &
+-(x_1-\mu_1)\sigma_{12}+(x_2 - \mu_2)\sigma_{11}
+\end{array}\right)
+\left(\begin{array}{c} x_1 - \mu_1 \\ x_2 - \mu_2 \end{array}\right) \\
 &= (x_1 - \mu_1)^2 \sigma_{22} - 2(x_1 - \mu_1)(x_2 - \mu_2)\sigma_{12} + (x_2 - \mu_2)^2 \sigma_{11} \\
 \Rightarrow \frac{*}{\sigma_{11}\sigma_{22} - \sigma_{12}^2} &=
 \frac{(x_1 - \mu_1)^2}{\frac{\sigma_{11}\sigma_{22} - \sigma_{12}^2}{\sigma_{22}}} -
-\frac{2(x_1 - \mu_1)(x_2 - \mu_2)}{\frac{\sigma_{11}\sigma_{22} - \sigma{12}^2}{\sigma_{22}}} +
-\frac{(x_2 - \mu_2)^2}{\frac{\sigma_{11}\sigma_{22} - \sigma_{12}^2}{\sigma_{22}}} \\
+\frac{2(x_1 - \mu_1)(x_2 - \mu_2)}{\frac{\sigma_{11}\sigma_{22} - \sigma_{12}^2}{\sigma_{12}}} +
+\frac{(x_2 - \mu_2)^2}{\frac{\sigma_{11}\sigma_{22} - \sigma_{12}^2}{\sigma_{11}}} \\
 \mathrm{Tome}\ \rho = \frac{\sigma_{12}}{\sqrt{\sigma_{11} \sigma_{22}}} \\ \\
 A.\ \frac{\sigma_{11}\sigma_{22} - \sigma_{12}^2}{\sigma_{22}} &= \sigma_{11} -
 \frac{\sigma_{12}^2}{\sigma_{22}} \\
@@ -394,7 +396,7 @@ $$
 Assim temos que
 $$
 \begin{aligned}
-&f^{\boldsymbol{X}}(x_1, x_2) \\&= \frac{1}{2\pi \sqrt{\sigma_{11}, \sigma_{22}} \sqrt{1-\rho^2}}
+&f^{\boldsymbol{X}}(x_1, x_2) \\&= \frac{1}{2\pi \sqrt{\sigma_{11}\sigma_{22}} \sqrt{1-\rho^2}}
 \mathrm{Exp} \left\{
 -\frac{1}{2(1-\rho^2)} \left(\frac{(x_1-\mu_1)^2}{\sigma_{11}}
 -2\rho\frac{(x_1 - \mu_1)(x_2 - \mu_2)}{\sqrt{\sigma_{11}\sigma_{22}}} +
@@ -406,7 +408,7 @@ $$
 ## [Modelo estatístico](./modelo-estatistico.qmd)
 
 Dizemos que $\boldsymbol{X} = \left(\begin{array}{c} X_1 \\ \vdots \\ X_d \end{array}\right)$ é um vetor aleatório
-populacional normal multivariado se $\boldsymbol{X}_n \sim N_d(\boldsymbol{\mu}, \Sigma)$, em que o vetor de parâmetros
+populacional normal multivariado se $\boldsymbol{X} \sim N_d(\boldsymbol{\mu}, \Sigma)$, em que o vetor de parâmetros
 é
 $$
 \theta = \left[\begin{array}{c}
@@ -464,7 +466,7 @@ $$
 - \boldsymbol{\mu})
 \right\}
 \right\} \\
-&=  \frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
+&=  \frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{n}{2}}} \mathrm{Exp}\left\{
 -\frac{1}{2}\underbracket{\sum_{i=1}^n(\boldsymbol{x}_i - \boldsymbol{\mu})^T
 \Sigma^{-1}(\boldsymbol{x}_i - \boldsymbol{\mu})}_{\dagger}
 \right\}
@@ -479,7 +481,7 @@ $$
 &= \sum_{i=1}^n ((\boldsymbol{x}_i - \bar{\boldsymbol{x}}) - (\boldsymbol{\mu} - \bar{\boldsymbol{x}}))^T
 \Sigma^{-1} ((\boldsymbol{x}_i - \bar{\boldsymbol{x}}) - (\boldsymbol{\mu} - \bar{\boldsymbol{x}})) \\
 &= \sum_{i=1}^n \left\{
-(\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i -
+(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i -
 \bar{\boldsymbol{x}})
 -\underbracket{(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}
 (\boldsymbol{x}_i - \bar{\boldsymbol{x}})}_{A} \right .\\
@@ -497,10 +499,10 @@ $$
 A = \sum_{i=1}^n (\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}
 (\boldsymbol{x}_i - \bar{\boldsymbol{x}}) =
 (\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\sum_{i=1}^n \boldsymbol{x}_i
-- \bar{\boldsymbol{x}}) = 0 \\
+- n\bar{\boldsymbol{x}}) = 0 \\
 B = \sum_{i=1}^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1}
 (\boldsymbol{\mu} - \bar{\boldsymbol{x}}) =
-(\sum_{i=1}^n \boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu}
+(\sum_{i=1}^n \boldsymbol{x}_i - n\bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu}
 - \bar{\boldsymbol{x}}) = 0
 \end{cases}
 $$
@@ -509,13 +511,13 @@ Portanto,
 $$
 \begin{aligned}
 \dagger &=
-\sum_{i=1}^n (\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})
+\sum_{i=1}^n (\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})
 +n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} -
 \bar{\boldsymbol{x}}) \\
-&=  \sum_{i=1}^n \mathrm{tr}\{(\boldsymbol{x} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})\}
+&=  \sum_{i=1}^n \mathrm{tr}\{(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{x}_i - \bar{\boldsymbol{x}})\}
 +n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} -
 \bar{\boldsymbol{x}}) \\
-&\stackrel{\text{Prop. tr}}{=}  \sum_{i=1}^n \mathrm{tr}\{\Sigma^{-1}(\boldsymbol{x} - \bar{\boldsymbol{x}})(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T\}
+&\stackrel{\text{Prop. tr}}{=}  \sum_{i=1}^n \mathrm{tr}\{\Sigma^{-1}(\boldsymbol{x}_i - \bar{\boldsymbol{x}})(\boldsymbol{x}_i - \bar{\boldsymbol{x}})^T\}
 +n(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1} (\boldsymbol{\mu} -
 \bar{\boldsymbol{x}}) \\
 \end{aligned}
@@ -535,7 +537,7 @@ Dessa forma, podemos escrever a função de verossimilhança da seguinte forma:
 
 $$
 \mathcal{L}_{\boldsymbol{x}^*}(\theta) =
-\frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
+\frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{n}{2}}} \mathrm{Exp}\left\{
 -\frac{n}{2}\left( \mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\}
 +(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}(\boldsymbol{\mu} -
 \bar{\boldsymbol{x}})\right)
@@ -558,7 +560,7 @@ $(\boldsymbol{\mu} - \bar{\boldsymbol{x}})^T \Sigma^{-1}(\boldsymbol{\mu} - \bar
 Para encontrar $\Sigma$ que maximiza a função de verossimilhança, substituímos $\boldsymbol{\mu}$ por $\bar{\boldsymbol{x}}$
 e tentamos encontrar seu valor. Portanto, devemos maximizar
 $$
-\frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{1}{2}}} \mathrm{Exp}\left\{
+\frac{1}{(2\pi)^{\frac{nd}{2}}\lvert\Sigma\rvert^{\frac{n}{2}}} \mathrm{Exp}\left\{
 -\frac{n}{2} \mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\}
 \right\}
 $$
@@ -584,8 +586,8 @@ $$
 \Rightarrow &\mathrm{tr}\{M\} - \ln\lvert M\rvert \geq d
 \end{aligned}
 $$
-Tome $M = \Sigma^{-1} S^(\boldsymbol{x}_n^*)$. Então, assumindo $S^2(\boldsymbol{x}_n^*)$ positiva definida, $M$ é positiva
-definida e
+Tome $M = \Sigma^{-1} S^2(\boldsymbol{x}_n^*)$. Então, assumindo $S^2(\boldsymbol{x}_n^*)$ positiva definida, $M$ é semelhante à matriz simétrica positiva definida
+$\Sigma^{-1/2}S^2(\boldsymbol{x}_n^*)\Sigma^{-1/2}$. Portanto, $M$ tem autovalores positivos e a mesma desigualdade entre traço e log-determinante se aplica:
 $$
 \begin{aligned}
 &\mathrm{tr}\{\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\} - \ln\lvert\Sigma^{-1}S^2(\boldsymbol{x}_n^*)\rvert \geq d \\
@@ -735,7 +737,7 @@ $$
 
 ### [Teorema do limite central para o EMV](prop-est.qmd#sec-tlcemv) com variáveis reais
 
-Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^P, p \in \mathbb{N}$. Se as [condições de regularidade](cond-regular.qmd)
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^p, p \in \mathbb{N}$. Se as [condições de regularidade](cond-regular.qmd)
 estiverem satisfeitas, então,
 $$
 \sqrt{n} (\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, I_1(\theta)^{-1}),
@@ -767,7 +769,7 @@ $$
 logo,
 $$
 \begin{aligned}
-\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)^{(i)} \stackrel{a}{\approx} N_p(\theta_i, V_i(\theta)), i = 1,2
+\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)^{(i)} \stackrel{a}{\approx} N_1(\theta_i, V_i(\theta)), i = 1,2
 \end{aligned}
 $$
 em que $V_i(\theta)$ é o elemento $(i,i)$ da matriz $I_n(\theta)^{-1}, i = 1, 2$.
@@ -781,7 +783,7 @@ $$
 
 ### [Teorema do limite central para o EMM](prop-est.qmd#sec-tlcemm) com variáveis reais
 
-Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^P, p \in \mathbb{N}$ tal que
+Seja $\boldsymbol{X}_n$ a.a. de $X\sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^p, p \in \mathbb{N}$ tal que
 $$
 E_\theta(|X|^k) < \infty, k = 1, \dots, 2p.
 $$
@@ -811,7 +813,7 @@ O [método de momentos](metodo-momentos.qmd) pode ser generalizado da seguinte f
 Se $E_\theta(|X|^k) < \infty$ para $k \in \{k_1, k_2, \dots, k_p\} \subseteq N$ ou, se $X$ for não negativa, $k \in \{k_1, \dots, k_p\} \subseteq \mathrm{Q}$.
 O EMM é obtido igualando
 $$
-E_\theta(X^k) = \frac{1}{n} \sum_{i=1}^n X_i^k, k \in \{k_1, \dots, k_n\}
+E_\theta(X^k) = \frac{1}{n} \sum_{i=1}^n X_i^k, k \in \{k_1, \dots, k_p\}
 $$
 Seja
 $$
@@ -821,7 +823,7 @@ $$
 
 Considere que
 
-1. $E_\theta(|X|^{2k}) < \infty, \forall k \in \{k_1, \dots, k_n\}$
+1. $E_\theta(|X|^{2k}) < \infty, \forall k \in \{k_1, \dots, k_p\}$
 
 2. $\det h(\theta) \neq 0$
 
@@ -921,6 +923,67 @@ I_1(\theta)^{-1} &= \frac{1}{(\psi_2(\alpha) - \psi_2(\alpha+\beta))(\psi_2(\bet
 \end{aligned}
 $$
 
+Para o EMM, como $\theta$ tem dimensão $p = 2$, igualamos os dois primeiros momentos populacionais aos amostrais. Os momentos da Beta são
+$$
+\mu_k(\theta) = E_\theta(X^k) = \prod_{j=0}^{k-1} \frac{\alpha + j}{\alpha + \beta + j}, k \in \mathbb{N},
+$$
+em particular, $\mu_1(\theta) = \frac{\alpha}{\alpha+\beta}$ e $\mu_2(\theta) = \frac{\alpha(\alpha+1)}{(\alpha+\beta)(\alpha+\beta+1)}$.
+Seja $m_1 = \bar{X}$ e $m_2 = \frac{1}{n}\sum_{i=1}^n X_i^2$. Então,
+$$
+\begin{aligned}
+\left\{
+\begin{aligned}
+\mu_1(\theta) &= m_1 \\
+\mu_2(\theta) &= m_2
+\end{aligned}
+\right.
+\Rightarrow
+\left\{
+\begin{aligned}
+\alpha + \beta &= \frac{\mu_1 - \mu_2}{\mu_2 - \mu_1^2} \\
+\alpha &= \mu_1 (\alpha + \beta)
+\end{aligned}
+\right.
+\Rightarrow
+\begin{aligned}
+\hat{\alpha}_{\mathrm{MM}}(\boldsymbol{X}_n) &= \frac{m_1(m_1 - m_2)}{m_2 - m_1^2} \\
+\hat{\beta}_{\mathrm{MM}}(\boldsymbol{X}_n) &= \frac{(1 - m_1)(m_1 - m_2)}{m_2 - m_1^2}.
+\end{aligned}
+\end{aligned}
+$$
+
+Como $E_\theta(X^4) < \infty$, pois $X \in (0,1)$, e
+$$
+\begin{aligned}
+h(\theta) &= \begin{bmatrix}
+\frac{\partial \mu_1}{\partial \alpha}(\theta) & \frac{\partial \mu_1}{\partial \beta}(\theta) \\
+\frac{\partial \mu_2}{\partial \alpha}(\theta) & \frac{\partial \mu_2}{\partial \beta}(\theta)
+\end{bmatrix}
+= \begin{bmatrix}
+\frac{\beta}{(\alpha+\beta)^2} & -\frac{\alpha}{(\alpha+\beta)^2} \\
+\frac{\beta(2\alpha^2 + 2\alpha\beta + 2\alpha + \beta + 1)}{(\alpha+\beta)^2(\alpha+\beta+1)^2} &
+-\frac{\alpha(\alpha+1)(2\alpha + 2\beta + 1)}{(\alpha+\beta)^2(\alpha+\beta+1)^2}
+\end{bmatrix}
+\end{aligned}
+$$
+tem entradas contínuas e $\det h(\theta) \neq 0$ (pois $\theta \mapsto (\mu_1, \mu_2)$ é inversível, conforme as fórmulas acima), vale o [teorema do limite central para o EMM](prop-est.qmd#sec-tlcemm) com $\boldsymbol{Y} = (X, X^2)^T$:
+$$
+\sqrt{n}(\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_2(\boldsymbol{0}, V_\theta)
+$$
+em que
+$$
+\begin{aligned}
+V_\theta &= h(\theta)^{-1} \mathrm{Var}_\theta(\boldsymbol{Y})[h(\theta)^{-1}]^T \\
+\mathrm{Var}_\theta(\boldsymbol{Y}) &=
+\begin{bmatrix}
+\mu_2 - \mu_1^2 & \mu_3 - \mu_1\mu_2 \\
+\mu_3 - \mu_1\mu_2 & \mu_4 - \mu_2^2
+\end{bmatrix}.
+\end{aligned}
+$$
+
+Como o EMV é assintoticamente eficiente, $V_\theta - I_1(\theta)^{-1}$ é semidefinida positiva, isto é, o EMM é assintoticamente menos eficiente que o EMV. Numericamente, abaixo comparamos $V_\theta$ e $I_1(\theta)^{-1}$ avaliadas na estimativa de MV.
+
 ::: {.panel-tabset}
 ###### Julia
 
@@ -933,6 +996,25 @@ function main()
     alpha0 = 1.2
     beta0 = 7
     x = rand(Beta(alpha0, beta0), n)
+
+    # EMM: iguala os dois primeiros momentos aos amostrais.
+    m1 = sum(x) / n
+    m2 = sum(x .^ 2) / n
+    thetamm = [m1 * (m1 - m2), (1 - m1) * (m1 - m2)] ./ (m2 - m1^2)
+    println("EMM: $thetamm")
+
+    mu(k, θ) = prod((θ[1] + j) / (θ[1] + θ[2] + j) for j in 0:(k - 1))
+
+    function Vmm(θ)
+        a, b = θ
+        s = a + b
+        h21 = b * (2a^2 + 2a * b + 2a + b + 1) / (s^2 * (s + 1)^2)
+        h22 = -a * (a + 1) * (2s + 1) / (s^2 * (s + 1)^2)
+        h = [b/s^2 -a/s^2; h21 h22]
+        m1, m2, m3, m4 = [mu(k, θ) for k in 1:4]
+        VY = [m2-m1^2 m3-m1*m2; m3-m1*m2 m4-m2^2]
+        return inv(h) * VY * inv(h)'
+    end
 
     function U(θ)
         U1 = -n * digamma(θ[1]) + n * digamma(θ[1] + θ[2]) + sum(log.(x))
@@ -948,7 +1030,7 @@ function main()
     end
 
     In(θ) = n * I1(θ)
-    thetahat = [0.1, 0.1]
+    thetahat = thetamm  # EMM como chute inicial
     erromax = 0.0005
     erro = Inf
     i = 1
@@ -965,6 +1047,8 @@ function main()
     end
     println("Theta final: $thetahat")
     println("Total de iterações: $(i - 1)")
+    println("V do EMM no EMV:\n", Vmm(thetahat))
+    println("Inversa de I1 no EMV:\n", inv(I1(thetahat)))
     return thetahat
 end
 
@@ -985,6 +1069,32 @@ def main():
     beta0 = 7
     x = rng.beta(alpha0, beta0, size=n)
 
+    # EMM: iguala os dois primeiros momentos aos amostrais.
+    m1 = x.mean()
+    m2 = (x ** 2).mean()
+    thetamm = np.array([m1 * (m1 - m2), (1 - m1) * (m1 - m2)]) / (m2 - m1 ** 2)
+    print("EMM:", thetamm)
+
+    def mu(k, theta):
+        # Momento de ordem k da beta.
+        alpha, beta = theta
+        return np.prod([(alpha + j) / (alpha + beta + j) for j in range(k)])
+
+    def Vmm(theta):
+        # Variância assintótica do EMM: h^(-1) Var(Y) h^(-T).
+        a, b = theta
+        s = a + b
+        h = np.array([
+            [b / s**2, -a / s**2],
+            [b * (2*a**2 + 2*a*b + 2*a + b + 1) / (s**2 * (s + 1)**2),
+             -a * (a + 1) * (2*s + 1) / (s**2 * (s + 1)**2)],
+        ])
+        m = [mu(k, theta) for k in range(1, 5)]
+        VY = np.array([[m[1] - m[0]**2, m[2] - m[0]*m[1]],
+                       [m[2] - m[0]*m[1], m[3] - m[1]**2]])
+        hinv = np.linalg.inv(h)
+        return hinv @ VY @ hinv.T
+
     def U(theta):
         # Vetor escore da distribuição beta.
         alpha, beta = theta
@@ -1000,7 +1110,7 @@ def main():
         I12 = -polygamma(1, alpha + beta)
         return np.array([[I11, I12], [I12, I22]])
 
-    thetahat = np.array([0.1, 0.1])
+    thetahat = thetamm.copy()  # EMM como chute inicial
     erro_maximo = 0.0005
     erro = np.inf
     i = 1
@@ -1021,6 +1131,8 @@ def main():
 
     print("Theta final:", thetahat)
     print("Total de iterações:", i - 1)
+    print("V do EMM no EMV:\n", Vmm(thetahat))
+    print("Inversa de I1 no EMV:\n", np.linalg.inv(I1(thetahat)))
     return thetahat
 
 thetahat = main()
@@ -1036,6 +1148,32 @@ main <- function() {
   alpha0 <- 1.2
   beta0 <- 7
   x <- rbeta(n, shape1 = alpha0, shape2 = beta0)
+
+  # EMM: iguala os dois primeiros momentos aos amostrais.
+  m1 <- mean(x)
+  m2 <- mean(x^2)
+  thetamm <- c(m1 * (m1 - m2), (1 - m1) * (m1 - m2)) / (m2 - m1^2)
+  cat("EMM:", thetamm, "\n")
+
+  mu <- function(k, theta) {
+    prod((theta[1] + 0:(k - 1)) / (theta[1] + theta[2] + 0:(k - 1)))
+  }
+
+  Vmm <- function(theta) {
+    a <- theta[1]
+    b <- theta[2]
+    s <- a + b
+    h <- matrix(c(
+      b / s^2, -a / s^2,
+      b * (2 * a^2 + 2 * a * b + 2 * a + b + 1) / (s^2 * (s + 1)^2),
+      -a * (a + 1) * (2 * s + 1) / (s^2 * (s + 1)^2)
+    ), nrow = 2, byrow = TRUE)
+    m <- sapply(1:4, mu, theta = theta)
+    VY <- matrix(c(m[2] - m[1]^2, m[3] - m[1] * m[2],
+                   m[3] - m[1] * m[2], m[4] - m[2]^2), nrow = 2, byrow = TRUE)
+    hinv <- solve(h)
+    hinv %*% VY %*% t(hinv)
+  }
 
   U <- function(theta) {
     alpha <- theta[1]
@@ -1054,7 +1192,7 @@ main <- function() {
     matrix(c(I11, I12, I12, I22), nrow = 2, byrow = TRUE)
   }
 
-  thetahat <- c(0.1, 0.1)
+  thetahat <- thetamm  # EMM como chute inicial
   erro_maximo <- 0.0005
   erro <- Inf
   i <- 1
@@ -1075,6 +1213,10 @@ main <- function() {
 
   cat("Theta final:", thetahat, "\n")
   cat("Total de iterações:", i - 1, "\n")
+  cat("V do EMM no EMV:\n")
+  print(Vmm(thetahat))
+  cat("Inversa de I1 no EMV:\n")
+  print(solve(I1(thetahat)))
   thetahat
 }
 

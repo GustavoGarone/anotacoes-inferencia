@@ -24,20 +24,20 @@ indivíduos com características similares do universo de investidores, dos quai
 
 Nesse caso, as variáveis $X,Y$ são independentes.
 
-Em ambas abordagens, temos as mesmas hipóteses de interesse:
+Em ambas as abordagens, temos as mesmas hipóteses de interesse:
 $$
 1.
 \begin{cases}
-H_{0}:\mu_{X}\geq \mu_{y} \\
-H_{1}: \mu_{X} < \mu_{Y}
+\mathcal{H}_{0}:\mu_{X}\geq \mu_{Y} \\
+\mathcal{H}_{1}: \mu_{X} < \mu_{Y}
 \end{cases} ~~~2.
 \begin{cases}
-H_{0}:\mu_{X}\leq \mu_{Y} \\
-H_{1}: \mu_{X} > \mu_{Y}
+\mathcal{H}_{0}:\mu_{X}\leq \mu_{Y} \\
+\mathcal{H}_{1}: \mu_{X} > \mu_{Y}
 \end{cases} ~~~3.
 \begin{cases}
-H_{0}:\mu_{X}= \mu_{Y} \\
-H_{1}: \mu_{X} \neq \mu_{Y}
+\mathcal{H}_{0}:\mu_{X}= \mu_{Y} \\
+\mathcal{H}_{1}: \mu_{X} \neq \mu_{Y}
 \end{cases}
 $$
 
@@ -45,16 +45,16 @@ Podemos definir $\mu_{D}=\mu_{X}-\mu_{Y}$ e reescrever as hipóteses
 $$
 1.
 \begin{cases}
-H_{0}:\mu_{D} \geq 0 \\
-H_{1}: \mu_{D} < 0
+\mathcal{H}_{0}:\mu_{D} \geq 0 \\
+\mathcal{H}_{1}: \mu_{D} < 0
 \end{cases} ~~~2.
 \begin{cases}
-H_{0}:\mu_{D} \leq 0 \\
-H_{1}: \mu_{D} > 0
+\mathcal{H}_{0}:\mu_{D} \leq 0 \\
+\mathcal{H}_{1}: \mu_{D} > 0
 \end{cases} ~~~3.
 \begin{cases}
-H_{0}:\mu_{D} = 0 \\
-H_{1}: \mu_{D} \neq 0
+\mathcal{H}_{0}:\mu_{D} = 0 \\
+\mathcal{H}_{1}: \mu_{D} \neq 0
 \end{cases}
 $$
 
@@ -71,7 +71,7 @@ Observe ainda que
 $$
 \bar{D}_{\mathrm{Par}}=\sum^{n}_{i=1} \frac{D_{i}}{n} \sim N\left( \mu_{D}, \frac{\sigma^2_{D}}{n} \right)
 $$
-Note ainda que as variância e covariância de $X,Y$ estão embutidas em $\sigma^2_{D}$.
+Note ainda que as variâncias e a covariância de $X,Y$ estão embutidas em $\sigma^2_{D}$.
 Podemos usar
 $$
 s^2_{D}(\boldsymbol{D})=\frac{1}{n-1}\sum^n_{i=1}(D_{i}-\bar{D}_{\mathrm{Par}})^2
@@ -81,27 +81,27 @@ Podemos construir as decisões como já vimos anteriormente em
 [testes sob normalidade com variância desconhecida](teste-hipotese.qmd#sec-normalidade-vardesc).
 
 ### Exemplo
-Foram coletados os rendimentos (em mil reais) antes e após a aplicação o método para 12 investidores. Queremos verificar
+Foram coletados os rendimentos (em mil reais) antes e após a aplicação do método para 12 investidores. Queremos verificar
 se o método aumentou o rendimento médio. Chamaremos de $X$ o rendimento anterior ao treinamento e $Y$ o rendimento após.
-Isto é, queremos verificar se $\mu_{D}=\mu_{X}-\mu_{Y}\leq 0$. Portanto, nossa hipótese nula é de que o treinamento não
+Isto é, queremos verificar se $\mu_{D}=\mu_{X}-\mu_{Y}<0$. Portanto, nossa hipótese nula é de que o treinamento não
 tem efeito positivo no rendimento:
 
 $$
 \begin{cases}
-H_{0}:\mu_{D} \geq 0 \\
-H_{1}: \mu_{D} < 0
+\mathcal{H}_{0}:\mu_{D} \geq 0 \\
+\mathcal{H}_{1}: \mu_{D} < 0
 \end{cases}
 $$
 
 $$
 \begin{array}{c|c|c|c|c}
-\mathrm{Indíce}  & \mathrm{Antes}(X)  &  \mathrm{Depois}(Y) & \mathrm{Dif}(D) & \mathrm{Dif^2}(D^2)\\
+\mathrm{Índice}  & \mathrm{Antes}(X)  &  \mathrm{Depois}(Y) & \mathrm{Dif}(D) & \mathrm{Dif^2}(D^2)\\
 \hline
 1 & 2.4 &  4.3 & -1.9 & 3.61\\
 2 & 2.8  & 3.4  & -0.6 & 0.36\\
 3 & 4.6  & 3.2  & 1.4 & 1.96\\
 4 & 3.1  & 3.3 & -0.2 & 0.04\\
-5 & 3.1  & 3.3 & -0.2 & 0,04\\
+5 & 3.1  & 3.3 & -0.2 & 0.04\\
 6 & 4.7 &  5.8 & -1.1 & 1.21\\
 7 & 3.5  & 3.8 & -0.3 & 0.09\\
 8 & 1.7  & 3.5 & -1.8 & 3.24\\
@@ -117,7 +117,7 @@ $$
 
 Temos que $s^2(\boldsymbol{D})=0.9$. (Podemos calcular diretamente ou usando a coluna $D^2$ e substituindo no
 somatório $s^2_{D}=\left( \frac{\sum^n_{i=1}d_{i}^2}{n}-\bar{d}^2 \right) \frac{n}{n-1}$ )
-Rejeitamos $H_{0}$ se $\frac{\bar{d}_{\mathrm{Par}}}{\sqrt{ \frac{s^2_{D}}{n}}}<-t_{\alpha,n-1}$ onde $t_{\alpha,n-1}$
+Rejeitamos $\mathcal{H}_{0}$ se $\frac{\bar{d}_{\mathrm{Par}}}{\sqrt{ \frac{s^2_{D}}{n}}}<-t_{\alpha,n-1}$ onde $t_{\alpha,n-1}$
 é tal que $P(t_{n-1}<-t_{\alpha,n-1})=\alpha$, onde $t_{n-1}$ é a distribuição T de Student com $n-1$ graus de liberdade.
 
 Temos que $\frac{\bar{d}_{\mathrm{Par}}}{\sqrt{ \frac{s^2_{D}}{n}}} =-2.19$ e, a $\alpha=0.05$, $-t_{0.05,11}=-1.796$.
@@ -130,38 +130,38 @@ significância estatística.
 Sejam $X, Y$ variáveis aleatórias *independentes* tais que
 $$ \begin{cases}
 X\sim N(\mu_{X},\sigma^2_{X}) \\
-Y\sim (\mu_{Y},\sigma^2_{Y})
+Y\sim N(\mu_{Y},\sigma^2_{Y})
 \end{cases} $$
-Considere $(X_{n})$ amostra aleatória de $X$ e $(Y_{m})$. Estamos interessados em testar as hipóteses:
+Considere $(X_{n})$ amostra aleatória de $X$ e $(Y_{m})$ amostra aleatória de $Y$. Estamos interessados em testar as hipóteses:
 $$
 1.
 \begin{cases}
-H_{0}:\mu_{X}\geq \mu_{Y} \\
-H_{1}: \mu_{X} < \mu_{Y}
+\mathcal{H}_{0}:\mu_{X}\geq \mu_{Y} \\
+\mathcal{H}_{1}: \mu_{X} < \mu_{Y}
 \end{cases} ~~~2.
 \begin{cases}
-H_{0}:\mu_{X}\leq \mu_{Y} \\
-H_{1}: \mu_{X} > \mu_{Y}
+\mathcal{H}_{0}:\mu_{X}\leq \mu_{Y} \\
+\mathcal{H}_{1}: \mu_{X} > \mu_{Y}
 \end{cases} ~~~3.
 \begin{cases}
-H_{0}:\mu_{X}= \mu_{Y} \\
-H_{1}: \mu_{X} \neq \mu_{Y}
+\mathcal{H}_{0}:\mu_{X}= \mu_{Y} \\
+\mathcal{H}_{1}: \mu_{X} \neq \mu_{Y}
 \end{cases}
 $$
 Podemos definir $\mu_{D}=\mu_{X}-\mu_{Y}$ e obter a equivalência dessas hipóteses
 $$
 1.
 \begin{cases}
-H_{0}:\mu_{D} \geq 0 \\
-H_{1}: \mu_{D} < 0
+\mathcal{H}_{0}:\mu_{D} \geq 0 \\
+\mathcal{H}_{1}: \mu_{D} < 0
 \end{cases} ~~~2.
 \begin{cases}
-H_{0}:\mu_{D} \leq 0 \\
-H_{1}: \mu_{D} > 0
+\mathcal{H}_{0}:\mu_{D} \leq 0 \\
+\mathcal{H}_{1}: \mu_{D} > 0
 \end{cases} ~~~3.
 \begin{cases}
-H_{0}:\mu_{D} = 0 \\
-H_{1}: \mu_{D} \neq 0
+\mathcal{H}_{0}:\mu_{D} = 0 \\
+\mathcal{H}_{1}: \mu_{D} \neq 0
 \end{cases}
 $$
 Considere
@@ -173,32 +173,51 @@ Como
 $\bar{X}\sim N\left( \mu_{X}, \frac{\sigma^2_{X}}{n} \right), \bar{Y} \sim N\left( \mu_{Y}, \frac{\sigma^2_{Y}}{m} \right)$,
 temos que $\bar{D}_{\mathrm{NPar}} \sim N\left( \mu_{D}, \frac{\sigma^2_{X}}{n} + \frac{\sigma^2_{Y}}{m} \right)$
 
-### Ambas variâncias conhecidas
-Podemos substituir o valor numérico das variâncias na distribuição de $\bar{D}_{\mathrm{NPar}}$, obtendo uma
+### Variâncias conhecidas e iguais
+
+Temos que $\sigma^2_{X}=\sigma^2_{Y}=\sigma^2$ é conhecido. Podemos substituir o valor numérico das variâncias na distribuição de $\bar{D}_{\mathrm{NPar}}$, obtendo uma
 distribuição normal com pontos de corte para as decisões:
 
 $$
 \begin{aligned}
-1. &\text{ Rejeita $H_{0}$ se } \bar{d}_{\mathrm{NPar}} < -z_{\alpha} \underbrace{\sqrt{ \frac{\sigma^2}{n} +
-\frac{\sigma^2}{m} }}_{\mathrm{Var}(\bar{D}_{\mathrm{NPar}})}, \sigma_{2}=\sigma^2_{X}=\sigma^2_{Y} \\
-2. & \text{ Rejeita $H_{0}$ se } \bar{d}_{\mathrm{NPar}} > z_{\alpha} \sqrt{ \frac{\sigma^2}{n} + \frac{\sigma^2}{m} } \\
-3. & \text{ Rejeita $H_{0}$ se } \bar{d}_{\mathrm{NPar}} < -z_{\frac{\alpha}{2}} \sqrt{ \frac{\sigma^2}{n} +
-\frac{\sigma^2}{m} } \text{ ou } \bar{d}_{NPar} > z_{\alpha} \sqrt{ \frac{\sigma^2}{n} + \frac{\sigma^2}{m} }
+1. &\text{ Rejeita $\mathcal{H}_{0}$ se } \bar{d}_{\mathrm{NPar}} < -z_{\alpha} \underbrace{\sqrt{ \frac{\sigma^2}{n} +
+\frac{\sigma^2}{m} }}_{\sqrt{\mathrm{Var}(\bar{D}_{\mathrm{NPar}})}}, \sigma^{2}=\sigma^2_{X}=\sigma^2_{Y} \\
+2. & \text{ Rejeita $\mathcal{H}_{0}$ se } \bar{d}_{\mathrm{NPar}} > z_{\alpha} \sqrt{ \frac{\sigma^2}{n} + \frac{\sigma^2}{m} } \\
+3. & \text{ Rejeita $\mathcal{H}_{0}$ se } \bar{d}_{\mathrm{NPar}} < -z_{\frac{\alpha}{2}} \sqrt{ \frac{\sigma^2}{n} +
+\frac{\sigma^2}{m} } \text{ ou } \bar{d}_{NPar} > z_{\frac{\alpha}{2}} \sqrt{ \frac{\sigma^2}{n} + \frac{\sigma^2}{m} }
 \end{aligned}
 $$
 
+### Variâncias conhecidas e diferentes
+
+Temos que $\sigma^2_{X}$ e $\sigma^2_{Y}$ são conhecidos, possivelmente diferentes. Substituímos os
+valores numéricos de ambas as variâncias na distribuição de $\bar{D}_{\mathrm{NPar}}$, obtendo os pontos de corte:
+
+$$
+\begin{aligned}
+1. &\text{ Rejeita $\mathcal{H}_{0}$ se } \bar{d}_{\mathrm{NPar}} < -z_{\alpha} \underbrace{\sqrt{ \frac{\sigma^2_{X}}{n} +
+\frac{\sigma^2_{Y}}{m} }}_{\sqrt{\mathrm{Var}(\bar{D}_{\mathrm{NPar}})}} \\
+2. & \text{ Rejeita $\mathcal{H}_{0}$ se } \bar{d}_{\mathrm{NPar}} > z_{\alpha} \sqrt{ \frac{\sigma^2_{X}}{n} + \frac{\sigma^2_{Y}}{m} } \\
+3. & \text{ Rejeita $\mathcal{H}_{0}$ se } \bar{d}_{\mathrm{NPar}} < -z_{\frac{\alpha}{2}} \sqrt{ \frac{\sigma^2_{X}}{n} +
+\frac{\sigma^2_{Y}}{m} } \text{ ou } \bar{d}_{NPar} > z_{\frac{\alpha}{2}} \sqrt{ \frac{\sigma^2_{X}}{n} + \frac{\sigma^2_{Y}}{m} }
+\end{aligned}
+$$
+
+Equivalentemente, comparamos $\frac{\bar{d}_{\mathrm{NPar}}}{\sqrt{ \sigma^2_{X}/n + \sigma^2_{Y}/m }}$
+com os quantis da $N(0,1)$.
+
 ### Variâncias desconhecidas e iguais
 
-Temos que $\sigma^2_{X}=\sigma^2_{Y}=\sigma^2$ é conhecido.
+Temos que $\sigma^2_{X}=\sigma^2_{Y}=\sigma^2$ é desconhecido.
 
 #### Estimando via t-Student
 
 Através da distribuição t-Student com $n+m-2$ graus de liberdade, podemos estimar os pontos de corte. Temos nossas decisões:
 $$
 \begin{aligned}
-1. &\text{ Rejeita $H_{0}$ se } \bar{d}_{\mathrm{NPar}} < -t_{n+m-2,\alpha} \sqrt{ \frac{s_{p}^2}{n} + \frac{s_{p}^2}{m} } \\
-2. & \text{ Rejeita $H_{0}$ se } \bar{d}_{\mathrm{NPar}} > t_{n+m-2,\alpha} \sqrt{ \frac{s^2_{p}}{n} + \frac{s^2_{p}}{m} } \\
-3. & \text{ Rejeita $H_{0}$ se } \bar{d}_{\mathrm{NPar}} < -t_{n+m-2,\frac{\alpha}{2}} \sqrt{ \frac{s^2_{p}}{n} +
+1. &\text{ Rejeita $\mathcal{H}_{0}$ se } \bar{d}_{\mathrm{NPar}} < -t_{n+m-2,\alpha} \sqrt{ \frac{s_{p}^2}{n} + \frac{s_{p}^2}{m} } \\
+2. & \text{ Rejeita $\mathcal{H}_{0}$ se } \bar{d}_{\mathrm{NPar}} > t_{n+m-2,\alpha} \sqrt{ \frac{s^2_{p}}{n} + \frac{s^2_{p}}{m} } \\
+3. & \text{ Rejeita $\mathcal{H}_{0}$ se } \bar{d}_{\mathrm{NPar}} < -t_{n+m-2,\frac{\alpha}{2}} \sqrt{ \frac{s^2_{p}}{n} +
 \frac{s^2_{p}}{m} } \text{ ou } \bar{d}_{NPar} > t_{n+m-2, \frac{\alpha}{2}} \sqrt{ \frac{s^2_{p}}{n} + \frac{s^2_{p}}{m} }
 \end{aligned}
 $$
@@ -217,18 +236,16 @@ usaremos a distribuição t-Student com $n'$ graus de liberdade. Temos nossas de
 
 $$
 \begin{aligned}
-1. &\text{ Rejeita $H_{0}$ se } \bar{d}_{\mathrm{NPar}} < -t_{n',\alpha} \sqrt{ \frac{s_{p}^2}{n} + \frac{s_{p}^2}{m} } \\
-2. & \text{ Rejeita $H_{0}$ se } \bar{d}_{\mathrm{NPar}} > t_{n',\alpha} \sqrt{ \frac{s^2_{p}}{n} + \frac{s^2_{p}}{m} } \\
-3. & \text{ Rejeita $H_{0}$ se } \bar{d}_{\mathrm{NPar}} < -t_{n',\frac{\alpha}{2}} \sqrt{\frac{s^2_{p}}{n} + \frac{s^2_{p}}{m}}
-\text{ ou } \bar{d}_{NPar} > t_{n', \frac{\alpha}{2}} \sqrt{ \frac{s^2_{p}}{n} + \frac{s^2_{p}}{m} }
+1. &\text{ Rejeita $\mathcal{H}_{0}$ se } \bar{d}_{\mathrm{NPar}} < -t_{n',\alpha} \sqrt{ \frac{s_{X}^2}{n} + \frac{s_{Y}^2}{m} } \\
+2. & \text{ Rejeita $\mathcal{H}_{0}$ se } \bar{d}_{\mathrm{NPar}} > t_{n',\alpha} \sqrt{ \frac{s^2_{X}}{n} + \frac{s^2_{Y}}{m} } \\
+3. & \text{ Rejeita $\mathcal{H}_{0}$ se } \bar{d}_{\mathrm{NPar}} < -t_{n',\frac{\alpha}{2}} \sqrt{\frac{s^2_{X}}{n} + \frac{s^2_{Y}}{m}}
+\text{ ou } \bar{d}_{NPar} > t_{n', \frac{\alpha}{2}} \sqrt{ \frac{s^2_{X}}{n} + \frac{s^2_{Y}}{m} }
 \end{aligned}
 $$
 
-Onde $s^2_{p}= \frac{(n-1)s^2_{X}+(m-1)s^2_{Y}}{n+m-2}$.
-
 ##### Encontrando $n’$
 
-Na fórmula acima, temos os graus de liberdade da t-Student dado por
+Na fórmula acima, temos o número de graus de liberdade da t-Student dado por
 $$
 n' \approx \frac{\left(\frac{s^2_{X}}{n}+\frac{s^2_{Y}}{m}\right)^2}{\frac{\left(\frac{s^2_{X}}{n}\right)^2}
 {n-1}+\frac{\left(\frac{s^2_{Y}}{m}\right)^2}{m-1}}
@@ -252,13 +269,13 @@ $$
 Teste a hipótese
 $$
 \begin{cases}
-H_{0} : \mu_{X} = \mu_{Y} \\
-H_{1}:\mu_{X} \neq \mu_{Y}
+\mathcal{H}_{0} : \mu_{X} = \mu_{Y} \\
+\mathcal{H}_{1}:\mu_{X} \neq \mu_{Y}
 \end{cases}
 $$
 Com significância $\alpha = 0.05$ para os casos
 
-##### Caso 1. Variâncias conhecidas
+##### Caso 1. Variâncias conhecidas e diferentes
 Temos do produtor que $\sigma^2_{X}=81, \sigma^2_{Y}=209$
 $\bar{d}_{\mathrm{NPar}}=70.5-84.3 = -13.8$. Logo,
 $z_{\frac{\alpha}{2}}\sqrt{ \frac{81}{15} + \frac{209}{20}}=7.8$. Como $-13.8 < -7.8$, concluímos que há evidências
@@ -273,7 +290,7 @@ estatística.
 
 ##### Caso 3. Variâncias desconhecidas e diferentes
 Primeiro calculamos $n'= 32.08 \stackrel{\text{Arredonda}}{=}32$. Assim, $t_{32,0.025} = 2.037$.
-Portanto, $t_{32,0.025} \sqrt{  \frac{s^2_{X}}{n} + \frac{s^2_{Y}}{m} }=8.14$. Como $-13.8 < -8.15$,
+Portanto, $t_{32,0.025} \sqrt{  \frac{s^2_{X}}{n} + \frac{s^2_{Y}}{m} }=8.14$. Como $-13.8 < -8.14$,
 concluímos que há evidências para rejeitarmos a hipótese nula a $\alpha=5\%$ de significância estatística.
 
 ### Teste para diferença de variâncias
@@ -285,8 +302,8 @@ aleatória de tamanho $n_2$ de $Y$. Considere as seguintes hipóteses:
 
 $$
 \begin{cases}
-H_0&: \sigma_X^2 = \sigma_Y^2 \\
-H_1&: \sigma_X^2 \neq \sigma_Y^2.
+\mathcal{H}_0&: \sigma_X^2 = \sigma_Y^2 \\
+\mathcal{H}_1&: \sigma_X^2 \neq \sigma_Y^2.
 \end{cases}
 $$
 
@@ -296,7 +313,7 @@ viesado para a variância:
 $$
 \begin{cases}
 s_X^2 &= \frac{1}{n_1-1} \sum\limits^{n_1}_{i=1} \left(X_i - \bar{X}\right)^2 \\
-s_Y^2 &= \frac{1}{n_2-1} \sum\limits^{n_2}_{i=1} \left(Y_ - \bar{Y}\right)^2
+s_Y^2 &= \frac{1}{n_2-1} \sum\limits^{n_2}_{i=1} \left(Y_i - \bar{Y}\right)^2
 \end{cases}
 $$
 
@@ -320,9 +337,9 @@ $$
 \frac{\frac{s_X^2}{\sigma_X^2}}{\frac{s_Y^2}{\sigma_Y^2}} \sim F_{n_1 - 1, n_2 - 1}
 $$
 
-Que, sobre a hipótese nula $\sigma_x^2 = \sigma_y^2$,
+Que, sob a hipótese nula $\sigma_x^2 = \sigma_y^2$,
 $$
-\stackrel{\Rightarrow}{H_0} \frac{s_X^2}{s_Y^2} \sim F_{n_1 - 1, n_2 - 1}
+\stackrel{\Rightarrow}{\mathcal{H}_0} \frac{s_X^2}{s_Y^2} \sim F_{n_1 - 1, n_2 - 1}
 $$
 
 Com isso, usamos a distribuição F com $(n_1 - 1)$ e $(n_2 - 1)$ graus de
@@ -334,26 +351,26 @@ Considere as seguintes hipóteses:
 $$
 1.
 \begin{cases}
-H_{0}:\sigma_{X}^2\geq \sigma_{Y}^2 \\
-H_{1}: \sigma^2_{X} < \sigma^2_{Y}
+\mathcal{H}_{0}:\sigma_{X}^2\geq \sigma_{Y}^2 \\
+\mathcal{H}_{1}: \sigma^2_{X} < \sigma^2_{Y}
 \end{cases} ~~~
 2.
 \begin{cases}
-H_{0}:\sigma^2_{X}\leq \sigma^2_{Y} \\
-H_{1}: \sigma^2_{X} > \sigma^2_{Y}
+\mathcal{H}_{0}:\sigma^2_{X}\leq \sigma^2_{Y} \\
+\mathcal{H}_{1}: \sigma^2_{X} > \sigma^2_{Y}
 \end{cases} ~~~
 3.
 \begin{cases}
-H_{0}:\sigma^2_{X}= \sigma^2_{Y} \\
-H_{1}: \sigma^2_{X} \neq \sigma^2_{Y}
+\mathcal{H}_{0}:\sigma^2_{X}= \sigma^2_{Y} \\
+\mathcal{H}_{1}: \sigma^2_{X} \neq \sigma^2_{Y}
 \end{cases}
 $$
 
 $$
 \begin{aligned}
-1.& \text{ Rejeita $H_{0}$ se } \frac{s^2_X}{s^2_Y} < F_{(n_{1} - 1, n_{2} - 1, 1-\alpha)}, \\
-2.& \text{ Rejeita $H_{0}$ se } \frac{s^2_X}{s^2_Y} > F_{(n_{1} - 1, n_{2} - 1, \alpha)}, \\
-3.& \text{ Rejeita $H_{0}$ se } \frac{s^2_X}{s^2_Y} < F_{(n_{1} - 1, n_{2} - 1, 1 - \frac{\alpha}{2})}
+1.& \text{ Rejeita $\mathcal{H}_{0}$ se } \frac{s^2_X}{s^2_Y} < F_{(n_{1} - 1, n_{2} - 1, 1-\alpha)}, \\
+2.& \text{ Rejeita $\mathcal{H}_{0}$ se } \frac{s^2_X}{s^2_Y} > F_{(n_{1} - 1, n_{2} - 1, \alpha)}, \\
+3.& \text{ Rejeita $\mathcal{H}_{0}$ se } \frac{s^2_X}{s^2_Y} < F_{(n_{1} - 1, n_{2} - 1, 1 - \frac{\alpha}{2})}
 \text{ ou }  \frac{s^2_X}{s^2_Y} > F_{(n_{1} - 1, n_{2} - 1, \frac{\alpha}{2})}.
 \end{aligned}
 $$

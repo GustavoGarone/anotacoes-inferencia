@@ -22,7 +22,7 @@ $$
 S(\boldsymbol{X}_n) = \sum_{i=1}^n \frac{(X_i-\bar{X})^2}{\sigma^2} \sim \chi^2_{(n-1)}
 $$
 
-não é uma estatística apesar de sua *distribuição* não depender de "$\theta$", uma vez que a estatística depende
+não é uma estatística apesar de sua *distribuição* não depender de "$\theta$", uma vez que a expressão depende
 de "$\theta$".
 
 Construiremos duas novas estatísticas. Seja $2\leq k\leq n-2$ e defina
@@ -219,7 +219,7 @@ $$
 
 $$
 \begin{aligned}
-\mathrm{Var}_\theta (U(\boldsymbol{X}_n)) &= \mathrm{Var}_\theta (X_i - \bar{X}) \\
+\mathrm{Var}_\theta (U(\boldsymbol{X}_n)) &= \mathrm{Var}_\theta (X_1 - \bar{X}) \\
 X_1 - \bar{X} &= X_1 - \frac{1}{n}X_1 - \dots - \frac{1}{n}X_n \\
 &= (1-\frac{1}{n})X_1 - \frac{1}{n}X_2 - \dots - \frac{1}{n}X_n \\
 \Rightarrow

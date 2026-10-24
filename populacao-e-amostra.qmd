@@ -11,7 +11,7 @@ os potenciais elementos.
 A *Variável Populacional* representa os valores numéricos de cada elemento da
 população:
 $$
-X\sim f_{	heta},\theta \in \Theta
+X\sim f_{\theta},\theta \in \Theta
 $$
 em que $f_\theta$ é a Função Densidade de Probabilidade da Variável Aleatória populacional. $\theta$ é o vetor de
 parâmetros (desconhecido) e $\Theta$ é o espaço paramétrico
@@ -23,9 +23,9 @@ população.
 
 Alguns livros utilizam o termo "amostra representativa" para representar a
 amostra
-confiável de outra amostra que carrega determinados viéses de seleção. O
+confiável de outra amostra que carrega determinados vieses de seleção. O
 termo
-representativo é controverso na estatística teórica,
+representativo é controverso na estatística teórica.
 
 ### Amostra Aleatória {#sec-aa}
 
@@ -34,13 +34,13 @@ de $X$ (v.a. populacional) se $X_{1},\dots,X_{n}$ forem
 independentes e identicamente distribuídas de acordo com a distribuição da variável aleatória populacional $X$
 Ou seja,
 $$
-\text{Independentes }\rightarrow\begin{cases}X_{1}\sim f_{	heta},\theta \in \Theta \\
+\text{Independentes }\rightarrow\begin{cases}X_{1}\sim f_{\theta},\theta \in \Theta \\
 \vdots \\
 X_{n} \sim f_{\theta}, \theta \in \Theta
 \end{cases}
 $$
 
-Sendo assim, $(X_1, \dots, X_n)$ é amostra aleatória de $X\sim f_\theta, 	heta in Theta$
+Sendo assim, $(X_1, \dots, X_n)$ é amostra aleatória de $X\sim f_\theta, \theta \in \Theta$
 sempre que $(X_1, \dots, X_n)$ forem independentes para cada $P_\theta, \theta \in \Theta$ e
 $X_i \sim f_\theta, \theta \in \Theta, i = 1, 2, \dots, n$
 
@@ -114,8 +114,8 @@ em que $n$ é o tamanho amostral.
   %\node[align=center] at (current bounding box.north) {\textbf{Diagrama}};
 
   \node[align=center, right=of xn] {\textbf{Amostra
-  observada}};\node[align=center, right=of Y] {\textbf{Vetor
-  aleatório populacional}};
+  observada}};\node[align=center, right=of Y] {\textbf{Variável
+  aleatória populacional}};
 
   \node[align=center, right=of XnPlus] {\textbf{Amostra aleatória}};
 

@@ -59,7 +59,7 @@ f_\theta(x) = \begin{cases}
 0, & x \not \in \{0,1\}
 \end{cases}
 $$
-o suporte é $\mathfrak{X} = \{ x : f_\theta(x)>0\} = \{0,1\}$ não depende de "$\theta$".
+o suporte é $\mathfrak{X} = \{ x : f_\theta(x)>0\} = \{0,1\}$ e não depende de "$\theta$".
 
 Além disso, como $\theta^x (1-\theta)^{1-x} > 0$, temos que
 $$
@@ -218,7 +218,7 @@ em que
 
 2. As funções $c_1(\cdot),\dots,c_k(\cdot)$ e $d(\cdot)$ dependem apenas de "$\theta$" (formas conhecidas) e
 
-3. As funções $T_1(\cdot),\dots,T_l(\cdot)$ e $S(\cdot)$ dependem apenas de $x$ (formas conhecidas).
+3. As funções $T_1(\cdot),\dots,T_k(\cdot)$ e $S(\cdot)$ dependem apenas de $x$ (formas conhecidas).
 
 Como $f_\theta$ é uma função (densidade) de probabilidade, temos que (para o caso contínuo)
 $$

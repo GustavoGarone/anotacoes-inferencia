@@ -154,7 +154,7 @@ probabilidade de sucesso (parâmetro do modelo) e $\Theta =(0,1)$ é o espaço p
 
 ### Modelo Estatístico Geométrico
 
-Dizemos que $X$, representando o número de *fracassos* até o primeiro sucesso,
+Dizemos que $X$, representando o número de *ensaios* até o primeiro sucesso,
 é uma variável aleatória com modelo estatístico geométrico se, e somente se,
 $$P_\theta(X=x)=\begin{cases}
 \theta (1-\theta)^{x-1},& x \in \{1,\dots\} \\
@@ -191,7 +191,7 @@ Dizemos que $\pmb{X} = (X_1,\dots,X_k)$ é um Vetor Aleatório com modelo estat�
 $$
 P_{\theta}(X_{1}=x_{1},\dots,X_{k} = x_{k})=
 \begin{cases}
-\frac{n!}{x_{1}!x_{2}!\dots x_{k}!} \cdot \theta^{x_{1}}_{1} \cdot \cdots \cdot\theta^{x_n}_{k} & \ \ x_{1}+\dots+x_{k}=n\\
+\frac{n!}{x_{1}!x_{2}!\dots x_{k}!} \cdot \theta^{x_{1}}_{1} \cdot \cdots \cdot\theta^{x_k}_{k} & \ \ x_{1}+\dots+x_{k}=n\\
 0,& c.c
 \end{cases}
 $$
@@ -201,13 +201,13 @@ $$
 \begin{cases}
 E_\theta(X_{i})=n\theta_{i}\\
 \mathrm{Var}_\theta(X_{i}) = n\theta_{i} (1-\theta_{i}) \\
-\mathrm{Cov}(X_{i}X_{j})=-n\theta_{i}\theta_{j}
+\mathrm{Cov}(X_{i},X_{j})=-n\theta_{i}\theta_{j}
 \end{cases}
 $$
 
 Notação: $\mathrm{Multinomial}(n, \theta_1,\theta_2,\dots,\theta_k)$
 em que $\theta_{1}+\dots+\theta_{k}=1$ e $0\leq \theta_{i} \leq 1$, $\forall i = 1,2,\dots,k$,
-$\Theta=\{(\theta_{1},,\dots,\theta_{k}) \in \mathbb{R}^{k} : 0\leq \theta_{i} \leq 1, i=1,\dots,k,
+$\Theta=\{(\theta_{1},\dots,\theta_{k}) \in \mathbb{R}^{k} : 0\leq \theta_{i} \leq 1, i=1,\dots,k,
 \theta_{1}+\dots+\theta_{k} = 1 \}$
 
 Esse modelo tem aplicação em modelos de linguagem como o ChatGPT. ($k$ como tamanho do vocabulário, $n=1$, $\theta_{1}=$

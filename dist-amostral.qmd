@@ -1,6 +1,6 @@
 # Distribuição Amostral
 Seja $(X_{1},\dots,X_{n})$ [amostra aleatória (a.a.)](populacao-e-amostra.qmd#sec-aa) de
-$X\sim f_{	heta},\theta \in \Theta$
+$X\sim f_{\theta},\theta \in \Theta$
 
 a Função Densidade de Probabilidade conjunta de $(X_{1}, X_{2},\dots,X_{n})$ é $\forall \theta \in \Theta$,
 no caso discreto:
@@ -111,7 +111,7 @@ a amostra observada.
 
 $$
 \begin{aligned}
-L_{\boldsymbol{X}}(\theta) &\stackrel{\text{iid}}{=} \prod^{n}_{i=1}f_\theta(x_{i})=
+L_{\boldsymbol{x}}(\theta) &\stackrel{\text{iid}}{=} \prod^{n}_{i=1}f_\theta(x_{i})=
 \prod^{n}_{i=1}\left\{\frac{1}{\sqrt{2 \pi \sigma^{2}}} \mathrm{exp}\{- \frac{1}{2\sigma^{2}}(x_{i}-\mu)^{2}\}\right\} \\
 &= \frac{1}{(2 \pi \sigma^{2})^{\frac{n}{2}}}\cdot \mathrm{exp}\{- \frac{1}{2 \sigma^{2}} \sum\limits^{n}_{i=1}(x_{i}-\mu)^{2}  \}
 \end{aligned}

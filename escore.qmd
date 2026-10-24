@@ -57,7 +57,7 @@ $C_1: \mathfrak{X} = \{x : f_\theta (x) > 0 \}$ não depende de "$\theta$".
 
 $C_2: f_\theta$ é duas vezes diferenciável com respeito a "$\theta$" e suas derivadas são contínuas.
 
-$C_3:$ é possível trocar as derivadas pela integrais da seguinte forma:
+$C_3:$ é possível trocar a ordem de derivação e integração da seguinte forma:
 $$
 \left\{\begin{aligned}
 &a)\ \frac{\partial}{\partial\theta} \int f_\theta(x) dx &= \int \frac{\partial}{\partial \theta} f_\theta(x) dx \\
@@ -68,8 +68,8 @@ $$
 $C_4:$
 $$
 \left\{\begin{aligned}
-&\mathrm{a})\ E_\theta\left(\lVert\frac{\partial}{\partial\theta} \ln f_\theta(x)\rVert\right) < \infty,\ \forall \theta \in \Theta \\
-&\mathrm{b})\ E_\theta\left(\lVert\frac{\partial^2}{\partial\theta\partial\theta^T} \ln f_\theta(x)\rVert^2\right) < \infty,\ \forall \theta \in \Theta.
+&\mathrm{a})\ E_\theta\left(\lVert\frac{\partial}{\partial\theta} \ln f_\theta(X)\rVert\right) < \infty,\ \forall \theta \in \Theta \\
+&\mathrm{b})\ E_\theta\left(\lVert\frac{\partial^2}{\partial\theta\partial\theta^T} \ln f_\theta(X)\rVert^2\right) < \infty,\ \forall \theta \in \Theta.
 \end{aligned}\right.
 $$
 

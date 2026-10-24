@@ -1,13 +1,13 @@
 # Prefácio {.unnumbered}
 
-Este é um livrete feito na plataforma [Quarto](https>//quarto.org) para
+Este é um livrete feito na plataforma [Quarto](https://quarto.org) para
 anotações das disciplinas de inferência
 frequentista ou clássica MAE0225 e MAE0301, ambas ministradas pelo Professor
 [Alexandre Galvão Patriota](https://www.ime.usp.br/~patriota/) e de sua
 autoria.
 
 Dúvidas, sugestões, críticas ou erros por favor contactar em [gustavo.garone
-arroba usp.br](gustavo.garone@usp.br) ou
+arroba usp.br](mailto:gustavo.garone@usp.br) ou
 abrir um Issue/PR no
 [GitHub](https://github.com/GustavoGarone/anotacoes-inferencia)
 

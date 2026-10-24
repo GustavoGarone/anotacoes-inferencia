@@ -15,12 +15,12 @@ Note que, sob as [condições](escore.qmd#sec-condicoes) $C_1:C_4$, [temos que](
 $$
 \begin{aligned}
 &E_\theta(U(X,\theta)) = 0,\ \forall \theta \in \Theta \\
-&E_\theta(U(\boldsymbol{X}_n, \theta)) = 0,\ \forall \theta \in \Theta \\
+&E_\theta(U_n(\boldsymbol{X}_n, \theta)) = 0,\ \forall \theta \in \Theta \\
 \Rightarrow &\begin{cases}
 I_1(\theta) = E_\theta(U(X,\theta)\cdot U(X,\theta)^T) \\
 I_n(\theta) = E_\theta(U_n(\boldsymbol{X}_n,\theta)\cdot U_n(\boldsymbol{X}_n,\theta)^T)\\
 \end{cases}\ \forall \theta \in \Theta \\
-&\text{Se } \Theta \in \mathbb{R}, \\
+&\text{Se } \Theta \subseteq \mathbb{R}, \\
 \Rightarrow &\begin{cases}
 I_1(\theta) = E_\theta(U(X,\theta)^2) \\
 I_n(\theta) = E_\theta(U_n(\boldsymbol{X}_n,\theta)^2)\\
@@ -70,11 +70,11 @@ $$
 \begin{aligned}
 &\int_{\mathfrak{X}}\frac{\partial}{\partial\theta} \left[\frac{\partial f_\theta(x)}{\partial \theta} \frac{f_\theta(x)}{f_\theta(x)}\right]dx = 0\\
 \Rightarrow &\int_{\mathfrak{X}}\frac{\partial}{\partial\theta} \left[\frac{\partial \ln f_\theta(x)}{\partial \theta} f_\theta(x)\right]dx = 0 \\
-\Rightarrow &\int_{\mathfrak{X}}\frac{\partial}{\partial\theta}
+\Rightarrow &\int_{\mathfrak{X}}
 \left[\frac{\partial^2 \ln f_\theta(x)}{\partial \theta^2} f_\theta(x) +
 \frac{\partial\ln f_\theta(x)}{\partial\theta}\frac{\partial f_\theta(x)}{\partial\theta}\right]dx = 0\\
 \Rightarrow &\int_{\mathfrak{X}}
-\frac{\partial^2 \ln f_\theta(x)}{\partial \theta^2} f_\theta(x) +
+\frac{\partial^2 \ln f_\theta(x)}{\partial \theta^2} f_\theta(x) dx +
 \int_{\mathfrak{X}} \frac{\partial\ln f_\theta(x)}{\partial\theta}\frac{\partial f_\theta(x)}{\partial\theta}dx = 0\\
 \Rightarrow &E_\theta\left(
 \frac{\partial^2 \ln }{\partial \theta^2} f_\theta(X)\right) +
@@ -114,17 +114,17 @@ $$
 Note também que
 $$
 \begin{aligned}
-E_\theta\left(\frac{\partial}{\partial\theta}U(\boldsymbol{X}_n, \theta)\right) &= E_\theta\left(\frac{\partial}{\partial \theta} \sum_{i=1}^n U(X_i,\theta)\right) \\
+E_\theta\left(\frac{\partial}{\partial\theta}U_n(\boldsymbol{X}_n, \theta)\right) &= E_\theta\left(\frac{\partial}{\partial \theta} \sum_{i=1}^n U(X_i,\theta)\right) \\
 &= E_\theta\left(\sum_{i=1}^n \frac{\partial}{\partial \theta} U(X_i,\theta)\right) \\
 &= n E_\theta\left(\frac{\partial}{\partial \theta} U(X_i,\theta)\right),\ \forall \theta \in \Theta.
 \end{aligned}
 $$
 
-Como $I_1(\theta) = - E_\theta\left(\frac{\partial}{\partial} U(X,\theta)\right)$. Temos que
+Como $I_1(\theta) = - E_\theta\left(\frac{\partial}{\partial\theta} U(X,\theta)\right)$. Temos que
 $$
 \begin{aligned}
-&-E_\theta\left(\frac{\partial}{\partial \theta} U(\boldsymbol{X}_n,\theta)\right) = n I_1(\theta) \\
-\Rightarrow &I_n(\theta) = nI_1(\theta) = -E_\theta\left(\frac{\partial}{\partial \theta} U(\boldsymbol{X}_n,\theta)\right), \forall \theta \in \Theta._\blacksquare
+&-E_\theta\left(\frac{\partial}{\partial \theta} U_n(\boldsymbol{X}_n,\theta)\right) = n I_1(\theta) \\
+\Rightarrow &I_n(\theta) = nI_1(\theta) = -E_\theta\left(\frac{\partial}{\partial \theta} U_n(\boldsymbol{X}_n,\theta)\right), \forall \theta \in \Theta.\quad\blacksquare
 \end{aligned}
 $$
 
@@ -210,7 +210,7 @@ Podemos também fazer pela definição.
 Observe que
 $$
 \begin{aligned}
-E_\theta(U_n(\boldsymbol{X}_n,\theta) &= E_\theta\left(\sum_{i=1}^n \frac{X_i}{\theta} - \sum_{i=1}^n \frac{3-X_i}{1-\theta}\right) \\
+E_\theta(U_n(\boldsymbol{X}_n,\theta)) &= E_\theta\left(\sum_{i=1}^n \frac{X_i}{\theta} - \sum_{i=1}^n \frac{3-X_i}{1-\theta}\right) \\
 &= \sum_{i=1}^n \frac{E_\theta(X_i)}{\theta} - \sum_{i=1}^n \frac{3-E_\theta(X_i)}{1-\theta} \\
 &= \frac{n 3 \theta}{\theta} - \frac{n (3- 3\theta)}{1-\theta} \\
 &= n3 - n3 \frac{1-\theta}{1-\theta} = 0,\ \forall \theta \in \Theta.
@@ -224,13 +224,13 @@ I_n(\theta) &= \mathrm{Var}_\theta(U_n(\boldsymbol{X}_n,\theta)) \\
 &= E_\theta\left(\left[\sum_{i=1}^n \left(\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}\right)\right]^2\right) \\
 &= E_\theta\left(\sum_i \sum_j \left(\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}\right)\left(\frac{X_j}{\theta} - \frac{(3-X_j)}{1-\theta}\right)\right) \\
 &= \sum_{i=1}^n E_\theta\left(\left(\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}\right)^2\right) \\
-&\cdot\sum_{\substack{i,j=1\\i\neq j}}^n E_\theta\left(\cancelto{0}{\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}}\right)
+&+\sum_{\substack{i,j=1\\i\neq j}}^n E_\theta\left(\cancelto{0}{\frac{X_i}{\theta} - \frac{(3-X_i)}{1-\theta}}\right)
 E_\theta\left(\cancelto{0}{\frac{X_j}{\theta} - \frac{(3-X_j)}{1-\theta}}\right)\\
 &= n E_\theta\left[\left( \frac{X}{\theta} - \frac{3-X}{1-\theta}\right)^2\right] \\
-&= n E_\theta\left[\left( \frac{X(1-\theta)-(3-x)\theta}{\theta(1-\theta)}\right)^2\right] \\
-&= \frac{n E_\theta\left[(X - \theta X - 3\theta + \theta X)^2\right]}{\theta(1-\theta)} \\
+&= n E_\theta\left[\left( \frac{X(1-\theta)-(3-X)\theta}{\theta(1-\theta)}\right)^2\right] \\
+&= \frac{n E_\theta\left[(X - \theta X - 3\theta + \theta X)^2\right]}{\theta^2(1-\theta)^2} \\
 &= \frac{n E_\theta\left[(X - 3\theta)^2\right]}{\theta^2(1-\theta)^2} \\
-&= \frac{n \mathrm{Var}_\theta}{\theta^2(1-\theta)^2} = \frac{n3\theta(1-\theta)}{\theta^2(1-\theta)^2}\\
+&= \frac{n \mathrm{Var}_\theta(X)}{\theta^2(1-\theta)^2} = \frac{n3\theta(1-\theta)}{\theta^2(1-\theta)^2}\\
 &= \frac{3n}{\theta(1-\theta)},\ \forall \theta \in \Theta.
 \end{aligned}
 $$
@@ -274,7 +274,7 @@ $$
 &\frac{\partial}{\partial \theta}
 \int_{-\infty}^{\infty} \dots \int_{-\infty}^{\infty} T(\boldsymbol{x}_n) f_\theta^{\boldsymbol{X}_n} d\boldsymbol{x}_n = 1 \\
 &\stackrel{C_3}{\Rightarrow}  \int_{-\infty}^{\infty} \dots \int_{-\infty}^{\infty}
-T(\boldsymbol{x}_n) \frac{\partial}{\partial \theta} f^{\boldsymbol{X}_n}_\theta(\boldsymbol{x}_n) = 1 \\
+T(\boldsymbol{x}_n) \frac{\partial}{\partial \theta} f^{\boldsymbol{X}_n}_\theta(\boldsymbol{x}_n) d\boldsymbol{x}_n = 1 \\
 &\Rightarrow  \int_{-\infty}^{\infty} \dots \int_{-\infty}^{\infty}
 T(\boldsymbol{x}_n) \frac{\partial\ln}{\partial \theta} f_\theta^{\boldsymbol{X}_n}(\boldsymbol{x}_n)
 f_\theta^{\boldsymbol{X}_n}(\boldsymbol{x}_n) d\boldsymbol{x}_n= 1,\forall \theta \in \Theta. \\
@@ -292,8 +292,8 @@ $${#eq-corcov}
 
 Ademais,
 $$
-\mathrm{Cov}_\theta(T(\boldsymbol{X}_n), U_n(\boldsymbol{X}_n,\theta)) = E_\theta(T(\boldsymbol{X}_n \cdot U_n(\boldsymbol{X}_n,\theta)) -
-\cancelto{\theta}{E_\theta(T(\boldsymbol{X}_n)} \cdot \cancelto{0}{E_\theta(U_n(\boldsymbol{X}_n,\theta))} = 1, \forall \theta \in \Theta
+\mathrm{Cov}_\theta(T(\boldsymbol{X}_n), U_n(\boldsymbol{X}_n,\theta)) = E_\theta(T(\boldsymbol{X}_n) \cdot U_n(\boldsymbol{X}_n,\theta)) -
+\cancelto{\theta}{E_\theta(T(\boldsymbol{X}_n))} \cdot \cancelto{0}{E_\theta(U_n(\boldsymbol{X}_n,\theta))} = 1, \forall \theta \in \Theta
 $$
 
 Substituindo em ([-@eq-corcov]), temos que
@@ -309,7 +309,7 @@ $$
 
 ## Teorema (generalização)
 
-Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta$, em que $f_\theta$ satisfaz as [condições $C_1,C_4$](escore.qmd#sec-condicoes).
+Seja $\boldsymbol{X}_n$ a.a. de $X \sim f_\theta, \theta \in \Theta$, em que $f_\theta$ satisfaz as [condições $C_1:C_4$](escore.qmd#sec-condicoes).
 Considere $T(\boldsymbol{X}_n)$ um estimador não-viciado para $g(\theta) \in \mathbb{R}$ cuja derivada com respeito a "$\theta$"
 existe $\forall \theta \in \Theta$. Então,
 $$

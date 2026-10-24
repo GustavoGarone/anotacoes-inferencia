@@ -43,9 +43,9 @@ Se $\Theta_0 = \{\theta_0\}, \Theta_1 = \{\theta_1\}$, temos o teste mais podero
 :::
 
 :::{.callout-note title="TUMP de Karlin-Rubin I e II"}
-Se $\Theta_0 = (-\infty, \theta_0] \cap \Theta, \Theta_1 = (\theta_1, \infty) \cap \Theta$, temos o teste uniformemente
+Se $\Theta_0 = (-\infty, \theta_0] \cap \Theta, \Theta_1 = (\theta_0, \infty) \cap \Theta$, temos o teste uniformemente
 mais poderoso de Karlin-Rubin (I). Por sua vez,
-se $\Theta_0 = [\theta_0, \infty) \cap \Theta, \Theta_1 = (-\infty, \theta_1) \cap \Theta$, temos o teste uniformemente
+se $\Theta_0 = [\theta_0, \infty) \cap \Theta, \Theta_1 = (-\infty, \theta_0) \cap \Theta$, temos o teste uniformemente
 mais poderoso de Karlin-Rubin (II)
 :::
 
@@ -114,7 +114,7 @@ $$
 {\mathcal{L}_{\boldsymbol{x}_n}(\hat{\theta}_{\mathrm{MV}})}
 $$
 
-*Teorema*. Sob as [condições de regularidade](cond-regular.qmd) e com $\dim(\Theta_0) < \dim(\Theta)$, temos que
+*Teorema*. Sob as [condições de regularidade](cond-regular.qmd) e com $\dim(\Theta_0) < \dim(\Theta)$, temos, sob $\mathcal{H}_0$, que
 $$
 -2\ln \lambda(\boldsymbol{X}_n, \Theta_0) \stackrel{\mathcal{D}}{\rightarrow} \chi^2_{s},
 $$
@@ -166,7 +166,7 @@ Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\theta,1), \theta \in \Theta \subseteq
 $$
 \begin{cases}
 \mathcal{H}_0 : \theta = 0 \\
-\mathcal{H}_1 : \mu \neq 0,
+\mathcal{H}_1 : \theta \neq 0,
 \end{cases}
 $$
 as hipóteses nula e alternativa. Encontre o teste da razão de verossimilhanças generalizada de tamanho $\alpha$.
@@ -179,7 +179,7 @@ $$
 \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \left(\frac{1}{\sqrt{2\pi}}\right)^n \mathrm{Exp}\left\{
 -\frac{1}{2} \sum_{i=1}^n (x_i - \theta)^{2} \right\} \\ &=
 \left(\frac{1}{\sqrt{2\pi}}\right)^n \mathrm{Exp}\left\{
--\frac{1}{2} \sum_{i=1}^n x_i^2 - 2\theta\sum_{i=1}^n x_i + n\theta^2 \right\}.
+-\frac{1}{2} \left[\sum_{i=1}^n x_i^2 - 2\theta\sum_{i=1}^n x_i + n\theta^2\right] \right\}.
 \end{aligned}
 $$.
 
@@ -216,14 +216,14 @@ $$
 \sup\limits_{\theta \in \Theta_0} P_{0}(n\bar{X}^2 \geq c^*) = P(\chi^2_1 \geq c^*) = \alpha.
 $$
 Tomando $c^* = 2\ln c$, podemos obter o valor para $c^*$ de uma qui-quadrado com $1$ grau de liberdade para qualquer valor de $\alpha$.
-Por exemplo, se $\alpha = 10\%, c^* = 2.70$. Se $\alpha = 5\%, c^* = 3.84$, etc.
+Por exemplo, se $\alpha = 10\%, c^* = 2.71$. Se $\alpha = 5\%, c^* = 3.84$, etc.
 
 ### Exemplo (Poisson)
 Seja $\boldsymbol{X}_n$ a.a. de $X \sim \mathrm{Poiss}(\theta), \theta \in \Theta = (0, \infty)$. Considere
 $$
 \begin{cases}
 \mathcal{H}_0 : \theta = \theta_0 \\
-\mathcal{H}_1 : \mu \neq \theta_0,
+\mathcal{H}_1 : \theta \neq \theta_0,
 \end{cases}
 $$
 as hipóteses nula e alternativa. Encontre o teste da razão de verossimilhanças generalizada de tamanho $\alpha$. Use o resultado
@@ -233,10 +233,10 @@ assintótico.
 Já sabemos que $\hat{\theta}_{\mathrm{MV}} = \bar{X}$ e
 $$
 \begin{aligned}
-\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \mathrm{e}^{n\theta} \cdot \frac{\theta^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n (x_i!)} \\
-\Rightarrow \lambda(\boldsymbol{x}_n, \Theta_0) &= \frac{\mathrm{e}^{n\theta_0} \cdot \frac{\theta_0^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n (x_i!)}}
-{\mathrm{e}^{n\bar{x}} \cdot \frac{\bar{x}^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n (x_i!)}} \\
-&= \mathrm{e}^{n\theta_0+n\bar{x}} \cdot \left(\frac{\theta_0}{\bar{x}}\right)^{\sum_{i=1}^n x_i}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \mathrm{e}^{-n\theta} \cdot \frac{\theta^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n (x_i!)} \\
+\Rightarrow \lambda(\boldsymbol{x}_n, \Theta_0) &= \frac{\mathrm{e}^{-n\theta_0} \cdot \frac{\theta_0^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n (x_i!)}}
+{\mathrm{e}^{-n\bar{x}} \cdot \frac{\bar{x}^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n (x_i!)}} \\
+&= \mathrm{e}^{-n\theta_0+n\bar{x}} \cdot \left(\frac{\theta_0}{\bar{x}}\right)^{\sum_{i=1}^n x_i}
 \end{aligned}
 $$
 Sabemos que, sob $\mathcal{H}_0, \ (\mathrm{i.e.}\ \forall \theta \in \Theta_0)$, $-2\ln \lambda(\boldsymbol{X}_n, \Theta_0) \stackrel{\mathcal{D}}{\rightarrow} \chi^2_1$.
@@ -260,7 +260,7 @@ $$
 $$
 Pela aproximação,
 $$
-P_{\theta_0}(T(\boldsymbol{X}_n) \geq c^*) \approx P(\chi^2_1 \geq c^*) \alpha.
+P_{\theta_0}(T(\boldsymbol{X}_n) \geq c^*) \approx P(\chi^2_1 \geq c^*) = \alpha.
 $$
 
 ::: {.panel-tabset}
@@ -455,7 +455,7 @@ $$
 
 Seja $\hat{\theta}$ um [estimador](estimadores.qmd) para "$\theta$" [assintoticamente normal](prop-est.qmd#sec-assinorm), ou seja,
 $$
-\sqrt{n}(\hat{\theta} - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_s(\boldsymbol{0}, V_{\theta})
+\sqrt{n}(\hat{\theta} - \theta) \stackrel{\mathcal{D}}{\rightarrow} N_p(\boldsymbol{0}, V_{\theta})
 $$
 Se $C$ tiver posto linha completo, ou seja, todas suas linhas são linearmente independentes, então
 $$
@@ -559,13 +559,13 @@ $$
 \mathcal{H}_1 : \theta \neq \theta_0
 \end{cases}
 $$
-em que $\theta_0$ é conhecido e $\theta \in \theta \subseteq \mathbb{R}^p$.
+em que $\theta_0$ é conhecido e $\theta \in \Theta \subseteq \mathbb{R}^p$.
 A estatística escore é definida por
 
 $$
 R(\boldsymbol{X}_n) = U_n(\boldsymbol{X}_n, \theta_0)^T I_n(\theta_0)^{-1} U_n(\boldsymbol{X}_n, \theta_0)
 $$
-em que $U_n$ é o [escore da amostra](escore.qmd) e $I_n$ é a [informação de fisher total](infofisher.qmd).
+em que $U_n$ é o [escore da amostra](escore.qmd) e $I_n$ é a [informação de Fisher total](infofisher.qmd).
 
 Pode-se demonstrar que
 $$
@@ -1144,13 +1144,13 @@ $$
 Se $\Sigma$ for conhecido o vetor de parâmetros é $\theta = \boldsymbol{\mu}$.
 
 Pode-se utilizar as estatísticas  de razão de verossimilhanças, Wald e Escore
-para testar as hipóteses. Todas essas estatísticas convergem para $\chi^2_p$.
+para testar as hipóteses. Sob $\mathcal{H}_0$, $-2\ln\lambda$, $W$ e $R$ convergem em distribuição para $\chi^2_p$.
 
 Para a razão de verossimilhanças,
 
 $$
-\frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
-{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+-2\ln\left[\frac{\sup\limits_{\theta \in \Theta_0} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}
+{\sup\limits_{\theta \in \Theta} \mathcal{L}_{\boldsymbol{x}_n}(\theta)}\right]
 $$
 
 Para a estatística de Wald,
@@ -1165,8 +1165,8 @@ $$
 Para a Escore ($\Sigma$ conhecido)
 
 $$
-R = U_n(\theta_n, \boldsymbol{X}_n^*)^T I_n(\theta)^{-1}
-U_n(\theta_n, \boldsymbol{X}_n^*)
+R = U_n(\boldsymbol{X}_n^*, \boldsymbol{\mu}_0)^T I_n(\boldsymbol{\mu}_0)^{-1}
+U_n(\boldsymbol{X}_n^*, \boldsymbol{\mu}_0)
 $$
 
 Para encontrar a distribuição exata, precisaremos introduzir as distribuições de
@@ -1203,7 +1203,7 @@ C\boldsymbol{\mu}) \sim F_{(s,n-s)},\ \text{Sob}\ \mathcal{H}_0
 $$
 
 pela propriedade da [distribuição de Hotelling](hotelling.qmd) (Teorema 8)
-e $\eta$ deve ser obtido fixando o tamanho do teste igua a $\alpha$ e
+e $\eta$ deve ser obtido fixando o tamanho do teste igual a $\alpha$ e
 calculando:
 
 $$

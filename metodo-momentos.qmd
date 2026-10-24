@@ -8,7 +8,7 @@ using PythonCall, RCall
 
 Seja $\boldsymbol{X}_n$ uma [a.a.](populacao-e-amostra.qmd#sec-aa) de $X$ tal que
 $$
-E_\theta (\lvert X \rvert^k) < \infty, k \in \{1,\dots,p\}, \Theta \subseteq \mathbb{R}^P
+E_\theta (\lvert X \rvert^k) < \infty, k \in \{1,\dots,p\}, \Theta \subseteq \mathbb{R}^p
 $$
 
 O estimador obtido pelo método de momentos é aquele que satisfaz
@@ -16,7 +16,7 @@ $$
 E_\theta(X^k) = \frac{1}{n} \sum^n_{i=1} X_i^k, k = 1, \dots, p.
 $$
 
-Note que a estimação pelo método de momentos *não* utiliza toda a
+Note que a estimação pelo método de momentos *pode não* utilizar toda a
 informação contida na [função de verossimilhança](funcao-verossimilhanca.qmd).
 Precisamos conhecer a forma dos primeiros $p$ momentos.
 
@@ -100,7 +100,7 @@ E_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n)) &= \int^{\infty}_{-\infty} w f_\
 \Rightarrow \mathrm{Var}_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n)) &= \frac{n\theta^2}{n+2} - \left(\frac{n}{n+1}\right)^2\theta^2 \\
 \Rightarrow \mathrm{EQM}_\theta(\hat{\theta}_{\mathrm{MV}}(\pmb{X}_n),\theta) &= \frac{n}{n+2}\theta^2 -
 \frac{n^2}{(n+1)^2}\theta^2 + \left(\frac{n}{n+1}\theta - \theta\right)^2 \\
-&= \theta^2\left(\frac{n}{n+2} - \frac{2}{n+1} + 1\right)
+&= \theta^2\left(\frac{n}{n+2} - \frac{2n}{n+1} + 1\right) = \frac{2\theta^2}{(n+1)(n+2)}
 \end{aligned}
 $$
 
@@ -274,7 +274,7 @@ os casos abaixo:
 
 3. $E_\theta(X) = \theta$. Portanto, $\hat{\theta}_{\mathrm{MM}}(\boldsymbol{X}_n) = \bar{X}$.
 
-4. $E_\theta(X) = \theta, E_\theta(X^2) = \sigma^2 + \mu^2$. Note que
+4. $E_\theta(X) = \mu, E_\theta(X^2) = \sigma^2 + \mu^2$. Note que
 $$
 \begin{aligned}
 \begin{cases}

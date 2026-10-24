@@ -9,7 +9,7 @@ comportamento de [estatísticas](estatisticas.qmd) e [estimadores](estimadores.q
 
 ## Método
 1. Defina o modelo estatístico: “Seja $(X_{1},\dots,X_{n})$” [a.a.](populacao-e-amostra.qmd#sec-aa) de
-$X\sim f_{	heta},\theta \in \Theta$.
+$X\sim f_{\theta},\theta \in \Theta$.
 2. Escolha $\theta_{0} \in \Theta$ e considere-o fixado daqui em diante.
 3. Para $n$ fixado, gere ($x_{1}, x_{2},\dots,x_{n}$) a amostra observada de $X\sim f_{\theta_{0}}$
 4. Armazene a amostra observada
@@ -102,7 +102,7 @@ def simula_montecarlo(theta0, M, n, corrigido=False):
 
         estimativas_mean[i] = np.mean(amostra)
         # No NumPy, o parâmetro 'ddof' (Delta Degrees of Freedom)
-        # controla o denominador para var() e sd().
+        # controla o denominador para np.var() e np.std().
         # ddof=1 divide por n-1, ddof=0 divide por n.
         estimativas_var[i]  = np.var(amostra, ddof = correcao)
 

@@ -174,7 +174,7 @@ P_\theta(T_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T_{\mathcal{H}_0}(\boldsymbol{
 $$
 
 Isto, na estatística clássica, está equivocado uma vez que $\mathcal{H}_0$ é uma hipótese científica, não um evento definido
-na $\sigma$-álgebra, isto é, $P(A|B)$ só está bem definido se, e somente se, $A$ e $B$ estiverem na mesma $\sigma$-álgebra.
+na $\sigma$-álgebra, isto é, $P(A|B)$ só está bem definido se, e somente se, $A$ e $B$ estiverem na mesma $\sigma$-álgebra e $P(B)>0$.
 :::
 
 1. Observe que, quanto menor for o valor-$p$, há mais evidências de que $\mathcal{H}_0$ é falsa.
@@ -189,7 +189,7 @@ $$
 \mathrm{valor-}p (\boldsymbol{x}_n, \mathcal{H}_0) = P(G \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n))
 $$
 
-3. Se $T_{\mathcal{H}_0} \sim G$, sob $\mathcal{H}_0$, em que $G$ não depende de "$\theta$", então
+3. Se $T_{\mathcal{H}_0} \sim G$, sob $\mathcal{H}_0$, em que $G$ é contínua e não depende de "$\theta$", então
 $$
 \mathrm{valor-}p(\boldsymbol{X}_n,\mathcal{H}_0) \stackrel{\mathrm{Sob}\ \mathcal{H}_0}{\sim} \mathrm{Unif}(0,1)
 $$
@@ -202,7 +202,7 @@ T_{\mathcal{H}_0} \stackrel{\mathcal{D}}{\rightarrow} G,\ \ \text{Sob}\ \mathcal
 $$
 então, o valor-$p$ assintótico é definido por
 $$
-\mathrm{valor-}p^{(a)} (\boldsymbol{x}_n, \mathcal{H}_0) = P(G \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n)
+\mathrm{valor-}p^{(a)} (\boldsymbol{x}_n, \mathcal{H}_0) = P(G \geq T_{\mathcal{H}_0}(\boldsymbol{x}_n))
 $$
 
 Pode-se conduzir [simulações de Monte Carlo](monte-carlo.qmd) para verificar se o tamanho amostral é grande o suficiente
@@ -228,8 +228,8 @@ Encontre um valor-$p$.
 
 ### Resposta
 
-Observe que $T_{\boldsymbol{H}_0}(\boldsymbol{x}_n) = n\bar{X}^2$ (essa também é a estatística de Wald) satisfaz o critério
-que, quanto maior o valor observado de $T_{\boldsymbol{H}_0}$, mais evidências contra $\mathcal{H}_0$. Além disso, sob $\mathcal{H}_0$,
+Observe que $T_{\mathcal{H}_0}(\boldsymbol{x}_n) = n\bar{x}^2$ (essa também é a estatística de Wald) satisfaz o critério
+que, quanto maior o valor observado de $T_{\mathcal{H}_0}$, mais evidências contra $\mathcal{H}_0$. Além disso, sob $\mathcal{H}_0$,
 
 $$
 T_{\mathcal{H}_0} \sim \chi^2_1 \Rightarrow \mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq n \bar{x}^2)
@@ -237,7 +237,7 @@ $$
 
 Se $n = 10$ e $\bar{x} = 1$, então
 $$
-\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq 10 \cdot 1^2) = 0.001
+\mathrm{valor-}p(\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq 10 \cdot 1^2) \approx 0.002
 $$
 
 ## Exemplo (Poisson)
@@ -256,7 +256,7 @@ Para a razão de verossimilhanças,
 $$
 \begin{aligned}
 T'_{\mathcal{H}_0}(\boldsymbol{X}_n) &= 2 n \cdot 1 - 2 n \bar{X} - 2 n \bar{X} \ln \frac{1}{\bar{X}} \\
-&= 2n - 2n\bar{X} + 2n\bar{X}\ln\frac{1}{\bar{X}} \stackrel{\mathcal{D}}{\rightarrow} \chi^2_1,\ \ \theta = 1.
+&= 2n - 2n\bar{X} + 2n\bar{X}\ln\bar{X} \stackrel{\mathcal{D}}{\rightarrow} \chi^2_1,\ \ \theta = 1.
 \end{aligned}
 $$
 
@@ -280,11 +280,11 @@ $$
 
 Para a estatística de escore, temos que o [escore](escore.qmd) é dado por
 $$
-U_n(\boldsymbol{X}_n, \theta) = -n + \frac{1}{\theta_0} \sum_{i=1}^n X_i
+U_n(\boldsymbol{X}_n, \theta) = -n + \frac{1}{\theta} \sum_{i=1}^n X_i
 $$
 e a [Informação de Fisher Total](infofisher.qmd) por
 $$
-I_n(\theta_0) = -E_\theta\left(-\sum_{i=1}^n \frac{X_i}{\theta_0} \right) = \frac{n}{\theta_0},
+I_n(\theta_0) = -E_{\theta_0}\left(-\sum_{i=1}^n \frac{X_i}{\theta_0^2} \right) = \frac{n}{\theta_0},
 $$
 portanto,
 $$
@@ -297,23 +297,23 @@ $$
 O valor-$p$ assintótico é, portanto,
 $$
 \begin{aligned}
-\mathrm{valor-}p_1 (\boldsymbol{x}_n, \mathcal{H}_0) &= P_1(T'_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T'_{H_0}(\boldsymbol{x}_n)) \stackrel{a}{\approx}
-\mathrm{val.-}p^{(a)}_1 (\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq T'_{H_0}(\boldsymbol{x}_n)) \\
-\mathrm{valor-}p_2 (\boldsymbol{x}_n, \mathcal{H}_0) &= P_1(T''_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T''_{H_0}(\boldsymbol{x}_n)) \stackrel{a}{\approx}
-\mathrm{val.-}p^{(a)}_2 (\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq T''_{H_0}(\boldsymbol{x}_n)) \\
-\mathrm{valor-}p_3 (\boldsymbol{x}_n, \mathcal{H}_0) &= P_1(T'''_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T'''_{H_0}(\boldsymbol{x}_n)) \stackrel{a}{\approx}
-\mathrm{val.-}p^{(a)}_3 (\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq T'''_{H_0}(\boldsymbol{x}_n))
+\mathrm{valor-}p_1 (\boldsymbol{x}_n, \mathcal{H}_0) &= P_1(T'_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T'_{\mathcal{H}_0}(\boldsymbol{x}_n)) \stackrel{a}{\approx}
+\mathrm{val.-}p^{(a)}_1 (\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq T'_{\mathcal{H}_0}(\boldsymbol{x}_n)) \\
+\mathrm{valor-}p_2 (\boldsymbol{x}_n, \mathcal{H}_0) &= P_1(T''_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T''_{\mathcal{H}_0}(\boldsymbol{x}_n)) \stackrel{a}{\approx}
+\mathrm{val.-}p^{(a)}_2 (\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq T''_{\mathcal{H}_0}(\boldsymbol{x}_n)) \\
+\mathrm{valor-}p_3 (\boldsymbol{x}_n, \mathcal{H}_0) &= P_1(T'''_{\mathcal{H}_0}(\boldsymbol{X}_n) \geq T'''_{\mathcal{H}_0}(\boldsymbol{x}_n)) \stackrel{a}{\approx}
+\mathrm{val.-}p^{(a)}_3 (\boldsymbol{x}_n, \mathcal{H}_0) = P(\chi^2_1 \geq T'''_{\mathcal{H}_0}(\boldsymbol{x}_n))
 \end{aligned}
 $$
 
-Consideraremos $\bar{x} = 2$ e $n=10$ para encontramos os valores numéricos dos valor-$p$:
+Consideraremos $\bar{x} = 2$ e $n=10$ para encontrarmos os valores numéricos dos valores-$p$:
 $$
 \begin{aligned}
-T'_{H_0}(\boldsymbol{x}_n) &= 2 \cdot 10 - 2 \cdot 10 \cdot 2 + 2 \cdot 10 \cdot 2 \ln 2 = 7.73 \\
+T'_{\mathcal{H}_0}(\boldsymbol{x}_n) &= 2 \cdot 10 - 2 \cdot 10 \cdot 2 + 2 \cdot 10 \cdot 2 \ln 2 = 7.73 \\
 \Rightarrow \mathrm{valor-}p^{(a)}_1 (\boldsymbol{x}_n, \mathcal{H}_0) &= 0.005, \\ \\
-T''_{H_0}(\boldsymbol{x}_n) &= 10 \cdot \frac{(2-1)^2}{2} = 5 \\
+T''_{\mathcal{H}_0}(\boldsymbol{x}_n) &= 10 \cdot \frac{(2-1)^2}{2} = 5 \\
 \Rightarrow \mathrm{valor-}p^{(a)}_2 (\boldsymbol{x}_n, \mathcal{H}_0) &= 0.025, \\ \\
-T'''_{H_0}(\boldsymbol{x}_n) &= 10 \cdot 1^2 = 10 \\
+T'''_{\mathcal{H}_0}(\boldsymbol{x}_n) &= 10 \cdot 1^2 = 10 \\
 \Rightarrow \mathrm{valor-}p^{(a)}_3 (\boldsymbol{x}_n, \mathcal{H}_0) &= 0.002.
 \end{aligned}
 $$
@@ -439,7 +439,7 @@ cat(sprintf(
 ```
 :::
 
-Vamos aumentar o tamanho da amostra ($n = 1000$ para visualizarmos a
+Vamos aumentar o tamanho da amostra ($n = 1000$) para visualizarmos a
 convergência do valor $p$ em distribuição uniforme:
 
 ::: {.panel-tabset}

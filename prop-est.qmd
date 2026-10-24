@@ -25,7 +25,7 @@ Se $g(\theta) = P_\theta(X\geq 3)$, então
 $$
 \begin{aligned}
 g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) &= P_{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)}(X\geq 3) \\
-&= 1 -\left(+\mathrm{e}^{-\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)} + \mathrm{e}^{- \hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)}
+&= 1 -\left(\mathrm{e}^{-\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)} + \mathrm{e}^{- \hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)}
 \hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) + \mathrm{e}^{-\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)}
 \frac{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)^2}{2!}\right)
 \end{aligned}
@@ -38,7 +38,7 @@ Se $g(\theta) = \frac{\sqrt{\mathrm{Var}_\theta(X)}}{E_\theta(X)} = \frac{\sqrt{
 então $g(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) = \frac{1}{\sqrt{\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)}}$ é o EMV
 para $g(\theta)$.
 
-## Teorema (dos estimadores assintoticamente normais) {#sec-assinorm}
+## Definição (estimadores assintoticamente normais) {#sec-assinorm}
 
 Dizemos que $T(\boldsymbol{X}_n)$ é um estimador para "$\theta$" assintoticamente normal se, e somente se, existir
 $\mathrm{V}_\theta$ não negativo tal que
@@ -66,7 +66,8 @@ $$
 $$
 
 :::{.callout-note title="EMVs são assintoticamente eficientes"}
-Note que
+Se, além disso, os momentos de $\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)$ convergirem para os da distribuição
+limite (o que ocorre nos modelos usuais deste curso), temos que
 $$
 \begin{aligned}
 E_\theta(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) &\stackrel{n\uparrow \infty}{\rightarrow} \theta \\
@@ -74,7 +75,7 @@ n \mathrm{Var}_\theta(\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) &\stackrel{n
 \end{aligned}
 $$
 Ou seja, estimadores de máxima verossimilhança são [assintoticamente eficientes](estimadores-eficientes.qmd#sec-efassin)
-sob as [condições de regularidade]().
+sob as [condições de regularidade](cond-regular.qmd) e essa hipótese adicional.
 
 A variância assintótica do estimador de máxima verossimilhança é denotada por
 $$

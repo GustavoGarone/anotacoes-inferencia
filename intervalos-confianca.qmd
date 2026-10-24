@@ -40,7 +40,7 @@ Observe que este é um intervalo *numérico*
 
 Portanto,
 $$
-P_\theta\left(I_1(\boldsymbol{X}_n) \leq g(\theta) \leq I_2(\boldsymbol{X}_n)\right) =
+P_\theta\left(I_1(\boldsymbol{x}_n) \leq g(\theta) \leq I_2(\boldsymbol{x}_n)\right) =
 \begin{cases}
 1,& g(\theta) \in \mathrm{IC}_{\mathrm{Obs}}(g(\theta), \gamma) \\
 0,& \mathrm{c.c.}
@@ -77,7 +77,7 @@ Temos uma **confiança** de $\gamma\cdot 100\%$ de que $g(\theta) \in \mathrm{IC
 Seja $\boldsymbol{X}_n$ a.a. de $X \sim N(\mu,\sigma^2), \theta = (\mu, \sigma^2) \in \Theta = \mathbb{R}\times\mathbb{R}^+$.
 Encontre um IC com coeficiente de confiança $\gamma = 95\%$...
 
-...para $g(\theta = \mu)$
+...para $g(\theta) = \mu$
 
 Sabemos que
 $$
@@ -104,18 +104,18 @@ $$
 Note que
 $$
 c_{2, \gamma} \leq \frac{\sqrt{n} (\bar{X} - \mu)}{\sqrt{S^2_{n-1}(\boldsymbol{X}_n)}} \leq c_{1, \gamma} \iff
-\bar{X} - c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}} \leq \mu \leq \bar{X} - c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}
+\bar{X} - c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}} \leq \mu \leq \bar{X} - c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}
 $$
 
 Portanto,
 $$
-P_\theta\left(\bar{X} - c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}} \leq g(\theta) \leq \bar{X} - c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}\right) = \gamma
+P_\theta\left(\bar{X} - c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}} \leq g(\theta) \leq \bar{X} - c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}\right) = \gamma
 $$
 
 Pela definição de Intervalo de Confiança,
 $$
 \mathrm{IC}(\mu,\gamma) = \left[
-\bar{X} - c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}, \bar{X} - c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}
+\bar{X} - c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}, \bar{X} - c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}
 \right]
 $$
 em que
@@ -124,8 +124,8 @@ S^2_{n-1}(\boldsymbol{X}_n) = \frac{1}{n-1} \sum_{i=1}^n (X_i - \bar{X})^2
 $$
 e $c_{1,\gamma}, c_{2,\gamma}$ são os quantis obtidos da distribuição t-student com $n-1$ graus de liberdade que satisfaçam
 $$
-P_\theta\left(\bar{X} - c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}} \leq g(\theta) \leq \bar{X} -
-c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}\right) = \gamma
+P_\theta\left(\bar{X} - c_{1,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}} \leq g(\theta) \leq \bar{X} -
+c_{2,\gamma} \sqrt{\frac{S^2_{n-1}(\boldsymbol{X}_n)}{n}}\right) = \gamma
 $$
 no caso simétrico (minimiza o IC para distribuições como a Normal), $c_{2,\gamma} = - c_{1,\gamma}$. Note que não é
 possível construir ICs simétricos dessa forma para distribuições
@@ -166,7 +166,7 @@ essa é também uma quantidade pivotal para 1., mas o contrário não vale.
 3. Se $\mu$ é conhecido e $\theta = \sigma^2, g(\theta) = \sigma^2$, então
 
 $$
-Q(\sigma^2, \boldsymbol{X}_n) = \sum_{i=1}^n \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{n}
+Q(\sigma^2, \boldsymbol{X}_n) = \sum_{i=1}^n \frac{(X_i - \mu)^2}{\sigma^2} \sim \chi^2_{n}
 $$
 
 $$
@@ -175,7 +175,7 @@ $$
 
 4. Se $\mu$ é desconhecido e $\theta = (\mu, \sigma^2), g(\theta) = \sigma^2$, então
 $$
-Q(\sigma^2, \boldsymbol{X}_n) = \sum_{i=1}^n \frac{(X_i - \bar{X})}{\sigma^2} \sim \chi^2_{(n-1)}
+Q(\sigma^2, \boldsymbol{X}_n) = \sum_{i=1}^n \frac{(X_i - \bar{X})^2}{\sigma^2} \sim \chi^2_{(n-1)}
 $$
 
 $$
@@ -201,7 +201,7 @@ M_{\sum_{i=1}^n X_i}(t) &= E(\mathrm{e}^{t \sum_{i=1}^n X_i}) =  \left(\frac{\th
 \end{aligned}
 $$
 
-Portanto, $Q(\theta, \boldsymbol{X}_n) = 2\theta \sum_{i=1}^n X_i$ é uma quantidade de interesse para $\theta$
+Portanto, $Q(\theta, \boldsymbol{X}_n) = 2\theta \sum_{i=1}^n X_i$ é uma quantidade pivotal para $\theta$
 
 $$
 \begin{aligned}
@@ -217,7 +217,7 @@ Seja $X \sim \mathrm{Unif}(0, \theta), \theta > 0$. Encontre uma quantidade pivo
 Note que $X_{(n)} = \max \boldsymbol{X}_n$ [é uma estatística suficiente](estatisticas-suficientes.qmd#sec-exunif) cuja f.d.p.
 é dada por
 $$
-f_(\theta)^{\boldsymbol{X}_{(n)}}(x) = \frac{n x^{n-1}}{\theta^n} \mathrm{1}_{(0,\theta]}(x)
+f_{\theta}^{\boldsymbol{X}_{(n)}}(x) = \frac{n x^{n-1}}{\theta^n} \mathrm{1}_{(0,\theta]}(x)
 $$
 
 Seja $Y = \frac{X_{(n)}}{\theta}$, então
@@ -249,7 +249,7 @@ $$
 y^n \rvert_0^{c_{1,\gamma}} = \frac{1-\gamma}{2} \\
 y^n \rvert^1_{c_{2,\gamma}} = \frac{1-\gamma}{2} \\
 \end{cases}
-\Rightarrow c_{1,\gamma} &= \left(\frac{1-\gamma}{2}\right)^{1/2}\ \ \ \ c_{2,\gamma} = \left(\frac{1+\gamma}{2}\right)^{1/2}
+\Rightarrow c_{1,\gamma} &= \left(\frac{1-\gamma}{2}\right)^{1/n}\ \ \ \ c_{2,\gamma} = \left(\frac{1+\gamma}{2}\right)^{1/n}
 \end{aligned}
 $$
 
@@ -269,16 +269,16 @@ $$
 
 Esse método produz um intervalo de confiança simétrico, não necessariamente
 o de menor amplitude, mas é mais fácil de
-encontrar. O intervalo de confiança com menor amplitude com quantis que
-satisfaçam ([-@eq-obterquantis]) é obtido minimizando
-$|c_{2,\gamma} - c_{1,\gamma}|$ sujeito a ([-@eq-obterquantis]).
+encontrar. Nos casos em que a amplitude do intervalo de confiança é proporcional a
+$|c_{2,\gamma} - c_{1,\gamma}|$, o intervalo de menor amplitude é obtido minimizando
+essa diferença sob a restrição ([-@eq-obterquantis]). Para outras inversões do pivô, deve-se minimizar a amplitude do intervalo resultante.
 
-Se $f$ for *unimodal* e *bicaudal*, pode-se demonstrar que $c_{1,\gamma}, c_2{\gamma}$ que produzem amplitude mínima e satisfazem ([-@eq-obterquantis]) são
+Nesses casos, se $f$ for *unimodal* e *bicaudal*, pode-se demonstrar que $c_{1,\gamma}, c_{2,\gamma}$ que produzem amplitude mínima e satisfazem ([-@eq-obterquantis]) são
 tais que
 $$
 f(c_{1,\gamma}) = f(c_{2,\gamma})
 $$
-ou seja, tem mesma densidade.
+ou seja, têm a mesma densidade.
 :::
 
 ::: {.panel-tabset}
@@ -311,7 +311,7 @@ end
 
 acertos = [I1 .<= theta0 .<= I2]
 display(L"\mathrm{IC}_{\mathrm{Obs (1)}}(\theta,0.95)=[%$(I1[1]), %$(I2[1])]")
-display(L"\text{ICs que contém}\ \theta: %$((sum(acertos[1]))/MC * 100)\%")
+display(L"\text{ICs que contêm}\ \theta: %$((sum(acertos[1]))/MC * 100)\%")
 ```
 
 ##### Python
@@ -378,7 +378,7 @@ Dizemos que $Q(g(\theta), \boldsymbol{X}_n)$ é uma quantidade pivotal aproximad
 
 1. $Q(g(\theta), \boldsymbol{X}_n)$ depende de $g(\theta)$;
 
-2. A distribuição assintótica de $Q(g(\theta), \boldsymbol{X}_n)$ não depende de $g(\theta)$;
+2. A distribuição assintótica de $Q(g(\theta), \boldsymbol{X}_n)$ não depende de $\theta$;
 
 3. Existem $a_1, a_2$, que não dependem de $g(\theta)$, tais que $c_1 \leq Q(g(\theta),\boldsymbol{X}_n) \leq c_2 \iff a_1 \leq g(\theta) \leq a_2$.
 Esses valores dependem apenas de $\boldsymbol{X}_n$.
@@ -396,7 +396,7 @@ $$
 $$
 em que $V_\theta > 0$.
 
-Se $g: \Theta \rightarrow \mathbb{R}$ for uma função tal que $g'(\theta) \neq 0$ $g'(\theta)$ é contínua, então,
+Se $g: \Theta \rightarrow \mathbb{R}$ for uma função tal que $g'(\theta) \neq 0$ e $g'(\theta)$ é contínua, então,
 $$
 \sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))  \stackrel{\mathcal{D}}{\rightarrow} N_1(0, g'(\theta)^2V_\theta), \forall \theta \in \Theta.
 $$
@@ -417,7 +417,7 @@ Ou seja,
 $$
 Q(g(\theta), \boldsymbol{X}_n) = \frac{\sqrt{n} (g(T(\boldsymbol{X}_n)) - g(\theta))}{\sqrt{g'(T(\boldsymbol{X}_n))^{2}V_{T(\boldsymbol{X}_n)}}}
 $$
-é uma quantidade pivotal aproximada para $g(\theta)$. Note que, com $T(\boldsymbol{X}_n) = \hat(\theta)$,
+é uma quantidade pivotal aproximada para $g(\theta)$. Note que, com $T(\boldsymbol{X}_n) = \hat{\theta}$,
 $$
 \begin{aligned}
 &c_1 \leq Q(g(\theta), \boldsymbol{X}_n) \leq c_2 \\
@@ -445,7 +445,7 @@ $$
 é o erro-padrão do estimador (seu desvio padrão).
 :::
 
-Vamos conferir por [simulações de monte carlo](monte-carlo.qmd) e o [método
+Vamos conferir por [simulações de Monte Carlo](monte-carlo.qmd) e o [método
 de Newton-Raphson](metodo-nr.qmd)
 
 a) Para $\theta$
@@ -470,7 +470,7 @@ using SpecialFunctions, Distributions, Random, LaTeXStrings
 
 
 # Sabemos que θ.MV ~a~ N(θ, I_n(θ)^-1)
-# => IC^a(θ,γ) = θ.MV ∓ c_2 * √(I_1(θ))
+# => IC^a(θ,γ) = θ.MV ∓ c_2 / √(n * I_1(θ.MV))
 
 Random.seed!(13)
 
@@ -837,7 +837,7 @@ $$
 \begin{aligned}
 g(\theta) &= \ln f_\theta(\theta) = - \ln \Gamma(\theta) + (\theta-1) \ln (\theta) - \theta \\
 \Rightarrow g'(\theta) &= -\psi_1(\theta) + \ln(\theta) + \frac{\theta -1}{\theta} - 1 \\
-&= -\psi_1(\theta) + \ln(\theta) - \frac{-1}{\theta} = g1(\theta)
+&= -\psi_1(\theta) + \ln(\theta) - \frac{1}{\theta} = g1(\theta)
 \end{aligned}
 $$
 
@@ -1536,7 +1536,7 @@ $$
 \lim_{n\rightarrow\infty} P_\theta(\theta \in \mathrm{RC}^{(a)}(\theta, \gamma)) = \gamma, \forall \theta \in \Theta.
 $$
 
-Para o caso $p=1$, ou seja, $\Theta \in \mathbb{R}$, note que
+Para o caso $p=1$, ou seja, $\Theta \subseteq \mathbb{R}$, note que
 $$
 n(\hat{\theta}(\boldsymbol{X}_n) - \theta)^T V_{\hat{\theta}(\boldsymbol{X}_n)}^{-1} (\hat{\theta}(\boldsymbol{X}_n) - \theta) =
 \frac{n(\hat{\theta}(\boldsymbol{X}_n) - \theta)^2}{V_{\hat{\theta}(\boldsymbol{X}_n)}} = W_n(\theta).
@@ -1569,7 +1569,7 @@ $$
 $$
 em que $q_\gamma$ é tal que $P(\chi^2_1 \leq q_\gamma) = \gamma$.
 
-No caso em que $\Theta$ é uma semireta ou intervalo, a região de confiança coincide com o intervalo de confiança.
+No caso em que $\Theta$ é uma semirreta ou intervalo, a região de confiança coincide com o intervalo de confiança.
 
 :::{.callout-note title="Observação"}
 $$

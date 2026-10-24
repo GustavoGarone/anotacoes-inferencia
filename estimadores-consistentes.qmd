@@ -25,7 +25,7 @@ estatística, essa notação não está bem
 formalizada na estrutura do modelo estatístico clássico.
 :::
 
-Dizemos $T(\boldsymbol{X}_n)$ é *fortemente* consistente se, e somente se,
+Dizemos que $T(\boldsymbol{X}_n)$ é *fortemente* consistente se, e somente se,
 $$
 P_\theta\left(\lim_{n\rightarrow \infty} T(\boldsymbol{X}_n) = g(\theta)\right) = 1,\ \forall \theta \in \Theta.
 $$
@@ -74,7 +74,7 @@ Seja $\epsilon > 0$ fixado. Então,
 $$
 \begin{aligned}
 P_\theta(\lvert T(\boldsymbol{X}_n) - g(\theta) \rvert > \epsilon) &= P_\theta((T(\boldsymbol{X}_n) - g(\theta))^2 > \epsilon^2) \\
-&\stackrel{\mathrm{Chebyshev}}{\leq} \frac{E_\theta((T(\boldsymbol{X}_n - g(\theta))^2)}{\epsilon^2}
+&\stackrel{\mathrm{Chebyshev}}{\leq} \frac{E_\theta[(T(\boldsymbol{X}_n) - g(\theta))^2]}{\epsilon^2}
 =  \frac{\mathrm{EQM}_\theta(T(\boldsymbol{X}_n),g(\theta))}{\epsilon^2} \\
 \Rightarrow \lim_{n\rightarrow \infty} P_\theta(\lvert T(\boldsymbol{X}_n) - g(\theta) \rvert > \epsilon) &\leq  0,\ \forall \theta \in \Theta.
 \end{aligned}
@@ -99,16 +99,16 @@ Disso, temos que, se $T(\pmb{X}_n)$ for [assintoticamente eficiente](estimadores
 ### Exemplo Bernoulli
 
 Seja $\pmb{X}_n$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim \mathrm{Ber}(\theta), \theta \in \Theta = (0,1)$.
-Mostre que $T(\pmb{X}_n)$ é consistente para $g(\theta) = \theta$.
+Mostre que $T(\pmb{X}_n)=\bar{X}$ é consistente para $g(\theta) = \theta$.
 
 #### Resposta
 
-Como $E_\theta(\bar{X}) = \theta$ e $\mathrm{Var}_\theta(\bar{X}) \frac{\theta(1-\theta)}{n}, \forall \theta \in \Theta.$,
+Como $E_\theta(\bar{X}) = \theta$ e $\mathrm{Var}_\theta(\bar{X}) = \frac{\theta(1-\theta)}{n}, \forall \theta \in \Theta.$,
 temos que
 $$
 \begin{aligned}
 \mathrm{Viés}_\theta(\bar{X},\theta) &= 0, \forall \theta \in \Theta, \\
-\lim_{n\rightarrow \infty} \mathrm{Var}_\theta(\bar{X}) = 0, \forall \theta \in \Theta, \\
+\lim_{n\rightarrow \infty} \mathrm{Var}_\theta(\bar{X}) &= 0, \forall \theta \in \Theta, \\
 \Rightarrow \mathrm{EQM}_\theta(\bar{X},\theta) &\rightarrow 0, \forall \theta \in \Theta
 \Rightarrow \bar{X} \stackrel{P_\theta}{\rightarrow} \theta, \forall \theta \in \Theta.
 \end{aligned}
@@ -130,7 +130,7 @@ $$
 \begin{aligned}
 \mathrm{Viés}_\theta(\bar{X},\mu) &= 0, \forall \theta \in \Theta, \\
 \lim_{n\rightarrow \infty} \mathrm{Var}_\theta(\bar{X}) &= 0, \forall \theta \in \Theta, \\
-\Rightarrow \lim_{n\rightarrow \infty} \mathrm{EQM}_\theta(\bar{X},\theta) &= 0, \forall \theta \in \Theta \\
+\Rightarrow \lim_{n\rightarrow \infty} \mathrm{EQM}_\theta(\bar{X},\mu) &= 0, \forall \theta \in \Theta \\
 \Rightarrow T(\pmb{X}_n) &= \bar{X} \text{ é fracamente consistente para } g(\theta) = \mu.
 \end{aligned}
 $$
@@ -172,7 +172,7 @@ $$
 
 Portanto,
 $$
-\mathrm{EQM}_\theta = \frac{2\sigma^2}{(n-k)^2}(n-1) + \left(\frac{\sigma^2}{n-k}(n-1) - \sigma^2\right)^2
+\mathrm{EQM}_\theta = \frac{2\sigma^4}{(n-k)^2}(n-1) + \left(\frac{\sigma^2}{n-k}(n-1) - \sigma^2\right)^2
 $$
 
 Como
@@ -188,4 +188,4 @@ $$
 \lim_{n\rightarrow \infty} \mathrm{EQM}_\theta(T_k(\pmb{X}_n),\sigma^2) = 0, \forall \theta \in \Theta.
 $$
 
-Logo, $T(\pmb{X}_n)$ é consistente para $\sigma^2, \forall k \neq n, \ k \text{fixado}$
+Logo, $T_k(\pmb{X}_n)$ é consistente para $\sigma^2, \forall k \neq n, \ k \text{fixado}$

@@ -8,7 +8,7 @@ $$
 em que $\boldsymbol{x}_n$ representa uma possível [amostra observada](populacao-e-amostra.qmd#sec-ao).
 
 ::: {.callout-note title="Observação"}
-$\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)$ é um [estimador](estimadores.qmd) (quase certamente, ele é único).
+$\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)$ é um [estimador](estimadores.qmd).
 
 $\hat{\theta}_{\mathrm{MV}}(\boldsymbol{x}_n)$ é uma [estimativa](estimadores.qmd#sec-estimativa).
 :::
@@ -33,10 +33,10 @@ $$
 $$
 Como $0 < \max \boldsymbol{x}_n \leq \theta < \infty$,
 $$
-\mathcal{L}_{\boldsymbol{x}_n}(\theta) \frac{1}{\theta^n} \mathbb{1}_{[0,\infty)}(\min \boldsymbol{x}_n) \mathbb{1}_{[\max \boldsymbol{x}_n, \infty)}
+\mathcal{L}_{\boldsymbol{x}_n}(\theta) = \frac{1}{\theta^n} \mathbb{1}_{[0,\infty)}(\min \boldsymbol{x}_n) \mathbb{1}_{[\max \boldsymbol{x}_n, \infty)}(\theta)
 $$
 
-Note que a função é *estritamente decrescente* para qualquer valor de $\theta \geq \max \boldsymbol{x}_n$ e vale $0$ para $\theta \leq \max \boldsymbol{x}_n$,
+Note que a função é *estritamente decrescente* para qualquer valor de $\theta \geq \max \boldsymbol{x}_n$ e vale $0$ para $\theta < \max \boldsymbol{x}_n$,
 temos que $\theta = \max\boldsymbol{x}_n$  é o ponto que maximiza a função de verossimilhança, logo,
 $$
 \hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \max \boldsymbol{X}_n
@@ -74,7 +74,7 @@ $$
 Ademais, $\ln(\cdot)$ é uma função estritamente crescente. Portanto, o valor que maximiza $\mathcal{L}_{\boldsymbol{x}_n}(\cdot)$ é
 o mesmo que maximiza $\ln \mathcal{L}_{\boldsymbol{x}_n}(\cdot)$.
 
-Encontramos os pontos críticos de $\ln \mathcal{L}_{\boldsymbol{X}_n}(\theta)$
+Encontramos os pontos críticos de $\ln \mathcal{L}_{\boldsymbol{x}_n}(\theta)$
 $$
 \begin{aligned}
 &\frac{d\ln \mathcal{L}_{\boldsymbol{x}_n}(\theta)}{d\theta} = 0 \\
@@ -90,7 +90,7 @@ $$
 
 Logo,
 $$
-\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = - \frac{n}{\sum_{i=1}^n \ln x_i}
+\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = - \frac{n}{\sum_{i=1}^n \ln X_i}
 $$
 é o EMV.
 
@@ -101,7 +101,7 @@ observada e considere as [Condições $C_1:C_4$](escore.qmd#sec-condicoes) váli
 a [função escore](escore.qmd) a zero. Ou seja,
 
 $$
-U_n(\boldsymbol{X}_n,\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n))
+U_n(\boldsymbol{X}_n,\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n)) = \boldsymbol{0}
 $$
 em que
 $$
@@ -116,7 +116,7 @@ $$
 \left.\frac{\partial U_n(\boldsymbol{x}_n,\theta)}{\partial \theta^T}\right\rvert_{\theta = \hat{\theta}_{\mathrm{MV}}(\boldsymbol{x}_n)}
 =  \left.\frac{\partial^2 \ln \mathcal{L}_{\boldsymbol{x}_n}}{\partial \theta \partial \theta^T}\right\rvert_{\theta = \hat{\theta}_{\mathrm{MV}}(\boldsymbol{x}_n)}
 $$
-é negativa definida.
+é negativa definida. Esse critério garante um máximo local interior. Se a log-verossimilhança for côncava, o máximo encontrado será global.
 
 ::: {.callout-note title="Matrizes positivas definidas"}
 Dizemos que $A$ é positiva definida se, e somente se,
@@ -130,7 +130,7 @@ $A$ simétrica ($A$ = $A^T$) é positiva definida se, e somente se, todos seus a
 :::
 
 ::: {.callout-note title="Matrizes negativas definidas"}
-Dizemos que $A$ é positiva definida se, e somente se,
+Dizemos que $A$ é negativa definida se, e somente se,
 $$
 x^TAx < 0, \forall x \in \mathbb{R}^P \setminus \{\boldsymbol{0}\}
 $$
@@ -141,7 +141,7 @@ $A$ simétrica ($A$ = $A^T$) é negativa definida se, e somente se, todos seus a
 :::
 
 ::: {.callout-tip}
-Uma matriz $A$ de dimensões $2\times 2$ é dita positiva(negativa) definida se, e somente se, os elementos da diagonal são
+Uma matriz simétrica $A$ de dimensões $2\times 2$ é dita positiva(negativa) definida se, e somente se, os elementos da diagonal são
 positivos(negativos) e o determinante de $A$ é positivo.
 :::
 
@@ -221,7 +221,7 @@ $$
 \end{array}\right] \\
 \Rightarrow  \frac{\partial^2 \ln}{\partial \mu^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= -\frac{n}{\sigma^2} \\
 \frac{\partial^2 \ln}{\partial \mu \partial \sigma^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= -\frac{1}{\sigma^4} \sum (x_i - \mu) \\
-\frac{\partial^2 \ln}{\partial (\sigma^2)^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \frac{n}{2\sigma^4} + \frac{1}{2} \sum (x_i - \mu)^2 \cdot \frac{\partial (\sigma^2)^2}{\partial \sigma^2} \\
+\frac{\partial^2 \ln}{\partial (\sigma^2)^2} \mathcal{L}_{\boldsymbol{x}_n}(\theta) &= \frac{n}{2\sigma^4} + \frac{1}{2} \sum (x_i - \mu)^2 \cdot \frac{\partial (\sigma^2)^{-2}}{\partial \sigma^2} \\
 &= \frac{n}{2\sigma^4} - \sum \frac{(x_i - \mu)^2}{\sigma^6} \\
 \Rightarrow
 \left.\frac{\partial^2 \ln}{\partial \theta \partial \theta^T} \mathcal{L}_{\boldsymbol{x}_n}(\theta)\right\rvert_{\theta = \hat{\theta}} &=
@@ -289,6 +289,8 @@ $\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \frac{\bar{X}}{4}$.
 3. $X \sim \mathrm{Poiss}(\theta), \theta > 0$, o EMV para "$\theta$" é
 $\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \bar{X}$.
 
+   Nos três primeiros itens, as fórmulas valem quando o valor obtido pertence a $\Theta$. Nas amostras extremas, o supremo da verossimilhança só é atingido no fecho do espaço paramétrico.
+
 4. $X \sim \mathrm{Exp}(\theta), \theta > 0$, o EMV para "$\theta$" é
 $\hat{\theta}_{\mathrm{MV}}(\boldsymbol{X}_n) = \frac{1}{\bar{X}}$.
 
@@ -299,7 +301,7 @@ f_\theta(x) = \left\{\begin{array}{ll}
 0, & \mathrm{c.c.}
 \end{array}\right.
 $$
-com $\Gamma(\theta) = \int x^{\theta-1} \mathrm{e}^{-x} dx$, temos
+com $\Gamma(\theta) = \int_0^\infty x^{\theta-1} \mathrm{e}^{-x} dx$, temos
 $$
 \begin{aligned}
 \mathcal{L}_{\pmb{x}_n}(\theta) &\stackrel{\mathrm{i.i.d.}}{=} \prod f_\theta(x_i)\\
@@ -343,12 +345,12 @@ $$
 
 Se $c_1,\dots,c_k$ forem diferenciáveis com respeito a "$\theta$", temos que
 $$
-\frac{\partial \ln }{\partial \theta} \mathcal{L}_{\pmb{x}_n}(\theta) =  \sum^k_{j=1} \frac{\partial c_j(\theta}{\partial \theta}
+\frac{\partial \ln }{\partial \theta} \mathcal{L}_{\pmb{x}_n}(\theta) =  \sum^k_{j=1} \frac{\partial c_j(\theta)}{\partial \theta}
 \sum^n_{i=1} T_j(x_i) + n \frac{\partial d(\theta)}{\partial \theta}
 $$
 igualando a zero, temos que
 $$
-\sum^k_{j=1} \frac{\partial c_j(\theta)}{\partial \theta} \sum^n_{i=1} T(x_i) = - n \frac{\partial d(\theta)}{\partial \theta}
+\sum^k_{j=1} \frac{\partial c_j(\theta)}{\partial \theta} \sum^n_{i=1} T_j(x_i) = - n \frac{\partial d(\theta)}{\partial \theta}
 $${#eq-formageral}
 
 :::{.callout-hint title="Uso de métodos numéricos"}

@@ -22,7 +22,7 @@ $$
 e
 
 $$
-\frac{M}{\sigma^2} \sim \chi^2_n\ \ \ \text{ou}\ \ \ M \sim \sigma^2 \chi^2_p
+\frac{M}{\sigma^2} \sim \chi^2_n\ \ \ \text{ou}\ \ \ M \stackrel{d}{=} \sigma^2 \chi^2_n
 $$
 
 em que $\Sigma = \sigma^2$.
@@ -87,10 +87,10 @@ $$
 
 _Prova_.
 
-Sejam $\boldsymbol{X}_1, \dots, \boldsymbol{X}_n$ e
-$\boldsymbol{Y}_1, \dots, \boldsymbol{Y}$ vetores aleatórios independentes e
-identicamente distribuidos tais que
-$\boldsymbol{X}_1 \sim N_p(\boldsymbol{0}, \Sigma)$. podemos escrever
+Sejam $\boldsymbol{X}_1, \dots, \boldsymbol{X}_{n_1}$ e
+$\boldsymbol{Y}_1, \dots, \boldsymbol{Y}_{n_2}$ vetores aleatórios independentes e
+identicamente distribuídos tais que
+$\boldsymbol{X}_1 \sim N_p(\boldsymbol{0}, \Sigma)$. Podemos escrever
 
 $$
 M_1 = \sum^{n_1}_{i=1} \boldsymbol{X}_i \boldsymbol{X}_i^T \sim \mathrm{Wishart}_p(\Sigma, n_1)
@@ -99,7 +99,7 @@ $$
 e
 
 $$
-M_2 = \sum^{n_2}_{i=1} \boldsymbol{Y}_i \boldsymbol{Y}_i^T \sim \mathrm{Wishart}_p(\Sigma, n_1)
+M_2 = \sum^{n_2}_{i=1} \boldsymbol{Y}_i \boldsymbol{Y}_i^T \sim \mathrm{Wishart}_p(\Sigma, n_2)
 $$
 
 Observe ainda que
@@ -107,16 +107,16 @@ Observe ainda que
 $$
 M_1 + M_2 = \sum^{n_1}_{i=1} \boldsymbol{X}_i \boldsymbol{X}_i^T +
 \sum^{n_2}_{i=1} \boldsymbol{Y}_i \boldsymbol{Y}_i^T
-\sum^{n_1 + n_2}_{j=1} \boldsymbol{W}_i,\boldsymbol{W}_i^T
+= \sum^{n_1 + n_2}_{j=1} \boldsymbol{W}_j\boldsymbol{W}_j^T
 $$
 
 em que $\boldsymbol{W}_i \sim N_p(\boldsymbol{0}, \Sigma)$
 
 $$
 \begin{cases}
-\boldsymbol{Z}_1 = \boldsymbol{X}_1 & \boldsymbol{Z}_{n_1+1} = \boldsymbol{Y}_1 \\
+\boldsymbol{W}_1 = \boldsymbol{X}_1 & \boldsymbol{W}_{n_1+1} = \boldsymbol{Y}_1 \\
 \vdots & \vdots \\
-\boldsymbol{Z}_{n_1} = \boldsymbol{X}_n & \boldsymbol{Z}_{n_1+n_2} = \boldsymbol{Y}_1 \\
+\boldsymbol{W}_{n_1} = \boldsymbol{X}_{n_1} & \boldsymbol{W}_{n_1+n_2} = \boldsymbol{Y}_{n_2} \\
 \end{cases}
 $$
 
@@ -161,10 +161,10 @@ p=1 \Rightarrow \begin{cases}
 \end{cases}
 $$
 
-Os autores reescrevem a soma a seguinte forma
+Os autores reescrevem a soma da seguinte forma
 
 $$
-n S^2_n = \sum^n_{i=1} (\boldsymbol{X}_i - \bar{X})(\boldsymbol{X}_i - bar{X})^T
+n S^2_n = \sum^n_{i=1} (\boldsymbol{X}_i - \bar{X})(\boldsymbol{X}_i - \bar{X})^T
 = \sum^n_{i=1} \left(\boldsymbol{X}_i - \frac{1}{n} \sum^n_{i=1}
 \boldsymbol{X}_i\right)
 \left(\boldsymbol{X}_i - \frac{1}{n} \sum^n_{i=1}
@@ -185,9 +185,9 @@ $$
 Logo,
 
 $$
-\frac{1}{n} J \boldsymbol{X}' = \sum^n_{i=1} \boldsymbol{X}_i = \bar{X}^T
+\frac{1}{n} J \boldsymbol{X}' = \frac{1}{n}\sum^n_{i=1} \boldsymbol{X}_i^T = \bar{X}^T
 \Rightarrow
-\frac{1}{n} \boldsymbol{X}'^T j^T = \bar{X}
+\frac{1}{n} \boldsymbol{X}'^T J^T = \bar{X}
 $$
 
 Disso, segue que

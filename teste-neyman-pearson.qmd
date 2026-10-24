@@ -71,7 +71,7 @@ $$
 
 Logo, $\sum_{i=1}^n x_i^2 \geq 4 \ln(2^{n/2}\eta)$ é equivalente a $\frac{\frac{1}{(\sqrt{4\pi})^n} \cdot \mathrm{Exp}\left\{
 -\frac{1}{2} \sum_{i=1}^n \frac{x_i^2}{2} \right\}}{\frac{1}{(\sqrt{2\pi})^n} \cdot \mathrm{Exp}\left\{
--\frac{1}{2} \sum_{i=1}^n x_i^2 \right\}}$.
+-\frac{1}{2} \sum_{i=1}^n x_i^2 \right\}} \geq \eta$.
 
 Observe ainda que
 $$
@@ -140,7 +140,7 @@ $$
 \pi_{\delta^*}(0.9) = P_{0.9}(\delta^*(\boldsymbol{X}_n) = 1) = P_{0.9}(\sum_{i=1}^n X_i \leq \eta^*) = \alpha = 10\%.
 $$
 
-Note que, sob $\mathcal{H}_0, \sum^10_{i=1} X_i \sim \mathrm{Bin}(10, 0.9)$. Ademais,
+Note que, sob $\mathcal{H}_0, \sum^{10}_{i=1} X_i \sim \mathrm{Bin}(10, 0.9)$. Ademais,
 $$
 P_{0.9}(\sum X \leq 7) = 0.0702,\ \ \
 P_{0.9}(\sum X \leq 8) = 0.2639.

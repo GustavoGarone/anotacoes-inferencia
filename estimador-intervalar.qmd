@@ -39,7 +39,7 @@ $$
 ## IC sob normalidade para $\mu$ com $\sigma^2$ conhecido
 
 Em uma distribuição normal $(\theta, \sigma^2)$, por exemplo, conseguimos de forma genérica para qualquer
-$\gamma \in [0,1]$ encontrar pela tabela um valor de $c_{\gamma}$ que satisfaça $P(-c_{\gamma} \leq Z \leq c_{\gamma})$.
+$\gamma \in [0,1]$ encontrar pela tabela um valor de $c_{\gamma}$ que satisfaça $P(-c_{\gamma} \leq Z \leq c_{\gamma})=\gamma$.
 Assim,
 $$
 -c_{\gamma} \leq Z \leq c_{\gamma} \Leftrightarrow -c_{\gamma} \leq \frac{\sqrt{n}(\bar{X}-\theta)}{\sqrt{\sigma^{2}}}
@@ -67,10 +67,10 @@ Primeiro encontramos a média: $\bar{x} = 2.42$.
 
 Dessa forma, $c_{99\%} = 2.58$ e nosso intervalo de confiança é
 $$
-\left[2.42 - 2.58 \frac{\sqrt{3}}{\sqrt{4}}, 2.42 + 2.58\frac{\sqrt{3}}{\sqrt{4}}\right] = [0.18, 4.65]
+\left[2.42 - 2.58 \frac{\sqrt{3}}{\sqrt{4}}, 2.42 + 2.58\frac{\sqrt{3}}{\sqrt{4}}\right] = [0.19, 4.65]
 $$
 
-Esse IC observado pode conter o verdadeiro valor de theta ou não conter. Não
+Esse IC observado pode conter o verdadeiro valor de $\theta$ ou não conter. Não
 podemos afirmar que a probabilidade de esse IC observado conter o valor de $\theta$
 seja de 99%. Por outro lado, se repetirmos o experimento $N$ vezes, esperamos
 que $\gamma = 99\%$ dos ICs observados contenham a quantidade de interesse.
@@ -96,7 +96,7 @@ $$
 \sqrt{\frac{s^2 (\pmb{X}_{n})}{n}}\right]
 $$
 
-Em que $s^2 (\pmb{x}_{n}) = \frac{1}{n-1}\sum^{k}_{i=1}(X_i - \bar{x})^2$ e $t_{y,(n-1)}$ deve ser calculado da tabela
+Em que $s^2 (\pmb{x}_{n}) = \frac{1}{n-1}\sum^{n}_{i=1}(x_i - \bar{x})^2$ e $t_{\gamma,(n-1)}$ deve ser calculado da tabela
 $P(-t_{\gamma, n-1} \leq T_{n-1} \leq t_{\gamma, n-1}) = \gamma$, $T_{n-1} \sim \mathrm{t-Student}(n-1)$
 
 Se a variância for desconhecida, substituímos $\sigma^2$ pelo estimador
@@ -115,7 +115,7 @@ Se uma a.a. de $X\sim N(\mu,\sigma^2)$, $\theta = (\mu, \sigma^2) \in \mathbb{R}
 4. $\sqrt{n}\frac{\bar{X} - \mu}{\sqrt{s^2}} = \sqrt{n}\frac{\bar{X} - \mu}{\sqrt{s^2}} \cdot
 \frac{\sqrt{\sigma^2}}{\sqrt{\sigma^2}}  = \frac{\sqrt{n}\frac{\bar{X} - \mu}{\sqrt{\sigma^2}}}
 {\sqrt{\frac{\sum_{i=1}^n (X_i - \bar{X})^2}{\sigma^2} \cdot \frac{1}{n-1}}}$
-5. Se $Z \sim N(0,1)$ e $W \sim \chi^{2}_{k}$, então $t = \frac{Z}{\sqrt{\frac{W}{k}}} \sim t_{k}$
+5. Se $Z \sim N(0,1)$ e $W \sim \chi^{2}_{k}$ independentes, então $t = \frac{Z}{\sqrt{\frac{W}{k}}} \sim t_{k}$
 6. $\sqrt{n} \frac{(\bar{X} - \mu)}{\sqrt{s^2}} \sim t_{(n-1)}$
 
 ### Exercício
@@ -193,10 +193,10 @@ $$
 \mathrm{IC}(\theta, \gamma) = \left[\frac{(n-1)s^2 (\pmb{x}_{n})}{q^2_{\gamma,n-1}},\frac{(n-1)s^2 (\pmb{x}_{n})}{q^1_{\gamma,n-1}}\right]
 $$
 
-em que $s^2 (\pmb{x}_{n}) = \frac{1}{n-1}\sum^{k}_{i=1}(X_i - \bar{x})^2$
+em que $s^2 (\pmb{x}_{n}) = \frac{1}{n-1}\sum^{n}_{i=1}(x_i - \bar{x})^2$
 e $q^{1}_{\gamma, n-1}, q^{2}_{\gamma, n-1}$ satisfazem as fronteiras que delimitam uma área de $\gamma$ em torno da média.
 Nesse caso, como $n = 10$, $q^{1}_{9} = 2.7, q^{2}_{9} = 19.023$. Dessa forma,
-$\bar{x} = 0.28, \sum_{i}x_{i}^2=2.308 \Rightarrow s^2(\pmb{x}_{n}) = \frac{10}{9}(2.308 - 0.28^2) = 2.48$
+$\bar{x} = 0.28, \frac{1}{n}\sum_{i}x_{i}^2=2.308 \Rightarrow s^2(\pmb{x}_{n}) = \frac{10}{9}(2.308 - 0.28^2) = 2.48$
 
 Sendo assim
 $$
@@ -219,7 +219,7 @@ Podemos concluir que, com uma confiança de $95\%$, a variância está nesse int
 
 ## Intervalo de Confiança para a proporção
 
-Seja $(\pmb{x}_{n})$uma amostra aleatória de $X\sim Ber(\theta)$ em que $\theta \in [0,1]$.
+Seja $(\pmb{X}_{n})$ uma amostra aleatória de $X\sim Ber(\theta)$ em que $\theta \in [0,1]$.
 Sabemos que, pelo [Teorema do Limite Central](tlc.qmd)
 
 $$
@@ -261,7 +261,7 @@ IC(\theta, \gamma) = \left[\bar{X} - c_{\gamma} \sqrt{ \frac{\bar{X} (1-\bar{X})
 $$
 
 ### Exemplo
-Seja $(\pmb x_{n })$ uma amostra aleatória de $X\sim \mathrm{Ber} (\theta)$ em que $\theta \in [0,1]$.
+Seja $(\pmb X_{n })$ uma amostra aleatória de $X\sim \mathrm{Ber} (\theta)$ em que $\theta \in [0,1]$.
 $$
 X(w) = \begin{cases}
 1, \text{ se w disser que vota no candidato} \\ \\
@@ -285,7 +285,7 @@ $$
 ### Intervalos conservadores e otimistas
 
 Um intervalo de confiança de proporção é dito ser conservador quando o calculamos tomando $\theta$ ***Na variância***
-($\theta(1-\theta)$) como o valor mais alto possível. No exemplo Bernoulli, o valor máximo para $\theta$
+($\theta(1-\theta)$) como o valor mais alto possível. No exemplo Bernoulli, o valor de $\theta$ que maximiza a variância
 (derivando $\theta(1-\theta)$ e igualando a 0, $1-2 \theta = 0$) é $\theta=0.5$. Dessa forma, o IC conservador é calculado
 usando $\theta=0.5$.
 

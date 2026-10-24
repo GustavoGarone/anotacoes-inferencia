@@ -18,7 +18,7 @@ $$
 &\mathrm{EQM}(T,g(\theta))\\
 &=E_\theta[(T(X_{1},\dots,X_{n})-\mu_{t}+\mu_{t}-g(\theta))^{2}] \\ \\
 &= E_\theta[((T(X_{1},\dots,X_{n})- \mu_{t})+ (\mu_{t}-g(\theta)))^{2}] \\
-& = E_\theta[(T(X_{1},\dots,X_{n})-\mu_{t})^{2}+2(T(X_{1},\dots,X_{n})-\mu_{t})(\mu_{t}g(\theta))+(\mu_{t}- g(\theta))^{2}] \\
+& = E_\theta[(T(X_{1},\dots,X_{n})-\mu_{t})^{2}+2(T(X_{1},\dots,X_{n})-\mu_{t})(\mu_{t}-g(\theta))+(\mu_{t}- g(\theta))^{2}] \\
 &= \overbrace{E_\theta[(T(X_{1},\dots,X_{n})-\mu_{t})^{2}]}^{\mathrm{Var}_{\theta}(T(X_{1},\dots,X_{n}))} + 2(\mu_{t} -
 g(\theta))\cancelto{0}{E_\theta(T(X_{1},\dots,X_{n})-\mu_{t})} +
 (\mu_{t}-g(\theta))^{2} \\
@@ -33,7 +33,7 @@ $$
 
 ## Viés
 
-Denotamos de viés de $T(X_{1},\dots,X_{n})$ com respeito a $g(\theta)$ por
+Definimos o viés de $T(X_{1},\dots,X_{n})$ com respeito a $g(\theta)$ por
 $$
 \mathrm{Viés}(T,g(\theta)) = E_\theta(T(X_{1},\dots,X_{n}))-g(\theta),\forall \theta \in \Theta
 $$
@@ -65,8 +65,8 @@ $$
 &= \frac{1}{n} E_\theta[\sum^n_{i=1} X_i^2 - n\bar{X}^2] - g(\theta) \\
 &= \frac{1}{n} \left(\sum^n_{i=1} E_\theta(X_i^2) - nE_\theta(\bar{X}^2)\right) - g(\theta) \\
 &= \frac{1}{n} \left[\sum^n_{i=1} (\mathrm{Var}_\theta(X_i) + E_\theta(X_i)^2) - nE_\theta(\bar{X}^2)\right] - g(\theta) \\
-&= \frac{1}{n} \left[\sum^n_{i=1} \mathrm{Var}_\theta(X_i) + E_\theta(X_i)^2 - n\left(\frac{\mathrm{Var}_\theta(X)}{n} + E_\theta(X)^2\right)\right] - g(\theta) \\
-&\stackrel{id. dist.}{=} \frac{1}{n} \left[n \mathrm{Var}_\theta(X) + nE_\theta(X)^2 - \mathrm{Var}_\theta(X) - n E_\theta(X_i)^2\right] - g(\theta) \\
+&= \frac{1}{n} \left[\sum^n_{i=1} [\mathrm{Var}_\theta(X_i) + E_\theta(X_i)^2] - n\left(\frac{\mathrm{Var}_\theta(X)}{n} + E_\theta(X)^2\right)\right] - g(\theta) \\
+&\stackrel{id. dist.}{=} \frac{1}{n} \left[n \mathrm{Var}_\theta(X) + nE_\theta(X)^2 - \mathrm{Var}_\theta(X) - n E_\theta(X)^2\right] - g(\theta) \\
 &= \frac{(n-1) \mathrm{Var}_\theta(X)}{n} - \mathrm{Var}_\theta(X) \\
 &= -\frac{\mathrm{Var}_\theta(X)}{n}
 \end{aligned}
@@ -140,7 +140,7 @@ E_\theta(\bar{X}_{n}) &= \frac{1}{n} \sum\limits^{n}_{i=1} E_\theta(X) \\
 \end{aligned}
 $$
 
-Portanto, $\bar{X}_{\theta, n}$ é não enviesado para $g(\theta) = \theta$.
+Portanto, $\bar{X}_{n}$ é não enviesado para $g(\theta) = \theta$.
 $$
 \Rightarrow \mathrm{Viés}(\bar{X}_{n}, g(\theta)) = 0, \forall \theta \in \Theta
 $$
@@ -148,10 +148,10 @@ $$
 Para o EQM,
 $$
 \begin{aligned}
-\mathrm{EQM}(\bar{X}_{n},g(\theta)) &= \mathrm{Var}_\theta(\bar{X}_{n}) - 0^{2} = \mathrm{Var}_\theta
+\mathrm{EQM}(\bar{X}_{n},g(\theta)) &= \mathrm{Var}_\theta(\bar{X}_{n}) + 0^{2} = \mathrm{Var}_\theta
 \left(\frac{1}{n}\sum\limits^{n}_{i=1}X_{i}\right)= \frac{1}{n^{2}}\mathrm{Var}_\theta\left(\sum\limits^{n}_{i=1}X_{i}\right)\\
 & \stackrel{\text{ind}}{=} \frac{1}{n^{2}}\sum\limits ^{n}_{i=1}\mathrm{Var}_\theta(X_{i})
-\stackrel{\text{ind. dist.}}{=} \frac{1}{n^{2}} \sum\limits^{n}_{i=1}\mathrm{Var}_{\theta}(X), \\
+\stackrel{\text{id. dist.}}{=} \frac{1}{n^{2}} \sum\limits^{n}_{i=1}\mathrm{Var}_{\theta}(X), \\
 &= \frac{n \theta(1-\theta)}{n^{2}} = \frac{\theta(1-\theta)}{n}, \forall \theta \in \Theta
 \end{aligned}
 $$

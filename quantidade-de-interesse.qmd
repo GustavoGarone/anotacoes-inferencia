@@ -8,6 +8,6 @@ $$
 
 Como $g(\theta) = E_\theta(X), g(\theta)= \mathrm{Var}_\theta(X), g(\theta)=P_\theta(X\geq1), g(\theta)=\theta$
 em que $X$ é a variável aleatória populacional. Empregando outra variável populacional, como $Y$,
-conseguimos outras quantidades de interesse, como $g(\theta)=\mathrm{Cov}_{\theta}(X,y)$ ou
+conseguimos outras quantidades de interesse, como $g(\theta)=\mathrm{Cov}_{\theta}(X,Y)$ ou
 $P_\theta(X \in A \lvert Y \in B)$
 

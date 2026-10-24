@@ -27,8 +27,8 @@ $$
 
 ## Teorema de Lehmann-Scheffé {#sec-teo-ls}
 
-Seja $\boldsymbol{X}_n = (X_1,\dots,X_j)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta, \theta \in \Theta$,
-$f_\theta$ a [distribuição amostral](distribuicao-amostral.qmd).
+Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X\sim f_\theta, \theta \in \Theta$,
+$f_\theta$ a função (densidade) de probabilidade de $X$.
 Considere $T(\boldsymbol{X}_n)$ uma [estatística suficiente](estatisticas-suficientes.qmd) e [completa](estatisticas-completas.qmd)
 para o [modelo](modelo-estatistico.qmd) e $S(\boldsymbol{X}_n)$ um estimador não-viciado para $g(\theta)$. Então,
 
@@ -41,7 +41,7 @@ $$
 ::: {.callout-note title="Observação"}
 1. $\stackrel{\sim}{T}(\boldsymbol{X}_n)$ não depende de "$\theta$" pois $T(\boldsymbol{X}_n)$ é suficiente para o modelo.
 
-2. $E_\theta(\stackrel{\sim}{T}(\boldsymbol{X}_n)) = E_\theta(E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)) = E_\theta(S(\boldsymbol{X}_n))$
+2. $E_\theta(\stackrel{\sim}{T}(\boldsymbol{X}_n)) = E_\theta(E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n))) = E_\theta(S(\boldsymbol{X}_n))$
 :::
 
 ### Prova
@@ -49,7 +49,7 @@ $$
 Observe que
 
 $$
-E_\theta(\stackrel{\sim}{T}(\boldsymbol{X}_n)) = E_\theta(E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)) = E_\theta(S(\boldsymbol{X}_n)).
+E_\theta(\stackrel{\sim}{T}(\boldsymbol{X}_n)) = E_\theta(E_\theta(S(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n))) = E_\theta(S(\boldsymbol{X}_n)).
 $$
 
 Como $S(\boldsymbol{X}_n)$ é, por hipótese, não-viciado para $g(\theta)$, temos que
@@ -78,9 +78,9 @@ Seja $\stackrel{\sim}{T_1}(\boldsymbol{X}_n)$ um estimador não-viciado para $g(
 $$
 \begin{aligned}
 \mathrm{Var}_\theta(\stackrel{\sim}{T_1}(\boldsymbol{X}_n)) &=
-E_\theta(\mathrm{Var}_\theta(\stackrel{\sim}{T_1}(\boldsymbol{X}_n) \lvert T(\boldsymbol{X}_n)) +
-\mathrm{Var}_\theta(\underbracket{E_\theta(\stackrel{\sim}{T_1}(\boldsymbol{X}_n)|T(\boldsymbol{X}_n)}_{=\stackrel{\sim}{T}(\boldsymbol{X}_n), \mathrm{q.c.}}) \\
-&= \underbracket{E_\theta(\mathrm{Var}_\theta(\stackrel{\sim}{T_1}(\boldsymbol{X}_n) \lvert T(\boldsymbol{X}_n))}_{\geq 0} +
+E_\theta\left[\mathrm{Var}_\theta(\stackrel{\sim}{T_1}(\boldsymbol{X}_n) \lvert T(\boldsymbol{X}_n))\right] +
+\mathrm{Var}_\theta(\underbracket{E_\theta(\stackrel{\sim}{T_1}(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n))}_{=\stackrel{\sim}{T}(\boldsymbol{X}_n), \mathrm{q.c.}}) \\
+&= \underbracket{E_\theta\left[\mathrm{Var}_\theta(\stackrel{\sim}{T_1}(\boldsymbol{X}_n) \lvert T(\boldsymbol{X}_n))\right]}_{\geq 0} +
 \mathrm{Var}_\theta(\stackrel{\sim}{T}(\boldsymbol{X}_n)), \forall \theta \in \Theta \\
 \Rightarrow \mathrm{Var}_\theta(\stackrel{\sim}{T_1}(\boldsymbol{X}_n)) &\geq \mathrm{Var}_\theta(\stackrel{\sim}{T}(\boldsymbol{X}_n)),\mathrm{q.c.}\ \forall \theta \in \Theta
 \end{aligned}
@@ -107,7 +107,7 @@ $$
 E_\theta(T(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)) = T(\boldsymbol{X}_n).
 $$
 
-Logo, o ENVVUM é, pelo [Teorema de Lehmann-Scheffé](envum.qmd$sec-teo-ls),
+Logo, o ENVVUM é, pelo [Teorema de Lehmann-Scheffé](envvum.qmd#sec-teo-ls),
 $$
 \stackrel{\sim}{T}(\boldsymbol{X}_n) =  E_\theta(T(\boldsymbol{X}_n)\lvert T(\boldsymbol{X}_n)) = T(\boldsymbol{X}_n)
 = \frac{1}{n} \sum^n_{i=1} X_i
@@ -197,8 +197,8 @@ Portanto,
 $$
 T''(\boldsymbol{X}_n) = \left(\bar{X}, S_{n-1}^2\right),
 $$
-em que $\bar{X} = \frac{1}{n} \sum X_i$ e $S^2_{n-1}(\boldsymbol{X}_n) = \frac{1}{n-1} \sum (X_i - \bar{X})^2$, é suficiente completa para
-o modelo não viciado para $g(\theta)$ pois
+em que $\bar{X} = \frac{1}{n} \sum X_i$ e $S^2_{n-1}(\boldsymbol{X}_n) = \frac{1}{n-1} \sum (X_i - \bar{X})^2$, é uma estatística suficiente e completa para
+o modelo e um estimador não viciado para $g(\theta)$ pois
 $$
 E_\theta(T''(\boldsymbol{X}_n)) = (\mu,\sigma^2), \forall \theta \in \Theta.
 $$
@@ -250,12 +250,12 @@ $$
 Portanto,
 $$
 \begin{aligned}
-E_\theta\left(\sqrt{W(\sigma^2)}\right) &= \int^\infty_0 \frac{x^{\frac{1}{2}}x^{\frac{n-1}{2}}\mathrm{e}^{-\frac{1}{2}x}}
+E_\theta\left(\sqrt{W(\sigma^2)}\right) &= \int^\infty_0 \frac{x^{\frac{1}{2}}x^{\frac{n-1}{2}-1}\mathrm{e}^{-\frac{1}{2}x}}
 {2^{\frac{n-1}{2}}\Gamma\left(\frac{n-1}{2}\right)} dx \\
 &= \frac{1}{2^{\frac{n-1}{2}}\Gamma\left(\frac{n-1}{2}\right)} \int^\infty_0 x^{\frac{n}{2}-1} \mathrm{e}^{-\frac{x}{2}} dx \\
 &\stackrel{x=2u}{=} \frac{1}{2^{\frac{n-1}{2}}\Gamma\left(\frac{n-1}{2}\right)}  \int^\infty_0 (2u)^{\frac{n}{2}-1}\mathrm{e}^{-u} 2du \\
 & = \frac{2^{\frac{n}{2}}}{2^{\frac{n}{2} - \frac{1}{2}}\Gamma\left(\frac{n-1}{2}\right)} \int^\infty_0 u^{\frac{n}{2}-1} \mathrm{e}^{-u} du \\
-&= \frac{\sqrt{2}}{\Gamma\left(\frac{n-1}{2}\right)}
+&= \frac{\sqrt{2}\,\Gamma\left(\frac{n}{2}\right)}{\Gamma\left(\frac{n-1}{2}\right)}
 \end{aligned}
 $$
 Dessa forma,
@@ -282,7 +282,7 @@ $$
 
 Note que
 $$
-g(\theta) = P_\theta(X=0) = \mathrm{e^-\theta}
+g(\theta) = P_\theta(X=0) = \mathrm{e}^{-\theta}
 $$
 
 Um estimador não-viesado para essa quantidade de interesse é
@@ -336,7 +336,7 @@ $$
 $$
 T(\boldsymbol{X}_n) = (-1)^{X_1}
 $$
-A quantidade de interesse está estritamente entre $(0,1)$, mas o estimador pode apenas assumir valores $-1$ e $1$.
+A quantidade de interesse está estritamente entre $0$ e $1$, mas o estimador pode apenas assumir valores $-1$ e $1$.
 
 Para $n=2$ e $\sum_i X_i \neq 0$, temos que
 $$
@@ -372,7 +372,7 @@ function simulacaoENVVUM(M=10000, n=50)
                 normalize=:pdf,
                 label="",
                 xlabel=LaTeXString("\$T(X_{$n})\$"),
-                ylabel="Frequência")
+                ylabel="Densidade")
   vline!([e2theta],label=L"e^{-2\theta}")
   vline!([media],label="Média")
   display(h)
@@ -413,7 +413,7 @@ def simulacao_envvum(M=10_000, n=50):
     plt.axvline(e2theta, label=r"$e^{-2\theta}$")
     plt.axvline(media, label="Média")
     plt.xlabel(rf"$T(X_{{{n}}})$")
-    plt.ylabel("Frequência")
+    plt.ylabel("Densidade")
     plt.legend()
     jl.display(plt.gcf())
 
@@ -446,7 +446,7 @@ simulacao_envvum <- function(M = 10000, n = 50) {
   e2theta <- exp(-2 * theta)
 
   hist(estatisticas, probability = TRUE, main = "",
-       xlab = bquote(T(X[.(n)])), ylab = "Frequência")
+       xlab = bquote(T(X[.(n)])), ylab = "Densidade")
   abline(v = e2theta, lwd = 2)
   abline(v = media, lwd = 2, lty = 2)
   legend("topright", legend = c(expression(e^{-2 * theta}), "Média"),

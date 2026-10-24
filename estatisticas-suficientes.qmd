@@ -8,7 +8,7 @@ $$
 \begin{aligned}
 P_\theta(X_1\leq y_1,\dots,X_n\leq y_n \lvert T(\boldsymbol{X}_n)=t)\
 \text{Não depende de}\ \theta, \forall y_1,\dots,y_n \in \mathbb{R} \\
-\text{E para todo valor de}\ t \ \text{para o quais a distribuição de}\ T(\boldsymbol{X}_n)\ \text{exista}
+\text{E para todo valor de}\ t \ \text{para o qual a distribuição de}\ T(\boldsymbol{X}_n)\ \text{exista}
 \end{aligned}
 $$
 
@@ -18,16 +18,20 @@ induzido pela estatística.
 No caso discreto, basta mostrar que $P_\theta(X_1=y_1,\dots,X_n=y_n\lvert T(\boldsymbol{X}_n)=t)$ não depende de "$\theta$"
 para todo $y_1,\dots,y_n \in \mathbb{R}$ e valores de $t$ para os quais a distribuição de $T(\boldsymbol{X}_n)$ exista.
 
-No caso contínuo, basta mostrar que $f_\theta^{(n)}(y_1,\dots,y_n\lvert t)$ não depende de $\theta$ para todo
-$y_1,\dots,y_n \in \mathbb{R}$ e valores de $t$ para os quais a função densidade de probabilidade de $T(\boldsymbol{X}_n)$ exista.
+No caso contínuo, a distribuição de $\boldsymbol{X}_n$ dado $T(\boldsymbol{X}_n)=t$ costuma ficar concentrada em um
+conjunto de volume nulo (por exemplo, o hiperplano $\sum^n_{i=1} y_i = t$) e, portanto, não tem densidade ordinária em
+$\mathbb{R}^n$. Por isso, quando $t$ determina uma das coordenadas a partir das outras, trabalhamos com as $n-1$ coordenadas
+restantes: basta mostrar que a densidade condicional de $(X_1,\dots,X_{n-1})$ dado $T(\boldsymbol{X}_n)=t$ não depende de
+$\theta$ para todo $y_1,\dots,y_{n-1} \in \mathbb{R}$ e valores de $t$ para os quais a função densidade de probabilidade de
+$T(\boldsymbol{X}_n)$ exista (veja o [exemplo Normal](estatisticas-suficientes.qmd#sec-ex-norm-def)).
 
 Como discutiremos [adiante](estatisticas-suficientes.qmd#sec-problema), podemos substituir a restrição "$\in \mathbb{R}$"
-pelo termo "quase certamente" ($\mathrm{q.c.}$), isto é, para todos exceto um conjunto enumerável (de medida de probabilidade nula).
+pelo termo "quase certamente" ($\mathrm{q.c.}$), isto é, exceto em um conjunto de probabilidade nula.
 
 Também, $f_\theta^{(n)}$ será reescrita por $f_\theta^{\boldsymbol{X}_n}$ para diferenciar a função (densidade) da amostra, da estatística e das condicionais.
 
 Usaremos $y$ no lugar de $x$ para distinguir que $y$ representa valores observados *em potencial*, e não realmente observados
-de uma amostra real colhida, como poderia estar subtendido com o uso de $x$.
+de uma amostra real colhida, como poderia estar subentendido com o uso de $x$.
 
 ## Caso discreto
 
@@ -166,12 +170,12 @@ $$
 0, & \mathrm{c.c.}
 \end{cases} \\
 &= \begin{cases}
-\frac{\mathrm{e}^{-n\theta}\cdot\theta^{\sum^n_{i=1}y_i}\cdot \prod^n_{i=1}\mathbb{1}_{\{0,1,\dots\}}(y_i)(nt!)}
+\frac{\mathrm{e}^{-n\theta}\cdot\theta^{\sum^n_{i=1}y_i}\cdot \prod^n_{i=1}\mathbb{1}_{\{0,1,\dots\}}(y_i)(nt)!}
 {\prod^n_{i=1}(y_i!)\cdot\mathrm{e}^{-n\theta}\cdot (n\theta)^{nt}}, & t=\frac{1}{n} \sum^n_{i=1} y_i \\
 0, & \mathrm{c.c.}
 \end{cases} \\
 &= \begin{cases}
-\frac{\prod^n_{i=1}\mathbb{1}_{\{0,1,\dots\}}(y_i)(nt!)}
+\frac{\prod^n_{i=1}\mathbb{1}_{\{0,1,\dots\}}(y_i)(nt)!}
 {\prod^n_{i=1}(y_i!)(n)^{nt}}, & t=\frac{1}{n} \sum^n_{i=1} y_i \\
 0, & \mathrm{c.c.}
 \end{cases} \\
@@ -183,15 +187,21 @@ Não depende de "$\theta$" para todo $y_1,\dots,y_n \in \mathbb{R}$ e $t \in \{0
 
 ## Caso Contínuo
 
-### Exemplo (Normal)
+### Exemplo (Normal) {#sec-ex-norm-def}
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ a.a. de $X\sim N(\theta,1), \theta \in \mathbb{R}$. Verifique se
 $T(\boldsymbol{X}_n) = \sum^n_{i=1}X_i$ é suficiente para o modelo estatístico.
 
 #### Resposta
-Por definição
+Dado $T(\boldsymbol{X}_n) = t$, a última coordenada fica determinada pelas demais:
 $$
-f_\theta^{\boldsymbol{X}_n\lvert T(\boldsymbol{X}_n) = t}(y_1,\dots,y_n) =
-\frac{f_\theta^{\boldsymbol{X}_n, T(\boldsymbol{X}_n)}(y_1,\dots,y_n,t)}
+X_n = t - \sum^{n-1}_{i=1} X_i
+$$
+Ou seja, a distribuição de $\boldsymbol{X}_n$ dado $T(\boldsymbol{X}_n)=t$ está concentrada no hiperplano
+$\sum^n_{i=1} y_i = t$ e fica inteiramente caracterizada pela distribuição condicional de $(X_1,\dots,X_{n-1})$ dado
+$T(\boldsymbol{X}_n)=t$. Basta, portanto, mostrar que esta última não depende de $\theta$. Por definição,
+$$
+f_\theta^{(X_1,\dots,X_{n-1})\lvert T(\boldsymbol{X}_n) = t}(y_1,\dots,y_{n-1}) =
+\frac{f_\theta^{(X_1,\dots,X_{n-1}, T(\boldsymbol{X}_n))}(y_1,\dots,y_{n-1},t)}
 {f_\theta^{T(\boldsymbol{X}_n)}(t)}
 $$
 
@@ -200,46 +210,64 @@ Já sabemos que $T(\boldsymbol{X}_n) = \sum^n_{i=1} X_i \sim N(n\theta, n)$
 $$
 \Rightarrow f_\theta^{T(\boldsymbol{X}_n)}(t) = \frac{1}{\sqrt{2\pi n}} \cdot \mathrm{e}^{-\frac{1}{2n}\cdot (t-n\theta)^2}, t \in \mathbb{R}
 $$
-(Numerador)
-$$
-f_\theta^{\boldsymbol{X}_n,T(\boldsymbol{X}_n)}(y_1,\dots,y_n,t) =
-f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) \cdot
-f_\theta^{T(\boldsymbol{X}_n)\lvert \boldsymbol{X}_n=(y_1,\dots,y_n)}(t)
-$$
 
-Note que
+(Numerador)
+Considere a transformação
+$$
+(X_1,\dots,X_{n-1},X_n) \mapsto (X_1,\dots,X_{n-1},T(\boldsymbol{X}_n)) = \left(X_1,\dots,X_{n-1},\sum^n_{i=1}X_i\right)
+$$
+cuja inversa é
+$$
+(y_1,\dots,y_{n-1},t) \mapsto \left(y_1,\dots,y_{n-1},t-\sum^{n-1}_{i=1}y_i\right)
+$$
+O jacobiano da inversa é
+$$
+J = \det\begin{pmatrix}
+1 & 0 & \cdots & 0 & 0 \\
+0 & 1 & \cdots & 0 & 0 \\
+\vdots & \vdots & \ddots & \vdots & \vdots \\
+0 & 0 & \cdots & 1 & 0 \\
+-1 & -1 & \cdots & -1 & 1
+\end{pmatrix} = 1
+$$
+(matriz triangular inferior com diagonal unitária). Pelo método do jacobiano,
 $$
 \begin{aligned}
-&f_\theta^{T(\boldsymbol{X}_n)\lvert \boldsymbol{X}_n = (y_1,\dots,y_n} = \begin{cases}
-1, & t = \sum^n_{i=1} y_1 \\
-0, & \mathrm{c.c.}
-\end{cases} \\
-\Rightarrow&
-f_\theta^{\boldsymbol{X}_n\lvert T(\boldsymbol{X}_n) = t}(y_1,\dots,y_n) =
-\begin{cases}
-\frac{f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n)}
-{f_\theta^{T(\boldsymbol{X}_n)}(t)},& t = \sum^n_{i=1}y_i \\
-0, & \mathrm{c.c.}
-\end{cases}
+f_\theta^{(X_1,\dots,X_{n-1}, T(\boldsymbol{X}_n))}(y_1,\dots,y_{n-1},t) &=
+f_\theta^{\boldsymbol{X}_n}\left(y_1,\dots,y_{n-1},t-\sum^{n-1}_{i=1}y_i\right)\cdot\lvert J\rvert \\
+&\stackrel{\mathrm{iid}}{=} \frac{1}{\sqrt{2\pi}^n} \cdot \mathrm{exp}\left\{-\frac{1}{2}\left[
+\sum_{i=1}^{n-1} (y_i - \theta)^2 + \left(t-\sum^{n-1}_{i=1}y_i-\theta\right)^2\right]\right\},
+\ (y_1,\dots,y_{n-1},t)\in\mathbb{R}^n
 \end{aligned}
+$$
+
+Denote $y_n = t-\sum^{n-1}_{i=1}y_i$ (que depende apenas de $y_1,\dots,y_{n-1}$ e $t$). Como $\sum^n_{i=1}y_i = t$,
+$$
+\sum_{i=1}^{n-1}(y_i-\theta)^2 + (y_n-\theta)^2 = \sum_{i=1}^n(y_i-\theta)^2 =
+\sum_{i=1}^n y_i^2-2\theta\sum^n_{i=1}y_i+n\theta^2 = \sum_{i=1}^n y_i^2-2t\theta+n\theta^2
+$$
+e, no denominador,
+$$
+\frac{1}{n}(t-n\theta)^2 = \frac{t^2}{n} - 2t\theta + n\theta^2
 $$
 
 Logo
 $$
-f_\theta^{T(\boldsymbol{X}_n)\lvert \boldsymbol{X}_n = (y_1,\dots,y_n)} =
-\begin{cases}
-\frac{\frac{1}{\sqrt{2\pi\cdot1}^n} \cdot \mathrm{exp}\left\{-\frac{1}{2} \sum^n_i=1 (y_i - \theta)^2\right\}}
-{\frac{1}{\sqrt{2\pi\cdot n}}\cdot \mathrm{exp}\left\{-\frac{1}{2n}(t-n\theta)^2\right\}}, & t = \sum_{i=1}^n y_i \\
-0, & \mathrm{c.c.}
-\end{cases}
+\begin{aligned}
+f_\theta^{(X_1,\dots,X_{n-1})\lvert T(\boldsymbol{X}_n) = t}(y_1,\dots,y_{n-1}) &=
+\frac{\frac{1}{\sqrt{2\pi}^n} \cdot \mathrm{exp}\left\{-\frac{1}{2}\left(\sum_{i=1}^n y_i^2 - 2t\theta + n\theta^2\right)\right\}}
+{\frac{1}{\sqrt{2\pi n}}\cdot \mathrm{exp}\left\{-\frac{1}{2}\left(\frac{t^2}{n} - 2t\theta + n\theta^2\right)\right\}} \\
+&= \frac{\sqrt{n}}{\sqrt{2\pi}^{n-1}} \cdot \mathrm{exp}\left\{-\frac{1}{2}\left(\sum_{i=1}^n y_i^2 - \frac{t^2}{n}\right)\right\} \\
+&= \frac{\sqrt{n}}{\sqrt{2\pi}^{n-1}} \cdot \mathrm{exp}\left\{-\frac{1}{2}\left[\sum_{i=1}^{n-1} y_i^2 +
+\left(t-\sum^{n-1}_{i=1}y_i\right)^2 - \frac{t^2}{n}\right]\right\},\ (y_1,\dots,y_{n-1}) \in \mathbb{R}^{n-1}
+\end{aligned}
 $$
+para todo $t \in \mathbb{R}$ e $\theta \in \Theta$.
 
-Note que
-$$
--\frac{1}{2}\sum_{i=1}^n(y_i-\theta)^2=-\frac{1}{2}\left(\frac{t^2}{n}-2t\theta+n\theta^2\right)
-$$
-logo $f_\theta^{\boldsymbol{X}_n\lvert T(\boldsymbol{X}_n)=t}$ não depende de $\theta$ e $\sum_{i=1}^n X_i$ é suficiente para o modelo
-estatístico.
+Os termos com $\theta$ se cancelam, logo $f_\theta^{(X_1,\dots,X_{n-1})\lvert T(\boldsymbol{X}_n)=t}$ não depende de
+$\theta$. Como $X_n = t - \sum^{n-1}_{i=1}X_i$ dado $T(\boldsymbol{X}_n)=t$, a distribuição condicional de
+$\boldsymbol{X}_n$ dado $T(\boldsymbol{X}_n)=t$ também não depende de $\theta$ e $\sum_{i=1}^n X_i$ é suficiente para o
+modelo estatístico.
 
 ### Problema das funções densidade de probabilidade {#sec-problema}
 
@@ -267,8 +295,7 @@ $$
 \begin{aligned}
 f_\theta(x) &= f_\theta^A(x), \forall x \in \mathbb{R} \setminus A, \forall
 \theta \in \Theta \\
-\text{e} \\
-f_\theta(x) &\neq f_\theta^A(x), \forall x \in A, \forall \theta \in \Theta
+\text{e podem diferir nos pontos de }A.
 \end{aligned}
 $$
 
@@ -276,11 +303,11 @@ $$
 Note que $f_\theta$ e $f_\theta^A$ são diferentes, mas produzem as mesmas probabilidades. Dizemos portanto que $f_\theta$
 e $f_\theta^A$ são iguais *quase certamente*, ou seja,
 $$
-P_\theta\left(f_\theta(x)=f_\theta^A(x)\right) = 1, \forall \theta \in \Theta
+P_\theta\left(f_\theta(X)=f_\theta^A(X)\right) = 1, \forall \theta \in \Theta
 $$
 Ou, de outra forma,
 $$
-P_\theta\left(f_\theta(x)\neq f_\theta^A(x)\right) = 0, \forall \theta \in
+P_\theta\left(f_\theta(X)\neq f_\theta^A(X)\right) = 0, \forall \theta \in
 \Theta
 $$
 
@@ -290,8 +317,9 @@ f_\theta(x) = f_\theta^A(x)\ \mathrm{q.c.}\ \forall \theta \in \Theta
 $$
 
 No caso contínuo, portanto, a estatística $T(\boldsymbol{X}_n)$ será suficiente mesmo se
-$f_\theta^{\boldsymbol{X}_n\lvert T(\boldsymbol{X}_n)=t}(y_1,\dots,y_n)$
-depende de "$\theta$" para $(y_1,\dots,y_n) \in A$, **DESDE QUE** $P_\theta(X \in A) = 0, \forall \theta \in \Theta$. Ou seja,
+a densidade condicional usada na verificação (no [exemplo Normal](estatisticas-suficientes.qmd#sec-ex-norm-def),
+$f_\theta^{(X_1,\dots,X_{n-1})\lvert T(\boldsymbol{X}_n)=t}(y_1,\dots,y_{n-1})$)
+depender de "$\theta$" para $(y_1,\dots,y_{n-1}) \in A$, **DESDE QUE** $P_\theta((X_1,\dots,X_{n-1}) \in A) = 0, \forall \theta \in \Theta$. Ou seja,
 pode depender de "$\theta$" em um conjunto com probabilidade zero.
 
 ## Critério da Fatoração de Neyman-Fisher (Caso Simples) {#sec-crit-fat}
@@ -299,7 +327,7 @@ pode depender de "$\theta$" em um conjunto com probabilidade zero.
 Seja $\boldsymbol{X}_n=(X_1,\dots,X_n)$ uma [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de $X \sim f_\theta, \theta \in \Theta \subseteq \mathbb{R}^p$
 (sendo as $f_\theta, \theta \in \Theta$ do mesmo "tipo", formalmente, dominadas pela mesma medida), em que $p \in \{1,2,\dots\}$.
 Uma estatística $T(\boldsymbol{X}_n)$ é suficiente para o modelo estatístico se, e somente se, existirem funções
-$h(\cdot): \mathbb{R}^n\rightarrow \mathbb{R}, m(\cdot,\cdot): \mathrm{Im}(T)\times\theta\rightarrow\mathbb{R}$
+$h(\cdot): \mathbb{R}^n\rightarrow \mathbb{R}, m(\cdot,\cdot): \mathrm{Im}(T)\times\Theta\rightarrow\mathbb{R}$
 (mensuráveis) tais que:
 $$
 f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) = h(y_1,\dots,y_n)\cdot
@@ -375,10 +403,10 @@ $${#eq-aberto}
 Por ([-@eq-podemos]) e ([-@eq-aberto]), temos que
 $$
 h^*(y_1,\dots,y_n, t) \cdot P_\theta(T(\boldsymbol{X}_n)=t) =
-P_\theta(X_1=y_1,\dots,X_n=y_n\lvert \mathbb{1}(T(\boldsymbol{X}_n)=t)).
+P_\theta(X_1=y_1,\dots,X_n=y_n)\cdot\mathbb{1}(T(\boldsymbol{y}_n)=t).
 $$
 
-Para $T(\boldsymbol{X}_n)=t$, temos que
+Para $t=T(\boldsymbol{y}_n)$, temos que
 $$
 P_\theta(X_1=y_1,\dots,X_n=y_n) = h^*(y_1,\dots,y_n, T(\boldsymbol{y}_n)) \cdot
 P_\theta(T(\boldsymbol{X}_n)=T(\boldsymbol{y}_n))
@@ -388,7 +416,7 @@ $$
 Assuma que existam $h, m$ tais que
 $$
 P_\theta(X_1=y_1,\dots,X_n=y_n) = h(\boldsymbol{y}_n)
-m(T(\boldsymbol{y}_n,\theta))
+m(T(\boldsymbol{y}_n),\theta)
 $$
 Note que
 $$
@@ -401,7 +429,7 @@ $$
 Observe que
 $$
 P_\theta(T(\boldsymbol{X}_n) = t) = \sum_{(y_1,\dots,y_n) :
-T(\boldsymbol{y})_n=t} P_\theta(X_1=y_1,\dots,X_n=y_n)
+T(\boldsymbol{y}_n)=t} P_\theta(X_1=y_1,\dots,X_n=y_n)
 $$
 Por suposição
 $$
@@ -445,11 +473,11 @@ f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) &= \begin{cases}
 \end{cases} \\
 \Rightarrow
 f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) &= \theta^{\sum_{i=1}^n y_i} \cdot
-(1-\theta)^{n-\sum_{i=1}^n y_i} \cdot \prod^n_{i=1}\mathbb{1}_{\{0,1\}} (y_1)
+(1-\theta)^{n-\sum_{i=1}^n y_i} \cdot \prod^n_{i=1}\mathbb{1}_{\{0,1\}}(y_i)
 \end{aligned}
 $$
 
-Tome $h(y_1,\dots,y_n) = \prod^n_{i=1}\mathbb{1}_{\{0,1\}}(y_1)$ e $m(T(y_1,\dots,y_n),\theta) = \theta^{\sum_{i=1}^n y_i} \cdot (1-\theta)^{n-\sum_{i=1}^n y_i}$
+Tome $h(y_1,\dots,y_n) = \prod^n_{i=1}\mathbb{1}_{\{0,1\}}(y_i)$ e $m(T(y_1,\dots,y_n),\theta) = \theta^{\sum_{i=1}^n y_i} \cdot (1-\theta)^{n-\sum_{i=1}^n y_i}$
 em que $T(y_1,\dots,y_n) = \sum^n_{i=1}y_i$. Temos que
 $$
 f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) = h(y_1,\dots,y_n)
@@ -488,7 +516,7 @@ $$
 $$
 \Rightarrow f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = \begin{cases}
 \frac{1}{\beta(a,b)^n}
-\left(\prod^n_{i=1}y_1\right)^{a-1} \cdot \left( \prod^n_{i=1} (1-y_1)\right)^{b-1}, & \boldsymbol{y}_n \in (0,1)^n \\
+\left(\prod^n_{i=1}y_i\right)^{a-1} \cdot \left( \prod^n_{i=1} (1-y_i)\right)^{b-1}, & \boldsymbol{y}_n \in (0,1)^n \\
 0, & \mathrm{c.c.}
 \end{cases}
 $$
@@ -504,7 +532,7 @@ T(\boldsymbol{X}_n) = \left(\prod^n_{i=1}X_i, \prod^n_{i=1}(1-X_i)\right)
 $$
 é uma estatística suficiente para o modelo pois
 $$
-f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = m(T(\boldsymbol{y}_n),\theta)\
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = h(\boldsymbol{y}_n)\cdot m(T(\boldsymbol{y}_n),\theta)\
 \mathrm{q.c.}\ \forall \theta \in \Theta.
 $$
 
@@ -522,38 +550,38 @@ f_\theta^{\boldsymbol{X}_n} (y_1,\dots,y_n) &\stackrel{\mathrm{a.a.}}{=}
 &= \prod_{i=1}^n \left\{
 \frac{1}{\sqrt{2\pi\sigma^2}} \cdot \mathrm{exp}\left\{-\frac{1}{2\sigma^2}(y_i-\mu)^2\right\}
 \right\} \\
-&= \frac{1}{(2\pi\sigma^2)^{\frac{n}{2}}} \cdot \mathrm{exp} \left\{-\frac{1}{2\sigma^2}\sum^n_{i=1}(y_1-\mu)^2\right\}
+&= \frac{1}{(2\pi\sigma^2)^{\frac{n}{2}}} \cdot \mathrm{exp} \left\{-\frac{1}{2\sigma^2}\sum^n_{i=1}(y_i-\mu)^2\right\}
 \end{aligned}
 $$
 
-Note que $(y_1-\mu)^2 =y_i^2 -2y_i\mu + \mu^2$, logo,
+Note que $(y_i-\mu)^2 =y_i^2 -2y_i\mu + \mu^2$, logo,
 
 $$
 f_\theta^{\boldsymbol{X}_n} = \frac{1}{(2\pi\sigma^2)^{\frac{n}{2}}} \cdot
 \mathrm{exp} \left\{
--\frac{1}{\sigma^2}\left(
+-\frac{1}{2\sigma^2}\left(
 \sum^n_{i=1} y_i^2-2\mu\sum^n_{i=1}y_i + n\mu^2
 \right)
 \right\}
 $$
 
-Tome $h(\boldsymbol{y}_n) = \frac{1}{(2\pi\sigma^2)}$ e
+Tome $h(\boldsymbol{y}_n) = \frac{1}{(2\pi)^{\frac{n}{2}}}$ e
 $$
 m(t,\theta) = \frac{1}{(\sigma^2)^{\frac{n}{2}}}\cdot \mathrm{exp}\left\{
--\frac{1}{2\sigma^2} \left(t_2-2\mu t_1-\mu^2\right)
+-\frac{1}{2\sigma^2} \left(t_2-2\mu t_1+n\mu^2\right)
 \right\}.
 $$
 
 Em que $t=(t_1,t_2)$ e $t_1 = \sum^n_{i=1}y_i, t_2 = \sum^n_{i=1}y^2_i$
 
-Ou seja, $T(\boldsymbol{X}_n) = \left(\sum^n_{i=1}X_i,\sum^n_{i=1}X^2\right)$ é uma estatística suficiente para o modelo pois
+Ou seja, $T(\boldsymbol{X}_n) = \left(\sum^n_{i=1}X_i,\sum^n_{i=1}X_i^2\right)$ é uma estatística suficiente para o modelo pois
 $$
-f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) \cdot
-m(T(\boldsymbol{X}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta.
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = h(\boldsymbol{y}_n)\cdot
+m(T(\boldsymbol{y}_n),\theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta.
 $$
 
 #### Exemplo c
-Seja $\boldsymbol{X}_n$ amostra aleatória de $X\sim\mathrm{Unif}(0,\theta), \theta = (a,b) \in \Theta = \mathbb{R}_+$. Encontre
+Seja $\boldsymbol{X}_n$ amostra aleatória de $X\sim\mathrm{Unif}(0,\theta), \theta \in \Theta = \mathbb{R}_+$. Encontre
 uma estatística suficiente para o modelo.
 
 ##### Respostas
@@ -561,7 +589,7 @@ A função densidade de probabilidade da amostra aleatória
 
 $$
 f_\theta^{\boldsymbol{X}_n}(y_1,\dots,y_n) \stackrel{a.a.}{=}
-\prod^n_{i=1} f_\theta(y_1) \forall \boldsymbol{y}_n \in \mathbb{R}^n
+\prod^n_{i=1} f_\theta(y_i) \forall \boldsymbol{y}_n \in \mathbb{R}^n
 $$
 
 Note que
@@ -639,14 +667,14 @@ $$
 Portanto,
 $$
 f_\theta^{\boldsymbol{X}_n} (\boldsymbol{y}_n)= h(\boldsymbol{y}_n) \cdot
-m(s^{-1}(G(\boldsymbol{X}_n)), \theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
+m(s^{-1}(G(\boldsymbol{y}_n)), \theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
 $$
 
 Tome $m^*(\cdot,\theta) = m(s^{-1}(\cdot),\theta)$. Substituindo, temos que
 
 $$
 f_\theta^{\boldsymbol{X}_n} (\boldsymbol{y}_n)= h(\boldsymbol{y}_n) \cdot
-m^*((G(\boldsymbol{X}_n)), \theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
+m^*((G(\boldsymbol{y}_n)), \theta)\ \mathrm{q.c.}\ \forall \theta \in \Theta
 $$
 
 Logo, pelo [critério da fatoração](estatisticas-suficientes.qmd#sec-crit-fat), $G(\boldsymbol{X}_n)$ é suficiente para o
@@ -674,7 +702,7 @@ b) Se $T(\boldsymbol{X}_n)$ for suficiente para o modelo estatístico, então
 3. $G(\boldsymbol{X}_n) = (T(\boldsymbol{X}_n), \boldsymbol{X}_n)$ é suficiente para o modelo pois $\boldsymbol{X}_n$ é suficiente
 para o modelo;
 
-4. $G(\boldsymbol{X}_n) = (X_1,dots,X_n)$ "quase" nunca será suficiente para o modelo;
+4. $G(\boldsymbol{X}_n) = (X_1,\dots,X_{n-1})$ "quase" nunca será suficiente para o modelo;
 
 5. $G(\boldsymbol{X}_n) = (\boldsymbol{X}_n,X_1)$ é suficiente para o modelo.
 
@@ -692,12 +720,12 @@ $$
 f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) &\stackrel{\mathrm{iid}}{=}
 \prod^n_{i=1} f_\theta(y_i) = \prod^n_{i=1}\left\{
 \mathrm{exp}\left\{
-\sum_{j=1}^n c_j(\theta)T_j(y_i)+d(\theta)+S(y_i)\cdot\mathbb{1}_{\mathfrak{X}}(y_i)
-\right\}
+\sum_{j=1}^k c_j(\theta)T_j(y_i)+d(\theta)+S(y_i)
+\right\}\mathbb{1}_{\mathfrak{X}}(y_i)
 \right\} \\
 &= \mathrm{exp}\left\{
-\sum^n_{j=1} c_j(\theta) \cdot \sum^n_{i}T_j(y_i) + nd(\theta) + \sum^n_{i=1}S(y_i) \cdot \prod^n_{i=1}\mathbb{1}_{\mathfrak{X}}(y_i)
-\right\}
+\sum^k_{j=1} c_j(\theta) \cdot \sum^n_{i=1}T_j(y_i) + nd(\theta) + \sum^n_{i=1}S(y_i)
+\right\}\cdot\prod^n_{i=1}\mathbb{1}_{\mathfrak{X}}(y_i)
 \end{aligned}
 $$
 
@@ -740,8 +768,8 @@ Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ de $X\sim f_\theta, \theta \in \Theta_
 $\mathfrak{X} = \{x:f_\theta(x)>0\}$ não depende de "$\theta$". Então,
 $$
 T(\boldsymbol{x}) = \left(
-\frac{f_{\theta_1}^{\boldsymbol{X}}(\boldsymbol{x})}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{x})}, \dots,
-\frac{f_{\theta_p}^{\boldsymbol{X}}(\boldsymbol{x})}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{x})}
+\frac{f_{\theta_1}^{\boldsymbol{X}_n}(\boldsymbol{x})}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{x})}, \dots,
+\frac{f_{\theta_p}^{\boldsymbol{X}_n}(\boldsymbol{x})}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{x})}
 \right)
 $$
 em que $T:\mathfrak{X} \rightarrow \mathbb{R}^p$ é uma estatística suficiente minimal ($T(\boldsymbol{X}_n)$) para o modelo estatístico.
@@ -761,6 +789,7 @@ Tome $h(\boldsymbol{y}_n) = f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)$, 
 $$
 m(T(\boldsymbol{X}_n), \theta) =
 \begin{cases}
+1, & \theta = \theta_0 \\
 T_1(\boldsymbol{y}_n), & \theta = \theta_1 \\
 T_2(\boldsymbol{y}_n), & \theta = \theta_2 \\
 \vdots \\
@@ -768,7 +797,7 @@ T_p(\boldsymbol{y}_n), & \theta = \theta_p \\
 \end{cases}
 $$
 
-Em que $T(\boldsymbol{x}) = (T_1(\boldsymbol{x}), \dots, T_p(\boldsymbol{x})$ e
+Em que $T(\boldsymbol{x}) = (T_1(\boldsymbol{x}), \dots, T_p(\boldsymbol{x}))$ e
 $T_j = \frac{f_{\theta_j}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}{f_{\theta_0}^{\boldsymbol{X}_n}(\boldsymbol{y}_n)}$.
 
 Logo, $T(\boldsymbol{X}_n)$ é suficiente para o modelo pelo [critério da fatoração](estatisticas-suficientes.qmd#sec-crit-fat).
@@ -796,20 +825,20 @@ $$
 
 Portanto, existe $H$ tal que
 $$
-T_j(\boldsymbol{X}_n) = H(U(\boldsymbol{X}_n))
+T(\boldsymbol{X}_n) = H(U(\boldsymbol{X}_n))
 $$
 basta tomar
 $$
 H(u) = \left(
 \frac{m'(u,\theta_1)}{m'(u,\theta_0)}, \dots,
-\frac{m'(u\theta_p)}{m'(u,\theta_0)}
+\frac{m'(u,\theta_p)}{m'(u,\theta_0)}
 \right)
 $$
 
 #### Exemplo (Bernoulli) {#sec-ex-teo-um}
 
 Seja $\boldsymbol{X}_n = (X_1,\dots,X_n)$ [amostra aleatória](populacao-e-amostra.qmd#sec-aa) de
-$X\sim\mathrm{Ber}(\theta), \theta \in \Theta = \{0.1,0,5\}$. Encontre uma estatística suficiente minimal.
+$X\sim\mathrm{Ber}(\theta), \theta \in \Theta = \{0.1,0.5\}$. Encontre uma estatística suficiente minimal.
 
 ##### Resposta
 
@@ -833,7 +862,7 @@ Logo
 $$
 \begin{aligned}
 T(\boldsymbol{y}_n) &= \frac{0.5^n}{0.1^{\sum y_i} \cdot 0.9^{n-\sum y_i}} \\
-&= \frac{0.5^n}{\left(\frac{0.1}{0.9}\right)^{\sum y_i} \cdot 0.9^{\sum y_i}} \\
+&= \frac{0.5^n}{\left(\frac{0.1}{0.9}\right)^{\sum y_i} \cdot 0.9^n} \\
 &= 9^{\sum y_i} \cdot \left(\frac{5}{9}\right)^n
 \end{aligned}
 $$
@@ -860,7 +889,7 @@ T(\boldsymbol{y}_n) = \left(
 \right)
 $$
 
-Tomando $\theta_0 = (0,1), (1,1), (0,2)$, temos
+Tomando $\theta_0 = (0,1), \theta_1 = (1,1), \theta_2 = (0,2)$, temos
 
 $$
 \begin{aligned}
@@ -878,12 +907,12 @@ $$
 \begin{aligned}
 T(\boldsymbol{y}_n) &= \left(
 \mathrm{exp}\left\{-\frac{1}{2}(n-2\sum y_i)\right\},
-\frac{\mathrm{exp}\left\{-\frac{1}{4}\sum y_i^2 + \frac{1}{2}\sum y_i^2)\right\}}{2^{\frac{n}{2}}},
+\frac{\mathrm{exp}\left\{-\frac{1}{4}\sum y_i^2 + \frac{1}{2}\sum y_i^2\right\}}{2^{\frac{n}{2}}},
 \right)
 \\
 &= \left(
 \mathrm{exp}\left\{-\frac{1}{2}(n-2\sum y_i)\right\},
-\frac{\mathrm{exp}\left\{\frac{1}{4}\sum y_i^2)\right\}}{2^{\frac{n}{2}}},
+\frac{\mathrm{exp}\left\{\frac{1}{4}\sum y_i^2\right\}}{2^{\frac{n}{2}}},
 \right)
 \end{aligned}
 $$
@@ -913,7 +942,7 @@ $$
 
 Observe que todas as estatísticas suficientes *para o modelo completo* $\Theta$ são também suficientes *para os modelos
 restritos*. Como $T(\boldsymbol{X}_n)$ também é, por hipótese, suficiente para o modelo completo, então é função de qualquer
-estatística suficiente minimal para o modelo completo.
+estatística suficiente para o modelo completo, ou seja, é suficiente minimal para o modelo completo.
 
 #### Exemplo (Bernoulli)
 
@@ -1001,7 +1030,7 @@ para o modelo.
 
 ##### Resposta
 
-Já sabemos que é uma estatística suficiente para o modelo. Com o suporte $\mathfrak{X}_\theta = (0,\theta]$ depende de
+Já sabemos que é uma estatística suficiente para o modelo. Como o suporte $\mathfrak{X}_\theta = (0,\theta]$ depende de
 "$\theta$", não podemos usar o teorema anterior. Precisamos mostrar que, para qualquer estatística suficiente para
 o modelo $U(\boldsymbol{X}_n)$ existe $H(\cdot)$ tal que
 
@@ -1009,7 +1038,7 @@ $$
 X_{(n)} = H(U(\boldsymbol{X}_n))\ \mathrm{q.c.}
 $$
 
-Seja $f_\theta^{\boldsymbol{X}_n}$ a função densidade probabilidade da amostra aleatória
+Seja $f_\theta^{\boldsymbol{X}_n}$ a função densidade de probabilidade da amostra aleatória
 $$
 \begin{aligned}
 f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) &= \frac{1}{\theta^n} \prod
@@ -1070,7 +1099,7 @@ $$
 Seja $U(\boldsymbol{X}_n)$ uma estatística suficiente qualquer. Então, pelo [CF](estatisticas-suficientes.qmd#sec-crit-fat),
 temos que existem $h'$ e $m'$ tais que
 $$
-f_\theta{\boldsymbol{y}_n}^{\boldsymbol{X}_n} = h'(\boldsymbol{y}_n) \cdot
+f_\theta^{\boldsymbol{X}_n}(\boldsymbol{y}_n) = h'(\boldsymbol{y}_n) \cdot
 m'(U(\boldsymbol{y}_n), \theta),\ \mathrm{q.c.}\ \forall \theta >0
 $$
 
@@ -1101,7 +1130,7 @@ $$
 
 ::: {.callout-note title="Observação"}
 $$
-f_\theta(x) = \mathrm{e}^{-\theta} \cdot \mathbb{1}_{(0,\theta)}(x)
+f_\theta(x) = \mathrm{e}^{-\theta} \cdot \mathbb{1}_{(0,\theta]}(x)
 $$
 
 Defina $g:\mathbb{R}^+\rightarrow\mathbb{R}$
@@ -1146,10 +1175,10 @@ Portanto,
 $$
 \begin{aligned}
 T'(\boldsymbol{X}_n) &= \left(
-\frac{\frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum X_i^2 - 2 \sum X_i +n)\right\}}{(\sqrt{2\pi})^n}}
-{\frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 4}(\sum X_i^2 - 2\cdot 2 \cdot \sum X_i +4n)\right\}}{(\sqrt{2\pi\cdot4})^n}},
-\frac{\frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum X_i^2 - 2 \sum X_i +n)\right\}}{(\sqrt{2\pi})^n}}
-{\frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 9}(\sum X_i^2 - 2\cdot 3 \cdot \sum X_i +9n)\right\}}{(\sqrt{2\pi\cdot9})^n}}
+\frac{\frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 4}(\sum X_i^2 - 2\cdot 2 \cdot \sum X_i +4n)\right\}}{(\sqrt{2\pi\cdot4})^n}}
+{\frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum X_i^2 - 2 \sum X_i +n)\right\}}{(\sqrt{2\pi})^n}},
+\frac{\frac{\mathrm{exp}\left\{-\frac{1}{2\cdot 9}(\sum X_i^2 - 2\cdot 3 \cdot \sum X_i +9n)\right\}}{(\sqrt{2\pi\cdot9})^n}}
+{\frac{\mathrm{exp}\left\{-\frac{1}{2}(\sum X_i^2 - 2 \sum X_i +n)\right\}}{(\sqrt{2\pi})^n}}
 \right) \\
 &=\left(
 \frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
@@ -1167,16 +1196,16 @@ T'(\boldsymbol{X}_n) &= \left(
 \right)
 \right\}}{4^{\frac{n}{2}}},\right. \\
 &\left.\frac{\mathrm{exp}\left\{-\frac{1}{2}\left(
--\frac{8}{9} \sum X_i^2 - 2(\frac{6}{9} \sum X_i)
+-\frac{8}{9} \sum X_i^2 - 2(-\frac{6}{9} \sum X_i)
 \right)
 \right\}}{9^{\frac{n}{2}}}
 \right) \\
 &=\left(
 \frac{\mathrm{exp}\left\{
--\frac{3}{8} \sum X_i^2 -\frac{1}{2} \sum X_i)
+\frac{3}{8} \sum X_i^2 -\frac{1}{2} \sum X_i
 \right\}}{4^{\frac{n}{2}}},
 \frac{\mathrm{exp}\left\{
--\frac{4}{9} \sum X_i^2 - \frac{6}{9} \sum X_i
+\frac{4}{9} \sum X_i^2 - \frac{6}{9} \sum X_i
 \right\}}{9^{\frac{n}{2}}}
 \right).
 \end{aligned}
@@ -1188,10 +1217,10 @@ $$
 T(\boldsymbol{X}_n) = (t_1,t_2) \\
 \Rightarrow T'(\boldsymbol{X}_n) = \left(
 \frac{\mathrm{exp}\left\{
--\frac{3}{8} t_2 -\frac{1}{2} t_1)
+\frac{3}{8} t_2 -\frac{1}{2} t_1
 \right\}}{4^{\frac{n}{2}}},
 \frac{\mathrm{exp}\left\{
--\frac{4}{9} t_2 - \frac{6}{9} t_1
+\frac{4}{9} t_2 - \frac{6}{9} t_1
 \right\}}{9^{\frac{n}{2}}},
 \right)
 \end{cases}
@@ -1201,10 +1230,10 @@ $$
 &\begin{cases}
 T'(\boldsymbol{X}_n)= (t'_1,t'_2) \\
 t'_1 = \frac{\mathrm{exp}\left\{
--\frac{3}{8} t_2 -\frac{1}{2} t_1)
+\frac{3}{8} t_2 -\frac{1}{2} t_1
 \right\}}{4^{\frac{n}{2}}} \\
 t'_2 = \frac{\mathrm{exp}\left\{
--\frac{4}{9} t_2 - \frac{6}{9} t_1
+\frac{4}{9} t_2 - \frac{6}{9} t_1
 \right\}}{9^{\frac{n}{2}}}
 \end{cases} \\
 \Rightarrow&
@@ -1229,17 +1258,17 @@ t_1 = \frac{3}{4}t_2 - 2\ln(4^{\frac{n}{2}}t'_1) \\
 \end{cases}\\
 \Rightarrow&
 t_2 = \frac{\ln(9^{\frac{n}{2}}t'_2) -
-\frac{12}{9}(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9} - \frac{18}{36}\right)} \\
+\frac{12}{9}\ln(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9} - \frac{18}{36}\right)} \\
 \Rightarrow&
 \begin{cases}
-t_1 = \frac{\frac{3}{4}\left(\ln(9^{\frac{n}{2}}t_2'\right) -
-\frac{12}{9}\ln(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9}-\frac{18}{36}\right)} -
+t_1 = \frac{\frac{3}{4}\left(\ln(9^{\frac{n}{2}}t'_2) -
+\frac{12}{9}\ln(4^{\frac{n}{2}}t'_1)\right)}{\left(\frac{4}{9}-\frac{18}{36}\right)} -
 2\ln(4^{\frac{n}{2}}t'_1)\\
-t_2 = \frac{ln(9^{\frac{n}{2}}t'_2) -
-\frac{12}{9}(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9} - \frac{18}{36}\right)}
+t_2 = \frac{\ln(9^{\frac{n}{2}}t'_2) -
+\frac{12}{9}\ln(4^{\frac{n}{2}}t'_1)}{\left(\frac{4}{9} - \frac{18}{36}\right)}
 \end{cases}
 \end{aligned}
 $$
 
-Logo $T(\boldsymbol{X}_n)=(\sum X_i,\sum X_i^2)$  é SM apara o modelo reduzido. Como é suficiente para o modelo completo,
+Logo $T(\boldsymbol{X}_n)=(\sum X_i,\sum X_i^2)$  é SM para o modelo reduzido. Como é suficiente para o modelo completo,
 temos pelo [Teorema 2](estatisticas-suficientes.qmd#sec-teo-dois) que também é SM para o modelo completo.

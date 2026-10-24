@@ -21,9 +21,9 @@ $$
 P(T(\boldsymbol{X}_n) \geq T(\boldsymbol{x}_n)).
 $$
 
-Essa quantidade sempre segue uma distribuição $\mathrm{Uniforme}(0,1)$ para
-dados gerados sob $\mathcal{H}_0$, isto é, caso os dados sigam a hipótese nula,
-qualquer $\mathrm{valor-}p$ é equiprovável.
+Quando a estatística tem distribuição nula contínua e especificada, como no
+exemplo a seguir, os valores-$p$ seguem uma distribuição $\mathrm{Uniforme}(0,1)$ sob
+$\mathcal{H}_0$.
 
 ## Exemplo
 
@@ -364,8 +364,8 @@ O valor-$p$ **não** é a probabilidade de $\mathcal{H}_0$ "ser verdadeira" ou d
 
 O valor-$p$ **não** é a probabilidade de uma conclusão "estar incorreta"
 
-O valor-$p$ **não** é a probabilidade da estatística do teste observada ter
-da estatística do teste observada ter assumido determinado valor
+O valor-$p$ **não** é a probabilidade de a estatística do teste observada ter
+assumido determinado valor
 "por sorte" ou "acidentalmente"
 
 O valor-$p$ **é** a probabilidade de, assumindo que sua hipótese sendo testada
